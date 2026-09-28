@@ -1143,6 +1143,22 @@
     "bio": "Bio",
     "bioPh": "A few words about you (up to 150 characters)",
     "privateToggle": "Private account",
-    "privateToggleHint": "Only people you approve will see your posts, stories and followers."
+    "privateToggleHint": "Only people you approve will see your posts, stories and followers.",
+    "noReviews": "No reviews yet"
+  },
+  "create": {
+    "title": "Create",
+    "book": "Book a court",
+    "bookHint": "Find a venue and pick a time",
+    "join": "Available times",
+    "joinHint": "See where a court is free"
+  },
+  "playTabs": {
+    "venues": "Venues",
+    "games": "Available times"
+  },
+  "settings": {
+    "title": "Settings",
+    "darkMode": "Dark mode"
   }
 }

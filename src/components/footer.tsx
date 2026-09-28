@@ -7,7 +7,7 @@ import { CONTACT_EMAIL } from "@/lib/contact";
 export function Footer() {
   const { t } = useTranslation();
   return (
-    <footer className="relative mt-16 overflow-hidden bg-petrol text-white">
+    <footer className="relative mt-16 hidden overflow-hidden bg-petrol text-white md:block">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-[-3rem] flex items-end justify-center select-none"

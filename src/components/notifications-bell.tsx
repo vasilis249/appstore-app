@@ -99,12 +99,12 @@ export function NotificationsBell() {
       <PopoverTrigger asChild>
         <button
           aria-label="Ειδοποιήσεις"
-          className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-card text-muted-foreground transition hover:-translate-y-0.5 hover:border-primary/40 hover:text-foreground"
+          className="relative inline-flex h-10 w-10 items-center justify-center rounded-xl text-foreground transition hover:bg-muted"
         >
           {unread.length > 0 ? (
-            <BellRing className="h-4 w-4 text-primary" />
+            <BellRing className="h-5 w-5 text-primary" />
           ) : (
-            <Bell className="h-4 w-4" />
+            <Bell className="h-5 w-5" />
           )}
           {unread.length > 0 && (
             <span className="badge-pop absolute -right-1 -top-1 min-w-[18px] rounded-full bg-primary px-1 text-center text-[10px] font-bold leading-[18px] text-primary-foreground shadow-glow">

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { MapPin, Search, Moon, Sun, Plus } from "lucide-react";
+import { MapPin, Search, Moon, Sun, Plus, UserSearch } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/use-auth";
 import { useTheme } from "@/hooks/use-theme";
@@ -8,6 +8,7 @@ import { NotificationsBell } from "@/components/notifications-bell";
 import { Logo } from "@/components/logo";
 import { LanguageToggle } from "@/components/language-toggle";
 import { AccountMenu } from "@/components/account-menu";
+import { MessagesButton } from "@/components/messages-button";
 
 export function TopBar() {
   const { user, role, actualRole } = useAuth();
@@ -166,8 +167,23 @@ export function TopBar() {
         </div>
 
         {/* RIGHT: controls */}
-        <div className="flex shrink-0 items-center gap-2">
-          <LanguageToggle />
+        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+          {/* Phones, signed in: people search + inbox + notifications; language lives in Settings. */}
+          {user && !isPureOwner && (
+            <>
+              <Link
+                to="/community"
+                aria-label={t("bottomNav.community")}
+                className="grid h-10 w-10 place-items-center rounded-xl text-foreground transition hover:bg-muted md:hidden"
+              >
+                <UserSearch className="h-5 w-5" />
+              </Link>
+              <MessagesButton className="md:hidden" />
+            </>
+          )}
+          <span className={user && !isPureOwner ? "hidden sm:inline-flex" : "inline-flex"}>
+            <LanguageToggle />
+          </span>
           <button
             type="button"
             onClick={toggle}
@@ -194,7 +210,9 @@ export function TopBar() {
             </Link>
           )}
 
-          <AccountMenu />
+          <span className={user && !isPureOwner ? "hidden sm:inline-flex" : "inline-flex"}>
+            <AccountMenu />
+          </span>
         </div>
       </div>
     </header>

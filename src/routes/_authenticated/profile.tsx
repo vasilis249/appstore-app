@@ -1,12 +1,11 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Camera, LogOut } from "lucide-react";
+import { Camera, Settings } from "lucide-react";
 import { uploadAvatar } from "@/lib/avatar";
-import { StarRating } from "@/components/star-rating";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
@@ -14,7 +13,7 @@ import { ProfileView } from "@/components/social/profile-view";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { Switch } from "@/components/ui/switch";
 import { updateSocialProfile } from "@/lib/api/social.functions";
-import { DeleteAccountButton } from "@/components/delete-account-button";
+import { SettingsSheet } from "@/components/settings-sheet";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
@@ -29,12 +28,12 @@ export const Route = createFileRoute("/_authenticated/profile")({
 type Level = "beginner" | "intermediate" | "advanced";
 
 function ProfilePage() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { user } = useAuth();
-  const navigate = useNavigate();
   const qc = useQueryClient();
   const fileRef = useRef<HTMLInputElement>(null);
   const [editing, setEditing] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const profileQ = useQuery({
     queryKey: ["profile", user?.id],
@@ -47,32 +46,6 @@ function ProfilePage() {
         .maybeSingle();
       if (error) throw error;
       return data;
-    },
-  });
-
-  const reviewsQ = useQuery({
-    queryKey: ["my-reviews", user?.id],
-    enabled: !!user,
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("reviews")
-        .select("id, rating, comment, created_at, reviewer_id")
-        .eq("target_player_id", user!.id)
-        .order("created_at", { ascending: false })
-        .limit(50);
-      if (error) throw error;
-      const ids = Array.from(new Set((data ?? []).map((r) => r.reviewer_id)));
-      const { data: profs } = ids.length
-        ? await supabase.from("profiles").select("user_id, full_name, photo_url").in("user_id", ids)
-        : {
-            data: [] as Array<{
-              user_id: string;
-              full_name: string | null;
-              photo_url: string | null;
-            }>,
-          };
-      const byId = new Map((profs ?? []).map((p) => [p.user_id, p]));
-      return (data ?? []).map((r) => ({ ...r, reviewer: byId.get(r.reviewer_id) ?? null }));
     },
   });
 
@@ -136,15 +109,7 @@ function ProfilePage() {
     }
   }
 
-  async function signOut() {
-    await qc.cancelQueries();
-    qc.clear();
-    await supabase.auth.signOut();
-    navigate({ to: "/auth", replace: true });
-  }
-
   const p = profileQ.data;
-  const locale = i18n.resolvedLanguage?.startsWith("en") ? "en-GB" : "el-GR";
 
   return (
     <div className="mx-auto max-w-3xl px-4 pt-8 pb-24">
@@ -169,15 +134,27 @@ function ProfilePage() {
           </>
         }
         ownActions={
-          <button
-            type="button"
-            onClick={() => setEditing(true)}
-            className="h-10 flex-1 rounded-xl bg-secondary text-sm font-semibold transition hover:bg-muted"
-          >
-            {t("social.editProfile")}
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={() => setEditing(true)}
+              className="h-10 flex-1 rounded-xl bg-secondary text-sm font-semibold transition hover:bg-muted"
+            >
+              {t("social.editProfile")}
+            </button>
+            <button
+              type="button"
+              onClick={() => setSettingsOpen(true)}
+              aria-label={t("settings.title")}
+              className="grid h-10 w-10 place-items-center rounded-xl bg-secondary transition hover:bg-muted"
+            >
+              <Settings className="h-5 w-5" />
+            </button>
+          </>
         }
       />
+
+      <SettingsSheet open={settingsOpen} onOpenChange={setSettingsOpen} />
 
       <Drawer open={editing} onOpenChange={setEditing}>
         <DrawerContent className="mx-auto max-h-[92vh] max-w-lg rounded-t-[28px] border-0 bg-background">
@@ -204,64 +181,6 @@ function ProfilePage() {
           </div>
         </DrawerContent>
       </Drawer>
-
-      <section className="mt-8">
-        <div className="mb-3 flex items-end justify-between">
-          <h2 className="font-display text-xl font-bold">{t("profile.reviews")}</h2>
-          <span className="text-xs text-muted-foreground">
-            {t("profile.totalReviews", { n: reviewsQ.data?.length ?? 0 })}
-          </span>
-        </div>
-        {reviewsQ.isLoading ? (
-          <p className="text-sm text-muted-foreground">{t("common.loading")}</p>
-        ) : !reviewsQ.data?.length ? (
-          <div className="rounded-2xl border border-dashed border-border/60 p-8 text-center text-sm text-muted-foreground">
-            {t("profile.noReviews")}
-          </div>
-        ) : (
-          <ul className="space-y-3">
-            {reviewsQ.data.map((r) => (
-              <li key={r.id} className="rounded-2xl border border-border/60 bg-card p-4">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="grid h-9 w-9 place-items-center overflow-hidden rounded-full bg-muted text-sm font-semibold">
-                      {r.reviewer?.photo_url ? (
-                        <img
-                          src={r.reviewer.photo_url}
-                          alt=""
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        (r.reviewer?.full_name ?? "?").charAt(0).toUpperCase()
-                      )}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold">
-                        {r.reviewer?.full_name ?? t("openGames.player")}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {new Date(r.created_at).toLocaleDateString(locale)}
-                      </p>
-                    </div>
-                  </div>
-                  <StarRating value={r.rating} readOnly size={16} />
-                </div>
-                {r.comment && <p className="mt-3 text-sm text-foreground/90">{r.comment}</p>}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-
-      <div className="mt-8 grid gap-2 sm:grid-cols-2">
-        <button
-          onClick={signOut}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card py-3 text-sm font-semibold transition hover:border-destructive/40 hover:text-destructive"
-        >
-          <LogOut className="h-4 w-4" /> {t("profile.signOut")}
-        </button>
-        <DeleteAccountButton />
-      </div>
     </div>
   );
 }

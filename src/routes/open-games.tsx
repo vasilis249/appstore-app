@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { PlayTabs } from "@/components/play-tabs";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -106,10 +107,9 @@ function OpenVenuesPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 pt-8 pb-24">
       <header className="mb-6">
-        <h1 className="text-3xl font-bold sm:text-4xl">
-          {t("openVenues.title", "Ανοιχτά γήπεδα")}
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <h1 className="sr-only">{t("openVenues.title", "Ανοιχτά γήπεδα")}</h1>
+        <PlayTabs />
+        <p className="text-sm text-muted-foreground">
           {isToday
             ? t("openVenues.subtitleToday", "Διαθέσιμες ώρες για σήμερα — μόνο ώρες μετά το τώρα.")
             : t("openVenues.subtitleOther", "Διαθέσιμες ώρες προς κράτηση.")}

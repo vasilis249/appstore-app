@@ -77,6 +77,16 @@ Work in phases; stop after each phase for the user's "OK".
 - Open items for the user: set `CONTACT_CONTROLLER` (full name or company + ΑΦΜ); review Terms;
   optional push notifications (helps guideline 4.2); opening-hours validation inside booking RPCs.
 
+## UX principles (user requirement: as user-friendly as possible, "economy of content")
+- One primary action per screen; secondary actions in a sheet (vaul Drawer), never extra buttons.
+- No duplicated info (e.g. total matches only in the counts row; per-sport chips without a title).
+- Phones: bottom nav = 5 icon-only tabs (Home, Venues, ➕ Create sheet, Bookings, Profile); header =
+  logo + people search + inbox (MessagesButton) + bell. Language/theme/legal/sign-out/delete live in
+  the Settings sheet (⚙︎ on own profile). No floating chat button and no footer below `md`.
+- Pages use short segmented tabs (e.g. `PlayTabs`: Venues | Available times) instead of big titles.
+- Owners keep a labelled bottom nav (their sections have no obvious icons).
+- Empty states: one icon, one short line. Prefer icons + short labels; Greek copy short and neutral.
+
 ## Validating migrations locally
 No Docker daemon in the cloud container. Plain Postgres 16 works: init a cluster as user `postgres`
 in `/var/lib/postgresql/courtsie-test` (port 54329, socket `/tmp`), load stub `auth`/`storage`/`realtime`

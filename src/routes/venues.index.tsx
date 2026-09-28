@@ -20,6 +20,7 @@ import {
   type VenueFilters,
 } from "@/lib/venue-filters";
 import { VenuesMap } from "@/components/venues/venues-map";
+import { PlayTabs } from "@/components/play-tabs";
 import { distanceKm, formatKm, getCurrentPosition, type LatLng } from "@/lib/geo";
 import padelImg from "../assets/sport-padel.jpg";
 import tennisImg from "../assets/sport-tennis.jpg";
@@ -188,20 +189,11 @@ function VenuesPage() {
       ? t("venuesList.titleSport", { sport: sportLabel })
       : t("venuesList.title");
 
-  const countText =
-    venues.length === 1
-      ? t("venuesList.countSingular", { count: venues.length })
-      : t("venuesList.countPlural", { count: venues.length });
 
   return (
     <div className="mx-auto max-w-6xl px-4 pt-8">
-      <header className="mb-6">
-        <h1 className="text-3xl font-bold sm:text-4xl">{heading}</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {countText}
-          {activeMeta && !q ? t("venuesList.forSport", { sport: sportLabel.toLowerCase() }) : ""}.
-        </p>
-      </header>
+      <h1 className="sr-only">{heading}</h1>
+      <PlayTabs />
 
       <form
         onSubmit={(e) => {
