@@ -77,7 +77,7 @@ Work in phases; stop after each phase for the user's "OK".
     (people search + suggestions + grid); `/notifications` (Activity; likes grouped per post, post thumbs,
     follow-back / accept buttons); `StoryViewer` (tap/hold, viewers sheet for own); ➕ sheet: post, story,
     book, available times. `suggestedPlayers` now excludes people you follow (not friendships).
-  - Next rounds: 4 DMs (requests folder via `conversation_members.accepted`, IG inbox, drop friend
+  - Next rounds (round 4 postponed by the user — do it only when asked): 4 DMs (requests folder via `conversation_members.accepted`, IG inbox, drop friend
     requirement in getOrCreateDirectConversation, message button on profiles, share post to DM, story
     replies), 5 moderation (admin page for content_reports) and notification polish.
 - Local full-stack testing (no Supabase needed): PostgREST 12 binary + `local-supabase.mjs` proxy in the
