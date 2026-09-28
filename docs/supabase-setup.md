@@ -30,8 +30,8 @@ storage buckets `avatars` (5 MB) and `venue-photos` (8 MB) with their policies, 
    Password policy: minimum length 8, require lowercase + digits (matches the app's rules).
 3. **Authentication → URL Configuration** (fill in once the web app is hosted, Phase 2):
    - Site URL: `https://<your-web-domain>`
-   - Redirect URLs: `https://<your-web-domain>/**`, `http://localhost:8080/**`
-     (+ the iOS deep-link scheme added in Phase 4)
+   - Redirect URLs: `https://<your-web-domain>/**`, `http://localhost:8080/**`, `courtsie://**`
+     (the last one is the iOS app's deep link for confirmation / reset-password emails)
 4. **Authentication → Emails → SMTP**: set up custom SMTP (e.g. Resend, Postmark, Brevo).
    The built-in sender only sends a few emails per hour, which breaks sign-up confirmations in production.
    Optional: translate the templates (Confirm signup, Reset password) to Greek.

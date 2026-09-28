@@ -35,7 +35,8 @@ npx wrangler secret put DEEPL_API_KEY         # optional: translations
 ```
 `SUPABASE_URL` / `SUPABASE_PROJECT_ID` are plain vars in `wrangler.jsonc`.
 Then put the printed URL into `.env` as `CAP_SERVER_URL`, and in Supabase →
-Authentication → URL Configuration set Site URL = that URL, Redirect URLs = `<that URL>/**`.
+Authentication → URL Configuration set Site URL = that URL, Redirect URLs = `<that URL>/**` and
+`courtsie://**` (auth emails requested from the app come back into the app through this scheme).
 Google Maps key: restrict HTTP referrers to `<that URL>/*`.
 
 ## 3. Open the iOS project
