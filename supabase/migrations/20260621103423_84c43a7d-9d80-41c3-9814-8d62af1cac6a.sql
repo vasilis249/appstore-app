@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.handle_booking_cancelled_open_game() FROM PUBLIC, anon, authenticated;
