@@ -37,6 +37,8 @@ export function FollowButton({
       setCurrent(res.status);
       void qc.invalidateQueries({ queryKey: ["social-profile"] });
       void qc.invalidateQueries({ queryKey: ["follow-list"] });
+      void qc.invalidateQueries({ queryKey: ["feed"] });
+      void qc.invalidateQueries({ queryKey: ["story-tray"] });
     } catch (e) {
       toast.error((e as Error).message);
     } finally {

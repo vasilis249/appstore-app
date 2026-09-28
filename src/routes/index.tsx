@@ -1,6 +1,18 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { HomeFeed } from "@/components/social/home-feed";
+import { useAuth } from "@/hooks/use-auth";
 import { useEffect, useState } from "react";
-import { Search, MapPin, Zap, Calendar, CalendarDays, Users, Star, ArrowRight, TrendingUp } from "lucide-react";
+import {
+  Search,
+  MapPin,
+  Zap,
+  Calendar,
+  CalendarDays,
+  Users,
+  Star,
+  ArrowRight,
+  TrendingUp,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { SPORTS, type Sport } from "../lib/sports";
 import { useRedirectOwnersAway } from "../hooks/use-redirect-owners-away";
@@ -15,10 +27,14 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Courtsie — Κράτηση γηπέδων για padel, tennis, μπάσκετ & ποδόσφαιρο" },
-      { name: "description", content: "Βρες και κλείσε γήπεδο σε δευτερόλεπτα. Padel, tennis, μπάσκετ και ποδόσφαιρο σε όλη την Ελλάδα." },
+      {
+        name: "description",
+        content:
+          "Βρες και κλείσε γήπεδο σε δευτερόλεπτα. Padel, tennis, μπάσκετ και ποδόσφαιρο σε όλη την Ελλάδα.",
+      },
     ],
   }),
-  component: Home,
+  component: HomeRoute,
 });
 
 type SportCardData = {
@@ -28,14 +44,19 @@ type SportCardData = {
 };
 
 const SPORT_CARDS: SportCardData[] = [
-  { id: "padel",        image: padelImg,        accent: "var(--padel)" },
-  { id: "tennis",       image: tennisImg,       accent: "var(--tennis)" },
-  { id: "basketball",   image: basketballImg,   accent: "var(--basketball)" },
-  { id: "football",     image: footballImg,     accent: "var(--football)" },
-  { id: "volleyball",   image: volleyballImg,   accent: "var(--volleyball)" },
-  { id: "beach_volley", image: beachVolleyImg,  accent: "var(--beach)" },
+  { id: "padel", image: padelImg, accent: "var(--padel)" },
+  { id: "tennis", image: tennisImg, accent: "var(--tennis)" },
+  { id: "basketball", image: basketballImg, accent: "var(--basketball)" },
+  { id: "football", image: footballImg, accent: "var(--football)" },
+  { id: "volleyball", image: volleyballImg, accent: "var(--volleyball)" },
+  { id: "beach_volley", image: beachVolleyImg, accent: "var(--beach)" },
 ];
 
+/** Signed-in players get the social feed; everyone else the landing page. */
+function HomeRoute() {
+  const { user, role } = useAuth();
+  return user && role === "player" ? <HomeFeed /> : <Home />;
+}
 
 function Home() {
   useRedirectOwnersAway();
@@ -73,15 +94,25 @@ function Home() {
           <span className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
             <Zap className="h-3.5 w-3.5" /> {t("home.badge")}
           </span>
-          <h1 className="animate-fade-in-up mt-5 text-4xl font-bold leading-tight sm:text-6xl" style={{ animationDelay: "70ms" }}>
-            {t("home.title1")} <span className="text-primary">{t("home.title2")}</span> {t("home.title3")}
+          <h1
+            className="animate-fade-in-up mt-5 text-4xl font-bold leading-tight sm:text-6xl"
+            style={{ animationDelay: "70ms" }}
+          >
+            {t("home.title1")} <span className="text-primary">{t("home.title2")}</span>{" "}
+            {t("home.title3")}
           </h1>
-          <p className="animate-fade-in-up mt-4 text-base text-muted-foreground sm:text-lg" style={{ animationDelay: "140ms" }}>
+          <p
+            className="animate-fade-in-up mt-4 text-base text-muted-foreground sm:text-lg"
+            style={{ animationDelay: "140ms" }}
+          >
             {t("home.subtitle")}
           </p>
 
           <form
-            onSubmit={(e) => { e.preventDefault(); submitSearch(); }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              submitSearch();
+            }}
             className="animate-fade-in-up mt-6 flex flex-col gap-3 rounded-2xl border border-border/60 bg-card p-3 shadow-sm sm:flex-row"
             style={{ animationDelay: "210ms" }}
           >
@@ -107,7 +138,10 @@ function Home() {
       <section className="mt-10">
         <div className="mb-5 flex items-end justify-between">
           <h2 className="font-display text-2xl font-bold sm:text-3xl">{t("home.chooseSport")}</h2>
-          <Link to="/venues" className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-flex sm:items-center sm:gap-1">
+          <Link
+            to="/venues"
+            className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-flex sm:items-center sm:gap-1"
+          >
             {t("home.allVenues")} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -120,7 +154,10 @@ function Home() {
       </section>
 
       {/* Owner CTA section */}
-      <section id="owner-cta" className="mt-12 scroll-mt-24 overflow-hidden rounded-3xl bg-petrol px-6 py-12 sm:px-10 sm:py-16">
+      <section
+        id="owner-cta"
+        className="mt-12 scroll-mt-24 overflow-hidden rounded-3xl bg-petrol px-6 py-12 sm:px-10 sm:py-16"
+      >
         <div className="relative mx-auto max-w-4xl text-center">
           <span className="inline-block rounded-full border border-optic/40 bg-optic/15 px-3 py-1 text-xs font-semibold text-optic">
             Courtsie for Business
@@ -134,10 +171,26 @@ function Home() {
 
           <div className="stagger-children mt-8 grid gap-4 sm:grid-cols-2">
             {[
-              { icon: CalendarDays, title: t("home.ownerCta.benefit1Title"), desc: t("home.ownerCta.benefit1Desc") },
-              { icon: Zap, title: t("home.ownerCta.benefit2Title"), desc: t("home.ownerCta.benefit2Desc") },
-              { icon: TrendingUp, title: t("home.ownerCta.benefit3Title"), desc: t("home.ownerCta.benefit3Desc") },
-              { icon: Users, title: t("home.ownerCta.benefit4Title"), desc: t("home.ownerCta.benefit4Desc") },
+              {
+                icon: CalendarDays,
+                title: t("home.ownerCta.benefit1Title"),
+                desc: t("home.ownerCta.benefit1Desc"),
+              },
+              {
+                icon: Zap,
+                title: t("home.ownerCta.benefit2Title"),
+                desc: t("home.ownerCta.benefit2Desc"),
+              },
+              {
+                icon: TrendingUp,
+                title: t("home.ownerCta.benefit3Title"),
+                desc: t("home.ownerCta.benefit3Desc"),
+              },
+              {
+                icon: Users,
+                title: t("home.ownerCta.benefit4Title"),
+                desc: t("home.ownerCta.benefit4Desc"),
+              },
             ].map((b) => (
               <div
                 key={b.title}
@@ -220,9 +273,7 @@ function SportCinematicCard({ sport, label }: { sport: SportCardData; label: str
         aria-hidden
       />
       <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between p-6">
-        <h3 className="font-display text-3xl font-bold text-white sm:text-4xl">
-          {label}
-        </h3>
+        <h3 className="font-display text-3xl font-bold text-white sm:text-4xl">{label}</h3>
         <div
           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition group-hover:translate-x-1"
           style={{ border: "1px solid color-mix(in oklab, var(--sport-accent) 50%, transparent)" }}

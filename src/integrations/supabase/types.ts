@@ -494,6 +494,8 @@ export type Database = {
       }
       messages: {
         Row: {
+          post_id: string | null
+          story_id: string | null
           body: string
           conversation_id: string
           created_at: string
@@ -503,6 +505,8 @@ export type Database = {
           sender_id: string | null
         }
         Insert: {
+          post_id?: string | null
+          story_id?: string | null
           body: string
           conversation_id: string
           created_at?: string
@@ -512,6 +516,8 @@ export type Database = {
           sender_id?: string | null
         }
         Update: {
+          post_id?: string | null
+          story_id?: string | null
           body?: string
           conversation_id?: string
           created_at?: string
@@ -695,6 +701,24 @@ export type Database = {
         Relationships: []
       }
       post_likes: {
+        Row: {
+          created_at: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      post_saves: {
         Row: {
           created_at: string
           post_id: string
@@ -1116,6 +1140,44 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      explore_posts: {
+        Args: { _before?: string; _limit?: number }
+        Returns: {
+            author_id: string
+            booking_id: string | null
+            caption: string | null
+            comment_count: number
+            created_at: string
+            id: string
+            kind: string
+            like_count: number
+            media: string[]
+            open_game_id: string | null
+            updated_at: string
+            venue_id: string | null
+          }[]
+      }
+      feed_posts: {
+        Args: { _before?: string; _limit?: number }
+        Returns: {
+            author_id: string
+            booking_id: string | null
+            caption: string | null
+            comment_count: number
+            created_at: string
+            id: string
+            kind: string
+            like_count: number
+            media: string[]
+            open_game_id: string | null
+            updated_at: string
+            venue_id: string | null
+          }[]
+      }
+      story_tray: {
+        Args: Record<PropertyKey, never>
+        Returns: { author_id: string; has_unseen: boolean; latest_at: string; story_count: number }[]
+      }
       accept_follow_request: { Args: { _follower: string }; Returns: undefined }
       can_view_profile: { Args: { _target: string; _viewer: string }; Returns: boolean }
       follow_user: { Args: { _target: string }; Returns: string }

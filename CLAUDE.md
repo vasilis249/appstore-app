@@ -67,13 +67,24 @@ Work in phases; stop after each phase for the user's "OK".
   - App: `src/lib/api/social.functions.ts`, `src/components/social/*` (ProfileView, FollowButton,
     FollowListSheet, UserAvatar), `/u/$username`, `/profile` rebuilt on ProfileView + edit sheet.
     Community search links to profiles with Follow buttons.
-  - Next rounds: 2 posts + feed on Home (create post, post detail, likes, comments, match posts),
-    3 stories, 4 DMs (requests, IG inbox, drop friend requirement in getOrCreateDirectConversation),
-    5 moderation (report UI + admin reports for content_reports) and notification polish.
+- **Social rounds 2+3 done (posts, feed, stories)** — migration `20260930100000_social_feed.sql`: `post_saves`,
+  INVOKER RPCs `feed_posts`/`explore_posts`/`story_tray`, `messages.post_id`/`story_id` (for DM shares/replies).
+  - Server fns: `src/lib/api/posts.functions.ts` (feed w/ cursor, explore, saved, post, comments, like/save,
+    likers, create/delete, recent matches for "match posts", `getPostThumbs`, `reportContent`),
+    `src/lib/api/stories.functions.ts` (tray, per-user stories, views, viewers, create/delete).
+  - UI: `HomeFeed` (StoriesTray + infinite PostCard list) on `/` for signed-in players; `PostCard` (double-tap
+    like, likers sheet, save, share = copy link for now, ⋯ menu delete/report); `/p/$postId`; `/explore`
+    (people search + suggestions + grid); `/notifications` (Activity; likes grouped per post, post thumbs,
+    follow-back / accept buttons); `StoryViewer` (tap/hold, viewers sheet for own); ➕ sheet: post, story,
+    book, available times. `suggestedPlayers` now excludes people you follow (not friendships).
+  - Next rounds: 4 DMs (requests folder via `conversation_members.accepted`, IG inbox, drop friend
+    requirement in getOrCreateDirectConversation, message button on profiles, share post to DM, story
+    replies), 5 moderation (admin page for content_reports) and notification polish.
 - Local full-stack testing (no Supabase needed): PostgREST 12 binary + `local-supabase.mjs` proxy in the
   scratchpad (JWT HS256 minted locally, fake /auth/v1/user and storage signing), seed users, then
   `wrangler dev --var ...`; inject session into localStorage key `sb-127-auth-token`. Reload PostgREST
-  schema (`NOTIFY pgrst, 'reload schema'`) after resetting the DB. Tests: `test_social.sql` (27 checks).
+  schema (`NOTIFY pgrst, 'reload schema'`) after resetting the DB. Build for local UI tests with
+  `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon jwt> bun run build`. Tests: `test_social.sql` (27 checks).
 - Open items for the user: set `CONTACT_CONTROLLER` (full name or company + ΑΦΜ); review Terms;
   optional push notifications (helps guideline 4.2); opening-hours validation inside booking RPCs.
 

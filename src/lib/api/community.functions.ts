@@ -4,11 +4,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 export type PlayerLevel = "beginner" | "intermediate" | "advanced" | null;
 
-export type FriendshipStatus =
-  | "none"
-  | "pending_outgoing"
-  | "pending_incoming"
-  | "friends";
+export type FriendshipStatus = "none" | "pending_outgoing" | "pending_incoming" | "friends";
 
 export type PlayerSearchRow = {
   id: string; // user_id
@@ -105,7 +101,12 @@ async function followStatusMap(
     .select("following_id,status")
     .eq("follower_id", me)
     .in("following_id", ids);
-  return new Map(((data ?? []) as { following_id: string; status: "pending" | "accepted" }[]).map((r) => [r.following_id, r.status]));
+  return new Map(
+    ((data ?? []) as { following_id: string; status: "pending" | "accepted" }[]).map((r) => [
+      r.following_id,
+      r.status,
+    ]),
+  );
 }
 
 export const searchPlayers = createServerFn({ method: "POST" })
@@ -130,7 +131,12 @@ export const searchPlayers = createServerFn({ method: "POST" })
     const escaped = q.replace(/[\\%_,]/g, (m) => "\\" + m);
     const cols = "user_id,username,full_name,level,rating,photo_url";
     const [byName, byHandle] = await Promise.all([
-      supabase.from("profiles").select(cols).eq("discoverable", true).ilike("full_name", `%${escaped}%`).limit(40),
+      supabase
+        .from("profiles")
+        .select(cols)
+        .eq("discoverable", true)
+        .ilike("full_name", `%${escaped}%`)
+        .limit(40),
       supabase
         .from("profiles")
         .select(cols)
@@ -190,28 +196,18 @@ export const suggestedPlayers = createServerFn({ method: "GET" })
       .eq("user_id", userId)
       .maybeSingle();
 
-    // Exclude self, anyone blocked in either direction, and anyone with an
-    // existing friendship row (accepted or pending in either direction).
-    const [{ data: blockedByMe }, { data: blockingMe }, { data: friendships }] =
-      await Promise.all([
-        supabaseAdmin.from("user_blocks").select("blocked_id").eq("blocker_id", userId),
-        supabaseAdmin.from("user_blocks").select("blocker_id").eq("blocked_id", userId),
-        supabase
-          .from("friendships")
-          .select("requester_id,addressee_id")
-          .or(`requester_id.eq.${userId},addressee_id.eq.${userId}`),
-      ]);
+    // Exclude self, anyone blocked in either direction, and anyone I already
+    // follow (or asked to follow).
+    const [{ data: blockedByMe }, { data: blockingMe }, { data: following }] = await Promise.all([
+      supabaseAdmin.from("user_blocks").select("blocked_id").eq("blocker_id", userId),
+      supabaseAdmin.from("user_blocks").select("blocker_id").eq("blocked_id", userId),
+      supabase.from("follows").select("following_id").eq("follower_id", userId),
+    ]);
 
     const excluded = new Set<string>([userId]);
-    for (const r of blockedByMe ?? []) excluded.add((r as any).blocked_id);
-    for (const r of blockingMe ?? []) excluded.add((r as any).blocker_id);
-    for (const r of friendships ?? []) {
-      const other =
-        (r as any).requester_id === userId
-          ? (r as any).addressee_id
-          : (r as any).requester_id;
-      excluded.add(other);
-    }
+    for (const r of blockedByMe ?? []) excluded.add(r.blocked_id);
+    for (const r of blockingMe ?? []) excluded.add(r.blocker_id);
+    for (const r of following ?? []) excluded.add(r.following_id);
 
     const { data: rows, error } = await supabase
       .from("profiles")
@@ -237,7 +233,11 @@ export const suggestedPlayers = createServerFn({ method: "GET" })
     });
 
     const top = candidates.slice(0, 12);
-    const follows = await followStatusMap(supabase, userId, top.map((p: any) => p.user_id));
+    const follows = await followStatusMap(
+      supabase,
+      userId,
+      top.map((p: any) => p.user_id),
+    );
     return top.map((p: any) => ({
       id: p.user_id,
       username: p.username,
@@ -282,7 +282,6 @@ export const sendFriendRequest = createServerFn({ method: "POST" })
       );
     if (blocks && blocks.length > 0) throw new Error("blocked");
 
-
     const { data: existing } = await supabase
       .from("friendships")
       .select("id,status")
@@ -295,7 +294,10 @@ export const sendFriendRequest = createServerFn({ method: "POST" })
       // Idempotent: surface as a status instead of a 500 so the UI can toast cleanly.
       return {
         ok: true as const,
-        status: existing.status === "accepted" ? ("already_friends" as const) : ("request_exists" as const),
+        status:
+          existing.status === "accepted"
+            ? ("already_friends" as const)
+            : ("request_exists" as const),
       };
     }
 
@@ -327,10 +329,7 @@ export const respondFriendRequest = createServerFn({ method: "POST" })
         .eq("id", data.requestId);
       if (error) throw new Error(error.message);
     } else {
-      const { error } = await supabase
-        .from("friendships")
-        .delete()
-        .eq("id", data.requestId);
+      const { error } = await supabase.from("friendships").delete().eq("id", data.requestId);
       if (error) throw new Error(error.message);
     }
     return { ok: true };
@@ -535,17 +534,12 @@ export type MessageRow = {
 
 const MESSAGE_MAX = 2000;
 
-async function assertFriendsAndNotBlocked(
-  admin: any,
-  a: string,
-  b: string,
-): Promise<void> {
+async function assertFriendsAndNotBlocked(admin: any, a: string, b: string): Promise<void> {
   const { data: blocks } = await admin
     .from("user_blocks")
     .select("blocker_id,blocked_id")
     .or(
-      `and(blocker_id.eq.${a},blocked_id.eq.${b}),` +
-        `and(blocker_id.eq.${b},blocked_id.eq.${a})`,
+      `and(blocker_id.eq.${a},blocked_id.eq.${b}),` + `and(blocker_id.eq.${b},blocked_id.eq.${a})`,
     );
   if (blocks && blocks.length > 0) throw new Error("blocked");
 
@@ -762,15 +756,14 @@ export const searchGroupAddableUsers = createServerFn({ method: "POST" })
       .maybeSingle();
     if (!me || me.role !== "admin") throw new Error("forbidden");
 
-    const [{ data: existing }, { data: blockedByMe }, { data: blockingMe }] =
-      await Promise.all([
-        supabaseAdmin
-          .from("conversation_members")
-          .select("user_id")
-          .eq("conversation_id", data.conversationId),
-        supabaseAdmin.from("user_blocks").select("blocked_id").eq("blocker_id", userId),
-        supabaseAdmin.from("user_blocks").select("blocker_id").eq("blocked_id", userId),
-      ]);
+    const [{ data: existing }, { data: blockedByMe }, { data: blockingMe }] = await Promise.all([
+      supabaseAdmin
+        .from("conversation_members")
+        .select("user_id")
+        .eq("conversation_id", data.conversationId),
+      supabaseAdmin.from("user_blocks").select("blocked_id").eq("blocker_id", userId),
+      supabaseAdmin.from("user_blocks").select("blocker_id").eq("blocked_id", userId),
+    ]);
     const excluded = new Set<string>([userId]);
     for (const r of existing ?? []) excluded.add((r as any).user_id);
     for (const r of blockedByMe ?? []) excluded.add((r as any).blocked_id);
@@ -794,7 +787,6 @@ export const searchGroupAddableUsers = createServerFn({ method: "POST" })
         photo_url: p.photo_url,
       }));
   });
-
 
 export const listConversations = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -1003,7 +995,6 @@ export const sendMessage = createServerFn({ method: "POST" })
       if (!other) throw new Error("not_found");
       await assertFriendsAndNotBlocked(supabaseAdmin, userId, other);
     }
-
 
     const { data: msg, error } = await supabase
       .from("messages")

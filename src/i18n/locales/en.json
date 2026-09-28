@@ -1151,7 +1151,11 @@
     "book": "Book a court",
     "bookHint": "Find a venue and pick a time",
     "join": "Available times",
-    "joinHint": "See where a court is free"
+    "joinHint": "See where a court is free",
+    "post": "New post",
+    "postHint": "Photos from your game",
+    "story": "Story",
+    "storyHint": "A photo for 24 hours"
   },
   "playTabs": {
     "venues": "Venues",
@@ -1160,5 +1164,74 @@
   "settings": {
     "title": "Settings",
     "darkMode": "Dark mode"
+  },
+  "posts": {
+    "new": "New post",
+    "publish": "Share",
+    "published": "Your post is up",
+    "pickPhotos": "Choose photos",
+    "pickHint": "Up to {{max}} photos",
+    "removePhoto": "Remove",
+    "captionPh": "Write a caption… (@ to mention a friend)",
+    "tagMatch": "Link a match",
+    "matchOnlyHint": "It will be posted as a match card.",
+    "matchPlayed": "Match",
+    "like": "Like",
+    "unlike": "Unlike",
+    "likes_one": "{{count}} like",
+    "likes_other": "{{count}} likes",
+    "likesTitle": "Likes",
+    "comments": "Comments",
+    "viewComments_one": "View comment",
+    "viewComments_other": "View all {{count}} comments",
+    "share": "Share",
+    "save": "Save",
+    "unsave": "Remove from saved",
+    "saved": "Saved",
+    "unsaved": "Removed from saved",
+    "savedTab": "Saved",
+    "noSaved": "You have no saved posts",
+    "more": "more",
+    "linkCopied": "Link copied",
+    "copyLink": "Copy link",
+    "delete": "Delete",
+    "confirmDelete": "Tap again to delete",
+    "deleted": "Post deleted",
+    "report": "Report",
+    "reported": "Thanks, your report was sent",
+    "aboutAccount": "View profile",
+    "notFound": "This post was not found or is not available.",
+    "addComment": "Add a comment…",
+    "post": "Post",
+    "deleteComment": "Delete comment"
+  },
+  "stories": {
+    "yours": "Your story",
+    "add": "New story",
+    "published": "Your story is up",
+    "emptyTray": "Stories from people you follow appear here",
+    "viewers": "Viewers",
+    "noViewers": "No one has seen it yet",
+    "delete": "Delete story",
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "activity": {
+    "title": "Activity",
+    "empty": "No activity yet",
+    "likedMany_one": "{{name}} and {{count}} other liked your post.",
+    "likedMany_other": "{{name}} and {{count}} others liked your post."
+  },
+  "explore": {
+    "title": "Explore",
+    "searchPh": "Search people",
+    "noPeople": "No people found",
+    "empty": "No posts yet",
+    "suggested": "Suggested for you"
+  },
+  "feed": {
+    "emptyTitle": "Welcome!",
+    "emptyBody": "Follow players to see their posts and stories here.",
+    "explore": "Explore"
   }
 }

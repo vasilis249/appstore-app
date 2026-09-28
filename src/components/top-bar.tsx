@@ -27,10 +27,7 @@ export function TopBar() {
       <div className="flex h-20 sm:h-24 xl:h-28 w-full items-center gap-2 px-3 sm:gap-4 sm:px-6">
         {/* LEFT + MIDDLE: logo + nav + search (one stretchable row) */}
         <div className="flex flex-1 items-center gap-2 lg:gap-3">
-          <Link
-            to={isPureOwner ? "/owner" : "/"}
-            className="flex shrink-0 items-center"
-          >
+          <Link to={isPureOwner ? "/owner" : "/"} className="flex shrink-0 items-center">
             <Logo className="h-[44px] sm:h-[64px] md:h-[80px] xl:h-[104px] w-auto" />
           </Link>
 
@@ -146,7 +143,11 @@ export function TopBar() {
                 placeholder={t("nav.searchPlaceholder")}
                 className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
               />
-              <button type="submit" aria-label={t("nav.search")} className="rounded-md p-1 text-muted-foreground hover:text-foreground">
+              <button
+                type="submit"
+                aria-label={t("nav.search")}
+                className="rounded-md p-1 text-muted-foreground hover:text-foreground"
+              >
                 <Search className="h-4 w-4" />
               </button>
             </form>
@@ -172,8 +173,8 @@ export function TopBar() {
           {user && !isPureOwner && (
             <>
               <Link
-                to="/community"
-                aria-label={t("bottomNav.community")}
+                to="/explore"
+                aria-label={t("explore.title")}
                 className="grid h-10 w-10 place-items-center rounded-xl text-foreground transition hover:bg-muted md:hidden"
               >
                 <UserSearch className="h-5 w-5" />

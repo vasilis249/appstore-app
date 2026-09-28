@@ -22,6 +22,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as VenuesIndexRouteImport } from './routes/venues.index'
 import { Route as VenuesVenueIdRouteImport } from './routes/venues.$venueId'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
+import { Route as AuthenticatedExploreRouteImport } from './routes/_authenticated/explore'
 import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
 import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
 import { Route as AuthenticatedOwnerRouteRouteImport } from './routes/_authenticated/owner/route'
@@ -30,6 +32,7 @@ import { Route as AuthenticatedOwnerIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as ApiPublicTranslateRouteImport } from './routes/api/public/translate'
 import { Route as AuthenticatedUUsernameRouteImport } from './routes/_authenticated/u.$username'
+import { Route as AuthenticatedPPostIdRouteImport } from './routes/_authenticated/p.$postId'
 import { Route as AuthenticatedOwnerVenuesRouteImport } from './routes/_authenticated/owner/venues'
 import { Route as AuthenticatedOwnerSettingsRouteImport } from './routes/_authenticated/owner/settings'
 import { Route as AuthenticatedOwnerReportsRouteImport } from './routes/_authenticated/owner/reports'
@@ -110,6 +113,17 @@ const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedNotificationsRoute =
+  AuthenticatedNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedExploreRoute = AuthenticatedExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
   id: '/community',
   path: '/community',
@@ -148,6 +162,11 @@ const ApiPublicTranslateRoute = ApiPublicTranslateRouteImport.update({
 const AuthenticatedUUsernameRoute = AuthenticatedUUsernameRouteImport.update({
   id: '/u/$username',
   path: '/u/$username',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPPostIdRoute = AuthenticatedPPostIdRouteImport.update({
+  id: '/p/$postId',
+  path: '/p/$postId',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedOwnerVenuesRoute =
@@ -253,6 +272,8 @@ export interface FileRoutesByFullPath {
   '/owner': typeof AuthenticatedOwnerRouteRouteWithChildren
   '/bookings': typeof AuthenticatedBookingsRoute
   '/community': typeof AuthenticatedCommunityRoute
+  '/explore': typeof AuthenticatedExploreRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/venues/$venueId': typeof VenuesVenueIdRoute
   '/venues/': typeof VenuesIndexRoute
@@ -268,6 +289,7 @@ export interface FileRoutesByFullPath {
   '/owner/reports': typeof AuthenticatedOwnerReportsRoute
   '/owner/settings': typeof AuthenticatedOwnerSettingsRoute
   '/owner/venues': typeof AuthenticatedOwnerVenuesRouteWithChildren
+  '/p/$postId': typeof AuthenticatedPPostIdRoute
   '/u/$username': typeof AuthenticatedUUsernameRoute
   '/api/public/translate': typeof ApiPublicTranslateRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -288,6 +310,8 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/bookings': typeof AuthenticatedBookingsRoute
   '/community': typeof AuthenticatedCommunityRoute
+  '/explore': typeof AuthenticatedExploreRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/venues/$venueId': typeof VenuesVenueIdRoute
   '/venues': typeof VenuesIndexRoute
@@ -302,6 +326,7 @@ export interface FileRoutesByTo {
   '/owner/pricing': typeof AuthenticatedOwnerPricingRoute
   '/owner/reports': typeof AuthenticatedOwnerReportsRoute
   '/owner/settings': typeof AuthenticatedOwnerSettingsRoute
+  '/p/$postId': typeof AuthenticatedPPostIdRoute
   '/u/$username': typeof AuthenticatedUUsernameRoute
   '/api/public/translate': typeof ApiPublicTranslateRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -326,6 +351,8 @@ export interface FileRoutesById {
   '/_authenticated/owner': typeof AuthenticatedOwnerRouteRouteWithChildren
   '/_authenticated/bookings': typeof AuthenticatedBookingsRoute
   '/_authenticated/community': typeof AuthenticatedCommunityRoute
+  '/_authenticated/explore': typeof AuthenticatedExploreRoute
+  '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/venues/$venueId': typeof VenuesVenueIdRoute
   '/venues/': typeof VenuesIndexRoute
@@ -341,6 +368,7 @@ export interface FileRoutesById {
   '/_authenticated/owner/reports': typeof AuthenticatedOwnerReportsRoute
   '/_authenticated/owner/settings': typeof AuthenticatedOwnerSettingsRoute
   '/_authenticated/owner/venues': typeof AuthenticatedOwnerVenuesRouteWithChildren
+  '/_authenticated/p/$postId': typeof AuthenticatedPPostIdRoute
   '/_authenticated/u/$username': typeof AuthenticatedUUsernameRoute
   '/api/public/translate': typeof ApiPublicTranslateRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -365,6 +393,8 @@ export interface FileRouteTypes {
     | '/owner'
     | '/bookings'
     | '/community'
+    | '/explore'
+    | '/notifications'
     | '/profile'
     | '/venues/$venueId'
     | '/venues/'
@@ -380,6 +410,7 @@ export interface FileRouteTypes {
     | '/owner/reports'
     | '/owner/settings'
     | '/owner/venues'
+    | '/p/$postId'
     | '/u/$username'
     | '/api/public/translate'
     | '/admin/'
@@ -400,6 +431,8 @@ export interface FileRouteTypes {
     | '/terms'
     | '/bookings'
     | '/community'
+    | '/explore'
+    | '/notifications'
     | '/profile'
     | '/venues/$venueId'
     | '/venues'
@@ -414,6 +447,7 @@ export interface FileRouteTypes {
     | '/owner/pricing'
     | '/owner/reports'
     | '/owner/settings'
+    | '/p/$postId'
     | '/u/$username'
     | '/api/public/translate'
     | '/admin'
@@ -437,6 +471,8 @@ export interface FileRouteTypes {
     | '/_authenticated/owner'
     | '/_authenticated/bookings'
     | '/_authenticated/community'
+    | '/_authenticated/explore'
+    | '/_authenticated/notifications'
     | '/_authenticated/profile'
     | '/venues/$venueId'
     | '/venues/'
@@ -452,6 +488,7 @@ export interface FileRouteTypes {
     | '/_authenticated/owner/reports'
     | '/_authenticated/owner/settings'
     | '/_authenticated/owner/venues'
+    | '/_authenticated/p/$postId'
     | '/_authenticated/u/$username'
     | '/api/public/translate'
     | '/_authenticated/admin/'
@@ -570,6 +607,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/notifications': {
+      id: '/_authenticated/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthenticatedNotificationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/explore': {
+      id: '/_authenticated/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof AuthenticatedExploreRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/community': {
       id: '/_authenticated/community'
       path: '/community'
@@ -624,6 +675,13 @@ declare module '@tanstack/react-router' {
       path: '/u/$username'
       fullPath: '/u/$username'
       preLoaderRoute: typeof AuthenticatedUUsernameRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/p/$postId': {
+      id: '/_authenticated/p/$postId'
+      path: '/p/$postId'
+      fullPath: '/p/$postId'
+      preLoaderRoute: typeof AuthenticatedPPostIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/owner/venues': {
@@ -804,10 +862,13 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedOwnerRouteRoute: typeof AuthenticatedOwnerRouteRouteWithChildren
   AuthenticatedBookingsRoute: typeof AuthenticatedBookingsRoute
   AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRoute
+  AuthenticatedExploreRoute: typeof AuthenticatedExploreRoute
+  AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedBookVenueIdRoute: typeof AuthenticatedBookVenueIdRoute
   AuthenticatedBookingBookingIdRoute: typeof AuthenticatedBookingBookingIdRoute
   AuthenticatedCommunityMessagesRoute: typeof AuthenticatedCommunityMessagesRoute
+  AuthenticatedPPostIdRoute: typeof AuthenticatedPPostIdRoute
   AuthenticatedUUsernameRoute: typeof AuthenticatedUUsernameRoute
 }
 
@@ -816,10 +877,13 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOwnerRouteRoute: AuthenticatedOwnerRouteRouteWithChildren,
   AuthenticatedBookingsRoute: AuthenticatedBookingsRoute,
   AuthenticatedCommunityRoute: AuthenticatedCommunityRoute,
+  AuthenticatedExploreRoute: AuthenticatedExploreRoute,
+  AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedBookVenueIdRoute: AuthenticatedBookVenueIdRoute,
   AuthenticatedBookingBookingIdRoute: AuthenticatedBookingBookingIdRoute,
   AuthenticatedCommunityMessagesRoute: AuthenticatedCommunityMessagesRoute,
+  AuthenticatedPPostIdRoute: AuthenticatedPPostIdRoute,
   AuthenticatedUUsernameRoute: AuthenticatedUUsernameRoute,
 }
 

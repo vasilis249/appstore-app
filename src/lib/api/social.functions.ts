@@ -5,7 +5,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 import type { Sport } from "@/lib/sports";
 
-type Db = SupabaseClient<Database>;
+export type Db = SupabaseClient<Database>;
 
 // Instagram-style profiles and follows. Reads go through the caller's Supabase
 // client, so RLS (can_view_profile) decides what is visible. Only public
@@ -60,7 +60,7 @@ const usernameSchema = z
   .toLowerCase()
   .regex(/^[a-z0-9._]{3,30}$/, "username_invalid");
 
-async function followStates(
+export async function followStates(
   supabase: Db,
   me: string,
   ids: string[],
