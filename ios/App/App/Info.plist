@@ -85,6 +85,8 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Courtsie uses the camera so you can take a profile photo or a photo of your venue.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Courtsie uses your location, only on your device, to show how far venues are and to filter them by distance.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Courtsie accesses your photos so you can choose a profile photo or venue photos.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

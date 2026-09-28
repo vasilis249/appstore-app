@@ -973,7 +973,8 @@
             "In-app notifications (e.g. new booking, cancellation, friend request).",
             "For venue owners: venue details (name, address, map location, photos, opening hours, prices, equipment) and bookings they enter themselves, which may include a customer's name and phone.",
             "Technical data: IP address, device/browser type and server logs, needed to run and secure the service.",
-            "We do not collect your device location, payment data, contacts or health data. Court payments are made directly at the venue."
+            "Location (optional): only if you use the “Distance to me” filter and grant permission. It is used only on your device to calculate distances to venues and is never sent to or stored on our servers. You can revoke the permission in your device settings.",
+            "We do not collect payment data, contacts or health data. Court payments are made directly at the venue."
           ]
         },
         {
@@ -1080,5 +1081,33 @@
   },
   "network": {
     "offline": "You are offline. Changes will not be saved until the connection is back."
+  },
+  "venueFilters": {
+    "open": "Filters",
+    "title": "Filters",
+    "description": "Filter venues by sport, distance, rating, price and amenities.",
+    "reset": "Reset",
+    "categories": "Sport",
+    "distance": "Distance to me",
+    "anyDistance": "Any",
+    "less": "Shorter distance",
+    "more": "Longer distance",
+    "rating": "Rating",
+    "ratingHint": "and up",
+    "price": "Price",
+    "priceMin": "Minimum price",
+    "priceMax": "Maximum price",
+    "priceHint": "The price shown on the card (per player for padel/tennis, per hour for other sports).",
+    "amenities": "Amenities",
+    "show": "Show results ({{count}})",
+    "empty": "No venues match your filters.",
+    "locationDenied": "Could not access your location. Check your location settings."
+  },
+  "venueMap": {
+    "unavailable": "The map is not available right now.",
+    "missing": "{{count}} without location",
+    "you": "Your location",
+    "showMap": "Show map",
+    "showList": "Show list"
   }
 }

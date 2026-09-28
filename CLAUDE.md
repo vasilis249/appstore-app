@@ -48,6 +48,13 @@ Work in phases; stop after each phase for the user's "OK".
   phones (`VenueRow`), card grid from `sm`. Icon/splash/offline page are orange.
   UI screenshots without Supabase: run a PostgREST mock on :54321 and
   `wrangler dev --var SUPABASE_URL:http://127.0.0.1:54321 --var SUPABASE_SERVICE_ROLE_KEY:x ...`.
+- Venue list filters + map: `src/lib/venue-filters.ts` (pure filter logic, `displayPrice`),
+  `src/components/venues/venue-filters.tsx` (vaul Drawer sheet: sport, km stepper, min rating, price
+  range, amenities; draft resets only when the sheet opens), `src/components/venues/venues-map.tsx`
+  (Google Maps, grey style, SVG pins, selected = orange). URL params: `view=map`, `rating`, `pmin`,
+  `pmax`, `km`, `am` (comma list). The list query fetches all venues for `q`; sport + filters apply on
+  the client. Location via `src/lib/geo.ts` (native `@capacitor/geolocation` in the app), used only on
+  device (privacy policy updated). `listVenues` now returns `lat`/`lng`.
 - Open items for the user: set `CONTACT_CONTROLLER` (full name or company + ΑΦΜ); review Terms;
   optional push notifications (helps guideline 4.2); opening-hours validation inside booking RPCs.
 

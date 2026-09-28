@@ -24,6 +24,8 @@ export type VenueListItem = {
   courts_count: number;
   amenities: string[];
   photo_url: string | null;
+  lat: number | null;
+  lng: number | null;
 };
 
 export const listVenues = createServerFn({ method: "GET" })
@@ -37,7 +39,7 @@ export const listVenues = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     let q = supabaseAdmin
       .from("venues")
-      .select("id,name,sport,area,base_price_per_hour,slot_price,rating,reviews_count,courts_count,amenities,photo_url")
+      .select("id,name,sport,area,base_price_per_hour,slot_price,rating,reviews_count,courts_count,amenities,photo_url,lat,lng")
       .eq("approved", true)
       .order("rating", { ascending: false, nullsFirst: false });
     if (data?.sport) q = q.eq("sport", data.sport);

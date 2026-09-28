@@ -14,6 +14,8 @@ Run on the simulator first, then on a real iPhone (camera, deep links and push b
 | 3 | Sign in / out | Sign in, kill the app, reopen | Still signed in; sign out works |
 | 4 | Reset password | "Forgot password" → email on the iPhone → link | App opens on the reset page, new password works |
 | 5 | Venues list + map | Venues tab, open a venue, map, photos | List loads, map renders (needs `GOOGLE_MAPS_API_KEY` + referrer = your workers.dev URL) |
+| 5b | Filters | Venues → orange filter button: sport, rating, price range, amenities, "Distance to me" (+) | One iOS location prompt with our text; count on "Show results" matches the list; badge shows active filters |
+| 5c | Map view | Venues → map button next to filters | Grey map with black pins; tapping a pin turns it orange and highlights the venue below; list icon returns to the list |
 | 6 | Availability | Book → pick date/court | Slots load; closed hours/closures not offered |
 | 7 | Create booking | Book a slot | Success; a second phone/user cannot book the same court/time (server rejects) |
 | 8 | Cancel booking | My bookings → cancel | Status "cancelled"; owner gets a notification |
@@ -63,7 +65,7 @@ follow-up session.
 - [x] **User-generated content** (1.2) — terms accepted at sign-up, report message/conversation,
   block user. You must act on reports (admin → reports) within 24h.
 - [x] **No third-party login**, so Sign in with Apple is not required.
-- [x] Permission texts for camera and photos in `Info.plist`; no location permission requested.
+- [x] Permission texts for camera, photos and location (when in use) in `Info.plist`.
 - [x] Export compliance: `ITSAppUsesNonExemptEncryption = NO` (HTTPS only) — no questionnaire per build.
 - [ ] **Minimum functionality (4.2)** — the biggest risk for a web-wrapper app. Mitigations in place:
   native splash, offline screen, deep links, native camera/photo picker, safe-area layout, no website
@@ -74,7 +76,8 @@ follow-up session.
 - [ ] **Privacy policy URL** (required): `https://<your-domain>/privacy`.
 - [ ] **App Privacy (nutrition labels)**: data collected — Contact info (email, name, phone),
   User content (messages, photos, reviews), Identifiers (user ID), Usage data if you add analytics.
-  Linked to the user, not used for tracking.
+  Linked to the user, not used for tracking. Location is used only on the device (distance filter),
+  never sent to the server, so it is **not** "collected" in Apple's sense.
 - [ ] Support URL (`https://<your-domain>/contact`), age rating questionnaire (user-generated content /
   unrestricted web access → likely 12+ or 17+ depending on answers), category Sports.
 - [ ] Screenshots: 6.9" (e.g. iPhone 16 Pro Max simulator, ⌘S in Simulator saves one) — at least 1,
