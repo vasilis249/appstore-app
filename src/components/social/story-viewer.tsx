@@ -3,7 +3,11 @@ import { Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useTranslation } from "react-i18next";
-import { Eye, Trash2, X } from "lucide-react";
+import { Eye, Flag, Send, Trash2, X } from "lucide-react";
+import { toast } from "sonner";
+import { dmErrorKey } from "@/lib/dm-errors";
+import { replyToStory } from "@/lib/api/inbox.functions";
+import { reportContent } from "@/lib/api/posts.functions";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { UserAvatar } from "@/components/social/user-avatar";
 import { timeAgo } from "@/lib/time-ago";
@@ -36,10 +40,12 @@ export function StoryViewer({
   const listFn = useServerFn(listUserStories);
   const viewFn = useServerFn(markStoryViewed);
   const deleteFn = useServerFn(deleteStory);
+  const reportFn = useServerFn(reportContent);
   const [personIdx, setPersonIdx] = useState(startIndex);
   const [storyIdx, setStoryIdx] = useState(0);
   const [progress, setProgress] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [typing, setTyping] = useState(false);
   const [viewersOpen, setViewersOpen] = useState(false);
   const person = people[personIdx];
 
@@ -82,7 +88,7 @@ export function StoryViewer({
   }
 
   // Timer
-  const holding = paused || viewersOpen || !story;
+  const holding = paused || typing || viewersOpen || !story;
   const last = useRef(performance.now());
   useEffect(() => {
     if (holding) return;
@@ -164,6 +170,19 @@ export function StoryViewer({
               <span className="text-xs text-white/70">{timeAgo(story.created_at, locale)}</span>
             )}
             <span className="flex-1" />
+            {!person.isMe && story && (
+              <button
+                type="button"
+                aria-label={t("dm.report")}
+                onClick={async () => {
+                  await reportFn({ data: { targetType: "story", targetId: story.id } });
+                  toast.success(t("dm.reported"));
+                }}
+                className="grid h-9 w-9 place-items-center"
+              >
+                <Flag className="h-5 w-5" />
+              </button>
+            )}
             <button
               type="button"
               aria-label={t("common.close", "Κλείσιμο")}
@@ -203,6 +222,14 @@ export function StoryViewer({
             <p className="mb-3 text-center text-base font-medium text-white drop-shadow">
               {story.caption}
             </p>
+          )}
+          {!person.isMe && story && (
+            <StoryReply
+              key={story.id}
+              storyId={story.id}
+              username={person.username}
+              onTyping={setTyping}
+            />
           )}
           {person.isMe && story && (
             <div className="flex items-center justify-between text-white">
@@ -274,5 +301,67 @@ function ViewersSheet({
         </ul>
       </DrawerContent>
     </Drawer>
+  );
+}
+
+function StoryReply({
+  storyId,
+  username,
+  onTyping,
+}: {
+  storyId: string;
+  username: string;
+  onTyping: (on: boolean) => void;
+}) {
+  const { t } = useTranslation();
+  const replyFn = useServerFn(replyToStory);
+  const [text, setText] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function send() {
+    const body = text.trim();
+    if (!body) return;
+    setBusy(true);
+    try {
+      await replyFn({ data: { storyId, body } });
+      setText("");
+      toast.success(t("dm.replySent"));
+      onTyping(false);
+      (document.activeElement as HTMLElement | null)?.blur();
+    } catch (e) {
+      toast.error(t(dmErrorKey(e)));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        void send();
+      }}
+      className="flex items-center gap-2"
+    >
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        onFocus={() => onTyping(true)}
+        onBlur={() => !text.trim() && onTyping(false)}
+        maxLength={2000}
+        placeholder={t("dm.replyStoryPh", { name: username })}
+        className="h-11 flex-1 rounded-full border border-white/60 bg-transparent px-4 text-sm text-white outline-none placeholder:text-white/70"
+      />
+      {text.trim() && (
+        <button
+          type="submit"
+          disabled={busy}
+          aria-label={t("dm.send")}
+          className="grid h-11 w-11 place-items-center text-white disabled:opacity-50"
+        >
+          <Send className="h-5 w-5" />
+        </button>
+      )}
+    </form>
   );
 }

@@ -1178,6 +1178,21 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: { author_id: string; has_unseen: boolean; latest_at: string; story_count: number }[]
       }
+      my_inbox: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          type: string
+          title: string | null
+          accepted: boolean
+          last_read_at: string | null
+          last_body: string | null
+          last_sender_id: string | null
+          last_at: string
+          last_kind: string
+          unread: number
+        }[]
+      }
       accept_follow_request: { Args: { _follower: string }; Returns: undefined }
       can_view_profile: { Args: { _target: string; _viewer: string }; Returns: boolean }
       follow_user: { Args: { _target: string }; Returns: string }

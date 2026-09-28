@@ -41,7 +41,9 @@ function ProfilePage() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("profiles")
-        .select("full_name, level, games_played, rating, photo_url, username, bio, is_private")
+        .select(
+          "full_name, level, games_played, rating, photo_url, username, bio, is_private, discoverable",
+        )
         .eq("user_id", user!.id)
         .maybeSingle();
       if (error) throw error;
@@ -69,8 +71,15 @@ function ProfilePage() {
 
   const updateSocialFn = useServerFn(updateSocialProfile);
   const saveProfile = useMutation({
-    mutationFn: async ({ phone, username, bio, is_private, ...patch }: EditValues) => {
-      await updateSocialFn({ data: { username, bio, is_private } });
+    mutationFn: async ({
+      phone,
+      username,
+      bio,
+      is_private,
+      discoverable,
+      ...patch
+    }: EditValues) => {
+      await updateSocialFn({ data: { username, bio, is_private, discoverable } });
       const { error } = await supabase.from("profiles").update(patch).eq("user_id", user!.id);
       if (error) throw error;
       const trimmed = (phone ?? "").trim();
@@ -170,6 +179,7 @@ function ProfilePage() {
                   username: p.username,
                   bio: p.bio ?? "",
                   is_private: p.is_private,
+                  discoverable: p.discoverable,
                   level: (p.level as Level) ?? "beginner",
                   phone: contactQ.data?.phone ?? "",
                 }}
@@ -190,6 +200,7 @@ type EditValues = {
   username: string;
   bio: string | null;
   is_private: boolean;
+  discoverable: boolean;
   level: Level;
   phone: string;
 };
@@ -295,6 +306,15 @@ function EditForm({
           </span>
         </span>
         <Switch checked={v.is_private} onCheckedChange={(c) => set("is_private", c)} />
+      </label>
+      <label className="flex items-start justify-between gap-4 rounded-2xl bg-card p-4 shadow-sm ring-1 ring-border/60">
+        <span>
+          <span className="block text-sm font-semibold">{t("social.discoverable")}</span>
+          <span className="mt-0.5 block text-xs text-muted-foreground">
+            {t("social.discoverableHint")}
+          </span>
+        </span>
+        <Switch checked={v.discoverable} onCheckedChange={(c) => set("discoverable", c)} />
       </label>
       <div className="flex gap-2 pt-1">
         <button

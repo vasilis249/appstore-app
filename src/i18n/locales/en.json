@@ -1144,7 +1144,9 @@
     "bioPh": "A few words about you (up to 150 characters)",
     "privateToggle": "Private account",
     "privateToggleHint": "Only people you approve will see your posts, stories and followers.",
-    "noReviews": "No reviews yet"
+    "noReviews": "No reviews yet",
+    "discoverable": "Show me in search",
+    "discoverableHint": "Other players can find you by name or username."
   },
   "create": {
     "title": "Create",
@@ -1163,7 +1165,10 @@
   },
   "settings": {
     "title": "Settings",
-    "darkMode": "Dark mode"
+    "darkMode": "Dark mode",
+    "blocked": "Blocked accounts",
+    "noBlocked": "No blocked accounts",
+    "unblock": "Unblock"
   },
   "posts": {
     "new": "New post",
@@ -1227,11 +1232,82 @@
     "searchPh": "Search people",
     "noPeople": "No people found",
     "empty": "No posts yet",
-    "suggested": "Suggested for you"
+    "suggested": "Suggested for you",
+    "discoverPrompt": "Other players can't find you in search.",
+    "discoverOn": "Turn on"
   },
   "feed": {
     "emptyTitle": "Welcome!",
     "emptyBody": "Follow players to see their posts and stories here.",
     "explore": "Explore"
+  },
+  "dm": {
+    "title": "Messages",
+    "primary": "Primary",
+    "requests": "Requests",
+    "requestsCount": "Requests ({{count}})",
+    "empty": "No messages yet",
+    "emptyRequests": "No requests",
+    "requestsHint": "Messages from people you don't follow. They won't know you've seen them until you accept.",
+    "new": "New message",
+    "searchPh": "Search",
+    "chat": "Chat",
+    "you": "You",
+    "sharedPost": "Shared post",
+    "storyReply": "Story reply",
+    "storyGone": "Story no longer available",
+    "postGone": "Post unavailable",
+    "messagePh": "Message…",
+    "send": "Send",
+    "sent": "Sent",
+    "seen": "Seen",
+    "requestBanner": "{{name}} wants to send you a message.",
+    "accept": "Accept",
+    "delete": "Delete",
+    "block": "Block",
+    "blocked": "User blocked",
+    "confirmBlock": "Block {{name}}? They won't be able to message you or see your profile.",
+    "confirmDelete": "Delete this chat from your messages?",
+    "deleteChat": "Delete chat",
+    "leaveGroup": "Leave group",
+    "report": "Report",
+    "reported": "Thanks, we'll review it",
+    "viewProfile": "View profile",
+    "members_one": "{{count}} member",
+    "members_other": "{{count}} members",
+    "loadOlder": "Older messages",
+    "message": "Message",
+    "notePh": "Write a message…",
+    "more": "More",
+    "replyStoryPh": "Reply to {{name}}…",
+    "replySent": "Reply sent",
+    "errors": {
+      "blocked": "You can't message this user",
+      "rate": "Too many messages, try again shortly",
+      "notFound": "Chat not found",
+      "generic": "Something went wrong"
+    }
+  },
+  "moderation": {
+    "content": "Content",
+    "messages": "Messages",
+    "count_one": "{{count}} report",
+    "count_other": "{{count}} reports",
+    "type": {
+      "post": "Post",
+      "comment": "Comment",
+      "story": "Story",
+      "profile": "Profile"
+    },
+    "status": {
+      "open": "Open",
+      "resolved": "Removed",
+      "dismissed": "Dismissed"
+    },
+    "remove": "Remove",
+    "removed": "Removed",
+    "gone": "No longer exists",
+    "disabled": "disabled",
+    "open": "Open post"
   }
 }

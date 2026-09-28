@@ -21,6 +21,7 @@ import { UserAvatar } from "@/components/social/user-avatar";
 import { FollowButton } from "@/components/social/follow-button";
 import { MediaCarousel } from "@/components/social/media-carousel";
 import { RichText } from "@/components/social/rich-text";
+import { ShareSheet } from "@/components/social/share-sheet";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
 import { timeAgo } from "@/lib/time-ago";
@@ -50,6 +51,7 @@ export function PostCard({
   const [expanded, setExpanded] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [likersOpen, setLikersOpen] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
 
   async function toggleLike(force?: boolean) {
     const on = force ?? !liked;
@@ -72,19 +74,6 @@ export function PostCard({
       toast.success(on ? t("posts.saved") : t("posts.unsaved"));
     } catch {
       setSaved(!on);
-    }
-  }
-
-  async function share() {
-    const url = `${window.location.origin}/p/${post.id}`;
-    try {
-      if (navigator.share) await navigator.share({ url, title: `@${post.author.username}` });
-      else {
-        await navigator.clipboard.writeText(url);
-        toast.success(t("posts.linkCopied"));
-      }
-    } catch {
-      // Share sheet dismissed.
     }
   }
 
@@ -153,7 +142,7 @@ export function PostCard({
         >
           <MessageCircle className="h-6 w-6" />
         </Link>
-        <IconBtn label={t("posts.share")} onClick={share}>
+        <IconBtn label={t("posts.share")} onClick={() => setShareOpen(true)}>
           <Send className="h-6 w-6" />
         </IconBtn>
         <span className="flex-1" />
@@ -205,6 +194,7 @@ export function PostCard({
 
       <PostMenu post={post} open={menuOpen} onOpenChange={setMenuOpen} />
       <LikersSheet postId={post.id} open={likersOpen} onOpenChange={setLikersOpen} />
+      <ShareSheet postId={post.id} open={shareOpen} onOpenChange={setShareOpen} />
     </article>
   );
 }

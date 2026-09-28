@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useTranslation } from "react-i18next";
 import { Copy, Search, Trophy, X } from "lucide-react";
 import { UserAvatar } from "@/components/social/user-avatar";
 import { FollowButton } from "@/components/social/follow-button";
 import { listExplore } from "@/lib/api/posts.functions";
-import { searchPlayers, suggestedPlayers } from "@/lib/api/community.functions";
+import {
+  getCommunityStatus,
+  searchPlayers,
+  setDiscoverable,
+  suggestedPlayers,
+} from "@/lib/api/community.functions";
 
 export const Route = createFileRoute("/_authenticated/explore")({
   head: () => ({ meta: [{ title: "Εξερεύνηση — Courtsie" }] }),
@@ -21,6 +26,10 @@ function ExplorePage() {
   const exploreFn = useServerFn(listExplore);
   const searchFn = useServerFn(searchPlayers);
   const suggestedFn = useServerFn(suggestedPlayers);
+  const statusFn = useServerFn(getCommunityStatus);
+  const discoverFn = useServerFn(setDiscoverable);
+  const qc = useQueryClient();
+  const status = useQuery({ queryKey: ["community-status"], queryFn: () => statusFn() });
 
   useEffect(() => {
     const id = setTimeout(() => setDebounced(q.trim()), 300);
@@ -63,6 +72,22 @@ function ExplorePage() {
           )}
         </label>
       </div>
+
+      {status.data && !status.data.discoverable && !searching && (
+        <div className="mx-3 mb-3 flex items-center gap-3 rounded-2xl bg-primary/10 px-3 py-2.5 text-sm">
+          <span className="flex-1">{t("explore.discoverPrompt")}</span>
+          <button
+            type="button"
+            onClick={async () => {
+              await discoverFn({ data: { discoverable: true } });
+              void qc.invalidateQueries({ queryKey: ["community-status"] });
+            }}
+            className="rounded-xl bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground"
+          >
+            {t("explore.discoverOn")}
+          </button>
+        </div>
+      )}
 
       {searching ? (
         <ul className="px-3">

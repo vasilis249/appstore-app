@@ -84,3 +84,14 @@ follow-up session.
   ideally 3–5; 13" iPad only if you keep iPad support (Xcode → General → Supported Destinations;
   remove iPad to skip iPad screenshots).
 - [ ] Description, keywords, promotional text in Greek (and English if you add the localization).
+
+## Social features (quick test with two accounts A and B)
+| # | Test | Expected |
+|---|------|----------|
+| S1 | A follows B, B posts a photo | Post appears in A's Home feed; double-tap likes it; B sees it in Activity |
+| S2 | A comments "@b_username" on a post | B gets a "mention" in Activity |
+| S3 | B posts a story; A opens it and replies | Reply appears in B's inbox with the story thumbnail |
+| S4 | C (not followed by A) sends A a message | It lands in A's **Requests**; Accept moves it to Primary; C sees "Seen" |
+| S5 | A shares a post (paper plane) to B | B sees the post card in the chat |
+| S6 | A blocks C from C's profile ⋯ | C can no longer message A; C is listed under Settings → Blocked accounts |
+| S7 | A reports a post / comment / story / profile | Admin sees it in Admin → Reports → Content, grouped; Remove deletes it |

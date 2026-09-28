@@ -1,25 +1,37 @@
+import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useTranslation } from "react-i18next";
 import { Send } from "lucide-react";
-import { listConversations } from "@/lib/api/community.functions";
+import { supabase } from "@/integrations/supabase/client";
+import { listInbox } from "@/lib/api/inbox.functions";
 
-/** Header shortcut to the inbox with an unread badge (phones; desktop keeps the chat bubble). */
+/** Header shortcut to the inbox; badge = unread chats in Primary (requests don't count). */
 export function MessagesButton({ className = "" }: { className?: string }) {
   const { t } = useTranslation();
-  const listFn = useServerFn(listConversations);
-  // Same cache entry as the chat widget, so both stay in sync.
-  const q = useQuery({
-    queryKey: ["messages", "conversations"],
-    queryFn: () => listFn(),
-    staleTime: 15_000,
-  });
-  const unread = (q.data ?? []).reduce((n, c) => n + (c.unread_count ?? 0), 0);
+  const qc = useQueryClient();
+  const listFn = useServerFn(listInbox);
+  const q = useQuery({ queryKey: ["inbox"], queryFn: () => listFn(), staleTime: 15_000 });
+  const unread = (q.data ?? []).filter((c) => c.accepted && c.unread > 0).length;
+
+  // Any new message the user can see (RLS applies to realtime) refreshes the inbox.
+  useEffect(() => {
+    const ch = supabase
+      .channel("inbox-badge")
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "messages" }, () => {
+        void qc.invalidateQueries({ queryKey: ["inbox"] });
+      })
+      .subscribe();
+    return () => {
+      void supabase.removeChannel(ch);
+    };
+  }, [qc]);
+
   return (
     <Link
-      to="/community/messages"
-      aria-label={t("community.messages.openMessages")}
+      to="/inbox"
+      aria-label={t("dm.title")}
       className={`relative grid h-10 w-10 place-items-center rounded-xl text-foreground transition hover:bg-muted ${className}`}
     >
       <Send className="h-5 w-5" />

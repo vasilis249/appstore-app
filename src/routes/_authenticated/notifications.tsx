@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useTranslation } from "react-i18next";
-import { Bell, CalendarCheck, Heart, MessageCircle, Trophy, UserPlus } from "lucide-react";
+import { AtSign, Bell, CalendarCheck, Heart, MessageCircle, Trophy, UserPlus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { UserAvatar } from "@/components/social/user-avatar";
@@ -56,6 +56,7 @@ function groupNotifications(items: NotificationRow[]): Group[] {
 const SOCIAL_ICON: Record<string, typeof Heart> = {
   post_like: Heart,
   post_comment: MessageCircle,
+  mention: AtSign,
   new_follower: UserPlus,
   follow_request: UserPlus,
   follow_accepted: UserPlus,

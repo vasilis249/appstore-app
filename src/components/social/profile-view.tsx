@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
 import { UserAvatar } from "@/components/social/user-avatar";
 import { FollowButton } from "@/components/social/follow-button";
+import { ProfileActions } from "@/components/social/profile-actions";
 import { FollowListSheet, type FollowTab } from "@/components/social/follow-list-sheet";
 import {
   getProfile,
@@ -133,13 +134,16 @@ export function ProfileView({
             )}
           </>
         ) : (
-          <FollowButton
-            key={relation.following}
-            userId={profile.user_id}
-            state={relation.following}
-            followsMe={relation.followsMe}
-            className="flex-1"
-          />
+          <>
+            <FollowButton
+              key={relation.following}
+              userId={profile.user_id}
+              state={relation.following}
+              followsMe={relation.followsMe}
+              className="flex-1"
+            />
+            <ProfileActions userId={profile.user_id} username={profile.username} name={name} />
+          </>
         )}
       </div>
 

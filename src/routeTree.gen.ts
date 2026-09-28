@@ -29,6 +29,7 @@ import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedOwnerRouteRouteImport } from './routes/_authenticated/owner/route'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedOwnerIndexRouteImport } from './routes/_authenticated/owner/index'
+import { Route as AuthenticatedInboxIndexRouteImport } from './routes/_authenticated/inbox.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as ApiPublicTranslateRouteImport } from './routes/api/public/translate'
 import { Route as AuthenticatedUUsernameRouteImport } from './routes/_authenticated/u.$username'
@@ -39,6 +40,7 @@ import { Route as AuthenticatedOwnerReportsRouteImport } from './routes/_authent
 import { Route as AuthenticatedOwnerPricingRouteImport } from './routes/_authenticated/owner/pricing'
 import { Route as AuthenticatedOwnerHoursRouteImport } from './routes/_authenticated/owner/hours'
 import { Route as AuthenticatedOwnerBookingsRouteImport } from './routes/_authenticated/owner/bookings'
+import { Route as AuthenticatedInboxConversationIdRouteImport } from './routes/_authenticated/inbox.$conversationId'
 import { Route as AuthenticatedCommunityMessagesRouteImport } from './routes/_authenticated/community_.messages'
 import { Route as AuthenticatedBookingBookingIdRouteImport } from './routes/_authenticated/booking.$bookingId'
 import { Route as AuthenticatedBookVenueIdRouteImport } from './routes/_authenticated/book.$venueId'
@@ -149,6 +151,11 @@ const AuthenticatedOwnerIndexRoute = AuthenticatedOwnerIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedOwnerRouteRoute,
 } as any)
+const AuthenticatedInboxIndexRoute = AuthenticatedInboxIndexRouteImport.update({
+  id: '/inbox/',
+  path: '/inbox/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -203,6 +210,12 @@ const AuthenticatedOwnerBookingsRoute =
     id: '/bookings',
     path: '/bookings',
     getParentRoute: () => AuthenticatedOwnerRouteRoute,
+  } as any)
+const AuthenticatedInboxConversationIdRoute =
+  AuthenticatedInboxConversationIdRouteImport.update({
+    id: '/inbox/$conversationId',
+    path: '/inbox/$conversationId',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedCommunityMessagesRoute =
   AuthenticatedCommunityMessagesRouteImport.update({
@@ -283,6 +296,7 @@ export interface FileRoutesByFullPath {
   '/book/$venueId': typeof AuthenticatedBookVenueIdRoute
   '/booking/$bookingId': typeof AuthenticatedBookingBookingIdRoute
   '/community/messages': typeof AuthenticatedCommunityMessagesRoute
+  '/inbox/$conversationId': typeof AuthenticatedInboxConversationIdRoute
   '/owner/bookings': typeof AuthenticatedOwnerBookingsRoute
   '/owner/hours': typeof AuthenticatedOwnerHoursRoute
   '/owner/pricing': typeof AuthenticatedOwnerPricingRoute
@@ -293,6 +307,7 @@ export interface FileRoutesByFullPath {
   '/u/$username': typeof AuthenticatedUUsernameRoute
   '/api/public/translate': typeof ApiPublicTranslateRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/inbox/': typeof AuthenticatedInboxIndexRoute
   '/owner/': typeof AuthenticatedOwnerIndexRoute
   '/owner/players/$playerId': typeof AuthenticatedOwnerPlayersPlayerIdRoute
   '/owner/venues/$venueId': typeof AuthenticatedOwnerVenuesVenueIdRoute
@@ -321,6 +336,7 @@ export interface FileRoutesByTo {
   '/book/$venueId': typeof AuthenticatedBookVenueIdRoute
   '/booking/$bookingId': typeof AuthenticatedBookingBookingIdRoute
   '/community/messages': typeof AuthenticatedCommunityMessagesRoute
+  '/inbox/$conversationId': typeof AuthenticatedInboxConversationIdRoute
   '/owner/bookings': typeof AuthenticatedOwnerBookingsRoute
   '/owner/hours': typeof AuthenticatedOwnerHoursRoute
   '/owner/pricing': typeof AuthenticatedOwnerPricingRoute
@@ -330,6 +346,7 @@ export interface FileRoutesByTo {
   '/u/$username': typeof AuthenticatedUUsernameRoute
   '/api/public/translate': typeof ApiPublicTranslateRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/inbox': typeof AuthenticatedInboxIndexRoute
   '/owner': typeof AuthenticatedOwnerIndexRoute
   '/owner/players/$playerId': typeof AuthenticatedOwnerPlayersPlayerIdRoute
   '/owner/venues/$venueId': typeof AuthenticatedOwnerVenuesVenueIdRoute
@@ -362,6 +379,7 @@ export interface FileRoutesById {
   '/_authenticated/book/$venueId': typeof AuthenticatedBookVenueIdRoute
   '/_authenticated/booking/$bookingId': typeof AuthenticatedBookingBookingIdRoute
   '/_authenticated/community_/messages': typeof AuthenticatedCommunityMessagesRoute
+  '/_authenticated/inbox/$conversationId': typeof AuthenticatedInboxConversationIdRoute
   '/_authenticated/owner/bookings': typeof AuthenticatedOwnerBookingsRoute
   '/_authenticated/owner/hours': typeof AuthenticatedOwnerHoursRoute
   '/_authenticated/owner/pricing': typeof AuthenticatedOwnerPricingRoute
@@ -372,6 +390,7 @@ export interface FileRoutesById {
   '/_authenticated/u/$username': typeof AuthenticatedUUsernameRoute
   '/api/public/translate': typeof ApiPublicTranslateRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/inbox/': typeof AuthenticatedInboxIndexRoute
   '/_authenticated/owner/': typeof AuthenticatedOwnerIndexRoute
   '/_authenticated/owner/players/$playerId': typeof AuthenticatedOwnerPlayersPlayerIdRoute
   '/_authenticated/owner/venues/$venueId': typeof AuthenticatedOwnerVenuesVenueIdRoute
@@ -404,6 +423,7 @@ export interface FileRouteTypes {
     | '/book/$venueId'
     | '/booking/$bookingId'
     | '/community/messages'
+    | '/inbox/$conversationId'
     | '/owner/bookings'
     | '/owner/hours'
     | '/owner/pricing'
@@ -414,6 +434,7 @@ export interface FileRouteTypes {
     | '/u/$username'
     | '/api/public/translate'
     | '/admin/'
+    | '/inbox/'
     | '/owner/'
     | '/owner/players/$playerId'
     | '/owner/venues/$venueId'
@@ -442,6 +463,7 @@ export interface FileRouteTypes {
     | '/book/$venueId'
     | '/booking/$bookingId'
     | '/community/messages'
+    | '/inbox/$conversationId'
     | '/owner/bookings'
     | '/owner/hours'
     | '/owner/pricing'
@@ -451,6 +473,7 @@ export interface FileRouteTypes {
     | '/u/$username'
     | '/api/public/translate'
     | '/admin'
+    | '/inbox'
     | '/owner'
     | '/owner/players/$playerId'
     | '/owner/venues/$venueId'
@@ -482,6 +505,7 @@ export interface FileRouteTypes {
     | '/_authenticated/book/$venueId'
     | '/_authenticated/booking/$bookingId'
     | '/_authenticated/community_/messages'
+    | '/_authenticated/inbox/$conversationId'
     | '/_authenticated/owner/bookings'
     | '/_authenticated/owner/hours'
     | '/_authenticated/owner/pricing'
@@ -492,6 +516,7 @@ export interface FileRouteTypes {
     | '/_authenticated/u/$username'
     | '/api/public/translate'
     | '/_authenticated/admin/'
+    | '/_authenticated/inbox/'
     | '/_authenticated/owner/'
     | '/_authenticated/owner/players/$playerId'
     | '/_authenticated/owner/venues/$venueId'
@@ -656,6 +681,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOwnerIndexRouteImport
       parentRoute: typeof AuthenticatedOwnerRouteRoute
     }
+    '/_authenticated/inbox/': {
+      id: '/_authenticated/inbox/'
+      path: '/inbox'
+      fullPath: '/inbox/'
+      preLoaderRoute: typeof AuthenticatedInboxIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/'
@@ -725,6 +757,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/owner/bookings'
       preLoaderRoute: typeof AuthenticatedOwnerBookingsRouteImport
       parentRoute: typeof AuthenticatedOwnerRouteRoute
+    }
+    '/_authenticated/inbox/$conversationId': {
+      id: '/_authenticated/inbox/$conversationId'
+      path: '/inbox/$conversationId'
+      fullPath: '/inbox/$conversationId'
+      preLoaderRoute: typeof AuthenticatedInboxConversationIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/community_/messages': {
       id: '/_authenticated/community_/messages'
@@ -868,8 +907,10 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBookVenueIdRoute: typeof AuthenticatedBookVenueIdRoute
   AuthenticatedBookingBookingIdRoute: typeof AuthenticatedBookingBookingIdRoute
   AuthenticatedCommunityMessagesRoute: typeof AuthenticatedCommunityMessagesRoute
+  AuthenticatedInboxConversationIdRoute: typeof AuthenticatedInboxConversationIdRoute
   AuthenticatedPPostIdRoute: typeof AuthenticatedPPostIdRoute
   AuthenticatedUUsernameRoute: typeof AuthenticatedUUsernameRoute
+  AuthenticatedInboxIndexRoute: typeof AuthenticatedInboxIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -883,8 +924,10 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBookVenueIdRoute: AuthenticatedBookVenueIdRoute,
   AuthenticatedBookingBookingIdRoute: AuthenticatedBookingBookingIdRoute,
   AuthenticatedCommunityMessagesRoute: AuthenticatedCommunityMessagesRoute,
+  AuthenticatedInboxConversationIdRoute: AuthenticatedInboxConversationIdRoute,
   AuthenticatedPPostIdRoute: AuthenticatedPPostIdRoute,
   AuthenticatedUUsernameRoute: AuthenticatedUUsernameRoute,
+  AuthenticatedInboxIndexRoute: AuthenticatedInboxIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

@@ -9,7 +9,14 @@ import { PostCard } from "@/components/social/post-card";
 import { UserAvatar } from "@/components/social/user-avatar";
 import { RichText } from "@/components/social/rich-text";
 import { timeAgo } from "@/lib/time-ago";
-import { addComment, deleteComment, getPost, listComments } from "@/lib/api/posts.functions";
+import { useAuth } from "@/hooks/use-auth";
+import {
+  addComment,
+  deleteComment,
+  getPost,
+  listComments,
+  reportContent,
+} from "@/lib/api/posts.functions";
 
 export const Route = createFileRoute("/_authenticated/p/$postId")({
   head: () => ({ meta: [{ title: "Courtsie" }] }),
@@ -25,6 +32,8 @@ function PostPage() {
   const listCommentsFn = useServerFn(listComments);
   const addFn = useServerFn(addComment);
   const deleteFn = useServerFn(deleteComment);
+  const reportFn = useServerFn(reportContent);
+  const { user } = useAuth();
   const [body, setBody] = useState("");
   const [sending, setSending] = useState(false);
 
@@ -59,6 +68,11 @@ function PostPage() {
     void qc.invalidateQueries({ queryKey: ["comments", postId] });
   }
 
+  async function report(commentId: string) {
+    await reportFn({ data: { targetType: "comment", targetId: commentId } });
+    toast.success(t("dm.reported"));
+  }
+
   if (postQ.isLoading)
     return <p className="py-16 text-center text-sm text-muted-foreground">{t("common.loading")}</p>;
   if (!postQ.data)
@@ -89,8 +103,13 @@ function PostPage() {
                 </Link>
                 <RichText text={c.body} />
               </p>
-              <p className="mt-0.5 text-xs text-muted-foreground">
-                {timeAgo(c.created_at, locale)}
+              <p className="mt-0.5 flex gap-3 text-xs text-muted-foreground">
+                <span>{timeAgo(c.created_at, locale)}</span>
+                {c.author.user_id !== user?.id && (
+                  <button type="button" onClick={() => report(c.id)} className="font-semibold">
+                    {t("dm.report")}
+                  </button>
+                )}
               </p>
             </div>
             {c.canDelete && (

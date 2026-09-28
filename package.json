@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "deploy": "vite build && wrangler deploy",
+    "deploy:all": "bash scripts/deploy-all.sh",
     "ios:sync": "cap sync ios",
     "ios:open": "cap open ios"
   },

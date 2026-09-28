@@ -311,6 +311,7 @@ export const updateSocialProfile = createServerFn({ method: "POST" })
       username: usernameSchema,
       bio: z.string().trim().max(150).nullable(),
       is_private: z.boolean(),
+      discoverable: z.boolean(),
     }),
   )
   .handler(async ({ data, context }) => {
@@ -324,7 +325,12 @@ export const updateSocialProfile = createServerFn({ method: "POST" })
     if (taken) throw new Error("username_taken");
     const { error } = await supabase
       .from("profiles")
-      .update({ username: data.username, bio: data.bio || null, is_private: data.is_private })
+      .update({
+        username: data.username,
+        bio: data.bio || null,
+        is_private: data.is_private,
+        discoverable: data.discoverable,
+      })
       .eq("user_id", userId);
     if (error) throw new Error(error.code === "23505" ? "username_taken" : error.message);
     return { ok: true, username: data.username };

@@ -77,9 +77,26 @@ Work in phases; stop after each phase for the user's "OK".
     (people search + suggestions + grid); `/notifications` (Activity; likes grouped per post, post thumbs,
     follow-back / accept buttons); `StoryViewer` (tap/hold, viewers sheet for own); ➕ sheet: post, story,
     book, available times. `suggestedPlayers` now excludes people you follow (not friendships).
-  - Next rounds (round 4 postponed by the user — do it only when asked): 4 DMs (requests folder via `conversation_members.accepted`, IG inbox, drop friend
-    requirement in getOrCreateDirectConversation, message button on profiles, share post to DM, story
-    replies), 5 moderation (admin page for content_reports) and notification polish.
+- **Social round 4 (IG DMs) + round 5 (moderation) done** — migration `20261001100000_dm_requests_mentions.sql`:
+  membership writes revoked from clients (was: members could self-promote to group admin / creators could add
+  anyone), `messages_guard` (INVOKER: blocks, 30/min rate limit, empty/2000 chars, shared post/story must be
+  visible, forged created_at/deleted_at reset), `messages_after_insert` (reply accepts request), `my_inbox()`,
+  `notify_mentions` (@username in captions/comments → `mention` notification if they can view the post),
+  conversation_members in realtime (live "Seen"). Tests: `test_dm.sql` (16 checks).
+  - Anyone can message anyone not blocked; recipient gets it in **Requests** unless they follow the sender
+    (`src/lib/api/dm.server.ts` `ensureDirectConversation`). No friendship needed anywhere any more.
+  - `src/lib/api/inbox.functions.ts` (listInbox, getThread, listThreadMessages, sendDm, openDirect, sharePost,
+    replyToStory, acceptRequest, deleteConversation, shareTargets); UI `/inbox` (Primary | Requests, compose
+    1:1 or group) and `/inbox/$conversationId` (full-screen thread, shared post cards, story replies, Seen,
+    request bar Block/Delete/Accept, ⓘ sheet). ShareSheet on posts, story reply input, Message + ⋯ (report,
+    block, copy link) on profiles, report on comments/stories, blocked list + "Show me in search"
+    (`discoverable`, opt-in) in Settings/Edit profile, Explore prompt when not discoverable.
+  - Old chat removed: `chat-widget/`, old messages page (→ redirect to /inbox), `/community` (→ /explore).
+  - Admin: `/admin/reports` has Content | Messages; `src/lib/api/moderation.functions.ts` groups
+    content_reports per item; Remove deletes post/comment/story (+files) or disables the profile.
+- Deploy everything with one command: `bun run deploy:all` (`scripts/deploy-all.sh`; env vars listed in the
+  script: SUPABASE_ACCESS_TOKEN, SUPABASE_DB_PASSWORD, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY,
+  CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID). Not yet run: no credentials in the cloud env so far.
 - Local full-stack testing (no Supabase needed): PostgREST 12 binary + `local-supabase.mjs` proxy in the
   scratchpad (JWT HS256 minted locally, fake /auth/v1/user and storage signing), seed users, then
   `wrangler dev --var ...`; inject session into localStorage key `sb-127-auth-token`. Reload PostgREST

@@ -534,76 +534,14 @@ export type MessageRow = {
 
 const MESSAGE_MAX = 2000;
 
-async function assertFriendsAndNotBlocked(admin: any, a: string, b: string): Promise<void> {
-  const { data: blocks } = await admin
-    .from("user_blocks")
-    .select("blocker_id,blocked_id")
-    .or(
-      `and(blocker_id.eq.${a},blocked_id.eq.${b}),` + `and(blocker_id.eq.${b},blocked_id.eq.${a})`,
-    );
-  if (blocks && blocks.length > 0) throw new Error("blocked");
-
-  const { data: fr } = await admin
-    .from("friendships")
-    .select("status")
-    .or(
-      `and(requester_id.eq.${a},addressee_id.eq.${b}),` +
-        `and(requester_id.eq.${b},addressee_id.eq.${a})`,
-    )
-    .maybeSingle();
-  if (!fr || fr.status !== "accepted") throw new Error("not_friends");
-}
-
 export const getOrCreateDirectConversation = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(z.object({ otherUserId: z.string().uuid() }))
   .handler(async ({ data, context }): Promise<{ id: string }> => {
-    const { userId } = context;
-    if (data.otherUserId === userId) throw new Error("invalid_target");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    await assertFriendsAndNotBlocked(supabaseAdmin, userId, data.otherUserId);
-
-    // find existing direct conversation with exactly these two members
-    const { data: mine } = await supabaseAdmin
-      .from("conversation_members")
-      .select("conversation_id")
-      .eq("user_id", userId);
-    const mineIds = (mine ?? []).map((r: any) => r.conversation_id);
-    if (mineIds.length > 0) {
-      const { data: theirs } = await supabaseAdmin
-        .from("conversation_members")
-        .select("conversation_id")
-        .eq("user_id", data.otherUserId)
-        .in("conversation_id", mineIds);
-      const shared = (theirs ?? []).map((r: any) => r.conversation_id);
-      if (shared.length > 0) {
-        const { data: convs } = await supabaseAdmin
-          .from("conversations")
-          .select("id,type")
-          .in("id", shared)
-          .eq("type", "direct");
-        for (const c of convs ?? []) {
-          const { count } = await supabaseAdmin
-            .from("conversation_members")
-            .select("user_id", { count: "exact", head: true })
-            .eq("conversation_id", c.id);
-          if (count === 2) return { id: c.id };
-        }
-      }
-    }
-
-    const { data: conv, error: e1 } = await supabaseAdmin
-      .from("conversations")
-      .insert({ type: "direct", created_by: userId })
-      .select("id")
-      .single();
-    if (e1) throw new Error(e1.message);
-    const { error: e2 } = await supabaseAdmin.from("conversation_members").insert([
-      { conversation_id: conv.id, user_id: userId, role: "admin" },
-      { conversation_id: conv.id, user_id: data.otherUserId, role: "member" },
-    ]);
-    if (e2) throw new Error(e2.message);
-    return { id: conv.id };
+    const { ensureDirectConversation } = await import("@/lib/api/dm.server");
+    // Anyone can message anyone who hasn't blocked them; strangers land in "Requests".
+    return { id: await ensureDirectConversation(supabaseAdmin, context.userId, data.otherUserId) };
   });
 
 export const createGroupConversation = createServerFn({ method: "POST" })
@@ -619,8 +557,11 @@ export const createGroupConversation = createServerFn({ method: "POST" })
     const uniq = Array.from(new Set(data.memberIds.filter((m) => m !== userId)));
     if (uniq.length === 0) throw new Error("invalid_members");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertNotBlocked, follows } = await import("@/lib/api/dm.server");
+    const accepted = new Map<string, boolean>();
     for (const m of uniq) {
-      await assertFriendsAndNotBlocked(supabaseAdmin, userId, m);
+      await assertNotBlocked(supabaseAdmin, userId, m);
+      accepted.set(m, await follows(supabaseAdmin, m, userId));
     }
     const { data: conv, error: e1 } = await supabaseAdmin
       .from("conversations")
@@ -629,8 +570,13 @@ export const createGroupConversation = createServerFn({ method: "POST" })
       .single();
     if (e1) throw new Error(e1.message);
     const rows = [
-      { conversation_id: conv.id, user_id: userId, role: "admin" },
-      ...uniq.map((u) => ({ conversation_id: conv.id, user_id: u, role: "member" })),
+      { conversation_id: conv.id, user_id: userId, role: "admin", accepted: true },
+      ...uniq.map((u) => ({
+        conversation_id: conv.id,
+        user_id: u,
+        role: "member",
+        accepted: accepted.get(u) ?? false,
+      })),
     ];
     const { error: e2 } = await supabaseAdmin.from("conversation_members").insert(rows);
     if (e2) throw new Error(e2.message);
@@ -681,9 +627,13 @@ export const addGroupMember = createServerFn({ method: "POST" })
       .eq("user_id", data.userId)
       .maybeSingle();
     if (!target || !target.discoverable) throw new Error("not_found");
-    const { error } = await supabaseAdmin
-      .from("conversation_members")
-      .upsert({ conversation_id: data.conversationId, user_id: data.userId, role: "member" });
+    const { follows } = await import("@/lib/api/dm.server");
+    const { error } = await supabaseAdmin.from("conversation_members").upsert({
+      conversation_id: data.conversationId,
+      user_id: data.userId,
+      role: "member",
+      accepted: await follows(supabaseAdmin, data.userId, userId),
+    });
 
     if (error) throw new Error(error.message);
     return { ok: true };
@@ -993,7 +943,8 @@ export const sendMessage = createServerFn({ method: "POST" })
     if (conv.type === "direct") {
       const other = memberIds.find((m: string) => m !== userId);
       if (!other) throw new Error("not_found");
-      await assertFriendsAndNotBlocked(supabaseAdmin, userId, other);
+      const { assertNotBlocked } = await import("@/lib/api/dm.server");
+      await assertNotBlocked(supabaseAdmin, userId, other);
     }
 
     const { data: msg, error } = await supabase

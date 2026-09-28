@@ -62,7 +62,7 @@ export function TopBar() {
               </Link>
               {user && (
                 <Link
-                  to="/community"
+                  to="/explore"
                   activeProps={{ className: "text-foreground font-bold border-b-2 border-coral" }}
                   inactiveProps={{ className: "text-muted-foreground hover:text-foreground" }}
                   className="-mb-[2px] border-b-2 border-transparent pb-1 transition-colors"
@@ -169,17 +169,17 @@ export function TopBar() {
 
         {/* RIGHT: controls */}
         <div className="flex shrink-0 items-center gap-1 sm:gap-2">
-          {/* Phones, signed in: people search + inbox + notifications; language lives in Settings. */}
+          {/* Signed in: people search (phones) + inbox + notifications; language lives in Settings. */}
           {user && !isPureOwner && (
             <>
               <Link
                 to="/explore"
                 aria-label={t("explore.title")}
-                className="grid h-10 w-10 place-items-center rounded-xl text-foreground transition hover:bg-muted md:hidden"
+                className="grid h-10 w-10 place-items-center rounded-xl text-foreground transition hover:bg-muted lg:hidden"
               >
                 <UserSearch className="h-5 w-5" />
               </Link>
-              <MessagesButton className="md:hidden" />
+              <MessagesButton />
             </>
           )}
           <span className={user && !isPureOwner ? "hidden sm:inline-flex" : "inline-flex"}>
