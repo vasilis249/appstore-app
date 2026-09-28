@@ -966,10 +966,10 @@
           "heading": "Data we collect",
           "body": [
             "Account data: email, full name, role (player or venue owner) and password, which is stored only in hashed form.",
-            "Profile data: profile photo (optional), playing level, language preference, number of games and a rating based on reviews from other players.",
+            "Profile data: username (@handle), profile photo (optional), short bio (optional), playing level, language preference, number of matches played per sport and a rating based on reviews from other players.",
             "Contact phone (optional): if you add it to your profile.",
             "Bookings and games: court, date, time, duration, price, equipment, status (confirmed/cancelled) and participation in open games.",
-            "Community: friends and friend requests, messages and group chats, reviews and comments about other players, blocked users and content reports.",
+            "Community: followers and accounts you follow (and follow requests), posts (photos, captions, matches), stories that last 24 hours and who viewed them, likes, comments, messages and group chats, player reviews, blocked users and content reports.",
             "In-app notifications (e.g. new booking, cancellation, friend request).",
             "For venue owners: venue details (name, address, map location, photos, opening hours, prices, equipment) and bookings they enter themselves, which may include a customer's name and phone.",
             "Technical data: IP address, device/browser type and server logs, needed to run and secure the service.",
@@ -990,7 +990,7 @@
         {
           "heading": "Who can see your data",
           "body": [
-            "Other users: your name, photo, level, rating and reviews are shown to teammates, friends and people you chat with. You appear in community search only if you enabled it. Your email is never shown to other users.",
+            "Other users: your name, @username, photo, bio, level, rating, number of matches and follower counts are visible to every signed-in user. Your posts, stories and follower lists are visible to all signed-in users if your account is public, or only to followers you approved if it is private. You appear in community search only if you enabled it. People you blocked cannot see your content. Your email is never shown to other users.",
             "Venue owners: see bookings at their venues together with your name and profile. They see your phone number only while you have an active, confirmed upcoming booking at their venue.",
             "Courtsie administrators: access data only as needed for support, venue approval and handling reports."
           ]
@@ -1017,7 +1017,7 @@
           "heading": "How long we keep data",
           "body": [
             "For as long as your account is active.",
-            "When you delete your account, your account and profile data, photo, phone, friends, blocks, reviews, notifications and your membership in chats and open games are deleted immediately. Your upcoming bookings are cancelled.",
+            "When you delete your account, your account and profile data, photo, phone, posts, stories, likes, comments, followers, blocks, reviews, notifications and your membership in chats and open games are deleted immediately. Your upcoming bookings are cancelled. Stories stop being shown automatically after 24 hours.",
             "Messages you already sent may remain in other people's conversations without your name or any link to you. Past bookings remain in the venue's history without your details, for accounting and tax purposes.",
             "Content reports are kept for as long as needed to keep the community safe and to deal with repeated violations. Server logs are kept for a limited period by the hosting providers."
           ]
@@ -1109,5 +1109,40 @@
     "you": "Your location",
     "showMap": "Show map",
     "showList": "Show list"
+  },
+  "social": {
+    "posts": "Posts",
+    "followers": "Followers",
+    "following": "Following",
+    "requests": "Requests",
+    "matches": "Matches",
+    "follow": "Follow",
+    "followBack": "Follow back",
+    "requested": "Requested",
+    "followingBtn": "Following",
+    "followsYou": "Follows you",
+    "editProfile": "Edit profile",
+    "requestsCount": "Requests ({{count}})",
+    "accept": "Accept",
+    "decline": "Delete",
+    "noFollowers": "No followers yet.",
+    "noFollowing": "Not following anyone yet.",
+    "noRequests": "No requests.",
+    "listDescription": "Followers and following lists.",
+    "notFound": "User not found.",
+    "private": "Private account",
+    "privateTitle": "This account is private",
+    "privateHint": "Follow this account to see their posts and stories.",
+    "noPostsTitle": "No posts yet",
+    "noPostsMine": "Share photos from your games — they will show up here.",
+    "matchesPlayed_one": "{{count}} match",
+    "matchesPlayed_other": "{{count}} matches",
+    "username": "Username",
+    "usernameHint": "3–30 characters: lowercase letters, numbers, dot and _.",
+    "usernameTaken": "This username is already taken.",
+    "bio": "Bio",
+    "bioPh": "A few words about you (up to 150 characters)",
+    "privateToggle": "Private account",
+    "privateToggleHint": "Only people you approve will see your posts, stories and followers."
   }
 }

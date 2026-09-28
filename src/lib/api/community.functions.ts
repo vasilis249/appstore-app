@@ -12,6 +12,8 @@ export type FriendshipStatus =
 
 export type PlayerSearchRow = {
   id: string; // user_id
+  username: string;
+  follow_status: "none" | "pending" | "accepted";
   full_name: string | null;
   level: PlayerLevel;
   rating: number | null;
@@ -92,6 +94,20 @@ export const setDiscoverable = createServerFn({ method: "POST" })
 
 /* -------------------- search -------------------- */
 
+async function followStatusMap(
+  supabase: { from: (t: "follows") => any },
+  me: string,
+  ids: string[],
+): Promise<Map<string, "pending" | "accepted">> {
+  if (!ids.length) return new Map();
+  const { data } = await supabase
+    .from("follows")
+    .select("following_id,status")
+    .eq("follower_id", me)
+    .in("following_id", ids);
+  return new Map(((data ?? []) as { following_id: string; status: "pending" | "accepted" }[]).map((r) => [r.following_id, r.status]));
+}
+
 export const searchPlayers = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(z.object({ q: z.string() }))
@@ -112,15 +128,23 @@ export const searchPlayers = createServerFn({ method: "POST" })
     for (const r of blockingMe ?? []) excluded.add(r.blocker_id);
 
     const escaped = q.replace(/[\\%_,]/g, (m) => "\\" + m);
-    const { data: rows, error } = await supabase
-      .from("profiles")
-      .select("user_id,full_name,level,rating,photo_url")
-      .eq("discoverable", true)
-      .ilike("full_name", `%${escaped}%`)
-      .limit(40);
-    if (error) throw new Error(error.message);
+    const cols = "user_id,username,full_name,level,rating,photo_url";
+    const [byName, byHandle] = await Promise.all([
+      supabase.from("profiles").select(cols).eq("discoverable", true).ilike("full_name", `%${escaped}%`).limit(40),
+      supabase
+        .from("profiles")
+        .select(cols)
+        .eq("discoverable", true)
+        .ilike("username", `%${escaped.replace(/^@/, "")}%`)
+        .limit(40),
+    ]);
+    if (byName.error) throw new Error(byName.error.message);
+    const seen = new Set<string>();
+    const rows = [...(byHandle.data ?? []), ...(byName.data ?? [])].filter((p) =>
+      seen.has(p.user_id) ? false : (seen.add(p.user_id), true),
+    );
 
-    const candidates = (rows ?? []).filter((p) => !excluded.has(p.user_id)).slice(0, 20);
+    const candidates = rows.filter((p) => !excluded.has(p.user_id)).slice(0, 20);
     if (candidates.length === 0) return [];
 
     const ids = candidates.map((c) => c.user_id);
@@ -140,8 +164,11 @@ export const searchPlayers = createServerFn({ method: "POST" })
       else statusByUser.set(other, "pending_incoming");
     }
 
+    const follows = await followStatusMap(supabase, userId, ids);
     return candidates.map((p) => ({
       id: p.user_id,
+      username: p.username,
+      follow_status: follows.get(p.user_id) ?? "none",
       full_name: p.full_name,
       level: (p.level as PlayerLevel) ?? null,
       rating: p.rating != null ? Number(p.rating) : null,
@@ -188,7 +215,7 @@ export const suggestedPlayers = createServerFn({ method: "GET" })
 
     const { data: rows, error } = await supabase
       .from("profiles")
-      .select("user_id,full_name,level,rating,photo_url")
+      .select("user_id,username,full_name,level,rating,photo_url")
       .eq("discoverable", true)
       .limit(100);
     if (error) throw new Error(error.message);
@@ -209,8 +236,12 @@ export const suggestedPlayers = createServerFn({ method: "GET" })
       return (a.full_name ?? "").localeCompare(b.full_name ?? "");
     });
 
-    return candidates.slice(0, 12).map((p: any) => ({
+    const top = candidates.slice(0, 12);
+    const follows = await followStatusMap(supabase, userId, top.map((p: any) => p.user_id));
+    return top.map((p: any) => ({
       id: p.user_id,
+      username: p.username,
+      follow_status: follows.get(p.user_id) ?? "none",
       full_name: p.full_name,
       level: (p.level as PlayerLevel) ?? null,
       rating: p.rating != null ? Number(p.rating) : null,

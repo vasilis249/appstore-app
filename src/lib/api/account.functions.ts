@@ -10,7 +10,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
  *     (bookings.player_id is SET NULL on delete);
  *   - venues the user owns are hidden (approved = false) instead of staying
  *     public without an owner (venues.owner_id is SET NULL on delete);
- *   - notifications and avatar files, which have no FK, are removed.
+ *   - notifications, avatar files and post/story photos (no FK) are removed.
  */
 export const deleteMyAccount = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -38,6 +38,22 @@ export const deleteMyAccount = createServerFn({ method: "POST" })
     const { data: files } = await supabaseAdmin.storage.from("avatars").list(userId);
     if (files?.length) {
       await supabaseAdmin.storage.from("avatars").remove(files.map((f) => `${userId}/${f.name}`));
+    }
+
+    // Post and story photos live under social-media/<userId>/… (nested folders).
+    const social = supabaseAdmin.storage.from("social-media");
+    const paths: string[] = [];
+    const walk = async (prefix: string, depth: number) => {
+      const { data: entries } = await social.list(prefix, { limit: 1000 });
+      for (const e of entries ?? []) {
+        const path = `${prefix}/${e.name}`;
+        if (e.id) paths.push(path);
+        else if (depth < 3) await walk(path, depth + 1);
+      }
+    };
+    await walk(userId, 0);
+    for (let i = 0; i < paths.length; i += 100) {
+      await social.remove(paths.slice(i, i + 100));
     }
 
     const { error: deleteErr } = await supabaseAdmin.auth.admin.deleteUser(userId);

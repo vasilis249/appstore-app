@@ -55,6 +55,25 @@ Work in phases; stop after each phase for the user's "OK".
   `pmax`, `km`, `am` (comma list). The list query fetches all venues for `q`; sport + filters apply on
   the client. Location via `src/lib/geo.ts` (native `@capacitor/geolocation` in the app), used only on
   device (privacy policy updated). `listVenues` now returns `lat`/`lng`.
+- **Social (Instagram-style), round 1 done** — decisions: follows replace friends (friendships migrated to
+  mutual follows), DMs open to all with a "Requests" folder, optional private accounts, feed on Home.
+  - Migration `20260929100000_social_foundation.sql`: `profiles.username/bio/is_private` (username
+    auto-generated + Greek→Latin), guard trigger freezing rating/games_played/disabled for clients,
+    `follows` (writes only via RPCs follow_user/unfollow_user/accept_follow_request/remove_follower),
+    `can_view_profile()`/`can_view_post()`, `posts` (+`post_likes`, `post_comments`, counters),
+    `stories` (+`story_views`, 24h forced), private bucket `social-media` (`<uid>/...`, read =
+    can_view_profile), `content_reports`, `conversation_members.accepted` (DM requests),
+    `player_match_stats(uid)` (past, non-cancelled bookings + joined open games), notification triggers.
+  - App: `src/lib/api/social.functions.ts`, `src/components/social/*` (ProfileView, FollowButton,
+    FollowListSheet, UserAvatar), `/u/$username`, `/profile` rebuilt on ProfileView + edit sheet.
+    Community search links to profiles with Follow buttons.
+  - Next rounds: 2 posts + feed on Home (create post, post detail, likes, comments, match posts),
+    3 stories, 4 DMs (requests, IG inbox, drop friend requirement in getOrCreateDirectConversation),
+    5 moderation (report UI + admin reports for content_reports) and notification polish.
+- Local full-stack testing (no Supabase needed): PostgREST 12 binary + `local-supabase.mjs` proxy in the
+  scratchpad (JWT HS256 minted locally, fake /auth/v1/user and storage signing), seed users, then
+  `wrangler dev --var ...`; inject session into localStorage key `sb-127-auth-token`. Reload PostgREST
+  schema (`NOTIFY pgrst, 'reload schema'`) after resetting the DB. Tests: `test_social.sql` (27 checks).
 - Open items for the user: set `CONTACT_CONTROLLER` (full name or company + ΑΦΜ); review Terms;
   optional push notifications (helps guideline 4.2); opening-hours validation inside booking RPCs.
 

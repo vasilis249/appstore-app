@@ -29,6 +29,7 @@ import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authentic
 import { Route as AuthenticatedOwnerIndexRouteImport } from './routes/_authenticated/owner/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as ApiPublicTranslateRouteImport } from './routes/api/public/translate'
+import { Route as AuthenticatedUUsernameRouteImport } from './routes/_authenticated/u.$username'
 import { Route as AuthenticatedOwnerVenuesRouteImport } from './routes/_authenticated/owner/venues'
 import { Route as AuthenticatedOwnerSettingsRouteImport } from './routes/_authenticated/owner/settings'
 import { Route as AuthenticatedOwnerReportsRouteImport } from './routes/_authenticated/owner/reports'
@@ -143,6 +144,11 @@ const ApiPublicTranslateRoute = ApiPublicTranslateRouteImport.update({
   id: '/api/public/translate',
   path: '/api/public/translate',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedUUsernameRoute = AuthenticatedUUsernameRouteImport.update({
+  id: '/u/$username',
+  path: '/u/$username',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedOwnerVenuesRoute =
   AuthenticatedOwnerVenuesRouteImport.update({
@@ -262,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/owner/reports': typeof AuthenticatedOwnerReportsRoute
   '/owner/settings': typeof AuthenticatedOwnerSettingsRoute
   '/owner/venues': typeof AuthenticatedOwnerVenuesRouteWithChildren
+  '/u/$username': typeof AuthenticatedUUsernameRoute
   '/api/public/translate': typeof ApiPublicTranslateRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/owner/': typeof AuthenticatedOwnerIndexRoute
@@ -295,6 +302,7 @@ export interface FileRoutesByTo {
   '/owner/pricing': typeof AuthenticatedOwnerPricingRoute
   '/owner/reports': typeof AuthenticatedOwnerReportsRoute
   '/owner/settings': typeof AuthenticatedOwnerSettingsRoute
+  '/u/$username': typeof AuthenticatedUUsernameRoute
   '/api/public/translate': typeof ApiPublicTranslateRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/owner': typeof AuthenticatedOwnerIndexRoute
@@ -333,6 +341,7 @@ export interface FileRoutesById {
   '/_authenticated/owner/reports': typeof AuthenticatedOwnerReportsRoute
   '/_authenticated/owner/settings': typeof AuthenticatedOwnerSettingsRoute
   '/_authenticated/owner/venues': typeof AuthenticatedOwnerVenuesRouteWithChildren
+  '/_authenticated/u/$username': typeof AuthenticatedUUsernameRoute
   '/api/public/translate': typeof ApiPublicTranslateRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/owner/': typeof AuthenticatedOwnerIndexRoute
@@ -371,6 +380,7 @@ export interface FileRouteTypes {
     | '/owner/reports'
     | '/owner/settings'
     | '/owner/venues'
+    | '/u/$username'
     | '/api/public/translate'
     | '/admin/'
     | '/owner/'
@@ -404,6 +414,7 @@ export interface FileRouteTypes {
     | '/owner/pricing'
     | '/owner/reports'
     | '/owner/settings'
+    | '/u/$username'
     | '/api/public/translate'
     | '/admin'
     | '/owner'
@@ -441,6 +452,7 @@ export interface FileRouteTypes {
     | '/_authenticated/owner/reports'
     | '/_authenticated/owner/settings'
     | '/_authenticated/owner/venues'
+    | '/_authenticated/u/$username'
     | '/api/public/translate'
     | '/_authenticated/admin/'
     | '/_authenticated/owner/'
@@ -606,6 +618,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/public/translate'
       preLoaderRoute: typeof ApiPublicTranslateRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/u/$username': {
+      id: '/_authenticated/u/$username'
+      path: '/u/$username'
+      fullPath: '/u/$username'
+      preLoaderRoute: typeof AuthenticatedUUsernameRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/owner/venues': {
       id: '/_authenticated/owner/venues'
@@ -789,6 +808,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBookVenueIdRoute: typeof AuthenticatedBookVenueIdRoute
   AuthenticatedBookingBookingIdRoute: typeof AuthenticatedBookingBookingIdRoute
   AuthenticatedCommunityMessagesRoute: typeof AuthenticatedCommunityMessagesRoute
+  AuthenticatedUUsernameRoute: typeof AuthenticatedUUsernameRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -800,6 +820,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBookVenueIdRoute: AuthenticatedBookVenueIdRoute,
   AuthenticatedBookingBookingIdRoute: AuthenticatedBookingBookingIdRoute,
   AuthenticatedCommunityMessagesRoute: AuthenticatedCommunityMessagesRoute,
+  AuthenticatedUUsernameRoute: AuthenticatedUUsernameRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

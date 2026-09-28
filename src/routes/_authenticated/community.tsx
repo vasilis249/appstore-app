@@ -27,6 +27,8 @@ import {
 
 import { useRedirectOwnersAway } from "@/hooks/use-redirect-owners-away";
 import { useAuth } from "@/hooks/use-auth";
+import { UserAvatar } from "@/components/social/user-avatar";
+import { FollowButton } from "@/components/social/follow-button";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -34,7 +36,6 @@ import {
   getCommunityStatus,
   setDiscoverable,
   searchPlayers,
-  sendFriendRequest,
   respondFriendRequest,
   removeFriend,
   blockUser,
@@ -249,7 +250,6 @@ function SearchTab() {
   const debounced = useDebounced(q, 300);
   const searchFn = useServerFn(searchPlayers);
   const suggestedFn = useServerFn(suggestedPlayers);
-  const sendFn = useServerFn(sendFriendRequest);
   const blockFn = useServerFn(blockUser);
 
   const enabled = debounced.trim().length >= 2;
@@ -264,24 +264,6 @@ function SearchTab() {
     enabled: !enabled,
   });
 
-
-  const send = useMutation({
-    mutationFn: (userId: string) => sendFn({ data: { userId } }),
-    onSuccess: (res) => {
-      const key =
-        res?.status === "already_friends"
-          ? "community.errors.already_friends"
-          : res?.status === "request_exists"
-            ? "community.errors.request_exists"
-            : "community.toasts.requestSent";
-      if (res?.status === "sent") toast.success(t(key));
-      else toast.message(t(key));
-      qc.invalidateQueries({ queryKey: ["community", "search"] });
-      qc.invalidateQueries({ queryKey: ["community", "suggested"] });
-      qc.invalidateQueries({ queryKey: ["community", "outgoing"] });
-    },
-    onError: (e) => toast.error(t(`community.errors.${errorKey(e)}`)),
-  });
 
   const block = useMutation({
     mutationFn: (userId: string) => blockFn({ data: { userId } }),
@@ -321,9 +303,7 @@ function SearchTab() {
                 <PlayerRow
                   key={p.id}
                   player={p}
-                  onAdd={() => send.mutate(p.id)}
                   onBlock={() => block.mutate(p.id)}
-                  sending={send.isPending && send.variables === p.id}
                 />
               ))}
             </ul>
@@ -345,9 +325,7 @@ function SearchTab() {
             <PlayerRow
               key={p.id}
               player={p}
-              onAdd={() => send.mutate(p.id)}
               onBlock={() => block.mutate(p.id)}
-              sending={send.isPending && send.variables === p.id}
             />
           ))}
         </ul>
@@ -356,68 +334,31 @@ function SearchTab() {
   );
 }
 
-function PlayerRow({
-  player,
-  onAdd,
-  onBlock,
-  sending,
-}: {
-  player: PlayerSearchRow;
-  onAdd: () => void;
-  onBlock: () => void;
-  sending: boolean;
-}) {
+function PlayerRow({ player, onBlock }: { player: PlayerSearchRow; onBlock: () => void }) {
   const { t } = useTranslation();
-  const status: FriendshipStatus = player.friendship_status;
-
-  let action: React.ReactNode;
-  if (status === "friends") {
-    action = (
-      <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-        <Check className="h-3.5 w-3.5" /> {t("community.friends")}
-      </span>
-    );
-  } else if (status === "pending_outgoing") {
-    action = (
-      <span className="inline-flex items-center gap-1 rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
-        <Send className="h-3.5 w-3.5" /> {t("community.pending")}
-      </span>
-    );
-  } else if (status === "pending_incoming") {
-    action = (
-      <span className="inline-flex items-center gap-1 rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
-        <Inbox className="h-3.5 w-3.5" /> {t("community.incoming")}
-      </span>
-    );
-  } else {
-    action = (
-      <Button size="sm" onClick={onAdd} disabled={sending}>
-        {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <UserPlus className="h-4 w-4" />}
-        {t("community.add")}
-      </Button>
-    );
-  }
-
   return (
-    <li className="flex items-center gap-3 rounded-lg border border-border bg-card p-3">
-      <Avatar className="h-10 w-10">
-        {player.photo_url ? <AvatarImage src={player.photo_url} alt="" /> : null}
-        <AvatarFallback>{initials(player.full_name)}</AvatarFallback>
-      </Avatar>
-      <div className="min-w-0 flex-1">
-        <div className="truncate text-sm font-medium">{player.full_name ?? "—"}</div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          {player.level ? <span className="capitalize">{player.level}</span> : null}
-          {player.rating != null ? (
-            <span className="inline-flex items-center gap-0.5">
-              <Star className="h-3 w-3" />
-              {player.rating.toFixed(1)}
-            </span>
-          ) : null}
+    <li className="flex items-center gap-3 rounded-2xl bg-card p-3 shadow-sm ring-1 ring-border/60">
+      <Link
+        to="/u/$username"
+        params={{ username: player.username }}
+        className="flex min-w-0 flex-1 items-center gap-3"
+      >
+        <UserAvatar name={player.full_name ?? player.username} photoUrl={player.photo_url} size={44} />
+        <div className="min-w-0">
+          <div className="truncate text-sm font-semibold">{player.username}</div>
+          <div className="flex items-center gap-2 truncate text-xs text-muted-foreground">
+            <span className="truncate">{player.full_name ?? ""}</span>
+            {player.rating != null ? (
+              <span className="inline-flex items-center gap-0.5">
+                <Star className="h-3 w-3 fill-optic text-optic" />
+                {player.rating.toFixed(1)}
+              </span>
+            ) : null}
+          </div>
         </div>
-      </div>
-      <div className="flex items-center gap-2">
-        {action}
+      </Link>
+      <div className="flex items-center gap-1">
+        <FollowButton userId={player.id} state={player.follow_status} size="sm" />
         <Button
           variant="ghost"
           size="icon"

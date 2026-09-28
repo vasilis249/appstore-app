@@ -131,8 +131,45 @@ export type Database = {
           },
         ]
       }
+      content_reports: {
+        Row: {
+          created_at: string
+          id: string
+          reason: string | null
+          reporter_id: string
+          resolved_at: string | null
+          resolved_by: string | null
+          status: string
+          target_id: string
+          target_type: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          reason?: string | null
+          reporter_id: string
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+          target_id: string
+          target_type: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          reason?: string | null
+          reporter_id?: string
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+          target_id?: string
+          target_type?: string
+        }
+        Relationships: []
+      }
       conversation_members: {
         Row: {
+          accepted: boolean
           conversation_id: string
           joined_at: string
           last_read_at: string | null
@@ -140,6 +177,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          accepted?: boolean
           conversation_id: string
           joined_at?: string
           last_read_at?: string | null
@@ -147,6 +185,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          accepted?: boolean
           conversation_id?: string
           joined_at?: string
           last_read_at?: string | null
@@ -344,6 +383,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      follows: {
+        Row: {
+          accepted_at: string | null
+          created_at: string
+          follower_id: string
+          following_id: string
+          status: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          created_at?: string
+          follower_id: string
+          following_id: string
+          status?: string
+        }
+        Update: {
+          accepted_at?: string | null
+          created_at?: string
+          follower_id?: string
+          following_id?: string
+          status?: string
+        }
+        Relationships: []
       }
       friendships: {
         Row: {
@@ -607,8 +670,98 @@ export type Database = {
         }
         Relationships: []
       }
+      post_comments: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          id: string
+          post_id: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          id?: string
+          post_id: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          post_id?: string
+        }
+        Relationships: []
+      }
+      post_likes: {
+        Row: {
+          created_at: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      posts: {
+        Row: {
+          author_id: string
+          booking_id: string | null
+          caption: string | null
+          comment_count: number
+          created_at: string
+          id: string
+          kind: string
+          like_count: number
+          media: string[]
+          open_game_id: string | null
+          updated_at: string
+          venue_id: string | null
+        }
+        Insert: {
+          author_id: string
+          booking_id?: string | null
+          caption?: string | null
+          comment_count?: number
+          created_at?: string
+          id?: string
+          kind?: string
+          like_count?: number
+          media?: string[]
+          open_game_id?: string | null
+          updated_at?: string
+          venue_id?: string | null
+        }
+        Update: {
+          author_id?: string
+          booking_id?: string | null
+          caption?: string | null
+          comment_count?: number
+          created_at?: string
+          id?: string
+          kind?: string
+          like_count?: number
+          media?: string[]
+          open_game_id?: string | null
+          updated_at?: string
+          venue_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
+          bio: string | null
+          is_private: boolean
+          username: string
           created_at: string
           disabled: boolean
           discoverable: boolean
@@ -623,6 +776,9 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          bio?: string | null
+          is_private?: boolean
+          username?: string
           created_at?: string
           disabled?: boolean
           discoverable?: boolean
@@ -637,6 +793,9 @@ export type Database = {
           user_id: string
         }
         Update: {
+          bio?: string | null
+          is_private?: boolean
+          username?: string
           created_at?: string
           disabled?: boolean
           discoverable?: boolean
@@ -689,6 +848,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      stories: {
+        Row: {
+          author_id: string
+          caption: string | null
+          created_at: string
+          expires_at: string
+          id: string
+          media_path: string
+        }
+        Insert: {
+          author_id: string
+          caption?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          media_path: string
+        }
+        Update: {
+          author_id?: string
+          caption?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          media_path?: string
+        }
+        Relationships: []
+      }
+      story_views: {
+        Row: {
+          story_id: string
+          viewed_at: string
+          viewer_id: string
+        }
+        Insert: {
+          story_id: string
+          viewed_at?: string
+          viewer_id: string
+        }
+        Update: {
+          story_id?: string
+          viewed_at?: string
+          viewer_id?: string
+        }
+        Relationships: []
       }
       translations_cache: {
         Row: {
@@ -912,6 +1116,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      accept_follow_request: { Args: { _follower: string }; Returns: undefined }
+      can_view_profile: { Args: { _target: string; _viewer: string }; Returns: boolean }
+      follow_user: { Args: { _target: string }; Returns: string }
+      player_match_stats: {
+        Args: { _user: string }
+        Returns: { matches: number; sport: Database["public"]["Enums"]["sport"] }[]
+      }
+      remove_follower: { Args: { _follower: string }; Returns: undefined }
+      unfollow_user: { Args: { _target: string }; Returns: undefined }
       create_slot_booking: {
         Args: {
           _court_id?: string
