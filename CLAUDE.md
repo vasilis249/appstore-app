@@ -3,11 +3,24 @@
 Persistent findings for Claude sessions. Reply to the user in Greek; code, comments and file names in English.
 Work in phases; stop after each phase for the user's "OK".
 
-## Status
-- Phase 0 (audit): done. Waiting for approach choice (A native SwiftUI / B Capacitor).
-- Source of the web app is NOT in this repo yet — it came as an uploaded zip
-  (`Courtsie__Your_Next_Game_Awaits.zip`, a Lovable export). Extract it excluding
-  `node_modules`, images and `bun.lock` before working on it.
+## Status / decisions
+- Phase 0 (audit): done.
+- **Approach: B — Capacitor** wrapping the hosted web app (server functions need a server).
+- Web app source imported into this repo (from the Lovable export zip). Don't read `bun.lock`,
+  `node_modules`, `src/assets`, `src/components/ui` (stock shadcn), `src/routeTree.gen.ts`.
+- Phase 1 (Supabase): done — see `docs/supabase-setup.md` for CLI + dashboard steps.
+  - Removed stray duplicate migration `20260704120000_*` (never applied in old DB; conflicted
+    with `20260704121852_*`, which matches `types.ts`).
+  - Added `20260928120000_create_storage_buckets.sql`, `20260928120100_harden_booking_writes.sql`.
+  - Fixed hardcoded old project ref (`sb-gfzopoagilepwznmorfo-auth-token`) in `venues.$venueId.tsx`.
+- Next: Phase 2 (host web app + Capacitor iOS project).
+
+## Validating migrations locally
+No Docker daemon in the cloud container. Plain Postgres 16 works: init a cluster as user `postgres`
+in `/var/lib/postgresql/courtsie-test` (port 54329, socket `/tmp`), load stub `auth`/`storage`/`realtime`
+schemas + roles `anon`/`authenticated`/`service_role` with Supabase-like default privileges, then apply
+`supabase/migrations/*.sql` in order. Simulate PostgREST with `SET ROLE authenticated` +
+`set_config('request.jwt.claim.sub', <uuid>)`.
 
 ## Web app stack (source zip)
 - TanStack Start (React 19, SSR, file routes in `src/routes`), Vite 8, Tailwind 4, shadcn/ui (Radix),
@@ -34,7 +47,8 @@ Admin: `/admin`, `/admin/users`, `/admin/venues`, `/admin/reports`.
   `SUPABASE_SERVICE_ROLE_KEY`, `DEEPL_API_KEY`, `GOOGLE_MAPS_API_KEY`. No hardcoded keys found.
 - Auth: email + password only (signUp, signInWithPassword, resetPasswordForEmail, updateUser,
   exchangeCodeForSession). No OAuth providers. Redirects: `${origin}/` (signup), `${origin}/reset-password`.
-- Migrations: 63 files in `supabase/migrations` (~3060 lines) — schema is fully in the repo.
+- Migrations: 57 files in `supabase/migrations` — schema is fully in the repo and applies cleanly
+  to an empty database.
 - Tables (24, RLS enabled on all): venues, venue_hours, venue_photos, venue_equipment, courts,
   court_slots, court_pricing, court_closures, bookings, booking_equipment, open_games,
   open_game_players, profiles, player_contact_info, user_roles, reviews, friendships, user_blocks,
@@ -46,11 +60,14 @@ Admin: `/admin`, `/admin/users`, `/admin/venues`, `/admin/reports`.
   Other functions: triggers for notifications, `handle_new_user`, `recalc_player_rating`,
   `increment_games_played`, `is_conversation_member/admin`, `get_owner_player_profile`.
 - Double-booking: `EXCLUDE USING gist` on bookings (court_id =, time range &&, status <> cancelled)
-  + btree_gist. Server-side, good.
+  + btree_gist + advisory lock in RPCs. Booking RPCs are SECURITY DEFINER; trigger
+  `bookings_guard_player_writes` lets plain players only cancel their own booking via PostgREST.
+  Opening hours / closures / durations are still validated only in the web server (known gap).
 - Realtime: messages, notifications, court_closures, open_games, open_game_players, venue_photos, venues.
-- Storage buckets: `avatars` (path `{user_id}/...`), `venue-photos`. Policies are in migrations but
-  **bucket creation is not** — must be created in the new project.
-- Seed in migrations: sample venues/courts + a `user_roles` insert (hardcoded user id from old project).
+- Storage buckets: `avatars` (path `{user_id}/...`, 5 MB), `venue-photos` (path `{venue_id}/...`, 8 MB),
+  both public-read; created by `20260928120000_create_storage_buckets.sql`.
+- Seed in migrations: 8 demo venues + courts (fake — delete before release) and an admin grant by the
+  previous developer's email (no-op in the new project; grant admin to yourself via SQL).
 - No edge functions. In-app notifications only (table + triggers); no push, no transactional email
   besides Supabase Auth emails.
 

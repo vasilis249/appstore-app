@@ -335,11 +335,12 @@ function AmenitiesCard({ amenities }: { amenities: string[] }) {
 
 function OpenGamesSection({ venueId }: { venueId: string }) {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const { data: games = [] } = useQuery({
     ...openGamesQuery(venueId),
     retry: false,
     // Only fetch when a user is signed in (endpoint requires auth).
-    enabled: typeof window !== "undefined" && !!localStorage.getItem("sb-gfzopoagilepwznmorfo-auth-token"),
+    enabled: !!user,
   });
 
   return (
