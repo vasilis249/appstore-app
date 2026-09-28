@@ -1,0 +1,12 @@
+// Cloudflare Worker config. Nitro merges this into .output/server/wrangler.json at build time.
+// Secrets (SUPABASE_PUBLISHABLE_KEY, SUPABASE_SERVICE_ROLE_KEY, DEEPL_API_KEY, GOOGLE_MAPS_API_KEY)
+// are NOT stored here — set them with `npx wrangler secret put <NAME>`.
+{
+  "name": "courtsie",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "SUPABASE_URL": "https://gqmzxxygegmlifeewbzy.supabase.co",
+    "SUPABASE_PROJECT_ID": "gqmzxxygegmlifeewbzy",
+  },
+}
