@@ -1,6 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
+import { compressImage } from "@/lib/image";
 
-const ONE_YEAR = 60 * 60 * 24 * 365;
 const MAX_AVATAR_BYTES = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_AVATAR_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const ALLOWED_AVATAR_EXTS = ["jpg", "jpeg", "png", "webp", "gif"];
@@ -17,15 +17,18 @@ export async function uploadAvatar(userId: string, file: File): Promise<string> 
   if (!typeOk && !extOk) {
     throw new Error("Μη έγκυρος τύπος αρχείου. Επίτρεψε μόνο εικόνες (JPG, PNG, WEBP, GIF).");
   }
-  const path = `${userId}/avatar-${Date.now()}.${ext}`;
-  const { error } = await supabase.storage.from("avatars").upload(path, file, {
-    upsert: true,
-    contentType: file.type || "image/jpeg",
+  // Re-encode as JPEG on the device: smaller upload and no EXIF (e.g. GPS location).
+  const body = await compressImage(file, 800);
+  const isJpeg = body.type === "image/jpeg";
+  const path = `${userId}/avatar-${Date.now()}.${isJpeg ? "jpg" : ext}`;
+  const { error } = await supabase.storage.from("avatars").upload(path, body, {
+    upsert: false,
+    contentType: isJpeg ? "image/jpeg" : file.type || "image/jpeg",
   });
   if (error) throw error;
-  const { data, error: sErr } = await supabase.storage.from("avatars").createSignedUrl(path, ONE_YEAR);
-  if (sErr || !data) throw sErr ?? new Error("signed url failed");
-  const { error: upErr } = await supabase.from("profiles").update({ photo_url: data.signedUrl }).eq("user_id", userId);
+  // Public bucket: files are served by URL, the bucket itself can't be listed.
+  const url = supabase.storage.from("avatars").getPublicUrl(path).data.publicUrl;
+  const { error: upErr } = await supabase.from("profiles").update({ photo_url: url }).eq("user_id", userId);
   if (upErr) throw upErr;
-  return data.signedUrl;
+  return url;
 }

@@ -1,3 +1,4 @@
+import type { ErrorComponentProps } from "@tanstack/react-router";
 import {
   createFileRoute,
   Link,
@@ -88,12 +89,12 @@ export const Route = createFileRoute("/venues/$venueId")({
   component: VenuePage,
 });
 
-function ErrView({ error }: { error: Error }) {
+function ErrView({ error }: ErrorComponentProps) {
   const { t } = useTranslation();
   return (
     <div className="mx-auto max-w-2xl p-8 text-center">
       <h1 className="text-xl font-semibold">{t("venuePage.errorTitle")}</h1>
-      <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
+      <p className="mt-2 text-sm text-muted-foreground">{error instanceof Error ? error.message : String(error)}</p>
     </div>
   );
 }

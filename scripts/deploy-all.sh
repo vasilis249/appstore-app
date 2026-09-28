@@ -44,13 +44,16 @@ put SUPABASE_SERVICE_ROLE_KEY "$SUPABASE_SERVICE_ROLE_KEY"
 [ -n "${GOOGLE_MAPS_API_KEY:-}" ] && put GOOGLE_MAPS_API_KEY "$GOOGLE_MAPS_API_KEY"
 [ -n "${DEEPL_API_KEY:-}" ] && put DEEPL_API_KEY "$DEEPL_API_KEY"
 
-echo "▸ 5/5 Auth redirect URLs"
+echo "▸ 5/5 Auth settings (redirect URLs + security)"
+AUTH_JSON='"password_min_length":8,"mailer_autoconfirm":false,"mailer_secure_email_change_enabled":true,"security_update_password_require_reauthentication":true,"security_refresh_token_reuse_interval":10,"refresh_token_rotation_enabled":true'
 if [ -n "$APP_URL" ]; then
-  curl -fsS -X PATCH "https://api.supabase.com/v1/projects/${PROJECT_REF}/config/auth" \
-    -H "Authorization: Bearer ${SUPABASE_ACCESS_TOKEN}" -H "Content-Type: application/json" \
-    -d "{\"site_url\":\"${APP_URL}\",\"uri_allow_list\":\"${APP_URL}/**,courtsie://**\"}" >/dev/null \
-    && echo "  site URL = ${APP_URL}"
+  AUTH_JSON="${AUTH_JSON},\"site_url\":\"${APP_URL}\",\"uri_allow_list\":\"${APP_URL}/**,courtsie://**\""
 fi
+curl -fsS -X PATCH "https://api.supabase.com/v1/projects/${PROJECT_REF}/config/auth" \
+  -H "Authorization: Bearer ${SUPABASE_ACCESS_TOKEN}" -H "Content-Type: application/json" \
+  -d "{${AUTH_JSON}}" >/dev/null \
+  && echo "  auth settings updated ${APP_URL:+(site URL = ${APP_URL})}" \
+  || echo "  ! could not update auth settings — set them in the dashboard (docs/supabase-setup.md)"
 
 echo
 echo "✔ Done. Open: ${APP_URL:-<see wrangler output above>}"

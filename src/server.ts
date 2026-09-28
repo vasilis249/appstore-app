@@ -44,7 +44,7 @@ export default {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       const normalized = await normalizeCatastrophicSsrResponse(response);
-      return applySecurityHeaders(normalized);
+      return applySecurityHeaders(normalized, request);
     } catch (error) {
       console.error(error);
       return applySecurityHeaders(
@@ -52,6 +52,7 @@ export default {
           status: 500,
           headers: { "content-type": "text/html; charset=utf-8" },
         }),
+        request,
       );
     }
   },

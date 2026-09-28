@@ -1,3 +1,4 @@
+import type { ErrorComponentProps } from "@tanstack/react-router";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { queryOptions, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
@@ -75,12 +76,12 @@ export const Route = createFileRoute("/venues/")({
   component: VenuesPage,
 });
 
-function ErrorView({ error }: { error: Error }) {
+function ErrorView({ error }: ErrorComponentProps) {
   const { t } = useTranslation();
   return (
     <div className="mx-auto max-w-2xl p-8 text-center">
       <h1 className="text-xl font-semibold">{t("venuesList.errorTitle")}</h1>
-      <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
+      <p className="mt-2 text-sm text-muted-foreground">{error instanceof Error ? error.message : String(error)}</p>
     </div>
   );
 }

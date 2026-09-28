@@ -411,6 +411,10 @@ export const registerVenuePhoto = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     await assertVenueOwner(supabase, userId, data.venueId);
+    // Only files inside this venue's folder (storage policy scopes uploads the same way).
+    if (!data.storagePath.startsWith(`${data.venueId}/`) || data.storagePath.includes("..")) {
+      throw new Error("invalid_path");
+    }
     const { supabaseAdmin } = await import(
       "@/integrations/supabase/client.server"
     );

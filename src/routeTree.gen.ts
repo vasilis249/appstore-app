@@ -9,81 +9,55 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as OpenGamesRouteImport } from './routes/open-games'
-import { Route as HelpRouteImport } from './routes/help'
-import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as HelpRouteImport } from './routes/help'
+import { Route as OpenGamesRouteImport } from './routes/open-games'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
+import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
+import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
+import { Route as AuthenticatedExploreRouteImport } from './routes/_authenticated/explore'
+import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
+import { Route as AuthenticatedOwnerRouteRouteImport } from './routes/_authenticated/owner/route'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as VenuesIndexRouteImport } from './routes/venues.index'
 import { Route as VenuesVenueIdRouteImport } from './routes/venues.$venueId'
-import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
-import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
-import { Route as AuthenticatedExploreRouteImport } from './routes/_authenticated/explore'
-import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
-import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
-import { Route as AuthenticatedOwnerRouteRouteImport } from './routes/_authenticated/owner/route'
-import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
-import { Route as AuthenticatedOwnerIndexRouteImport } from './routes/_authenticated/owner/index'
-import { Route as AuthenticatedInboxIndexRouteImport } from './routes/_authenticated/inbox.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
-import { Route as ApiPublicTranslateRouteImport } from './routes/api/public/translate'
-import { Route as AuthenticatedUUsernameRouteImport } from './routes/_authenticated/u.$username'
-import { Route as AuthenticatedPPostIdRouteImport } from './routes/_authenticated/p.$postId'
-import { Route as AuthenticatedOwnerVenuesRouteImport } from './routes/_authenticated/owner/venues'
-import { Route as AuthenticatedOwnerSettingsRouteImport } from './routes/_authenticated/owner/settings'
-import { Route as AuthenticatedOwnerReportsRouteImport } from './routes/_authenticated/owner/reports'
-import { Route as AuthenticatedOwnerPricingRouteImport } from './routes/_authenticated/owner/pricing'
-import { Route as AuthenticatedOwnerHoursRouteImport } from './routes/_authenticated/owner/hours'
-import { Route as AuthenticatedOwnerBookingsRouteImport } from './routes/_authenticated/owner/bookings'
-import { Route as AuthenticatedInboxConversationIdRouteImport } from './routes/_authenticated/inbox.$conversationId'
-import { Route as AuthenticatedCommunityMessagesRouteImport } from './routes/_authenticated/community_.messages'
-import { Route as AuthenticatedBookingBookingIdRouteImport } from './routes/_authenticated/booking.$bookingId'
-import { Route as AuthenticatedBookVenueIdRouteImport } from './routes/_authenticated/book.$venueId'
-import { Route as AuthenticatedAdminVenuesRouteImport } from './routes/_authenticated/admin/venues'
-import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin/reports'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
+import { Route as AuthenticatedAdminVenuesRouteImport } from './routes/_authenticated/admin/venues'
+import { Route as AuthenticatedBookVenueIdRouteImport } from './routes/_authenticated/book.$venueId'
+import { Route as AuthenticatedBookingBookingIdRouteImport } from './routes/_authenticated/booking.$bookingId'
+import { Route as AuthenticatedCommunityMessagesRouteImport } from './routes/_authenticated/community_.messages'
+import { Route as AuthenticatedInboxIndexRouteImport } from './routes/_authenticated/inbox.index'
+import { Route as AuthenticatedInboxConversationIdRouteImport } from './routes/_authenticated/inbox.$conversationId'
+import { Route as AuthenticatedOwnerIndexRouteImport } from './routes/_authenticated/owner/index'
+import { Route as AuthenticatedOwnerBookingsRouteImport } from './routes/_authenticated/owner/bookings'
+import { Route as AuthenticatedOwnerHoursRouteImport } from './routes/_authenticated/owner/hours'
+import { Route as AuthenticatedOwnerPricingRouteImport } from './routes/_authenticated/owner/pricing'
+import { Route as AuthenticatedOwnerReportsRouteImport } from './routes/_authenticated/owner/reports'
+import { Route as AuthenticatedOwnerSettingsRouteImport } from './routes/_authenticated/owner/settings'
+import { Route as AuthenticatedOwnerVenuesRouteImport } from './routes/_authenticated/owner/venues'
+import { Route as AuthenticatedPPostIdRouteImport } from './routes/_authenticated/p.$postId'
+import { Route as AuthenticatedUUsernameRouteImport } from './routes/_authenticated/u.$username'
+import { Route as ApiPublicTranslateRouteImport } from './routes/api/public/translate'
+import { Route as AuthenticatedOwnerPlayersPlayerIdRouteImport } from './routes/_authenticated/owner/players.$playerId'
 import { Route as AuthenticatedOwnerVenuesIndexRouteImport } from './routes/_authenticated/owner/venues.index'
 import { Route as AuthenticatedOwnerVenuesVenueIdRouteImport } from './routes/_authenticated/owner/venues.$venueId'
-import { Route as AuthenticatedOwnerPlayersPlayerIdRouteImport } from './routes/_authenticated/owner/players.$playerId'
 
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OpenGamesRoute = OpenGamesRouteImport.update({
-  id: '/open-games',
-  path: '/open-games',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HelpRoute = HelpRouteImport.update({
-  id: '/help',
-  path: '/help',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
-  id: '/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -91,14 +65,76 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpenGamesRoute = OpenGamesRouteImport.update({
+  id: '/open-games',
+  path: '/open-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedBookingsRoute = AuthenticatedBookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedExploreRoute = AuthenticatedExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNotificationsRoute =
+  AuthenticatedNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedOwnerRouteRoute = AuthenticatedOwnerRouteRouteImport.update({
+  id: '/owner',
+  path: '/owner',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const VenuesIndexRoute = VenuesIndexRouteImport.update({
   id: '/venues/',
@@ -110,117 +146,32 @@ const VenuesVenueIdRoute = VenuesVenueIdRouteImport.update({
   path: '/venues/$venueId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedNotificationsRoute =
-  AuthenticatedNotificationsRouteImport.update({
-    id: '/notifications',
-    path: '/notifications',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedExploreRoute = AuthenticatedExploreRouteImport.update({
-  id: '/explore',
-  path: '/explore',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
-  id: '/community',
-  path: '/community',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedBookingsRoute = AuthenticatedBookingsRouteImport.update({
-  id: '/bookings',
-  path: '/bookings',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedOwnerRouteRoute = AuthenticatedOwnerRouteRouteImport.update({
-  id: '/owner',
-  path: '/owner',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedOwnerIndexRoute = AuthenticatedOwnerIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AuthenticatedOwnerRouteRoute,
-} as any)
-const AuthenticatedInboxIndexRoute = AuthenticatedInboxIndexRouteImport.update({
-  id: '/inbox/',
-  path: '/inbox/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
-const ApiPublicTranslateRoute = ApiPublicTranslateRouteImport.update({
-  id: '/api/public/translate',
-  path: '/api/public/translate',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedUUsernameRoute = AuthenticatedUUsernameRouteImport.update({
-  id: '/u/$username',
-  path: '/u/$username',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedPPostIdRoute = AuthenticatedPPostIdRouteImport.update({
-  id: '/p/$postId',
-  path: '/p/$postId',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedOwnerVenuesRoute =
-  AuthenticatedOwnerVenuesRouteImport.update({
-    id: '/venues',
-    path: '/venues',
-    getParentRoute: () => AuthenticatedOwnerRouteRoute,
-  } as any)
-const AuthenticatedOwnerSettingsRoute =
-  AuthenticatedOwnerSettingsRouteImport.update({
-    id: '/settings',
-    path: '/settings',
-    getParentRoute: () => AuthenticatedOwnerRouteRoute,
-  } as any)
-const AuthenticatedOwnerReportsRoute =
-  AuthenticatedOwnerReportsRouteImport.update({
+const AuthenticatedAdminReportsRoute =
+  AuthenticatedAdminReportsRouteImport.update({
     id: '/reports',
     path: '/reports',
-    getParentRoute: () => AuthenticatedOwnerRouteRoute,
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
-const AuthenticatedOwnerPricingRoute =
-  AuthenticatedOwnerPricingRouteImport.update({
-    id: '/pricing',
-    path: '/pricing',
-    getParentRoute: () => AuthenticatedOwnerRouteRoute,
-  } as any)
-const AuthenticatedOwnerHoursRoute = AuthenticatedOwnerHoursRouteImport.update({
-  id: '/hours',
-  path: '/hours',
-  getParentRoute: () => AuthenticatedOwnerRouteRoute,
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
-const AuthenticatedOwnerBookingsRoute =
-  AuthenticatedOwnerBookingsRouteImport.update({
-    id: '/bookings',
-    path: '/bookings',
-    getParentRoute: () => AuthenticatedOwnerRouteRoute,
+const AuthenticatedAdminVenuesRoute =
+  AuthenticatedAdminVenuesRouteImport.update({
+    id: '/venues',
+    path: '/venues',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
-const AuthenticatedInboxConversationIdRoute =
-  AuthenticatedInboxConversationIdRouteImport.update({
-    id: '/inbox/$conversationId',
-    path: '/inbox/$conversationId',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedCommunityMessagesRoute =
-  AuthenticatedCommunityMessagesRouteImport.update({
-    id: '/community_/messages',
-    path: '/community/messages',
+const AuthenticatedBookVenueIdRoute =
+  AuthenticatedBookVenueIdRouteImport.update({
+    id: '/book/$venueId',
+    path: '/book/$venueId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedBookingBookingIdRoute =
@@ -229,28 +180,83 @@ const AuthenticatedBookingBookingIdRoute =
     path: '/booking/$bookingId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedBookVenueIdRoute =
-  AuthenticatedBookVenueIdRouteImport.update({
-    id: '/book/$venueId',
-    path: '/book/$venueId',
+const AuthenticatedCommunityMessagesRoute =
+  AuthenticatedCommunityMessagesRouteImport.update({
+    id: '/community_/messages',
+    path: '/community/messages',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedAdminVenuesRoute =
-  AuthenticatedAdminVenuesRouteImport.update({
-    id: '/venues',
-    path: '/venues',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
-  id: '/users',
-  path: '/users',
-  getParentRoute: () => AuthenticatedAdminRouteRoute,
+const AuthenticatedInboxIndexRoute = AuthenticatedInboxIndexRouteImport.update({
+  id: '/inbox/',
+  path: '/inbox/',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAdminReportsRoute =
-  AuthenticatedAdminReportsRouteImport.update({
+const AuthenticatedInboxConversationIdRoute =
+  AuthenticatedInboxConversationIdRouteImport.update({
+    id: '/inbox/$conversationId',
+    path: '/inbox/$conversationId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedOwnerIndexRoute = AuthenticatedOwnerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedOwnerRouteRoute,
+} as any)
+const AuthenticatedOwnerBookingsRoute =
+  AuthenticatedOwnerBookingsRouteImport.update({
+    id: '/bookings',
+    path: '/bookings',
+    getParentRoute: () => AuthenticatedOwnerRouteRoute,
+  } as any)
+const AuthenticatedOwnerHoursRoute = AuthenticatedOwnerHoursRouteImport.update({
+  id: '/hours',
+  path: '/hours',
+  getParentRoute: () => AuthenticatedOwnerRouteRoute,
+} as any)
+const AuthenticatedOwnerPricingRoute =
+  AuthenticatedOwnerPricingRouteImport.update({
+    id: '/pricing',
+    path: '/pricing',
+    getParentRoute: () => AuthenticatedOwnerRouteRoute,
+  } as any)
+const AuthenticatedOwnerReportsRoute =
+  AuthenticatedOwnerReportsRouteImport.update({
     id: '/reports',
     path: '/reports',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
+    getParentRoute: () => AuthenticatedOwnerRouteRoute,
+  } as any)
+const AuthenticatedOwnerSettingsRoute =
+  AuthenticatedOwnerSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedOwnerRouteRoute,
+  } as any)
+const AuthenticatedOwnerVenuesRoute =
+  AuthenticatedOwnerVenuesRouteImport.update({
+    id: '/venues',
+    path: '/venues',
+    getParentRoute: () => AuthenticatedOwnerRouteRoute,
+  } as any)
+const AuthenticatedPPostIdRoute = AuthenticatedPPostIdRouteImport.update({
+  id: '/p/$postId',
+  path: '/p/$postId',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedUUsernameRoute = AuthenticatedUUsernameRouteImport.update({
+  id: '/u/$username',
+  path: '/u/$username',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ApiPublicTranslateRoute = ApiPublicTranslateRouteImport.update({
+  id: '/api/public/translate',
+  path: '/api/public/translate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedOwnerPlayersPlayerIdRoute =
+  AuthenticatedOwnerPlayersPlayerIdRouteImport.update({
+    id: '/players/$playerId',
+    path: '/players/$playerId',
+    getParentRoute: () => AuthenticatedOwnerRouteRoute,
   } as any)
 const AuthenticatedOwnerVenuesIndexRoute =
   AuthenticatedOwnerVenuesIndexRouteImport.update({
@@ -263,12 +269,6 @@ const AuthenticatedOwnerVenuesVenueIdRoute =
     id: '/$venueId',
     path: '/$venueId',
     getParentRoute: () => AuthenticatedOwnerVenuesRoute,
-  } as any)
-const AuthenticatedOwnerPlayersPlayerIdRoute =
-  AuthenticatedOwnerPlayersPlayerIdRouteImport.update({
-    id: '/players/$playerId',
-    path: '/players/$playerId',
-    getParentRoute: () => AuthenticatedOwnerRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -541,60 +541,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/open-games': {
-      id: '/open-games'
-      path: '/open-games'
-      fullPath: '/open-games'
-      preLoaderRoute: typeof OpenGamesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/help': {
-      id: '/help'
-      path: '/help'
-      fullPath: '/help'
-      preLoaderRoute: typeof HelpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/forgot-password': {
-      id: '/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof ForgotPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -604,12 +555,110 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/open-games': {
+      id: '/open-games'
+      path: '/open-games'
+      fullPath: '/open-games'
+      preLoaderRoute: typeof OpenGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/bookings': {
+      id: '/_authenticated/bookings'
+      path: '/bookings'
+      fullPath: '/bookings'
+      preLoaderRoute: typeof AuthenticatedBookingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/community': {
+      id: '/_authenticated/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof AuthenticatedCommunityRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/explore': {
+      id: '/_authenticated/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof AuthenticatedExploreRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/notifications': {
+      id: '/_authenticated/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthenticatedNotificationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/owner': {
+      id: '/_authenticated/owner'
+      path: '/owner'
+      fullPath: '/owner'
+      preLoaderRoute: typeof AuthenticatedOwnerRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/venues/': {
       id: '/venues/'
@@ -625,69 +674,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VenuesVenueIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/profile': {
-      id: '/_authenticated/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AuthenticatedProfileRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/notifications': {
-      id: '/_authenticated/notifications'
-      path: '/notifications'
-      fullPath: '/notifications'
-      preLoaderRoute: typeof AuthenticatedNotificationsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/explore': {
-      id: '/_authenticated/explore'
-      path: '/explore'
-      fullPath: '/explore'
-      preLoaderRoute: typeof AuthenticatedExploreRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/community': {
-      id: '/_authenticated/community'
-      path: '/community'
-      fullPath: '/community'
-      preLoaderRoute: typeof AuthenticatedCommunityRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/bookings': {
-      id: '/_authenticated/bookings'
-      path: '/bookings'
-      fullPath: '/bookings'
-      preLoaderRoute: typeof AuthenticatedBookingsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/owner': {
-      id: '/_authenticated/owner'
-      path: '/owner'
-      fullPath: '/owner'
-      preLoaderRoute: typeof AuthenticatedOwnerRouteRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/owner/': {
-      id: '/_authenticated/owner/'
-      path: '/'
-      fullPath: '/owner/'
-      preLoaderRoute: typeof AuthenticatedOwnerIndexRouteImport
-      parentRoute: typeof AuthenticatedOwnerRouteRoute
-    }
-    '/_authenticated/inbox/': {
-      id: '/_authenticated/inbox/'
-      path: '/inbox'
-      fullPath: '/inbox/'
-      preLoaderRoute: typeof AuthenticatedInboxIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/'
@@ -695,102 +681,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
-    '/api/public/translate': {
-      id: '/api/public/translate'
-      path: '/api/public/translate'
-      fullPath: '/api/public/translate'
-      preLoaderRoute: typeof ApiPublicTranslateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/u/$username': {
-      id: '/_authenticated/u/$username'
-      path: '/u/$username'
-      fullPath: '/u/$username'
-      preLoaderRoute: typeof AuthenticatedUUsernameRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/p/$postId': {
-      id: '/_authenticated/p/$postId'
-      path: '/p/$postId'
-      fullPath: '/p/$postId'
-      preLoaderRoute: typeof AuthenticatedPPostIdRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/owner/venues': {
-      id: '/_authenticated/owner/venues'
-      path: '/venues'
-      fullPath: '/owner/venues'
-      preLoaderRoute: typeof AuthenticatedOwnerVenuesRouteImport
-      parentRoute: typeof AuthenticatedOwnerRouteRoute
-    }
-    '/_authenticated/owner/settings': {
-      id: '/_authenticated/owner/settings'
-      path: '/settings'
-      fullPath: '/owner/settings'
-      preLoaderRoute: typeof AuthenticatedOwnerSettingsRouteImport
-      parentRoute: typeof AuthenticatedOwnerRouteRoute
-    }
-    '/_authenticated/owner/reports': {
-      id: '/_authenticated/owner/reports'
+    '/_authenticated/admin/reports': {
+      id: '/_authenticated/admin/reports'
       path: '/reports'
-      fullPath: '/owner/reports'
-      preLoaderRoute: typeof AuthenticatedOwnerReportsRouteImport
-      parentRoute: typeof AuthenticatedOwnerRouteRoute
-    }
-    '/_authenticated/owner/pricing': {
-      id: '/_authenticated/owner/pricing'
-      path: '/pricing'
-      fullPath: '/owner/pricing'
-      preLoaderRoute: typeof AuthenticatedOwnerPricingRouteImport
-      parentRoute: typeof AuthenticatedOwnerRouteRoute
-    }
-    '/_authenticated/owner/hours': {
-      id: '/_authenticated/owner/hours'
-      path: '/hours'
-      fullPath: '/owner/hours'
-      preLoaderRoute: typeof AuthenticatedOwnerHoursRouteImport
-      parentRoute: typeof AuthenticatedOwnerRouteRoute
-    }
-    '/_authenticated/owner/bookings': {
-      id: '/_authenticated/owner/bookings'
-      path: '/bookings'
-      fullPath: '/owner/bookings'
-      preLoaderRoute: typeof AuthenticatedOwnerBookingsRouteImport
-      parentRoute: typeof AuthenticatedOwnerRouteRoute
-    }
-    '/_authenticated/inbox/$conversationId': {
-      id: '/_authenticated/inbox/$conversationId'
-      path: '/inbox/$conversationId'
-      fullPath: '/inbox/$conversationId'
-      preLoaderRoute: typeof AuthenticatedInboxConversationIdRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/community_/messages': {
-      id: '/_authenticated/community_/messages'
-      path: '/community/messages'
-      fullPath: '/community/messages'
-      preLoaderRoute: typeof AuthenticatedCommunityMessagesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/booking/$bookingId': {
-      id: '/_authenticated/booking/$bookingId'
-      path: '/booking/$bookingId'
-      fullPath: '/booking/$bookingId'
-      preLoaderRoute: typeof AuthenticatedBookingBookingIdRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/book/$venueId': {
-      id: '/_authenticated/book/$venueId'
-      path: '/book/$venueId'
-      fullPath: '/book/$venueId'
-      preLoaderRoute: typeof AuthenticatedBookVenueIdRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/admin/venues': {
-      id: '/_authenticated/admin/venues'
-      path: '/venues'
-      fullPath: '/admin/venues'
-      preLoaderRoute: typeof AuthenticatedAdminVenuesRouteImport
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AuthenticatedAdminReportsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin/users': {
@@ -800,12 +695,124 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
-    '/_authenticated/admin/reports': {
-      id: '/_authenticated/admin/reports'
-      path: '/reports'
-      fullPath: '/admin/reports'
-      preLoaderRoute: typeof AuthenticatedAdminReportsRouteImport
+    '/_authenticated/admin/venues': {
+      id: '/_authenticated/admin/venues'
+      path: '/venues'
+      fullPath: '/admin/venues'
+      preLoaderRoute: typeof AuthenticatedAdminVenuesRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/book/$venueId': {
+      id: '/_authenticated/book/$venueId'
+      path: '/book/$venueId'
+      fullPath: '/book/$venueId'
+      preLoaderRoute: typeof AuthenticatedBookVenueIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/booking/$bookingId': {
+      id: '/_authenticated/booking/$bookingId'
+      path: '/booking/$bookingId'
+      fullPath: '/booking/$bookingId'
+      preLoaderRoute: typeof AuthenticatedBookingBookingIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/community_/messages': {
+      id: '/_authenticated/community_/messages'
+      path: '/community/messages'
+      fullPath: '/community/messages'
+      preLoaderRoute: typeof AuthenticatedCommunityMessagesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/inbox/': {
+      id: '/_authenticated/inbox/'
+      path: '/inbox'
+      fullPath: '/inbox/'
+      preLoaderRoute: typeof AuthenticatedInboxIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/inbox/$conversationId': {
+      id: '/_authenticated/inbox/$conversationId'
+      path: '/inbox/$conversationId'
+      fullPath: '/inbox/$conversationId'
+      preLoaderRoute: typeof AuthenticatedInboxConversationIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/owner/': {
+      id: '/_authenticated/owner/'
+      path: '/'
+      fullPath: '/owner/'
+      preLoaderRoute: typeof AuthenticatedOwnerIndexRouteImport
+      parentRoute: typeof AuthenticatedOwnerRouteRoute
+    }
+    '/_authenticated/owner/bookings': {
+      id: '/_authenticated/owner/bookings'
+      path: '/bookings'
+      fullPath: '/owner/bookings'
+      preLoaderRoute: typeof AuthenticatedOwnerBookingsRouteImport
+      parentRoute: typeof AuthenticatedOwnerRouteRoute
+    }
+    '/_authenticated/owner/hours': {
+      id: '/_authenticated/owner/hours'
+      path: '/hours'
+      fullPath: '/owner/hours'
+      preLoaderRoute: typeof AuthenticatedOwnerHoursRouteImport
+      parentRoute: typeof AuthenticatedOwnerRouteRoute
+    }
+    '/_authenticated/owner/pricing': {
+      id: '/_authenticated/owner/pricing'
+      path: '/pricing'
+      fullPath: '/owner/pricing'
+      preLoaderRoute: typeof AuthenticatedOwnerPricingRouteImport
+      parentRoute: typeof AuthenticatedOwnerRouteRoute
+    }
+    '/_authenticated/owner/reports': {
+      id: '/_authenticated/owner/reports'
+      path: '/reports'
+      fullPath: '/owner/reports'
+      preLoaderRoute: typeof AuthenticatedOwnerReportsRouteImport
+      parentRoute: typeof AuthenticatedOwnerRouteRoute
+    }
+    '/_authenticated/owner/settings': {
+      id: '/_authenticated/owner/settings'
+      path: '/settings'
+      fullPath: '/owner/settings'
+      preLoaderRoute: typeof AuthenticatedOwnerSettingsRouteImport
+      parentRoute: typeof AuthenticatedOwnerRouteRoute
+    }
+    '/_authenticated/owner/venues': {
+      id: '/_authenticated/owner/venues'
+      path: '/venues'
+      fullPath: '/owner/venues'
+      preLoaderRoute: typeof AuthenticatedOwnerVenuesRouteImport
+      parentRoute: typeof AuthenticatedOwnerRouteRoute
+    }
+    '/_authenticated/p/$postId': {
+      id: '/_authenticated/p/$postId'
+      path: '/p/$postId'
+      fullPath: '/p/$postId'
+      preLoaderRoute: typeof AuthenticatedPPostIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/u/$username': {
+      id: '/_authenticated/u/$username'
+      path: '/u/$username'
+      fullPath: '/u/$username'
+      preLoaderRoute: typeof AuthenticatedUUsernameRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/translate': {
+      id: '/api/public/translate'
+      path: '/api/public/translate'
+      fullPath: '/api/public/translate'
+      preLoaderRoute: typeof ApiPublicTranslateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/owner/players/$playerId': {
+      id: '/_authenticated/owner/players/$playerId'
+      path: '/players/$playerId'
+      fullPath: '/owner/players/$playerId'
+      preLoaderRoute: typeof AuthenticatedOwnerPlayersPlayerIdRouteImport
+      parentRoute: typeof AuthenticatedOwnerRouteRoute
     }
     '/_authenticated/owner/venues/': {
       id: '/_authenticated/owner/venues/'
@@ -820,13 +827,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/owner/venues/$venueId'
       preLoaderRoute: typeof AuthenticatedOwnerVenuesVenueIdRouteImport
       parentRoute: typeof AuthenticatedOwnerVenuesRoute
-    }
-    '/_authenticated/owner/players/$playerId': {
-      id: '/_authenticated/owner/players/$playerId'
-      path: '/players/$playerId'
-      fullPath: '/owner/players/$playerId'
-      preLoaderRoute: typeof AuthenticatedOwnerPlayersPlayerIdRouteImport
-      parentRoute: typeof AuthenticatedOwnerRouteRoute
     }
   }
 }

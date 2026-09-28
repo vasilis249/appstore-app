@@ -274,6 +274,14 @@ function mapBookingError(code: string): string {
       return "Το γήπεδο δεν βρέθηκε.";
     case "unauthorized":
       return "Πρέπει να συνδεθείς πρώτα.";
+    case "invalid_slot":
+      return "Αυτή η ώρα δεν είναι διαθέσιμη.";
+    case "court_closed":
+      return "Το γήπεδο είναι κλειστό αυτή την ώρα.";
+    case "too_far_ahead":
+      return "Μπορείς να κλείσεις έως 6 μήνες μπροστά.";
+    case "rate_limited":
+      return "Πολλές προσπάθειες, δοκίμασε σε λίγο.";
     default:
       return "Η κράτηση δεν ολοκληρώθηκε.";
   }
@@ -301,6 +309,7 @@ export const createBooking = createServerFn({ method: "POST" })
         .from("venues")
         .select("sport,courts_count")
         .eq("id", data.venueId)
+        .eq("approved", true)
         .maybeSingle();
       if (vErr) throw new Error(vErr.message);
       if (!venue) throw new Error("Το γήπεδο δεν βρέθηκε");
@@ -382,7 +391,7 @@ export const createBooking = createServerFn({ method: "POST" })
           _max_players: cfg.maxPlayers,
           _court_id: chosenCourtId,
         } as any);
-        if (error) return { ok: false as const, error: error.message };
+        if (error) return { ok: false as const, error: mapBookingError(error.message) };
         const result = rpcData as { ok: boolean; error?: string; booking_id?: string; open_game_id?: string; joined?: boolean };
         if (!result?.ok) return { ok: false as const, error: mapBookingError(result?.error ?? "") };
         bookingId = result.booking_id ?? "";
@@ -395,7 +404,7 @@ export const createBooking = createServerFn({ method: "POST" })
           _duration: effectiveDuration,
           _court_id: chosenCourtId,
         } as any);
-        if (error) return { ok: false as const, error: error.message };
+        if (error) return { ok: false as const, error: mapBookingError(error.message) };
         const result = rpcData as { ok: boolean; error?: string; booking_id?: string };
         if (!result?.ok) return { ok: false as const, error: mapBookingError(result?.error ?? "") };
         bookingId = result.booking_id ?? "";

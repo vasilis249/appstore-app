@@ -94,6 +94,12 @@ Work in phases; stop after each phase for the user's "OK".
   - Old chat removed: `chat-widget/`, old messages page (→ redirect to /inbox), `/community` (→ /explore).
   - Admin: `/admin/reports` has Content | Messages; `src/lib/api/moderation.functions.ts` groups
     content_reports per item; Remove deletes post/comment/story (+files) or disables the profile.
+- **Security hardening done** (`20261002100000_security_hardening.sql`, summary in `docs/security.md`,
+  local tests `test_security.sql` 33 checks): helper fns guarded (`private` schema holds the real logic),
+  venues/reviews/open games/player bookings validated in DB, notifications read_at-only + dedupe, per-user
+  rate limits, public buckets not listable (avatars now use getPublicUrl + JPEG re-encode), admin fns zod,
+  no-store on server-fn responses, deps updated (seroval/start-server-core fixed). New guards check the JWT
+  role (`auth.role() = 'authenticated'`); local tests set `request.jwt.claims` accordingly.
 - Deploy everything with one command: `bun run deploy:all` (`scripts/deploy-all.sh`; env vars listed in the
   script: SUPABASE_ACCESS_TOKEN, SUPABASE_DB_PASSWORD, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY,
   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID). Not yet run: no credentials in the cloud env so far.
@@ -116,6 +122,8 @@ Work in phases; stop after each phase for the user's "OK".
 - Empty states: one icon, one short line. Prefer icons + short labels; Greek copy short and neutral.
 
 ## Validating migrations locally
+`PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (stubs + 4 suites, 87 checks) once the
+cluster below is running.
 No Docker daemon in the cloud container. Plain Postgres 16 works: init a cluster as user `postgres`
 in `/var/lib/postgresql/courtsie-test` (port 54329, socket `/tmp`), load stub `auth`/`storage`/`realtime`
 schemas + roles `anon`/`authenticated`/`service_role` with Supabase-like default privileges, then apply

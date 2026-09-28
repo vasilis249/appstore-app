@@ -57,9 +57,9 @@ function buildCsp(): string {
       "https://maps.googleapis.com",
       "https://maps.gstatic.com",
     ],
-    // Tailwind / inline style attributes + Google Fonts stylesheet.
-    "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-    "font-src": ["'self'", "https://fonts.gstatic.com", "data:"],
+    // Tailwind / inline style attributes; fonts are self-hosted.
+    "style-src": ["'self'", "'unsafe-inline'"],
+    "font-src": ["'self'", "data:"],
     "img-src": imgSrc as string[],
     "connect-src": connectSrc as string[],
     "frame-src": ["'self'", "https://*.google.com"],
@@ -78,7 +78,7 @@ function buildCsp(): string {
 
 let cachedCsp: string | undefined;
 
-export function applySecurityHeaders(response: Response): Response {
+export function applySecurityHeaders(response: Response, request?: Request): Response {
   // Skip if we've already stamped this response (defensive).
   if (response.headers.has("x-content-type-options")) return response;
 
@@ -98,6 +98,15 @@ export function applySecurityHeaders(response: Response): Response {
     "max-age=63072000; includeSubDomains; preload",
   );
   headers.set("X-DNS-Prefetch-Control", "off");
+  headers.set("Cross-Origin-Opener-Policy", "same-origin");
+
+  // Server-function / API responses carry per-user data: never cache them.
+  if (request) {
+    const path = new URL(request.url).pathname;
+    if (path.startsWith("/_serverFn") || path.startsWith("/api/")) {
+      headers.set("Cache-Control", "private, no-store");
+    }
+  }
 
   return new Response(response.body, {
     status: response.status,

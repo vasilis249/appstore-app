@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 async function assertAdmin(ctx: { supabase: any; userId: string }) {
@@ -53,7 +54,7 @@ export const listAllVenues = createServerFn({ method: "GET" })
 
 export const setVenueApproved = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { venueId: string; approved: boolean }) => d)
+  .inputValidator(z.object({ venueId: z.string().uuid(), approved: z.boolean() }))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -66,7 +67,7 @@ export const setVenueApproved = createServerFn({ method: "POST" })
 
 export const rejectVenue = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { venueId: string; reason: string }) => d)
+  .inputValidator(z.object({ venueId: z.string().uuid(), reason: z.string().trim().min(1).max(500) }))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     if (!data.reason.trim()) throw new Error("Απαιτείται λόγος απόρριψης");
@@ -82,7 +83,7 @@ export const rejectVenue = createServerFn({ method: "POST" })
 
 export const deleteVenue = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { venueId: string }) => d)
+  .inputValidator(z.object({ venueId: z.string().uuid() }))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -93,7 +94,9 @@ export const deleteVenue = createServerFn({ method: "POST" })
 
 export const listAllUsers = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d?: { role?: "player" | "owner" | "coach" | "admin" }) => d ?? {})
+  .inputValidator(
+    z.object({ role: z.enum(["player", "owner", "coach", "admin"]).optional() }).optional().default({}),
+  )
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -126,7 +129,7 @@ export const listAllUsers = createServerFn({ method: "GET" })
 
 export const setUserDisabled = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { userId: string; disabled: boolean }) => d)
+  .inputValidator(z.object({ userId: z.string().uuid(), disabled: z.boolean() }))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     if (data.userId === context.userId) throw new Error("Δεν μπορείς να απενεργοποιήσεις τον εαυτό σου");
@@ -157,7 +160,12 @@ export type AdminReportRow = {
 
 export const listMessageReports = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d?: { status?: "open" | "dismissed" | "actioned" | "all" }) => d ?? {})
+  .inputValidator(
+    z
+      .object({ status: z.enum(["open", "dismissed", "actioned", "all"]).optional() })
+      .optional()
+      .default({}),
+  )
   .handler(async ({ data, context }): Promise<AdminReportRow[]> => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -201,7 +209,7 @@ export const listMessageReports = createServerFn({ method: "GET" })
 
 export const dismissReport = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { reportId: string }) => d)
+  .inputValidator(z.object({ reportId: z.string().uuid() }))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -215,7 +223,7 @@ export const dismissReport = createServerFn({ method: "POST" })
 
 export const deleteReportedMessage = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { reportId: string }) => d)
+  .inputValidator(z.object({ reportId: z.string().uuid() }))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");

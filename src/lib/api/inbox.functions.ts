@@ -352,7 +352,8 @@ export const shareTargets = createServerFn({ method: "GET" })
   .inputValidator(z.object({ q: z.string().trim().max(50).optional() }))
   .handler(async ({ data, context }): Promise<Person[]> => {
     const { supabase, userId } = context;
-    const q = data.q?.toLowerCase().replace(/[\\%_,()]/g, "") ?? "";
+    // Characters with meaning in PostgREST filters are dropped.
+    const q = data.q?.toLowerCase().replace(/[^\p{L}\p{N} ._@-]/gu, "") ?? "";
     if (q.length >= 2) {
       const { data: rows } = await supabase
         .from("profiles")
