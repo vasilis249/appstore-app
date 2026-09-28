@@ -1,14 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "lucide-react";
-import { CONTACT_EMAIL } from "@/lib/contact";
+import { CONTACT_CONTROLLER, CONTACT_EMAIL, CONTACT_PHONE_DISPLAY } from "@/lib/contact";
 
 export type LegalSection = { heading: string; body: string[] };
 
 /**
  * Renders a legal document (Terms / Privacy) from structured i18n content.
- * Each section is a heading plus paragraphs; `{email}` in any paragraph is
- * replaced with the contact address.
+ * Each section is a heading plus paragraphs; `{email}`, `{phone}` and
+ * `{controller}` in any paragraph are replaced with the contact details.
  */
 export function LegalPage({
   titleKey,
@@ -25,7 +25,11 @@ export function LegalPage({
 }) {
   const { t } = useTranslation();
   const sections = t(sectionsKey, { returnObjects: true }) as LegalSection[];
-  const withEmail = (s: string) => s.replaceAll("{email}", CONTACT_EMAIL);
+  const withEmail = (s: string) =>
+    s
+      .replaceAll("{email}", CONTACT_EMAIL)
+      .replaceAll("{phone}", CONTACT_PHONE_DISPLAY)
+      .replaceAll("{controller}", CONTACT_CONTROLLER);
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-12 sm:py-16">

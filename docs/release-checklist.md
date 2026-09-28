@@ -33,17 +33,13 @@ follow-up session.
 
 ## Part B — Before the first TestFlight build
 
-- [ ] **Remove demo data** (8 fake venues from the seed migration), in the Supabase SQL editor:
-  ```sql
-  delete from public.venues
-  where owner_id is null
-    and name in ('Padel Point Glyfada','Acropolis Padel Club','Athens Tennis Academy',
-                 'Vouliagmeni Tennis Club','Hoops Court Kallithea','Piraeus Street Ball',
-                 'Goal! 5x5 Peristeri','Marina Soccer Arena');
-  ```
-- [ ] **Contact details and legal pages belong to the previous operator**: `src/lib/contact.ts`
-  (BookWithCourtsie@gmail.com, phone) and the Terms / Privacy texts in `src/i18n/locales/*.json`
-  (`legal.*`). Replace with your own company, email, phone and data-controller details.
+- [x] Demo venues removed by migration `20260928130000_remove_demo_venues.sql` (runs with `db push`).
+  The app starts with no venues: create a real one as an owner and approve it as admin.
+- [x] Contact details (`src/lib/contact.ts`) and a new GDPR Privacy Policy (`legal.privacy`, el + en).
+- [ ] Set `CONTACT_CONTROLLER` in `src/lib/contact.ts` to your full name, or company name + ΑΦΜ
+  (GDPR requires the controller's identity). Review the Terms (`legal.terms`) the same way.
+- [ ] Check the Supabase project region (Settings → General); an EU region (e.g. Frankfurt) keeps the
+  database inside the EEA.
 - [ ] Custom SMTP set up in Supabase (otherwise confirmation emails stop after a few per hour).
 - [ ] Optional: custom domain for the Worker (Cloudflare → Workers → courtsie → Domains); then update
   `CAP_SERVER_URL`, Supabase Site URL/Redirect URLs and the Maps key referrer.

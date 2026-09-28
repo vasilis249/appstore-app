@@ -37,9 +37,11 @@ Work in phases; stop after each phase for the user's "OK".
     compact header on phones (theme toggle + search icon hidden < sm; header min width 315px).
   - Icon/splash rendered from the logo SVG: `resources/render-assets.mjs` → Assets.xcassets.
   - Info.plist: `courtsie` URL scheme, camera/photo strings, `ITSAppUsesNonExemptEncryption=false`.
-- Open items for the user: legal texts + `src/lib/contact.ts` still show the previous operator;
-  delete demo venues before release; optional push notifications (helps guideline 4.2);
-  opening-hours validation inside booking RPCs (known gap).
+- Contact: vasilis.har@gmail.com / 698 751 4868 (`src/lib/contact.ts`). Privacy Policy rewritten
+  (GDPR art. 13, ν. 4624/2019, 13 sections, el + en) in `legal.privacy`; `LegalPage` replaces
+  `{email}`, `{phone}`, `{controller}`. Demo venues deleted by `20260928130000_remove_demo_venues.sql`.
+- Open items for the user: set `CONTACT_CONTROLLER` (full name or company + ΑΦΜ); review Terms;
+  optional push notifications (helps guideline 4.2); opening-hours validation inside booking RPCs.
 
 ## Validating migrations locally
 No Docker daemon in the cloud container. Plain Postgres 16 works: init a cluster as user `postgres`
@@ -73,7 +75,7 @@ Admin: `/admin`, `/admin/users`, `/admin/venues`, `/admin/reports`.
   `SUPABASE_SERVICE_ROLE_KEY`, `DEEPL_API_KEY`, `GOOGLE_MAPS_API_KEY`. No hardcoded keys found.
 - Auth: email + password only (signUp, signInWithPassword, resetPasswordForEmail, updateUser,
   exchangeCodeForSession). No OAuth providers. Redirects: `${origin}/` (signup), `${origin}/reset-password`.
-- Migrations: 57 files in `supabase/migrations` — schema is fully in the repo and applies cleanly
+- Migrations: 58 files in `supabase/migrations` — schema is fully in the repo and applies cleanly
   to an empty database.
 - Tables (24, RLS enabled on all): venues, venue_hours, venue_photos, venue_equipment, courts,
   court_slots, court_pricing, court_closures, bookings, booking_equipment, open_games,
@@ -92,7 +94,7 @@ Admin: `/admin`, `/admin/users`, `/admin/venues`, `/admin/reports`.
 - Realtime: messages, notifications, court_closures, open_games, open_game_players, venue_photos, venues.
 - Storage buckets: `avatars` (path `{user_id}/...`, 5 MB), `venue-photos` (path `{venue_id}/...`, 8 MB),
   both public-read; created by `20260928120000_create_storage_buckets.sql`.
-- Seed in migrations: 8 demo venues + courts (fake — delete before release) and an admin grant by the
+- Seed in migrations: 8 demo venues + courts (removed again by the last migration) and an admin grant by the
   previous developer's email (no-op in the new project; grant admin to yourself via SQL).
 - No edge functions. In-app notifications only (table + triggers); no push, no transactional email
   besides Supabase Auth emails.
