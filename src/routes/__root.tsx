@@ -97,14 +97,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href:
           "data:image/svg+xml;utf8," +
           encodeURIComponent(
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" rx="46" fill="#0E4756"/><path d="M141 68 A52 52 0 1 0 141 132" fill="none" stroke="#FFFFFF" stroke-width="19" stroke-linecap="round"/><circle cx="146.8" cy="100" r="20" fill="#C9DC34" stroke="#1A1A14" stroke-width="2"/><path d="M127.8 100 C 136.8 80 145.2 87.6 146.8 100 C 148.4 112.4 156.8 120 165.8 100" fill="none" stroke="#8A9A20" stroke-width="4.5" stroke-linecap="round"/><path d="M127.8 100 C 136.8 80 145.2 87.6 146.8 100 C 148.4 112.4 156.8 120 165.8 100" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/><ellipse cx="138" cy="90" rx="9" ry="6" fill="#FFFFFF" opacity="0.22" transform="rotate(-28 138 90)"/></svg>',
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" rx="46" fill="#E4571C"/><path d="M141 68 A52 52 0 1 0 141 132" fill="none" stroke="#FFFFFF" stroke-width="19" stroke-linecap="round"/><circle cx="146.8" cy="100" r="20" fill="#FFFFFF"/><path d="M127.8 100 C 136.8 80 145.2 87.6 146.8 100 C 148.4 112.4 156.8 120 165.8 100" fill="none" stroke="#E4571C" stroke-width="4" stroke-linecap="round"/></svg>',
           ),
-      },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap",
       },
     ],
   }),

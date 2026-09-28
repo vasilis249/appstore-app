@@ -124,13 +124,13 @@ function ResetPasswordPage() {
 
   return (
     <AuthShell>
-      <h1 className="font-display text-3xl font-bold text-petrol">Νέος κωδικός</h1>
+      <h1 className="font-display text-3xl font-bold text-foreground">Νέος κωδικός</h1>
       <p className="mt-1 text-sm text-muted-foreground">
         Όρισε έναν νέο κωδικό για τον λογαριασμό σου.
       </p>
 
       {done ? (
-        <p className="mt-6 rounded-lg border border-optic/60 bg-optic/15 px-3 py-3 text-sm text-petrol">
+        <p className="mt-6 rounded-lg border border-optic/60 bg-optic/15 px-3 py-3 text-sm text-foreground">
           Ο κωδικός σου ενημερώθηκε. Σε ανακατευθύνουμε…
         </p>
       ) : linkInvalid && !sessionReady ? (
@@ -146,7 +146,7 @@ function ResetPasswordPage() {
           </Link>
           <Link
             to="/auth"
-            className="block w-full text-center text-xs text-muted-foreground hover:text-petrol"
+            className="block w-full text-center text-xs text-muted-foreground hover:text-foreground"
           >
             ← Πίσω στη σύνδεση
           </Link>
@@ -192,7 +192,7 @@ function ResetPasswordPage() {
           </button>
           <Link
             to="/auth"
-            className="block w-full text-center text-xs text-muted-foreground hover:text-petrol"
+            className="block w-full text-center text-xs text-muted-foreground hover:text-foreground"
           >
             ← Πίσω στη σύνδεση
           </Link>

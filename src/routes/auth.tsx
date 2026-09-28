@@ -81,7 +81,7 @@ function AuthPage() {
 
   return (
     <AuthShell>
-      <h1 className="font-display text-3xl font-bold text-petrol">{mode === "signin" ? "Σύνδεση" : "Εγγραφή"}</h1>
+      <h1 className="font-display text-3xl font-bold text-foreground">{mode === "signin" ? "Σύνδεση" : "Εγγραφή"}</h1>
       <p className="mt-1 text-sm text-muted-foreground">
         {mode === "signin" ? "Καλωσήρθες πίσω στο Courtsie." : "Φτιάξε λογαριασμό σε δευτερόλεπτα."}
       </p>
@@ -147,7 +147,7 @@ function AuthPage() {
               <li key={c.id} className="flex items-center gap-2 text-xs">
                 <span
                   className={`flex h-4 w-4 items-center justify-center rounded-full ${
-                    c.ok ? "bg-optic text-petrol" : "bg-muted text-muted-foreground"
+                    c.ok ? "bg-optic text-foreground" : "bg-muted text-muted-foreground"
                   }`}
                 >
                   {c.ok ? <Check className="h-3 w-3" strokeWidth={3} /> : null}
@@ -185,7 +185,7 @@ function AuthPage() {
             {error}
           </p>
         )}
-        {info && <p className="rounded-lg border border-optic/60 bg-optic/15 px-3 py-2 text-xs text-petrol">{info}</p>}
+        {info && <p className="rounded-lg border border-optic/60 bg-optic/15 px-3 py-2 text-xs text-foreground">{info}</p>}
 
         <button
           type="submit"
@@ -197,7 +197,7 @@ function AuthPage() {
       </form>
 
       {mode === "signin" && (
-        <Link to="/forgot-password" className="mt-4 block text-center text-xs text-muted-foreground hover:text-petrol">
+        <Link to="/forgot-password" className="mt-4 block text-center text-xs text-muted-foreground hover:text-foreground">
           Ξέχασες τον κωδικό σου;
         </Link>
       )}
@@ -208,7 +208,7 @@ function AuthPage() {
           setError(null);
           setInfo(null);
         }}
-        className="mt-3 w-full text-center text-xs text-muted-foreground hover:text-petrol"
+        className="mt-3 w-full text-center text-xs text-muted-foreground hover:text-foreground"
       >
         {mode === "signin" ? "Δεν έχεις λογαριασμό; Εγγραφή" : "Έχεις λογαριασμό; Σύνδεση"}
       </button>

@@ -40,19 +40,19 @@ function ForgotPasswordPage() {
 
   return (
     <AuthShell>
-      <h1 className="font-display text-3xl font-bold text-petrol">Ξέχασα τον κωδικό μου</h1>
+      <h1 className="font-display text-3xl font-bold text-foreground">Ξέχασα τον κωδικό μου</h1>
       <p className="mt-1 text-sm text-muted-foreground">
         Δώσε το email σου και θα σου στείλουμε link για επαναφορά.
       </p>
 
       {sent ? (
         <div className="mt-6 space-y-4">
-          <p className="rounded-lg border border-optic/60 bg-optic/15 px-3 py-3 text-sm text-petrol">
+          <p className="rounded-lg border border-optic/60 bg-optic/15 px-3 py-3 text-sm text-foreground">
             Σου στείλαμε email με link επαναφοράς κωδικού. Έλεγξε τα εισερχόμενά σου.
           </p>
           <Link
             to="/auth"
-            className="block w-full rounded-xl border border-border py-3 text-center text-sm font-semibold text-petrol hover:bg-surface"
+            className="block w-full rounded-xl border border-border py-3 text-center text-sm font-semibold text-foreground hover:bg-surface"
           >
             Πίσω στη σύνδεση
           </Link>
@@ -81,7 +81,7 @@ function ForgotPasswordPage() {
           </button>
           <Link
             to="/auth"
-            className="block w-full text-center text-xs text-muted-foreground hover:text-petrol"
+            className="block w-full text-center text-xs text-muted-foreground hover:text-foreground"
           >
             ← Πίσω στη σύνδεση
           </Link>

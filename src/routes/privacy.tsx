@@ -17,7 +17,7 @@ export const Route = createFileRoute("/privacy")({
       updatedKey="legal.privacy.updated"
       introKey="legal.privacy.intro"
       sectionsKey="legal.privacy.sections"
-      headingClassName="text-petrol dark:text-foreground"
+      headingClassName="text-foreground dark:text-foreground"
     />
   ),
 });

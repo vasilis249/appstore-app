@@ -40,6 +40,14 @@ Work in phases; stop after each phase for the user's "OK".
 - Contact: vasilis.har@gmail.com / 698 751 4868 (`src/lib/contact.ts`). Privacy Policy rewritten
   (GDPR art. 13, ν. 4624/2019, 13 sections, el + en) in `legal.privacy`; `LegalPage` replaces
   `{email}`, `{phone}`, `{controller}`. Demo venues deleted by `20260928130000_remove_demo_venues.sql`.
+- Theme (from user's reference screenshots: white, orange accent, soft cards): tokens in
+  `src/styles.css` — primary/coral `#E4571C`, `--petrol` = ink `#1C1C1E` (dark blocks), `--optic` = amber
+  `#FFB23F` (stars/badges); white header; soft `--shadow-*`; `--radius: 1rem`. Font: self-hosted
+  `@fontsource-variable/geologica` (Greek). Use `text-foreground` for text, not `text-petrol`.
+  Logo uses currentColor + orange ball. Venue list: search bar, solid orange chips, compact rows on
+  phones (`VenueRow`), card grid from `sm`. Icon/splash/offline page are orange.
+  UI screenshots without Supabase: run a PostgREST mock on :54321 and
+  `wrangler dev --var SUPABASE_URL:http://127.0.0.1:54321 --var SUPABASE_SERVICE_ROLE_KEY:x ...`.
 - Open items for the user: set `CONTACT_CONTROLLER` (full name or company + ΑΦΜ); review Terms;
   optional push notifications (helps guideline 4.2); opening-hours validation inside booking RPCs.
 

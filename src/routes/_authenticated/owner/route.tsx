@@ -53,7 +53,7 @@ function OwnerLayout() {
                   activeOptions={{ exact: i.exact }}
                   activeProps={{
                     className:
-                      "bg-petrol/10 text-petrol font-semibold border-l-4 border-coral pl-2 dark:bg-primary/20 dark:text-primary dark:border-coral",
+                      "bg-primary/10 text-primary font-semibold border-l-4 border-coral pl-2 dark:bg-primary/20 dark:text-primary dark:border-coral",
                   }}
                   inactiveProps={{
                     className:

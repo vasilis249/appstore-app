@@ -22,7 +22,7 @@ export function TopBar() {
   const isOwnerOrAdmin = r === "owner" || isAdmin;
 
   return (
-    <header className="safe-top sticky top-0 z-40 bg-petrol text-white">
+    <header className="safe-top sticky top-0 z-40 border-b border-border bg-background/95 text-foreground backdrop-blur">
       <div className="flex h-20 sm:h-24 xl:h-28 w-full items-center gap-2 px-3 sm:gap-4 sm:px-6">
         {/* LEFT + MIDDLE: logo + nav + search (one stretchable row) */}
         <div className="flex flex-1 items-center gap-2 lg:gap-3">
@@ -30,7 +30,7 @@ export function TopBar() {
             to={isPureOwner ? "/owner" : "/"}
             className="flex shrink-0 items-center"
           >
-            <Logo variant="white" className="h-[44px] sm:h-[64px] md:h-[80px] xl:h-[104px] w-auto" />
+            <Logo className="h-[44px] sm:h-[64px] md:h-[80px] xl:h-[104px] w-auto" />
           </Link>
 
           {/* Player / admin nav */}
@@ -38,8 +38,8 @@ export function TopBar() {
             <nav className="hidden shrink-0 items-center gap-2 lg:gap-3 text-sm font-medium lg:flex">
               <Link
                 to="/venues"
-                activeProps={{ className: "text-white font-bold border-b-2 border-coral" }}
-                inactiveProps={{ className: "text-white/85 hover:text-white" }}
+                activeProps={{ className: "text-foreground font-bold border-b-2 border-coral" }}
+                inactiveProps={{ className: "text-muted-foreground hover:text-foreground" }}
                 className="-mb-[2px] border-b-2 border-transparent pb-1 transition-colors"
               >
                 {t("nav.venues")}
@@ -47,8 +47,8 @@ export function TopBar() {
               {user && (
                 <Link
                   to="/bookings"
-                  activeProps={{ className: "text-white font-bold border-b-2 border-coral" }}
-                  inactiveProps={{ className: "text-white/85 hover:text-white" }}
+                  activeProps={{ className: "text-foreground font-bold border-b-2 border-coral" }}
+                  inactiveProps={{ className: "text-muted-foreground hover:text-foreground" }}
                   className="-mb-[2px] border-b-2 border-transparent pb-1 transition-colors"
                 >
                   {t("nav.bookings")}
@@ -56,8 +56,8 @@ export function TopBar() {
               )}
               <Link
                 to="/open-games"
-                activeProps={{ className: "text-white font-bold border-b-2 border-coral" }}
-                inactiveProps={{ className: "text-white/85 hover:text-white" }}
+                activeProps={{ className: "text-foreground font-bold border-b-2 border-coral" }}
+                inactiveProps={{ className: "text-muted-foreground hover:text-foreground" }}
                 className="-mb-[2px] border-b-2 border-transparent pb-1 transition-colors"
               >
                 {t("nav.games")}
@@ -65,8 +65,8 @@ export function TopBar() {
               {user && (
                 <Link
                   to="/community"
-                  activeProps={{ className: "text-white font-bold border-b-2 border-coral" }}
-                  inactiveProps={{ className: "text-white/85 hover:text-white" }}
+                  activeProps={{ className: "text-foreground font-bold border-b-2 border-coral" }}
+                  inactiveProps={{ className: "text-muted-foreground hover:text-foreground" }}
                   className="-mb-[2px] border-b-2 border-transparent pb-1 transition-colors"
                 >
                   {t("nav.community")}
@@ -76,7 +76,7 @@ export function TopBar() {
                 <Link
                   to="/"
                   hash="owner-cta"
-                  className="rounded-full border border-optic/40 bg-optic/10 px-3 py-1 text-xs font-semibold text-optic transition-colors hover:bg-optic/20"
+                  className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary transition-colors hover:bg-primary/20"
                 >
                   {t("home.ownerCta.navLink")}
                 </Link>
@@ -86,7 +86,7 @@ export function TopBar() {
                   to="/owner"
                   activeProps={{ className: "font-bold border-b-2 border-coral" }}
                   inactiveProps={{ className: "hover:opacity-90" }}
-                  className="-mb-[2px] border-b-2 border-transparent pb-1 text-optic transition-colors"
+                  className="-mb-[2px] border-b-2 border-transparent pb-1 text-primary transition-colors"
                 >
                   {t("nav.owner")}
                 </Link>
@@ -96,7 +96,7 @@ export function TopBar() {
                   to="/admin"
                   activeProps={{ className: "font-bold border-b-2 border-coral" }}
                   inactiveProps={{ className: "hover:opacity-90" }}
-                  className="-mb-[2px] border-b-2 border-transparent pb-1 text-optic transition-colors"
+                  className="-mb-[2px] border-b-2 border-transparent pb-1 text-primary transition-colors"
                 >
                   {t("nav.admin")}
                 </Link>
@@ -118,8 +118,8 @@ export function TopBar() {
                   key={i.to}
                   to={i.to}
                   activeOptions={{ exact: i.exact }}
-                  activeProps={{ className: "text-white font-bold border-b-2 border-coral" }}
-                  inactiveProps={{ className: "text-white/85 hover:text-white" }}
+                  activeProps={{ className: "text-foreground font-bold border-b-2 border-coral" }}
+                  inactiveProps={{ className: "text-muted-foreground hover:text-foreground" }}
                   className="-mb-[2px] border-b-2 border-transparent pb-1 transition-colors"
                 >
                   {i.label}
@@ -135,17 +135,17 @@ export function TopBar() {
                 e.preventDefault();
                 navigate({ to: "/venues", search: { q: q.trim() || undefined } });
               }}
-              className="hidden h-11 flex-1 items-center gap-2 rounded-xl bg-white px-3 text-petrol shadow-sm md:flex"
+              className="hidden h-11 flex-1 items-center gap-2 rounded-2xl border border-border bg-background px-3 text-foreground shadow-sm md:flex"
             >
-              <MapPin className="h-4 w-4 text-muted-foreground" />
+              <MapPin className="h-4 w-4 text-primary" />
               <input
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 name="q"
                 placeholder={t("nav.searchPlaceholder")}
-                className="w-full bg-transparent text-sm text-petrol outline-none placeholder:text-muted-foreground"
+                className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
               />
-              <button type="submit" aria-label={t("nav.search")} className="rounded-md p-1 text-muted-foreground hover:text-petrol">
+              <button type="submit" aria-label={t("nav.search")} className="rounded-md p-1 text-muted-foreground hover:text-foreground">
                 <Search className="h-4 w-4" />
               </button>
             </form>
@@ -158,7 +158,7 @@ export function TopBar() {
             <Link
               to="/venues"
               aria-label={t("nav.search")}
-              className="ml-auto hidden h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white sm:inline-flex md:hidden"
+              className="ml-auto hidden h-10 w-10 items-center justify-center rounded-xl bg-muted text-foreground sm:inline-flex md:hidden"
             >
               <Search className="h-5 w-5" />
             </Link>
@@ -172,7 +172,7 @@ export function TopBar() {
             type="button"
             onClick={toggle}
             aria-label={theme === "dark" ? t("nav.lightMode") : t("nav.nightMode")}
-            className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/20 text-white transition hover:bg-white/10 sm:inline-flex"
+            className="hidden h-10 w-10 items-center justify-center rounded-xl border border-border text-foreground transition hover:bg-muted sm:inline-flex"
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>

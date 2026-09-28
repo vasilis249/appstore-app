@@ -65,10 +65,10 @@ function Home() {
   return (
     <div className="mx-auto max-w-6xl px-4 pt-8">
       <section className="relative overflow-hidden rounded-3xl border border-border/60 bg-surface px-6 py-12 sm:px-10 sm:py-16">
-        <div className="hero-blob-a pointer-events-none absolute -right-20 -top-24 h-[26rem] w-[26rem] rounded-full bg-coral/60 opacity-80 blur-3xl saturate-150" />
-        <div className="hero-blob-b pointer-events-none absolute -right-10 top-10 h-56 w-56 rounded-full bg-coral/40 blur-2xl" />
-        <div className="hero-blob-b pointer-events-none absolute -bottom-28 -left-24 h-[26rem] w-[26rem] rounded-full bg-optic/60 opacity-80 blur-3xl saturate-150" />
-        <div className="hero-blob-a pointer-events-none absolute -bottom-10 left-20 h-56 w-56 rounded-full bg-petrol/30 blur-3xl" />
+        <div className="hero-blob-a pointer-events-none absolute -right-20 -top-24 h-[26rem] w-[26rem] rounded-full bg-coral/25 opacity-80 blur-3xl" />
+        <div className="hero-blob-b pointer-events-none absolute -right-10 top-10 h-56 w-56 rounded-full bg-coral/15 blur-2xl" />
+        <div className="hero-blob-b pointer-events-none absolute -bottom-28 -left-24 h-[26rem] w-[26rem] rounded-full bg-optic/30 opacity-80 blur-3xl" />
+        <div className="hero-blob-a pointer-events-none absolute -bottom-10 left-20 h-56 w-56 rounded-full bg-coral/10 blur-3xl" />
         <div className="relative max-w-2xl">
           <span className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
             <Zap className="h-3.5 w-3.5" /> {t("home.badge")}

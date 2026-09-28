@@ -15,7 +15,7 @@ export function LegalPage({
   updatedKey,
   introKey,
   sectionsKey,
-  headingClassName = "text-petrol",
+  headingClassName = "text-foreground",
 }: {
   titleKey: string;
   updatedKey: string;

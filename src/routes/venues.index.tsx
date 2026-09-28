@@ -1,9 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { queryOptions, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
-import { MapPin, Star, LayoutGrid, ArrowRight } from "lucide-react";
+import { MapPin, Star, LayoutGrid, ArrowRight, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { SPORTS, type Sport } from "../lib/sports";
 
@@ -71,6 +71,8 @@ function VenuesPage() {
   useRedirectOwnersAway();
   const { t } = useTranslation();
   const { sport, q } = Route.useSearch();
+  const navigate = useNavigate();
+  const [query, setQuery] = useState(q ?? "");
   const { data: venues } = useSuspenseQuery(venuesQuery(sport, q));
   const qc = useQueryClient();
   const activeMeta = SPORTS.find((s) => s.id === sport);
@@ -115,11 +117,37 @@ function VenuesPage() {
         </p>
       </header>
 
-      <div className="mb-6 flex gap-2 overflow-x-auto pb-2">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          navigate({ to: "/venues", search: { sport, q: query.trim() || undefined } });
+        }}
+        className="mb-4 flex items-center gap-3"
+      >
+        <label className="flex h-12 flex-1 items-center gap-3 rounded-2xl border border-border bg-card px-4 shadow-sm">
+          <Search className="h-5 w-5 shrink-0 text-primary" />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            name="q"
+            placeholder={t("nav.searchPlaceholder")}
+            className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+          />
+        </label>
+        <button
+          type="submit"
+          aria-label={t("nav.search")}
+          className="grid h-12 w-12 shrink-0 place-items-center rounded-[14px] bg-primary text-primary-foreground shadow-glow transition hover:opacity-95"
+        >
+          <Search className="h-5 w-5" />
+        </button>
+      </form>
+
+      <div className="-mx-4 mb-6 flex gap-2 overflow-x-auto px-4 pb-2">
         <Link
           to="/venues"
-          className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition ${
-            !sport ? "border-primary/40 bg-primary/10 text-primary" : "border-border/60 text-muted-foreground"
+          className={`whitespace-nowrap rounded-[14px] px-4 py-2.5 text-sm font-medium transition ${
+            !sport ? CHIP_ACTIVE : CHIP_IDLE
           }`}
         >
           {t("sports.all")}
@@ -130,9 +158,9 @@ function VenuesPage() {
             <Link
               key={s.id}
               to="/venues"
-              search={{ sport: s.id }}
-              className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition hover:-translate-y-0.5 ${
-                isActive ? s.tokenClass : "border-border/60 text-muted-foreground hover:text-foreground"
+              search={{ sport: s.id, q }}
+              className={`whitespace-nowrap rounded-[14px] px-4 py-2.5 text-sm font-medium transition ${
+                isActive ? CHIP_ACTIVE : CHIP_IDLE
               }`}
             >
               {t(`sports.${s.id}`)}
@@ -148,11 +176,18 @@ function VenuesPage() {
           </p>
         </div>
       ) : (
-        <div className="stagger-children grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {venues.map((v) => (
-            <VenueCard key={v.id} venue={v} />
-          ))}
-        </div>
+        <>
+          <div className="stagger-children flex flex-col gap-3 sm:hidden">
+            {venues.map((v) => (
+              <VenueRow key={v.id} venue={v} />
+            ))}
+          </div>
+          <div className="stagger-children hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+            {venues.map((v) => (
+              <VenueCard key={v.id} venue={v} />
+            ))}
+          </div>
+        </>
       )}
 
       <div className="h-16" />
@@ -160,7 +195,74 @@ function VenuesPage() {
   );
 }
 
-function VenueCard({ venue }: { venue: Awaited<ReturnType<typeof listVenues>>[number] }) {
+type VenueItem = Awaited<ReturnType<typeof listVenues>>[number];
+
+const CHIP_ACTIVE = "bg-primary text-primary-foreground shadow-glow";
+const CHIP_IDLE = "bg-card text-foreground shadow-sm hover:text-primary";
+
+// Padel/tennis are sold per player slot; other sports per hour.
+const SLOT_ENABLED: Record<Sport, boolean> = {
+  padel: true, tennis: true, basketball: false, football: false, volleyball: false, beach_volley: false,
+};
+
+function VenuePrice({ venue, compact = false }: { venue: VenueItem; compact?: boolean }) {
+  const { t } = useTranslation();
+  const slot = SLOT_ENABLED[venue.sport];
+  const price = slot ? Number(venue.slot_price ?? 0) : Number(venue.base_price_per_hour);
+  if (!price || price <= 0) {
+    return (
+      <span className="text-xs font-medium text-muted-foreground">
+        {t("common.priceNotSet", "Τιμή κατόπιν συνεννόησης")}
+      </span>
+    );
+  }
+  return (
+    <span className={`font-display font-bold ${compact ? "text-sm text-primary" : "text-lg"}`}>
+      €{price.toFixed(price < 10 ? 1 : 0)}
+      <span className="ml-1 text-xs font-normal text-muted-foreground">
+        {slot ? t("common.perPerson", "/ άτομο") : t("common.perHour")}
+      </span>
+    </span>
+  );
+}
+
+/** Compact list row for phones: thumbnail left, name + rating, area, price. */
+function VenueRow({ venue }: { venue: VenueItem }) {
+  const { t } = useTranslation();
+  const img = venue.photo_url || FALLBACK_IMG[venue.sport];
+  return (
+    <Link
+      to="/venues/$venueId"
+      params={{ venueId: venue.id }}
+      className="flex items-center gap-3 rounded-2xl bg-card p-3 shadow-sm transition active:scale-[0.99]"
+    >
+      <img src={img} alt="" loading="lazy" className="h-20 w-20 shrink-0 rounded-xl object-cover" />
+      <div className="min-w-0 flex-1">
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="truncate font-display text-base font-semibold leading-tight">{venue.name}</h3>
+          {venue.rating != null && (
+            <span className="inline-flex shrink-0 items-center gap-1 text-sm text-muted-foreground">
+              <Star className="h-4 w-4 fill-optic text-optic" />
+              {Number(venue.rating).toFixed(1)}
+            </span>
+          )}
+        </div>
+        <p className="mt-1 flex items-center gap-1 truncate text-xs text-muted-foreground">
+          <MapPin className="h-3.5 w-3.5 shrink-0 text-primary" />
+          <span className="truncate">
+            {venue.area} · {t(`sports.${venue.sport}`)} · {venue.courts_count}{" "}
+            {venue.courts_count === 1 ? t("common.court_one") : t("common.courts")}
+          </span>
+        </p>
+        <div className="mt-2">
+          <VenuePrice venue={venue} compact />
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function VenueCard({ venue }: { venue: VenueItem }) {
   const { t } = useTranslation();
   const sportMeta = SPORTS.find((s) => s.id === venue.sport)!;
   const img = venue.photo_url || FALLBACK_IMG[venue.sport];
@@ -190,7 +292,7 @@ function VenueCard({ venue }: { venue: Awaited<ReturnType<typeof listVenues>>[nu
 
         {venue.rating != null && (
           <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur">
-            <Star className="h-3 w-3 fill-primary text-primary" />
+            <Star className="h-3 w-3 fill-optic text-optic" />
             {Number(venue.rating).toFixed(1)}
             <span className="font-normal text-white/70">({venue.reviews_count})</span>
           </span>
@@ -228,30 +330,7 @@ function VenueCard({ venue }: { venue: Awaited<ReturnType<typeof listVenues>>[nu
         )}
 
         <div className="mt-4 flex items-center justify-between border-t border-border/60 pt-3">
-          {(() => {
-            const SLOT_ENABLED: Record<Sport, boolean> = {
-              padel: true, tennis: true, basketball: false, football: false, volleyball: false, beach_volley: false,
-            };
-            const slot = SLOT_ENABLED[venue.sport];
-            const price = slot
-              ? Number(venue.slot_price ?? 0)
-              : Number(venue.base_price_per_hour);
-            if (!price || price <= 0) {
-              return (
-                <span className="text-xs font-medium text-muted-foreground">
-                  {t("common.priceNotSet", "Τιμή κατόπιν συνεννόησης")}
-                </span>
-              );
-            }
-            return (
-              <span className="font-display text-lg font-bold">
-                €{price.toFixed(price < 10 ? 1 : 0)}
-                <span className="ml-1 text-xs font-normal text-muted-foreground">
-                  {slot ? t("common.perPerson", "/ άτομο") : t("common.perHour")}
-                </span>
-              </span>
-            );
-          })()}
+          <VenuePrice venue={venue} />
           <span className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-all duration-300 group-hover:gap-1.5 group-hover:shadow-glow">
             {t("common.viewVenue")}
             <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />

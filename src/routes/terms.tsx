@@ -14,7 +14,7 @@ export const Route = createFileRoute("/terms")({
       updatedKey="legal.terms.updated"
       introKey="legal.terms.intro"
       sectionsKey="legal.terms.sections"
-      headingClassName="text-petrol dark:text-foreground"
+      headingClassName="text-foreground dark:text-foreground"
     />
   ),
 });

@@ -52,7 +52,7 @@ export function AccountMenu() {
     return (
       <Link
         to="/auth"
-        className="rounded-xl border border-white/30 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
+        className="rounded-xl bg-primary px-3.5 py-2 text-sm font-semibold text-primary-foreground shadow-glow transition hover:opacity-95"
       >
         {t("nav.signIn")}
       </Link>
@@ -82,11 +82,11 @@ export function AccountMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger
         aria-label={t("account.menu")}
-        className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white/30 bg-white/10 text-white transition hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+        className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-border bg-muted text-foreground transition hover:bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
       >
         <Avatar className="h-10 w-10">
           {photo ? <AvatarImage src={photo} alt={name ?? user.email ?? ""} /> : null}
-          <AvatarFallback className="bg-petrol text-xs font-bold text-white">
+          <AvatarFallback className="bg-primary text-xs font-bold text-primary-foreground">
             {initials(name, user.email)}
           </AvatarFallback>
         </Avatar>
