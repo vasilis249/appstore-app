@@ -175,7 +175,10 @@
     "emptyToday": "No available games today — check tomorrow.",
     "emptyDate": "No available games on this day.",
     "seeTomorrow": "See tomorrow",
-    "moreSlots": "+{{count}} more"
+    "moreSlots": "+{{count}} more",
+    "subtitleToday": "Available times today — only times after now.",
+    "subtitleOther": "Times available to book.",
+    "emptyOther": "No available times on this day."
   },
   "nav": {
     "venues": "Venues",
@@ -377,7 +380,8 @@
     "status": "Status",
     "customer": "Customer",
     "back2": "Back",
-    "backHome": "Home"
+    "backHome": "Home",
+    "clear": "Clear"
   },
   "venuesList": {
     "title": "Venues",
@@ -466,7 +470,8 @@
     "recurringReasonUserOverlap": "You already have a booking at this time.",
     "recurringReasonSlotFull": "This slot is full.",
     "recurringReasonVenueNotFound": "Venue not found.",
-    "recurringReasonUnknown": "The recurring booking could not be completed."
+    "recurringReasonUnknown": "The recurring booking could not be completed.",
+    "upTo": "up to {{n}} players"
   },
   "myBookings": {
     "title": "My bookings",

@@ -175,7 +175,10 @@
     "emptyToday": "Δεν υπάρχουν διαθέσιμα παιχνίδια σήμερα — δες αύριο.",
     "emptyDate": "Δεν υπάρχουν διαθέσιμα παιχνίδια αυτή τη μέρα.",
     "seeTomorrow": "Δες αύριο",
-    "moreSlots": "+{{count}} ακόμη"
+    "moreSlots": "+{{count}} ακόμη",
+    "subtitleToday": "Διαθέσιμες ώρες για σήμερα — μόνο ώρες μετά το τώρα.",
+    "subtitleOther": "Διαθέσιμες ώρες προς κράτηση.",
+    "emptyOther": "Δεν υπάρχουν διαθέσιμες ώρες για αυτή την ημέρα."
   },
   "nav": {
     "venues": "Γήπεδα",
@@ -377,7 +380,8 @@
     "status": "Κατάσταση",
     "customer": "Πελάτης",
     "back2": "Πίσω",
-    "backHome": "Αρχική"
+    "backHome": "Αρχική",
+    "clear": "Καθαρισμός"
   },
   "venuesList": {
     "title": "Γήπεδα",
@@ -466,7 +470,8 @@
     "recurringReasonUserOverlap": "Έχεις ήδη κράτηση αυτή την ώρα.",
     "recurringReasonSlotFull": "Η θέση είναι πλήρης.",
     "recurringReasonVenueNotFound": "Το γήπεδο δεν βρέθηκε.",
-    "recurringReasonUnknown": "Η επαναλαμβανόμενη κράτηση δεν ολοκληρώθηκε."
+    "recurringReasonUnknown": "Η επαναλαμβανόμενη κράτηση δεν ολοκληρώθηκε.",
+    "upTo": "έως {{n}} άτομα"
   },
   "myBookings": {
     "title": "Οι κρατήσεις μου",
