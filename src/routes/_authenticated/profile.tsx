@@ -9,6 +9,7 @@ import { uploadAvatar } from "@/lib/avatar";
 import { StarRating } from "@/components/star-rating";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { DeleteAccountButton } from "@/components/delete-account-button";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
@@ -185,6 +186,7 @@ function ProfilePage() {
         <button onClick={signOut} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card py-3 text-sm font-semibold transition hover:border-destructive/40 hover:text-destructive">
           <LogOut className="h-4 w-4" /> {t("profile.signOut")}
         </button>
+        <DeleteAccountButton />
       </div>
 
       <section className="mt-8">

@@ -22,15 +22,15 @@ export function TopBar() {
   const isOwnerOrAdmin = r === "owner" || isAdmin;
 
   return (
-    <header className="sticky top-0 z-40 bg-petrol text-white">
-      <div className="flex h-24 xl:h-28 w-full items-center gap-4 px-6">
+    <header className="safe-top sticky top-0 z-40 bg-petrol text-white">
+      <div className="flex h-20 sm:h-24 xl:h-28 w-full items-center gap-2 px-3 sm:gap-4 sm:px-6">
         {/* LEFT + MIDDLE: logo + nav + search (one stretchable row) */}
         <div className="flex flex-1 items-center gap-2 lg:gap-3">
           <Link
             to={isPureOwner ? "/owner" : "/"}
             className="flex shrink-0 items-center"
           >
-            <Logo variant="white" className="h-[64px] md:h-[80px] xl:h-[104px] w-auto" />
+            <Logo variant="white" className="h-[44px] sm:h-[64px] md:h-[80px] xl:h-[104px] w-auto" />
           </Link>
 
           {/* Player / admin nav */}
@@ -158,7 +158,7 @@ export function TopBar() {
             <Link
               to="/venues"
               aria-label={t("nav.search")}
-              className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white md:hidden"
+              className="ml-auto hidden h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white sm:inline-flex md:hidden"
             >
               <Search className="h-5 w-5" />
             </Link>
@@ -172,7 +172,7 @@ export function TopBar() {
             type="button"
             onClick={toggle}
             aria-label={theme === "dark" ? t("nav.lightMode") : t("nav.nightMode")}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 text-white transition hover:bg-white/10"
+            className="hidden h-10 w-10 items-center justify-center rounded-xl border border-white/20 text-white transition hover:bg-white/10 sm:inline-flex"
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>

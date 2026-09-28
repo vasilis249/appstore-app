@@ -3,6 +3,7 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { AuthShell } from "./auth";
 import { mapAuthError } from "@/lib/auth-errors";
+import { authRedirectUrl } from "@/lib/native";
 
 export const Route = createFileRoute("/forgot-password")({
   head: () => ({
@@ -26,7 +27,7 @@ function ForgotPasswordPage() {
     setLoading(true);
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
+        redirectTo: authRedirectUrl("/reset-password"),
       });
       if (error) throw error;
       setSent(true);

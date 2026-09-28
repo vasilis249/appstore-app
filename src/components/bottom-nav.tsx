@@ -31,7 +31,7 @@ export function BottomNav() {
       ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-border/60 bg-background/95 backdrop-blur md:hidden">
+    <nav className="safe-bottom fixed bottom-0 left-0 right-0 z-40 border-t border-border/60 bg-background/95 backdrop-blur md:hidden">
       <ul className="mx-auto flex max-w-md items-stretch justify-between px-2">
         {items.map(({ to, label, icon: Icon, ...rest }) => (
           <li key={to} className="flex-1">

@@ -213,7 +213,15 @@
     "viewAs": "View as",
     "viewAsAdmin": "Admin (default)",
     "viewAsOwner": "Owner",
-    "viewAsPlayer": "Player"
+    "viewAsPlayer": "Player",
+    "delete": "Delete account",
+    "deleteTitle": "Delete your account?",
+    "deleteDesc": "Your account and its data (profile, friends, chats, reviews) will be permanently deleted. Your upcoming bookings will be cancelled. This cannot be undone.",
+    "deleteCancel": "Cancel",
+    "deleteConfirm": "Delete permanently",
+    "deleting": "Deleting…",
+    "deleted": "Your account has been deleted",
+    "deleteFailed": "Deletion failed. Please try again."
   },
   "ownerBookings": {
     "title": "Bookings",
@@ -1032,5 +1040,8 @@
       "cancelled": "Cancelled",
       "completed": "Completed"
     }
+  },
+  "network": {
+    "offline": "You are offline. Changes will not be saved until the connection is back."
   }
 }

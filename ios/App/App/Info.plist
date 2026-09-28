@@ -66,5 +66,28 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>el</string>
+		<string>en</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!-- Auth email deep links (courtsie://app/...), see src/lib/native.ts -->
+				<string>courtsie</string>
+			</array>
+		</dict>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Courtsie uses the camera so you can take a profile photo or a photo of your venue.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Courtsie accesses your photos so you can choose a profile photo or venue photos.</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>

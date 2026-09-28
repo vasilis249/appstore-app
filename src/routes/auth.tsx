@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { Logo } from "@/components/logo";
 import { mapAuthError } from "@/lib/auth-errors";
+import { authRedirectUrl } from "@/lib/native";
 import { Check } from "lucide-react";
 
 export const Route = createFileRoute("/auth")({
@@ -33,6 +34,8 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [role, setRole] = useState<Role>((search as any)?.role === "owner" ? "owner" : "player");
+  // App Store guideline 1.2 (user-generated content): users must accept the terms.
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
@@ -54,7 +57,7 @@ function AuthPage() {
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/`,
+            emailRedirectTo: authRedirectUrl("/"),
             data: { full_name: fullName, role },
           },
         });
@@ -155,6 +158,28 @@ function AuthPage() {
           </ul>
         )}
 
+        {mode === "signup" && (
+          <label className="flex items-start gap-2 text-xs text-muted-foreground">
+            <input
+              type="checkbox"
+              checked={acceptedTerms}
+              onChange={(e) => setAcceptedTerms(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
+            />
+            <span>
+              Αποδέχομαι τους{" "}
+              <Link to="/terms" className="font-medium text-primary underline">
+                Όρους χρήσης
+              </Link>{" "}
+              και την{" "}
+              <Link to="/privacy" className="font-medium text-primary underline">
+                Πολιτική απορρήτου
+              </Link>
+              . Δεν επιτρέπεται προσβλητικό ή καταχρηστικό περιεχόμενο.
+            </span>
+          </label>
+        )}
+
         {error && (
           <p className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
             {error}
@@ -164,7 +189,7 @@ function AuthPage() {
 
         <button
           type="submit"
-          disabled={loading || (mode === "signup" && !passwordValid)}
+          disabled={loading || (mode === "signup" && (!passwordValid || !acceptedTerms))}
           className="btn-shine w-full rounded-xl bg-primary py-3 text-sm font-bold text-primary-foreground shadow-glow transition hover:-translate-y-0.5 hover:opacity-95 disabled:translate-y-0 disabled:opacity-60"
         >
           {loading ? "..." : mode === "signin" ? "Σύνδεση" : "Δημιουργία λογαριασμού"}

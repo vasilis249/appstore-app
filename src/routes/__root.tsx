@@ -18,6 +18,8 @@ import { TopBar } from "../components/top-bar";
 import { Footer } from "../components/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { ChatWidget } from "../components/chat-widget";
+import { OfflineBanner } from "../components/offline-banner";
+import { initNativeShell } from "../lib/native";
 
 function NotFoundComponent() {
   const { t } = useTranslation();
@@ -78,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "Courtsie — Κράτηση γηπέδων για padel, tennis, μπάσκετ & ποδόσφαιρο" },
       { name: "description", content: "Βρες και κλείσε γήπεδο σε δευτερόλεπτα. Padel, tennis, μπάσκετ και ποδόσφαιρο σε όλη την Ελλάδα." },
       { name: "author", content: "Courtsie" },
@@ -131,6 +133,7 @@ function RootComponent() {
   const router = useRouter();
 
   useEffect(() => { hydrateLanguage(); }, []);
+  useEffect(() => { void initNativeShell(); }, []);
 
   useEffect(() => {
 
@@ -149,7 +152,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col pb-20 md:pb-0">
+      <div className="min-h-screen flex flex-col pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-0">
         <TopBar />
         <main className="flex-1">
           <Outlet />
@@ -157,6 +160,7 @@ function RootComponent() {
         <Footer />
         <BottomNav />
         <ChatWidget />
+        <OfflineBanner />
         <Toaster />
       </div>
     </QueryClientProvider>

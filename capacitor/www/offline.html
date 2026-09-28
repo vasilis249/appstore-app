@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="el">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Courtsie</title>
+    <style>
+      :root {
+        --petrol: #0e4756;
+        --lime: #c9dc34;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: var(--petrol);
+        color: #fff;
+        font-family: -apple-system, system-ui, sans-serif;
+      }
+      main {
+        min-height: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: calc(env(safe-area-inset-top) + 24px) 24px calc(env(safe-area-inset-bottom) + 24px);
+        text-align: center;
+      }
+      h1 {
+        margin: 0;
+        font-size: 22px;
+      }
+      p {
+        margin: 0;
+        max-width: 320px;
+        opacity: 0.85;
+        line-height: 1.45;
+      }
+      button {
+        margin-top: 8px;
+        border: 0;
+        border-radius: 12px;
+        padding: 14px 28px;
+        font-size: 16px;
+        font-weight: 600;
+        background: var(--lime);
+        color: #1a1a14;
+      }
+    </style>
+    <script src="server-url.js"></script>
+  </head>
+  <body>
+    <!-- Shown by Capacitor (server.errorPath) when the hosted web app can't be loaded. -->
+    <main>
+      <svg width="72" height="72" viewBox="0 0 200 200" aria-hidden="true">
+        <path
+          d="M141 68 A52 52 0 1 0 141 132"
+          fill="none"
+          stroke="#fff"
+          stroke-width="19"
+          stroke-linecap="round"
+        />
+        <circle cx="146.8" cy="100" r="20" fill="#C9DC34" />
+      </svg>
+      <h1 id="title">Δεν υπάρχει σύνδεση</h1>
+      <p id="body">Έλεγξε τη σύνδεσή σου στο internet και δοκίμασε ξανά.</p>
+      <button id="retry" type="button">Δοκίμασε ξανά</button>
+    </main>
+    <script>
+      if (!navigator.language.toLowerCase().startsWith("el")) {
+        document.documentElement.lang = "en";
+        document.getElementById("title").textContent = "You're offline";
+        document.getElementById("body").textContent =
+          "Check your internet connection and try again.";
+        document.getElementById("retry").textContent = "Try again";
+      }
+      function retry() {
+        if (window.COURTSIE_SERVER_URL) window.location.replace(window.COURTSIE_SERVER_URL);
+      }
+      document.getElementById("retry").addEventListener("click", retry);
+      window.addEventListener("online", retry);
+      try {
+        window.Capacitor.Plugins.SplashScreen.hide();
+      } catch (e) {
+        // Splash hides on its own after launchShowDuration.
+      }
+    </script>
+  </body>
+</html>

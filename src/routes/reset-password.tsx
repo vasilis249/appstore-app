@@ -46,8 +46,13 @@ function ResetPasswordPage() {
         const type = hashParams.get("type");
 
         if (code) {
-          const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
-          if (error) throw error;
+          // With PKCE (the iOS app) the client exchanges ?code= by itself on
+          // load; only exchange here if that didn't already produce a session.
+          const { data: existing } = await supabase.auth.getSession();
+          if (!existing.session) {
+            const { error } = await supabase.auth.exchangeCodeForSession(code);
+            if (error) throw error;
+          }
         } else if (accessToken && refreshToken && type === "recovery") {
           const { error } = await supabase.auth.setSession({
             access_token: accessToken,

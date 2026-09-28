@@ -112,7 +112,7 @@ function ChatWidgetInner({ userId }: { userId: string }) {
         onClick={togglePanel}
         aria-label={t("community.messages.openMessages")}
         aria-expanded={panelOpen}
-        className="fixed bottom-24 right-4 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-1 ring-black/5 transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/40 md:bottom-6 md:right-6"
+        className="fixed bottom-[calc(6rem+env(safe-area-inset-bottom,0px))] right-4 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-1 ring-black/5 transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary/40 md:bottom-6 md:right-6"
       >
         <MessageCircle className="h-6 w-6" />
         {showBadge ? (
