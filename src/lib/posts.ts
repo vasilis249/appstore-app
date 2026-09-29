@@ -5,7 +5,7 @@ export const TITLE_MAX = 100;
 
 export type FeedScope =
   | "foryou" | "all" | "following" | "section" | "topic" | "author" | "author_replies" | "replies" | "one" | "ids"
-  | "group" | "groups" | "news" | "personal";
+  | "group" | "groups" | "news" | "personal" | "loose";
 
 /** One row of feed_posts(). Plain reposts have no audio; the original is in orig_*. */
 export interface FeedRow {
@@ -135,9 +135,18 @@ export interface Topic {
   summary?: string | null;
   source_name: string | null;
   source_url: string | null;
+  image_url?: string | null;
   created_at: string;
   posts_count: number;
   recent_posts?: number;
+}
+
+/** A headline card on Home → News: cover photo, title, who spoke. */
+export interface NewsTopic extends Topic {
+  image_url: string | null;
+  last_post_at: string | null;
+  speakers_count: number;
+  speakers: { name: string; avatar_path: string | null }[];
 }
 
 export const postKeys = {
@@ -146,6 +155,7 @@ export const postKeys = {
   sections: ["sections"] as const,
   trending: (section?: string) => ["posts", "trending", section ?? "all"] as const,
   topic: (id: string) => ["posts", "topic", id] as const,
+  news: (section?: string) => ["posts", "news", section ?? "all"] as const,
 };
 
 const PAGE = 20;
@@ -198,10 +208,18 @@ export async function trendingTopics(section?: string, limit = 10): Promise<Topi
   return (data ?? []) as Topic[];
 }
 
+export const NEWS_PAGE = 15;
+
+export async function newsTopics(section: string | undefined, offset: number): Promise<NewsTopic[]> {
+  const { data, error } = await supabase.rpc("news_topics", { p_section: section, p_limit: NEWS_PAGE, p_offset: offset });
+  fail(error);
+  return (data ?? []) as unknown as NewsTopic[];
+}
+
 export async function getTopic(id: string): Promise<Topic | null> {
   const { data, error } = await supabase
     .from("topics")
-    .select("id, section_id, kind, title, summary, source_name, source_url, created_at, posts_count")
+    .select("id, section_id, kind, title, summary, source_name, source_url, image_url, created_at, posts_count")
     .eq("id", id)
     .maybeSingle();
   fail(error);

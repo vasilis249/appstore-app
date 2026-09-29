@@ -34,12 +34,14 @@ function buildCsp(): string {
     "wss://*.supabase.co",
   ].filter(Boolean);
 
+  // News cover photos are shown straight from the publishers' servers (any https host).
   const imgSrc = [
     "'self'",
     "data:",
     "blob:",
     sb,
     "https://*.supabase.co",
+    "https:",
   ].filter(Boolean);
 
   // Voice clips: recorded locally (blob:) and streamed from Supabase.

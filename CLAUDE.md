@@ -173,6 +173,18 @@ User decisions:
   records from any screen (floating "0:05 / 2:00 · άφησε για συνέχεια"), let go → `setPendingClip` + /record placed
   where you were (group / topic / News section or `news=1` / personal). Composer is focused: nav hidden on /record,
   "Πού ανήκει" = one scrolling row, Publish sticky at the bottom. Browser 10/10.
+- **News as cards ✔ (user request)** — migration `20261013100000_speak_news_cards.sql`: `topics.image_url` (https only,
+  shown from the publisher, never copied) from the RSS item (`private.item_image`: media:content → enclosure image →
+  media:thumbnail → <img> in the text; existing headlines get a missing photo on the next run), else `og:image` of the
+  article (`private.topic_image_fetches`, `fetch_topic_images()` at the end of `ingest_news`, cron `news-images`
+  `27 */3` → `ingest_topic_images()`; Cinemagazine pages have none → section tile). `news_topics(section, limit,
+  offset)` (7 days or talked about in 3; pinned, then last activity; `speakers_count`, `speakers` = 3 latest {name,
+  avatar_path}, blocked left out). `feed_posts` scope `loose` (section voices not about a headline). Live: 70/80 with
+  photos. Tests `test_speak.sql` 98. UI: `components/posts/news-card.tsx` (`NewsCover` 16:9 photo or section tile,
+  `NewsCard`: section · source · time, 21px headline, avatars + "Νίκος και 2 ακόμα μίλησαν · 5 φωνές" / "Πες πρώτος").
+  Home → News = cards (topic of the day first, labelled), "Περισσότερες ειδήσεις" pages of 15, then "Άλλες φωνές"
+  (`loose`); no ▶ on News. Topic page: cover, 24px title, "Διάβασε στο …", Πες τη γνώμη σου + Άκου όλες, voices.
+  `DailyTopicCard` removed. CSP `img-src` + `https:`; Privacy mentions photos loaded from publishers. Browser 10/10.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -300,7 +312,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (92) + `test_groups.sql` (33).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (98) + `test_groups.sql` (33).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

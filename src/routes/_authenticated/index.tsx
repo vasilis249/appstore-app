@@ -5,13 +5,14 @@ import { Play, Search } from "lucide-react";
 import { AppHeader, HomeHeaderActions } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
-import { TopicStrip } from "@/components/posts/topic-strip";
-import { DailyTopicCard } from "@/components/posts/daily-topic-card";
+import { NewsCard } from "@/components/posts/news-card";
 import { MyGroupsStrip } from "@/components/groups/my-groups-strip";
 import { UserAvatar } from "@/components/user-avatar";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { useSections } from "@/hooks/use-sections";
-import type { FeedParams } from "@/lib/posts";
+import { NEWS_PAGE, newsTopics, postKeys, type FeedParams } from "@/lib/posts";
+import { dailyKeys, getToday } from "@/lib/daily";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 
@@ -42,15 +43,7 @@ function HomePage() {
   const section = tab === "news" ? search.s : undefined;
   const playAll = useRef<(() => void) | null>(null);
 
-  const params: FeedParams =
-    tab === "following"
-      ? { scope: "personal" }
-      : tab === "groups"
-        ? { scope: "groups" }
-        : section
-          ? { scope: "section", section }
-          : { scope: "news" };
-
+  const params: FeedParams = tab === "following" ? { scope: "personal" } : { scope: "groups" };
   return (
     <>
       <AppHeader right={<HomeHeaderActions />} />
@@ -73,27 +66,89 @@ function HomePage() {
               );
             })}
           </nav>
-          <button
-            type="button"
-            onClick={() => playAll.current?.()}
-            aria-label={t("posts.playAll")}
-            className="mx-3 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground active:scale-95"
-          >
-            <Play className="ml-0.5 h-4 w-4" fill="currentColor" />
-          </button>
+          {tab !== "news" && (
+            <button
+              type="button"
+              onClick={() => playAll.current?.()}
+              aria-label={t("posts.playAll")}
+              className="mx-3 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground active:scale-95"
+            >
+              <Play className="ml-0.5 h-4 w-4" fill="currentColor" />
+            </button>
+          )}
         </div>
         {tab === "news" && <SectionPills active={section} />}
       </div>
 
-      {tab === "news" && !section && <DailyTopicCard />}
-      {tab === "news" && <TopicStrip variant="pills" section={section} />}
-      {tab === "following" && <SayYourOwn />}
-      {tab === "groups" && <MyGroupsStrip />}
-
-      <div className="pt-2">
-        <FeedList key={`${tab}-${section ?? ""}`} playAllRef={playAll} params={params} empty={<Empty tab={tab} section={section} />} />
-      </div>
+      {tab === "news" ? (
+        <NewsList key={section ?? "all"} section={section} />
+      ) : (
+        <>
+          {tab === "following" && <SayYourOwn />}
+          {tab === "groups" && <MyGroupsStrip />}
+          <div className="pt-2">
+            <FeedList key={tab} playAllRef={playAll} params={params} empty={<Empty tab={tab} />} />
+          </div>
+        </>
+      )}
     </>
+  );
+}
+
+/**
+ * News: headline cards (photo, title, who spoke), the topic of the day first; "More news" pages on; then the
+ * voices filed in the section that aren't about a headline.
+ */
+function NewsList({ section }: { section?: string }) {
+  const { t } = useTranslation();
+  const q = useInfiniteQuery({
+    queryKey: postKeys.news(section),
+    queryFn: ({ pageParam }) => newsTopics(section, pageParam),
+    initialPageParam: 0,
+    getNextPageParam: (last, all) => (last.length < NEWS_PAGE ? undefined : all.reduce((n, p) => n + p.length, 0)),
+  });
+  const today = useQuery({ queryKey: dailyKeys.today, queryFn: getToday });
+  const dailyId = today.data?.topic_id ?? null;
+  const topics = q.data?.pages.flat() ?? [];
+  const ordered = !section && dailyId ? [...topics.filter((x) => x.id === dailyId), ...topics.filter((x) => x.id !== dailyId)] : topics;
+
+  return (
+    <div className="pt-2">
+      {q.data && !topics.length && <EmptyState title={t("news.emptyTitle")} text={t("news.empty")} />}
+      {ordered.map((tp) => (
+        <NewsCard key={tp.id} topic={tp} daily={tp.id === dailyId} />
+      ))}
+      {q.hasNextPage && (
+        <div className="px-4 pb-4">
+          <button
+            type="button"
+            disabled={q.isFetchingNextPage}
+            onClick={() => void q.fetchNextPage()}
+            className="h-11 w-full rounded-full bg-secondary text-[15px] font-semibold disabled:opacity-50"
+          >
+            {t("news.more")}
+          </button>
+        </div>
+      )}
+      {q.data && (
+        <section className="border-t border-border pt-4">
+          <h2 className="px-4 pb-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("news.otherVoices")}</h2>
+          <FeedList key={`loose-${section ?? ""}`} params={{ scope: "loose", section }} playAll={false} empty={<OtherVoicesEmpty section={section} />} />
+        </section>
+      )}
+    </div>
+  );
+}
+
+function OtherVoicesEmpty({ section }: { section?: string }) {
+  const { t } = useTranslation();
+  return (
+    <Link to="/record" search={section ? { section } : { news: 1 }} className="mx-4 my-3 flex items-center gap-3 rounded-full bg-secondary py-1.5 pl-4 pr-2 text-[15px] text-muted-foreground">
+      <span className="flex-1">{t("news.otherVoicesEmpty")}</span>
+      <span className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground">
+        <VoiceIcon className="h-5 w-5" />
+      </span>
+    </Link>
   );
 }
 
@@ -137,7 +192,7 @@ function SayYourOwn() {
   );
 }
 
-function Empty({ tab, section }: { tab: Tab; section?: string }) {
+function Empty({ tab }: { tab: Tab }) {
   const { t } = useTranslation();
   const pill = "inline-flex h-12 items-center gap-2 rounded-full bg-primary px-8 font-semibold text-primary-foreground";
   if (tab === "groups")
@@ -164,15 +219,5 @@ function Empty({ tab, section }: { tab: Tab; section?: string }) {
         }
       />
     );
-  return (
-    <EmptyState
-      title={t("posts.emptyTitle")}
-      text={t("posts.empty")}
-      action={
-        <Link to="/record" search={section ? { section } : { news: 1 }} className={pill}>
-          <VoiceIcon className="h-5 w-5" /> {t("posts.speak")}
-        </Link>
-      }
-    />
-  );
+  return null;
 }

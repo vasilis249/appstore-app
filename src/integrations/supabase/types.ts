@@ -557,6 +557,7 @@ export type Database = {
           external_id: string | null
           hidden: boolean
           id: string
+          image_url: string | null
           kind: string
           last_post_at: string | null
           pinned: boolean
@@ -574,6 +575,7 @@ export type Database = {
           external_id?: string | null
           hidden?: boolean
           id?: string
+          image_url?: string | null
           kind?: string
           last_post_at?: string | null
           pinned?: boolean
@@ -591,6 +593,7 @@ export type Database = {
           external_id?: string | null
           hidden?: boolean
           id?: string
+          image_url?: string | null
           kind?: string
           last_post_at?: string | null
           pinned?: boolean
@@ -966,6 +969,23 @@ export type Database = {
           other_id: string
           unheard: number
           username: string
+        }[]
+      }
+      news_topics: {
+        Args: { p_limit?: number; p_offset?: number; p_section?: string }
+        Returns: {
+          created_at: string
+          id: string
+          image_url: string
+          kind: string
+          last_post_at: string
+          posts_count: number
+          section_id: string
+          source_name: string
+          source_url: string
+          speakers: Json
+          speakers_count: number
+          title: string
         }[]
       }
       post_ancestors: { Args: { p_post: string }; Returns: string[] }

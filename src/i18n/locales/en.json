@@ -237,7 +237,7 @@
             "Cloudflare, Inc.: hosting and running the app, protection against attacks.",
             "Email delivery provider: sending sign-up confirmation and password reset emails.",
             "Apple: distributes the app through the App Store, but has no access to your Speak account data.",
-            "For news topics our server reads public RSS feeds of Greek media; we do not send them any user data. When you open an article link, the publisher's website receives your IP address under its own policy.",
+            "For news topics our server reads public RSS feeds of Greek media; we do not send them any user data. News photos are shown straight from the publisher's server, so when you see them or open an article link, the publisher receives your IP address under its own policy.",
             "All providers process data only on our instructions and are bound by data processing agreements (Art. 28 GDPR). Data may also be disclosed to public authorities when required by law."
           ]
         },
@@ -330,8 +330,6 @@
     "youReposted": "You reposted",
     "delete": "Delete post",
     "deleted": "Deleted",
-    "emptyTitle": "Quiet so far",
-    "empty": "Be the first to say what you think.",
     "emptySection": "No voices here yet.",
     "emptyTopic": "Nobody has spoken about this yet.",
     "giveYourTake": "Give your take",
@@ -357,7 +355,6 @@
   },
   "tabs": {
     "feed": "Home",
-    "record": "Record",
     "memories": "Memories",
     "profile": "Profile",
     "messages": "Messages",
@@ -655,5 +652,18 @@
     "emptyFollowingTitle": "Nothing here yet",
     "emptyFollowing": "Hear what the people you follow say, outside the news.",
     "findPeople": "Find people"
+  },
+  "news": {
+    "spokeOne": "{{name}} spoke",
+    "spokeMany_one": "{{name}} and {{count}} more spoke",
+    "spokeMany_other": "{{name}} and {{count}} more spoke",
+    "beFirst": "Be the first to speak",
+    "more": "More news",
+    "otherVoices": "Other voices",
+    "otherVoicesEmpty": "Say something about the news…",
+    "emptyTitle": "No news yet",
+    "empty": "News refresh every 3 hours.",
+    "readAt": "Read on {{source}}",
+    "listenAll": "Play all"
   }
 }

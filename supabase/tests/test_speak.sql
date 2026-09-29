@@ -335,3 +335,43 @@ SELECT pg_temp.ok('14d News = voices filed in a section only',
   AND NOT EXISTS (SELECT 1 FROM public.feed_posts('news', p_limit := 50) WHERE section_id IS NULL OR group_id IS NOT NULL OR reply_to IS NOT NULL));
 SELECT pg_temp.ok('14e News pages with offset like For you', (SELECT count(*) FROM public.feed_posts('news', p_limit := 1, p_offset := 1)) = 1);
 RESET ROLE;
+
+-- 15 news cards: photos from the feed / og:image, speakers, "other voices"
+SELECT format($x$<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title>Feed</title>
+<item><title>Με media content</title><link>https://example.com/m1</link><guid>img-1</guid><pubDate>%1$s</pubDate>
+  <media:content url="https://cdn.example.com/a.jpg?x=1&amp;y=2" medium="image"/></item>
+<item><title>Με enclosure</title><link>https://example.com/m2</link><guid>img-2</guid><pubDate>%1$s</pubDate>
+  <media:content/><enclosure url="https://cdn.example.com/b.png" length="10" type="image/png"/></item>
+<item><title>Με εικόνα στο κείμενο</title><link>https://example.com/m3</link><guid>img-3</guid><pubDate>%1$s</pubDate>
+  <description><![CDATA[<img width="10" src="https://cdn.example.com/c.jpg" /><p>κείμενο</p>]]></description></item>
+<item><title>Με http εικόνα</title><link>https://example.com/m4</link><guid>img-4</guid><pubDate>%1$s</pubDate>
+  <media:thumbnail url="http://cdn.example.com/d.jpg"/></item>
+</channel></rss>$x$, to_char(now() AT TIME ZONE 'UTC', 'Dy, DD Mon YYYY HH24:MI:SS') || ' +0000') AS rss2 \gset
+SELECT private.ingest_feed_xml(1, :'rss2', 10);
+SELECT pg_temp.ok('15a photo from media:content / enclosure / <img>, https only',
+  (SELECT image_url FROM public.topics WHERE external_id = 'img-1') = 'https://cdn.example.com/a.jpg?x=1&y=2'
+  AND (SELECT image_url FROM public.topics WHERE external_id = 'img-2') = 'https://cdn.example.com/b.png'
+  AND (SELECT image_url FROM public.topics WHERE external_id = 'img-3') = 'https://cdn.example.com/c.jpg'
+  AND (SELECT image_url FROM public.topics WHERE external_id = 'img-4') IS NULL);
+SELECT private.ingest_feed_xml(1, replace(:'rss2', 'http://cdn.example.com/d.jpg', 'https://cdn.example.com/d.jpg'), 10) AS again \gset
+SELECT pg_temp.ok('15b a later run fills a missing photo (no duplicate headline)', :again = 0
+  AND (SELECT image_url FROM public.topics WHERE external_id = 'img-4') = 'https://cdn.example.com/d.jpg');
+SELECT pg_temp.ok('15c og:image in either attribute order',
+  private.og_image('<head><meta property="og:image" content="https://x.gr/o.jpg"></head>') = 'https://x.gr/o.jpg'
+  AND private.og_image('<meta content="https://x.gr/p.jpg" property="og:image" />') = 'https://x.gr/p.jpg'
+  AND private.og_image('<meta name="description" content="none">') IS NULL);
+INSERT INTO storage.objects (bucket_id, name) VALUES ('voices', '00000000-0000-0000-0000-00000000000c/nt.m4a');
+SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT public.create_post(p_topic := (SELECT id FROM public.topics WHERE external_id = 'img-1'), p_path := '00000000-0000-0000-0000-00000000000c/nt.m4a', p_mime := 'audio/mp4', p_duration_ms := 3000);
+RESET ROLE; SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('15d cards: photo, voices, who spoke',
+  (SELECT image_url = 'https://cdn.example.com/a.jpg?x=1&y=2' AND posts_count = 1 AND speakers_count = 1 AND speakers->0->>'name' = 'Chris'
+   FROM public.news_topics(p_limit := 50) WHERE title = 'Με media content'));
+SELECT pg_temp.ok('15e cards by section; the talked-about one comes first',
+  (SELECT title FROM public.news_topics('news', 1)) = 'Με media content'
+  AND NOT EXISTS (SELECT 1 FROM public.news_topics('sports', 50) WHERE section_id <> 'sports'));
+SELECT pg_temp.ok('15f other voices = in a section, not about a headline',
+  EXISTS (SELECT 1 FROM public.feed_posts('loose', p_limit := 50))
+  AND NOT EXISTS (SELECT 1 FROM public.feed_posts('loose', p_limit := 50) WHERE topic_id IS NOT NULL OR section_id IS NULL));
+RESET ROLE;
