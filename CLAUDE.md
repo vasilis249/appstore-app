@@ -13,7 +13,7 @@ the same time for everyone; calendar of own past posts; report/block/EULA/accoun
 - **FREE stack, push-to-talk POSTPONED** (no Apple Developer Program → no APNs/PushToTalk/LiveKit). Daily prompt
   = local notifications scheduled from `prompt_schedule()` (~30 days ahead). No push for new DMs while closed.
   Supabase free tier (project pauses after 1 week idle).
-- Clips: web `MediaRecorder` (prefer `audio/mp4`, ~32–64 kbps mono); DM ≤ 60 s / 1 MB, daily post ≤ 90 s / 2 MB.
+- Clips: web `MediaRecorder` (prefer `audio/mp4`, 64 kbps requested); DM ≤ 60 s / 2 MB, daily post ≤ 90 s / 2 MB.
 - Phases: 0 proposal ✔ → 1 cleanup & theme ✔ → 2 Supabase backend ✔ → 3 features one by one (friends →
   voice DMs → daily post + feed lock → 24 h feed → calendar → notifications → report/block; each with a 2–3 line
   test plan, then stop) → 4 hardening/release.
@@ -61,10 +61,18 @@ the same time for everyone; calendar of own past posts; report/block/EULA/accoun
   Add / Cancel / Accept), sections Requests (Accept + ✕), My friends (n), Pending; realtime on `friendships`;
   "Your username" share row (Web Share, clipboard fallback). Profile: name + @username + Edit sheet (name,
   username with format/uniqueness errors). Toasts: dark, top-center. Usernames IG-style (`maria.papadopoulou`).
-- Next: voice DMs (listen once).
+- **Voice DMs ✔** — `src/lib/audio.ts` (recorder mime pick, base64, shared `<audio>` `player` with `prime()` called
+  synchronously in the tap so iOS allows playback after the async RPC; plays with the silent switch on),
+  `useRecorder(maxMs)` (MediaRecorder, 64 kbps, auto-stop), `src/lib/voice.ts` (threads, thread query, send,
+  consume). `RealtimeSync` in root (friendships + voice_messages → invalidate). `/messages` (threads, unheard dot,
+  ✎ → `FriendPickerSheet`), `/messages/$userId` (bubbles: orange "Tap to listen · once" → plays once → "Listened";
+  mine: Sent / Opened / Expired; `RecordBar`: tap record → stop → preview/delete/send; friends-only notice).
+  BottomNav hidden inside a thread. Unheard badge on the Home paper-plane. Migrations `20261004100000` (DM ≤ 2 MB)
+  and `20261004100100` (search ignores dots/underscores). Browser test: Chromium fake mic, two users.
+- Next: daily voice post + feed lock.
 
 ## Backend (Supabase `gqmzxxygegmlifeewbzy`) — Phase 2 done
-- One baseline migration `supabase/migrations/20261003100000_voice_baseline.sql` (drops the old schema if
+- Baseline migration `supabase/migrations/20261003100000_voice_baseline.sql` (+ small follow-ups, applied live the same way) (drops the old schema if
   present; keeps auth.users and backfills profiles). Applied live via the Management API
   (`POST /v1/projects/<ref>/database/query`; raw Postgres ports are blocked from the container) and the
   migration history now holds only this version. Old buckets `venue-photos`/`social-media` deleted via the
@@ -104,7 +112,7 @@ the same time for everyone; calendar of own past posts; report/block/EULA/accoun
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (62 checks).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (63 checks).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

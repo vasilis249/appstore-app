@@ -19,7 +19,7 @@ against the live project with two temporary users (friends, listen-once, storage
 - **Voice DMs (listen once)**: audio bytes are stored in `private.voice_message_audio` (no client
   access). `consume_voice_message` marks the message opened and deletes the bytes in the same
   transaction, so a second play is impossible even with concurrent calls. The sender only sees
-  `opened_at`. Unheard messages expire after 10 days (pg_cron). Max 60 s / 1 MB, audio types only.
+  `opened_at`. Unheard messages expire after 10 days (pg_cron). Max 60 s / 2 MB, audio types only.
 - **Daily posts**: files in the private `daily-posts` bucket under `<uid>/`. A friend's file can be
   read (signed URL) only while the post is < 24 h old **and** the reader has posted in the current
   moment (the unlock rule is enforced in the storage policy, not only in the UI). Max 90 s / 2 MB,

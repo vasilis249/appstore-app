@@ -45,6 +45,8 @@ SELECT pg_temp.ok('02a no direct insert', pg_temp.fails($$INSERT INTO public.fri
 SELECT pg_temp.ok('02b cannot befriend self', pg_temp.fails($$SELECT public.send_friend_request(auth.uid())$$));
 SELECT pg_temp.ok('02c cannot befriend disabled', pg_temp.fails($$SELECT public.send_friend_request('00000000-0000-0000-0000-00000000000e')$$));
 SELECT pg_temp.ok('02d request sent', public.send_friend_request(:B) = 'outgoing');
+SELECT pg_temp.ok('02e2 search ignores dots', EXISTS (SELECT 1 FROM public.search_users('christ') WHERE id = :C)
+  AND (SELECT count(*) FROM public.search_users('anna')) = 0);
 SELECT pg_temp.ok('02e search shows outgoing',
   (SELECT relation FROM public.search_users('bo') WHERE id = :B) = 'outgoing');
 SELECT pg_temp.ok('02f requester cannot accept own request', pg_temp.fails($$SELECT public.accept_friend_request('00000000-0000-0000-0000-00000000000b')$$));
@@ -73,7 +75,7 @@ SELECT pg_temp.ok('03b bad mime rejected', pg_temp.fails(
 SELECT pg_temp.ok('03c too long rejected', pg_temp.fails(
   $$SELECT public.send_voice_message('00000000-0000-0000-0000-00000000000b', encode(convert_to(repeat('x', 500), 'UTF8'), 'base64'), 'audio/mp4', 61000)$$));
 SELECT pg_temp.ok('03d too big rejected', pg_temp.fails(
-  $$SELECT public.send_voice_message('00000000-0000-0000-0000-00000000000b', encode(convert_to(repeat('x', 1100000), 'UTF8'), 'base64'), 'audio/mp4', 2000)$$));
+  $$SELECT public.send_voice_message('00000000-0000-0000-0000-00000000000b', encode(convert_to(repeat('x', 2200000), 'UTF8'), 'base64'), 'audio/mp4', 2000)$$));
 SELECT public.send_voice_message(:B, encode(convert_to(repeat('v', 500), 'UTF8'), 'base64'), 'audio/mp4;codecs=mp4a.40.2', 2500) AS m1 \gset
 SELECT pg_temp.ok('03e audio table unreachable', pg_temp.fails($$SELECT * FROM private.voice_message_audio$$));
 SELECT pg_temp.ok('03f sender cannot consume', pg_temp.fails(format('SELECT * FROM public.consume_voice_message(%L)', :'m1')));

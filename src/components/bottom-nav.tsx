@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { CalendarDays, Home, Mic, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/use-auth";
@@ -13,7 +13,9 @@ export function BottomNav() {
   const { user } = useAuth();
   const { t } = useTranslation();
   const me = useMyProfile();
-  if (!user) return null;
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  // A conversation has its own composer at the bottom.
+  if (!user || /^\/messages\/./.test(path)) return null;
 
   const name = me.data?.full_name || me.data?.username || (user.user_metadata?.full_name as string | undefined) || "?";
   const item =

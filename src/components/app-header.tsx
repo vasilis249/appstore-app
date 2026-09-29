@@ -3,6 +3,7 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { Bell, ChevronLeft, Send } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Wordmark } from "@/components/wordmark";
+import { useUnheardCount } from "@/hooks/use-threads";
 
 /**
  * Screen header: centered wordmark (or a title / custom center) with optional
@@ -83,9 +84,10 @@ export function HeaderIconLink({
 /** Messages + notifications, top right of the Home screen. */
 export function HomeHeaderActions() {
   const { t } = useTranslation();
+  const unheard = useUnheardCount();
   return (
     <HeaderPill>
-      <HeaderIconLink to="/messages" label={t("tabs.messages")}>
+      <HeaderIconLink to="/messages" label={t("tabs.messages")} badge={unheard}>
         <Send className="h-5 w-5" />
       </HeaderIconLink>
       <HeaderIconLink to="/notifications" label={t("tabs.notifications")}>

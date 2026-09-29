@@ -4,7 +4,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Search, Share, Users, X } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 import { AppHeader } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { PersonRow, PillButton } from "@/components/friends/person-row";
@@ -34,22 +33,6 @@ function useDebounced(value: string, ms: number) {
   return v;
 }
 
-/** Live updates: someone sends/accepts a request → refresh the lists. */
-function useFriendshipsRealtime() {
-  const qc = useQueryClient();
-  useEffect(() => {
-    const channel = supabase
-      .channel("friendships-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "friendships" }, () => {
-        void qc.invalidateQueries({ queryKey: friendKeys.all });
-      })
-      .subscribe();
-    return () => {
-      void supabase.removeChannel(channel);
-    };
-  }, [qc]);
-}
-
 function FriendsPage() {
   const { t } = useTranslation();
   const qc = useQueryClient();
@@ -57,7 +40,6 @@ function FriendsPage() {
   const q = useDebounced(query.trim().toLowerCase(), 300);
   const searching = q.length >= 2;
   const [selected, setSelected] = useState<Person | null>(null);
-  useFriendshipsRealtime();
 
   const list = useQuery({ queryKey: friendKeys.list, queryFn: listFriends });
   const results = useQuery({ queryKey: friendKeys.search(q), queryFn: () => searchUsers(q), enabled: searching });

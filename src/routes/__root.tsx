@@ -15,6 +15,7 @@ import appCss from "../styles.css?url";
 import { hydrateLanguage } from "../i18n";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BottomNav } from "../components/bottom-nav";
+import { RealtimeSync } from "../components/realtime-sync";
 import { Toaster } from "@/components/ui/sonner";
 import { OfflineBanner } from "../components/offline-banner";
 import { initNativeShell } from "../lib/native";
@@ -161,6 +162,7 @@ function RootComponent() {
           <Outlet />
         </main>
         <BottomNav />
+        <RealtimeSync />
         <OfflineBanner />
         {/* Top of the screen, clear of the floating nav; dark like the app. */}
         <Toaster theme="dark" position="top-center" offset="calc(env(safe-area-inset-top, 0px) + 12px)" />

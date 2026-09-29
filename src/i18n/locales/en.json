@@ -1378,5 +1378,27 @@
     "usernameFormat": "3–20 characters: a–z, 0–9, . and _",
     "notAllowed": "Not allowed.",
     "notFound": "Not found."
+  },
+  "voice": {
+    "record": "Record",
+    "stop": "Stop",
+    "delete": "Delete",
+    "send": "Send",
+    "micDenied": "Allow microphone access in iPhone Settings.",
+    "unsupported": "Recording is not supported here.",
+    "tapToListen": "Tap to listen",
+    "playing": "Playing…",
+    "onceOnly": "once",
+    "opened": "Opened",
+    "delivered": "Sent",
+    "expired": "Expired",
+    "heard": "Listened",
+    "playFailed": "Could not play it.",
+    "newMessage": "New message",
+    "noFriends": "Add some friends first.",
+    "unheardCount_one": "New voice message",
+    "unheardCount_other": "{{count}} new voice messages",
+    "threadEmpty": "Send the first voice message. It can be heard only once.",
+    "friendsOnly": "Voice messages are for friends only."
   }
 }
