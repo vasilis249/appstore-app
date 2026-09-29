@@ -1400,5 +1400,25 @@
     "unheardCount_other": "{{count}} new voice messages",
     "threadEmpty": "Send the first voice message. It can be heard only once.",
     "friendsOnly": "Voice messages are for friends only."
+  },
+  "daily": {
+    "yourVoice": "Your voice",
+    "late": "late",
+    "locked": "Locked",
+    "play": "Play",
+    "pause": "Pause",
+    "lockedTitle": "Today's voice is here",
+    "lockedText": "Share yours to hear your friends.",
+    "noFriendsYet": "Your friends haven't spoken yet.",
+    "promptAt": "Today's time: {{time}}",
+    "postedHint": "Your friends can listen for 24 hours. You keep it in Memories.",
+    "delete": "Delete",
+    "deleteConfirm": "Tap again to delete",
+    "recordHint": "Say what you're up to. Up to 90 seconds.",
+    "recordingHint": "Tap to stop.",
+    "reviewHint": "Listen before you post.",
+    "retake": "Retake",
+    "post": "Post",
+    "published": "You unlocked your friends' voices!"
   }
 }

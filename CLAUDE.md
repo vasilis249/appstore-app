@@ -69,7 +69,14 @@ the same time for everyone; calendar of own past posts; report/block/EULA/accoun
   mine: Sent / Opened / Expired; `RecordBar`: tap record → stop → preview/delete/send; friends-only notice).
   BottomNav hidden inside a thread. Unheard badge on the Home paper-plane. Migrations `20261004100000` (DM ≤ 2 MB)
   and `20261004100100` (search ignores dots/underscores). Browser test: Chromium fake mic, two users.
-- Next: daily voice post + feed lock.
+- **Daily voice post + feed lock ✔** — `src/lib/daily.ts` (today, feed, `publishDaily` = upload to
+  `daily-posts/<uid>/<ts>.<ext>` then RPC, file removed if the RPC fails; `deleteDaily`; `fetchPostAudio` via
+  signed URL). `/record`: big mic with 90 s progress ring → review (play / Retake / Post) → back Home with toast;
+  if already posted: your card + "Delete" (tap twice) so you can re-record. Home: locked banner ("Share yours to
+  hear your friends") + `PostCard`s (blurred `Waveform` + lock while locked; play/pause with progress; "late"
+  label); own post first. Realtime also on `daily_posts`. Local proxy now emulates Storage with RLS
+  (upload/sign/delete through PostgREST on `storage.objects`, bytes in scratchpad `storage-files/`).
+- Next: 24 h feed polish (time left, auto refresh at the next prompt) → calendar/memories.
 
 ## Backend (Supabase `gqmzxxygegmlifeewbzy`) — Phase 2 done
 - Baseline migration `supabase/migrations/20261003100000_voice_baseline.sql` (+ small follow-ups, applied live the same way) (drops the old schema if
