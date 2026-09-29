@@ -11,6 +11,7 @@ import { useRecorder } from "@/hooks/use-recorder";
 import { formatClock, player } from "@/lib/audio";
 import { dailyKeys, deleteDaily, getFeed, getToday, POST_MAX_MS, publishDaily } from "@/lib/daily";
 import { rpcErrorKey } from "@/lib/friends";
+import { splitDuration, useNow } from "@/hooks/use-now";
 
 export const Route = createFileRoute("/_authenticated/record")({
   component: RecordPage,
@@ -31,13 +32,15 @@ function RecordPage() {
       {today.data && (
         <p className="text-center text-xs text-muted-foreground">{t("daily.promptAt", { time: promptTime })}</p>
       )}
-      {today.data?.my_post_id ? mine ? <Posted post={mine} /> : null : today.data ? <Recorder /> : null}
+      {today.data?.my_post_id ? mine ? <Posted post={mine} nextPromptAt={today.data.next_prompt_at} /> : null : today.data ? <Recorder /> : null}
     </>
   );
 }
 
-function Posted({ post }: { post: NonNullable<Awaited<ReturnType<typeof getFeed>>[number]> }) {
+function Posted({ post, nextPromptAt }: { post: NonNullable<Awaited<ReturnType<typeof getFeed>>[number]>; nextPromptAt: string }) {
   const { t } = useTranslation();
+  const now = useNow();
+  const next = splitDuration(new Date(nextPromptAt).getTime() - now);
   const qc = useQueryClient();
   const [confirm, setConfirm] = useState(false);
   const del = useMutation({
@@ -49,6 +52,9 @@ function Posted({ post }: { post: NonNullable<Awaited<ReturnType<typeof getFeed>
     <div className="flex flex-1 flex-col gap-4 px-4 pt-6">
       <PostCard post={post} />
       <p className="text-center text-sm text-muted-foreground">{t("daily.postedHint")}</p>
+      <p className="text-center text-sm font-semibold">
+        {t("daily.nextIn", { time: next.h ? t("time.hm", next) : t("time.m", next) })}
+      </p>
       <button
         type="button"
         disabled={del.isPending}

@@ -76,7 +76,15 @@ the same time for everyone; calendar of own past posts; report/block/EULA/accoun
   hear your friends") + `PostCard`s (blurred `Waveform` + lock while locked; play/pause with progress; "late"
   label); own post first. Realtime also on `daily_posts`. Local proxy now emulates Storage with RLS
   (upload/sign/delete through PostgREST on `storage.objects`, bytes in scratchpad `storage-files/`).
-- Next: 24 h feed polish (time left, auto refresh at the next prompt) → calendar/memories.
+- **24 h feed + Memories ✔** — `ClipPlayer` (`components/voice/clip-player.tsx`: play/pause + `Waveform` +
+  duration, one clip at a time, `locked` blur) used by `PostCard` (now with a "22h left" chip) and memories.
+  `useNow` / `splitDuration` (`hooks/use-now.ts`) for countdowns; `/record` posted state shows "Next voice in …".
+  `RealtimeSync` also sets a timer for `today.next_prompt_at` → invalidates `daily` (feed re-locks); feed
+  refetches every 5 min. `/memories` (`src/lib/memories.ts`, own `daily_posts` by moment): list = month sections
+  with 3-column day tiles; calendar = Monday-first month grid, filled days, prev/next limited to your range,
+  "n voices" per month; `MemorySheet` = date, time, late, `ClipPlayer`, delete (tap twice). Greek month titles use
+  a nominative list (Intl gives the genitive).
+- Next: notifications (daily prompt as local notifications + in-app bell) → report/block polish.
 
 ## Backend (Supabase `gqmzxxygegmlifeewbzy`) — Phase 2 done
 - Baseline migration `supabase/migrations/20261003100000_voice_baseline.sql` (+ small follow-ups, applied live the same way) (drops the old schema if

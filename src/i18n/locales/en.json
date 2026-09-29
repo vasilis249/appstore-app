@@ -1364,7 +1364,11 @@
   "memories": {
     "list": "Memories",
     "calendar": "Calendar",
-    "empty": "Your voices will stay here."
+    "empty": "Your voices will stay here.",
+    "prev": "Previous month",
+    "next": "Next month",
+    "count_one": "{{count}} voice",
+    "count_other": "{{count}} voices"
   },
   "messages": {
     "empty": "No voice messages yet."
@@ -1419,6 +1423,13 @@
     "reviewHint": "Listen before you post.",
     "retake": "Retake",
     "post": "Post",
-    "published": "You unlocked your friends' voices!"
+    "published": "You unlocked your friends' voices!",
+    "nextIn": "Next voice in {{time}}"
+  },
+  "time": {
+    "hLeft": "{{h}}h left",
+    "mLeft": "{{m}}m left",
+    "hm": "{{h}}h {{m}}m",
+    "m": "{{m}}m"
   }
 }

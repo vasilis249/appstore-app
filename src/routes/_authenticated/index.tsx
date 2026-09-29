@@ -23,7 +23,8 @@ function RecordCta() {
 function FeedPage() {
   const { t } = useTranslation();
   const today = useQuery({ queryKey: dailyKeys.today, queryFn: getToday });
-  const feed = useQuery({ queryKey: dailyKeys.feed, queryFn: getFeed });
+  // Posts older than 24 h drop out; a light refresh keeps the list honest.
+  const feed = useQuery({ queryKey: dailyKeys.feed, queryFn: getFeed, refetchInterval: 5 * 60_000 });
   const posts = feed.data ?? [];
   const friendsPosts = posts.filter((p) => !p.is_mine);
   const unlocked = !!today.data?.unlocked;
