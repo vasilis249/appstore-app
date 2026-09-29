@@ -50,7 +50,10 @@ export async function initNativeShell(): Promise<void> {
 
   const openDeepLink = (url: string | undefined) => {
     const target = url ? deepLinkToWebUrl(url) : null;
-    if (target) window.location.assign(target);
+    if (!target) return;
+    // Social sign-in comes back from the Safari sheet opened by signInWithProvider(); close it.
+    void import("@capacitor/browser").then(({ Browser }) => Browser.close()).catch(() => {});
+    window.location.assign(target);
   };
 
   // App already running: iOS delivers the link as an event.

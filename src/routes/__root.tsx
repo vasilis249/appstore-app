@@ -18,6 +18,7 @@ import { BottomNav } from "../components/bottom-nav";
 import { RealtimeSync } from "../components/realtime-sync";
 import { DailyPromptScheduler } from "../components/daily-prompt-scheduler";
 import { MiniPlayer } from "../components/posts/mini-player";
+import { AUTH_PATHS } from "../components/bottom-nav";
 import { useQueue } from "../lib/queue";
 import { useRouterState } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
@@ -137,8 +138,8 @@ function RootComponent() {
   const router = useRouter();
   const queue = useQueue();
   const path = useRouterState({ select: (s) => s.location.pathname });
-  // Screens with their own bottom controls hide the nav (conversation) or the player (composer, conversation).
-  const navShown = !/^\/messages\/./.test(path);
+  // Screens with their own bottom controls hide the nav (conversation, sign-in steps) or the player (composer).
+  const navShown = !/^\/messages\/./.test(path) && !AUTH_PATHS.test(path);
   const playerShown = queue.index >= 0 && navShown && path !== "/record";
 
   useEffect(() => {

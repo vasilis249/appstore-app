@@ -9,13 +9,16 @@ import { UserAvatar } from "@/components/user-avatar";
  * Floating pill nav (BeReal-like): Home, Friends, the white record button in the
  * middle, Memories, Profile (avatar). Labels under icons; active tab gets a pill.
  */
+/** Sign-in / sign-up / password pages (also shown right after sign-up, while already signed in). */
+export const AUTH_PATHS = /^\/(auth|forgot-password|reset-password)(\/|$)/;
+
 export function BottomNav() {
   const { user } = useAuth();
   const { t } = useTranslation();
   const me = useMyProfile();
   const path = useRouterState({ select: (s) => s.location.pathname });
-  // A conversation has its own composer at the bottom.
-  if (!user || /^\/messages\/./.test(path)) return null;
+  // A conversation has its own composer at the bottom; sign-in steps have their own button.
+  if (!user || /^\/messages\/./.test(path) || AUTH_PATHS.test(path)) return null;
 
   const name = me.data?.full_name || me.data?.username || (user.user_metadata?.full_name as string | undefined) || "?";
   const item =

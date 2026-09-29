@@ -47,6 +47,17 @@ old table/function/type in `public`, the `private` schema and the old storage po
    reported by 3 different people is hidden automatically until reviewed. Without the app: Table Editor →
    `reports` (`resolved_at is null`), `posts.hidden = true`, `profiles.disabled = true`.
 
+## Social login (Google, Apple)
+The sign-in screen asks Supabase (`/auth/v1/settings`) which providers are on and shows only those buttons, so
+turning one on needs no new build. Both come back to `/auth?welcome=1` (new accounts then pick a username); in the
+iOS app the provider page opens in Safari (`@capacitor/browser`) and returns through `courtsie://app/…`.
+- **Google** (free): Google Cloud Console → APIs & Services → OAuth consent screen (External, app name Speak,
+  support email) → Credentials → Create OAuth client ID → *Web application* → Authorized redirect URI
+  `https://gqmzxxygegmlifeewbzy.supabase.co/auth/v1/callback`. Put the Client ID + Client secret in Supabase →
+  Authentication → Sign In / Providers → Google (or send them to Claude to set via the Management API).
+- **Apple**: needs the paid Apple Developer Program (Services ID, Key ID, Team ID, .p8 key) → Supabase → Providers →
+  Apple. App Store rule 4.8: once Google sign-in is offered, Sign in with Apple must be offered too before release.
+
 ## Tests
 Local, without Docker (see CLAUDE.md for the Postgres cluster):
 `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` + `test_speak.sql`.

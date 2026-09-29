@@ -1,11 +1,15 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
-import { AuthShell } from "./auth";
+import { BigInput, FieldNote, StepShell } from "@/components/auth/step-shell";
 import { mapAuthError } from "@/lib/auth-errors";
 import { authRedirectUrl } from "@/lib/native";
 
 export const Route = createFileRoute("/forgot-password")({
+  validateSearch: (s: Record<string, unknown>): { email?: string } => ({
+    email: typeof s.email === "string" ? s.email : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Επαναφορά κωδικού — Speak" },
@@ -15,78 +19,62 @@ export const Route = createFileRoute("/forgot-password")({
   component: ForgotPasswordPage,
 });
 
+/** Same one-question layout as /auth: email → "check your inbox". */
 function ForgotPasswordPage() {
-  const [email, setEmail] = useState("");
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const search = Route.useSearch();
+  const [email, setEmail] = useState(search.email ?? "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
+  const back = () => void navigate({ to: "/auth", search: { mode: "signin" } });
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function submit() {
     setError(null);
     setLoading(true);
-    try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: authRedirectUrl("/reset-password"),
-      });
-      if (error) throw error;
-      setSent(true);
-    } catch (err) {
-      setError(mapAuthError(err instanceof Error ? err.message : ""));
-    } finally {
-      setLoading(false);
-    }
+    const { error: e } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: authRedirectUrl("/reset-password"),
+    });
+    setLoading(false);
+    if (e) setError(mapAuthError(e));
+    else setSent(true);
   }
 
+  if (sent)
+    return (
+      <StepShell
+        title={t("auth.resetSentTitle")}
+        subtitle={t("auth.resetSentText", { email: email.trim() })}
+        onBack={back}
+        action={t("auth.backToSignin")}
+        onSubmit={back}
+      />
+    );
   return (
-    <AuthShell>
-      <h1 className="font-display text-3xl font-bold text-foreground">Ξέχασα τον κωδικό μου</h1>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Δώσε το email σου και θα σου στείλουμε link για επαναφορά.
-      </p>
-
-      {sent ? (
-        <div className="mt-6 space-y-4">
-          <p className="rounded-lg border border-border bg-secondary px-3 py-3 text-sm text-foreground">
-            Σου στείλαμε email με link επαναφοράς κωδικού. Έλεγξε τα εισερχόμενά σου.
-          </p>
-          <Link
-            to="/auth"
-            className="block w-full rounded-xl border border-border py-3 text-center text-sm font-semibold text-foreground hover:bg-surface"
-          >
-            Πίσω στη σύνδεση
-          </Link>
-        </div>
-      ) : (
-        <form onSubmit={onSubmit} className="mt-6 space-y-3">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="Email"
-            className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-sm outline-none focus:border-muted-foreground"
-          />
-          {error && (
-            <p className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
-              {error}
-            </p>
-          )}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-full bg-primary py-3.5 text-sm font-bold text-primary-foreground transition hover:opacity-90 disabled:opacity-60"
-          >
-            {loading ? "..." : "Αποστολή link"}
-          </button>
-          <Link
-            to="/auth"
-            className="block w-full text-center text-xs text-muted-foreground hover:text-foreground"
-          >
-            ← Πίσω στη σύνδεση
-          </Link>
-        </form>
-      )}
-    </AuthShell>
+    <StepShell
+      title={t("auth.resetTitle")}
+      subtitle={t("auth.resetHint")}
+      onBack={back}
+      action={t("auth.sendLink")}
+      disabled={!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())}
+      loading={loading}
+      onSubmit={() => void submit()}
+    >
+      <BigInput
+        autoFocus
+        type="email"
+        inputMode="email"
+        autoComplete="username"
+        autoCapitalize="none"
+        autoCorrect="off"
+        spellCheck={false}
+        enterKeyHint="send"
+        placeholder={t("auth.emailPlaceholder")}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      {error && <FieldNote error>{error}</FieldNote>}
+    </StepShell>
   );
 }

@@ -102,6 +102,17 @@ User decisions:
   voice bars; favicon same). `deploy-all.sh`: SMTP_* env → custom SMTP + confirm email ON, else autoconfirm.
   Docs rewritten: `release-checklist.md` (Speak test plan, TestFlight, review notes, privacy labels),
   `security.md`, `supabase-setup.md`, `ios-setup.md`. Tests `test_speak.sql` 87. Live smoke 12/12.
+- **Login redesign ✔ (X-style steps, from the user's screenshot)** — `/auth`: Welcome (wordmark + tagline, Google /
+  Apple buttons only if enabled in Supabase via `/auth/v1/settings`, Create account, Terms line, "Sign in") → sign in
+  = email → password (Forgot link, inline errors, resend if unconfirmed); sign up = name → email (typo hint) →
+  password (rules, Terms above the button) → `@username` (prefilled, Skip) → Home. `components/auth/step-shell.tsx`
+  (`StepShell`: back + right link, big title, `BigInput` 30px borderless, Continue pinned above the keyboard via
+  `useKeyboardInset` / visualViewport; form submits from the keyboard), `/forgot-password` same layout (`?email=`).
+  i18n `auth.*`. Bottom nav hidden on auth pages (`AUTH_PATHS`). `src/lib/oauth.ts`: web = redirect; iOS = Safari
+  sheet (`@capacitor/browser` 8.0.4, added to CapApp-SPM) → `courtsie://app/auth?welcome=1&code=…` → `initNativeShell`
+  closes Safari and loads the page (PKCE exchange). New accounts (< 10 min old) arriving with `welcome=1` get the
+  username step. Google/Apple NOT enabled yet: Google needs the user's OAuth client (free); Apple needs the paid
+  Developer Program (and is required by 4.8 once Google is on).
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 

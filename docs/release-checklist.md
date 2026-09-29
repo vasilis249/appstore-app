@@ -9,7 +9,8 @@ Use two accounts (A and B) on two devices or one device + the website.
 | # | Feature | How to test | Expected |
 |---|---|---|---|
 | 1 | Launch | Cold start | Splash with the Speak mark, then Home; no white flash; header below the notch, nav above the home indicator |
-| 2 | Sign up | Sign up, tick the Terms box; type `name@gmial.com` first | "Μήπως εννοείς …@gmail.com;" hint; with SMTP: confirmation email opens the app signed in; without SMTP: signed in right away |
+| 2 | Sign up | Create account → name → email (`name@gmial.com` first) → password → username | One question per screen, Continue above the keyboard; "Μήπως εννοείς …@gmail.com;" hint; ends on Home (with SMTP: after the email link) |
+| 2b | Google / Apple | Welcome → Continue with Google (once enabled in Supabase) | Safari sheet opens, then closes back in the app signed in; a new account gets the username step |
 | 3 | Sign in / out | Sign in, kill the app, reopen; then sign out | Still signed in; sign out returns to /auth |
 | 4 | Reset password | "Forgot password" (needs SMTP) → link on the iPhone | App opens on the reset page, new password works |
 | 5 | Post a voice | Mic tab → record ≤ 2:00 (mic prompt with our text) → title → section → Post | Appears on For you / section / profile; plays with the silent switch on |
