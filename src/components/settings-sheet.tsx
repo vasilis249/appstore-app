@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { ChevronRight, FileText, LogOut, Mail, Shield } from "lucide-react";
+import { Ban, ChevronRight, FileText, LogOut, Mail, Shield } from "lucide-react";
+import { useState } from "react";
+import { BlockedSheet } from "@/components/blocked-sheet";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { LanguageToggle } from "@/components/language-toggle";
 import { DeleteAccountButton } from "@/components/delete-account-button";
@@ -19,6 +21,7 @@ export function SettingsSheet({
   const { t } = useTranslation();
   const qc = useQueryClient();
   const navigate = useNavigate();
+  const [blockedOpen, setBlockedOpen] = useState(false);
 
   async function signOut() {
     onOpenChange(false);
@@ -51,6 +54,15 @@ export function SettingsSheet({
             <DailyPromptSwitch className={row} />
           </div>
 
+          <div className="rounded-2xl bg-secondary">
+            <button type="button" onClick={() => setBlockedOpen(true)} className={`${row} w-full`}>
+              <span className="inline-flex items-center gap-3">
+                <Ban className="h-4 w-4 text-muted-foreground" /> {t("settings.blocked")}
+              </span>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+          </div>
+
           <ul className="divide-y divide-border rounded-2xl bg-secondary">
             {links.map(({ to, icon: Icon, label }) => (
               <li key={to}>
@@ -75,6 +87,7 @@ export function SettingsSheet({
             <DeleteAccountButton />
           </div>
         </div>
+        <BlockedSheet open={blockedOpen} onOpenChange={setBlockedOpen} />
       </DrawerContent>
     </Drawer>
   );

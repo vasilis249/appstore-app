@@ -1175,7 +1175,7 @@
   "settings": {
     "title": "Settings",
     "blocked": "Blocked accounts",
-    "noBlocked": "No blocked accounts",
+    "noBlocked": "You haven't blocked anyone.",
     "unblock": "Unblock",
     "dailyPrompt": "Daily reminder",
     "dailyPromptDenied": "Allow notifications in iPhone Settings."
@@ -1439,5 +1439,22 @@
   "prompt": {
     "title": "Time for today's voice!",
     "body": "You've got 90″ to say what you're up to."
+  },
+  "report": {
+    "why": "Why are you reporting this?",
+    "thanks": "Thanks for reporting.",
+    "review": "We'll review it within 24 hours. You can also block this user.",
+    "alsoBlock": "Block",
+    "done": "Done",
+    "post": "Report post",
+    "conversation": "Report message",
+    "reasons": {
+      "spam": "Spam or scam",
+      "harassment": "Harassment or bullying",
+      "hate": "Hate speech",
+      "sexual": "Sexual content",
+      "violence": "Violence or self-harm",
+      "other": "Something else"
+    }
   }
 }

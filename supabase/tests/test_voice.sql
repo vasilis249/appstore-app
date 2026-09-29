@@ -123,9 +123,11 @@ SELECT pg_temp.ok('04h locked file not readable', NOT EXISTS (SELECT 1 FROM stor
 SELECT public.publish_daily_post('00000000-0000-0000-0000-00000000000a/p1.m4a', 'audio/mp4', 4000) AS pa \gset
 SELECT pg_temp.ok('04i unlocked after own post', (SELECT audio_path IS NOT NULL FROM public.feed() WHERE post_id = :'pb'));
 SELECT pg_temp.ok('04j friend file readable', EXISTS (SELECT 1 FROM storage.objects WHERE name = '00000000-0000-0000-0000-00000000000b/p1.m4a'));
+SELECT pg_temp.ok('04j2 friend can report a post', NOT pg_temp.fails(format($$SELECT public.report_content('daily_post', %L, 'spam')$$, :'pb')));
 SELECT pg_temp.ok('04k cannot upload into another folder', pg_temp.fails(
   $$INSERT INTO storage.objects (bucket_id, name) VALUES ('daily-posts', '00000000-0000-0000-0000-00000000000b/evil.m4a')$$));
 RESET ROLE; SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT pg_temp.ok('04l2 non-friend cannot report the post', pg_temp.fails(format($$SELECT public.report_content('daily_post', %L, 'spam')$$, :'pb')));
 SELECT pg_temp.ok('04l non-friend of B sees nothing of B', NOT EXISTS (SELECT 1 FROM public.feed() WHERE user_id = :B)
   AND NOT EXISTS (SELECT 1 FROM public.daily_posts WHERE user_id = :B));
 RESET ROLE;

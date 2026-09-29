@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { MoreHorizontal } from "lucide-react";
+import { PersonActionsSheet } from "@/components/friends/person-actions-sheet";
 import { UserAvatar } from "@/components/user-avatar";
 import { ClipPlayer } from "@/components/voice/clip-player";
 import { splitDuration, useNow } from "@/hooks/use-now";
@@ -11,6 +14,7 @@ const DAY_MS = 24 * 3600_000;
 export function PostCard({ post }: { post: FeedPost }) {
   const { t, i18n } = useTranslation();
   const now = useNow();
+  const [menu, setMenu] = useState(false);
   const name = post.is_mine ? t("daily.yourVoice") : post.full_name || post.username;
   const left = splitDuration(new Date(post.created_at).getTime() + DAY_MS - now);
   const leftLabel = left.h ? t("time.hLeft", { h: left.h }) : t("time.mLeft", { m: left.m });
@@ -29,6 +33,16 @@ export function PostCard({ post }: { post: FeedPost }) {
         <span className="shrink-0 rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-muted-foreground">
           {leftLabel}
         </span>
+        {!post.is_mine && (
+          <button
+            type="button"
+            onClick={() => setMenu(true)}
+            aria-label={t("friends.actions")}
+            className="-mr-1 grid h-8 w-8 shrink-0 place-items-center rounded-full text-muted-foreground"
+          >
+            <MoreHorizontal className="h-5 w-5" />
+          </button>
+        )}
       </header>
       <ClipPlayer
         className="mt-3"
@@ -37,6 +51,13 @@ export function PostCard({ post }: { post: FeedPost }) {
         locked={!post.audio_path}
         load={() => fetchPostAudio(post.audio_path!)}
       />
+      {!post.is_mine && (
+        <PersonActionsSheet
+          person={menu ? { id: post.user_id, username: post.username, full_name: post.full_name, avatar_path: post.avatar_path, relation: "friends" } : null}
+          report={{ kind: "daily_post", id: post.post_id, label: t("report.post") }}
+          onOpenChange={setMenu}
+        />
+      )}
     </article>
   );
 }

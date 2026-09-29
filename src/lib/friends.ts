@@ -15,6 +15,7 @@ export const friendKeys = {
   list: ["friends", "list"] as const,
   search: (q: string) => ["friends", "search", q] as const,
   me: ["profile", "me"] as const,
+  blocked: ["friends", "blocked"] as const,
 };
 
 function unwrap<T>({ data, error }: { data: T | null; error: { message: string } | null }): T {
@@ -47,8 +48,19 @@ export async function blockUser(id: string) {
   unwrap(await supabase.rpc("block_user", { p_user: id }));
 }
 
-export async function reportUser(id: string, reason = "") {
-  unwrap(await supabase.rpc("report_content", { p_kind: "user", p_target: id, p_reason: reason }));
+export type ReportKind = "user" | "daily_post" | "voice_message";
+export const REPORT_REASONS = ["spam", "harassment", "hate", "sexual", "violence", "other"] as const;
+
+export async function reportContent(kind: ReportKind, target: string, reason: string) {
+  unwrap(await supabase.rpc("report_content", { p_kind: kind, p_target: target, p_reason: reason }));
+}
+
+export async function unblockUser(id: string) {
+  unwrap(await supabase.rpc("unblock_user", { p_user: id }));
+}
+
+export async function listBlocked(): Promise<Pick<Person, "id" | "username" | "full_name" | "avatar_path">[]> {
+  return unwrap(await supabase.rpc("my_blocked")) ?? [];
 }
 
 /** Maps the RPC error codes raised in the database to i18n keys. */

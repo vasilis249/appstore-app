@@ -93,7 +93,14 @@ the same time for everyone; calendar of own past posts; report/block/EULA/accoun
   time had already passed on load, clock skew) + realtime on `notifications`. Bell: `/notifications`
   (`src/lib/notifications.ts`; friend_request with inline Accept, friend_accepted; opening marks all read) and
   unread badge. Toasts sit below the header (`offset` + `mobileOffset`).
-- Next: report/block polish (report posts/messages, blocked list in Settings) → Phase 4.
+- **Report / block ✔** — `PersonActionsSheet` is the single UGC sheet: menu (remove friend when no `report`
+  target, Report, Block) → reasons (`REPORT_REASONS`: spam, harassment, hate, sexual, violence, other → stored as
+  the key in `reports.reason`) → thanks ("reviewed within 24 h") with "Block" / "Done"; block confirmed.
+  `report` prop targets a post (`daily_post`) or the latest incoming voice message (`voice_message`), else the user.
+  Entry points: ⋯ on friends' `PostCard`s, ⋯ in the conversation header (block → back to `/messages`), person rows
+  in Friends. Settings → "Blocked accounts" (`BlockedSheet`, `my_blocked` + Unblock). `test_voice.sql` 65 checks.
+- **Phase 3 complete.** Next: Phase 4 (hardening/release: privacy policy + Terms/EULA for voice data, prune old
+  i18n keys, icon/splash, moderation notice, release checklist).
 
 ## Backend (Supabase `gqmzxxygegmlifeewbzy`) — Phase 2 done
 - Baseline migration `supabase/migrations/20261003100000_voice_baseline.sql` (+ small follow-ups, applied live the same way) (drops the old schema if
@@ -136,7 +143,7 @@ the same time for everyone; calendar of own past posts; report/block/EULA/accoun
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (63 checks).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (65 checks).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session
