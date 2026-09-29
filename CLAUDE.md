@@ -185,6 +185,12 @@ User decisions:
   Home → News = cards (topic of the day first, labelled), "Περισσότερες ειδήσεις" pages of 15, then "Άλλες φωνές"
   (`loose`); no ▶ on News. Topic page: cover, 24px title, "Διάβασε στο …", Πες τη γνώμη σου + Άκου όλες, voices.
   `DailyTopicCard` removed. CSP `img-src` + `https:`; Privacy mentions photos loaded from publishers. Browser 10/10.
+- **Night review ✔ (bug hunt)** — migration `20261013100100_review_fixes.sql`: `loose` skips plain reposts of headline
+  voices; `leave_group` (cancel request) deletes the admins' `group_request` notification; `news_topics` speaker name
+  falls back to the username. Frontend: PTT forgets a press that ended by auto-stop/error (next hold works);
+  `silenceAll()` (audio.ts) pauses the queue + clips when the mic starts; queue progress ~8/s (was 60 re-renders/s of
+  the feed); daily reminder opens Home (old "/record" ones too). Tests speak 99, groups 34. Scratchpad
+  `seed-news.sh` (covers for `news-flow.mjs`).
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -312,7 +318,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (98) + `test_groups.sql` (33).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (99) + `test_groups.sql` (34).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

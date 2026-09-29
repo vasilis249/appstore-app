@@ -182,3 +182,13 @@ SELECT public.create_group('Μόνος μου', 'humor', 'private') AS solo \gse
 SELECT public.leave_group(:'solo');
 RESET ROLE;
 SELECT pg_temp.ok('11b deleted by the owner; empty group removed', NOT EXISTS (SELECT 1 FROM public.groups WHERE id IN (:'g', :'solo')));
+
+-- 12 cancelling a request clears the admins' notification
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT public.create_group('Κλειστή Λέσχη', 'news', 'private') AS cg \gset
+RESET ROLE; SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT public.join_group(:'cg');
+SELECT public.leave_group(:'cg');
+RESET ROLE;
+SELECT pg_temp.ok('12a cancelled request: no notification left for the admins',
+  NOT EXISTS (SELECT 1 FROM public.notifications WHERE group_id = :'cg' AND kind = 'group_request'));

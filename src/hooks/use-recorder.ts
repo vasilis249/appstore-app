@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { pickRecorderMime } from "@/lib/audio";
+import { pickRecorderMime, silenceAll } from "@/lib/audio";
 
 export type RecorderState = "idle" | "recording" | "recorded";
 
@@ -29,6 +29,7 @@ export function useRecorder(maxMs: number, initial?: { blob: Blob; mime: string;
   /** Resolves true once recording has begun (false: no microphone / not allowed). */
   const start = useCallback(async (): Promise<boolean> => {
     setError(null);
+    silenceAll();
     const mime = pickRecorderMime();
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
       setError("unsupported");

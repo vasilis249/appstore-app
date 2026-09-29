@@ -70,16 +70,21 @@ export async function syncDailyPrompts() {
       title: i18n.t("prompt.title"),
       body: i18n.t("prompt.body"),
       schedule: { at: new Date(r.prompt_at), allowWhileIdle: true },
-      extra: { route: "/record" },
+      // Home → News, where the topic of the day is the first card.
+      extra: { route: "/" },
     }));
   if (notifications.length) await (await plugin()).schedule({ notifications });
 }
 
-/** Tapping a prompt notification opens the recorder. */
+/**
+ * Tapping a prompt notification opens Home (topic of the day first). Notifications scheduled by older builds
+ * still say "/record", which now defaults to a personal voice, so they go Home too.
+ */
 export async function onDailyPromptTap(open: (route: string) => void) {
   if (!isNativeApp()) return () => {};
   const handle = await (await plugin()).addListener("localNotificationActionPerformed", (e) => {
-    open((e.notification.extra as { route?: string } | undefined)?.route ?? "/record");
+    const route = (e.notification.extra as { route?: string } | undefined)?.route;
+    open(!route || route === "/record" ? "/" : route);
   });
   return () => void handle.remove();
 }

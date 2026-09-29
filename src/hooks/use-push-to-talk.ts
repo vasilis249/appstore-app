@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import type { useRecorder } from "@/hooks/use-recorder";
 
 type Recorder = ReturnType<typeof useRecorder>;
@@ -42,6 +42,15 @@ export function usePushToTalk(
       r.stop();
     }
   }, [r, minMs, tapMs, onTap, onTooShort]);
+
+  // Stopped without a release (hit the time limit while held, no microphone): the button may be gone by the time
+  // the finger lifts, so forget the press — otherwise the next one would be ignored.
+  useEffect(() => {
+    if (held.current && (r.state === "recorded" || r.error)) {
+      held.current = false;
+      setHolding(false);
+    }
+  }, [r.state, r.error]);
 
   const bind = {
     onPointerDown: (e: PointerEvent<HTMLElement>) => {

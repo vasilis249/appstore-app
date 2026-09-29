@@ -55,6 +55,11 @@ let onExclusive: (() => void) | null = null;
 export function setExclusiveHandler(fn: () => void) {
   onExclusive = fn;
 }
+/** Pause the voice queue and any clip — e.g. when the microphone starts, so nothing plays into the recording. */
+export function silenceAll() {
+  onExclusive?.();
+  player.stop();
+}
 
 class ClipPlayer {
   private el: HTMLAudioElement | null = null;

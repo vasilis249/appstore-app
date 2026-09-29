@@ -27,6 +27,7 @@ const listeners = new Set<() => void>();
 const counted = new Set<string>();
 let el: HTMLAudioElement | null = null;
 let raf = 0;
+let lastTick = 0;
 
 function set(patch: Partial<QueueState>) {
   state = { ...state, ...patch };
@@ -44,12 +45,19 @@ function audio(): HTMLAudioElement {
   return el;
 }
 
-function tick() {
+// Progress ~8 times a second: every visible card subscribes to the queue, so a per-frame update would
+// re-render the whole feed 60 times a second while something plays.
+function tick(now: number) {
+  raf = requestAnimationFrame(tick);
+  if (now - lastTick < 125) return;
+  lastTick = now;
   const a = audio();
   const item = state.items[state.index];
   const total = Number.isFinite(a.duration) && a.duration > 0 ? a.duration : (item?.durationMs ?? 0) / 1000;
-  if (total > 0) set({ progress: Math.min(1, a.currentTime / total) });
-  raf = requestAnimationFrame(tick);
+  if (total > 0) {
+    const progress = Math.min(1, a.currentTime / total);
+    if (Math.abs(progress - state.progress) > 0.001) set({ progress });
+  }
 }
 
 function mediaSession(item: QueueItem) {
