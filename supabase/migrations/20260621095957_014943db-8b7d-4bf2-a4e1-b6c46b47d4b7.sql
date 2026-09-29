@@ -69,12 +69,18 @@ USING (
 );
 
 -- 3) realtime.messages: restrict user-scoped topics (those ending in ':<uuid>') to the matching user
-DROP POLICY IF EXISTS "Authenticated can use realtime" ON realtime.messages;
-CREATE POLICY "Authenticated can use realtime"
-ON realtime.messages
-FOR SELECT
-TO authenticated
-USING (
-  (realtime.topic() !~ ':[0-9a-fA-F-]{36}$')
-  OR (right(realtime.topic(), 36) = auth.uid()::text)
-);
+-- Skipped where realtime.messages isn't ours to change (hosted Supabase).
+DO $realtime$
+BEGIN
+  DROP POLICY IF EXISTS "Authenticated can use realtime" ON realtime.messages;
+  CREATE POLICY "Authenticated can use realtime"
+  ON realtime.messages
+  FOR SELECT
+  TO authenticated
+  USING (
+    (realtime.topic() !~ ':[0-9a-fA-F-]{36}$')
+    OR (right(realtime.topic(), 36) = auth.uid()::text)
+  );
+EXCEPTION WHEN insufficient_privilege OR undefined_table OR undefined_function THEN
+  RAISE NOTICE 'realtime.messages policy skipped: %', SQLERRM;
+END $realtime$;

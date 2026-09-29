@@ -27,7 +27,14 @@ WITH CHECK (
 );
 
 -- Realtime: enable RLS and restrict channel subscriptions to authenticated users.
-ALTER TABLE IF EXISTS realtime.messages ENABLE ROW LEVEL SECURITY;
-DROP POLICY IF EXISTS "Authenticated can use realtime" ON realtime.messages;
-CREATE POLICY "Authenticated can use realtime"
-ON realtime.messages FOR SELECT TO authenticated USING (true);
+-- On hosted Supabase realtime.messages belongs to the realtime service role; skip if we
+-- can't change it (the app only uses postgres_changes, which RLS on the tables protects).
+DO $realtime$
+BEGIN
+  ALTER TABLE IF EXISTS realtime.messages ENABLE ROW LEVEL SECURITY;
+  DROP POLICY IF EXISTS "Authenticated can use realtime" ON realtime.messages;
+  CREATE POLICY "Authenticated can use realtime"
+  ON realtime.messages FOR SELECT TO authenticated USING (true);
+EXCEPTION WHEN insufficient_privilege OR undefined_table THEN
+  RAISE NOTICE 'realtime.messages policy skipped: %', SQLERRM;
+END $realtime$;

@@ -105,6 +105,12 @@ Work in phases; stop after each phase for the user's "OK".
   SUPABASE_ACCESS_TOKEN / CLOUDFLARE_API_TOKEN are set, db push, build, deploy, secrets (SUPABASE_URL is a
   wrangler var, not a secret), Auth settings (API if token, else printed), writes public values + CAP_SERVER_URL
   to `.env`, then `ios:sync` + `ios:open` on macOS. Not yet run: no credentials in the cloud env so far.
+- **Supabase project is live-migrated** (2026-09-29): all 62 migrations applied through the Management API
+  (`POST /v1/projects/<ref>/database/query`, raw Postgres ports are blocked from the cloud container) and
+  recorded in `supabase_migrations.schema_migrations`, so `supabase db push` from the Mac sees them as applied.
+  Two Lovable migrations touching `realtime.messages` now skip when not owner (hosted Supabase). Auth security
+  settings applied; site_url / redirect URLs still pending the workers.dev URL. Cloudflare deploy blocked: the
+  provided token lacked Workers permissions (needs the "Edit Cloudflare Workers" template).
 - Local full-stack testing (no Supabase needed): PostgREST 12 binary + `local-supabase.mjs` proxy in the
   scratchpad (JWT HS256 minted locally, fake /auth/v1/user and storage signing), seed users, then
   `wrangler dev --var ...`; inject session into localStorage key `sb-127-auth-token`. Reload PostgREST
