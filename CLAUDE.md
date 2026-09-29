@@ -1,23 +1,33 @@
-# Courtsie (voice-only social network) → iOS — project notes
+# Speak (voice-first social network, ex-Courtsie) → iOS — project notes
 
 Persistent findings for Claude sessions. Reply to the user in Greek; code, comments and file names in English.
 Work in phases; after each phase STOP, summarize in ≤10 lines, update this file, wait for the user's "OK".
 Don't read `bun.lock`, `node_modules`, `src/assets`, `src/components/ui` (stock shadcn), `src/routeTree.gen.ts`,
 `src/integrations/supabase/types.ts` (generated). Use Glob/Grep, read only what's needed.
 
-## Product (pivot 2026-09-29; the court-booking + Instagram-style app was deleted)
-Friends by username + requests (DMs and feed friends-only); recorded voice DMs, listen-once enforced
-server-side (sender sees "opened"; unheard expire after 10 days); one daily voice post (≤ 90 s) — posting
-unlocks friends' posts, otherwise they are locked/blurred; posts visible to friends 24 h; one daily prompt at
-the same time for everyone; calendar of own past posts; report/block/EULA/account deletion/mic string.
-- **FREE stack, push-to-talk POSTPONED** (no Apple Developer Program → no APNs/PushToTalk/LiveKit). Daily prompt
-  = local notifications scheduled from `prompt_schedule()` (~30 days ahead). No push for new DMs while closed.
-  Supabase free tier (project pauses after 1 week idle).
-- Clips: web `MediaRecorder` (prefer `audio/mp4`, 64 kbps requested); DM ≤ 60 s / 2 MB, daily post ≤ 90 s / 2 MB.
-- Phases: 0 proposal ✔ → 1 cleanup & theme ✔ → 2 Supabase backend ✔ → 3 features one by one (friends →
-  voice DMs → daily post + feed lock → 24 h feed → calendar → notifications → report/block; each with a 2–3 line
-  test plan, then stop) → 4 hardening/release.
-- Open questions: final app name (still "Courtsie"; icon/splash/offline page are still orange → redo with it).
+## Product: **Speak** — "X/Twitter, but with voice" (decided 2026-09-29, replaces the BeReal-style plan)
+Voice is the main medium. Public posts = a voice clip (≤ 2 min) + optional short title (≤ 100 chars), filed in a
+**section** (News/Επικαιρότητα, Tech, Sports, Economy, Politics, Entertainment, Lifestyle, Humor …) and optionally
+under a **topic** inside it (a news item / question, e.g. "iPhone 18 launched"; each topic lists everyone's takes).
+Home: "For you | Following" + section chips + trending topics; likes, voice replies (threads), repost/quote,
+share, listen counts; play a whole section/topic back-to-back like a podcast (also in the background).
+User decisions:
+- **Follow like X** (public, asymmetric; no approval). Replaces friends (migrate accepted friendships → mutual follows).
+- **Topics = admin-created + automatic news** (RSS headlines + link from Greek sources into sections).
+- **Keep**: listen-once voice DMs; daily topic ("Θέμα της ημέρας") + the same-time local notification (no feed
+  lock any more); calendar/Memories of your own posts (becomes part of the profile).
+- **Drop**: BeReal feed lock / one-post-per-day rule.
+- Name **Speak** (logo from the user later). Privacy policy / controller: at the very end.
+- Still FREE stack (no Apple Developer Program → local notifications only, no APNs). Storage: Supabase 1 GB fills
+  with public voice (2 min ≈ 0.5–1 MB) → keep bitrate low; move audio to Cloudflare R2 (10 GB free) when needed.
+- Speak plan (stop for "OK" after each): **S1** rebrand + data model (follows, sections, topics, posts with
+  title/section/topic/reply/repost, likes, listens; migrate friendships/daily posts; RLS, RPCs, tests) → **S2** feed UI
+  (For you/Following, sections, topic page, post card, composer up to 2:00, continuous playback + iOS background
+  audio) → **S3** profiles/follow/search, DMs between mutual follows, notifications (follows, likes, replies) →
+  **S4** news ingestion (RSS → topics, admin topic screen, daily topic + notification) → **S5** replies threads,
+  reposts/quotes, trending ranking → **S6** hardening/release (moderation, legal, logo/icon/splash, checklist).
+- Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
+  policies, report/block sheet, notifications, DMs) are reused.
 
 ## Architecture
 - **Capacitor 8.5.2** (SPM) iOS shell loading the hosted web app (`server.url` = `CAP_SERVER_URL` from `.env`,
