@@ -30,7 +30,7 @@ export function PostMenu({ post, onOpenChange }: { post: PostView | null; onOpen
   if (post && !mine) {
     return (
       <PersonActionsSheet
-        person={{ id: post.authorId, username: post.username, full_name: post.name, avatar_path: post.avatar, relation: "none" }}
+        person={{ id: post.authorId, username: post.username, full_name: post.name, avatar_path: post.avatar }}
         report={{ kind: "post", id: post.id, label: t("report.post") }}
         onOpenChange={onOpenChange}
       />

@@ -47,47 +47,6 @@ export type Database = {
           },
         ]
       }
-      daily_posts: {
-        Row: {
-          audio_path: string
-          created_at: string
-          duration_ms: number
-          id: string
-          late: boolean
-          mime: string
-          moment: string
-          user_id: string
-        }
-        Insert: {
-          audio_path: string
-          created_at?: string
-          duration_ms: number
-          id?: string
-          late?: boolean
-          mime: string
-          moment: string
-          user_id: string
-        }
-        Update: {
-          audio_path?: string
-          created_at?: string
-          duration_ms?: number
-          id?: string
-          late?: boolean
-          mime?: string
-          moment?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "daily_posts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       follows: {
         Row: {
           created_at: string
@@ -121,61 +80,13 @@ export type Database = {
           },
         ]
       }
-      friendships: {
-        Row: {
-          accepted_at: string | null
-          created_at: string
-          requested_by: string
-          status: string
-          user_a: string
-          user_b: string
-        }
-        Insert: {
-          accepted_at?: string | null
-          created_at?: string
-          requested_by: string
-          status?: string
-          user_a: string
-          user_b: string
-        }
-        Update: {
-          accepted_at?: string | null
-          created_at?: string
-          requested_by?: string
-          status?: string
-          user_a?: string
-          user_b?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "friendships_requested_by_fkey"
-            columns: ["requested_by"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "friendships_user_a_fkey"
-            columns: ["user_a"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "friendships_user_b_fkey"
-            columns: ["user_b"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       notifications: {
         Row: {
           actor_id: string
           created_at: string
           id: number
           kind: string
+          post_id: string | null
           read_at: string | null
           user_id: string
         }
@@ -184,6 +95,7 @@ export type Database = {
           created_at?: string
           id?: never
           kind: string
+          post_id?: string | null
           read_at?: string | null
           user_id: string
         }
@@ -192,6 +104,7 @@ export type Database = {
           created_at?: string
           id?: never
           kind?: string
+          post_id?: string | null
           read_at?: string | null
           user_id?: string
         }
@@ -201,6 +114,13 @@ export type Database = {
             columns: ["actor_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
             referencedColumns: ["id"]
           },
           {
@@ -589,7 +509,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      accept_friend_request: { Args: { p_user: string }; Returns: undefined }
       admin_create_topic: {
         Args: {
           p_daily_date?: string
@@ -627,21 +546,6 @@ export type Database = {
           p_topic?: string
         }
         Returns: string
-      }
-      feed: {
-        Args: never
-        Returns: {
-          audio_path: string
-          avatar_path: string
-          created_at: string
-          duration_ms: number
-          full_name: string
-          is_mine: boolean
-          late: boolean
-          post_id: string
-          user_id: string
-          username: string
-        }[]
       }
       feed_posts: {
         Args: {
@@ -689,6 +593,22 @@ export type Database = {
           topic_title: string
         }[]
       }
+      follow_list: {
+        Args: {
+          p_limit?: number
+          p_offset?: number
+          p_user: string
+          p_which: string
+        }
+        Returns: {
+          avatar_path: string
+          follows_me: boolean
+          full_name: string
+          i_follow: boolean
+          id: string
+          username: string
+        }[]
+      }
       follow_user: { Args: { p_user: string }; Returns: undefined }
       like_post: { Args: { p_post: string }; Returns: undefined }
       my_blocked: {
@@ -697,17 +617,6 @@ export type Database = {
           avatar_path: string
           full_name: string
           id: string
-          username: string
-        }[]
-      }
-      my_friends: {
-        Args: never
-        Returns: {
-          avatar_path: string
-          full_name: string
-          id: string
-          relation: string
-          since: string
           username: string
         }[]
       }
@@ -741,13 +650,8 @@ export type Database = {
           prompt_at: string
         }[]
       }
-      publish_daily_post: {
-        Args: { p_duration_ms: number; p_mime: string; p_path: string }
-        Returns: string
-      }
       record_listen: { Args: { p_post: string }; Returns: undefined }
       remove_follower: { Args: { p_user: string }; Returns: undefined }
-      remove_friend: { Args: { p_user: string }; Returns: undefined }
       report_content: {
         Args: { p_kind: string; p_reason?: string; p_target: string }
         Returns: undefined
@@ -756,13 +660,13 @@ export type Database = {
         Args: { p_query: string }
         Returns: {
           avatar_path: string
+          follows_me: boolean
           full_name: string
+          i_follow: boolean
           id: string
-          relation: string
           username: string
         }[]
       }
-      send_friend_request: { Args: { p_user: string }; Returns: string }
       send_voice_message: {
         Args: {
           p_audio_b64: string
@@ -772,14 +676,25 @@ export type Database = {
         }
         Returns: string
       }
+      suggested_people: {
+        Args: { p_limit?: number }
+        Returns: {
+          avatar_path: string
+          follows_me: boolean
+          full_name: string
+          i_follow: boolean
+          id: string
+          username: string
+        }[]
+      }
       today: {
         Args: never
         Returns: {
           moment: string
-          my_post_id: string
           next_prompt_at: string
           prompt_at: string
-          unlocked: boolean
+          topic_id: string
+          topic_title: string
         }[]
       }
       trending_topics: {

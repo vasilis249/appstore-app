@@ -53,6 +53,17 @@ User decisions:
   except replies, section required for plain posts). Memories now = your own posts by day (several per day).
   Migration `20261006100000_feed_one_post.sql`: scope `one` + orig counters/author on reposts. BeReal daily-post UI
   removed (`lib/daily.ts` only keeps `today()` for the prompt timer). Local proxy serves `/object/public/…`.
+- **S3 ✔ (people)** — migration `20261007100000_speak_people.sql`: `private.are_friends` = mutual follows (DMs),
+  dropped `friendships`, `daily_posts` (+ their RPCs/policies; `daily-posts` bucket deleted via Storage API), new
+  `today()` (moment, prompt times, the day's topic), notifications = follow / like / reply / repost (+ `post_id`,
+  trigger-made, deduped, not to self or blocked), `search_users` (username or Greek/Latin name, surname),
+  `follow_list(user, followers|following)`, `suggested_people`, reports kinds user/voice_message/post.
+  `src/lib/friends.ts` now = people API (follow, lists, stats, profile by username, block, report). UI:
+  `/search` (bottom-nav tab, replaces Friends; suggestions + share your @username), `/u/$username` and `/profile`
+  via `ProfileView` (counts Φωνές / Ακόλουθοι / Ακολουθεί → `FollowListSheet`; `FollowButton` Follow / Following /
+  Follow back; Message only when mutual; ⋯ report/block), post authors link to profiles, `/notifications` with
+  icons + follow back, DM picker = mutual follows. Tests: `test_voice.sql` rewritten for follows (40),
+  `test_speak.sql` (54). Local seed: `seed_voice.sql` + `seed-speak.sh` in the scratchpad.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -180,7 +191,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (65) + `test_speak.sql` (49).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (54).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

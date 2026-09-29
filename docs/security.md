@@ -15,7 +15,8 @@ against the live project with two temporary users (friends, listen-once, storage
   and that the caller is not disabled (`private.me()`).
 - `anon` has no table or function access at all.
 - Helpers used by policies live in the `private` schema, which the Data API does not expose.
-- **Friends**: requests only via RPCs; DMs and the feed require an accepted friendship.
+- **Follows**: only via RPCs (200/h); voice DMs require mutual follows. Notifications (follow, like,
+  reply, repost) are created by triggers, never for yourself or across a block.
 - **Voice DMs (listen once)**: audio bytes are stored in `private.voice_message_audio` (no client
   access). `consume_voice_message` marks the message opened and deletes the bytes in the same
   transaction, so a second play is impossible even with concurrent calls. The sender only sees

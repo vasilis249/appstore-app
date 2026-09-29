@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { CalendarDays, Home, Mic, Users } from "lucide-react";
+import { CalendarDays, Home, Mic, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/use-auth";
 import { useMyProfile } from "@/hooks/use-my-profile";
@@ -32,9 +32,9 @@ export function BottomNav() {
           </Link>
         </li>
         <li>
-          <Link to="/friends" className={item} activeProps={active}>
-            <Users className="h-6 w-6" strokeWidth={2} />
-            <span>{t("tabs.friends")}</span>
+          <Link to="/search" className={item} activeProps={active}>
+            <Search className="h-6 w-6" strokeWidth={2.2} />
+            <span>{t("tabs.search")}</span>
           </Link>
         </li>
         <li className="flex justify-center">

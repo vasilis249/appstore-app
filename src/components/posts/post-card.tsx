@@ -65,11 +65,15 @@ export function PostCard({ post, onPlay, linkToPost = true }: { post: PostView; 
         </p>
       )}
       <div className="flex gap-3">
-        <UserAvatar name={post.name} path={post.avatar} size={40} />
+        <Link to="/u/$username" params={{ username: post.username }} className="shrink-0" aria-label={post.name}>
+          <UserAvatar name={post.name} path={post.avatar} size={40} />
+        </Link>
         <div className="min-w-0 flex-1">
           <header className="flex items-center gap-1 text-sm">
-            <span className="truncate font-semibold">{post.name}</span>
-            <span className="truncate text-muted-foreground">@{post.username}</span>
+            <Link to="/u/$username" params={{ username: post.username }} className="flex min-w-0 items-center gap-1">
+              <span className="truncate font-semibold">{post.name}</span>
+              <span className="truncate text-muted-foreground">@{post.username}</span>
+            </Link>
             <span className="shrink-0 text-muted-foreground">· {timeAgo(post.createdAt, i18n.language)}</span>
             <button
               type="button"

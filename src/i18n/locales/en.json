@@ -1330,7 +1330,8 @@
     "memories": "Memories",
     "profile": "Profile",
     "messages": "Messages",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "search": "Search"
   },
   "friends": {
     "searchPlaceholder": "Search username",
@@ -1381,7 +1382,11 @@
   "notificationsPage": {
     "empty": "No notifications.",
     "friend_request": "sent you a friend request",
-    "friend_accepted": "accepted your request"
+    "friend_accepted": "accepted your request",
+    "follow": "followed you",
+    "like": "liked your voice",
+    "reply": "replied to your voice",
+    "repost": "reposted your voice"
   },
   "rpcErrors": {
     "rateLimited": "Too many actions. Try again soon.",
@@ -1406,11 +1411,11 @@
     "heard": "Listened",
     "playFailed": "Could not play it.",
     "newMessage": "New message",
-    "noFriends": "Add some friends first.",
+    "noFriends": "You can message people who follow you back.",
     "unheardCount_one": "New voice message",
     "unheardCount_other": "{{count}} new voice messages",
     "threadEmpty": "Send the first voice message. It can be heard only once.",
-    "friendsOnly": "Voice messages are for friends only."
+    "friendsOnly": "Voice messages only between people who follow each other."
   },
   "daily": {
     "yourVoice": "Your voice",
@@ -1459,5 +1464,21 @@
       "violence": "Violence or self-harm",
       "other": "Something else"
     }
+  },
+  "people": {
+    "follow": "Follow",
+    "following": "Following",
+    "followBack": "Follow back",
+    "followers": "Followers",
+    "followsYou": "Follows you",
+    "voices": "Voices",
+    "message": "Message",
+    "nobody": "Nobody here.",
+    "nobodyYet": "No suggestions yet.",
+    "suggested": "Suggested",
+    "searchPlaceholder": "Search name or username",
+    "noVoices": "No voices yet.",
+    "noVoicesMine": "You haven't posted a voice yet.",
+    "followingCount": "Following"
   }
 }

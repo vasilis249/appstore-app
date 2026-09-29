@@ -1330,7 +1330,8 @@
     "memories": "Αναμνήσεις",
     "profile": "Προφίλ",
     "messages": "Μηνύματα",
-    "notifications": "Ειδοποιήσεις"
+    "notifications": "Ειδοποιήσεις",
+    "search": "Αναζήτηση"
   },
   "friends": {
     "searchPlaceholder": "Αναζήτηση username",
@@ -1381,7 +1382,11 @@
   "notificationsPage": {
     "empty": "Καμία ειδοποίηση.",
     "friend_request": "σου έστειλε αίτημα φιλίας",
-    "friend_accepted": "δέχτηκε το αίτημά σου"
+    "friend_accepted": "δέχτηκε το αίτημά σου",
+    "follow": "σε ακολουθεί",
+    "like": "του άρεσε η φωνή σου",
+    "reply": "απάντησε στη φωνή σου",
+    "repost": "αναδημοσίευσε τη φωνή σου"
   },
   "rpcErrors": {
     "rateLimited": "Πολλές ενέργειες. Δοκίμασε σε λίγο.",
@@ -1406,11 +1411,11 @@
     "heard": "Ακούστηκε",
     "playFailed": "Δεν ήταν δυνατή η αναπαραγωγή.",
     "newMessage": "Νέο μήνυμα",
-    "noFriends": "Πρόσθεσε πρώτα φίλους.",
+    "noFriends": "Μηνύματα στέλνεις σε όσους ακολουθείτε ο ένας τον άλλον.",
     "unheardCount_one": "Νέο φωνητικό",
     "unheardCount_other": "{{count}} νέα φωνητικά",
     "threadEmpty": "Στείλε το πρώτο φωνητικό. Ακούγεται μόνο μία φορά.",
-    "friendsOnly": "Φωνητικά μόνο μεταξύ φίλων."
+    "friendsOnly": "Φωνητικά μόνο αν ακολουθείτε ο ένας τον άλλον."
   },
   "daily": {
     "yourVoice": "Η φωνή σου",
@@ -1459,5 +1464,21 @@
       "violence": "Βία ή αυτοτραυματισμός",
       "other": "Κάτι άλλο"
     }
+  },
+  "people": {
+    "follow": "Ακολούθησε",
+    "following": "Ακολουθείς",
+    "followBack": "Ακολούθησε κι εσύ",
+    "followers": "Ακόλουθοι",
+    "followsYou": "Σε ακολουθεί",
+    "voices": "Φωνές",
+    "message": "Μήνυμα",
+    "nobody": "Κανείς εδώ.",
+    "nobodyYet": "Δεν υπάρχουν προτάσεις ακόμα.",
+    "suggested": "Προτεινόμενοι",
+    "searchPlaceholder": "Αναζήτηση ονόματος ή username",
+    "noVoices": "Δεν έχει ανεβάσει φωνές ακόμα.",
+    "noVoicesMine": "Δεν έχεις ανεβάσει φωνές ακόμα.",
+    "followingCount": "Ακολουθεί"
   }
 }

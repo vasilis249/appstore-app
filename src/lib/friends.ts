@@ -1,21 +1,32 @@
+// People: follows, search, lists, blocks, reports. (File name kept from the friends era.)
 import { supabase } from "@/integrations/supabase/client";
-
-export type Relation = "friends" | "incoming" | "outgoing" | "none";
 
 export interface Person {
   id: string;
   username: string;
   full_name: string;
   avatar_path: string | null;
-  relation: Relation;
+  i_follow?: boolean;
+  follows_me?: boolean;
+}
+
+export interface ProfileStats {
+  followers: number;
+  following: number;
+  posts: number;
+  i_follow: boolean;
+  follows_me: boolean;
 }
 
 export const friendKeys = {
-  all: ["friends"] as const,
-  list: ["friends", "list"] as const,
-  search: (q: string) => ["friends", "search", q] as const,
+  all: ["people"] as const,
+  search: (q: string) => ["people", "search", q] as const,
+  suggested: ["people", "suggested"] as const,
+  list: (user: string, which: "followers" | "following") => ["people", "list", user, which] as const,
+  stats: (user: string) => ["people", "stats", user] as const,
+  byUsername: (u: string) => ["people", "profile", u] as const,
   me: ["profile", "me"] as const,
-  blocked: ["friends", "blocked"] as const,
+  blocked: ["people", "blocked"] as const,
 };
 
 function unwrap<T>({ data, error }: { data: T | null; error: { message: string } | null }): T {
@@ -23,32 +34,51 @@ function unwrap<T>({ data, error }: { data: T | null; error: { message: string }
   return data as T;
 }
 
-export async function listFriends(): Promise<Person[]> {
-  return unwrap(await supabase.rpc("my_friends")) as Person[];
-}
-
 export async function searchUsers(q: string): Promise<Person[]> {
-  return unwrap(await supabase.rpc("search_users", { p_query: q })) as Person[];
+  return unwrap(await supabase.rpc("search_users", { p_query: q })) ?? [];
 }
 
-export async function sendFriendRequest(id: string): Promise<Relation> {
-  return unwrap(await supabase.rpc("send_friend_request", { p_user: id })) as Relation;
+export async function suggestedPeople(limit = 10): Promise<Person[]> {
+  return unwrap(await supabase.rpc("suggested_people", { p_limit: limit })) ?? [];
 }
 
-export async function acceptFriendRequest(id: string) {
-  unwrap(await supabase.rpc("accept_friend_request", { p_user: id }));
+export async function followList(user: string, which: "followers" | "following"): Promise<Person[]> {
+  return unwrap(await supabase.rpc("follow_list", { p_user: user, p_which: which, p_limit: 100 })) ?? [];
 }
 
-/** Decline an incoming request, cancel an outgoing one, or unfriend. */
-export async function removeFriend(id: string) {
-  unwrap(await supabase.rpc("remove_friend", { p_user: id }));
+/** People you can voice-message: you follow each other. */
+export async function mutualFollows(me: string): Promise<Person[]> {
+  return (await followList(me, "following")).filter((p) => p.follows_me);
+}
+
+export async function profileStats(user: string): Promise<ProfileStats | null> {
+  const rows = unwrap(await supabase.rpc("profile_stats", { p_user: user })) ?? [];
+  return rows[0] ?? null;
+}
+
+export async function profileByUsername(username: string): Promise<Person | null> {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("id, username, full_name, avatar_path")
+    .eq("username", username)
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export async function setFollowing(user: string, follow: boolean) {
+  unwrap(await supabase.rpc(follow ? "follow_user" : "unfollow_user", { p_user: user }));
+}
+
+export async function removeFollower(user: string) {
+  unwrap(await supabase.rpc("remove_follower", { p_user: user }));
 }
 
 export async function blockUser(id: string) {
   unwrap(await supabase.rpc("block_user", { p_user: id }));
 }
 
-export type ReportKind = "user" | "daily_post" | "voice_message" | "post";
+export type ReportKind = "user" | "voice_message" | "post";
 export const REPORT_REASONS = ["spam", "harassment", "hate", "sexual", "violence", "other"] as const;
 
 export async function reportContent(kind: ReportKind, target: string, reason: string) {
@@ -59,7 +89,7 @@ export async function unblockUser(id: string) {
   unwrap(await supabase.rpc("unblock_user", { p_user: id }));
 }
 
-export async function listBlocked(): Promise<Pick<Person, "id" | "username" | "full_name" | "avatar_path">[]> {
+export async function listBlocked(): Promise<Person[]> {
   return unwrap(await supabase.rpc("my_blocked")) ?? [];
 }
 

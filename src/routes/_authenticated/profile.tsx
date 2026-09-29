@@ -4,15 +4,15 @@ import { Settings } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { AppHeader, HeaderPill } from "@/components/app-header";
 import { EditProfileSheet } from "@/components/edit-profile-sheet";
+import { ProfileView } from "@/components/people/profile-view";
 import { SettingsSheet } from "@/components/settings-sheet";
-import { UserAvatar } from "@/components/user-avatar";
 import { useMyProfile } from "@/hooks/use-my-profile";
 
 export const Route = createFileRoute("/_authenticated/profile")({
-  component: ProfilePage,
+  component: MyProfilePage,
 });
 
-function ProfilePage() {
+function MyProfilePage() {
   const { t } = useTranslation();
   const me = useMyProfile();
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -37,19 +37,18 @@ function ProfilePage() {
         }
       />
       {p && (
-        <div className="flex flex-col items-center px-4 pt-8 text-center">
-          <UserAvatar name={p.full_name || p.username} path={p.avatar_path} size={112} />
-          <h2 className="mt-4 text-2xl font-bold">{p.full_name || p.username}</h2>
-          <p className="mt-0.5 text-base text-muted-foreground">{p.username}</p>
-          <button
-            type="button"
-            onClick={() => setEditOpen(true)}
-            className="mt-5 h-10 rounded-full bg-secondary px-6 text-sm font-semibold"
-          >
-            {t("profile.edit")}
-          </button>
+        <>
+          <ProfileView
+            person={p}
+            isMe
+            ownAction={
+              <button type="button" onClick={() => setEditOpen(true)} className="h-10 rounded-full bg-secondary px-6 text-sm font-semibold">
+                {t("profile.edit")}
+              </button>
+            }
+          />
           <EditProfileSheet profile={p} open={editOpen} onOpenChange={setEditOpen} />
-        </div>
+        </>
       )}
       <SettingsSheet open={settingsOpen} onOpenChange={setSettingsOpen} />
     </>

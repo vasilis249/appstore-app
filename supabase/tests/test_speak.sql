@@ -164,3 +164,27 @@ SELECT pg_temp.as_user(:A); SET ROLE authenticated;
 DELETE FROM public.posts WHERE id = :'pa';
 RESET ROLE;
 SELECT pg_temp.ok('08d deleting a post removes its replies and reposts', NOT EXISTS (SELECT 1 FROM public.posts WHERE reply_to = :'pa' OR repost_of = :'pa'));
+
+-- 09 notifications (follow / like / reply / repost), lists, suggestions
+DELETE FROM public.notifications;
+SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT public.follow_user(:A);
+RESET ROLE;
+INSERT INTO storage.objects (bucket_id, name) VALUES ('voices', '00000000-0000-0000-0000-00000000000a/n1.m4a'), ('voices', '00000000-0000-0000-0000-00000000000c/n2.m4a');
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT public.create_post('tech', NULL, NULL, NULL, 'Anna tech', '00000000-0000-0000-0000-00000000000a/n1.m4a', 'audio/mp4', 3000) AS pn \gset
+SELECT public.like_post(:'pn');
+RESET ROLE; SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT public.like_post(:'pn'); SELECT public.unlike_post(:'pn'); SELECT public.like_post(:'pn');
+SELECT public.create_post(NULL, NULL, :'pn', NULL, NULL, '00000000-0000-0000-0000-00000000000c/n2.m4a', 'audio/mp4', 2000);
+SELECT public.create_post(NULL, NULL, NULL, :'pn');
+RESET ROLE; SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('09a follow, like (once), reply, repost notified; own like not',
+  (SELECT array_agg(kind ORDER BY kind) FROM public.notifications WHERE actor_id = :C) = ARRAY['follow', 'like', 'reply', 'repost']
+  AND NOT EXISTS (SELECT 1 FROM public.notifications WHERE actor_id = :A));
+SELECT pg_temp.ok('09b notifications point at the post', (SELECT bool_and(post_id = :'pn') FROM public.notifications WHERE kind <> 'follow'));
+SELECT pg_temp.ok('09c followers list', EXISTS (SELECT 1 FROM public.follow_list(:A::uuid, 'followers') WHERE id = :C AND follows_me));
+SELECT pg_temp.ok('09d following list', (SELECT count(*) FROM public.follow_list(:A::uuid, 'following')) = 1);
+SELECT pg_temp.ok('09e suggestions exclude people I follow and me',
+  NOT EXISTS (SELECT 1 FROM public.suggested_people(30) WHERE id IN (:A, :B)));
+RESET ROLE;

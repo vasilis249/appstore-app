@@ -2,10 +2,12 @@ import { supabase } from "@/integrations/supabase/client";
 
 export interface AppNotification {
   id: number;
-  kind: "friend_request" | "friend_accepted";
+  kind: "follow" | "like" | "reply" | "repost";
   created_at: string;
   read_at: string | null;
+  post_id: string | null;
   actor: { id: string; username: string; full_name: string; avatar_path: string | null } | null;
+  post: { title: string | null } | null;
 }
 
 export const notificationKeys = {
@@ -17,11 +19,13 @@ export const notificationKeys = {
 export async function listNotifications(): Promise<AppNotification[]> {
   const { data, error } = await supabase
     .from("notifications")
-    .select("id, kind, created_at, read_at, actor:profiles!notifications_actor_id_fkey(id, username, full_name, avatar_path)")
+    .select(
+      "id, kind, created_at, read_at, post_id, actor:profiles!notifications_actor_id_fkey(id, username, full_name, avatar_path), post:posts(title)",
+    )
     .order("created_at", { ascending: false })
-    .limit(50);
+    .limit(60);
   if (error) throw new Error(error.message);
-  return (data ?? []) as AppNotification[];
+  return (data ?? []) as unknown as AppNotification[];
 }
 
 export async function unreadCount(): Promise<number> {

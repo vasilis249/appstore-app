@@ -12,7 +12,7 @@ import { UserAvatar } from "@/components/user-avatar";
 import { RecordBar } from "@/components/voice/record-bar";
 import { VoiceBubble } from "@/components/voice/voice-bubble";
 import { useAuth } from "@/hooks/use-auth";
-import { friendKeys, listFriends, rpcErrorKey } from "@/lib/friends";
+import { friendKeys, profileStats, rpcErrorKey } from "@/lib/friends";
 import { DM_MAX_MS, listThread, sendVoice, voiceKeys } from "@/lib/voice";
 
 export const Route = createFileRoute("/_authenticated/messages/$userId")({
@@ -40,8 +40,8 @@ function ThreadPage() {
       return data;
     },
   });
-  const friends = useQuery({ queryKey: friendKeys.list, queryFn: listFriends });
-  const isFriend = !!friends.data?.some((p) => p.id === userId && p.relation === "friends");
+  const friends = useQuery({ queryKey: friendKeys.stats(userId), queryFn: () => profileStats(userId) });
+  const isFriend = !!friends.data?.i_follow && !!friends.data?.follows_me;
   const messages = useQuery({
     queryKey: voiceKeys.thread(userId),
     queryFn: () => listThread(user!.id, userId),
@@ -89,7 +89,7 @@ function ThreadPage() {
         <div ref={bottom} />
       </div>
       <PersonActionsSheet
-        person={menu && other.data ? { ...other.data, relation: isFriend ? "friends" : "none" } : null}
+        person={menu && other.data ? other.data : null}
         report={lastIncoming ? { kind: "voice_message", id: lastIncoming.id, label: t("report.conversation") } : undefined}
         onOpenChange={setMenu}
         onBlocked={() => void navigate({ to: "/messages" })}

@@ -5,8 +5,9 @@ export interface Today {
   moment: string;
   prompt_at: string;
   next_prompt_at: string;
-  my_post_id: string | null;
-  unlocked: boolean;
+  /** The day's topic, when an admin set one. */
+  topic_id: string | null;
+  topic_title: string | null;
 }
 
 export const dailyKeys = {

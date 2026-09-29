@@ -3,14 +3,16 @@ import { useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { PersonRow } from "@/components/friends/person-row";
-import { friendKeys, listFriends } from "@/lib/friends";
+import { friendKeys, mutualFollows } from "@/lib/friends";
+import { useAuth } from "@/hooks/use-auth";
 
-/** Pick a friend to send a new voice message to. */
+/** Pick someone you follow and who follows you back, for a new voice message. */
 export function FriendPickerSheet({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const list = useQuery({ queryKey: friendKeys.list, queryFn: listFriends, enabled: open });
-  const friends = (list.data ?? []).filter((p) => p.relation === "friends");
+  const { user } = useAuth();
+  const list = useQuery({ queryKey: [...friendKeys.all, "mutual"], queryFn: () => mutualFollows(user!.id), enabled: open && !!user });
+  const friends = list.data ?? [];
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>

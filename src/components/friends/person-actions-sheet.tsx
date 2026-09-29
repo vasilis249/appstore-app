@@ -1,29 +1,28 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Ban, ChevronRight, Flag, UserMinus } from "lucide-react";
+import { Ban, ChevronRight, Flag } from "lucide-react";
 import { toast } from "sonner";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { UserAvatar } from "@/components/user-avatar";
 import {
   blockUser,
   friendKeys,
-  removeFriend,
   REPORT_REASONS,
   reportContent,
   rpcErrorKey,
   type Person,
   type ReportKind,
 } from "@/lib/friends";
-import { dailyKeys } from "@/lib/daily";
+import { postKeys } from "@/lib/posts";
 import { voiceKeys } from "@/lib/voice";
 
-type Step = "menu" | "reasons" | "reported" | "confirmBlock" | "confirmRemove";
+type Step = "menu" | "reasons" | "reported" | "confirmBlock";
 
 /**
  * Secondary actions for a person (App Store guideline 1.2): report with a reason — the
- * person, or a specific post / voice message via `report` — optionally block right after,
- * block, remove friend. Destructive steps are confirmed inside the sheet.
+ * person, or a specific post / voice message via `report` — optionally block right after, or
+ * block (confirmed inside the sheet).
  */
 export function PersonActionsSheet({
   person,
@@ -31,7 +30,7 @@ export function PersonActionsSheet({
   onOpenChange,
   onBlocked,
 }: {
-  person: Pick<Person, "id" | "username" | "full_name" | "avatar_path" | "relation"> | null;
+  person: Pick<Person, "id" | "username" | "full_name" | "avatar_path"> | null;
   /** What "Report" refers to; defaults to the person. */
   report?: { kind: ReportKind; id: string; label: string };
   onOpenChange: (open: boolean) => void;
@@ -44,7 +43,7 @@ export function PersonActionsSheet({
 
   const refresh = () => {
     void qc.invalidateQueries({ queryKey: friendKeys.all });
-    void qc.invalidateQueries({ queryKey: dailyKeys.all });
+    void qc.invalidateQueries({ queryKey: postKeys.all });
     void qc.invalidateQueries({ queryKey: voiceKeys.all });
   };
 
@@ -55,17 +54,12 @@ export function PersonActionsSheet({
   });
 
   const act = useMutation({
-    mutationFn: async (action: "remove" | "block") => {
-      if (!person) return action;
-      if (action === "remove") await removeFriend(person.id);
-      else await blockUser(person.id);
-      return action;
-    },
-    onSuccess: (action) => {
+    mutationFn: () => blockUser(person!.id),
+    onSuccess: () => {
       refresh();
-      toast.success(t(`friends.done.${action}`));
+      toast.success(t("friends.done.block"));
       onOpenChange(false);
-      if (action === "block") onBlocked?.();
+      onBlocked?.();
     },
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });
@@ -89,11 +83,6 @@ export function PersonActionsSheet({
 
             {step === "menu" && (
               <div className="divide-y divide-border overflow-hidden rounded-2xl bg-secondary">
-                {person.relation === "friends" && !report && (
-                  <button type="button" className={row} onClick={() => setStep("confirmRemove")}>
-                    <UserMinus className="h-5 w-5" /> {t("friends.remove")}
-                  </button>
-                )}
                 <button type="button" className={row} onClick={() => setStep("reasons")}>
                   <Flag className="h-5 w-5" /> {report?.label ?? t("friends.report")}
                 </button>
@@ -124,7 +113,7 @@ export function PersonActionsSheet({
                 <button
                   type="button"
                   disabled={busy}
-                  onClick={() => act.mutate("block")}
+                  onClick={() => act.mutate()}
                   className="h-12 w-full rounded-full bg-destructive font-semibold text-destructive-foreground disabled:opacity-50"
                 >
                   {t("report.alsoBlock")}
@@ -135,18 +124,16 @@ export function PersonActionsSheet({
               </div>
             )}
 
-            {(step === "confirmBlock" || step === "confirmRemove") && (
+            {step === "confirmBlock" && (
               <div className="space-y-3 text-center">
-                <p className="px-4 text-sm text-muted-foreground">
-                  {t(step === "confirmBlock" ? "friends.blockConfirm" : "friends.removeConfirm")}
-                </p>
+                <p className="px-4 text-sm text-muted-foreground">{t("friends.blockConfirm")}</p>
                 <button
                   type="button"
                   disabled={busy}
-                  onClick={() => act.mutate(step === "confirmBlock" ? "block" : "remove")}
+                  onClick={() => act.mutate()}
                   className="h-12 w-full rounded-full bg-destructive font-semibold text-destructive-foreground disabled:opacity-50"
                 >
-                  {t(step === "confirmBlock" ? "friends.block" : "friends.remove")}
+                  {t("friends.block")}
                 </button>
                 <button type="button" onClick={() => setStep("menu")} className="h-12 w-full rounded-full bg-secondary font-semibold">
                   {t("common.cancel")}
