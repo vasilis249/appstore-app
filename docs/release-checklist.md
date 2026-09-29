@@ -68,7 +68,8 @@ If something fails, note the step number and what you saw (a screenshot helps).
 - [x] **User-generated content** (1.2): Terms accepted at sign-up with zero tolerance for objectionable
   content; report on every voice, profile and conversation; block; admins act on reports within 24 h in the
   app; offending users can be banned. Mention this in the review notes.
-- [x] **No third-party login**, so Sign in with Apple is not required.
+- [ ] **Sign in with Apple (4.8)**: required as soon as Google sign-in is offered. Needs the Developer Program →
+  create the Services ID/key and enable Apple in Supabase (see `supabase-setup.md` → Social login).
 - [x] Permission texts: microphone (recording), camera + photo library (profile photo). Local notifications
   ask at runtime. `UIBackgroundModes audio` is used for continuous playback — say so in the review notes.
 - [x] Export compliance: `ITSAppUsesNonExemptEncryption = NO` (HTTPS only).
