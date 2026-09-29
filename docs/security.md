@@ -1,53 +1,48 @@
-# Security model (Courtsie)
+# Security model (voice social network)
 
-Short reference for whoever maintains the app. Tests for every rule below live in the
-local SQL suites (`test_bookings`, `test_social`, `test_dm`, `test_security`; 87 checks).
+Tests for the rules below: `supabase/tests/test_voice.sql` (local), plus an end-to-end smoke test run
+against the live project with two temporary users (friends, listen-once, storage unlock).
 
 ## Keys
-- The browser/app only ever gets the **anon/publishable** key (`VITE_*`, baked in at build).
-- `SUPABASE_SERVICE_ROLE_KEY`, `DEEPL_API_KEY`, `GOOGLE_MAPS_API_KEY` are Cloudflare Worker
-  secrets (`wrangler secret put`), read only in `*.server.ts` / server functions. The build is
-  checked for leaks (grep the client bundle for the service key before a release).
+- The app only ever gets the **anon/publishable** key (`VITE_*`, baked in at build).
+- `SUPABASE_SERVICE_ROLE_KEY` is a Cloudflare Worker secret, used only in `*.server.ts` / server
+  functions (account deletion). Check the client bundle for it before every release.
 
-## Database (Supabase)
-- RLS is enabled on every table. Clients write directly only where a policy allows it, and
-  sensitive columns are protected by triggers that run for end-user requests
-  (JWT role `authenticated`); the web server (service role) is trusted.
-- **Bookings**: exclusion constraint (no overlaps) + advisory locks in the RPCs; a player can
-  only book an approved venue, an existing slot of that court/weekday with its duration,
-  outside closures, at most 180 days ahead (`bookings_validate_player`); players can only
-  cancel their own booking (`bookings_guard_player_writes`).
-- **Venues**: only owners create them; `approved`, `rating`, `reviews_count`, `owner_id`
-  change only by admins (`venues_guard`).
-- **Open games**: joining only via `join_open_game()` (capacity, not started, not cancelled,
-  not blocked); a game must belong to a real booking of the host; size capped per sport.
-- **Reviews**: only between two players of the same finished game, one per game.
-- **Profiles**: rating / games played / disabled are system-managed.
-- **Social**: visibility via `can_view_profile` / `can_view_post` (private accounts, blocks);
-  follows only through RPCs; DMs: membership managed only by the server, message guard
-  (blocks, 30/min, visibility of shared posts/stories), requests for strangers.
-- **Helper functions** (`has_role`, `can_view_*`, `is_blocked_between`, `is_conversation_*`)
-  answer only about the caller when called by an end user; the real logic lives in the
-  `private` schema, which PostgREST doesn't expose.
-- **Rate limits** (per user): posts 20/h, comments 15/min, stories 30/h, follows 200/h,
-  reports 30/h, reviews 30/h, messages 30/min; social notifications are de-duplicated.
-- **Notifications**: clients can only set `read_at`.
-- **Storage**: `avatars`, `venue-photos` public by URL but not listable; `social-media`
-  private (signed URLs, readable only by people who can view the profile); uploads only into
-  your own folder; size and MIME limits per bucket. Photos are re-encoded on the device
-  (strips EXIF/GPS).
+## Database
+- RLS on every table. Clients can only **read** (their own rows or what the policies allow), update
+  their own `profiles.username/full_name/avatar_path` and `notifications.read_at`, and delete their
+  own daily posts. Every other write goes through a `SECURITY DEFINER` RPC that checks `auth.uid()`
+  and that the caller is not disabled (`private.me()`).
+- `anon` has no table or function access at all.
+- Helpers used by policies live in the `private` schema, which the Data API does not expose.
+- **Friends**: requests only via RPCs; DMs and the feed require an accepted friendship.
+- **Voice DMs (listen once)**: audio bytes are stored in `private.voice_message_audio` (no client
+  access). `consume_voice_message` marks the message opened and deletes the bytes in the same
+  transaction, so a second play is impossible even with concurrent calls. The sender only sees
+  `opened_at`. Unheard messages expire after 10 days (pg_cron). Max 60 s / 1 MB, audio types only.
+- **Daily posts**: files in the private `daily-posts` bucket under `<uid>/`. A friend's file can be
+  read (signed URL) only while the post is < 24 h old **and** the reader has posted in the current
+  moment (the unlock rule is enforced in the storage policy, not only in the UI). Max 90 s / 2 MB,
+  one post per moment.
+- **Blocks**: end the friendship, drop the blocked person's unheard messages, hide both profiles
+  from each other and from search; the blocked person can't send requests.
+- **Rate limits** (per user): friend requests 50/h, voice messages 30/min and 500/day, daily posts
+  10/day, reports 20/h.
+- **Reports**: insert-only through `report_content`; not readable by clients (reviewed in the dashboard).
+- **Account deletion** (`deleteMyAccount`): removes the user's files in `avatars` and `daily-posts`,
+  then deletes the auth user, which cascades to every table.
 
 ## Web server (Cloudflare Worker)
-- Every server function that needs a user uses `requireSupabaseAuth` (bearer token, so no
-  CSRF via cookies) and validates input with zod; admin functions check `has_role(admin)`.
-- Security headers on every response: CSP, HSTS, X-Frame-Options DENY, nosniff,
-  Referrer-Policy, Permissions-Policy, COOP; server-function responses are `no-store`.
+- Server functions that need a user use `requireSupabaseAuth` (bearer token, no cookie CSRF).
+- Headers on every response: CSP (incl. `media-src` for audio), HSTS, X-Frame-Options DENY, nosniff,
+  Referrer-Policy, Permissions-Policy (`microphone=(self)` only), COOP; server functions `no-store`.
 
-## Auth (set by `scripts/deploy-all.sh`)
-- Email + password, email confirmation on, min 8 characters (the app also requires a
-  lowercase letter and a digit), secure email change, re-authentication to change password,
-  refresh-token rotation. Signup can't self-assign `admin`.
+## Auth
+- Email + password, email confirmation, min 8 characters (the app also requires a lowercase letter
+  and a digit), secure email change, refresh-token rotation.
 
-## Before release
-- `bun audit`: runtime packages clean; remaining advisories are build/dev tools only.
-- Grant yourself admin with SQL after signing up (see `docs/supabase-setup.md`).
+## Known limits
+- Daily-post files uploaded but never published stay in the uploader's own folder (only they can
+  read them); they are removed with the account.
+- A listened message can't be re-reported with its audio (it no longer exists); reports keep the
+  sender and time, and the recipient can block.

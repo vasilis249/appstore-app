@@ -1,227 +1,102 @@
-# Courtsie → iOS — project notes
+# Courtsie (voice-only social network) → iOS — project notes
 
 Persistent findings for Claude sessions. Reply to the user in Greek; code, comments and file names in English.
-Work in phases; stop after each phase for the user's "OK".
+Work in phases; after each phase STOP, summarize in ≤10 lines, update this file, wait for the user's "OK".
+Don't read `bun.lock`, `node_modules`, `src/assets`, `src/components/ui` (stock shadcn), `src/routeTree.gen.ts`,
+`src/integrations/supabase/types.ts` (generated). Use Glob/Grep, read only what's needed.
 
-## PIVOT (2026-09-29): voice-only social network — Phase 1 done, next Phase 2 (backend)
-Spec (user): friends by username + requests (DMs + feed friends-only); recorded voice DMs, listen-once enforced
-server-side (sender sees "opened"; unopened expire after 10 days); daily voice post (max 90 s) unlocks friends'
-posts for the day, visible 24 h; daily prompt at the same time for everyone; calendar of own past posts;
-report/block/EULA/account deletion/mic text. Keep the current theme.
-- **Decision: FREE stack, push-to-talk POSTPONED** (no Apple Developer Program → no APNs/PushToTalk/LiveKit).
-  Daily prompt = local notifications (time derived from a date seed so all devices agree, scheduled ~30 days
-  ahead). No push for new DMs while the app is closed. Supabase free tier (pauses after 1 week idle).
-- Clips: web `MediaRecorder` (AAC/m4a mono 32 kbps where supported); DM max 60 s, daily post max 90 s.
-  Listen-once: server streams the bytes once, deletes the file, keeps a tombstone row. pg_cron for expiry.
-- **Phase 1 (done):** all booking + Instagram-style code deleted (routes, components, api, hooks, geolocation,
-  recharts, Geologica font). `useAuth` has no roles; signup has no role picker. `/contact` = contact page.
-- **Look = BeReal-like (user's reference screenshots), dark only.** Theme in ONE file `src/design-system.css`:
-  black bg, white text + white primary buttons (`bg-primary` = white), dark grey pills `bg-secondary #2c2c2e`,
-  grey text `#8e8e93`, `--coral #e4571c` only as a small accent (recording), `--badge` red. System font (SF Pro
-  on iPhone). `<html class="dark">` always; no theme toggle. iOS: `UIUserInterfaceStyle=Dark` (white status
-  bar), web view `backgroundColor #000`. Icon/splash/offline page are still orange (redo with the final name).
-- Structure: floating pill `BottomNav` with labels — Home `/`, Friends `/friends`, white mic circle `/record`,
+## Product (pivot 2026-09-29; the court-booking + Instagram-style app was deleted)
+Friends by username + requests (DMs and feed friends-only); recorded voice DMs, listen-once enforced
+server-side (sender sees "opened"; unheard expire after 10 days); one daily voice post (≤ 90 s) — posting
+unlocks friends' posts, otherwise they are locked/blurred; posts visible to friends 24 h; one daily prompt at
+the same time for everyone; calendar of own past posts; report/block/EULA/account deletion/mic string.
+- **FREE stack, push-to-talk POSTPONED** (no Apple Developer Program → no APNs/PushToTalk/LiveKit). Daily prompt
+  = local notifications scheduled from `prompt_schedule()` (~30 days ahead). No push for new DMs while closed.
+  Supabase free tier (project pauses after 1 week idle).
+- Clips: web `MediaRecorder` (prefer `audio/mp4`, ~32–64 kbps mono); DM ≤ 60 s / 1 MB, daily post ≤ 90 s / 2 MB.
+- Phases: 0 proposal ✔ → 1 cleanup & theme ✔ → 2 Supabase backend ✔ → 3 features one by one (friends →
+  voice DMs → daily post + feed lock → 24 h feed → calendar → notifications → report/block; each with a 2–3 line
+  test plan, then stop) → 4 hardening/release.
+- Open questions: final app name (still "Courtsie"; icon/splash/offline page are still orange → redo with it).
+
+## Architecture
+- **Capacitor 8.5.2** (SPM) iOS shell loading the hosted web app (`server.url` = `CAP_SERVER_URL` from `.env`,
+  `CAP_APP_ID` default `gr.innera.courtsie`). Plugins: `@capacitor/app`, `@capacitor/splash-screen`.
+  `ios/` committed; `ios/App/App/capacitor.config.json` and `public/` git-ignored. `bun run ios:sync` / `ios:open`.
+  Info.plist: mic string, camera/photo strings, `courtsie` URL scheme, `UIUserInterfaceStyle=Dark`,
+  `ITSAppUsesNonExemptEncryption=false`. Web view background `#000`. Offline page `capacitor/www/offline.html`.
+- **Web app**: TanStack Start (React 19, SSR, file routes), Vite 8, Tailwind 4, shadcn/Radix, vaul Drawer,
+  TanStack Query, i18next (el/en), Bun. Hosted as Cloudflare Worker `courtsie` (nitro; `wrangler.jsonc` vars
+  `SUPABASE_URL`, `SUPABASE_PROJECT_ID`; secrets `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`).
+  **LIVE: https://courtsie.vasilis-har.workers.dev** (account subdomain `vasilis-har`).
+- `src/lib/native.ts`: `isNativeApp()`, `authRedirectUrl()` (→ `courtsie://app/<path>` in the app),
+  `initNativeShell()` (html.native-app, deep links, splash). Supabase client: PKCE in the app, implicit on web.
+- Server functions: only `src/lib/api/account.functions.ts` (`deleteMyAccount`: removes `avatars/<uid>/` and
+  `daily-posts/<uid>/`, then `auth.admin.deleteUser` → cascades). Everything else talks to Supabase RPCs
+  directly with the anon key + user JWT.
+- Security headers: `src/lib/security-headers.server.ts` (CSP incl. `media-src`, Permissions-Policy
+  `microphone=(self)`, HSTS, X-Frame DENY, COOP, no-store on server fns). Summary: `docs/security.md`.
+
+## UI (BeReal-like, from the user's reference screenshots; dark only)
+- Theme in ONE file `src/design-system.css`: black bg, white text, `bg-primary` = white (black text),
+  `bg-secondary #2c2c2e` pills, grey text `#8e8e93`, `--coral #e4571c` small accent (recording), `--badge` red.
+  System font (SF Pro on iPhone). `<html class="dark">` always; no theme toggle. Buttons/inputs rounded pills.
+- `BottomNav`: floating pill with labels — Home `/`, Friends `/friends`, white mic circle `/record`,
   Memories `/memories` (segmented pill Memories | Calendar, `?view=calendar`), Profile (avatar initial).
-  `AppHeader` (centered `Wordmark` "Courtsie." or title, `back`, left/right slots, `HeaderPill`); Home's right
-  pill = paper-plane → `/messages` (DMs) + bell → `/notifications`. Profile ⚙︎ pill → `SettingsSheet`
-  (language, contact/terms/privacy, sign out, delete). `EmptyState` = icon or bold title + one line + optional
-  white pill button. Buttons/inputs are rounded pills. Permissions-Policy `microphone=(self)`; CSP `media-src`.
-  i18n: `tabs.*`, `feed.*`, `friends.*`, `record.*`, `memories.*`, `messages.*`, `notificationsPage.*`.
-- Still old: `supabase/migrations/*` (live DB has the old schema), `types.ts`, `docs/security.md`, the sections
-  below. Phase 2 = fresh baseline migration (drop old tables), voice buckets, RLS, consume RPC/function, pg_cron.
-- Phases: 0 proposal → 1 cleanup & theme → 2 Supabase backend → 3 features one by one → 4 hardening/release.
-  Everything below this section describes the old court-booking app.
+- `AppHeader` (`src/components/app-header.tsx`): centered `Wordmark` ("Courtsie.") or title, `back`, left/right
+  slots, `HeaderPill`; Home's right pill = paper-plane → `/messages` + bell → `/notifications`.
+  Profile ⚙︎ → `SettingsSheet` (language, contact/terms/privacy, sign out, delete account).
+- `EmptyState`: icon or bold title + one line + optional white pill button.
+- Routes: public `/auth`, `/forgot-password`, `/reset-password`, `/contact`, `/terms`, `/privacy`; everything
+  else under `src/routes/_authenticated/` (ssr: false, redirects to `/auth`).
+- i18n keys: `tabs.*`, `feed.*`, `friends.*`, `record.*`, `memories.*`, `messages.*`, `notificationsPage.*`
+  (old locale keys still present; prune in Phase 4). Sign-up requires accepting Terms (guideline 1.2).
+- UX principles: one primary action per screen; secondary actions in a sheet; no duplicated info; empty
+  states = one icon/title + one short line; short neutral Greek copy.
 
-## Status / decisions
-- Phase 0 (audit): done.
-- **Approach: B — Capacitor** wrapping the hosted web app (server functions need a server).
-- Web app source imported into this repo (from the Lovable export zip). Don't read `bun.lock`,
-  `node_modules`, `src/assets`, `src/components/ui` (stock shadcn), `src/routeTree.gen.ts`.
-- Phase 1 (Supabase): done — see `docs/supabase-setup.md` for CLI + dashboard steps.
-  - Removed stray duplicate migration `20260704120000_*` (never applied in old DB; conflicted
-    with `20260704121852_*`, which matches `types.ts`).
-  - Added `20260928120000_create_storage_buckets.sql`, `20260928120100_harden_booking_writes.sql`.
-  - Fixed hardcoded old project ref (`sb-gfzopoagilepwznmorfo-auth-token`) in `venues.$venueId.tsx`.
-- Phase 2 (hosting + iOS project): done — see `docs/ios-setup.md`.
-  - Hosting: Cloudflare Worker `courtsie` (`wrangler.jsonc`, merged by nitro into
-    `.output/server/wrangler.json`). `bun run deploy` = build + `wrangler deploy`. Runtime secrets via
-    `wrangler secret put`; `VITE_*` are build-time from `.env`. Verified locally with `wrangler dev`
-    (SSR works; server fns need SUPABASE_SERVICE_ROLE_KEY).
-  - Capacitor 8.5.2 (SPM, no CocoaPods). `capacitor.config.ts` loads `.env` → `CAP_SERVER_URL`
-    (remote `server.url`), `CAP_APP_ID` (default `gr.innera.courtsie`). Fallback webDir `capacitor/www`.
-    `ios/` is generated by `npx cap add ios` and committed; `ios/App/App/capacitor.config.json` and
-    `public/` are git-ignored. Scripts: `ios:sync`, `ios:open`.
-- Phase 3/4 code: done without a Mac (user tests later with `docs/release-checklist.md`).
-  - `src/lib/native.ts`: `isNativeApp()` (window.Capacitor), `authRedirectUrl()` → `courtsie://app/<path>`
-    in the app, `initNativeShell()` (adds `html.native-app`, handles `appUrlOpen` + launch URL by
-    navigating to the same path on the hosted origin, hides splash). Supabase client uses
-    `flowType: 'pkce'` only in the app (implicit on web). Redirect URL `courtsie://**` must be allowed.
-  - Account deletion: `src/lib/api/account.functions.ts` (`deleteMyAccount`: cancels future bookings,
-    hides owned venues, deletes notifications + avatar files, then `auth.admin.deleteUser`);
-    button in profile + owner settings.
-  - Sign-up requires accepting Terms (guideline 1.2). Report/block already existed.
-  - Offline: `OfflineBanner` in web app; `capacitor/www/offline.html` via `server.errorPath`
-    (`capacitor.config.ts` writes git-ignored `capacitor/www/server-url.js` for its retry button).
-  - Layout: `viewport-fit=cover`, `safe-top`/`safe-bottom` utilities, `contentInset: "never"`,
-    compact header on phones (theme toggle + search icon hidden < sm; header min width 315px).
-  - Icon/splash rendered from the logo SVG: `resources/render-assets.mjs` → Assets.xcassets.
-  - Info.plist: `courtsie` URL scheme, camera/photo strings, `ITSAppUsesNonExemptEncryption=false`.
-- Contact: vasilis.har@gmail.com / 698 751 4868 (`src/lib/contact.ts`). Privacy Policy rewritten
-  (GDPR art. 13, ν. 4624/2019, 13 sections, el + en) in `legal.privacy`; `LegalPage` replaces
-  `{email}`, `{phone}`, `{controller}`. Demo venues deleted by `20260928130000_remove_demo_venues.sql`.
-- Theme (from user's reference screenshots: white, orange accent, soft cards): tokens in
-  `src/styles.css` — primary/coral `#E4571C`, `--petrol` = ink `#1C1C1E` (dark blocks), `--optic` = amber
-  `#FFB23F` (stars/badges); white header; soft `--shadow-*`; `--radius: 1rem`. Font: self-hosted
-  `@fontsource-variable/geologica` (Greek). Use `text-foreground` for text, not `text-petrol`.
-  Logo uses currentColor + orange ball. Venue list: search bar, solid orange chips, compact rows on
-  phones (`VenueRow`), card grid from `sm`. Icon/splash/offline page are orange.
-  UI screenshots without Supabase: run a PostgREST mock on :54321 and
-  `wrangler dev --var SUPABASE_URL:http://127.0.0.1:54321 --var SUPABASE_SERVICE_ROLE_KEY:x ...`.
-- Venue list filters + map: `src/lib/venue-filters.ts` (pure filter logic, `displayPrice`),
-  `src/components/venues/venue-filters.tsx` (vaul Drawer sheet: sport, km stepper, min rating, price
-  range, amenities; draft resets only when the sheet opens), `src/components/venues/venues-map.tsx`
-  (Google Maps, grey style, SVG pins, selected = orange). URL params: `view=map`, `rating`, `pmin`,
-  `pmax`, `km`, `am` (comma list). The list query fetches all venues for `q`; sport + filters apply on
-  the client. Location via `src/lib/geo.ts` (native `@capacitor/geolocation` in the app), used only on
-  device (privacy policy updated). `listVenues` now returns `lat`/`lng`.
-- **Social (Instagram-style), round 1 done** — decisions: follows replace friends (friendships migrated to
-  mutual follows), DMs open to all with a "Requests" folder, optional private accounts, feed on Home.
-  - Migration `20260929100000_social_foundation.sql`: `profiles.username/bio/is_private` (username
-    auto-generated + Greek→Latin), guard trigger freezing rating/games_played/disabled for clients,
-    `follows` (writes only via RPCs follow_user/unfollow_user/accept_follow_request/remove_follower),
-    `can_view_profile()`/`can_view_post()`, `posts` (+`post_likes`, `post_comments`, counters),
-    `stories` (+`story_views`, 24h forced), private bucket `social-media` (`<uid>/...`, read =
-    can_view_profile), `content_reports`, `conversation_members.accepted` (DM requests),
-    `player_match_stats(uid)` (past, non-cancelled bookings + joined open games), notification triggers.
-  - App: `src/lib/api/social.functions.ts`, `src/components/social/*` (ProfileView, FollowButton,
-    FollowListSheet, UserAvatar), `/u/$username`, `/profile` rebuilt on ProfileView + edit sheet.
-    Community search links to profiles with Follow buttons.
-- **Social rounds 2+3 done (posts, feed, stories)** — migration `20260930100000_social_feed.sql`: `post_saves`,
-  INVOKER RPCs `feed_posts`/`explore_posts`/`story_tray`, `messages.post_id`/`story_id` (for DM shares/replies).
-  - Server fns: `src/lib/api/posts.functions.ts` (feed w/ cursor, explore, saved, post, comments, like/save,
-    likers, create/delete, recent matches for "match posts", `getPostThumbs`, `reportContent`),
-    `src/lib/api/stories.functions.ts` (tray, per-user stories, views, viewers, create/delete).
-  - UI: `HomeFeed` (StoriesTray + infinite PostCard list) on `/` for signed-in players; `PostCard` (double-tap
-    like, likers sheet, save, share = copy link for now, ⋯ menu delete/report); `/p/$postId`; `/explore`
-    (people search + suggestions + grid); `/notifications` (Activity; likes grouped per post, post thumbs,
-    follow-back / accept buttons); `StoryViewer` (tap/hold, viewers sheet for own); ➕ sheet: post, story,
-    book, available times. `suggestedPlayers` now excludes people you follow (not friendships).
-- **Social round 4 (IG DMs) + round 5 (moderation) done** — migration `20261001100000_dm_requests_mentions.sql`:
-  membership writes revoked from clients (was: members could self-promote to group admin / creators could add
-  anyone), `messages_guard` (INVOKER: blocks, 30/min rate limit, empty/2000 chars, shared post/story must be
-  visible, forged created_at/deleted_at reset), `messages_after_insert` (reply accepts request), `my_inbox()`,
-  `notify_mentions` (@username in captions/comments → `mention` notification if they can view the post),
-  conversation_members in realtime (live "Seen"). Tests: `test_dm.sql` (16 checks).
-  - Anyone can message anyone not blocked; recipient gets it in **Requests** unless they follow the sender
-    (`src/lib/api/dm.server.ts` `ensureDirectConversation`). No friendship needed anywhere any more.
-  - `src/lib/api/inbox.functions.ts` (listInbox, getThread, listThreadMessages, sendDm, openDirect, sharePost,
-    replyToStory, acceptRequest, deleteConversation, shareTargets); UI `/inbox` (Primary | Requests, compose
-    1:1 or group) and `/inbox/$conversationId` (full-screen thread, shared post cards, story replies, Seen,
-    request bar Block/Delete/Accept, ⓘ sheet). ShareSheet on posts, story reply input, Message + ⋯ (report,
-    block, copy link) on profiles, report on comments/stories, blocked list + "Show me in search"
-    (`discoverable`, opt-in) in Settings/Edit profile, Explore prompt when not discoverable.
-  - Old chat removed: `chat-widget/`, old messages page (→ redirect to /inbox), `/community` (→ /explore).
-  - Admin: `/admin/reports` has Content | Messages; `src/lib/api/moderation.functions.ts` groups
-    content_reports per item; Remove deletes post/comment/story (+files) or disables the profile.
-- **Security hardening done** (`20261002100000_security_hardening.sql`, summary in `docs/security.md`,
-  local tests `test_security.sql` 33 checks): helper fns guarded (`private` schema holds the real logic),
-  venues/reviews/open games/player bookings validated in DB, notifications read_at-only + dedupe, per-user
-  rate limits, public buckets not listable (avatars now use getPublicUrl + JPEG re-encode), admin fns zod,
-  no-store on server-fn responses, deps updated (seroval/start-server-core fixed). New guards check the JWT
-  role (`auth.role() = 'authenticated'`); local tests set `request.jwt.claims` accordingly.
-- Deploy everything with one command on the Mac: `bun run deploy:all` (`scripts/deploy-all.sh`, bash 3.2-safe):
-  asks for the anon + service_role keys (hidden), `supabase login` / `wrangler login` via browser unless
-  SUPABASE_ACCESS_TOKEN / CLOUDFLARE_API_TOKEN are set, db push, build, deploy, secrets (SUPABASE_URL is a
-  wrangler var, not a secret), Auth settings (API if token, else printed), writes public values + CAP_SERVER_URL
-  to `.env`, then `ios:sync` + `ios:open` on macOS. Not yet run: no credentials in the cloud env so far.
-- **LIVE since 2026-09-29: https://courtsie.vasilis-har.workers.dev** (Cloudflare account subdomain `vasilis-har`).
-  All 62 migrations applied through the Management API (`POST /v1/projects/<ref>/database/query`; raw Postgres
-  ports are blocked from the cloud container) and recorded in `supabase_migrations.schema_migrations`, so
-  `supabase db push` from the Mac sees them as applied. Two Lovable migrations touching `realtime.messages` skip
-  when not owner. Worker secrets SUPABASE_PUBLISHABLE_KEY + SUPABASE_SERVICE_ROLE_KEY set (new-style `sb_`
-  keys); Auth: site_url + redirect URLs (`<url>/**`, `courtsie://**`), min password 8, confirm email,
-  secure email change, token rotation. Supabase's built-in mailer only reaches org members → custom SMTP
-  needed before real users. The user pasted credentials in chat → they must be rotated after testing.
-  Chromium in the container can't trust the proxy CA (no certutil) → verify the live site with curl.
-- Local full-stack testing (no Supabase needed): PostgREST 12 binary + `local-supabase.mjs` proxy in the
-  scratchpad (JWT HS256 minted locally, fake /auth/v1/user and storage signing), seed users, then
-  `wrangler dev --var ...`; inject session into localStorage key `sb-127-auth-token`. Reload PostgREST
-  schema (`NOTIFY pgrst, 'reload schema'`) after resetting the DB. Build for local UI tests with
-  `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon jwt> bun run build`. Tests: `test_social.sql` (27 checks).
-- Open items for the user: set `CONTACT_CONTROLLER` (full name or company + ΑΦΜ); review Terms;
-  optional push notifications (helps guideline 4.2); opening-hours validation inside booking RPCs.
+## Backend (Supabase `gqmzxxygegmlifeewbzy`) — Phase 2 done
+- One baseline migration `supabase/migrations/20261003100000_voice_baseline.sql` (drops the old schema if
+  present; keeps auth.users and backfills profiles). Applied live via the Management API
+  (`POST /v1/projects/<ref>/database/query`; raw Postgres ports are blocked from the container) and the
+  migration history now holds only this version. Old buckets `venue-photos`/`social-media` deleted via the
+  Storage API (SQL deletes on storage tables are blocked). Setup/moderation steps: `docs/supabase-setup.md`.
+- Tables (RLS on all): `profiles` (username `^[a-z0-9._]{3,20}$`, auto-generated Greek→Latin; clients may update
+  only username/full_name/avatar_path), `friendships` (user_a < user_b, pending/accepted), `blocks`,
+  `notifications` (friend_request/friend_accepted; client may set read_at), `voice_messages` (tombstone
+  rows: opened_at / expired_at), `daily_posts` (one per `moment`; `late` = > 2 min after the prompt),
+  `reports` (no client access). Private: `private.voice_message_audio` (bytea), `private.rate_events`.
+- **Moment** = date of the latest fired prompt; `private.prompt_at(d)` = 10:00 Athens + md5(date) % 660 min.
+- RPCs: `search_users`, `my_friends`, `send_friend_request` (mutual → friends), `accept_friend_request`,
+  `remove_friend` (decline/cancel/unfriend), `block_user`, `unblock_user`, `my_blocked`,
+  `send_voice_message(p_to, p_audio_b64, p_mime, p_duration_ms)`, `consume_voice_message(p_id)` (returns
+  base64 once and deletes the bytes in the same transaction), `my_threads`, `today`, `prompt_schedule`,
+  `publish_daily_post(p_path, p_mime, p_duration_ms)` (after uploading to `daily-posts/<uid>/…`), `feed`
+  (friends' posts < 24 h; `audio_path` null while locked), `report_content(kind, target, reason)`.
+- Storage: `daily-posts` private; a friend's file is readable (signed URL) only if the post is < 24 h old and
+  the reader posted in the current moment (enforced by the storage policy). `avatars` public by URL, not listable.
+- Realtime: voice_messages, friendships, notifications, daily_posts. pg_cron `expire-voice-messages` hourly.
+- Types: `src/integrations/supabase/types.ts` regenerated from the live schema
+  (`GET /v1/projects/<ref>/types/typescript`). Regenerate after every schema change.
+- Verified live with two temporary users (friends, listen-once, storage lock/unlock, signed URL) — all pass.
 
-## UX principles (user requirement: as user-friendly as possible, "economy of content")
-- One primary action per screen; secondary actions in a sheet (vaul Drawer), never extra buttons.
-- No duplicated info (e.g. total matches only in the counts row; per-sport chips without a title).
-- Nav: floating pill bottom nav (Home, Friends, mic, Memories, Profile) with labels; DMs + bell in the Home
-  header pill. Language/legal/sign-out/delete live in the Settings sheet (⚙︎ on own profile). No footer.
-- Pages use short segmented pills (e.g. Memories | Calendar) instead of big titles.
-- Empty states: one icon, one short line. Prefer icons + short labels; Greek copy short and neutral.
+## Credentials / deploy
+- The user pasted Supabase + Cloudflare credentials in chat; they are only in the session scratchpad
+  (`deploy.env`, chmod 600) and must be rotated after testing. Never commit them.
+- Deploy from the container: build with `VITE_SUPABASE_URL/PUBLISHABLE_KEY/PROJECT_ID`, check the client bundle
+  has no service key, `npx wrangler deploy` (CLOUDFLARE_API_TOKEN + ACCOUNT_ID).
+- On the Mac: `bun run deploy:all` (`scripts/deploy-all.sh`, bash 3.2-safe; db push, build, deploy, secrets,
+  Auth settings, `.env`, `ios:sync` + `ios:open`). Auth: site_url + redirect URLs (`<url>/**`, `courtsie://**`),
+  min password 8, confirm email, secure email change, token rotation. Custom SMTP needed before real users.
+- Contact: vasilis.har@gmail.com / 698 751 4868 (`src/lib/contact.ts`). Privacy Policy (GDPR, el + en) in
+  `legal.privacy` — must be rewritten for voice data in Phase 4. Open: `CONTACT_CONTROLLER` (name/ΑΦΜ), Terms/EULA.
+- The user runs the app on an iPhone 17 Pro with Xcode 26.3 and a free Apple ID (7-day signing).
 
-## Validating migrations locally
-`PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (stubs + 4 suites, 87 checks) once the
-cluster below is running.
-No Docker daemon in the cloud container. Plain Postgres 16 works: init a cluster as user `postgres`
-in `/var/lib/postgresql/courtsie-test` (port 54329, socket `/tmp`), load stub `auth`/`storage`/`realtime`
-schemas + roles `anon`/`authenticated`/`service_role` with Supabase-like default privileges, then apply
-`supabase/migrations/*.sql` in order. Simulate PostgREST with `SET ROLE authenticated` +
-`set_config('request.jwt.claim.sub', <uuid>)`.
-
-## Web app stack (source zip)
-- TanStack Start (React 19, SSR, file routes in `src/routes`), Vite 8, Tailwind 4, shadcn/ui (Radix),
-  TanStack Query, react-hook-form + zod, i18next (el/en), date-fns, recharts. Bun. Built by Lovable,
-  deployed as a Cloudflare Worker (nitro).
-- ~96 server functions (`createServerFn`) in `src/lib/api/*.functions.ts`. Many use
-  `supabaseAdmin` (service_role, server-only, `src/integrations/supabase/client.server.ts`) and do
-  their own authz (`assertAdmin`, `assertOwnerOfVenue`). The client never talks to these tables for
-  writes directly in most flows — **the web server is part of the backend**.
-- Server route: `src/routes/api/public/translate.ts` (DeepL proxy with `translations_cache`, rate-limited).
-
-## Routes
-Public: `/`, `/venues`, `/venues/$venueId`, `/open-games`, `/auth`, `/forgot-password`,
-`/reset-password`, `/contact`, `/help`, `/privacy`, `/terms`.
-Authenticated: `/book/$venueId`, `/booking/$bookingId`, `/bookings`, `/profile`, `/community`,
-`/community/messages` (chat).
-Owner: `/owner` (dashboard), `/owner/venues`, `/owner/venues/$venueId`, `/owner/hours`,
-`/owner/pricing`, `/owner/bookings`, `/owner/players/$playerId`, `/owner/reports`, `/owner/settings`.
-Admin: `/admin`, `/admin/users`, `/admin/venues`, `/admin/reports`.
-
-## Supabase (old project ref `gfzopoagilepwznmorfo`)
-- Keys: env vars only (`.env.example`): `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`,
-  `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_PROJECT_ID`; server-only
-  `SUPABASE_SERVICE_ROLE_KEY`, `DEEPL_API_KEY`, `GOOGLE_MAPS_API_KEY`. No hardcoded keys found.
-- Auth: email + password only (signUp, signInWithPassword, resetPasswordForEmail, updateUser,
-  exchangeCodeForSession). No OAuth providers. Redirects: `${origin}/` (signup), `${origin}/reset-password`.
-- Migrations: 58 files in `supabase/migrations` — schema is fully in the repo and applies cleanly
-  to an empty database.
-- Tables (24, RLS enabled on all): venues, venue_hours, venue_photos, venue_equipment, courts,
-  court_slots, court_pricing, court_closures, bookings, booking_equipment, open_games,
-  open_game_players, profiles, player_contact_info, user_roles, reviews, friendships, user_blocks,
-  conversations, conversation_members, messages, message_reports, notifications, translations_cache.
-- Enums: sport (padel, tennis, basketball, football, volleyball, beach_volley), booking_type
-  (online, phone, closed), booking_status (pending, confirmed, cancelled, completed),
-  app_role (admin, owner, coach, player), player_level.
-- RPCs used by client: `create_slot_booking`, `create_whole_booking`, `join_open_game`, `has_role`.
-  Other functions: triggers for notifications, `handle_new_user`, `recalc_player_rating`,
-  `increment_games_played`, `is_conversation_member/admin`, `get_owner_player_profile`.
-- Double-booking: `EXCLUDE USING gist` on bookings (court_id =, time range &&, status <> cancelled)
-  + btree_gist + advisory lock in RPCs. Booking RPCs are SECURITY DEFINER; trigger
-  `bookings_guard_player_writes` lets plain players only cancel their own booking via PostgREST.
-  Opening hours / closures / durations are still validated only in the web server (known gap).
-- Realtime: messages, notifications, court_closures, open_games, open_game_players, venue_photos, venues.
-- Storage buckets: `avatars` (path `{user_id}/...`, 5 MB), `venue-photos` (path `{venue_id}/...`, 8 MB),
-  both public-read; created by `20260928120000_create_storage_buckets.sql`.
-- Seed in migrations: 8 demo venues + courts (removed again by the last migration) and an admin grant by the
-  previous developer's email (no-op in the new project; grant admin to yourself via SQL).
-- No edge functions. In-app notifications only (table + triggers); no push, no transactional email
-  besides Supabase Auth emails.
-
-## External services
-- Google Maps JS API (key served by `getMapsApiKey` server fn; referrer-restricted).
-- DeepL (translation of user text, server-side).
-- No payments.
-
-## New Supabase project
-- URL: https://gqmzxxygegmlifeewbzy.supabase.co (ref `gqmzxxygegmlifeewbzy`).
-- Client must only use the anon/publishable key; service_role stays on the server/edge only.
+## Local testing (no Docker in the container)
+- Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
+  `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
+  (without `-o` it comes up on 5432). Then
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (62 checks).
+  `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
+- UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
+  jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session
+  injected into localStorage `sb-127-auth-token`. Chromium can't trust the proxy CA → check the live site with curl.

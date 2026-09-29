@@ -12,9 +12,17 @@ export const deleteMyAccount = createServerFn({ method: "POST" })
     const { userId } = context;
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { data: files } = await supabaseAdmin.storage.from("avatars").list(userId);
-    if (files?.length) {
-      await supabaseAdmin.storage.from("avatars").remove(files.map((f) => `${userId}/${f.name}`));
+    // Every bucket keeps a user's files under "<userId>/"; daily posts grow by one a day.
+    for (const bucket of ["avatars", "daily-posts"]) {
+      for (;;) {
+        const { data: files, error } = await supabaseAdmin.storage.from(bucket).list(userId, { limit: 1000 });
+        if (error) throw new Error(error.message);
+        if (!files?.length) break;
+        const { error: rmError } = await supabaseAdmin.storage
+          .from(bucket)
+          .remove(files.map((f) => `${userId}/${f.name}`));
+        if (rmError) throw new Error(rmError.message);
+      }
     }
 
     const { error } = await supabaseAdmin.auth.admin.deleteUser(userId);

@@ -48,3 +48,6 @@ DO $$ BEGIN
   END IF;
 END $$;
 GRANT anon, authenticated, service_role TO authenticator;
+-- Supabase lets signed-in users reach storage rows (RLS decides what they see).
+GRANT SELECT, INSERT, UPDATE, DELETE ON storage.objects TO authenticated;
+GRANT SELECT ON storage.buckets TO authenticated;
