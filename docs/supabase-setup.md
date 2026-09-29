@@ -45,7 +45,8 @@ old table/function/type in `public`, the `private` schema and the old storage po
 1. **Authentication → URL Configuration**: Site URL = the Worker URL; Redirect URLs = `<url>/**` and
    `courtsie://**` (already set by `scripts/deploy-all.sh` when SUPABASE_ACCESS_TOKEN is present).
 2. **Authentication → Emails → SMTP**: set a custom SMTP server before inviting real users (the built-in
-   mailer only sends to members of the Supabase organisation).
+   mailer only sends to members of the Supabase organisation, 2 emails/hour). Until then **Confirm email is
+   OFF** (`mailer_autoconfirm: true`, set 2026-09-29) so sign-ups work; turn it back ON once SMTP is set.
 3. **Moderation**: open reports are in Table Editor → `reports` (filter `resolved_at is null`). To ban
    someone set `profiles.disabled = true`; to remove a post delete its `daily_posts` row and the file in
    Storage → `daily-posts/<user id>/`. Set `resolved_at` when done (App Store: act within 24 h).

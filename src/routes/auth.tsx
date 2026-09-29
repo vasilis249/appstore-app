@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { Wordmark } from "@/components/wordmark";
 import { mapAuthError } from "@/lib/auth-errors";
 import { authRedirectUrl } from "@/lib/native";
+import { suggestEmail } from "@/lib/email-typos";
 import { Check } from "lucide-react";
 
 export const Route = createFileRoute("/auth")({
@@ -36,6 +37,10 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
+  // Address waiting for its confirmation link (shows "Resend").
+  const [pendingEmail, setPendingEmail] = useState<string | null>(null);
+  const [resent, setResent] = useState(false);
+  const suggestion = suggestEmail(email);
   const passwordChecks = PASSWORD_RULES.map((r) => ({ ...r, ok: r.test(password) }));
   const passwordValid = passwordChecks.every((c) => c.ok);
 
@@ -47,6 +52,8 @@ function AuthPage() {
     e.preventDefault();
     setError(null);
     setInfo(null);
+    setPendingEmail(null);
+    setResent(false);
     setLoading(true);
     try {
       if (mode === "signup") {
@@ -60,13 +67,17 @@ function AuthPage() {
         });
         if (e1) throw e1;
         if (!data.session) {
-          setInfo("Σου στείλαμε email επιβεβαίωσης. Πάτησε το link για να ενεργοποιηθεί ο λογαριασμός σου.");
+          setInfo(`Σου στείλαμε email επιβεβαίωσης στο ${email.trim()}. Πάτησε το link για να ενεργοποιηθεί ο λογαριασμός σου.`);
+          setPendingEmail(email.trim());
           return;
         }
         navigate({ to: "/" });
       } else {
         const { error: e2 } = await supabase.auth.signInWithPassword({ email, password });
-        if (e2) throw e2;
+        if (e2) {
+          if ((e2 as { code?: string }).code === "email_not_confirmed") setPendingEmail(email.trim());
+          throw e2;
+        }
         navigate({ to: "/" });
       }
     } catch (err) {
@@ -74,6 +85,18 @@ function AuthPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function resend() {
+    if (!pendingEmail) return;
+    setError(null);
+    const { error: e } = await supabase.auth.resend({
+      type: "signup",
+      email: pendingEmail,
+      options: { emailRedirectTo: authRedirectUrl("/") },
+    });
+    if (e) setError(mapAuthError(e));
+    else setResent(true);
   }
 
   return (
@@ -104,6 +127,15 @@ function AuthPage() {
           placeholder="Email"
           className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-sm outline-none focus:border-muted-foreground"
         />
+        {suggestion && (
+          <button
+            type="button"
+            onClick={() => setEmail(suggestion)}
+            className="-mt-1 block px-1 text-left text-xs text-muted-foreground"
+          >
+            Μήπως εννοείς <span className="font-semibold text-foreground underline">{suggestion}</span>;
+          </button>
+        )}
         <input
           type="password"
           value={password}
@@ -159,6 +191,16 @@ function AuthPage() {
           </p>
         )}
         {info && <p className="rounded-lg border border-border bg-secondary px-3 py-2 text-xs text-foreground">{info}</p>}
+        {pendingEmail && (
+          <button
+            type="button"
+            onClick={resend}
+            disabled={resent}
+            className="block w-full text-center text-xs font-semibold text-foreground underline disabled:no-underline disabled:opacity-60"
+          >
+            {resent ? "Το email στάλθηκε ξανά" : "Δεν ήρθε; Στείλε ξανά το email"}
+          </button>
+        )}
 
         <button
           type="submit"
@@ -180,6 +222,7 @@ function AuthPage() {
           setMode(mode === "signin" ? "signup" : "signin");
           setError(null);
           setInfo(null);
+          setPendingEmail(null);
         }}
         className="mt-3 w-full text-center text-xs text-muted-foreground hover:text-foreground"
       >

@@ -18,6 +18,10 @@ User decisions:
   lock any more); calendar/Memories of your own posts (becomes part of the profile).
 - **Drop**: BeReal feed lock / one-post-per-day rule.
 - Name **Speak** (logo from the user later). Privacy policy / controller: at the very end.
+- **Auth email (2026-09-29)**: no custom SMTP yet (built-in mailer reaches only org members, 2/h) → a 2nd account
+  never got its link (also typo `@ail.com`, fixed to gmail + confirmed via admin API). Stopgap: `mailer_autoconfirm:
+  true` (sign-up logs in directly). `/auth` now hints typos (`lib/email-typos.ts`, "Μήπως εννοείς …;") and offers
+  "Resend" for unconfirmed emails. TODO: custom SMTP (Gmail app password / Brevo / Resend) → autoconfirm false.
 - Still FREE stack (no Apple Developer Program → local notifications only, no APNs). Storage: Supabase 1 GB fills
   with public voice (2 min ≈ 0.5–1 MB) → keep bitrate low; move audio to Cloudflare R2 (10 GB free) when needed.
 - Speak plan (stop for "OK" after each): **S1** rebrand + data model (follows, sections, topics, posts with
