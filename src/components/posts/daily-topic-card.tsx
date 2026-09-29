@@ -1,32 +1,28 @@
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Mic, Sparkles } from "lucide-react";
-import { useSections } from "@/hooks/use-sections";
+import { Mic } from "lucide-react";
 import { dailyKeys, getToday } from "@/lib/daily";
 
-/** "Topic of the day" at the top of Home: the question everyone answers today. */
+/** "Topic of the day" at the top of Home: one quiet row — the question, and a mic to answer it. */
 export function DailyTopicCard() {
   const { t } = useTranslation();
-  const { name } = useSections();
   const q = useQuery({ queryKey: dailyKeys.today, queryFn: getToday });
   const d = q.data;
   if (!d?.topic_id || !d.topic_title) return null;
   return (
-    <section className="mx-4 mb-3 rounded-3xl bg-primary p-4 text-primary-foreground">
-      <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide opacity-70">
-        <Sparkles className="h-3.5 w-3.5" /> {t("daily.topicOfDay")}
-        {d.topic_section && <span className="font-medium normal-case tracking-normal">· {name(d.topic_section)}</span>}
-      </p>
-      <Link to="/t/$topicId" params={{ topicId: d.topic_id }} className="mt-1 block text-lg font-bold leading-snug">
-        {d.topic_title}
+    <section className="mx-4 mt-3 flex items-center gap-3 rounded-2xl bg-secondary py-3 pl-4 pr-3">
+      <Link to="/t/$topicId" params={{ topicId: d.topic_id }} className="min-w-0 flex-1">
+        <span className="block text-[11px] font-bold uppercase tracking-wider text-coral">{t("daily.topicOfDay")}</span>
+        <span className="mt-0.5 line-clamp-2 block text-[15px] font-semibold leading-snug">{d.topic_title}</span>
       </Link>
       <Link
         to="/record"
         search={{ topic: d.topic_id }}
-        className="mt-3 inline-flex h-10 items-center gap-2 rounded-full bg-primary-foreground px-5 text-sm font-semibold text-primary"
+        aria-label={t("posts.giveYourTake")}
+        className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground active:scale-95"
       >
-        <Mic className="h-4 w-4" /> {t("posts.giveYourTake")}
+        <Mic className="h-5 w-5" />
       </Link>
     </section>
   );

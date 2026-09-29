@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, type MutableRefObject, type ReactNode } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Play } from "lucide-react";
@@ -32,12 +32,15 @@ export function FeedList({
   empty,
   playAll = true,
   hideReplyTo = false,
+  playAllRef,
 }: {
   params: FeedParams;
   empty: ReactNode;
   playAll?: boolean;
   /** Replies listed right under their parent don't need "Replying to @x". */
   hideReplyTo?: boolean;
+  /** The page shows its own "play all" button (Home's tab bar); the list only fills in what it plays. */
+  playAllRef?: MutableRefObject<(() => void) | null>;
 }) {
   const { t } = useTranslation();
   const q = useInfiniteQuery({
@@ -46,10 +49,21 @@ export function FeedList({
     initialPageParam: undefined as string | number | undefined,
     getNextPageParam: (last, all) => nextCursor(params.scope, last, all),
   });
-  const views = useMemo(
-    () => (q.data?.pages.flat() ?? []).map(toView).filter((v): v is PostView => !!v),
-    [q.data],
-  );
+  // Each voice once per list: a plain repost next to its original (or two people reposting it) shows only the first.
+  const views = useMemo(() => {
+    const seen = new Set<string>();
+    return (q.data?.pages.flat() ?? [])
+      .map(toView)
+      .filter((v): v is PostView => !!v && !seen.has(v.id) && !!seen.add(v.id));
+  }, [q.data]);
+
+  useEffect(() => {
+    if (!playAllRef) return;
+    playAllRef.current = views.length ? () => play(views, views[0]) : null;
+    return () => {
+      playAllRef.current = null;
+    };
+  }, [playAllRef, views]);
 
   const sentinel = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -65,7 +79,7 @@ export function FeedList({
   if (q.data && !views.length) return <>{empty}</>;
   return (
     <div>
-      {playAll && views.length > 1 && (
+      {playAll && !playAllRef && views.length > 1 && (
         <div className="flex justify-end px-4 pb-1">
           <button
             type="button"

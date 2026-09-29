@@ -113,6 +113,13 @@ User decisions:
   closes Safari and loads the page (PKCE exchange). New accounts (< 10 min old) arriving with `welcome=1` get the
   username step. Google/Apple NOT enabled yet: Google needs the user's OAuth client (free); Apple needs the paid
   Developer Program (and is required by 4.8 once Google is on).
+- **Home redesign ✔ (minimal)** — one sticky category row "Για σένα · Ακολουθώ · <every section>" filters the feed
+  in place (`/?tab=following|<section id>`, scope `section`; active tab scrolled into view, fade at the edge) + a round
+  white ▶ "play all" (`FeedList playAllRef`). For you: compact `DailyTopicCard` (grey row, coral label, white mic) +
+  `TopicStrip variant="pills"` (one line of trending topics; per section on section tabs). `PostCard`: name · short
+  time (`timeAgoShort`: τώρα/5λ/2ω/3η/date), coral section → `/?tab=<section>` · topic, 16px title, pill player with
+  "duration · 🎧 listens", actions reply/repost/like + share at the right (no @username, no listens icon). `FeedList`
+  shows each voice once (plain repost next to its original). `/s/$sectionId` still exists for old links.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 

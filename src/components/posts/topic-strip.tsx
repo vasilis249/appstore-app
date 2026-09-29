@@ -5,12 +5,30 @@ import { Flame, Newspaper } from "lucide-react";
 import { useSections } from "@/hooks/use-sections";
 import { postKeys, trendingTopics } from "@/lib/posts";
 
-/** "Trending" topics as horizontal cards (optionally for one section). */
-export function TopicStrip({ section }: { section?: string }) {
+/**
+ * "Trending" topics (optionally for one section): horizontal cards, or one quiet row of pills (Home).
+ */
+export function TopicStrip({ section, variant = "cards" }: { section?: string; variant?: "cards" | "pills" }) {
   const { t } = useTranslation();
   const { name } = useSections();
   const q = useQuery({ queryKey: postKeys.trending(section), queryFn: () => trendingTopics(section, 10) });
   if (!q.data?.length) return null;
+  if (variant === "pills")
+    return (
+      <nav aria-label={t("posts.trending")} className="no-scrollbar flex items-center gap-2 overflow-x-auto px-4 pt-3">
+        <Flame className="h-4 w-4 shrink-0 text-coral" aria-hidden />
+        {q.data.map((tp) => (
+          <Link
+            key={tp.id}
+            to="/t/$topicId"
+            params={{ topicId: tp.id }}
+            className="h-8 max-w-[15rem] shrink-0 truncate rounded-full px-3 text-[13px] font-medium leading-8 ring-1 ring-border"
+          >
+            {tp.title}
+          </Link>
+        ))}
+      </nav>
+    );
   return (
     <section className="pb-3">
       <h2 className="flex items-center gap-1.5 px-4 pb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
