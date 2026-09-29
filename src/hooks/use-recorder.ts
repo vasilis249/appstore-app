@@ -14,6 +14,7 @@ export function useRecorder(maxMs: number, initial?: { blob: Blob; mime: string;
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
   const startedAt = useRef(0);
   const discardNext = useRef(false);
+  const mounted = useRef(true);
 
   const cleanup = useCallback(() => {
     if (timer.current) clearInterval(timer.current);
@@ -40,7 +41,12 @@ export function useRecorder(maxMs: number, initial?: { blob: Blob; mime: string;
         audio: { echoCancellation: true, noiseSuppression: true, channelCount: 1 },
       });
     } catch {
-      setError("denied");
+      if (mounted.current) setError("denied");
+      return false;
+    }
+    // The screen went away while the microphone was starting: don't leave it on.
+    if (!mounted.current) {
+      cleanup();
       return false;
     }
     const chunks: Blob[] = [];
@@ -82,14 +88,15 @@ export function useRecorder(maxMs: number, initial?: { blob: Blob; mime: string;
     setState("idle");
   }, []);
 
-  useEffect(
-    () => () => {
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
       discardNext.current = true;
       if (rec.current && rec.current.state !== "inactive") rec.current.stop();
       cleanup();
-    },
-    [cleanup],
-  );
+    };
+  }, [cleanup]);
 
   return { state, elapsedMs, clip, error, start, stop, discard };
 }

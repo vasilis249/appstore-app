@@ -189,8 +189,15 @@ User decisions:
   voices; `leave_group` (cancel request) deletes the admins' `group_request` notification; `news_topics` speaker name
   falls back to the username. Frontend: PTT forgets a press that ended by auto-stop/error (next hold works);
   `silenceAll()` (audio.ts) pauses the queue + clips when the mic starts; queue progress ~8/s (was 60 re-renders/s of
-  the feed); daily reminder opens Home (old "/record" ones too). Tests speak 99, groups 34. Scratchpad
-  `seed-news.sh` (covers for `news-flow.mjs`).
+  the feed); daily reminder opens Home (old "/record" ones too). `20261013100200_news_daily_first.sql`: `news_topics`
+  (no section) always returns the topic of the day first, even if older than 7 days / quiet; News list dedupes cards
+  across pages. `useRecorder` closes the mic if the screen unmounted while it was starting; DM send failure no longer
+  an unhandled rejection; `listThread` checks the URL id is a UUID (it goes into a PostgREST `or=` string); group
+  RequestsSheet stays mounted for admins (it used to reopen by itself on the next request). Tests speak 100,
+  groups 34. Scratchpad `seed-news.sh` (covers for `news-flow.mjs`); if `local-build.sh` serves 404 assets, a stale
+  `wrangler dev` holds the port → `serve.sh <new port>`.
+  Open (user's call): deleting a post cascades to OTHER people's replies + quotes (FK ON DELETE CASCADE) and their
+  audio stays in `voices` as orphans (also after account deletion); X keeps replies ("post deleted").
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -318,7 +325,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (99) + `test_groups.sql` (34).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (100) + `test_groups.sql` (34).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

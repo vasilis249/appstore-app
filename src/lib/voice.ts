@@ -2,6 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { blobToBase64 } from "@/lib/audio";
 
 export const DM_MAX_MS = 60_000;
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export interface Thread {
   other_id: string;
@@ -38,6 +39,8 @@ export async function listThreads(): Promise<Thread[]> {
 
 /** Latest 50 messages with one person, oldest first. */
 export async function listThread(me: string, other: string): Promise<VoiceMessage[]> {
+  // `other` comes from the URL and goes into a PostgREST filter string.
+  if (!UUID.test(other)) return [];
   const { data, error } = await supabase
     .from("voice_messages")
     .select("id, sender_id, recipient_id, duration_ms, created_at, opened_at, expired_at")

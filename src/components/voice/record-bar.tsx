@@ -38,6 +38,8 @@ export function RecordBar({
     try {
       await onSend(r.clip);
       r.discard();
+    } catch {
+      /* kept for a retry; onSend already said why */
     } finally {
       setSending(false);
     }

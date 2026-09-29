@@ -109,7 +109,9 @@ function GroupPage() {
 
           <GroupMenuSheet group={d} open={menu} onOpenChange={setMenu} />
           {d.my_role && <InviteSheet groupId={groupId} open={invite} onOpenChange={setInvite} />}
-          {d.pending_requests > 0 && <RequestsSheet groupId={groupId} open={requests} onOpenChange={setRequests} />}
+          {/* Stays mounted for admins: unmounting it after the last approval left `requests` true, so the next
+              request that came in popped the sheet open by itself. */}
+          {(d.my_role === "owner" || d.my_role === "admin") && <RequestsSheet groupId={groupId} open={requests} onOpenChange={setRequests} />}
         </>
       )}
     </>

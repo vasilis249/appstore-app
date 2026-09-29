@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Play, Search } from "lucide-react";
 import { AppHeader, HomeHeaderActions } from "@/components/app-header";
@@ -109,7 +109,12 @@ function NewsList({ section }: { section?: string }) {
   });
   const today = useQuery({ queryKey: dailyKeys.today, queryFn: getToday });
   const dailyId = today.data?.topic_id ?? null;
-  const topics = q.data?.pages.flat() ?? [];
+  // Pages are by last activity, so a headline that got a voice meanwhile can come back on the next page: once each.
+  const topics = useMemo(() => {
+    const seen = new Set<string>();
+    return (q.data?.pages.flat() ?? []).filter((x) => !seen.has(x.id) && !!seen.add(x.id));
+  }, [q.data]);
+  // The server puts the topic of the day first; this keeps it there while today() and the list refresh apart.
   const ordered = !section && dailyId ? [...topics.filter((x) => x.id === dailyId), ...topics.filter((x) => x.id !== dailyId)] : topics;
 
   return (

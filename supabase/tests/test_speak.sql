@@ -381,3 +381,14 @@ SELECT pg_temp.as_user(:B); SET ROLE authenticated;
 SELECT public.create_post(p_repost_of := (SELECT id FROM public.posts WHERE topic_id = (SELECT id FROM public.topics WHERE external_id = 'img-1') LIMIT 1)) AS rpt \gset
 SELECT pg_temp.ok('16a repost of a headline voice not in Other voices', NOT EXISTS (SELECT 1 FROM public.feed_posts('loose', p_limit := 50) WHERE post_id = :'rpt'));
 RESET ROLE;
+
+-- 16b the topic of the day heads News → Όλα even when it's older and quieter than every headline
+UPDATE public.topics SET daily_date = '2000-01-01' WHERE daily_date = private.current_moment();
+INSERT INTO public.topics (section_id, kind, title, daily_date, created_at)
+VALUES ('tech', 'daily', 'Παλιό θέμα της ημέρας', private.current_moment(), now() - interval '10 days') RETURNING id AS dly \gset
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('16b topic of the day first in News, not forced into a section',
+  (SELECT id FROM public.news_topics(p_limit := 1)) = :'dly'
+  AND (SELECT count(*) FROM public.news_topics(p_limit := 50) WHERE id = :'dly') = 1
+  AND NOT EXISTS (SELECT 1 FROM public.news_topics('news', 50) WHERE id = :'dly'));
+RESET ROLE;
