@@ -1,0 +1,228 @@
+/* ============================================================
+ * Design system — the single source of the app's look.
+ * Colors, type, radius, shadows, safe areas, interaction and motion.
+ * Keep screens on these tokens (bg-background, text-foreground,
+ * bg-primary, bg-card, shadow-*, rounded-*) instead of raw values.
+ * ============================================================ */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  /* Geologica: self-hosted variable font with Greek glyphs. */
+  --font-display: "Geologica Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geologica Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+
+  /* Brand: ink (dark blocks), coral (orange accent), optic (amber highlights). */
+  --color-petrol: var(--petrol);
+  --color-coral: var(--coral);
+  --color-optic: var(--optic);
+
+  /* Soft, diffuse elevation for white cards. */
+  --shadow-glow: 0 10px 30px -12px color-mix(in oklab, var(--coral) 45%, transparent);
+  --shadow-xs: 0 1px 2px rgb(16 16 20 / 0.04);
+  --shadow-sm: 0 4px 14px -6px rgb(16 16 20 / 0.08);
+  --shadow: 0 6px 20px -8px rgb(16 16 20 / 0.10);
+  --shadow-md: 0 10px 28px -10px rgb(16 16 20 / 0.12);
+  --shadow-lg: 0 18px 40px -14px rgb(16 16 20 / 0.16);
+}
+
+:root {
+  --radius: 1rem;
+
+  /* Light — white surfaces, warm orange accent */
+  --background: #ffffff;
+  --foreground: #1c1c1e;
+  --surface: #f6f6f8;
+  --surface-elevated: #ffffff;
+  --card: #ffffff;
+  --card-foreground: #1c1c1e;
+  --popover: #ffffff;
+  --popover-foreground: #1c1c1e;
+  --primary: #e4571c;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f6;
+  --secondary-foreground: #1c1c1e;
+  --muted: #f4f4f6;
+  --muted-foreground: #6e6e73;
+  --accent: #fff1ea;
+  --accent-foreground: #b8441a;
+  --destructive: #e5484d;
+  --destructive-foreground: #ffffff;
+  --border: #ededf0;
+  --input: #e8e8ec;
+  --ring: #e4571c;
+  --petrol: #1c1c1e;
+  --coral: #e4571c;
+  --optic: #ffb23f;
+}
+
+:root.dark {
+  --background: #111113;
+  --foreground: #f4f4f5;
+  --surface: #18181b;
+  --surface-elevated: #1f1f23;
+  --card: #1c1c1f;
+  --card-foreground: #f4f4f5;
+  --popover: #1c1c1f;
+  --popover-foreground: #f4f4f5;
+  --primary: #f2672c;
+  --primary-foreground: #ffffff;
+  --secondary: #232327;
+  --secondary-foreground: #f4f4f5;
+  --muted: #232327;
+  --muted-foreground: #a1a1a8;
+  --accent: #2a1d17;
+  --accent-foreground: #ffb38f;
+  --destructive: #e5484d;
+  --destructive-foreground: #ffffff;
+  --border: #2c2c31;
+  --input: #2c2c31;
+  --ring: #f2672c;
+  --petrol: #1c1c1f;
+  --coral: #f2672c;
+  --optic: #ffb23f;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  a,
+  button {
+    transition:
+      color 200ms ease,
+      background-color 200ms ease,
+      border-color 200ms ease,
+      box-shadow 250ms ease,
+      transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity 200ms ease;
+  }
+  input,
+  textarea,
+  select {
+    transition:
+      border-color 180ms ease,
+      box-shadow 200ms ease,
+      background-color 180ms ease;
+  }
+  button:not(:disabled):active {
+    transform: scale(0.97);
+  }
+  :focus-visible {
+    outline: 2px solid var(--coral);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--coral) 22%, transparent);
+    border-color: var(--coral);
+  }
+}
+
+/* iOS app (Capacitor): safe areas for notch / home indicator (viewport-fit=cover). */
+@utility safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+@utility safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+/* Inside the app only: no zoom into small inputs, no tap flash. */
+.native-app input,
+.native-app select,
+.native-app textarea {
+  font-size: max(16px, 1em);
+}
+.native-app {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Motion */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 8px 24px -10px color-mix(in oklab, var(--coral) 55%, transparent); }
+  50% { box-shadow: 0 14px 40px -8px color-mix(in oklab, var(--coral) 80%, transparent); }
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+.animate-fade-in-up { animation: fade-in-up 600ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-scale-in { animation: scale-in 400ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-pulse-glow { animation: pulse-glow 2.8s ease-in-out infinite; }
+
+/* Shine sweep for primary CTAs. */
+.btn-shine { position: relative; overflow: hidden; }
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(100deg, transparent 30%, color-mix(in oklab, white 35%, transparent) 50%, transparent 70%);
+}
+.btn-shine:hover::after { animation: shimmer 900ms ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

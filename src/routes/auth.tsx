@@ -2,7 +2,6 @@ import { createFileRoute, useNavigate, Link, useSearch } from "@tanstack/react-r
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
-import { Logo } from "@/components/logo";
 import { mapAuthError } from "@/lib/auth-errors";
 import { authRedirectUrl } from "@/lib/native";
 import { Check } from "lucide-react";
@@ -16,8 +15,6 @@ export const Route = createFileRoute("/auth")({
   }),
   component: AuthPage,
 });
-
-type Role = "player" | "owner";
 
 const PASSWORD_RULES = [
   { id: "len", label: "Τουλάχιστον 8 χαρακτήρες", test: (p: string) => p.length >= 8 },
@@ -33,7 +30,6 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
-  const [role, setRole] = useState<Role>((search as any)?.role === "owner" ? "owner" : "player");
   // App Store guideline 1.2 (user-generated content): users must accept the terms.
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -58,7 +54,7 @@ function AuthPage() {
           password,
           options: {
             emailRedirectTo: authRedirectUrl("/"),
-            data: { full_name: fullName, role },
+            data: { full_name: fullName },
           },
         });
         if (e1) throw e1;
@@ -66,7 +62,7 @@ function AuthPage() {
           setInfo("Σου στείλαμε email επιβεβαίωσης. Πάτησε το link για να ενεργοποιηθεί ο λογαριασμός σου.");
           return;
         }
-        navigate({ to: role === "owner" ? "/owner" : "/" });
+        navigate({ to: "/" });
       } else {
         const { error: e2 } = await supabase.auth.signInWithPassword({ email, password });
         if (e2) throw e2;
@@ -96,30 +92,6 @@ function AuthPage() {
               placeholder="Ονοματεπώνυμο"
               className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
             />
-            <div>
-              <label className="mb-2 block text-xs font-medium text-muted-foreground">Είμαι:</label>
-              <div className="grid grid-cols-2 gap-2">
-                {(
-                  [
-                    { v: "player", l: "Παίκτης" },
-                    { v: "owner", l: "Ιδιοκτήτης" },
-                  ] as { v: Role; l: string }[]
-                ).map((r) => (
-                  <button
-                    key={r.v}
-                    type="button"
-                    onClick={() => setRole(r.v)}
-                    className={`rounded-xl border px-3 py-2 text-xs font-semibold transition ${
-                      role === r.v
-                        ? "border-primary bg-primary/15 text-primary"
-                        : "border-border bg-card text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {r.l}
-                  </button>
-                ))}
-              </div>
-            </div>
           </>
         )}
 
@@ -218,10 +190,7 @@ function AuthPage() {
 
 export function AuthShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto flex min-h-[80vh] max-w-md flex-col px-4 pt-10">
-      <Link to="/" className="mb-6 flex items-center justify-center">
-        <Logo className="h-10 w-auto" />
-      </Link>
+    <div className="mx-auto flex min-h-[80vh] max-w-md flex-col px-4 pt-8">
       <div className="animate-scale-in rounded-3xl border border-border/60 bg-card p-8 shadow-sm">{children}</div>
     </div>
   );

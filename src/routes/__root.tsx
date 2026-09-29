@@ -16,7 +16,6 @@ import { hydrateLanguage } from "../i18n";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BottomNav } from "../components/bottom-nav";
 import { TopBar } from "../components/top-bar";
-import { Footer } from "../components/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { OfflineBanner } from "../components/offline-banner";
 import { initNativeShell } from "../lib/native";
@@ -82,17 +81,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Courtsie — Κράτηση γηπέδων για padel, tennis, μπάσκετ & ποδόσφαιρο" },
+      { title: "Courtsie — Η φωνή σου, μία φορά τη μέρα" },
       {
         name: "description",
-        content:
-          "Βρες και κλείσε γήπεδο σε δευτερόλεπτα. Padel, tennis, μπάσκετ και ποδόσφαιρο σε όλη την Ελλάδα.",
+        content: "Φωνητικά μηνύματα και μία φωνητική ανάρτηση τη μέρα, μόνο για τους φίλους σου.",
       },
       { name: "author", content: "Courtsie" },
-      { property: "og:title", content: "Courtsie — Κράτηση γηπέδων" },
+      { property: "og:title", content: "Courtsie" },
       {
         property: "og:description",
-        content: "Padel, tennis, μπάσκετ & ποδόσφαιρο. Κράτηση σε δευτερόλεπτα.",
+        content: "Φωνητικά μηνύματα και μία φωνητική ανάρτηση τη μέρα, μόνο για τους φίλους σου.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -159,12 +157,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-0">
+      <div className="min-h-screen flex flex-col pb-[calc(4rem+env(safe-area-inset-bottom,0px))]">
         <TopBar />
-        <main className="flex-1">
+        <main className="mx-auto w-full max-w-lg flex-1">
           <Outlet />
         </main>
-        <Footer />
         <BottomNav />
         <OfflineBanner />
         <Toaster />

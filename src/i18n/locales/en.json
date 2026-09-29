@@ -1314,5 +1314,17 @@
     "gone": "No longer exists",
     "disabled": "disabled",
     "open": "Open post"
+  },
+  "tabs": {
+    "feed": "Feed",
+    "messages": "Messages",
+    "calendar": "Calendar",
+    "profile": "Profile"
+  },
+  "shell": {
+    "feedEmpty": "Today's voice is coming soon.",
+    "messagesEmpty": "No voice messages yet.",
+    "calendarEmpty": "Your posts will show up here.",
+    "profileEmpty": "Your friends will show up here."
   }
 }

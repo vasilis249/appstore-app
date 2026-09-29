@@ -3,19 +3,28 @@
 Persistent findings for Claude sessions. Reply to the user in Greek; code, comments and file names in English.
 Work in phases; stop after each phase for the user's "OK".
 
-## PIVOT (2026-09-29): voice-only social network — Phase 0 proposed, awaiting answers
-Spec (user): friends by username + requests; voice-only DMs with push-to-talk (live, also in background/locked
-via Apple PushToTalk) saved to history; listen-once enforced server-side (+ "opened" for sender, unopened
-expire after 10 days); daily voice post (max 90 s) unlocks friends' posts for the day, visible 24 h;
-calendar of own past posts; report/block/EULA/account deletion/mic text. Keep the current theme.
-- Architecture proposed: **hybrid** — keep Capacitor + web UI (theme, screens) and add a native Swift
-  Capacitor plugin (`VoiceKit`) for PushToTalk framework, audio record/playback/session, live transport SDK,
-  PTT push token. Standard pushes via `@capacitor/push-notifications`.
-- Live transport proposed: LiveKit (Cloud free tier first; self-host later). Clips: AAC-LC m4a mono 32 kbps;
-  DM transmission max 60 s; daily post max 90 s. Listen-once: edge function streams the bytes once, then
-  deletes the file and keeps a tombstone row (so the sender sees "opened").
+## PIVOT (2026-09-29): voice-only social network — Phase 1 done, next Phase 2 (backend)
+Spec (user): friends by username + requests (DMs + feed friends-only); recorded voice DMs, listen-once enforced
+server-side (sender sees "opened"; unopened expire after 10 days); daily voice post (max 90 s) unlocks friends'
+posts for the day, visible 24 h; daily prompt at the same time for everyone; calendar of own past posts;
+report/block/EULA/account deletion/mic text. Keep the current theme.
+- **Decision: FREE stack, push-to-talk POSTPONED** (no Apple Developer Program → no APNs/PushToTalk/LiveKit).
+  Daily prompt = local notifications (time derived from a date seed so all devices agree, scheduled ~30 days
+  ahead). No push for new DMs while the app is closed. Supabase free tier (pauses after 1 week idle).
+- Clips: web `MediaRecorder` (AAC/m4a mono 32 kbps where supported); DM max 60 s, daily post max 90 s.
+  Listen-once: server streams the bytes once, deletes the file, keeps a tombstone row. pg_cron for expiry.
+- **Phase 1 (done):** all booking + Instagram-style code deleted (routes, components, api, hooks, geolocation,
+  recharts). Theme lives in ONE file `src/design-system.css` (tokens, base, safe areas, motion);
+  `src/styles.css` only imports it. Shell: `TopBar` = logo only; `BottomNav` = 4 icon tabs on all widths
+  (Feed `/`, `/messages`, `/calendar`, `/profile`, all under `_authenticated`, signed out → `/auth`);
+  `EmptyState` component (icon + one line); profile ⚙︎ → `SettingsSheet` (language, dark mode, contact/terms/
+  privacy, sign out, delete account). `/contact` is the contact page (`/help` gone). `useAuth` has no roles.
+  Signup has no role picker. Permissions-Policy now `microphone=(self)`; CSP: Maps removed, `media-src` added.
+  i18n keys `tabs.*`, `shell.*`; old locale keys still present (prune later). Info.plist: mic string, no location.
+- Still old: `supabase/migrations/*` (live DB has the old schema), `types.ts`, `docs/security.md`, the sections
+  below. Phase 2 = fresh baseline migration (drop old tables), voice buckets, RLS, consume RPC/function, pg_cron.
 - Phases: 0 proposal → 1 cleanup & theme → 2 Supabase backend → 3 features one by one → 4 hardening/release.
-  Everything below this section describes the old court-booking app (to be deleted in Phase 1).
+  Everything below this section describes the old court-booking app.
 
 ## Status / decisions
 - Phase 0 (audit): done.

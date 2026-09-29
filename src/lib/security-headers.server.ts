@@ -32,7 +32,6 @@ function buildCsp(): string {
     sbWs,
     "https://*.supabase.co",
     "wss://*.supabase.co",
-    "https://maps.googleapis.com",
   ].filter(Boolean);
 
   const imgSrc = [
@@ -41,28 +40,22 @@ function buildCsp(): string {
     "blob:",
     sb,
     "https://*.supabase.co",
-    "https://maps.googleapis.com",
-    "https://maps.gstatic.com",
-    "https://*.googleapis.com",
-    "https://*.ggpht.com",
-    "https://*.google.com",
   ].filter(Boolean);
+
+  // Voice clips: recorded locally (blob:) and streamed from Supabase.
+  const mediaSrc = ["'self'", "blob:", "data:", sb, "https://*.supabase.co"].filter(Boolean);
 
   const directives: Record<string, string[]> = {
     "default-src": ["'self'"],
-    // Google Maps JS + inline hydration scripts.
-    "script-src": [
-      "'self'",
-      "'unsafe-inline'",
-      "https://maps.googleapis.com",
-      "https://maps.gstatic.com",
-    ],
+    // Inline hydration scripts.
+    "script-src": ["'self'", "'unsafe-inline'"],
     // Tailwind / inline style attributes; fonts are self-hosted.
     "style-src": ["'self'", "'unsafe-inline'"],
     "font-src": ["'self'", "data:"],
     "img-src": imgSrc as string[],
+    "media-src": mediaSrc as string[],
     "connect-src": connectSrc as string[],
-    "frame-src": ["'self'", "https://*.google.com"],
+    "frame-src": ["'none'"],
     "worker-src": ["'self'", "blob:"],
     "object-src": ["'none'"],
     "base-uri": ["'self'"],
@@ -91,7 +84,7 @@ export function applySecurityHeaders(response: Response, request?: Request): Res
   headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   headers.set(
     "Permissions-Policy",
-    "camera=(), microphone=(), geolocation=(self), payment=(), usb=(), interest-cohort=()",
+    "camera=(), microphone=(self), geolocation=(), payment=(), usb=(), interest-cohort=()",
   );
   headers.set(
     "Strict-Transport-Security",
