@@ -4,10 +4,10 @@ import { LegalPage } from "@/components/legal-page";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Πολιτική Απορρήτου — Courtsie" },
+      { title: "Πολιτική Απορρήτου — Speak" },
       {
         name: "description",
-        content: "Πώς το Courtsie συλλέγει, χρησιμοποιεί και προστατεύει τα προσωπικά σου δεδομένα.",
+        content: "Πώς το Speak συλλέγει, χρησιμοποιεί και προστατεύει τα προσωπικά σου δεδομένα.",
       },
     ],
   }),

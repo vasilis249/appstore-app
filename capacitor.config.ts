@@ -28,7 +28,7 @@ writeFileSync(
 
 const config: CapacitorConfig = {
   appId: process.env.CAP_APP_ID ?? "gr.innera.courtsie",
-  appName: "Courtsie",
+  appName: "Speak",
   // Local bundle: fallback index + the offline page.
   webDir: "capacitor/www",
   server: {

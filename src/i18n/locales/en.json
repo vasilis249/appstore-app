@@ -287,7 +287,7 @@
     "legal": "Legal",
     "terms": "Terms of service",
     "privacy": "Privacy",
-    "copyright": "© Courtsie 2026"
+    "copyright": "© Speak 2026"
   },
   "help": {
     "title": "Help & Support",
@@ -316,7 +316,7 @@
     "ownerCta": {
       "navLink": "Are you an owner?",
       "heading": "Do you run a sports venue?",
-      "subheading": "List it on Courtsie and fill your courts\n\n\n",
+      "subheading": "List it on Speak and fill your courts\n\n\n",
       "benefit1Title": "All bookings in one calendar",
       "benefit1Desc": "Online and phone bookings in real time, no double bookings.",
       "benefit2Title": "Auto-fill empty hours",
@@ -394,11 +394,11 @@
     "notFound": "No venues found.",
     "emptyQ": "No venues found for “{{q}}”. Try another area or sport.",
     "emptySport": "No venues found for this sport.",
-    "metaTitle": "Venues — Courtsie",
+    "metaTitle": "Venues — Speak",
     "metaDesc": "All venues for padel, tennis, basketball and football."
   },
   "venuePage": {
-    "metaFallback": "Venue — Courtsie",
+    "metaFallback": "Venue — Speak",
     "errorTitle": "Failed to load",
     "notFoundTitle": "Venue not found",
     "backAll": "All venues",
@@ -435,7 +435,7 @@
     "slotFull": "Full",
     "court": "Court",
     "allCourts": "All courts",
-    "metaTitle": "Book a court — Courtsie",
+    "metaTitle": "Book a court — Speak",
     "errorTitle": "Error",
     "notFound": "Venue not found",
     "backToVenue": "Back to venue",
@@ -478,11 +478,11 @@
     "subtitle": "Upcoming and past bookings.",
     "empty": "No bookings yet",
     "emptyDesc": "Book your first court and it'll show up here.",
-    "metaTitle": "My bookings — Courtsie",
+    "metaTitle": "My bookings — Speak",
     "metaDesc": "Manage your bookings."
   },
   "openGames": {
-    "metaTitle": "Open games — Courtsie",
+    "metaTitle": "Open games — Speak",
     "metaDesc": "Join open games at your level.",
     "title": "Open games",
     "subtitle": "Find a group and play today.",
@@ -508,8 +508,8 @@
     "signInFirst": "Sign in first"
   },
   "profile": {
-    "metaTitle": "Profile — Courtsie",
-    "metaDesc": "Your player profile on Courtsie.",
+    "metaTitle": "Profile — Speak",
+    "metaDesc": "Your player profile on Speak.",
     "changePhoto": "Change photo",
     "photoUpdated": "Photo updated",
     "saved": "Saved",
@@ -536,7 +536,7 @@
     "usernameHint": "3–20 characters: a–z, 0–9, . and _"
   },
   "ownerDashboard": {
-    "metaTitle": "Owner dashboard — Courtsie",
+    "metaTitle": "Owner dashboard — Speak",
     "title": "Dashboard",
     "subtitle": "Court schedule and bookings in real time.",
     "bookingsToday": "Bookings today",
@@ -614,7 +614,7 @@
     }
   },
   "ownerVenues": {
-    "metaTitle": "My venues — Courtsie",
+    "metaTitle": "My venues — Speak",
     "title": "My venues",
     "subtitle": "Edit details, photos and amenities.",
     "add": "Add venue",
@@ -648,7 +648,7 @@
     "slotPriceManualSync": "If you change this, the whole-court price updates too ({{n}} players × per-seat)."
   },
   "ownerVenueEdit": {
-    "metaTitle": "Edit venue — Courtsie",
+    "metaTitle": "Edit venue — Speak",
     "title": "Edit venue",
     "back": "Back",
     "loading": "Loading…",
@@ -678,7 +678,7 @@
     "uploadFail": "Upload failed"
   },
   "pricing": {
-    "metaTitle": "Pricing — Courtsie",
+    "metaTitle": "Pricing — Speak",
     "title": "Pricing",
     "subtitle": "Time zones per court and day.",
     "subtitleSimple": "Court price and equipment prices.",
@@ -712,14 +712,14 @@
     "deleteConfirm": "Delete \"{{name}}\"?"
   },
   "hours": {
-    "metaTitle": "Hours — Courtsie",
+    "metaTitle": "Hours — Speak",
     "title": "Opening hours",
     "subtitle": "Enable or disable days and set times.",
     "loading": "Loading…",
     "saved": "Hours saved"
   },
   "ownerHours": {
-    "metaTitle": "Slots schedule — Courtsie",
+    "metaTitle": "Slots schedule — Speak",
     "title": "Slots schedule",
     "subtitle": "These hours are the single source of availability — they show up in online bookings, phone bookings and open games.",
     "loading": "Loading…",
@@ -749,7 +749,7 @@
     "every": "Every {{day}}"
   },
   "reports": {
-    "metaTitle": "Reports — Courtsie",
+    "metaTitle": "Reports — Speak",
     "title": "Reports",
     "subtitle": "Revenue and stats for the period you select.",
     "loading": "Loading…",
@@ -779,7 +779,7 @@
     "revenueByMonth": "Revenue per month"
   },
   "ownerSettings": {
-    "metaTitle": "Settings — Courtsie",
+    "metaTitle": "Settings — Speak",
     "title": "Settings",
     "subtitle": "Business details and preferences."
   },
@@ -901,12 +901,12 @@
     "terms": {
       "title": "Terms of Service",
       "updated": "Last updated: June 2026",
-      "intro": "Welcome to Courtsie. By using our platform you agree to the terms below. Please read them carefully. If you do not agree, please do not use the service.",
+      "intro": "Welcome to Speak. By using our platform you agree to the terms below. Please read them carefully. If you do not agree, please do not use the service.",
       "sections": [
         {
           "heading": "The service",
           "body": [
-            "Courtsie is a platform that connects players with sports venues (padel, tennis, basketball, football, volleyball, beach volley) and lets you book courts, create and join open games, and communicate with other members of the community.",
+            "Speak is a platform that connects players with sports venues (padel, tennis, basketball, football, volleyball, beach volley) and lets you book courts, create and join open games, and communicate with other members of the community.",
             "We act as an intermediary. The sports venue itself is responsible for the availability, quality and delivery of its service."
           ]
         },
@@ -921,7 +921,7 @@
           "heading": "Bookings and cancellations",
           "body": [
             "Each booking you complete is a commitment to the venue. Cancellation policies may vary by venue.",
-            "Courtsie does not guarantee court availability beyond what is shown at the time of booking. A venue owner may cancel a booking for reasons outside our control (e.g. weather, damage)."
+            "Speak does not guarantee court availability beyond what is shown at the time of booking. A venue owner may cancel a booking for reasons outside our control (e.g. weather, damage)."
           ]
         },
         {
@@ -941,7 +941,7 @@
         {
           "heading": "Liability",
           "body": [
-            "The service is provided \"as is\". To the maximum extent permitted by law, Courtsie is not liable for injuries, damages or losses arising from the use of sports facilities or from interaction with other members.",
+            "The service is provided \"as is\". To the maximum extent permitted by law, Speak is not liable for injuries, damages or losses arising from the use of sports facilities or from interaction with other members.",
             "You are responsible for assessing whether any activity is suitable for your physical condition."
           ]
         },
@@ -962,12 +962,12 @@
     "privacy": {
       "title": "Privacy Policy",
       "updated": "Last updated: September 2026",
-      "intro": "This policy explains what personal data Courtsie processes when you use the iOS app or the website, why, on which legal basis, who we share it with, how long we keep it and what rights you have under the EU General Data Protection Regulation 2016/679 (“GDPR”) and Greek Law 4624/2019.",
+      "intro": "This policy explains what personal data Speak processes when you use the iOS app or the website, why, on which legal basis, who we share it with, how long we keep it and what rights you have under the EU General Data Protection Regulation 2016/679 (“GDPR”) and Greek Law 4624/2019.",
       "sections": [
         {
           "heading": "Data controller and contact",
           "body": [
-            "The data controller is {controller}, operator of the Courtsie service.",
+            "The data controller is {controller}, operator of the Speak service.",
             "For any question about your data, contact {email} or call {phone}. We reply within one month at the latest."
           ]
         },
@@ -1001,7 +1001,7 @@
           "body": [
             "Other users: your name, @username, photo, bio, level, rating, number of matches and follower counts are visible to every signed-in user. Your posts, stories and follower lists are visible to all signed-in users if your account is public, or only to followers you approved if it is private. You appear in community search only if you enabled it. People you blocked cannot see your content. Your email is never shown to other users.",
             "Venue owners: see bookings at their venues together with your name and profile. They see your phone number only while you have an active, confirmed upcoming booking at their venue.",
-            "Courtsie administrators: access data only as needed for support, venue approval and handling reports."
+            "Speak administrators: access data only as needed for support, venue approval and handling reports."
           ]
         },
         {
@@ -1012,7 +1012,7 @@
             "Google LLC (Google Maps Platform): maps for venues. When you open a map, Google receives your IP address under its own privacy policy.",
             "DeepL SE: automatic translation of venue names and areas. No personal user data is sent.",
             "Email delivery provider: sends sign-up confirmation and password reset emails.",
-            "Apple: distributes the app through the App Store but has no access to your Courtsie account data.",
+            "Apple: distributes the app through the App Store but has no access to your Speak account data.",
             "All providers process data only on our instructions under data processing agreements (Art. 28 GDPR). Data may also be disclosed to public authorities where required by law."
           ]
         },
@@ -1076,7 +1076,7 @@
     }
   },
   "ownerPlayerProfile": {
-    "metaTitle": "Player profile — Courtsie",
+    "metaTitle": "Player profile — Speak",
     "unnamed": "Player",
     "phone": "Phone",
     "historyTitle": "Booking history at your venues",
@@ -1345,7 +1345,7 @@
     "myFriendsCount_other": "My friends ({{count}})",
     "sent": "Pending",
     "yourUsername": "Your username",
-    "shareText": "Find me on Courtsie: {{username}}",
+    "shareText": "Find me on Speak: {{username}}",
     "copied": "Copied",
     "actions": "Actions",
     "remove": "Remove friend",

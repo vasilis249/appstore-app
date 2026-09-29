@@ -82,16 +82,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Courtsie — Η φωνή σου, μία φορά τη μέρα" },
+      { title: "Speak — Πες τη γνώμη σου με φωνή" },
       {
         name: "description",
-        content: "Φωνητικά μηνύματα και μία φωνητική ανάρτηση τη μέρα, μόνο για τους φίλους σου.",
+        content: "Το κοινωνικό δίκτυο της φωνής: πες τη γνώμη σου για ό,τι συμβαίνει, σε 2 λεπτά.",
       },
-      { name: "author", content: "Courtsie" },
-      { property: "og:title", content: "Courtsie" },
+      { name: "author", content: "Speak" },
+      { property: "og:title", content: "Speak" },
       {
         property: "og:description",
-        content: "Φωνητικά μηνύματα και μία φωνητική ανάρτηση τη μέρα, μόνο για τους φίλους σου.",
+        content: "Το κοινωνικό δίκτυο της φωνής: πες τη γνώμη σου για ό,τι συμβαίνει, σε 2 λεπτά.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

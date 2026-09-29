@@ -8,8 +8,8 @@ import { authRedirectUrl } from "@/lib/native";
 export const Route = createFileRoute("/forgot-password")({
   head: () => ({
     meta: [
-      { title: "Επαναφορά κωδικού — Courtsie" },
-      { name: "description", content: "Επανέφερε τον κωδικό σου στο Courtsie." },
+      { title: "Επαναφορά κωδικού — Speak" },
+      { name: "description", content: "Επανέφερε τον κωδικό σου στο Speak." },
     ],
   }),
   component: ForgotPasswordPage,

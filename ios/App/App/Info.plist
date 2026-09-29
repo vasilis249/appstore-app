@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-        <string>Courtsie</string>
+        <string>Speak</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -86,11 +86,11 @@
 		</dict>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Courtsie uses the camera so you can take a profile photo or a photo of your venue.</string>
+	<string>Speak uses the camera so you can take a profile photo.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Courtsie uses the microphone to record the voice messages and daily voice posts you choose to send.</string>
+	<string>Speak uses the microphone to record the voice posts, replies and messages you choose to share.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Courtsie accesses your photos so you can choose a profile photo or venue photos.</string>
+	<string>Speak accesses your photos so you can choose a profile photo.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 </dict>

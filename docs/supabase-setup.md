@@ -1,4 +1,4 @@
-# Supabase setup (voice social network)
+# Supabase setup (Speak)
 
 The whole schema is one baseline migration: `supabase/migrations/20261003100000_voice_baseline.sql`.
 It is already applied to the live project `gqmzxxygegmlifeewbzy` and recorded in the migration
@@ -25,6 +25,15 @@ old table/function/type in `public`, the `private` schema and the old storage po
 - Realtime: `voice_messages`, `friendships`, `notifications`, `daily_posts`.
 - pg_cron job `expire-voice-messages` (hourly): unheard messages expire after 10 days (audio deleted),
   history rows removed after 90 days, old rate-limit rows purged.
+
+## Speak (migration `20261005100000_speak_social.sql`)
+- Tables: `follows`, `sections` (8 fixed), `topics` (admin/news/daily), `posts`, `post_likes`, `post_listens`;
+  private `admins`. Bucket `voices` (public URL, not listable). RPCs: `follow_user`, `unfollow_user`,
+  `remove_follower`, `profile_stats`, `create_post`, `unrepost`, `like_post`, `unlike_post`, `record_listen`,
+  `feed_posts(scope …)`, `trending_topics`, `am_i_admin`, `admin_create_topic`, `admin_update_topic`.
+- Make someone an admin (SQL Editor): `insert into private.admins (user_id) select id from auth.users where email = '…';`
+- Moderate a post: `update public.posts set hidden = true where id = '…';` (the file stays until the author
+  or you delete it in Storage → voices).
 
 ## Dashboard steps (manual)
 1. **Authentication → URL Configuration**: Site URL = the Worker URL; Redirect URLs = `<url>/**` and

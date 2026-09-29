@@ -88,6 +88,39 @@ export type Database = {
           },
         ]
       }
+      follows: {
+        Row: {
+          created_at: string
+          followee_id: string
+          follower_id: string
+        }
+        Insert: {
+          created_at?: string
+          followee_id: string
+          follower_id: string
+        }
+        Update: {
+          created_at?: string
+          followee_id?: string
+          follower_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "follows_followee_id_fkey"
+            columns: ["followee_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "follows_follower_id_fkey"
+            columns: ["follower_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       friendships: {
         Row: {
           accepted_at: string | null
@@ -179,6 +212,165 @@ export type Database = {
           },
         ]
       }
+      post_likes: {
+        Row: {
+          created_at: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "post_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_listens: {
+        Row: {
+          created_at: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_listens_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "post_listens_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      posts: {
+        Row: {
+          audio_path: string | null
+          author_id: string
+          created_at: string
+          duration_ms: number | null
+          hidden: boolean
+          id: string
+          likes_count: number
+          listens_count: number
+          mime: string | null
+          replies_count: number
+          reply_to: string | null
+          repost_of: string | null
+          reposts_count: number
+          section_id: string
+          title: string | null
+          topic_id: string | null
+        }
+        Insert: {
+          audio_path?: string | null
+          author_id: string
+          created_at?: string
+          duration_ms?: number | null
+          hidden?: boolean
+          id?: string
+          likes_count?: number
+          listens_count?: number
+          mime?: string | null
+          replies_count?: number
+          reply_to?: string | null
+          repost_of?: string | null
+          reposts_count?: number
+          section_id: string
+          title?: string | null
+          topic_id?: string | null
+        }
+        Update: {
+          audio_path?: string | null
+          author_id?: string
+          created_at?: string
+          duration_ms?: number | null
+          hidden?: boolean
+          id?: string
+          likes_count?: number
+          listens_count?: number
+          mime?: string | null
+          replies_count?: number
+          reply_to?: string | null
+          repost_of?: string | null
+          reposts_count?: number
+          section_id?: string
+          title?: string | null
+          topic_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_reply_to_fkey"
+            columns: ["reply_to"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_repost_of_fkey"
+            columns: ["repost_of"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "sections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_path: string | null
@@ -254,6 +446,99 @@ export type Database = {
           },
         ]
       }
+      sections: {
+        Row: {
+          icon: string
+          id: string
+          name_el: string
+          name_en: string
+          position: number
+        }
+        Insert: {
+          icon: string
+          id: string
+          name_el: string
+          name_en: string
+          position: number
+        }
+        Update: {
+          icon?: string
+          id?: string
+          name_el?: string
+          name_en?: string
+          position?: number
+        }
+        Relationships: []
+      }
+      topics: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          daily_date: string | null
+          external_id: string | null
+          hidden: boolean
+          id: string
+          kind: string
+          last_post_at: string | null
+          pinned: boolean
+          posts_count: number
+          section_id: string
+          source_name: string | null
+          source_url: string | null
+          summary: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          daily_date?: string | null
+          external_id?: string | null
+          hidden?: boolean
+          id?: string
+          kind?: string
+          last_post_at?: string | null
+          pinned?: boolean
+          posts_count?: number
+          section_id: string
+          source_name?: string | null
+          source_url?: string | null
+          summary?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          daily_date?: string | null
+          external_id?: string | null
+          hidden?: boolean
+          id?: string
+          kind?: string
+          last_post_at?: string | null
+          pinned?: boolean
+          posts_count?: number
+          section_id?: string
+          source_name?: string | null
+          source_url?: string | null
+          summary?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topics_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "topics_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "sections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       voice_messages: {
         Row: {
           created_at: string
@@ -305,6 +590,22 @@ export type Database = {
     }
     Functions: {
       accept_friend_request: { Args: { p_user: string }; Returns: undefined }
+      admin_create_topic: {
+        Args: {
+          p_daily_date?: string
+          p_section: string
+          p_source_name?: string
+          p_source_url?: string
+          p_summary?: string
+          p_title: string
+        }
+        Returns: string
+      }
+      admin_update_topic: {
+        Args: { p_hidden?: boolean; p_pinned?: boolean; p_topic: string }
+        Returns: undefined
+      }
+      am_i_admin: { Args: never; Returns: boolean }
       block_user: { Args: { p_user: string }; Returns: undefined }
       consume_voice_message: {
         Args: { p_id: string }
@@ -313,6 +614,19 @@ export type Database = {
           duration_ms: number
           mime: string
         }[]
+      }
+      create_post: {
+        Args: {
+          p_duration_ms?: number
+          p_mime?: string
+          p_path?: string
+          p_reply_to?: string
+          p_repost_of?: string
+          p_section?: string
+          p_title?: string
+          p_topic?: string
+        }
+        Returns: string
       }
       feed: {
         Args: never
@@ -329,6 +643,49 @@ export type Database = {
           username: string
         }[]
       }
+      feed_posts: {
+        Args: {
+          p_author?: string
+          p_before?: string
+          p_limit?: number
+          p_parent?: string
+          p_scope: string
+          p_section?: string
+          p_topic?: string
+        }
+        Returns: {
+          audio_path: string
+          author_avatar: string
+          author_id: string
+          author_name: string
+          author_username: string
+          created_at: string
+          duration_ms: number
+          is_mine: boolean
+          liked: boolean
+          likes_count: number
+          listens_count: number
+          orig_audio_path: string
+          orig_author_avatar: string
+          orig_author_name: string
+          orig_author_username: string
+          orig_created_at: string
+          orig_duration_ms: number
+          orig_title: string
+          post_id: string
+          replies_count: number
+          reply_to: string
+          repost_of: string
+          reposted: boolean
+          reposts_count: number
+          section_id: string
+          title: string
+          topic_id: string
+          topic_title: string
+        }[]
+      }
+      follow_user: { Args: { p_user: string }; Returns: undefined }
+      like_post: { Args: { p_post: string }; Returns: undefined }
       my_blocked: {
         Args: never
         Returns: {
@@ -362,6 +719,16 @@ export type Database = {
           username: string
         }[]
       }
+      profile_stats: {
+        Args: { p_user: string }
+        Returns: {
+          followers: number
+          following: number
+          follows_me: boolean
+          i_follow: boolean
+          posts: number
+        }[]
+      }
       prompt_schedule: {
         Args: { p_days?: number }
         Returns: {
@@ -373,6 +740,8 @@ export type Database = {
         Args: { p_duration_ms: number; p_mime: string; p_path: string }
         Returns: string
       }
+      record_listen: { Args: { p_post: string }; Returns: undefined }
+      remove_follower: { Args: { p_user: string }; Returns: undefined }
       remove_friend: { Args: { p_user: string }; Returns: undefined }
       report_content: {
         Args: { p_kind: string; p_reason?: string; p_target: string }
@@ -408,7 +777,24 @@ export type Database = {
           unlocked: boolean
         }[]
       }
+      trending_topics: {
+        Args: { p_limit?: number; p_section?: string }
+        Returns: {
+          created_at: string
+          id: string
+          kind: string
+          posts_count: number
+          recent_posts: number
+          section_id: string
+          source_name: string
+          source_url: string
+          title: string
+        }[]
+      }
       unblock_user: { Args: { p_user: string }; Returns: undefined }
+      unfollow_user: { Args: { p_user: string }; Returns: undefined }
+      unlike_post: { Args: { p_post: string }; Returns: undefined }
+      unrepost: { Args: { p_post: string }; Returns: undefined }
     }
     Enums: {
       [_ in never]: never

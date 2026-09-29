@@ -10,8 +10,8 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Σύνδεση — Courtsie" },
-      { name: "description", content: "Συνδέσου ή δημιούργησε λογαριασμό στο Courtsie." },
+      { title: "Σύνδεση — Speak" },
+      { name: "description", content: "Συνδέσου ή δημιούργησε λογαριασμό στο Speak." },
     ],
   }),
   component: AuthPage,
@@ -80,7 +80,7 @@ function AuthPage() {
     <AuthShell>
       <h1 className="font-display text-3xl font-bold text-foreground">{mode === "signin" ? "Σύνδεση" : "Εγγραφή"}</h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        {mode === "signin" ? "Καλωσήρθες πίσω στο Courtsie." : "Φτιάξε λογαριασμό σε δευτερόλεπτα."}
+        {mode === "signin" ? "Καλωσήρθες πίσω στο Speak." : "Φτιάξε λογαριασμό σε δευτερόλεπτα."}
       </p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-3">

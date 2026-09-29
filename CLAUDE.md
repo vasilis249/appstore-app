@@ -26,6 +26,18 @@ User decisions:
   audio) → **S3** profiles/follow/search, DMs between mutual follows, notifications (follows, likes, replies) →
   **S4** news ingestion (RSS → topics, admin topic screen, daily topic + notification) → **S5** replies threads,
   reposts/quotes, trending ranking → **S6** hardening/release (moderation, legal, logo/icon/splash, checklist).
+- **S1 ✔ (rebrand + data model)** — name Speak everywhere users see it (wordmark, titles, locales, Info.plist
+  display name + usage strings, capacitor `appName`, offline page); kept internal ids (`courtsie://` scheme, bundle
+  id `gr.innera.courtsie`, Worker URL, localStorage keys, Xcode `ios.scheme`). Migration
+  `20261005100000_speak_social.sql` (additive): `private.admins` + `am_i_admin`, `follows` (friendships migrated),
+  `sections` (news, tech, sports, economy, politics, entertainment, lifestyle, humor; name_el/name_en/lucide icon),
+  `topics` (topic/news/daily, source link, external_id for RSS dedupe, daily_date, pinned/hidden, counters),
+  `posts` (+ `post_likes`, `post_listens`; trigger counters; plain repost = repost_of without audio, quote = with
+  audio; replies inherit section/topic), public `voices` bucket, RPCs (`create_post`, `feed_posts(scope: all |
+  following | section | topic | author | replies, cursor p_before)`, `trending_topics`, follow/like/listen,
+  admin topic RPCs, `profile_stats`), `block_user` also drops follows, reports accept kind `post`. Tests
+  `test_speak.sql` (48). Live: applied, admin granted to the user's account, types regenerated, live smoke 12/12.
+  Old `friendships`/`daily_posts` + their UI stay until S2/S3 replace them.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -153,7 +165,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (65 checks).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (65) + `test_speak.sql` (48).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

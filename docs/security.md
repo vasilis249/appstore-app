@@ -1,4 +1,4 @@
-# Security model (voice social network)
+# Security model (Speak)
 
 Tests for the rules below: `supabase/tests/test_voice.sql` (local), plus an end-to-end smoke test run
 against the live project with two temporary users (friends, listen-once, storage unlock).
@@ -24,13 +24,21 @@ against the live project with two temporary users (friends, listen-once, storage
   read (signed URL) only while the post is < 24 h old **and** the reader has posted in the current
   moment (the unlock rule is enforced in the storage policy, not only in the UI). Max 90 s / 2 MB,
   one post per moment.
-- **Blocks**: end the friendship, drop the blocked person's unheard messages, hide both profiles
+- **Public posts (Speak)**: `posts` (voice ≤ 2 min + title ≤ 100, section, optional topic, replies,
+  reposts/quotes) are created only through `create_post` (file must exist in your own `voices/<uid>/`
+  folder; replies inherit section/topic; hidden topics refused; 30/h). Visible to every signed-in user
+  except hidden posts, disabled authors and anyone blocked either way (`private.can_see_post`).
+  Counters (likes, replies, reposts, listens, topic posts) are trigger-maintained; one listen per
+  person, the author's own plays don't count. Likes 300/h, follows 200/h. `voices` bucket: public by
+  URL (unguessable paths), not listable, 3 MB, audio types only. Topics are created/hidden/pinned
+  only by admins (`private.admins`, granted by SQL).
+- **Blocks**: end the friendship and follows in both directions, drop the blocked person's unheard messages, hide both profiles
   from each other and from search; the blocked person can't send requests.
 - **Rate limits** (per user): friend requests 50/h, voice messages 30/min and 500/day, daily posts
   10/day, reports 20/h.
 - **Reports**: insert-only through `report_content`; not readable by clients (reviewed in the dashboard).
 - **Account deletion** (`deleteMyAccount`): removes the user's files in `avatars` and `daily-posts`,
-  then deletes the auth user, which cascades to every table.
+  then deletes the auth user (also `voices/<uid>/`), which cascades to every table.
 
 ## Web server (Cloudflare Worker)
 - Server functions that need a user use `requireSupabaseAuth` (bearer token, no cookie CSRF).

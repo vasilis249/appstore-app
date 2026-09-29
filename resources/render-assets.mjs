@@ -1,4 +1,4 @@
-// Renders the Courtsie logo into the iOS app icon and splash images.
+// Renders the Speak logo into the iOS app icon and splash images.
 // Usage (needs a Playwright Chromium; set CHROME_PATH if not the default):
 //   node resources/render-assets.mjs resources/icon.png resources/splash.png
 // then copy icon.png → ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png

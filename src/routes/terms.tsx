@@ -4,8 +4,8 @@ import { LegalPage } from "@/components/legal-page";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Όροι χρήσης — Courtsie" },
-      { name: "description", content: "Οι όροι χρήσης της πλατφόρμας Courtsie." },
+      { title: "Όροι χρήσης — Speak" },
+      { name: "description", content: "Οι όροι χρήσης της πλατφόρμας Speak." },
     ],
   }),
   component: () => (

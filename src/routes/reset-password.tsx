@@ -6,7 +6,7 @@ import { mapAuthError } from "@/lib/auth-errors";
 
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
-    meta: [{ title: "Νέος κωδικός — Courtsie" }],
+    meta: [{ title: "Νέος κωδικός — Speak" }],
   }),
   component: ResetPasswordPage,
 });
