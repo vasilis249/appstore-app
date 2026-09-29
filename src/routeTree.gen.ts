@@ -22,6 +22,7 @@ import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authen
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedRecordRouteImport } from './routes/_authenticated/record'
 import { Route as AuthenticatedSearchRouteImport } from './routes/_authenticated/search'
+import { Route as AuthenticatedAdminTopicsRouteImport } from './routes/_authenticated/admin/topics'
 import { Route as AuthenticatedMessagesIndexRouteImport } from './routes/_authenticated/messages.index'
 import { Route as AuthenticatedMessagesUserIdRouteImport } from './routes/_authenticated/messages.$userId'
 import { Route as AuthenticatedPPostIdRouteImport } from './routes/_authenticated/p.$postId'
@@ -94,6 +95,12 @@ const AuthenticatedSearchRoute = AuthenticatedSearchRouteImport.update({
   path: '/search',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminTopicsRoute =
+  AuthenticatedAdminTopicsRouteImport.update({
+    id: '/admin/topics',
+    path: '/admin/topics',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedMessagesIndexRoute =
   AuthenticatedMessagesIndexRouteImport.update({
     id: '/messages/',
@@ -140,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof AuthenticatedProfileRoute
   '/record': typeof AuthenticatedRecordRoute
   '/search': typeof AuthenticatedSearchRoute
+  '/admin/topics': typeof AuthenticatedAdminTopicsRoute
   '/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/p/$postId': typeof AuthenticatedPPostIdRoute
   '/s/$sectionId': typeof AuthenticatedSSectionIdRoute
@@ -160,6 +168,7 @@ export interface FileRoutesByTo {
   '/record': typeof AuthenticatedRecordRoute
   '/search': typeof AuthenticatedSearchRoute
   '/': typeof AuthenticatedIndexRoute
+  '/admin/topics': typeof AuthenticatedAdminTopicsRoute
   '/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/p/$postId': typeof AuthenticatedPPostIdRoute
   '/s/$sectionId': typeof AuthenticatedSSectionIdRoute
@@ -182,6 +191,7 @@ export interface FileRoutesById {
   '/_authenticated/record': typeof AuthenticatedRecordRoute
   '/_authenticated/search': typeof AuthenticatedSearchRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/admin/topics': typeof AuthenticatedAdminTopicsRoute
   '/_authenticated/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/_authenticated/p/$postId': typeof AuthenticatedPPostIdRoute
   '/_authenticated/s/$sectionId': typeof AuthenticatedSSectionIdRoute
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/record'
     | '/search'
+    | '/admin/topics'
     | '/messages/$userId'
     | '/p/$postId'
     | '/s/$sectionId'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
     | '/record'
     | '/search'
     | '/'
+    | '/admin/topics'
     | '/messages/$userId'
     | '/p/$postId'
     | '/s/$sectionId'
@@ -245,6 +257,7 @@ export interface FileRouteTypes {
     | '/_authenticated/record'
     | '/_authenticated/search'
     | '/_authenticated/'
+    | '/_authenticated/admin/topics'
     | '/_authenticated/messages/$userId'
     | '/_authenticated/p/$postId'
     | '/_authenticated/s/$sectionId'
@@ -356,6 +369,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSearchRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/topics': {
+      id: '/_authenticated/admin/topics'
+      path: '/admin/topics'
+      fullPath: '/admin/topics'
+      preLoaderRoute: typeof AuthenticatedAdminTopicsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/messages/': {
       id: '/_authenticated/messages/'
       path: '/messages'
@@ -408,6 +428,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRecordRoute: typeof AuthenticatedRecordRoute
   AuthenticatedSearchRoute: typeof AuthenticatedSearchRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAdminTopicsRoute: typeof AuthenticatedAdminTopicsRoute
   AuthenticatedMessagesUserIdRoute: typeof AuthenticatedMessagesUserIdRoute
   AuthenticatedPPostIdRoute: typeof AuthenticatedPPostIdRoute
   AuthenticatedSSectionIdRoute: typeof AuthenticatedSSectionIdRoute
@@ -423,6 +444,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedRecordRoute: AuthenticatedRecordRoute,
   AuthenticatedSearchRoute: AuthenticatedSearchRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAdminTopicsRoute: AuthenticatedAdminTopicsRoute,
   AuthenticatedMessagesUserIdRoute: AuthenticatedMessagesUserIdRoute,
   AuthenticatedPPostIdRoute: AuthenticatedPPostIdRoute,
   AuthenticatedSSectionIdRoute: AuthenticatedSSectionIdRoute,

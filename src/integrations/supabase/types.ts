@@ -520,6 +520,40 @@ export type Database = {
         }
         Returns: string
       }
+      admin_feeds: {
+        Args: never
+        Returns: {
+          enabled: boolean
+          id: number
+          last_added: number
+          last_error: string
+          last_fetched_at: string
+          name: string
+          section_id: string
+          url: string
+        }[]
+      }
+      admin_refresh_news: { Args: never; Returns: number }
+      admin_set_feed: {
+        Args: { p_enabled: boolean; p_feed: number }
+        Returns: undefined
+      }
+      admin_topics: {
+        Args: { p_limit?: number }
+        Returns: {
+          created_at: string
+          daily_date: string
+          hidden: boolean
+          id: string
+          kind: string
+          pinned: boolean
+          posts_count: number
+          section_id: string
+          source_name: string
+          source_url: string
+          title: string
+        }[]
+      }
       admin_update_topic: {
         Args: { p_hidden?: boolean; p_pinned?: boolean; p_topic: string }
         Returns: undefined
@@ -694,6 +728,8 @@ export type Database = {
           next_prompt_at: string
           prompt_at: string
           topic_id: string
+          topic_is_pick: boolean
+          topic_section: string
           topic_title: string
         }[]
       }

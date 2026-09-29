@@ -148,6 +148,7 @@ SELECT pg_temp.as_user(:E); SET ROLE authenticated;
 SELECT public.admin_update_topic(:'t1', true);
 RESET ROLE; SELECT pg_temp.as_user(:A); SET ROLE authenticated;
 SELECT pg_temp.ok('07a hidden topic invisible', NOT EXISTS (SELECT 1 FROM public.topics WHERE id = :'t1'));
+SELECT pg_temp.ok('07a2 posts drop the hidden topic''s title', NOT EXISTS (SELECT 1 FROM public.feed_posts('all') WHERE topic_id = :'t1' AND topic_title IS NOT NULL));
 SELECT pg_temp.ok('07b cannot post into hidden topic', pg_temp.fails(format($$SELECT public.create_post(NULL, %L, NULL, NULL, NULL, '00000000-0000-0000-0000-00000000000a/a2.m4a', 'audio/mp4', 2000)$$, :'t1')));
 SELECT pg_temp.ok('07c am_i_admin', NOT public.am_i_admin());
 SELECT pg_temp.ok('07d non-admin cannot hide topics', pg_temp.fails(format('SELECT public.admin_update_topic(%L, false)', :'t1')));
@@ -187,4 +188,37 @@ SELECT pg_temp.ok('09c followers list', EXISTS (SELECT 1 FROM public.follow_list
 SELECT pg_temp.ok('09d following list', (SELECT count(*) FROM public.follow_list(:A::uuid, 'following')) = 1);
 SELECT pg_temp.ok('09e suggestions exclude people I follow and me',
   NOT EXISTS (SELECT 1 FROM public.suggested_people(30) WHERE id IN (:A, :B)));
+RESET ROLE;
+
+-- 10 news ingestion (parsing only; fetching needs pg_net on the hosted project)
+SELECT pg_temp.ok('10a clean_text strips tags and entities', private.clean_text('<b>A &amp; B</b>&nbsp; &quot;x&quot;') = 'A & B "x"');
+SELECT format($x$<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>Feed</title>
+<item><title><![CDATA[Πρώτο νέο & <i>έντονο</i>]]></title><link>https://example.com/1</link><guid>g-1</guid><pubDate>%1$s</pubDate></item>
+<item><title>Δεύτερο νέο &amp; κάτι</title><link>https://example.com/2</link><pubDate>%1$s</pubDate></item>
+<item><title>Παλιό νέο</title><link>https://example.com/old</link><pubDate>Mon, 01 Jan 2024 10:00:00 +0000</pubDate></item>
+<item><title>Τρίτο νέο</title><link>https://example.com/3</link><pubDate>%1$s</pubDate></item>
+<item><title>Χωρίς link</title></item>
+</channel></rss>$x$, to_char(now() AT TIME ZONE 'UTC', 'Dy, DD Mon YYYY HH24:MI:SS') || ' +0000') AS rss \gset
+SELECT pg_temp.ok('10b at most 2 per run', private.ingest_feed_xml(3, :'rss', 2) = 2);
+SELECT pg_temp.ok('10c titles cleaned, source + section from the feed',
+  (SELECT count(*) FROM public.topics WHERE kind = 'news' AND section_id = 'tech' AND source_name = 'Techblog'
+   AND title IN ('Πρώτο νέο & έντονο', 'Δεύτερο νέο & κάτι')) = 2);
+SELECT pg_temp.ok('10d next run adds the rest, skips old / duplicates / no link', private.ingest_feed_xml(3, :'rss', 5) = 1
+  AND private.ingest_feed_xml(3, :'rss', 5) = 0);
+SELECT pg_temp.ok('10e broken XML raises (caught per feed by ingest_news)', pg_temp.fails($$SELECT private.ingest_feed_xml(3, '<rss><channel><item>', 2)$$));
+
+-- 11 daily topic + admin tools
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('11a today() falls back to a fresh topic', (SELECT topic_id IS NOT NULL AND NOT topic_is_pick FROM public.today()));
+SELECT pg_temp.ok('11b non-admin cannot list admin data', pg_temp.fails($$SELECT * FROM public.admin_topics()$$)
+  AND pg_temp.fails($$SELECT * FROM public.admin_feeds()$$) AND pg_temp.fails($$SELECT public.admin_set_feed(1, false)$$)
+  AND pg_temp.fails($$SELECT public.admin_refresh_news()$$));
+RESET ROLE; SELECT pg_temp.as_user(:E); SET ROLE authenticated;
+SELECT public.admin_create_topic('humor', 'Ποιο είναι το χειρότερο αστείο που ξέρεις;', NULL, NULL, NULL, (SELECT moment FROM public.today())) AS dt \gset
+SELECT pg_temp.ok('11c admin daily topic wins', (SELECT topic_id = :'dt' AND topic_is_pick FROM public.today()));
+SELECT pg_temp.ok('11d one daily topic per day', pg_temp.fails($$SELECT public.admin_create_topic('news', 'Δεύτερο της ημέρας', NULL, NULL, NULL, (SELECT moment FROM public.today()))$$));
+SELECT pg_temp.ok('11e admin lists topics and feeds', (SELECT count(*) FROM public.admin_topics()) >= 4 AND (SELECT count(*) FROM public.admin_feeds()) = 8);
+SELECT public.admin_set_feed(1, false);
+SELECT pg_temp.ok('11f admin toggles a feed', NOT (SELECT enabled FROM public.admin_feeds() WHERE id = 1));
 RESET ROLE;

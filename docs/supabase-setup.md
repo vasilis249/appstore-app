@@ -35,6 +35,12 @@ old table/function/type in `public`, the `private` schema and the old storage po
 - Moderate a post: `update public.posts set hidden = true where id = '…';` (the file stays until the author
   or you delete it in Storage → voices).
 
+## News (migration `20261008100000_speak_news.sql`)
+- Feeds live in `private.news_feeds` (add one: `insert into private.news_feeds (section_id, name, url) values (…)`).
+  Jobs `fetch-news` / `ingest-news` run every 3 hours (pg_net + pg_cron); only headline + link are stored, at most
+  2 per feed per run. Admins can refresh, switch feeds off, create topics / the topic of the day and hide or pin
+  topics in the app (Settings → Manage topics).
+
 ## Dashboard steps (manual)
 1. **Authentication → URL Configuration**: Site URL = the Worker URL; Redirect URLs = `<url>/**` and
    `courtsie://**` (already set by `scripts/deploy-all.sh` when SUPABASE_ACCESS_TOKEN is present).

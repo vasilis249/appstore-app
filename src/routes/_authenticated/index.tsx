@@ -6,6 +6,7 @@ import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
 import { SectionChips } from "@/components/posts/section-chips";
 import { TopicStrip } from "@/components/posts/topic-strip";
+import { DailyTopicCard } from "@/components/posts/daily-topic-card";
 import { cn } from "@/lib/utils";
 
 type Tab = "foryou" | "following";
@@ -48,6 +49,7 @@ function HomePage() {
       <div className="pt-3">
         {tab === "foryou" && (
           <>
+            <DailyTopicCard />
             <SectionChips />
             <TopicStrip />
           </>

@@ -5,9 +5,11 @@ export interface Today {
   moment: string;
   prompt_at: string;
   next_prompt_at: string;
-  /** The day's topic, when an admin set one. */
+  /** The day's topic: the admin's pick, otherwise today's most discussed fresh topic. */
   topic_id: string | null;
   topic_title: string | null;
+  topic_section: string | null;
+  topic_is_pick: boolean;
 }
 
 export const dailyKeys = {

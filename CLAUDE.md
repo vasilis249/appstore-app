@@ -64,6 +64,18 @@ User decisions:
   Follow back; Message only when mutual; ⋯ report/block), post authors link to profiles, `/notifications` with
   icons + follow back, DM picker = mutual follows. Tests: `test_voice.sql` rewritten for follows (40),
   `test_speak.sql` (54). Local seed: `seed_voice.sql` + `seed-speak.sh` in the scratchpad.
+- **S4 ✔ (news + daily topic + admin)** — migration `20261008100000_speak_news.sql`: `private.news_feeds` (8 Greek RSS:
+  ΕΡΤ News + Καθημερινή → news, Techblog → tech, Gazzetta → sports, Ναυτεμπορική finance/politics → economy/politics,
+  Cinemagazine → entertainment, LiFO → lifestyle; humor = admin only; Unboxholics dropped: invalid XML). pg_net +
+  pg_cron: `fetch-news` (`17 */3`) → `private.fetch_news()` (net.http_get), `ingest-news` (`22 */3`) →
+  `private.ingest_news()` → `private.ingest_feed_xml(feed, xml, max 2)` (xpath, CDATA unwrapped by
+  `private.clean_text`, ≤ 36 h old, dedupe on `external_id` = guid/link, headline + link only; news topics with 0
+  voices deleted after 7 days). `today()` = admin's daily topic, else today's most-discussed fresh topic
+  (`topic_is_pick`). Admin RPCs: `admin_topics`, `admin_feeds`, `admin_set_feed`, `admin_refresh_news` (ingest +
+  fetch). `20261008100100`: posts don't show hidden topics. UI: `DailyTopicCard` (white card on For you → topic /
+  "Give your take"), `/admin/topics` (new topic or topic of the day — default today if not picked yet, else next;
+  news sources with status + switch + Refresh; topics with pin / hide), Settings row "Manage topics" for admins,
+  prompt notice → Home. Live: first fetch added 16 headlines (2 per feed). Tests: `test_speak.sql` 66.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -191,7 +203,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (54).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (66).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

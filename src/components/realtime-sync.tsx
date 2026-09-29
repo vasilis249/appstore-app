@@ -41,7 +41,7 @@ export function RealtimeSync() {
       toast(t("prompt.title"), {
         description: t("prompt.body"),
         duration: 15_000,
-        action: { label: t("feed.recordCta"), onClick: () => void router.navigate({ to: "/record" }) },
+        action: { label: t("posts.giveYourTake"), onClick: () => void router.navigate({ to: "/" }) },
       });
     }, ms);
     return () => clearTimeout(id);

@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Ban, ChevronRight, FileText, LogOut, Mail, Shield } from "lucide-react";
+import { Ban, ChevronRight, FileText, LogOut, Mail, Megaphone, Shield } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { adminKeys, amIAdmin } from "@/lib/admin";
 import { useState } from "react";
 import { BlockedSheet } from "@/components/blocked-sheet";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
@@ -22,6 +24,7 @@ export function SettingsSheet({
   const qc = useQueryClient();
   const navigate = useNavigate();
   const [blockedOpen, setBlockedOpen] = useState(false);
+  const isAdmin = useQuery({ queryKey: adminKeys.isAdmin, queryFn: amIAdmin, enabled: open });
 
   async function signOut() {
     onOpenChange(false);
@@ -53,6 +56,17 @@ export function SettingsSheet({
             </div>
             <DailyPromptSwitch className={row} />
           </div>
+
+          {isAdmin.data && (
+            <div className="rounded-2xl bg-secondary">
+              <Link to="/admin/topics" onClick={() => onOpenChange(false)} className={row}>
+                <span className="inline-flex items-center gap-3">
+                  <Megaphone className="h-4 w-4 text-muted-foreground" /> {t("admin.title")}
+                </span>
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              </Link>
+            </div>
+          )}
 
           <div className="rounded-2xl bg-secondary">
             <button type="button" onClick={() => setBlockedOpen(true)} className={`${row} w-full`}>
