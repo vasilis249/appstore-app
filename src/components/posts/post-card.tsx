@@ -22,7 +22,20 @@ const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
  * A public voice post (X-style row): author, section › topic, title, player, actions.
  * `onPlay` starts the list's queue at this post (continuous playback).
  */
-export function PostCard({ post, onPlay, linkToPost = true }: { post: PostView; onPlay: () => void; linkToPost?: boolean }) {
+export function PostCard({
+  post,
+  onPlay,
+  linkToPost = true,
+  hideReplyTo = false,
+  threadLine = false,
+}: {
+  post: PostView;
+  onPlay: () => void;
+  linkToPost?: boolean;
+  hideReplyTo?: boolean;
+  /** Draw the thread line down to the next post (ancestors on a post page). */
+  threadLine?: boolean;
+}) {
   const { t, i18n } = useTranslation();
   const qc = useQueryClient();
   const navigate = useNavigate();
@@ -57,7 +70,7 @@ export function PostCard({ post, onPlay, linkToPost = true }: { post: PostView; 
   const action = "flex items-center gap-1.5 text-sm tabular-nums text-muted-foreground";
 
   return (
-    <article className="border-b border-border px-4 py-3">
+    <article className={cn("px-4 py-3", !threadLine && "border-b border-border")}>
       {post.repostedBy && (
         <p className="mb-1 ml-12 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
           <Repeat2 className="h-3.5 w-3.5" />
@@ -65,9 +78,12 @@ export function PostCard({ post, onPlay, linkToPost = true }: { post: PostView; 
         </p>
       )}
       <div className="flex gap-3">
-        <Link to="/u/$username" params={{ username: post.username }} className="shrink-0" aria-label={post.name}>
-          <UserAvatar name={post.name} path={post.avatar} size={40} />
-        </Link>
+        <div className="flex shrink-0 flex-col items-center">
+          <Link to="/u/$username" params={{ username: post.username }} aria-label={post.name}>
+            <UserAvatar name={post.name} path={post.avatar} size={40} />
+          </Link>
+          {threadLine && <span className="-mb-3 mt-1 w-0.5 flex-1 rounded-full bg-border" aria-hidden />}
+        </div>
         <div className="min-w-0 flex-1">
           <header className="flex items-center gap-1 text-sm">
             <Link to="/u/$username" params={{ username: post.username }} className="flex min-w-0 items-center gap-1">
@@ -84,6 +100,15 @@ export function PostCard({ post, onPlay, linkToPost = true }: { post: PostView; 
               <MoreHorizontal className="h-5 w-5" />
             </button>
           </header>
+
+          {post.replyTo && post.replyToUsername && !hideReplyTo && (
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {t("posts.replyingToUser")}{" "}
+              <Link to="/u/$username" params={{ username: post.replyToUsername }} className="font-medium text-sky-400">
+                @{post.replyToUsername}
+              </Link>
+            </p>
+          )}
 
           <div className="mt-0.5 flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground">
             <Link to="/s/$sectionId" params={{ sectionId: post.sectionId }} className="flex shrink-0 items-center gap-1 font-medium text-foreground/80">

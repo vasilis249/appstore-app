@@ -27,13 +27,24 @@ function play(views: PostView[], from: PostView) {
  * Infinite list of posts for one feed scope. Tapping play on a card plays from there to the end of
  * the loaded list; "Play all" starts at the top.
  */
-export function FeedList({ params, empty, playAll = true }: { params: FeedParams; empty: ReactNode; playAll?: boolean }) {
+export function FeedList({
+  params,
+  empty,
+  playAll = true,
+  hideReplyTo = false,
+}: {
+  params: FeedParams;
+  empty: ReactNode;
+  playAll?: boolean;
+  /** Replies listed right under their parent don't need "Replying to @x". */
+  hideReplyTo?: boolean;
+}) {
   const { t } = useTranslation();
   const q = useInfiniteQuery({
     queryKey: postKeys.feed(params),
     queryFn: ({ pageParam }) => fetchFeed(params, pageParam),
-    initialPageParam: undefined as string | undefined,
-    getNextPageParam: nextCursor,
+    initialPageParam: undefined as string | number | undefined,
+    getNextPageParam: (last, all) => nextCursor(params.scope, last, all),
   });
   const views = useMemo(
     () => (q.data?.pages.flat() ?? []).map(toView).filter((v): v is PostView => !!v),
@@ -66,7 +77,7 @@ export function FeedList({ params, empty, playAll = true }: { params: FeedParams
         </div>
       )}
       {views.map((v) => (
-        <PostCard key={v.row.post_id} post={v} onPlay={() => play(views, v)} />
+        <PostCard key={v.row.post_id} post={v} onPlay={() => play(views, v)} hideReplyTo={hideReplyTo} />
       ))}
       <div ref={sentinel} />
       {q.isFetchingNextPage && <p className="py-4 text-center text-sm text-muted-foreground">{t("common.loading")}</p>}

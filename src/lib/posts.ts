@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 export const POST_MAX_MS = 120_000;
 export const TITLE_MAX = 100;
 
-export type FeedScope = "all" | "following" | "section" | "topic" | "author" | "replies" | "one";
+export type FeedScope = "foryou" | "all" | "following" | "section" | "topic" | "author" | "author_replies" | "replies" | "one" | "ids";
 
 /** One row of feed_posts(). Plain reposts have no audio; the original is in orig_*. */
 export interface FeedRow {
@@ -40,6 +40,7 @@ export interface FeedRow {
   orig_replies_count: number | null;
   orig_reposts_count: number | null;
   orig_listens_count: number | null;
+  reply_to_username: string | null;
 }
 
 /** What a card shows: the post itself, or — for a plain repost — the original, credited to the reposter. */
@@ -54,6 +55,7 @@ export interface PostView {
   topicId: string | null;
   topicTitle: string | null;
   replyTo: string | null;
+  replyToUsername: string | null;
   title: string | null;
   path: string;
   durationMs: number;
@@ -74,7 +76,7 @@ export function toView(row: FeedRow): PostView | null {
     return {
       id: row.post_id, authorId: row.author_id, username: row.author_username, name: row.author_name || row.author_username,
       avatar: row.author_avatar, createdAt: row.created_at, sectionId: row.section_id, topicId: row.topic_id,
-      topicTitle: row.topic_title, replyTo: row.reply_to, title: row.title, path: row.audio_path, durationMs: row.duration_ms,
+      topicTitle: row.topic_title, replyTo: row.reply_to, replyToUsername: row.reply_to_username, title: row.title, path: row.audio_path, durationMs: row.duration_ms,
       likes: row.likes_count, replies: row.replies_count, reposts: row.reposts_count, listens: row.listens_count,
       liked: row.liked, reposted: row.reposted, repostedBy: null,
       quote: row.repost_of && row.orig_author_username
@@ -89,7 +91,7 @@ export function toView(row: FeedRow): PostView | null {
       id: row.repost_of, authorId: row.orig_author_id, username: row.orig_author_username,
       name: row.orig_author_name || row.orig_author_username, avatar: row.orig_author_avatar,
       createdAt: row.orig_created_at ?? row.created_at, sectionId: row.section_id, topicId: null, topicTitle: null,
-      replyTo: null, title: row.orig_title, path: row.orig_audio_path, durationMs: row.orig_duration_ms,
+      replyTo: null, replyToUsername: null, title: row.orig_title, path: row.orig_audio_path, durationMs: row.orig_duration_ms,
       likes: row.orig_likes_count ?? 0, replies: row.orig_replies_count ?? 0, reposts: row.orig_reposts_count ?? 0,
       listens: row.orig_listens_count ?? 0, liked: row.liked, reposted: row.reposted,
       repostedBy: { name: row.author_name || row.author_username, mine: row.is_mine }, quote: null, row,
@@ -104,6 +106,7 @@ export interface FeedParams {
   topic?: string;
   author?: string;
   parent?: string;
+  ids?: string[];
 }
 
 export interface Section {
@@ -141,23 +144,35 @@ function fail(error: { message: string } | null) {
   if (error) throw new Error(error.message);
 }
 
-export async function fetchFeed(p: FeedParams, before?: string): Promise<FeedRow[]> {
+/** `cursor` = the last row's time, or — for the ranked "foryou" feed — how many rows are loaded. */
+export async function fetchFeed(p: FeedParams, cursor?: string | number): Promise<FeedRow[]> {
   const { data, error } = await supabase.rpc("feed_posts", {
     p_scope: p.scope,
     p_section: p.section,
     p_topic: p.topic,
     p_author: p.author,
     p_parent: p.parent,
-    p_before: before,
+    p_ids: p.ids,
+    p_before: typeof cursor === "string" ? cursor : undefined,
+    p_offset: typeof cursor === "number" ? cursor : undefined,
     p_limit: PAGE,
   });
   fail(error);
   return (data ?? []) as FeedRow[];
 }
 
-/** Cursor for useInfiniteQuery: the last row's time when the page was full. */
-export function nextCursor(page: FeedRow[]): string | undefined {
-  return page.length === PAGE ? page[page.length - 1].created_at : undefined;
+/** Cursor for useInfiniteQuery: none after a short page; offset for "foryou", else the last row's time. */
+export function nextCursor(scope: FeedScope, page: FeedRow[], pages: FeedRow[][]): string | number | undefined {
+  if (page.length < PAGE) return undefined;
+  return scope === "foryou" ? pages.reduce((n, pg) => n + pg.length, 0) : page[page.length - 1].created_at;
+}
+
+/** The reply chain above a post, root first. */
+export async function fetchAncestors(postId: string): Promise<FeedRow[]> {
+  const { data: ids, error } = await supabase.rpc("post_ancestors", { p_post: postId });
+  fail(error);
+  if (!ids?.length) return [];
+  return fetchFeed({ scope: "ids", ids: ids as string[] });
 }
 
 export async function listSections(): Promise<Section[]> {

@@ -222,3 +222,39 @@ SELECT pg_temp.ok('11e admin lists topics and feeds', (SELECT count(*) FROM publ
 SELECT public.admin_set_feed(1, false);
 SELECT pg_temp.ok('11f admin toggles a feed', NOT (SELECT enabled FROM public.admin_feeds() WHERE id = 1));
 RESET ROLE;
+
+-- 12 ranking, threads, replies on profiles
+INSERT INTO storage.objects (bucket_id, name) VALUES
+  ('voices', '00000000-0000-0000-0000-00000000000c/r0.m4a'), ('voices', '00000000-0000-0000-0000-00000000000c/old.m4a'),
+  ('voices', '00000000-0000-0000-0000-00000000000c/new.m4a'), ('voices', '00000000-0000-0000-0000-00000000000b/r1.m4a'),
+  ('voices', '00000000-0000-0000-0000-00000000000c/r2.m4a');
+SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT public.create_post('tech', NULL, NULL, NULL, 'Old but loved', '00000000-0000-0000-0000-00000000000c/old.m4a', 'audio/mp4', 3000) AS pold \gset
+SELECT public.create_post('tech', NULL, NULL, NULL, 'Brand new', '00000000-0000-0000-0000-00000000000c/new.m4a', 'audio/mp4', 3000) AS pnew \gset
+SELECT public.create_post('news', NULL, NULL, NULL, 'Thread root', '00000000-0000-0000-0000-00000000000c/r0.m4a', 'audio/mp4', 3000) AS r0 \gset
+RESET ROLE;
+UPDATE public.posts SET created_at = now() - interval '10 hours', likes_count = 40 WHERE id = :'pold';
+SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT public.create_post(NULL, NULL, :'r0', NULL, NULL, '00000000-0000-0000-0000-00000000000b/r1.m4a', 'audio/mp4', 2000) AS r1 \gset
+SELECT public.create_post(NULL, NULL, NULL, :'pnew') AS rpn \gset
+RESET ROLE; SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT public.create_post(NULL, NULL, :'r1', NULL, NULL, '00000000-0000-0000-0000-00000000000c/r2.m4a', 'audio/mp4', 2000) AS r2 \gset
+RESET ROLE; SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('12a for you: engagement beats recency',
+  (SELECT min(n) FILTER (WHERE post_id = :'pold') < min(n) FILTER (WHERE post_id = :'pnew')
+   FROM public.feed_posts('foryou', p_limit := 50) WITH ORDINALITY AS f(post_id, created_at, author_id, author_username, author_name,
+     author_avatar, section_id, topic_id, topic_title, reply_to, repost_of, title, audio_path, duration_ms, likes_count, replies_count,
+     reposts_count, listens_count, liked, reposted, is_mine, orig_author_username, orig_author_name, orig_author_avatar, orig_title,
+     orig_audio_path, orig_duration_ms, orig_created_at, orig_author_id, orig_likes_count, orig_replies_count, orig_reposts_count,
+     orig_listens_count, reply_to_username, n)));
+SELECT pg_temp.ok('12b for you: no plain reposts, no replies',
+  NOT EXISTS (SELECT 1 FROM public.feed_posts('foryou', p_limit := 50) WHERE audio_path IS NULL OR reply_to IS NOT NULL));
+SELECT pg_temp.ok('12c for you pages with offset', (SELECT count(*) FROM public.feed_posts('foryou', p_limit := 1, p_offset := 1)) = 1
+  AND (SELECT post_id FROM public.feed_posts('foryou', p_limit := 1, p_offset := 0)) <> (SELECT post_id FROM public.feed_posts('foryou', p_limit := 1, p_offset := 1)));
+SELECT pg_temp.ok('12d ancestors root first', public.post_ancestors(:'r2') = ARRAY[:'r0'::uuid, :'r1'::uuid]);
+SELECT pg_temp.ok('12e ids scope keeps the order',
+  (SELECT array_agg(post_id) FROM public.feed_posts('ids', p_ids := ARRAY[:'r1'::uuid, :'r0'::uuid])) = ARRAY[:'r1'::uuid, :'r0'::uuid]);
+SELECT pg_temp.ok('12f replying to @username', (SELECT reply_to_username FROM public.feed_posts('one', p_parent := :'r2')) = (SELECT username FROM public.profiles WHERE id = :B));
+SELECT pg_temp.ok('12g replies tab on a profile', (SELECT array_agg(post_id) FROM public.feed_posts('author_replies', p_author := :B)) = ARRAY[:'r1'::uuid]);
+SELECT pg_temp.ok('12h root has no ancestors', public.post_ancestors(:'r0') = ARRAY[]::uuid[]);
+RESET ROLE;

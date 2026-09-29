@@ -56,7 +56,7 @@ function HomePage() {
         )}
         <FeedList
           key={tab}
-          params={{ scope: tab === "following" ? "following" : "all" }}
+          params={{ scope: tab === "following" ? "following" : "foryou" }}
           empty={
             <EmptyState
               title={t(tab === "following" ? "posts.emptyFollowingTitle" : "posts.emptyTitle")}

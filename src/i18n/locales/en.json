@@ -1163,7 +1163,9 @@
     "chooseSection": "Which section?",
     "publish": "Post",
     "published": "Posted!",
-    "recordHint": "Tap and speak. Up to 2 minutes."
+    "recordHint": "Tap and speak. Up to 2 minutes.",
+    "replyingToUser": "Replying to",
+    "thread": "Thread"
   },
   "stories": {
     "yours": "Your story",
@@ -1422,6 +1424,8 @@
     "searchPlaceholder": "Search name or username",
     "noVoices": "No voices yet.",
     "noVoicesMine": "You haven't posted a voice yet.",
-    "followingCount": "Following"
+    "followingCount": "Following",
+    "replies": "Replies",
+    "noReplies": "No replies yet."
   }
 }

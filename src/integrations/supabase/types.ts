@@ -585,7 +585,9 @@ export type Database = {
         Args: {
           p_author?: string
           p_before?: string
+          p_ids?: string[]
           p_limit?: number
+          p_offset?: number
           p_parent?: string
           p_scope: string
           p_section?: string
@@ -618,6 +620,7 @@ export type Database = {
           post_id: string
           replies_count: number
           reply_to: string
+          reply_to_username: string
           repost_of: string
           reposted: boolean
           reposts_count: number
@@ -667,6 +670,7 @@ export type Database = {
           username: string
         }[]
       }
+      post_ancestors: { Args: { p_post: string }; Returns: string[] }
       profile_stats: {
         Args: { p_user: string }
         Returns: {

@@ -76,6 +76,14 @@ User decisions:
   "Give your take"), `/admin/topics` (new topic or topic of the day — default today if not picked yet, else next;
   news sources with status + switch + Refresh; topics with pin / hide), Settings row "Manage topics" for admins,
   prompt notice → Home. Live: first fetch added 16 headlines (2 per feed). Tests: `test_speak.sql` 66.
+- **S5 ✔ (ranking + threads)** — migration `20261009100000_speak_threads_ranking.sql`: `feed_posts` (+ `p_offset`,
+  `p_ids`, column `reply_to_username`) scopes `foryou` (score = (1 + 3·likes + 4·replies + 5·reposts + listens) ×1.5 if
+  you follow the author ×0.5 own ÷ (age h + 2)^1.5; last 30 days; no plain reposts / replies; offset paging),
+  `author_replies`, `ids` (keeps p_ids order); `post_ancestors(post)` (reply chain, root first, visible only);
+  `trending_topics` ranks by 24 h voices ×10 + engagement. UI: For you = `foryou` (`nextCursor(scope, page, pages)` →
+  offset), post page = ancestors joined by a thread line (`PostCard threadLine`) + the post + replies; header
+  "Συζήτηση" for replies; playing in a thread queues the conversation; "Replying to @x" on reply cards (hidden right
+  under the parent); profile tabs Φωνές | Απαντήσεις. Tests `test_speak.sql` 74.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -203,7 +211,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (66).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (74).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

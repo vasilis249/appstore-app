@@ -7,36 +7,41 @@ import { AppHeader } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
 import { PostCard } from "@/components/posts/post-card";
-import { fetchFeed, postKeys, toView, voiceUrl } from "@/lib/posts";
-import { playQueue } from "@/lib/queue";
+import { fetchAncestors, fetchFeed, postKeys, toView, voiceUrl, type PostView } from "@/lib/posts";
+import { playQueue, type QueueItem } from "@/lib/queue";
 
 export const Route = createFileRoute("/_authenticated/p/$postId")({
   component: PostPage,
 });
 
-/** A post, its voice replies (oldest first) and "Reply with your voice". */
+const item = (v: PostView): QueueItem => ({ id: v.id, url: voiceUrl(v.path), durationMs: v.durationMs, title: v.title ?? v.name, author: v.name });
+
+/** A post with the conversation above it (root first, joined by a thread line), then its voice replies. */
 function PostPage() {
   const { postId } = Route.useParams();
   const { t } = useTranslation();
   const one = useQuery({ queryKey: postKeys.feed({ scope: "one", parent: postId }), queryFn: () => fetchFeed({ scope: "one", parent: postId }) });
   const view = useMemo(() => (one.data?.[0] ? toView(one.data[0]) : null), [one.data]);
+  const ancestors = useQuery({
+    queryKey: [...postKeys.all, "ancestors", postId],
+    queryFn: () => fetchAncestors(postId),
+    enabled: !!view?.replyTo,
+  });
+  const above = useMemo(() => (ancestors.data ?? []).map(toView).filter((v): v is PostView => !!v), [ancestors.data]);
+  // Playing anything in the thread plays the conversation from there down to this post.
+  const thread = useMemo(() => (view ? [...above, view] : above), [above, view]);
+  const playFrom = (v: PostView) => playQueue(thread.map(item), Math.max(0, thread.indexOf(v)));
 
   return (
     <>
-      <AppHeader back title={t("posts.post")} />
+      <AppHeader back title={view?.replyTo ? t("posts.thread") : t("posts.post")} />
       {one.data && !view && <EmptyState text={t("rpcErrors.notFound")} />}
       {view && (
         <>
-          {view.replyTo && (
-            <Link to="/p/$postId" params={{ postId: view.replyTo }} className="block px-4 pt-1 text-sm text-muted-foreground">
-              ↑ {t("posts.inReplyTo")}
-            </Link>
-          )}
-          <PostCard
-            post={view}
-            linkToPost={false}
-            onPlay={() => playQueue([{ id: view.id, url: voiceUrl(view.path), durationMs: view.durationMs, title: view.title ?? view.name, author: view.name }])}
-          />
+          {above.map((a, i) => (
+            <PostCard key={a.row.post_id} post={a} threadLine hideReplyTo={i > 0} onPlay={() => playFrom(a)} />
+          ))}
+          <PostCard post={view} linkToPost={false} hideReplyTo={above.length > 0} onPlay={() => playFrom(view)} />
           <div className="border-b border-border px-4 py-3">
             <Link
               to="/record"
@@ -49,6 +54,7 @@ function PostPage() {
           <FeedList
             key={view.id}
             params={{ scope: "replies", parent: view.id }}
+            hideReplyTo
             empty={<p className="py-10 text-center text-sm text-muted-foreground">{t("posts.noReplies")}</p>}
           />
         </>

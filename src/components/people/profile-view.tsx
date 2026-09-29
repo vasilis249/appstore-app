@@ -9,6 +9,7 @@ import { FeedList } from "@/components/posts/feed-list";
 import { FollowListSheet, type FollowTab } from "@/components/people/follow-list-sheet";
 import { UserAvatar } from "@/components/user-avatar";
 import { friendKeys, profileStats, type Person } from "@/lib/friends";
+import { cn } from "@/lib/utils";
 
 const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
 
@@ -16,6 +17,7 @@ const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
 export function ProfileView({ person, isMe, ownAction }: { person: Person; isMe: boolean; ownAction?: React.ReactNode }) {
   const { t } = useTranslation();
   const [tab, setTab] = useState<FollowTab | null>(null);
+  const [view, setView] = useState<"voices" | "replies">("voices");
   const stats = useQuery({ queryKey: friendKeys.stats(person.id), queryFn: () => profileStats(person.id) });
   const s = stats.data;
   const name = person.full_name || person.username;
@@ -63,16 +65,29 @@ export function ProfileView({ person, isMe, ownAction }: { person: Person; isMe:
               )}
         </div>
       </section>
-      <div className="border-t border-border pt-2">
+      <div className="flex border-y border-border">
+        {(["voices", "replies"] as const).map((k) => (
+          <button
+            key={k}
+            type="button"
+            onClick={() => setView(k)}
+            className={cn("relative flex-1 py-3 text-[15px] font-semibold", view === k ? "text-foreground" : "text-muted-foreground")}
+          >
+            {t(k === "voices" ? "people.voices" : "people.replies")}
+            {view === k && <span className="absolute inset-x-1/3 bottom-0 h-1 rounded-full bg-primary" />}
+          </button>
+        ))}
+      </div>
+      <div className="pt-2">
         <FeedList
-          key={person.id}
-          params={{ scope: "author", author: person.id }}
+          key={`${person.id}-${view}`}
+          params={view === "voices" ? { scope: "author", author: person.id } : { scope: "author_replies", author: person.id }}
           empty={
             <EmptyState
               icon={Mic}
-              text={isMe ? t("people.noVoicesMine") : t("people.noVoices")}
+              text={view === "replies" ? t("people.noReplies") : isMe ? t("people.noVoicesMine") : t("people.noVoices")}
               action={
-                isMe ? (
+                isMe && view === "voices" ? (
                   <Link to="/record" className="inline-flex h-12 items-center rounded-2xl bg-primary px-8 font-semibold text-primary-foreground">
                     {t("posts.speak")}
                   </Link>

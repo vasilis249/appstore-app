@@ -1163,7 +1163,9 @@
     "chooseSection": "Σε ποια ενότητα;",
     "publish": "Δημοσίευση",
     "published": "Ανέβηκε!",
-    "recordHint": "Πάτα και μίλα. Έως 2 λεπτά."
+    "recordHint": "Πάτα και μίλα. Έως 2 λεπτά.",
+    "replyingToUser": "Απάντηση σε",
+    "thread": "Συζήτηση"
   },
   "stories": {
     "yours": "Το story σου",
@@ -1422,6 +1424,8 @@
     "searchPlaceholder": "Αναζήτηση ονόματος ή username",
     "noVoices": "Δεν έχει ανεβάσει φωνές ακόμα.",
     "noVoicesMine": "Δεν έχεις ανεβάσει φωνές ακόμα.",
-    "followingCount": "Ακολουθεί"
+    "followingCount": "Ακολουθεί",
+    "replies": "Απαντήσεις",
+    "noReplies": "Καμία απάντηση ακόμα."
   }
 }
