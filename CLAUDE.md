@@ -3,6 +3,20 @@
 Persistent findings for Claude sessions. Reply to the user in Greek; code, comments and file names in English.
 Work in phases; stop after each phase for the user's "OK".
 
+## PIVOT (2026-09-29): voice-only social network — Phase 0 proposed, awaiting answers
+Spec (user): friends by username + requests; voice-only DMs with push-to-talk (live, also in background/locked
+via Apple PushToTalk) saved to history; listen-once enforced server-side (+ "opened" for sender, unopened
+expire after 10 days); daily voice post (max 90 s) unlocks friends' posts for the day, visible 24 h;
+calendar of own past posts; report/block/EULA/account deletion/mic text. Keep the current theme.
+- Architecture proposed: **hybrid** — keep Capacitor + web UI (theme, screens) and add a native Swift
+  Capacitor plugin (`VoiceKit`) for PushToTalk framework, audio record/playback/session, live transport SDK,
+  PTT push token. Standard pushes via `@capacitor/push-notifications`.
+- Live transport proposed: LiveKit (Cloud free tier first; self-host later). Clips: AAC-LC m4a mono 32 kbps;
+  DM transmission max 60 s; daily post max 90 s. Listen-once: edge function streams the bytes once, then
+  deletes the file and keeps a tombstone row (so the sender sees "opened").
+- Phases: 0 proposal → 1 cleanup & theme → 2 Supabase backend → 3 features one by one → 4 hardening/release.
+  Everything below this section describes the old court-booking app (to be deleted in Phase 1).
+
 ## Status / decisions
 - Phase 0 (audit): done.
 - **Approach: B — Capacitor** wrapping the hosted web app (server functions need a server).
