@@ -130,7 +130,7 @@ function ResetPasswordPage() {
       </p>
 
       {done ? (
-        <p className="mt-6 rounded-lg border border-optic/60 bg-optic/15 px-3 py-3 text-sm text-foreground">
+        <p className="mt-6 rounded-lg border border-border bg-secondary px-3 py-3 text-sm text-foreground">
           Ο κωδικός σου ενημερώθηκε. Σε ανακατευθύνουμε…
         </p>
       ) : linkInvalid && !sessionReady ? (
@@ -140,7 +140,7 @@ function ResetPasswordPage() {
           </p>
           <Link
             to="/forgot-password"
-            className="block w-full rounded-xl bg-primary py-3 text-center text-sm font-bold text-primary-foreground shadow-glow transition hover:opacity-90"
+            className="block w-full rounded-full bg-primary py-3.5 text-center text-sm font-bold text-primary-foreground transition hover:opacity-90"
           >
             Ζήτησε νέο σύνδεσμο
           </Link>
@@ -161,7 +161,7 @@ function ResetPasswordPage() {
             minLength={8}
             placeholder="Νέος κωδικός"
             disabled={!sessionReady}
-            className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary disabled:opacity-60"
+            className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-sm outline-none focus:border-muted-foreground disabled:opacity-60"
           />
           <input
             type="password"
@@ -171,7 +171,7 @@ function ResetPasswordPage() {
             minLength={8}
             placeholder="Επιβεβαίωση κωδικού"
             disabled={!sessionReady}
-            className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary disabled:opacity-60"
+            className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-sm outline-none focus:border-muted-foreground disabled:opacity-60"
           />
           {!sessionReady && !initializing && (
             <p className="rounded-lg border border-border bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
@@ -186,7 +186,7 @@ function ResetPasswordPage() {
           <button
             type="submit"
             disabled={loading || !sessionReady}
-            className="w-full rounded-xl bg-primary py-3 text-sm font-bold text-primary-foreground shadow-glow transition hover:opacity-90 disabled:opacity-60"
+            className="w-full rounded-full bg-primary py-3.5 text-sm font-bold text-primary-foreground transition hover:opacity-90 disabled:opacity-60"
           >
             {loading ? "..." : "Αποθήκευση"}
           </button>

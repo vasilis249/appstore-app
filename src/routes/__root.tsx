@@ -15,7 +15,6 @@ import appCss from "../styles.css?url";
 import { hydrateLanguage } from "../i18n";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BottomNav } from "../components/bottom-nav";
-import { TopBar } from "../components/top-bar";
 import { Toaster } from "@/components/ui/sonner";
 import { OfflineBanner } from "../components/offline-banner";
 import { initNativeShell } from "../lib/native";
@@ -31,7 +30,7 @@ function NotFoundComponent() {
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:opacity-90"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:opacity-90"
           >
             {t("errors.goHome")}
           </Link>
@@ -60,13 +59,13 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
           >
             {t("errors.tryAgain")}
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm font-medium"
+            className="inline-flex items-center justify-center rounded-full bg-secondary px-5 py-2.5 text-sm font-medium"
           >
             {t("errors.goHome")}
           </a>
@@ -116,7 +115,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="el">
+    <html lang="el" className="dark" style={{ colorScheme: "dark" }}>
       <head>
         <HeadContent />
       </head>
@@ -157,9 +156,8 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col pb-[calc(4rem+env(safe-area-inset-bottom,0px))]">
-        <TopBar />
-        <main className="mx-auto w-full max-w-lg flex-1">
+      <div className="min-h-screen flex flex-col pb-[calc(6rem+env(safe-area-inset-bottom,0px))]">
+        <main className="mx-auto flex w-full max-w-lg flex-1 flex-col">
           <Outlet />
         </main>
         <BottomNav />

@@ -14,13 +14,19 @@ report/block/EULA/account deletion/mic text. Keep the current theme.
 - Clips: web `MediaRecorder` (AAC/m4a mono 32 kbps where supported); DM max 60 s, daily post max 90 s.
   Listen-once: server streams the bytes once, deletes the file, keeps a tombstone row. pg_cron for expiry.
 - **Phase 1 (done):** all booking + Instagram-style code deleted (routes, components, api, hooks, geolocation,
-  recharts). Theme lives in ONE file `src/design-system.css` (tokens, base, safe areas, motion);
-  `src/styles.css` only imports it. Shell: `TopBar` = logo only; `BottomNav` = 4 icon tabs on all widths
-  (Feed `/`, `/messages`, `/calendar`, `/profile`, all under `_authenticated`, signed out → `/auth`);
-  `EmptyState` component (icon + one line); profile ⚙︎ → `SettingsSheet` (language, dark mode, contact/terms/
-  privacy, sign out, delete account). `/contact` is the contact page (`/help` gone). `useAuth` has no roles.
-  Signup has no role picker. Permissions-Policy now `microphone=(self)`; CSP: Maps removed, `media-src` added.
-  i18n keys `tabs.*`, `shell.*`; old locale keys still present (prune later). Info.plist: mic string, no location.
+  recharts, Geologica font). `useAuth` has no roles; signup has no role picker. `/contact` = contact page.
+- **Look = BeReal-like (user's reference screenshots), dark only.** Theme in ONE file `src/design-system.css`:
+  black bg, white text + white primary buttons (`bg-primary` = white), dark grey pills `bg-secondary #2c2c2e`,
+  grey text `#8e8e93`, `--coral #e4571c` only as a small accent (recording), `--badge` red. System font (SF Pro
+  on iPhone). `<html class="dark">` always; no theme toggle. iOS: `UIUserInterfaceStyle=Dark` (white status
+  bar), web view `backgroundColor #000`. Icon/splash/offline page are still orange (redo with the final name).
+- Structure: floating pill `BottomNav` with labels — Home `/`, Friends `/friends`, white mic circle `/record`,
+  Memories `/memories` (segmented pill Memories | Calendar, `?view=calendar`), Profile (avatar initial).
+  `AppHeader` (centered `Wordmark` "Courtsie." or title, `back`, left/right slots, `HeaderPill`); Home's right
+  pill = paper-plane → `/messages` (DMs) + bell → `/notifications`. Profile ⚙︎ pill → `SettingsSheet`
+  (language, contact/terms/privacy, sign out, delete). `EmptyState` = icon or bold title + one line + optional
+  white pill button. Buttons/inputs are rounded pills. Permissions-Policy `microphone=(self)`; CSP `media-src`.
+  i18n: `tabs.*`, `feed.*`, `friends.*`, `record.*`, `memories.*`, `messages.*`, `notificationsPage.*`.
 - Still old: `supabase/migrations/*` (live DB has the old schema), `types.ts`, `docs/security.md`, the sections
   below. Phase 2 = fresh baseline migration (drop old tables), voice buckets, RLS, consume RPC/function, pg_cron.
 - Phases: 0 proposal → 1 cleanup & theme → 2 Supabase backend → 3 features one by one → 4 hardening/release.
@@ -148,11 +154,9 @@ report/block/EULA/account deletion/mic text. Keep the current theme.
 ## UX principles (user requirement: as user-friendly as possible, "economy of content")
 - One primary action per screen; secondary actions in a sheet (vaul Drawer), never extra buttons.
 - No duplicated info (e.g. total matches only in the counts row; per-sport chips without a title).
-- Phones: bottom nav = 5 icon-only tabs (Home, Venues, ➕ Create sheet, Bookings, Profile); header =
-  logo + people search + inbox (MessagesButton) + bell. Language/theme/legal/sign-out/delete live in
-  the Settings sheet (⚙︎ on own profile). No floating chat button and no footer below `md`.
-- Pages use short segmented tabs (e.g. `PlayTabs`: Venues | Available times) instead of big titles.
-- Owners keep a labelled bottom nav (their sections have no obvious icons).
+- Nav: floating pill bottom nav (Home, Friends, mic, Memories, Profile) with labels; DMs + bell in the Home
+  header pill. Language/legal/sign-out/delete live in the Settings sheet (⚙︎ on own profile). No footer.
+- Pages use short segmented pills (e.g. Memories | Calendar) instead of big titles.
 - Empty states: one icon, one short line. Prefer icons + short labels; Greek copy short and neutral.
 
 ## Validating migrations locally

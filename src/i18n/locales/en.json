@@ -529,7 +529,8 @@
     "phone": "Contact phone",
     "phonePh": "Contact phone (e.g. 69…)",
     "phoneHint": "Visible only to the venue owner, and only while you have an active booking there.",
-    "phoneInvalid": "Phone must be 6–40 characters"
+    "phoneInvalid": "Phone must be 6–40 characters",
+    "voiceSoon": "Your voice, once a day."
   },
   "ownerDashboard": {
     "metaTitle": "Owner dashboard — Courtsie",
@@ -1170,7 +1171,6 @@
   },
   "settings": {
     "title": "Settings",
-    "darkMode": "Dark mode",
     "blocked": "Blocked accounts",
     "noBlocked": "No blocked accounts",
     "unblock": "Unblock"
@@ -1242,9 +1242,9 @@
     "discoverOn": "Turn on"
   },
   "feed": {
-    "emptyTitle": "Welcome!",
-    "emptyBody": "Follow players to see their posts and stories here.",
-    "explore": "Explore"
+    "emptyTitle": "It's really calm in here!",
+    "emptyText": "Your friends haven't spoken yet today. Be the first one.",
+    "recordCta": "Record your day"
   },
   "dm": {
     "title": "Messages",
@@ -1316,15 +1316,32 @@
     "open": "Open post"
   },
   "tabs": {
-    "feed": "Feed",
+    "feed": "Home",
+    "friends": "Friends",
+    "record": "Record",
+    "memories": "Memories",
+    "profile": "Profile",
     "messages": "Messages",
-    "calendar": "Calendar",
-    "profile": "Profile"
+    "notifications": "Notifications"
   },
-  "shell": {
-    "feedEmpty": "Today's voice is coming soon.",
-    "messagesEmpty": "No voice messages yet.",
-    "calendarEmpty": "Your posts will show up here.",
-    "profileEmpty": "Your friends will show up here."
+  "friends": {
+    "searchPlaceholder": "Search username",
+    "myFriends": "My friends",
+    "empty": "Find friends by their username."
+  },
+  "record": {
+    "title": "Voice of the day",
+    "hint": "Up to 90 seconds."
+  },
+  "memories": {
+    "list": "Memories",
+    "calendar": "Calendar",
+    "empty": "Your voices will stay here."
+  },
+  "messages": {
+    "empty": "No voice messages yet."
+  },
+  "notificationsPage": {
+    "empty": "No notifications."
   }
 }

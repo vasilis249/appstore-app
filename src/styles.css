@@ -1,5 +1,3 @@
 @import "tailwindcss" source(none);
-/* Self-hosted variable font with Greek glyphs (no request to Google). */
-@import "@fontsource-variable/geologica";
 @import "./design-system.css";
 @source "../src";

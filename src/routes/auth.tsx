@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate, Link, useSearch } from "@tanstack/react-r
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
+import { Wordmark } from "@/components/wordmark";
 import { mapAuthError } from "@/lib/auth-errors";
 import { authRedirectUrl } from "@/lib/native";
 import { Check } from "lucide-react";
@@ -90,7 +91,7 @@ function AuthPage() {
               onChange={(e) => setFullName(e.target.value)}
               required
               placeholder="Ονοματεπώνυμο"
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
+              className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-sm outline-none focus:border-muted-foreground"
             />
           </>
         )}
@@ -101,7 +102,7 @@ function AuthPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
           placeholder="Email"
-          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
+          className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-sm outline-none focus:border-muted-foreground"
         />
         <input
           type="password"
@@ -110,7 +111,7 @@ function AuthPage() {
           required
           minLength={mode === "signup" ? 8 : undefined}
           placeholder="Κωδικός"
-          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
+          className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-sm outline-none focus:border-muted-foreground"
         />
 
         {mode === "signup" && (
@@ -119,7 +120,7 @@ function AuthPage() {
               <li key={c.id} className="flex items-center gap-2 text-xs">
                 <span
                   className={`flex h-4 w-4 items-center justify-center rounded-full ${
-                    c.ok ? "bg-optic text-foreground" : "bg-muted text-muted-foreground"
+                    c.ok ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
                   }`}
                 >
                   {c.ok ? <Check className="h-3 w-3" strokeWidth={3} /> : null}
@@ -157,12 +158,12 @@ function AuthPage() {
             {error}
           </p>
         )}
-        {info && <p className="rounded-lg border border-optic/60 bg-optic/15 px-3 py-2 text-xs text-foreground">{info}</p>}
+        {info && <p className="rounded-lg border border-border bg-secondary px-3 py-2 text-xs text-foreground">{info}</p>}
 
         <button
           type="submit"
           disabled={loading || (mode === "signup" && (!passwordValid || !acceptedTerms))}
-          className="btn-shine w-full rounded-xl bg-primary py-3 text-sm font-bold text-primary-foreground shadow-glow transition hover:-translate-y-0.5 hover:opacity-95 disabled:translate-y-0 disabled:opacity-60"
+          className="w-full rounded-full bg-primary py-3.5 text-sm font-bold text-primary-foreground transition hover:opacity-95 disabled:opacity-60"
         >
           {loading ? "..." : mode === "signin" ? "Σύνδεση" : "Δημιουργία λογαριασμού"}
         </button>
@@ -190,8 +191,9 @@ function AuthPage() {
 
 export function AuthShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto flex min-h-[80vh] max-w-md flex-col px-4 pt-8">
-      <div className="animate-scale-in rounded-3xl border border-border/60 bg-card p-8 shadow-sm">{children}</div>
+    <div className="safe-top mx-auto flex min-h-screen max-w-md flex-col px-5">
+      <Wordmark className="mt-4 mb-10 text-center text-3xl" />
+      <div className="animate-fade-in-up">{children}</div>
     </div>
   );
 }

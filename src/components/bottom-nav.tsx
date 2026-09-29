@@ -1,37 +1,61 @@
 import { Link } from "@tanstack/react-router";
-import { CalendarDays, Headphones, MessageCircle, User } from "lucide-react";
+import { CalendarDays, Home, Mic, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/use-auth";
 
-/** Four icon-only tabs, on every screen size (the app is phone-first). */
+/**
+ * Floating pill nav (BeReal-like): Home, Friends, the white record button in the
+ * middle, Memories, Profile (avatar). Labels under icons; active tab gets a pill.
+ */
 export function BottomNav() {
   const { user } = useAuth();
   const { t } = useTranslation();
   if (!user) return null;
 
-  const tabs = [
-    { to: "/", label: t("tabs.feed"), icon: Headphones, exact: true },
-    { to: "/messages", label: t("tabs.messages"), icon: MessageCircle },
-    { to: "/calendar", label: t("tabs.calendar"), icon: CalendarDays },
-    { to: "/profile", label: t("tabs.profile"), icon: User },
-  ] as const;
+  const name = (user.user_metadata?.full_name as string | undefined) || user.email || "?";
+  const item =
+    "flex h-14 flex-col items-center justify-center gap-0.5 rounded-full text-[11px] font-medium text-foreground/90 transition-colors";
+  const active = { className: "bg-secondary text-foreground" };
 
   return (
-    <nav className="safe-bottom fixed bottom-0 left-0 right-0 z-40 border-t border-border/60 bg-background/95 backdrop-blur">
-      <ul className="mx-auto grid max-w-lg grid-cols-4 px-2">
-        {tabs.map(({ to, label, icon: Icon, ...rest }) => (
-          <li key={to}>
-            <Link
-              to={to}
-              aria-label={label}
-              className="flex h-14 items-center justify-center text-muted-foreground transition-colors"
-              activeProps={{ className: "text-primary" }}
-              activeOptions={{ exact: "exact" in rest }}
-            >
-              <Icon className="h-6 w-6" />
-            </Link>
-          </li>
-        ))}
+    <nav className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(env(safe-area-inset-bottom,0px),0.75rem)]">
+      <ul className="mx-auto grid max-w-lg grid-cols-5 items-center rounded-full border border-border bg-[#141415]/95 p-1 shadow-lg backdrop-blur">
+        <li>
+          <Link to="/" className={item} activeProps={active} activeOptions={{ exact: true }}>
+            <Home className="h-6 w-6" fill="currentColor" strokeWidth={1.5} />
+            <span>{t("tabs.feed")}</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/friends" className={item} activeProps={active}>
+            <Users className="h-6 w-6" strokeWidth={2} />
+            <span>{t("tabs.friends")}</span>
+          </Link>
+        </li>
+        <li className="flex justify-center">
+          <Link
+            to="/record"
+            aria-label={t("tabs.record")}
+            className="grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-md"
+            activeProps={{ className: "ring-4 ring-coral/60" }}
+          >
+            <Mic className="h-7 w-7" strokeWidth={2.2} />
+          </Link>
+        </li>
+        <li>
+          <Link to="/memories" className={item} activeProps={active}>
+            <CalendarDays className="h-6 w-6" strokeWidth={2} />
+            <span>{t("tabs.memories")}</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/profile" className={item} activeProps={active}>
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-muted-foreground/40 text-[11px] font-bold">
+              {name.charAt(0).toUpperCase()}
+            </span>
+            <span>{t("tabs.profile")}</span>
+          </Link>
+        </li>
       </ul>
     </nav>
   );

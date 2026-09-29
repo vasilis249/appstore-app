@@ -42,6 +42,8 @@ const config: CapacitorConfig = {
     // The web app pads itself with env(safe-area-inset-*) (viewport-fit=cover).
     contentInset: "never",
     scheme: "Courtsie",
+    // Black behind the web view (the app is dark-only), so no white flash on load.
+    backgroundColor: "#000000",
   },
   plugins: {
     SplashScreen: {

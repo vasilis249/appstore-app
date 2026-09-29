@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Settings, Users } from "lucide-react";
+import { Settings } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/use-auth";
-import { EmptyState } from "@/components/empty-state";
+import { AppHeader, HeaderPill } from "@/components/app-header";
 import { SettingsSheet } from "@/components/settings-sheet";
 
 export const Route = createFileRoute("/_authenticated/profile")({
@@ -17,23 +17,30 @@ function ProfilePage() {
   const name = (user?.user_metadata?.full_name as string | undefined) || user?.email || "";
 
   return (
-    <div className="px-4 pt-6">
-      <div className="flex items-center gap-3">
-        <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-primary text-2xl font-bold text-primary-foreground">
+    <>
+      <AppHeader
+        title={t("tabs.profile")}
+        right={
+          <HeaderPill>
+            <button
+              type="button"
+              onClick={() => setSettingsOpen(true)}
+              aria-label={t("settings.title")}
+              className="grid h-9 w-10 place-items-center rounded-full"
+            >
+              <Settings className="h-5 w-5" />
+            </button>
+          </HeaderPill>
+        }
+      />
+      <div className="flex flex-col items-center px-4 pt-8 text-center">
+        <span className="grid h-28 w-28 place-items-center rounded-full bg-secondary text-4xl font-bold">
           {name.charAt(0).toUpperCase()}
         </span>
-        <h1 className="min-w-0 flex-1 truncate font-display text-xl font-bold">{name}</h1>
-        <button
-          type="button"
-          onClick={() => setSettingsOpen(true)}
-          aria-label={t("settings.title")}
-          className="grid h-10 w-10 place-items-center rounded-xl text-foreground transition hover:bg-muted"
-        >
-          <Settings className="h-5 w-5" />
-        </button>
+        <h2 className="mt-4 text-2xl font-bold">{name}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t("profile.voiceSoon")}</p>
       </div>
-      <EmptyState icon={Users} text={t("shell.profileEmpty")} />
       <SettingsSheet open={settingsOpen} onOpenChange={setSettingsOpen} />
-    </div>
+    </>
   );
 }

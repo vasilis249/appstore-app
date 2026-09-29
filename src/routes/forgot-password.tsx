@@ -47,7 +47,7 @@ function ForgotPasswordPage() {
 
       {sent ? (
         <div className="mt-6 space-y-4">
-          <p className="rounded-lg border border-optic/60 bg-optic/15 px-3 py-3 text-sm text-foreground">
+          <p className="rounded-lg border border-border bg-secondary px-3 py-3 text-sm text-foreground">
             Σου στείλαμε email με link επαναφοράς κωδικού. Έλεγξε τα εισερχόμενά σου.
           </p>
           <Link
@@ -65,7 +65,7 @@ function ForgotPasswordPage() {
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="Email"
-            className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
+            className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-sm outline-none focus:border-muted-foreground"
           />
           {error && (
             <p className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
@@ -75,7 +75,7 @@ function ForgotPasswordPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-xl bg-primary py-3 text-sm font-bold text-primary-foreground shadow-glow transition hover:opacity-90 disabled:opacity-60"
+            className="w-full rounded-full bg-primary py-3.5 text-sm font-bold text-primary-foreground transition hover:opacity-90 disabled:opacity-60"
           >
             {loading ? "..." : "Αποστολή link"}
           </button>
