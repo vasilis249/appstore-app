@@ -667,10 +667,15 @@ export type Database = {
           listens_count: number
           orig_audio_path: string
           orig_author_avatar: string
+          orig_author_id: string
           orig_author_name: string
           orig_author_username: string
           orig_created_at: string
           orig_duration_ms: number
+          orig_likes_count: number
+          orig_listens_count: number
+          orig_replies_count: number
+          orig_reposts_count: number
           orig_title: string
           post_id: string
           replies_count: number

@@ -38,6 +38,21 @@ User decisions:
   admin topic RPCs, `profile_stats`), `block_user` also drops follows, reports accept kind `post`. Tests
   `test_speak.sql` (48). Live: applied, admin granted to the user's account, types regenerated, live smoke 12/12.
   Old `friendships`/`daily_posts` + their UI stay until S2/S3 replace them.
+- **S2 ✔ (feed UI)** — `src/lib/posts.ts` (FeedRow → `toView()` = PostView; plain repost shows the original with
+  its counters, credited "X reposted"; quote = own voice + original block; `createPost` uploads to
+  `voices/<uid>/<uuid>.<ext>` then `create_post`, removing the file on failure; like/repost/listen/delete),
+  `src/lib/queue.ts` (continuous playback: one `<audio>`, auto-advance, Media Session lock-screen controls, one
+  listen per post per session via `record_listen`; DM/memory clips pause it via `setExclusiveHandler`), iOS
+  `UIBackgroundModes audio`. Components `components/posts/*`: `PostCard` (X-style: author · time · ⋯, section ›
+  topic, title, player + waveform progress, reply/repost/like/listens/share), `FeedList` (infinite, cursor,
+  "Play all", queue without duplicate voices), `SectionChips`, `TopicStrip` (trending), `RepostSheet`, `PostMenu`
+  (delete own / report+block others via `PersonActionsSheet` kind `post`), `MiniPlayer` (above the nav; hidden in
+  a conversation and the composer). `useSections()` (names el/en + lucide icons). Routes: `/` (For you | Following
+  `?tab=following`), `/s/$sectionId`, `/t/$topicId` (source link + "Give your take"), `/p/$postId` (post, replies
+  oldest first, "Reply with your voice"), `/record?section|topic|reply|quote` (`VoiceRecorder` ring ≤ 2:00, title ≤ 100
+  except replies, section required for plain posts). Memories now = your own posts by day (several per day).
+  Migration `20261006100000_feed_one_post.sql`: scope `one` + orig counters/author on reposts. BeReal daily-post UI
+  removed (`lib/daily.ts` only keeps `today()` for the prompt timer). Local proxy serves `/object/public/…`.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -165,7 +180,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (65) + `test_speak.sql` (48).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (65) + `test_speak.sql` (49).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

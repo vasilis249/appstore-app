@@ -1,180 +1,143 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Mic, Pause, Play, RotateCcw, Square } from "lucide-react";
 import { toast } from "sonner";
 import { AppHeader } from "@/components/app-header";
-import { PostCard } from "@/components/daily/post-card";
+import { VoiceRecorder, type Clip } from "@/components/voice/voice-recorder";
 import { useAuth } from "@/hooks/use-auth";
-import { useRecorder } from "@/hooks/use-recorder";
-import { formatClock, player } from "@/lib/audio";
-import { dailyKeys, deleteDaily, getFeed, getToday, POST_MAX_MS, publishDaily } from "@/lib/daily";
+import { useSections } from "@/hooks/use-sections";
+import { formatClock } from "@/lib/audio";
 import { rpcErrorKey } from "@/lib/friends";
-import { splitDuration, useNow } from "@/hooks/use-now";
+import { createPost, fetchFeed, getTopic, POST_MAX_MS, postKeys, TITLE_MAX } from "@/lib/posts";
 import { promptPermission, requestPromptPermission, syncDailyPrompts } from "@/lib/prompt-notifications";
+import { cn } from "@/lib/utils";
+
+type Search = { section?: string; topic?: string; reply?: string; quote?: string };
 
 export const Route = createFileRoute("/_authenticated/record")({
-  component: RecordPage,
+  validateSearch: (s: Record<string, unknown>): Search => {
+    const str = (v: unknown) => (typeof v === "string" && v ? v : undefined);
+    return { section: str(s.section), topic: str(s.topic), reply: str(s.reply), quote: str(s.quote) };
+  },
+  component: ComposePage,
 });
 
-function RecordPage() {
-  const { t, i18n } = useTranslation();
-  const today = useQuery({ queryKey: dailyKeys.today, queryFn: getToday });
-  const feed = useQuery({ queryKey: dailyKeys.feed, queryFn: getFeed });
-  const mine = feed.data?.find((p) => p.is_mine);
-  const promptTime = today.data
-    ? new Date(today.data.prompt_at).toLocaleTimeString(i18n.language, { hour: "2-digit", minute: "2-digit" })
-    : "";
-
-  return (
-    <>
-      <AppHeader back title={t("record.title")} />
-      {today.data && (
-        <p className="text-center text-xs text-muted-foreground">{t("daily.promptAt", { time: promptTime })}</p>
-      )}
-      {today.data?.my_post_id ? mine ? <Posted post={mine} nextPromptAt={today.data.next_prompt_at} /> : null : today.data ? <Recorder /> : null}
-    </>
-  );
-}
-
-function Posted({ post, nextPromptAt }: { post: NonNullable<Awaited<ReturnType<typeof getFeed>>[number]>; nextPromptAt: string }) {
-  const { t } = useTranslation();
-  const now = useNow();
-  const next = splitDuration(new Date(nextPromptAt).getTime() - now);
-  const qc = useQueryClient();
-  const [confirm, setConfirm] = useState(false);
-  const del = useMutation({
-    mutationFn: () => deleteDaily(post),
-    onSuccess: () => qc.invalidateQueries({ queryKey: dailyKeys.all }),
-    onError: (e) => toast.error(t(rpcErrorKey(e))),
-  });
-  return (
-    <div className="flex flex-1 flex-col gap-4 px-4 pt-6">
-      <PostCard post={post} />
-      <p className="text-center text-sm text-muted-foreground">{t("daily.postedHint")}</p>
-      <p className="text-center text-sm font-semibold">
-        {t("daily.nextIn", { time: next.h ? t("time.hm", next) : t("time.m", next) })}
-      </p>
-      <button
-        type="button"
-        disabled={del.isPending}
-        onClick={() => (confirm ? del.mutate() : setConfirm(true))}
-        className="mx-auto h-10 rounded-full px-5 text-sm font-semibold text-destructive disabled:opacity-50"
-      >
-        {confirm ? t("daily.deleteConfirm") : t("daily.delete")}
-      </button>
-    </div>
-  );
-}
-
-/** Big round recorder with a 90-second progress ring. */
-function Recorder() {
+/** New voice post (≤ 2 min): in a section, on a topic, as a reply or as a quote. */
+function ComposePage() {
+  const search = Route.useSearch();
   const { t } = useTranslation();
   const { user } = useAuth();
   const qc = useQueryClient();
   const navigate = useNavigate();
-  const r = useRecorder(POST_MAX_MS);
-  const [previewing, setPreviewing] = useState(false);
+  const { sections, name, icon } = useSections();
+  const [clip, setClip] = useState<Clip | null>(null);
+  const [title, setTitle] = useState("");
+  const [section, setSection] = useState<string | undefined>(search.section);
+  const onChange = useCallback((c: Clip | null) => setClip(c), []);
 
-  useEffect(() => {
-    if (r.error) toast.error(t(r.error === "denied" ? "voice.micDenied" : "voice.unsupported"));
-  }, [r.error, t]);
+  const topic = useQuery({ queryKey: postKeys.topic(search.topic ?? ""), queryFn: () => getTopic(search.topic!), enabled: !!search.topic });
+  const parentId = search.reply ?? search.quote;
+  const parent = useQuery({
+    queryKey: postKeys.feed({ scope: "one", parent: parentId }),
+    queryFn: () => fetchFeed({ scope: "one", parent: parentId }),
+    enabled: !!parentId,
+  });
+  const p = parent.data?.[0];
+  const needsSection = !search.topic && !search.reply && !search.quote;
 
-  const publish = useMutation({
-    mutationFn: () => publishDaily(user!.id, r.clip!),
-    onSuccess: async () => {
-      player.stop();
-      await qc.invalidateQueries({ queryKey: dailyKeys.all });
-      toast.success(t("daily.published"));
-      void navigate({ to: "/" });
-      // Good moment to ask: they just used the feature the reminder is for.
-      if ((await promptPermission()) === "prompt" && (await requestPromptPermission()) === "granted") {
-        void syncDailyPrompts();
-      }
+  const post = useMutation({
+    mutationFn: () =>
+      createPost(user!.id, clip!, {
+        section: needsSection ? section : undefined,
+        topic: search.topic,
+        replyTo: search.reply,
+        quoteOf: search.quote,
+        title: search.reply ? undefined : title,
+      }),
+    onSuccess: async (id) => {
+      await qc.invalidateQueries({ queryKey: postKeys.all });
+      toast.success(t("posts.published"));
+      if (search.reply) void navigate({ to: "/p/$postId", params: { postId: search.reply }, replace: true });
+      else if (search.topic) void navigate({ to: "/t/$topicId", params: { topicId: search.topic }, replace: true });
+      else void navigate({ to: "/p/$postId", params: { postId: id }, replace: true });
+      // Good moment to offer the daily-topic reminder.
+      if ((await promptPermission()) === "prompt" && (await requestPromptPermission()) === "granted") void syncDailyPrompts();
     },
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });
 
-  const ms = r.state === "recorded" && r.clip ? r.clip.durationMs : r.elapsedMs;
-  const fraction = Math.min(1, ms / POST_MAX_MS);
-  const R = 76;
-  const C = 2 * Math.PI * R;
-
-  function preview() {
-    if (!r.clip) return;
-    if (previewing) {
-      player.stop();
-      setPreviewing(false);
-      return;
-    }
-    player.prime();
-    setPreviewing(true);
-    void player
-      .play(r.clip.blob, { durationMs: r.clip.durationMs, onEnd: () => setPreviewing(false) })
-      .catch(() => setPreviewing(false));
-  }
-
-  function main() {
-    if (r.state === "idle") void r.start();
-    else if (r.state === "recording") r.stop();
-    else preview();
-  }
-
-  const Icon = r.state === "idle" ? Mic : r.state === "recording" ? Square : previewing ? Pause : Play;
+  const heading = search.reply ? t("posts.reply") : search.quote ? t("posts.quote") : t("posts.newPost");
+  const ready = !!clip && (!needsSection || !!section) && !post.isPending;
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-6 px-8 py-10 text-center">
-      <div className="relative grid h-44 w-44 place-items-center">
-        <svg className="pointer-events-none absolute inset-0 -rotate-90" viewBox="0 0 176 176" aria-hidden>
-          <circle cx="88" cy="88" r={R} fill="none" stroke="currentColor" strokeWidth="6" className="text-secondary" />
-          <circle
-            cx="88" cy="88" r={R} fill="none" strokeWidth="6" strokeLinecap="round"
-            stroke="currentColor" className={r.state === "recording" ? "text-coral" : "text-foreground"}
-            strokeDasharray={C} strokeDashoffset={C * (1 - fraction)}
-          />
-        </svg>
+    <>
+      <AppHeader back title={heading} />
+      <div className="flex flex-1 flex-col gap-5 px-4 pb-8 pt-2">
+        {topic.data && (
+          <div className="rounded-2xl bg-card p-3 ring-1 ring-border">
+            <p className="text-xs text-muted-foreground">{name(topic.data.section_id)}</p>
+            <p className="font-semibold leading-snug">{topic.data.title}</p>
+          </div>
+        )}
+        {p && (
+          <div className="rounded-2xl bg-card p-3 ring-1 ring-border">
+            <p className="text-xs text-muted-foreground">
+              {search.reply ? t("posts.replyingTo") : t("posts.quoting")} @{p.author_username} · {formatClock(p.duration_ms ?? 0)}
+            </p>
+            {p.title && <p className="font-semibold leading-snug">{p.title}</p>}
+          </div>
+        )}
+
+        <VoiceRecorder maxMs={POST_MAX_MS} onChange={onChange} />
+
+        {!search.reply && (
+          <label className="block">
+            <input
+              value={title}
+              maxLength={TITLE_MAX}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder={t("posts.titlePlaceholder")}
+              className="h-12 w-full rounded-2xl bg-secondary px-4 text-base outline-none placeholder:text-muted-foreground"
+            />
+            <span className="mt-1 block text-right text-xs text-muted-foreground">{title.length}/{TITLE_MAX}</span>
+          </label>
+        )}
+
+        {needsSection && (
+          <div>
+            <p className="mb-2 text-sm font-semibold">{t("posts.chooseSection")}</p>
+            <div className="flex flex-wrap gap-2">
+              {sections.map((s) => {
+                const Icon = icon(s);
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => setSection(s.id)}
+                    aria-pressed={section === s.id}
+                    className={cn(
+                      "flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold",
+                      section === s.id ? "bg-primary text-primary-foreground" : "bg-secondary",
+                    )}
+                  >
+                    <Icon className="h-4 w-4" /> {name(s.id)}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         <button
           type="button"
-          onClick={main}
-          aria-label={r.state === "idle" ? t("voice.record") : r.state === "recording" ? t("voice.stop") : t("daily.play")}
-          className={
-            "grid h-32 w-32 place-items-center rounded-full shadow-lg " +
-            (r.state === "recording" ? "bg-coral text-white" : "bg-primary text-primary-foreground")
-          }
+          disabled={!ready}
+          onClick={() => post.mutate()}
+          className="mt-auto h-12 w-full rounded-full bg-primary font-semibold text-primary-foreground disabled:opacity-40"
         >
-          <Icon className="h-12 w-12" fill={r.state === "idle" ? "none" : "currentColor"} />
+          {post.isPending ? t("common.saving") : t("posts.publish")}
         </button>
       </div>
-      <p className="text-2xl font-bold tabular-nums">
-        {formatClock(ms)} <span className="text-base font-medium text-muted-foreground">/ {formatClock(POST_MAX_MS)}</span>
-      </p>
-      <p className="text-base text-muted-foreground">
-        {r.state === "idle" ? t("daily.recordHint") : r.state === "recording" ? t("daily.recordingHint") : t("daily.reviewHint")}
-      </p>
-      {r.state === "recorded" && (
-        <div className="flex w-full max-w-xs gap-3">
-          <button
-            type="button"
-            onClick={() => {
-              player.stop();
-              setPreviewing(false);
-              r.discard();
-            }}
-            className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-secondary font-semibold"
-          >
-            <RotateCcw className="h-4 w-4" /> {t("daily.retake")}
-          </button>
-          <button
-            type="button"
-            disabled={publish.isPending}
-            onClick={() => publish.mutate()}
-            className="h-12 flex-1 rounded-full bg-primary font-semibold text-primary-foreground disabled:opacity-50"
-          >
-            {t("daily.post")}
-          </button>
-        </div>
-      )}
-    </div>
+    </>
   );
 }

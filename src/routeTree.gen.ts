@@ -24,6 +24,9 @@ import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedRecordRouteImport } from './routes/_authenticated/record'
 import { Route as AuthenticatedMessagesIndexRouteImport } from './routes/_authenticated/messages.index'
 import { Route as AuthenticatedMessagesUserIdRouteImport } from './routes/_authenticated/messages.$userId'
+import { Route as AuthenticatedPPostIdRouteImport } from './routes/_authenticated/p.$postId'
+import { Route as AuthenticatedSSectionIdRouteImport } from './routes/_authenticated/s.$sectionId'
+import { Route as AuthenticatedTTopicIdRouteImport } from './routes/_authenticated/t.$topicId'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -102,6 +105,21 @@ const AuthenticatedMessagesUserIdRoute =
     path: '/messages/$userId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedPPostIdRoute = AuthenticatedPPostIdRouteImport.update({
+  id: '/p/$postId',
+  path: '/p/$postId',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSSectionIdRoute = AuthenticatedSSectionIdRouteImport.update({
+  id: '/s/$sectionId',
+  path: '/s/$sectionId',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTTopicIdRoute = AuthenticatedTTopicIdRouteImport.update({
+  id: '/t/$topicId',
+  path: '/t/$topicId',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -117,6 +135,9 @@ export interface FileRoutesByFullPath {
   '/profile': typeof AuthenticatedProfileRoute
   '/record': typeof AuthenticatedRecordRoute
   '/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
+  '/p/$postId': typeof AuthenticatedPPostIdRoute
+  '/s/$sectionId': typeof AuthenticatedSSectionIdRoute
+  '/t/$topicId': typeof AuthenticatedTTopicIdRoute
   '/messages/': typeof AuthenticatedMessagesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -133,6 +154,9 @@ export interface FileRoutesByTo {
   '/record': typeof AuthenticatedRecordRoute
   '/': typeof AuthenticatedIndexRoute
   '/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
+  '/p/$postId': typeof AuthenticatedPPostIdRoute
+  '/s/$sectionId': typeof AuthenticatedSSectionIdRoute
+  '/t/$topicId': typeof AuthenticatedTTopicIdRoute
   '/messages': typeof AuthenticatedMessagesIndexRoute
 }
 export interface FileRoutesById {
@@ -151,6 +175,9 @@ export interface FileRoutesById {
   '/_authenticated/record': typeof AuthenticatedRecordRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
+  '/_authenticated/p/$postId': typeof AuthenticatedPPostIdRoute
+  '/_authenticated/s/$sectionId': typeof AuthenticatedSSectionIdRoute
+  '/_authenticated/t/$topicId': typeof AuthenticatedTTopicIdRoute
   '/_authenticated/messages/': typeof AuthenticatedMessagesIndexRoute
 }
 export interface FileRouteTypes {
@@ -169,6 +196,9 @@ export interface FileRouteTypes {
     | '/profile'
     | '/record'
     | '/messages/$userId'
+    | '/p/$postId'
+    | '/s/$sectionId'
+    | '/t/$topicId'
     | '/messages/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -185,6 +215,9 @@ export interface FileRouteTypes {
     | '/record'
     | '/'
     | '/messages/$userId'
+    | '/p/$postId'
+    | '/s/$sectionId'
+    | '/t/$topicId'
     | '/messages'
   id:
     | '__root__'
@@ -202,6 +235,9 @@ export interface FileRouteTypes {
     | '/_authenticated/record'
     | '/_authenticated/'
     | '/_authenticated/messages/$userId'
+    | '/_authenticated/p/$postId'
+    | '/_authenticated/s/$sectionId'
+    | '/_authenticated/t/$topicId'
     | '/_authenticated/messages/'
   fileRoutesById: FileRoutesById
 }
@@ -322,6 +358,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMessagesUserIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/p/$postId': {
+      id: '/_authenticated/p/$postId'
+      path: '/p/$postId'
+      fullPath: '/p/$postId'
+      preLoaderRoute: typeof AuthenticatedPPostIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/s/$sectionId': {
+      id: '/_authenticated/s/$sectionId'
+      path: '/s/$sectionId'
+      fullPath: '/s/$sectionId'
+      preLoaderRoute: typeof AuthenticatedSSectionIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/t/$topicId': {
+      id: '/_authenticated/t/$topicId'
+      path: '/t/$topicId'
+      fullPath: '/t/$topicId'
+      preLoaderRoute: typeof AuthenticatedTTopicIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -333,6 +390,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRecordRoute: typeof AuthenticatedRecordRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedMessagesUserIdRoute: typeof AuthenticatedMessagesUserIdRoute
+  AuthenticatedPPostIdRoute: typeof AuthenticatedPPostIdRoute
+  AuthenticatedSSectionIdRoute: typeof AuthenticatedSSectionIdRoute
+  AuthenticatedTTopicIdRoute: typeof AuthenticatedTTopicIdRoute
   AuthenticatedMessagesIndexRoute: typeof AuthenticatedMessagesIndexRoute
 }
 
@@ -344,6 +404,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedRecordRoute: AuthenticatedRecordRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedMessagesUserIdRoute: AuthenticatedMessagesUserIdRoute,
+  AuthenticatedPPostIdRoute: AuthenticatedPPostIdRoute,
+  AuthenticatedSSectionIdRoute: AuthenticatedSSectionIdRoute,
+  AuthenticatedTTopicIdRoute: AuthenticatedTTopicIdRoute,
   AuthenticatedMessagesIndexRoute: AuthenticatedMessagesIndexRoute,
 }
 

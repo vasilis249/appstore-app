@@ -60,9 +60,6 @@ export function RealtimeSync() {
       .on("postgres_changes", { event: "*", schema: "public", table: "notifications" }, () => {
         void qc.invalidateQueries({ queryKey: notificationKeys.all });
       })
-      .on("postgres_changes", { event: "*", schema: "public", table: "daily_posts" }, () => {
-        void qc.invalidateQueries({ queryKey: dailyKeys.all });
-      })
       .subscribe();
     return () => {
       void supabase.removeChannel(channel);

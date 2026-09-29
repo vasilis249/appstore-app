@@ -1,60 +1,69 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { Mic } from "lucide-react";
 import { AppHeader, HomeHeaderActions } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
-import { PostCard } from "@/components/daily/post-card";
-import { dailyKeys, getFeed, getToday } from "@/lib/daily";
+import { FeedList } from "@/components/posts/feed-list";
+import { SectionChips } from "@/components/posts/section-chips";
+import { TopicStrip } from "@/components/posts/topic-strip";
+import { cn } from "@/lib/utils";
+
+type Tab = "foryou" | "following";
 
 export const Route = createFileRoute("/_authenticated/")({
-  component: FeedPage,
+  validateSearch: (s: Record<string, unknown>): { tab?: Tab } => (s.tab === "following" ? { tab: "following" } : {}),
+  component: HomePage,
 });
 
 function RecordCta() {
   const { t } = useTranslation();
   return (
-    <Link to="/record" className="inline-flex h-12 items-center rounded-2xl bg-primary px-8 font-semibold text-primary-foreground">
-      {t("feed.recordCta")}
+    <Link to="/record" className="inline-flex h-12 items-center gap-2 rounded-2xl bg-primary px-8 font-semibold text-primary-foreground">
+      <Mic className="h-5 w-5" /> {t("posts.speak")}
     </Link>
   );
 }
 
-/** Home: your post first, then friends' posts from the last 24 h (locked until you post). */
-function FeedPage() {
+/** Home: For you | Following, section chips, trending topics, then the feed. */
+function HomePage() {
   const { t } = useTranslation();
-  const today = useQuery({ queryKey: dailyKeys.today, queryFn: getToday });
-  // Posts older than 24 h drop out; a light refresh keeps the list honest.
-  const feed = useQuery({ queryKey: dailyKeys.feed, queryFn: getFeed, refetchInterval: 5 * 60_000 });
-  const posts = feed.data ?? [];
-  const friendsPosts = posts.filter((p) => !p.is_mine);
-  const unlocked = !!today.data?.unlocked;
-  const ready = today.data && feed.data;
+  const { tab = "foryou" } = Route.useSearch();
+  const tabCls = (on: boolean) =>
+    cn("relative flex-1 py-3 text-center text-[15px] font-semibold", on ? "text-foreground" : "text-muted-foreground");
+  const bar = <span className="absolute inset-x-1/3 bottom-0 h-1 rounded-full bg-primary" />;
 
   return (
     <>
       <AppHeader right={<HomeHeaderActions />} />
-      {ready && !posts.length && (
-        <EmptyState title={t("feed.emptyTitle")} text={t("feed.emptyText")} action={<RecordCta />} />
-      )}
-      {ready && posts.length > 0 && (
-        <div className="flex flex-col gap-3 px-4 pt-2">
-          {!unlocked && (
-            <section className="rounded-3xl bg-secondary p-5 text-center">
-              <h2 className="text-lg font-bold">{t("daily.lockedTitle")}</h2>
-              <p className="mt-1 text-sm text-muted-foreground">{t("daily.lockedText")}</p>
-              <div className="mt-4">
-                <RecordCta />
-              </div>
-            </section>
-          )}
-          {posts.map((p) => (
-            <PostCard key={p.post_id} post={p} />
-          ))}
-          {unlocked && !friendsPosts.length && (
-            <p className="py-8 text-center text-sm text-muted-foreground">{t("daily.noFriendsYet")}</p>
-          )}
-        </div>
-      )}
+      <div className="sticky top-[calc(env(safe-area-inset-top,0px)+4rem)] z-20 flex border-b border-border bg-background/90 backdrop-blur">
+        <Link to="/" search={{}} className={tabCls(tab === "foryou")}>
+          {t("posts.forYou")}
+          {tab === "foryou" && bar}
+        </Link>
+        <Link to="/" search={{ tab: "following" }} className={tabCls(tab === "following")}>
+          {t("posts.following")}
+          {tab === "following" && bar}
+        </Link>
+      </div>
+      <div className="pt-3">
+        {tab === "foryou" && (
+          <>
+            <SectionChips />
+            <TopicStrip />
+          </>
+        )}
+        <FeedList
+          key={tab}
+          params={{ scope: tab === "following" ? "following" : "all" }}
+          empty={
+            <EmptyState
+              title={t(tab === "following" ? "posts.emptyFollowingTitle" : "posts.emptyTitle")}
+              text={t(tab === "following" ? "posts.emptyFollowing" : "posts.empty")}
+              action={<RecordCta />}
+            />
+          }
+        />
+      </div>
     </>
   );
 }

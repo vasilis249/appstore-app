@@ -1,0 +1,39 @@
+import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import { Flame, Newspaper } from "lucide-react";
+import { useSections } from "@/hooks/use-sections";
+import { postKeys, trendingTopics } from "@/lib/posts";
+
+/** "Trending" topics as horizontal cards (optionally for one section). */
+export function TopicStrip({ section }: { section?: string }) {
+  const { t } = useTranslation();
+  const { name } = useSections();
+  const q = useQuery({ queryKey: postKeys.trending(section), queryFn: () => trendingTopics(section, 10) });
+  if (!q.data?.length) return null;
+  return (
+    <section className="pb-3">
+      <h2 className="flex items-center gap-1.5 px-4 pb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <Flame className="h-4 w-4" /> {t("posts.trending")}
+      </h2>
+      <div className="no-scrollbar flex gap-2 overflow-x-auto px-4">
+        {q.data.map((tp) => (
+          <Link
+            key={tp.id}
+            to="/t/$topicId"
+            params={{ topicId: tp.id }}
+            className="flex w-60 shrink-0 flex-col justify-between rounded-2xl bg-card p-3 ring-1 ring-border"
+          >
+            <span className="flex items-center gap-1 text-xs text-muted-foreground">
+              {tp.kind === "news" && <Newspaper className="h-3.5 w-3.5" />}
+              {name(tp.section_id)}
+              {tp.source_name && ` · ${tp.source_name}`}
+            </span>
+            <span className="mt-1 line-clamp-2 text-sm font-semibold leading-snug">{tp.title}</span>
+            <span className="mt-2 text-xs text-muted-foreground">{t("posts.voicesCount", { count: tp.posts_count })}</span>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}

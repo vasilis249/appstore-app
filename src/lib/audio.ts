@@ -50,6 +50,12 @@ function silentWav(): string {
 
 type PlayOptions = { onProgress?: (fraction: number) => void; onEnd?: () => void; durationMs?: number };
 
+// The feed queue (lib/queue.ts) registers here so a private clip starting pauses it.
+let onExclusive: (() => void) | null = null;
+export function setExclusiveHandler(fn: () => void) {
+  onExclusive = fn;
+}
+
 class ClipPlayer {
   private el: HTMLAudioElement | null = null;
   private url: string | null = null;
@@ -67,6 +73,7 @@ class ClipPlayer {
 
   /** Call synchronously inside the tap handler, before any await. */
   prime() {
+    onExclusive?.();
     const el = this.element();
     this.stop();
     el.src = silentWav();

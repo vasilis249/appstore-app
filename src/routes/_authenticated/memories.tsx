@@ -24,7 +24,7 @@ function MemoriesPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { view = "list" } = Route.useSearch();
-  const [open, setOpen] = useState<Memory | null>(null);
+  const [open, setOpen] = useState<Memory[] | null>(null);
   const memories = useQuery({ queryKey: memoryKeys.list, queryFn: () => listMemories(user!.id), enabled: !!user });
   const seg = "rounded-full px-5 py-2 text-sm font-semibold transition-colors";
 
@@ -59,17 +59,17 @@ function MemoriesPage() {
         ) : (
           <MemoryCalendar memories={memories.data} onOpen={setOpen} />
         ))}
-      <MemorySheet memory={open} onOpenChange={(o) => !o && setOpen(null)} />
+      <MemorySheet memories={open} onOpenChange={(o) => !o && setOpen(null)} />
     </>
   );
 }
 
 /** Month sections with one tile per day (newest first), like BeReal Memories. */
-function MemoryList({ memories, onOpen }: { memories: Memory[]; onOpen: (m: Memory) => void }) {
+function MemoryList({ memories, onOpen }: { memories: Memory[]; onOpen: (m: Memory[]) => void }) {
   const { i18n } = useTranslation();
   const months = useMemo(() => {
     const map = new Map<string, Memory[]>();
-    for (const m of memories) map.set(monthKey(m.moment), [...(map.get(monthKey(m.moment)) ?? []), m]);
+    for (const m of memories) map.set(monthKey(m.day), [...(map.get(monthKey(m.day)) ?? []), m]);
     return [...map.entries()];
   }, [memories]);
 
@@ -85,11 +85,15 @@ function MemoryList({ memories, onOpen }: { memories: Memory[]; onOpen: (m: Memo
                 <li key={m.id}>
                   <button
                     type="button"
-                    onClick={() => onOpen(m)}
+                    onClick={() => onOpen([m])}
                     className="flex aspect-[3/4] w-full flex-col justify-between rounded-2xl bg-card p-2.5 text-left ring-1 ring-border"
                   >
-                    <span className="text-3xl font-bold leading-none">{momentDate(m.moment).getDate()}</span>
-                    <Waveform seed={m.id} bars={14} className="h-8 flex-none" />
+                    <span className="text-3xl font-bold leading-none">{momentDate(m.day).getDate()}</span>
+                    {m.title ? (
+                      <span className="line-clamp-2 text-xs font-semibold leading-snug">{m.title}</span>
+                    ) : (
+                      <Waveform seed={m.id} bars={14} className="h-8 flex-none" />
+                    )}
                     <span className="text-xs tabular-nums text-muted-foreground">{formatClock(m.duration_ms)}</span>
                   </button>
                 </li>
@@ -103,12 +107,16 @@ function MemoryList({ memories, onOpen }: { memories: Memory[]; onOpen: (m: Memo
 }
 
 /** Month grid (Monday first); days with a voice are filled. */
-function MemoryCalendar({ memories, onOpen }: { memories: Memory[]; onOpen: (m: Memory) => void }) {
+function MemoryCalendar({ memories, onOpen }: { memories: Memory[]; onOpen: (m: Memory[]) => void }) {
   const { t, i18n } = useTranslation();
-  const byDay = useMemo(() => new Map(memories.map((m) => [m.moment, m])), [memories]);
+  const byDay = useMemo(() => {
+    const map = new Map<string, Memory[]>();
+    for (const m of memories) map.set(m.day, [...(map.get(m.day) ?? []), m]);
+    return map;
+  }, [memories]);
   const today = new Date();
   const [cursor, setCursor] = useState(() => new Date(today.getFullYear(), today.getMonth(), 1));
-  const oldest = momentDate(memories[memories.length - 1].moment);
+  const oldest = momentDate(memories[memories.length - 1].day);
   const canBack = cursor > new Date(oldest.getFullYear(), oldest.getMonth(), 1);
   const canForward = cursor < new Date(today.getFullYear(), today.getMonth(), 1);
 
@@ -119,7 +127,7 @@ function MemoryCalendar({ memories, onOpen }: { memories: Memory[]; onOpen: (m: 
   const weekdays = Array.from({ length: 7 }, (_, i) =>
     new Intl.DateTimeFormat(i18n.language, { weekday: "narrow" }).format(new Date(2024, 0, 1 + i)),
   );
-  const count = memories.filter((m) => monthKey(m.moment) === toMoment(cursor).slice(0, 7)).length;
+  const count = memories.filter((m) => monthKey(m.day) === toMoment(cursor).slice(0, 7)).length;
   const nav = "grid h-10 w-10 place-items-center rounded-full bg-secondary disabled:opacity-30";
 
   return (

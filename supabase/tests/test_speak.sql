@@ -116,6 +116,7 @@ SELECT pg_temp.ok('05e replies of a post', (SELECT count(*) FROM public.feed_pos
 SELECT pg_temp.ok('05f quote carries the original', (SELECT bool_and(orig_audio_path IS NOT NULL AND orig_author_username IS NOT NULL)
   FROM public.feed_posts('author', NULL, NULL, :B) WHERE repost_of IS NOT NULL));
 SELECT pg_temp.ok('05g trending topic', (SELECT recent_posts FROM public.trending_topics('tech') WHERE id = :'t1') = 1);
+SELECT pg_temp.ok('05g2 one post (replies included)', (SELECT count(*) FROM public.feed_posts('one', NULL, NULL, NULL, :'rb')) = 1);
 SELECT pg_temp.ok('05h bad scope', pg_temp.fails($$SELECT public.feed_posts('everything')$$));
 RESET ROLE;
 

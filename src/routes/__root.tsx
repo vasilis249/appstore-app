@@ -17,6 +17,9 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BottomNav } from "../components/bottom-nav";
 import { RealtimeSync } from "../components/realtime-sync";
 import { DailyPromptScheduler } from "../components/daily-prompt-scheduler";
+import { MiniPlayer } from "../components/posts/mini-player";
+import { useQueue } from "../lib/queue";
+import { useRouterState } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { OfflineBanner } from "../components/offline-banner";
 import { initNativeShell } from "../lib/native";
@@ -132,6 +135,11 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
+  const queue = useQueue();
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  // Screens with their own bottom controls hide the nav (conversation) or the player (composer, conversation).
+  const navShown = !/^\/messages\/./.test(path);
+  const playerShown = queue.index >= 0 && navShown && path !== "/record";
 
   useEffect(() => {
     hydrateLanguage();
@@ -158,11 +166,17 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col pb-[calc(6rem+env(safe-area-inset-bottom,0px))]">
+      <div
+        className={
+          "min-h-screen flex flex-col " +
+          (playerShown ? "pb-[calc(10.5rem+env(safe-area-inset-bottom,0px))]" : "pb-[calc(6rem+env(safe-area-inset-bottom,0px))]")
+        }
+      >
         <main className="mx-auto flex w-full max-w-lg flex-1 flex-col">
           <Outlet />
         </main>
         <BottomNav />
+        {playerShown && <MiniPlayer lifted />}
         <RealtimeSync />
         <DailyPromptScheduler />
         <OfflineBanner />
