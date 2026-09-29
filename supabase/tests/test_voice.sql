@@ -28,7 +28,7 @@ GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA pg_temp TO authenticated, anon;
 
 -- 01 profiles
 SELECT pg_temp.ok('01a usernames generated (Greek → Latin)',
-  (SELECT username FROM public.profiles WHERE id = :A) = 'annapapa'
+  (SELECT username FROM public.profiles WHERE id = :A) = 'anna.papa'
   AND (SELECT username FROM public.profiles WHERE id = :C) = 'christos');
 SELECT pg_temp.as_user(:A); SET ROLE authenticated;
 SELECT pg_temp.ok('01b can rename self', NOT pg_temp.fails($$UPDATE public.profiles SET username = 'anna' WHERE id = auth.uid()$$));

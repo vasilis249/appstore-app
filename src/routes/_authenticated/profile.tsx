@@ -2,9 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Settings } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "@/hooks/use-auth";
 import { AppHeader, HeaderPill } from "@/components/app-header";
+import { EditProfileSheet } from "@/components/edit-profile-sheet";
 import { SettingsSheet } from "@/components/settings-sheet";
+import { UserAvatar } from "@/components/user-avatar";
+import { useMyProfile } from "@/hooks/use-my-profile";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   component: ProfilePage,
@@ -12,9 +14,10 @@ export const Route = createFileRoute("/_authenticated/profile")({
 
 function ProfilePage() {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const me = useMyProfile();
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const name = (user?.user_metadata?.full_name as string | undefined) || user?.email || "";
+  const [editOpen, setEditOpen] = useState(false);
+  const p = me.data;
 
   return (
     <>
@@ -33,13 +36,21 @@ function ProfilePage() {
           </HeaderPill>
         }
       />
-      <div className="flex flex-col items-center px-4 pt-8 text-center">
-        <span className="grid h-28 w-28 place-items-center rounded-full bg-secondary text-4xl font-bold">
-          {name.charAt(0).toUpperCase()}
-        </span>
-        <h2 className="mt-4 text-2xl font-bold">{name}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">{t("profile.voiceSoon")}</p>
-      </div>
+      {p && (
+        <div className="flex flex-col items-center px-4 pt-8 text-center">
+          <UserAvatar name={p.full_name || p.username} path={p.avatar_path} size={112} />
+          <h2 className="mt-4 text-2xl font-bold">{p.full_name || p.username}</h2>
+          <p className="mt-0.5 text-base text-muted-foreground">{p.username}</p>
+          <button
+            type="button"
+            onClick={() => setEditOpen(true)}
+            className="mt-5 h-10 rounded-full bg-secondary px-6 text-sm font-semibold"
+          >
+            {t("profile.edit")}
+          </button>
+          <EditProfileSheet profile={p} open={editOpen} onOpenChange={setEditOpen} />
+        </div>
+      )}
       <SettingsSheet open={settingsOpen} onOpenChange={setSettingsOpen} />
     </>
   );

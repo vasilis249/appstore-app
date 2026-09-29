@@ -517,7 +517,7 @@
     "coach": "Προπονητής",
     "admin": "Διαχειριστής",
     "player": "Παίκτης",
-    "edit": "Επεξεργασία",
+    "edit": "Επεξεργασία προφίλ",
     "games": "Παιχνίδια",
     "rating": "Rating",
     "level": "Επίπεδο",
@@ -530,7 +530,10 @@
     "phonePh": "Τηλέφωνο επικοινωνίας (π.χ. 69…)",
     "phoneHint": "Ορατό μόνο στον ιδιοκτήτη του γηπέδου και μόνο όσο έχεις ενεργή κράτηση εκεί.",
     "phoneInvalid": "Το τηλέφωνο πρέπει να έχει 6–40 χαρακτήρες",
-    "voiceSoon": "Η φωνή σου, μία φορά τη μέρα."
+    "voiceSoon": "Η φωνή σου, μία φορά τη μέρα.",
+    "fullName": "Όνομα",
+    "username": "Username",
+    "usernameHint": "3–20 χαρακτήρες: a–z, 0–9, . και _"
   },
   "ownerDashboard": {
     "metaTitle": "Πίνακας ιδιοκτήτη — Courtsie",
@@ -1327,7 +1330,32 @@
   "friends": {
     "searchPlaceholder": "Αναζήτηση username",
     "myFriends": "Οι φίλοι μου",
-    "empty": "Βρες φίλους με το username τους."
+    "empty": "Βρες φίλους με το username τους.",
+    "add": "Προσθήκη",
+    "accept": "Αποδοχή",
+    "decline": "Απόρριψη",
+    "cancelRequest": "Ακύρωση",
+    "alreadyFriends": "Φίλοι",
+    "noResults": "Κανένας χρήστης.",
+    "requests": "Αιτήματα φιλίας",
+    "sentYouRequest": "Σου έστειλε αίτημα",
+    "myFriendsCount_one": "Οι φίλοι μου ({{count}})",
+    "myFriendsCount_other": "Οι φίλοι μου ({{count}})",
+    "sent": "Εκκρεμή",
+    "yourUsername": "Το username σου",
+    "shareText": "Βρες με στο Courtsie: {{username}}",
+    "copied": "Αντιγράφηκε",
+    "actions": "Ενέργειες",
+    "remove": "Αφαίρεση φίλου",
+    "report": "Αναφορά",
+    "block": "Μπλοκάρισμα",
+    "blockConfirm": "Δεν θα μπορεί να σε βρει ούτε να σου στείλει μηνύματα και θα βγει από τους φίλους σου.",
+    "removeConfirm": "Να βγει από τους φίλους σου;",
+    "done": {
+      "remove": "Αφαιρέθηκε",
+      "block": "Μπλοκαρίστηκε",
+      "report": "Η αναφορά στάλθηκε. Ευχαριστούμε."
+    }
   },
   "record": {
     "title": "Η φωνή της ημέρας",
@@ -1343,5 +1371,12 @@
   },
   "notificationsPage": {
     "empty": "Καμία ειδοποίηση."
+  },
+  "rpcErrors": {
+    "rateLimited": "Πολλές ενέργειες. Δοκίμασε σε λίγο.",
+    "usernameTaken": "Αυτό το username υπάρχει ήδη.",
+    "usernameFormat": "3–20 χαρακτήρες: a–z, 0–9, . και _",
+    "notAllowed": "Δεν επιτρέπεται.",
+    "notFound": "Δεν βρέθηκε."
   }
 }

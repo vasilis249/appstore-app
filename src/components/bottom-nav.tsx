@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { CalendarDays, Home, Mic, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/use-auth";
+import { useMyProfile } from "@/hooks/use-my-profile";
+import { UserAvatar } from "@/components/user-avatar";
 
 /**
  * Floating pill nav (BeReal-like): Home, Friends, the white record button in the
@@ -10,9 +12,10 @@ import { useAuth } from "@/hooks/use-auth";
 export function BottomNav() {
   const { user } = useAuth();
   const { t } = useTranslation();
+  const me = useMyProfile();
   if (!user) return null;
 
-  const name = (user.user_metadata?.full_name as string | undefined) || user.email || "?";
+  const name = me.data?.full_name || me.data?.username || (user.user_metadata?.full_name as string | undefined) || "?";
   const item =
     "flex h-14 flex-col items-center justify-center gap-0.5 rounded-full text-[11px] font-medium text-foreground/90 transition-colors";
   const active = { className: "bg-secondary text-foreground" };
@@ -50,9 +53,7 @@ export function BottomNav() {
         </li>
         <li>
           <Link to="/profile" className={item} activeProps={active}>
-            <span className="grid h-6 w-6 place-items-center rounded-full bg-muted-foreground/40 text-[11px] font-bold">
-              {name.charAt(0).toUpperCase()}
-            </span>
+            <UserAvatar name={name} path={me.data?.avatar_path} size={24} className="bg-muted-foreground/40" />
             <span>{t("tabs.profile")}</span>
           </Link>
         </li>

@@ -54,6 +54,15 @@ the same time for everyone; calendar of own past posts; report/block/EULA/accoun
 - UX principles: one primary action per screen; secondary actions in a sheet; no duplicated info; empty
   states = one icon/title + one short line; short neutral Greek copy.
 
+## Phase 3 progress
+- **Friends ✔** — `src/lib/friends.ts` (RPC wrappers, `friendKeys`, `rpcErrorKey` → `rpcErrors.*`),
+  `useMyProfile`, `UserAvatar`, `components/friends/PersonRow + PillButton + PersonActionsSheet` (remove /
+  report / block, destructive steps confirmed in the sheet). `/friends`: username search (debounced, ≥ 2 chars,
+  Add / Cancel / Accept), sections Requests (Accept + ✕), My friends (n), Pending; realtime on `friendships`;
+  "Your username" share row (Web Share, clipboard fallback). Profile: name + @username + Edit sheet (name,
+  username with format/uniqueness errors). Toasts: dark, top-center. Usernames IG-style (`maria.papadopoulou`).
+- Next: voice DMs (listen once).
+
 ## Backend (Supabase `gqmzxxygegmlifeewbzy`) — Phase 2 done
 - One baseline migration `supabase/migrations/20261003100000_voice_baseline.sql` (drops the old schema if
   present; keeps auth.users and backfills profiles). Applied live via the Management API

@@ -77,14 +77,16 @@ BEGIN
   INSERT INTO private.rate_events (user_id, action) VALUES (auth.uid(), p_action);
 END $$;
 
--- Greek → Latin, lower case, only [a-z0-9._], max 20 chars.
+-- Greek → Latin, lower case, words joined with ".", only [a-z0-9._], max 20 chars,
+-- no dots/underscores at the ends (e.g. "Μαρία Παπαδοπούλου" → "maria.papadopoulou").
 CREATE FUNCTION private.slugify(t text)
 RETURNS text LANGUAGE sql IMMUTABLE SET search_path = '' AS $$
-  SELECT left(regexp_replace(translate(
-    replace(replace(replace(replace(lower(coalesce(t, '')), 'θ', 'th'), 'χ', 'ch'), 'ψ', 'ps'), 'ξ', 'x'),
+  SELECT trim(BOTH '._' FROM left(trim(BOTH '._' FROM regexp_replace(regexp_replace(regexp_replace(translate(
+    replace(replace(replace(replace(replace(replace(lower(coalesce(t, '')),
+      'ού', 'ou'), 'ου', 'ou'), 'θ', 'th'), 'χ', 'ch'), 'ψ', 'ps'), 'ξ', 'x'),
     'αάβγδεέζηήιίϊΐκλμνοόπρσςτυύϋΰφωώ',
     'aavgdeeziiiiiiklmnooprsstyyyyfoo'),
-    '[^a-z0-9._]', '', 'g'), 20)
+    '\s+', '.', 'g'), '[^a-z0-9._]', '', 'g'), '\.{2,}', '.', 'g')), 20))
 $$;
 
 -- The day's prompt time: same for everyone, pseudo-random between 10:00 and 20:59 Athens time.
@@ -124,11 +126,10 @@ BEGIN
   base := private.slugify(coalesce(nullif(p_meta ->> 'username', ''), nullif(p_meta ->> 'full_name', ''),
                                    split_part(coalesce(p_email, ''), '@', 1)));
   IF char_length(base) < 3 THEN base := 'user' || base; END IF;
-  base := left(base, 15);
   candidate := base;
   WHILE EXISTS (SELECT 1 FROM public.profiles WHERE username = candidate) LOOP
     tries := tries + 1;
-    candidate := CASE WHEN tries < 20 THEN base || (1000 + floor(random() * 9000))::int::text
+    candidate := CASE WHEN tries < 20 THEN left(base, 16) || (1000 + floor(random() * 9000))::int::text
                       ELSE 'user' || substr(md5(random()::text), 1, 12) END;
   END LOOP;
   INSERT INTO public.profiles (id, username, full_name)

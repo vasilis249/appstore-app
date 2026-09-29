@@ -162,7 +162,8 @@ function RootComponent() {
         </main>
         <BottomNav />
         <OfflineBanner />
-        <Toaster />
+        {/* Top of the screen, clear of the floating nav; dark like the app. */}
+        <Toaster theme="dark" position="top-center" offset="calc(env(safe-area-inset-top, 0px) + 12px)" />
       </div>
     </QueryClientProvider>
   );

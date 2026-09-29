@@ -517,7 +517,7 @@
     "coach": "Coach",
     "admin": "Admin",
     "player": "Player",
-    "edit": "Edit",
+    "edit": "Edit profile",
     "games": "Games",
     "rating": "Rating",
     "level": "Level",
@@ -530,7 +530,10 @@
     "phonePh": "Contact phone (e.g. 69…)",
     "phoneHint": "Visible only to the venue owner, and only while you have an active booking there.",
     "phoneInvalid": "Phone must be 6–40 characters",
-    "voiceSoon": "Your voice, once a day."
+    "voiceSoon": "Your voice, once a day.",
+    "fullName": "Name",
+    "username": "Username",
+    "usernameHint": "3–20 characters: a–z, 0–9, . and _"
   },
   "ownerDashboard": {
     "metaTitle": "Owner dashboard — Courtsie",
@@ -1327,7 +1330,32 @@
   "friends": {
     "searchPlaceholder": "Search username",
     "myFriends": "My friends",
-    "empty": "Find friends by their username."
+    "empty": "Find friends by their username.",
+    "add": "Add",
+    "accept": "Accept",
+    "decline": "Decline",
+    "cancelRequest": "Cancel",
+    "alreadyFriends": "Friends",
+    "noResults": "No users.",
+    "requests": "Friend requests",
+    "sentYouRequest": "Sent you a request",
+    "myFriendsCount_one": "My friends ({{count}})",
+    "myFriendsCount_other": "My friends ({{count}})",
+    "sent": "Pending",
+    "yourUsername": "Your username",
+    "shareText": "Find me on Courtsie: {{username}}",
+    "copied": "Copied",
+    "actions": "Actions",
+    "remove": "Remove friend",
+    "report": "Report",
+    "block": "Block",
+    "blockConfirm": "They won't be able to find you or message you, and will be removed from your friends.",
+    "removeConfirm": "Remove from your friends?",
+    "done": {
+      "remove": "Removed",
+      "block": "Blocked",
+      "report": "Report sent. Thank you."
+    }
   },
   "record": {
     "title": "Voice of the day",
@@ -1343,5 +1371,12 @@
   },
   "notificationsPage": {
     "empty": "No notifications."
+  },
+  "rpcErrors": {
+    "rateLimited": "Too many actions. Try again soon.",
+    "usernameTaken": "That username is taken.",
+    "usernameFormat": "3–20 characters: a–z, 0–9, . and _",
+    "notAllowed": "Not allowed.",
+    "notFound": "Not found."
   }
 }
