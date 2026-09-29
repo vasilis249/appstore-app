@@ -2,13 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Mic } from "lucide-react";
+
 import { AppHeader } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
 import { PostCard } from "@/components/posts/post-card";
 import { fetchAncestors, fetchFeed, postKeys, toView, voiceUrl, type PostView } from "@/lib/posts";
 import { playQueue, type QueueItem } from "@/lib/queue";
+import { VoiceIcon } from "@/components/voice/voice-icon";
 
 export const Route = createFileRoute("/_authenticated/p/$postId")({
   component: PostPage,
@@ -48,7 +49,7 @@ function PostPage() {
               search={{ reply: view.id }}
               className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-secondary font-semibold"
             >
-              <Mic className="h-5 w-5" /> {t("posts.replyWithVoice")}
+              <VoiceIcon className="h-5 w-5" /> {t("posts.replyWithVoice")}
             </Link>
           </div>
           <FeedList

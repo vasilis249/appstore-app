@@ -345,7 +345,6 @@
     "titlePlaceholder": "Title (optional)",
     "publish": "Post",
     "published": "Posted!",
-    "recordHint": "Tap and speak. Up to 2 minutes.",
     "replyingToUser": "Replying to",
     "thread": "Thread",
     "where": "Where does it go?",
@@ -412,8 +411,6 @@
     "notFound": "Not found."
   },
   "voice": {
-    "record": "Record",
-    "stop": "Stop",
     "delete": "Delete",
     "send": "Send",
     "micDenied": "Allow microphone access in iPhone Settings.",
@@ -431,7 +428,12 @@
     "unheardCount_one": "New voice message",
     "unheardCount_other": "{{count}} new voice messages",
     "threadEmpty": "Send the first voice message. It can be heard only once.",
-    "friendsOnly": "Voice messages only between people who follow each other."
+    "friendsOnly": "Voice messages only between people who follow each other.",
+    "holdToTalk": "Hold and speak",
+    "releaseToStop": "Let go to stop",
+    "holdToTalkLimit": "Hold and speak · up to {{max}}",
+    "releaseToContinue": "let go to continue",
+    "navRecord": "New voice (hold to speak)"
   },
   "daily": {
     "locked": "Locked",
@@ -439,7 +441,6 @@
     "pause": "Pause",
     "delete": "Delete",
     "deleteConfirm": "Tap again to delete",
-    "recordingHint": "Tap to stop.",
     "retake": "Retake",
     "topicOfDay": "Topic of the day"
   },

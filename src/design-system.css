@@ -173,6 +173,14 @@
 @keyframes shimmer {
   100% { transform: translateX(100%); }
 }
+/* Voice mark while recording: each bar breathes (see VoiceIcon live). */
+@keyframes voice-bar {
+  0%, 100% { transform: scaleY(0.45); }
+  50% { transform: scaleY(1); }
+}
+.voice-live line { transform-box: fill-box; transform-origin: center; animation: voice-bar 800ms ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .voice-live line { animation: none; } }
+
 .animate-fade-in-up { animation: fade-in-up 600ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 .animate-scale-in { animation: scale-in 400ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 .animate-pulse-glow { animation: pulse-glow 2.8s ease-in-out infinite; }

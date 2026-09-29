@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import { Mic, Repeat2 } from "lucide-react";
+import { Repeat2 } from "lucide-react";
 import { toast } from "sonner";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { postKeys, repost, unrepost, type PostView } from "@/lib/posts";
 import { rpcErrorKey } from "@/lib/friends";
+import { VoiceIcon } from "@/components/voice/voice-icon";
 
 /** Repost / undo, or quote with your own voice. */
 export function RepostSheet({ post, onOpenChange }: { post: PostView | null; onOpenChange: (o: boolean) => void }) {
@@ -39,7 +40,7 @@ export function RepostSheet({ post, onOpenChange }: { post: PostView | null; onO
                 void navigate({ to: "/record", search: { quote: post!.id } });
               }}
             >
-              <Mic className="h-5 w-5" /> {t("posts.quote")}
+              <VoiceIcon className="h-5 w-5" /> {t("posts.quote")}
             </button>
           </div>
         </div>

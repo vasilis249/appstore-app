@@ -163,6 +163,16 @@ User decisions:
   (empty → "Βρες άτομα"); Groups = `MyGroupsStrip` + `groups`. Composer: "Πού ανήκει;" → Προσωπική (default) or a
   section (`?section=` preselects, `?news=1` forces a pick). PostCard: no category line on personal voices; section →
   `/?s=<id>`. i18n `home.*`, `posts.where/personal/personalHint/newsHint`. Browser 10/10.
+- **Push to talk + voice mark ✔ (user request)** — `components/voice/voice-icon.tsx` `VoiceIcon` (the user's symmetric
+  11-bar waveform; `live` = bars breathe, CSS `voice-live` in design-system.css) replaces every microphone icon.
+  `hooks/use-push-to-talk.ts` (hold = record, let go = stop; < 700 ms → discarded + "Κράτα πατημένο και μίλα", or
+  `onTap`; pointer capture, Space/Enter, no iOS callout). `useRecorder(maxMs, initial?)`: `start()` → Promise<bool>,
+  `discard()` works while the mic is still starting. `VoiceRecorder` (composer): one round button — hold (coral,
+  scaled, live bars, coral ring) → recorded = the same button plays back, "Ξανά" retakes. `RecordBar` (DMs): same
+  PTT button + hint/timer; recorded row = delete · play · send. `NavRecordButton` (nav centre): tap → /record, hold →
+  records from any screen (floating "0:05 / 2:00 · άφησε για συνέχεια"), let go → `setPendingClip` + /record placed
+  where you were (group / topic / News section or `news=1` / personal). Composer is focused: nav hidden on /record,
+  "Πού ανήκει" = one scrolling row, Publish sticky at the bottom. Browser 10/10.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 

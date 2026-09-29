@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { ChevronRight, Lock, Mic, MoreHorizontal } from "lucide-react";
+import { ChevronRight, Lock, MoreHorizontal } from "lucide-react";
 import { AppHeader } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
@@ -14,6 +14,7 @@ import { MembersList } from "@/components/groups/members-list";
 import { RequestsSheet } from "@/components/groups/requests-sheet";
 import { groupDetail, groupKeys } from "@/lib/groups";
 import { cn } from "@/lib/utils";
+import { VoiceIcon } from "@/components/voice/voice-icon";
 
 export const Route = createFileRoute("/_authenticated/g/$groupId/")({
   component: GroupPage,
@@ -95,7 +96,7 @@ function GroupPage() {
                   <FeedList
                     key={`group-${groupId}`}
                     params={{ scope: "group", group: groupId }}
-                    empty={<EmptyState icon={Mic} text={t(d.my_role ? "groups.emptyVoicesMember" : "groups.emptyVoices")} />}
+                    empty={<EmptyState icon={VoiceIcon} text={t(d.my_role ? "groups.emptyVoicesMember" : "groups.emptyVoices")} />}
                   />
                 ) : (
                   <MembersList groupId={groupId} myRole={d.my_role} />

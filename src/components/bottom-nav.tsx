@@ -1,13 +1,14 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { CalendarDays, Home, Mic, Search } from "lucide-react";
+import { CalendarDays, Home, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/use-auth";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { UserAvatar } from "@/components/user-avatar";
+import { NavRecordButton } from "@/components/voice/nav-record-button";
 
 /**
- * Floating pill nav (BeReal-like): Home, Friends, the white record button in the
- * middle, Memories, Profile (avatar). Labels under icons; active tab gets a pill.
+ * Floating pill nav: Home, Search, the round voice button in the middle (tap = compose, hold = push to talk),
+ * Memories, Profile (avatar). Labels under icons; active tab gets a pill.
  */
 /** Sign-in / sign-up / password pages (also shown right after sign-up, while already signed in). */
 export const AUTH_PATHS = /^\/(auth|forgot-password|reset-password)(\/|$)/;
@@ -18,7 +19,8 @@ export function BottomNav() {
   const me = useMyProfile();
   const path = useRouterState({ select: (s) => s.location.pathname });
   // A conversation has its own composer at the bottom; sign-in steps have their own button.
-  if (!user || /^\/messages\/./.test(path) || AUTH_PATHS.test(path)) return null;
+  // The composer is a focused screen (its own push-to-talk button and Publish at the bottom).
+  if (!user || /^\/messages\/./.test(path) || AUTH_PATHS.test(path) || path === "/record") return null;
 
   const name = me.data?.full_name || me.data?.username || (user.user_metadata?.full_name as string | undefined) || "?";
   const item =
@@ -41,14 +43,7 @@ export function BottomNav() {
           </Link>
         </li>
         <li className="flex justify-center">
-          <Link
-            to="/record"
-            aria-label={t("tabs.record")}
-            className="grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-md"
-            activeProps={{ className: "ring-4 ring-coral/60" }}
-          >
-            <Mic className="h-7 w-7" strokeWidth={2.2} />
-          </Link>
+          <NavRecordButton />
         </li>
         <li>
           <Link to="/memories" className={item} activeProps={active}>

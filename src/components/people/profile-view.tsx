@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Mic, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { FollowButton } from "@/components/friends/follow-button";
 import { FeedList } from "@/components/posts/feed-list";
@@ -10,6 +10,7 @@ import { FollowListSheet, type FollowTab } from "@/components/people/follow-list
 import { UserAvatar } from "@/components/user-avatar";
 import { friendKeys, profileStats, type Person } from "@/lib/friends";
 import { cn } from "@/lib/utils";
+import { VoiceIcon } from "@/components/voice/voice-icon";
 
 const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
 
@@ -84,7 +85,7 @@ export function ProfileView({ person, isMe, ownAction }: { person: Person; isMe:
           params={view === "voices" ? { scope: "author", author: person.id } : { scope: "author_replies", author: person.id }}
           empty={
             <EmptyState
-              icon={Mic}
+              icon={VoiceIcon}
               text={view === "replies" ? t("people.noReplies") : isMe ? t("people.noVoicesMine") : t("people.noVoices")}
               action={
                 isMe && view === "voices" ? (

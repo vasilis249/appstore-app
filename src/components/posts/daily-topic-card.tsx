@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Mic } from "lucide-react";
+
 import { dailyKeys, getToday } from "@/lib/daily";
+import { VoiceIcon } from "@/components/voice/voice-icon";
 
 /** "Topic of the day" at the top of Home: one quiet row — the question, and a mic to answer it. */
 export function DailyTopicCard() {
@@ -22,7 +23,7 @@ export function DailyTopicCard() {
         aria-label={t("posts.giveYourTake")}
         className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground active:scale-95"
       >
-        <Mic className="h-5 w-5" />
+        <VoiceIcon className="h-5 w-5" />
       </Link>
     </section>
   );

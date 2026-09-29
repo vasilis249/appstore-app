@@ -4,10 +4,10 @@ import { pickRecorderMime } from "@/lib/audio";
 export type RecorderState = "idle" | "recording" | "recorded";
 
 /** Microphone recorder with a hard time limit (auto-stops at `maxMs`). */
-export function useRecorder(maxMs: number) {
-  const [state, setState] = useState<RecorderState>("idle");
+export function useRecorder(maxMs: number, initial?: { blob: Blob; mime: string; durationMs: number } | null) {
+  const [state, setState] = useState<RecorderState>(initial ? "recorded" : "idle");
   const [elapsedMs, setElapsedMs] = useState(0);
-  const [clip, setClip] = useState<{ blob: Blob; mime: string; durationMs: number } | null>(null);
+  const [clip, setClip] = useState<{ blob: Blob; mime: string; durationMs: number } | null>(initial ?? null);
   const [error, setError] = useState<"denied" | "unsupported" | null>(null);
   const rec = useRef<MediaRecorder | null>(null);
   const stream = useRef<MediaStream | null>(null);
@@ -26,12 +26,13 @@ export function useRecorder(maxMs: number) {
     if (rec.current && rec.current.state !== "inactive") rec.current.stop();
   }, []);
 
-  const start = useCallback(async () => {
+  /** Resolves true once recording has begun (false: no microphone / not allowed). */
+  const start = useCallback(async (): Promise<boolean> => {
     setError(null);
     const mime = pickRecorderMime();
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
       setError("unsupported");
-      return;
+      return false;
     }
     try {
       stream.current = await navigator.mediaDevices.getUserMedia({
@@ -39,7 +40,7 @@ export function useRecorder(maxMs: number) {
       });
     } catch {
       setError("denied");
-      return;
+      return false;
     }
     const chunks: Blob[] = [];
     const r = new MediaRecorder(stream.current, { ...(mime ? { mimeType: mime } : {}), audioBitsPerSecond: 64000 });
@@ -66,18 +67,19 @@ export function useRecorder(maxMs: number) {
       setElapsedMs(ms);
       if (ms >= maxMs) stop();
     }, 100);
+    return true;
   }, [cleanup, maxMs, stop]);
 
   /** Cancel a recording in progress, or throw away the recorded clip. */
   const discard = useCallback(() => {
-    if (state === "recording") {
+    if (rec.current && rec.current.state !== "inactive") {
       discardNext.current = true;
-      stop();
+      rec.current.stop();
     }
     setClip(null);
     setElapsedMs(0);
     setState("idle");
-  }, [state, stop]);
+  }, []);
 
   useEffect(
     () => () => {

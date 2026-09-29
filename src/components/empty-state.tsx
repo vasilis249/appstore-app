@@ -1,5 +1,4 @@
-import type { ReactNode } from "react";
-import type { LucideIcon } from "lucide-react";
+import type { ComponentType, ReactNode } from "react";
 
 /** Empty screen: optional icon, a bold line, one short sentence, optional action. */
 export function EmptyState({
@@ -8,7 +7,7 @@ export function EmptyState({
   text,
   action,
 }: {
-  icon?: LucideIcon;
+  icon?: ComponentType<{ className?: string; strokeWidth?: number }>;
   title?: string;
   text: string;
   action?: ReactNode;

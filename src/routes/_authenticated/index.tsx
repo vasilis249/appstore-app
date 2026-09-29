@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Mic, Play, Search } from "lucide-react";
+import { Play, Search } from "lucide-react";
 import { AppHeader, HomeHeaderActions } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
@@ -13,6 +13,7 @@ import { useMyProfile } from "@/hooks/use-my-profile";
 import { useSections } from "@/hooks/use-sections";
 import type { FeedParams } from "@/lib/posts";
 import { cn } from "@/lib/utils";
+import { VoiceIcon } from "@/components/voice/voice-icon";
 
 type Tab = "news" | "following" | "groups";
 const TABS: Tab[] = ["news", "following", "groups"];
@@ -130,7 +131,7 @@ function SayYourOwn() {
       <UserAvatar name={name} path={me.data?.avatar_path ?? null} size={36} />
       <span className="flex-1 text-[15px] text-muted-foreground">{t("home.sayYourOwn")}</span>
       <span className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground">
-        <Mic className="h-4 w-4" />
+        <VoiceIcon className="h-4 w-4" />
       </span>
     </Link>
   );
@@ -169,7 +170,7 @@ function Empty({ tab, section }: { tab: Tab; section?: string }) {
       text={t("posts.empty")}
       action={
         <Link to="/record" search={section ? { section } : { news: 1 }} className={pill}>
-          <Mic className="h-5 w-5" /> {t("posts.speak")}
+          <VoiceIcon className="h-5 w-5" /> {t("posts.speak")}
         </Link>
       }
     />

@@ -1,13 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { ExternalLink, Mic } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { AppHeader } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
 import { useSections } from "@/hooks/use-sections";
 import { getTopic, postKeys } from "@/lib/posts";
 import { timeAgo } from "@/lib/time-ago";
+import { VoiceIcon } from "@/components/voice/voice-icon";
 
 export const Route = createFileRoute("/_authenticated/t/$topicId")({
   component: TopicPage,
@@ -44,7 +45,7 @@ function TopicPage() {
               search={{ topic: tp.id }}
               className="mt-4 flex h-12 items-center justify-center gap-2 rounded-2xl bg-primary font-semibold text-primary-foreground"
             >
-              <Mic className="h-5 w-5" /> {t("posts.giveYourTake")}
+              <VoiceIcon className="h-5 w-5" /> {t("posts.giveYourTake")}
             </Link>
           </section>
           <FeedList params={{ scope: "topic", topic: tp.id }} empty={<EmptyState text={t("posts.emptyTopic")} />} />

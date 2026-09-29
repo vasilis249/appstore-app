@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Mic, UserPlus } from "lucide-react";
+import { UserPlus } from "lucide-react";
 import { toast } from "sonner";
 import { groupKeys, joinGroup, leaveGroup, type GroupDetail } from "@/lib/groups";
 import { rpcErrorKey } from "@/lib/friends";
 import { postKeys } from "@/lib/posts";
 import { cn } from "@/lib/utils";
+import { VoiceIcon } from "@/components/voice/voice-icon";
 
 const pill = "flex h-11 flex-1 items-center justify-center gap-2 rounded-full text-[15px] font-semibold active:opacity-80 disabled:opacity-50";
 
@@ -45,7 +46,7 @@ export function GroupActions({ group, onInvite }: { group: GroupDetail; onInvite
     return (
       <div className="flex gap-2">
         <Link to="/record" search={{ group: group.id }} className={cn(pill, "bg-primary text-primary-foreground")}>
-          <Mic className="h-4 w-4" /> {t("groups.speak")}
+          <VoiceIcon className="h-4 w-4" /> {t("groups.speak")}
         </Link>
         <button type="button" onClick={onInvite} className={cn(pill, "bg-secondary")}>
           <UserPlus className="h-4 w-4" /> {t("groups.invite")}

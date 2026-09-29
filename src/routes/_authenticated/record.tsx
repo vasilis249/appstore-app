@@ -12,6 +12,7 @@ import { formatClock } from "@/lib/audio";
 import { rpcErrorKey } from "@/lib/friends";
 import { createPost, fetchFeed, getTopic, POST_MAX_MS, postKeys, TITLE_MAX } from "@/lib/posts";
 import { groupDetail, groupKeys } from "@/lib/groups";
+import { takePendingClip } from "@/lib/pending-clip";
 import { promptPermission, requestPromptPermission, syncDailyPrompts } from "@/lib/prompt-notifications";
 import { cn } from "@/lib/utils";
 
@@ -37,6 +38,8 @@ function ComposePage() {
   const navigate = useNavigate();
   const { sections, name, icon } = useSections();
   const [clip, setClip] = useState<Clip | null>(null);
+  // Held the nav button somewhere → the voice is already recorded.
+  const [initialClip] = useState(() => takePendingClip());
   const [title, setTitle] = useState("");
   // "personal" or a section id; null = not chosen yet (came from News → must pick a section).
   const [place, setPlace] = useState<string | null>(search.section ?? (search.news ? null : "personal"));
@@ -83,7 +86,7 @@ function ComposePage() {
   return (
     <>
       <AppHeader back title={heading} />
-      <div className="flex flex-1 flex-col gap-5 px-4 pb-8 pt-2">
+      <div className="flex flex-1 flex-col gap-5 px-4 pt-2">
         {topic.data && (
           <div className="rounded-2xl bg-card p-3 ring-1 ring-border">
             <p className="text-xs text-muted-foreground">{name(topic.data.section_id)}</p>
@@ -105,7 +108,7 @@ function ComposePage() {
           </div>
         )}
 
-        <VoiceRecorder maxMs={POST_MAX_MS} onChange={onChange} />
+        <VoiceRecorder maxMs={POST_MAX_MS} onChange={onChange} initialClip={initialClip} />
 
         {!search.reply && (
           <label className="block">
@@ -123,7 +126,7 @@ function ComposePage() {
         {needsPlace && (
           <div>
             <p className="mb-2 text-sm font-semibold">{t("posts.where")}</p>
-            <div className="flex flex-wrap gap-2">
+            <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4">
               {[{ id: "personal" }, ...sections].map((s) => {
                 const Icon = s.id === "personal" ? User : icon(s.id);
                 return (
@@ -133,7 +136,7 @@ function ComposePage() {
                     onClick={() => setPlace(s.id)}
                     aria-pressed={place === s.id}
                     className={cn(
-                      "flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold",
+                      "flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold",
                       place === s.id ? "bg-primary text-primary-foreground" : "bg-secondary",
                     )}
                   >
@@ -150,14 +153,16 @@ function ComposePage() {
           </div>
         )}
 
-        <button
-          type="button"
-          disabled={!ready}
-          onClick={() => post.mutate()}
-          className="mt-auto h-12 w-full rounded-full bg-primary font-semibold text-primary-foreground disabled:opacity-40"
-        >
-          {post.isPending ? t("common.saving") : t("posts.publish")}
-        </button>
+        <div className="safe-bottom sticky bottom-0 -mx-4 mt-auto bg-background px-4 pb-3 pt-2">
+          <button
+            type="button"
+            disabled={!ready}
+            onClick={() => post.mutate()}
+            className="h-12 w-full rounded-full bg-primary font-semibold text-primary-foreground disabled:opacity-40"
+          >
+            {post.isPending ? t("common.saving") : t("posts.publish")}
+          </button>
+        </div>
       </div>
     </>
   );

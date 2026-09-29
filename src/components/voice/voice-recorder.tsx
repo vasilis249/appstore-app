@@ -1,17 +1,32 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Mic, Pause, Play, RotateCcw, Square } from "lucide-react";
+import { Pause, Play, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
+import { VoiceIcon } from "@/components/voice/voice-icon";
 import { useRecorder } from "@/hooks/use-recorder";
+import { usePushToTalk } from "@/hooks/use-push-to-talk";
 import { formatClock, player } from "@/lib/audio";
+import { cn } from "@/lib/utils";
 
 export type Clip = { blob: Blob; mime: string; durationMs: number };
 
-/** Big round recorder with a progress ring: record → stop → listen back / retake. */
-export function VoiceRecorder({ maxMs, onChange }: { maxMs: number; onChange: (clip: Clip | null) => void }) {
+/**
+ * Push to talk: hold the round button and speak, let go to stop (a coral ring fills up to the limit).
+ * Then the same button plays it back; "Again" starts over. `initialClip` = already recorded (from the nav button).
+ */
+export function VoiceRecorder({
+  maxMs,
+  onChange,
+  initialClip,
+}: {
+  maxMs: number;
+  onChange: (clip: Clip | null) => void;
+  initialClip?: Clip | null;
+}) {
   const { t } = useTranslation();
-  const r = useRecorder(maxMs);
+  const r = useRecorder(maxMs, initialClip);
   const [previewing, setPreviewing] = useState(false);
+  const ptt = usePushToTalk(r, { onTooShort: () => toast(t("voice.holdToTalk")) });
 
   useEffect(() => {
     if (r.error) toast.error(t(r.error === "denied" ? "voice.micDenied" : "voice.unsupported"));
@@ -19,14 +34,13 @@ export function VoiceRecorder({ maxMs, onChange }: { maxMs: number; onChange: (c
   useEffect(() => onChange(r.state === "recorded" ? r.clip : null), [r.state, r.clip, onChange]);
   useEffect(() => () => player.stop(), []);
 
-  const ms = r.state === "recorded" && r.clip ? r.clip.durationMs : r.elapsedMs;
-  const fraction = Math.min(1, ms / maxMs);
-  const R = 76;
+  const recorded = r.state === "recorded" && !!r.clip;
+  const live = r.state === "recording";
+  const ms = recorded ? r.clip!.durationMs : r.elapsedMs;
+  const R = 80;
   const C = 2 * Math.PI * R;
 
-  function main() {
-    if (r.state === "idle") return void r.start();
-    if (r.state === "recording") return r.stop();
+  function playBack() {
     if (!r.clip) return;
     if (previewing) {
       player.stop();
@@ -40,31 +54,46 @@ export function VoiceRecorder({ maxMs, onChange }: { maxMs: number; onChange: (c
       .catch(() => setPreviewing(false));
   }
 
-  const Icon = r.state === "idle" ? Mic : r.state === "recording" ? Square : previewing ? Pause : Play;
   return (
-    <div className="flex flex-col items-center gap-3">
-      <div className="relative grid h-44 w-44 place-items-center">
-        <svg className="pointer-events-none absolute inset-0 -rotate-90" viewBox="0 0 176 176" aria-hidden>
-          <circle cx="88" cy="88" r={R} fill="none" stroke="currentColor" strokeWidth="6" className="text-secondary" />
-          <circle
-            cx="88" cy="88" r={R} fill="none" strokeWidth="6" strokeLinecap="round" stroke="currentColor"
-            className={r.state === "recording" ? "text-coral" : "text-foreground"}
-            strokeDasharray={C} strokeDashoffset={C * (1 - fraction)}
-          />
+    <div className="flex select-none flex-col items-center gap-4 py-2">
+      <div className="relative grid h-[184px] w-[184px] place-items-center">
+        <svg className="pointer-events-none absolute inset-0 -rotate-90" viewBox="0 0 184 184" aria-hidden>
+          <circle cx="92" cy="92" r={R} fill="none" stroke="currentColor" strokeWidth="4" className="text-secondary" />
+          {(live || recorded) && (
+            <circle
+              cx="92" cy="92" r={R} fill="none" strokeWidth="4" strokeLinecap="round" stroke="currentColor"
+              className={live ? "text-coral" : "text-foreground/60"}
+              strokeDasharray={C} strokeDashoffset={C * (1 - Math.min(1, ms / maxMs))}
+            />
+          )}
         </svg>
-        <button
-          type="button"
-          onClick={main}
-          aria-label={r.state === "idle" ? t("voice.record") : r.state === "recording" ? t("voice.stop") : t("daily.play")}
-          className={"grid h-32 w-32 place-items-center rounded-full shadow-lg " + (r.state === "recording" ? "bg-coral text-white" : "bg-primary text-primary-foreground")}
-        >
-          <Icon className="h-12 w-12" fill={r.state === "idle" ? "none" : "currentColor"} />
-        </button>
+        {recorded ? (
+          <button
+            type="button"
+            onClick={playBack}
+            aria-label={previewing ? t("daily.pause") : t("daily.play")}
+            className="grid h-32 w-32 place-items-center rounded-full bg-primary text-primary-foreground active:scale-95"
+          >
+            {previewing ? <Pause className="h-11 w-11" fill="currentColor" /> : <Play className="ml-1 h-11 w-11" fill="currentColor" />}
+          </button>
+        ) : (
+          <button
+            type="button"
+            {...ptt.bind}
+            aria-label={t("voice.holdToTalk")}
+            className={cn(
+              "grid h-32 w-32 place-items-center rounded-full transition-transform duration-150",
+              live || ptt.holding ? "scale-110 bg-coral text-white" : "bg-primary text-primary-foreground",
+            )}
+          >
+            <VoiceIcon className="h-14 w-14" strokeWidth={1.8} live={live} />
+          </button>
+        )}
       </div>
-      <p className="text-2xl font-bold tabular-nums">
-        {formatClock(ms)} <span className="text-base font-medium text-muted-foreground">/ {formatClock(maxMs)}</span>
-      </p>
-      {r.state === "recorded" ? (
+
+      <p className={cn("text-3xl font-bold tabular-nums", !live && !recorded && "text-muted-foreground")}>{formatClock(ms)}</p>
+
+      {recorded ? (
         <button
           type="button"
           onClick={() => {
@@ -72,12 +101,14 @@ export function VoiceRecorder({ maxMs, onChange }: { maxMs: number; onChange: (c
             setPreviewing(false);
             r.discard();
           }}
-          className="flex h-10 items-center gap-2 rounded-full bg-secondary px-5 text-sm font-semibold"
+          className="flex h-9 items-center gap-1.5 text-sm font-semibold text-muted-foreground"
         >
           <RotateCcw className="h-4 w-4" /> {t("daily.retake")}
         </button>
       ) : (
-        <p className="text-sm text-muted-foreground">{t(r.state === "recording" ? "daily.recordingHint" : "posts.recordHint")}</p>
+        <p className="text-sm text-muted-foreground">
+          {live ? t("voice.releaseToStop") : t("voice.holdToTalkLimit", { max: formatClock(maxMs) })}
+        </p>
       )}
     </div>
   );
