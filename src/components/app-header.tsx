@@ -4,6 +4,8 @@ import { Bell, ChevronLeft, Send } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Wordmark } from "@/components/wordmark";
 import { useUnheardCount } from "@/hooks/use-threads";
+import { useQuery } from "@tanstack/react-query";
+import { notificationKeys, unreadCount } from "@/lib/notifications";
 
 /**
  * Screen header: centered wordmark (or a title / custom center) with optional
@@ -85,12 +87,13 @@ export function HeaderIconLink({
 export function HomeHeaderActions() {
   const { t } = useTranslation();
   const unheard = useUnheardCount();
+  const unread = useQuery({ queryKey: notificationKeys.unread, queryFn: unreadCount });
   return (
     <HeaderPill>
       <HeaderIconLink to="/messages" label={t("tabs.messages")} badge={unheard}>
         <Send className="h-5 w-5" />
       </HeaderIconLink>
-      <HeaderIconLink to="/notifications" label={t("tabs.notifications")}>
+      <HeaderIconLink to="/notifications" label={t("tabs.notifications")} badge={unread.data}>
         <Bell className="h-5 w-5" />
       </HeaderIconLink>
     </HeaderPill>

@@ -12,6 +12,7 @@ import { formatClock, player } from "@/lib/audio";
 import { dailyKeys, deleteDaily, getFeed, getToday, POST_MAX_MS, publishDaily } from "@/lib/daily";
 import { rpcErrorKey } from "@/lib/friends";
 import { splitDuration, useNow } from "@/hooks/use-now";
+import { promptPermission, requestPromptPermission, syncDailyPrompts } from "@/lib/prompt-notifications";
 
 export const Route = createFileRoute("/_authenticated/record")({
   component: RecordPage,
@@ -87,6 +88,10 @@ function Recorder() {
       await qc.invalidateQueries({ queryKey: dailyKeys.all });
       toast.success(t("daily.published"));
       void navigate({ to: "/" });
+      // Good moment to ask: they just used the feature the reminder is for.
+      if ((await promptPermission()) === "prompt" && (await requestPromptPermission()) === "granted") {
+        void syncDailyPrompts();
+      }
     },
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });

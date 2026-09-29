@@ -1176,7 +1176,9 @@
     "title": "Settings",
     "blocked": "Blocked accounts",
     "noBlocked": "No blocked accounts",
-    "unblock": "Unblock"
+    "unblock": "Unblock",
+    "dailyPrompt": "Daily reminder",
+    "dailyPromptDenied": "Allow notifications in iPhone Settings."
   },
   "posts": {
     "new": "New post",
@@ -1374,7 +1376,9 @@
     "empty": "No voice messages yet."
   },
   "notificationsPage": {
-    "empty": "No notifications."
+    "empty": "No notifications.",
+    "friend_request": "sent you a friend request",
+    "friend_accepted": "accepted your request"
   },
   "rpcErrors": {
     "rateLimited": "Too many actions. Try again soon.",
@@ -1431,5 +1435,9 @@
     "mLeft": "{{m}}m left",
     "hm": "{{h}}h {{m}}m",
     "m": "{{m}}m"
+  },
+  "prompt": {
+    "title": "Time for today's voice!",
+    "body": "You've got 90″ to say what you're up to."
   }
 }

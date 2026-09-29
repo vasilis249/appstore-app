@@ -21,7 +21,7 @@ the same time for everyone; calendar of own past posts; report/block/EULA/accoun
 
 ## Architecture
 - **Capacitor 8.5.2** (SPM) iOS shell loading the hosted web app (`server.url` = `CAP_SERVER_URL` from `.env`,
-  `CAP_APP_ID` default `gr.innera.courtsie`). Plugins: `@capacitor/app`, `@capacitor/splash-screen`.
+  `CAP_APP_ID` default `gr.innera.courtsie`). Plugins: `@capacitor/app`, `@capacitor/splash-screen`, `@capacitor/local-notifications`.
   `ios/` committed; `ios/App/App/capacitor.config.json` and `public/` git-ignored. `bun run ios:sync` / `ios:open`.
   Info.plist: mic string, camera/photo strings, `courtsie` URL scheme, `UIUserInterfaceStyle=Dark`,
   `ITSAppUsesNonExemptEncryption=false`. Web view background `#000`. Offline page `capacitor/www/offline.html`.
@@ -84,7 +84,16 @@ the same time for everyone; calendar of own past posts; report/block/EULA/accoun
   with 3-column day tiles; calendar = Monday-first month grid, filled days, prev/next limited to your range,
   "n voices" per month; `MemorySheet` = date, time, late, `ClipPlayer`, delete (tap twice). Greek month titles use
   a nominative list (Intl gives the genitive).
-- Next: notifications (daily prompt as local notifications + in-app bell) → report/block polish.
+- **Notifications ✔** — `@capacitor/local-notifications` 8.3.1 (iOS rebuild needed). `src/lib/prompt-notifications.ts`:
+  `syncDailyPrompts()` cancels our pending ids (moment as yyyymmdd) and schedules the next 30 `prompt_schedule`
+  times (title/body from i18n `prompt.*`, extra.route `/record`); permission asked right after the first post
+  (`record.tsx`) or from Settings → "Daily reminder" switch (`DailyPromptSwitch`, app only; localStorage
+  `courtsie:dailyPrompt`). `DailyPromptScheduler` (root): sync on start / app resume / language change, cancel on
+  sign-out, tap → `/record`. `RealtimeSync`: in-app notice at the prompt time (once per prompt; no notice if the
+  time had already passed on load, clock skew) + realtime on `notifications`. Bell: `/notifications`
+  (`src/lib/notifications.ts`; friend_request with inline Accept, friend_accepted; opening marks all read) and
+  unread badge. Toasts sit below the header (`offset` + `mobileOffset`).
+- Next: report/block polish (report posts/messages, blocked list in Settings) → Phase 4.
 
 ## Backend (Supabase `gqmzxxygegmlifeewbzy`) — Phase 2 done
 - Baseline migration `supabase/migrations/20261003100000_voice_baseline.sql` (+ small follow-ups, applied live the same way) (drops the old schema if

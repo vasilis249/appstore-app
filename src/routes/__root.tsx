@@ -16,6 +16,7 @@ import { hydrateLanguage } from "../i18n";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BottomNav } from "../components/bottom-nav";
 import { RealtimeSync } from "../components/realtime-sync";
+import { DailyPromptScheduler } from "../components/daily-prompt-scheduler";
 import { Toaster } from "@/components/ui/sonner";
 import { OfflineBanner } from "../components/offline-banner";
 import { initNativeShell } from "../lib/native";
@@ -163,9 +164,15 @@ function RootComponent() {
         </main>
         <BottomNav />
         <RealtimeSync />
+        <DailyPromptScheduler />
         <OfflineBanner />
-        {/* Top of the screen, clear of the floating nav; dark like the app. */}
-        <Toaster theme="dark" position="top-center" offset="calc(env(safe-area-inset-top, 0px) + 12px)" />
+        {/* Below the header (its buttons stay tappable), clear of the floating nav; dark like the app. */}
+        <Toaster
+          theme="dark"
+          position="top-center"
+          offset={{ top: "calc(env(safe-area-inset-top, 0px) + 72px)" }}
+          mobileOffset={{ top: "calc(env(safe-area-inset-top, 0px) + 72px)" }}
+        />
       </div>
     </QueryClientProvider>
   );

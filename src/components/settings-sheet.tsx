@@ -6,6 +6,7 @@ import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/compone
 import { LanguageToggle } from "@/components/language-toggle";
 import { DeleteAccountButton } from "@/components/delete-account-button";
 import { supabase } from "@/integrations/supabase/client";
+import { DailyPromptSwitch } from "@/components/daily-prompt-switch";
 
 /** Everything that isn't the profile itself, in one place (opened from the ⚙︎ button). */
 export function SettingsSheet({
@@ -42,11 +43,12 @@ export function SettingsSheet({
         </DrawerTitle>
         <DrawerDescription className="sr-only">{t("settings.title")}</DrawerDescription>
         <div className="safe-bottom space-y-3 overflow-y-auto p-4">
-          <div className="rounded-2xl bg-secondary">
+          <div className="divide-y divide-border rounded-2xl bg-secondary">
             <div className={row}>
               <span>{t("nav.language")}</span>
               <LanguageToggle />
             </div>
+            <DailyPromptSwitch className={row} />
           </div>
 
           <ul className="divide-y divide-border rounded-2xl bg-secondary">
