@@ -312,3 +312,26 @@ SELECT pg_temp.ok('13l empty queue clears the admin notification; undo re-enable
   NOT EXISTS (SELECT 1 FROM public.notifications WHERE kind = 'report')
   AND NOT EXISTS (SELECT 1 FROM public.reports WHERE resolved_at IS NULL)
   AND NOT (SELECT disabled FROM public.profiles WHERE id = :B));
+
+-- 14 personal voices (no section) and the News / Following split
+INSERT INTO storage.objects (bucket_id, name) VALUES
+  ('voices', '00000000-0000-0000-0000-00000000000b/s1.m4a'),
+  ('voices', '00000000-0000-0000-0000-00000000000c/s2.m4a'),
+  ('voices', '00000000-0000-0000-0000-00000000000a/s3.m4a');
+SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT public.create_post(p_title := 'Just thinking out loud', p_path := '00000000-0000-0000-0000-00000000000b/s1.m4a', p_mime := 'audio/mp4', p_duration_ms := 3000) AS sb \gset
+RESET ROLE; SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT public.create_post(p_path := '00000000-0000-0000-0000-00000000000c/s2.m4a', p_mime := 'audio/mp4', p_duration_ms := 3000) AS sc \gset
+RESET ROLE;
+SELECT pg_temp.ok('14a no section, topic or group = a personal voice', (SELECT section_id FROM public.posts WHERE id = :'sb') IS NULL);
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT public.create_post(p_reply_to := :'sb', p_path := '00000000-0000-0000-0000-00000000000a/s3.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000) AS sr \gset
+SELECT pg_temp.ok('14b a reply to a personal voice stays personal', (SELECT section_id FROM public.posts WHERE id = :'sr') IS NULL);
+SELECT pg_temp.ok('14c Following = personal voices of people you follow',
+  EXISTS (SELECT 1 FROM public.feed_posts('personal') WHERE post_id = :'sb')
+  AND NOT EXISTS (SELECT 1 FROM public.feed_posts('personal') WHERE post_id = :'sc' OR section_id IS NOT NULL OR reply_to IS NOT NULL));
+SELECT pg_temp.ok('14d News = voices filed in a section only',
+  EXISTS (SELECT 1 FROM public.feed_posts('news', p_limit := 50))
+  AND NOT EXISTS (SELECT 1 FROM public.feed_posts('news', p_limit := 50) WHERE section_id IS NULL OR group_id IS NOT NULL OR reply_to IS NOT NULL));
+SELECT pg_temp.ok('14e News pages with offset like For you', (SELECT count(*) FROM public.feed_posts('news', p_limit := 1, p_offset := 1)) = 1);
+RESET ROLE;

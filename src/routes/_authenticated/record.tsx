@@ -1,3 +1,4 @@
+import { User } from "lucide-react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -14,17 +15,20 @@ import { groupDetail, groupKeys } from "@/lib/groups";
 import { promptPermission, requestPromptPermission, syncDailyPrompts } from "@/lib/prompt-notifications";
 import { cn } from "@/lib/utils";
 
-type Search = { section?: string; topic?: string; reply?: string; quote?: string; group?: string };
+type Search = { section?: string; topic?: string; reply?: string; quote?: string; group?: string; news?: 1 };
 
 export const Route = createFileRoute("/_authenticated/record")({
   validateSearch: (s: Record<string, unknown>): Search => {
     const str = (v: unknown) => (typeof v === "string" && v ? v : undefined);
-    return { section: str(s.section), topic: str(s.topic), reply: str(s.reply), quote: str(s.quote), group: str(s.group) };
+    return { section: str(s.section), topic: str(s.topic), reply: str(s.reply), quote: str(s.quote), group: str(s.group), news: s.news ? 1 : undefined };
   },
   component: ComposePage,
 });
 
-/** New voice post (≤ 2 min): in a section, on a topic, in a group, as a reply or as a quote. */
+/**
+ * New voice post (≤ 2 min): personal (shown under Following) or filed in a news section, on a topic, in a group,
+ * as a reply or as a quote.
+ */
 function ComposePage() {
   const search = Route.useSearch();
   const { t } = useTranslation();
@@ -34,7 +38,8 @@ function ComposePage() {
   const { sections, name, icon } = useSections();
   const [clip, setClip] = useState<Clip | null>(null);
   const [title, setTitle] = useState("");
-  const [section, setSection] = useState<string | undefined>(search.section);
+  // "personal" or a section id; null = not chosen yet (came from News → must pick a section).
+  const [place, setPlace] = useState<string | null>(search.section ?? (search.news ? null : "personal"));
   const onChange = useCallback((c: Clip | null) => setClip(c), []);
 
   const topic = useQuery({ queryKey: postKeys.topic(search.topic ?? ""), queryFn: () => getTopic(search.topic!), enabled: !!search.topic });
@@ -46,12 +51,12 @@ function ComposePage() {
   });
   const p = parent.data?.[0];
   const group = useQuery({ queryKey: groupKeys.detail(search.group ?? ""), queryFn: () => groupDetail(search.group!), enabled: !!search.group });
-  const needsSection = !search.topic && !search.reply && !search.quote && !search.group;
+  const needsPlace = !search.topic && !search.reply && !search.quote && !search.group;
 
   const post = useMutation({
     mutationFn: () =>
       createPost(user!.id, clip!, {
-        section: needsSection ? section : undefined,
+        section: needsPlace && place !== "personal" ? (place ?? undefined) : undefined,
         topic: search.topic,
         replyTo: search.reply,
         quoteOf: search.quote,
@@ -73,7 +78,7 @@ function ComposePage() {
   });
 
   const heading = search.reply ? t("posts.reply") : search.quote ? t("posts.quote") : t("posts.newPost");
-  const ready = !!clip && (!needsSection || !!section) && !post.isPending;
+  const ready = !!clip && (!needsPlace || !!place) && !post.isPending;
 
   return (
     <>
@@ -115,28 +120,33 @@ function ComposePage() {
           </label>
         )}
 
-        {needsSection && (
+        {needsPlace && (
           <div>
-            <p className="mb-2 text-sm font-semibold">{t("posts.chooseSection")}</p>
+            <p className="mb-2 text-sm font-semibold">{t("posts.where")}</p>
             <div className="flex flex-wrap gap-2">
-              {sections.map((s) => {
-                const Icon = icon(s);
+              {[{ id: "personal" }, ...sections].map((s) => {
+                const Icon = s.id === "personal" ? User : icon(s.id);
                 return (
                   <button
                     key={s.id}
                     type="button"
-                    onClick={() => setSection(s.id)}
-                    aria-pressed={section === s.id}
+                    onClick={() => setPlace(s.id)}
+                    aria-pressed={place === s.id}
                     className={cn(
                       "flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold",
-                      section === s.id ? "bg-primary text-primary-foreground" : "bg-secondary",
+                      place === s.id ? "bg-primary text-primary-foreground" : "bg-secondary",
                     )}
                   >
-                    <Icon className="h-4 w-4" /> {name(s.id)}
+                    <Icon className="h-4 w-4" /> {s.id === "personal" ? t("posts.personal") : name(s.id)}
                   </button>
                 );
               })}
             </div>
+            {place && (
+              <p className="mt-2 text-xs text-muted-foreground">
+                {place === "personal" ? t("posts.personalHint") : t("posts.newsHint", { section: name(place) })}
+              </p>
+            )}
           </div>
         )}
 

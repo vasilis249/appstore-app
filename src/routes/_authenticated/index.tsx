@@ -1,130 +1,177 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Mic, Play } from "lucide-react";
+import { Mic, Play, Search } from "lucide-react";
 import { AppHeader, HomeHeaderActions } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
 import { TopicStrip } from "@/components/posts/topic-strip";
 import { DailyTopicCard } from "@/components/posts/daily-topic-card";
 import { MyGroupsStrip } from "@/components/groups/my-groups-strip";
+import { UserAvatar } from "@/components/user-avatar";
+import { useMyProfile } from "@/hooks/use-my-profile";
 import { useSections } from "@/hooks/use-sections";
+import type { FeedParams } from "@/lib/posts";
 import { cn } from "@/lib/utils";
 
-/** "foryou" | "following" | "groups" | a section id (the feed filtered in place). */
-type Tab = string;
+type Tab = "news" | "following" | "groups";
+const TABS: Tab[] = ["news", "following", "groups"];
 
 export const Route = createFileRoute("/_authenticated/")({
-  validateSearch: (s: Record<string, unknown>): { tab?: Tab } =>
-    typeof s.tab === "string" && /^[a-z_-]{2,30}$/.test(s.tab) && s.tab !== "foryou" ? { tab: s.tab } : {},
+  // ?tab=following|groups, ?s=<section> inside News. Old links ?tab=<section> still land in that section.
+  validateSearch: (s: Record<string, unknown>): { tab?: Tab; s?: string } => {
+    const tab = typeof s.tab === "string" ? s.tab : undefined;
+    const section = typeof s.s === "string" && /^[a-z_-]{2,30}$/.test(s.s) ? s.s : undefined;
+    if (tab === "following" || tab === "groups") return { tab };
+    if (tab && tab !== "news" && /^[a-z_-]{2,30}$/.test(tab) && tab !== "foryou") return { s: tab };
+    return section ? { s: section } : {};
+  },
   component: HomePage,
 });
 
-function RecordCta({ section }: { section?: string }) {
-  const { t } = useTranslation();
-  return (
-    <Link
-      to="/record"
-      search={section ? { section } : {}}
-      className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-8 font-semibold text-primary-foreground"
-    >
-      <Mic className="h-5 w-5" /> {t("posts.speak")}
-    </Link>
-  );
-}
-
 /**
- * Home, kept quiet: one row of categories (For you · Following · every section) that filters the feed in
- * place, a round "play all" button, then the topic of the day and trending topics as a single line, then voices.
+ * Home in three parts: News (every section, ranked; chips for one section, the topic of the day, trends),
+ * Following (personal voices of the people you follow) and Groups. A round ▶ plays the list you're looking at.
  */
 function HomePage() {
   const { t } = useTranslation();
-  const { tab = "foryou" } = Route.useSearch();
-  const { sections, name } = useSections();
+  const search = Route.useSearch();
+  // Anything unknown in ?tab (e.g. an old ?tab=<section> link) means News.
+  const tab: Tab = TABS.includes(search.tab as Tab) ? (search.tab as Tab) : "news";
+  const section = tab === "news" ? search.s : undefined;
   const playAll = useRef<(() => void) | null>(null);
-  const bar = useRef<HTMLDivElement>(null);
-  const isSection = tab !== "foryou" && tab !== "following" && tab !== "groups";
 
-  // Keep the chosen category in view when the row is scrolled.
-  useEffect(() => {
-    bar.current?.querySelector<HTMLElement>("[data-active=true]")?.scrollIntoView({ inline: "center", block: "nearest" });
-  }, [tab, sections.length]);
-
-  const tabs: { id: Tab; label: string }[] = [
-    { id: "foryou", label: t("posts.forYou") },
-    { id: "following", label: t("posts.following") },
-    { id: "groups", label: t("groups.title") },
-    ...sections.map((s) => ({ id: s.id, label: name(s.id) })),
-  ];
+  const params: FeedParams =
+    tab === "following"
+      ? { scope: "personal" }
+      : tab === "groups"
+        ? { scope: "groups" }
+        : section
+          ? { scope: "section", section }
+          : { scope: "news" };
 
   return (
     <>
       <AppHeader right={<HomeHeaderActions />} />
-      <div className="sticky top-[calc(env(safe-area-inset-top,0px)+4rem)] z-20 flex items-center border-b border-border bg-background/90 backdrop-blur">
-        <nav
-          ref={bar}
-          className="no-scrollbar flex flex-1 gap-5 overflow-x-auto px-4 [mask-image:linear-gradient(to_right,black_85%,transparent)]"
-        >
-          {tabs.map((x) => {
-            const on = x.id === tab;
-            return (
-              <Link
-                key={x.id}
-                to="/"
-                search={x.id === "foryou" ? {} : { tab: x.id }}
-                replace
-                data-active={on}
-                className={cn(
-                  "relative shrink-0 py-3 text-[15px] font-semibold transition-colors",
-                  on ? "text-foreground" : "text-muted-foreground",
-                )}
-              >
-                {x.label}
-                {on && <span className="absolute inset-x-0 bottom-0 h-[3px] rounded-full bg-primary" />}
-              </Link>
-            );
-          })}
-        </nav>
-        <button
-          type="button"
-          onClick={() => playAll.current?.()}
-          aria-label={t("posts.playAll")}
-          className="mx-3 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground active:scale-95"
-        >
-          <Play className="ml-0.5 h-4 w-4" fill="currentColor" />
-        </button>
+      <div className="sticky top-[calc(env(safe-area-inset-top,0px)+4rem)] z-20 border-b border-border bg-background/90 backdrop-blur">
+        <div className="flex items-center">
+          <nav className="flex flex-1">
+            {TABS.map((x) => {
+              const on = x === tab;
+              return (
+                <Link
+                  key={x}
+                  to="/"
+                  search={x === "news" ? {} : { tab: x }}
+                  replace
+                  className={cn("relative flex-1 py-3 text-center text-base font-semibold transition-colors", on ? "text-foreground" : "text-muted-foreground")}
+                >
+                  {t(`home.${x}`)}
+                  {on && <span className="absolute inset-x-1/4 bottom-0 h-[3px] rounded-full bg-primary" />}
+                </Link>
+              );
+            })}
+          </nav>
+          <button
+            type="button"
+            onClick={() => playAll.current?.()}
+            aria-label={t("posts.playAll")}
+            className="mx-3 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground active:scale-95"
+          >
+            <Play className="ml-0.5 h-4 w-4" fill="currentColor" />
+          </button>
+        </div>
+        {tab === "news" && <SectionPills active={section} />}
       </div>
 
-      {tab === "foryou" && <DailyTopicCard />}
-      {(tab === "foryou" || isSection) && <TopicStrip variant="pills" section={isSection ? tab : undefined} />}
+      {tab === "news" && !section && <DailyTopicCard />}
+      {tab === "news" && <TopicStrip variant="pills" section={section} />}
+      {tab === "following" && <SayYourOwn />}
       {tab === "groups" && <MyGroupsStrip />}
 
       <div className="pt-2">
-        <FeedList
-          key={tab}
-          playAllRef={playAll}
-          params={isSection ? { scope: "section", section: tab } : { scope: tab === "following" || tab === "groups" ? tab : "foryou" }}
-          empty={
-            tab === "groups" ? (
-              <EmptyState
-                title={t("groups.emptyHomeTitle")}
-                text={t("groups.emptyHome")}
-                action={
-                  <Link to="/groups" className="inline-flex h-12 items-center rounded-full bg-primary px-8 font-semibold text-primary-foreground">
-                    {t("groups.find")}
-                  </Link>
-                }
-              />
-            ) : (
-            <EmptyState
-              title={t(tab === "following" ? "posts.emptyFollowingTitle" : "posts.emptyTitle")}
-              text={t(tab === "following" ? "posts.emptyFollowing" : "posts.empty")}
-              action={<RecordCta section={isSection ? tab : undefined} />}
-            />
-            )
-          }
-        />
+        <FeedList key={`${tab}-${section ?? ""}`} playAllRef={playAll} params={params} empty={<Empty tab={tab} section={section} />} />
       </div>
     </>
+  );
+}
+
+/** News → All · Επικαιρότητα · Tech · … (small pills, the chosen one white). */
+function SectionPills({ active }: { active?: string }) {
+  const { t } = useTranslation();
+  const { sections, name } = useSections();
+  const bar = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    bar.current?.querySelector<HTMLElement>("[data-active=true]")?.scrollIntoView({ inline: "center", block: "nearest" });
+  }, [active, sections.length]);
+  const pill = (on: boolean) =>
+    cn("h-8 shrink-0 rounded-full px-3.5 text-sm font-semibold leading-8 transition-colors", on ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground");
+  return (
+    <nav ref={bar} className="no-scrollbar flex gap-2 overflow-x-auto px-4 pb-2.5">
+      <Link to="/" search={{}} replace data-active={!active} className={pill(!active)}>
+        {t("home.all")}
+      </Link>
+      {sections.map((x) => (
+        <Link key={x.id} to="/" search={{ s: x.id }} replace data-active={x.id === active} className={pill(x.id === active)}>
+          {name(x.id)}
+        </Link>
+      ))}
+    </nav>
+  );
+}
+
+/** Following: a one-line prompt to post something personal. */
+function SayYourOwn() {
+  const { t } = useTranslation();
+  const me = useMyProfile();
+  const name = me.data?.full_name || me.data?.username || "";
+  return (
+    <Link to="/record" className="mx-4 mt-3 flex items-center gap-3 rounded-full bg-secondary py-1.5 pl-1.5 pr-2">
+      <UserAvatar name={name} path={me.data?.avatar_path ?? null} size={36} />
+      <span className="flex-1 text-[15px] text-muted-foreground">{t("home.sayYourOwn")}</span>
+      <span className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground">
+        <Mic className="h-4 w-4" />
+      </span>
+    </Link>
+  );
+}
+
+function Empty({ tab, section }: { tab: Tab; section?: string }) {
+  const { t } = useTranslation();
+  const pill = "inline-flex h-12 items-center gap-2 rounded-full bg-primary px-8 font-semibold text-primary-foreground";
+  if (tab === "groups")
+    return (
+      <EmptyState
+        title={t("groups.emptyHomeTitle")}
+        text={t("groups.emptyHome")}
+        action={
+          <Link to="/groups" className={pill}>
+            {t("groups.find")}
+          </Link>
+        }
+      />
+    );
+  if (tab === "following")
+    return (
+      <EmptyState
+        title={t("home.emptyFollowingTitle")}
+        text={t("home.emptyFollowing")}
+        action={
+          <Link to="/search" className={pill}>
+            <Search className="h-5 w-5" /> {t("home.findPeople")}
+          </Link>
+        }
+      />
+    );
+  return (
+    <EmptyState
+      title={t("posts.emptyTitle")}
+      text={t("posts.empty")}
+      action={
+        <Link to="/record" search={section ? { section } : { news: 1 }} className={pill}>
+          <Mic className="h-5 w-5" /> {t("posts.speak")}
+        </Link>
+      }
+    />
   );
 }

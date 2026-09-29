@@ -5,7 +5,7 @@ export const TITLE_MAX = 100;
 
 export type FeedScope =
   | "foryou" | "all" | "following" | "section" | "topic" | "author" | "author_replies" | "replies" | "one" | "ids"
-  | "group" | "groups";
+  | "group" | "groups" | "news" | "personal";
 
 /** One row of feed_posts(). Plain reposts have no audio; the original is in orig_*. */
 export interface FeedRow {
@@ -15,7 +15,8 @@ export interface FeedRow {
   author_username: string;
   author_name: string;
   author_avatar: string | null;
-  section_id: string;
+  /** null = a personal voice (not filed under news). */
+  section_id: string | null;
   topic_id: string | null;
   topic_title: string | null;
   reply_to: string | null;
@@ -55,7 +56,7 @@ export interface PostView {
   name: string;
   avatar: string | null;
   createdAt: string;
-  sectionId: string;
+  sectionId: string | null;
   topicId: string | null;
   topicTitle: string | null;
   replyTo: string | null;
@@ -171,10 +172,10 @@ export async function fetchFeed(p: FeedParams, cursor?: string | number): Promis
   return (data ?? []) as FeedRow[];
 }
 
-/** Cursor for useInfiniteQuery: none after a short page; offset for "foryou", else the last row's time. */
+/** Cursor for useInfiniteQuery: none after a short page; offset for the ranked feeds, else the last row's time. */
 export function nextCursor(scope: FeedScope, page: FeedRow[], pages: FeedRow[][]): string | number | undefined {
   if (page.length < PAGE) return undefined;
-  return scope === "foryou" ? pages.reduce((n, pg) => n + pg.length, 0) : page[page.length - 1].created_at;
+  return scope === "foryou" || scope === "news" ? pages.reduce((n, pg) => n + pg.length, 0) : page[page.length - 1].created_at;
 }
 
 /** The reply chain above a post, root first. */

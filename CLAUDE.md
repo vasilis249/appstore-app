@@ -153,6 +153,16 @@ User decisions:
   group kinds open the group; RealtimeSync also invalidates `groupKeys`. Admin reports: kind group → link + "Διαγραφή
   ομάδας". `hooks/use-debounced.ts` shared. Browser flow 15/15 (create → invite friend → accept → speak → private wall
   → request → approve → roles → home tab → isolation).
+- **Home in 3 parts ✔ (user request)** — Ειδήσεις | Ακολουθείς | Ομάδες (big equal tabs + round ▶ play all).
+  Migration `20261012100000_speak_personal_voices.sql`: `posts.section_id` nullable = a **personal voice** (no section,
+  topic, group or parent; replies/reposts keep the parent's kind); `feed_posts` scopes `news` (ranked like For you,
+  sections only, offset paging) and `personal` (personal voices of people you follow + yours, newest first).
+  Tests `test_speak.sql` 92. Home (`/`, `?tab=following|groups`, News `?s=<section>`; unknown/old `?tab=<section>` →
+  News): News = `SectionPills` (Όλα + every section, small pills in the sticky bar) + DailyTopicCard (Όλα only) +
+  trending pills + feed (`news` or `section`); Following = "Πες κάτι δικό σου…" row → `/record` + `personal` feed
+  (empty → "Βρες άτομα"); Groups = `MyGroupsStrip` + `groups`. Composer: "Πού ανήκει;" → Προσωπική (default) or a
+  section (`?section=` preselects, `?news=1` forces a pick). PostCard: no category line on personal voices; section →
+  `/?s=<id>`. i18n `home.*`, `posts.where/personal/personalHint/newsHint`. Browser 10/10.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -280,7 +290,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (87) + `test_groups.sql` (33).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (92) + `test_groups.sql` (33).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

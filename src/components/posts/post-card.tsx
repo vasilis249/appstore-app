@@ -19,7 +19,8 @@ import { cn } from "@/lib/utils";
 const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
 
 /**
- * A public voice post, kept light: name · time, section · topic, title, player (duration · listens), actions.
+ * A public voice post, kept light: name · time, section · topic (group; nothing for a personal voice), title,
+ * player (duration · listens), actions.
  * `onPlay` starts the list's queue at this post (continuous playback).
  */
 export function PostCard({
@@ -108,25 +109,29 @@ export function PostCard({
             </p>
           )}
 
-          <p className="mt-0.5 flex min-w-0 items-center gap-1 text-[13px] text-muted-foreground">
-            {post.groupId && post.groupName ? (
-              <Link to="/g/$groupId" params={{ groupId: post.groupId }} className="flex min-w-0 items-center gap-1 font-medium text-coral">
-                <Users className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{post.groupName}</span>
-              </Link>
-            ) : (
-              <Link to="/" search={{ tab: post.sectionId }} className="shrink-0 font-medium text-coral">
-                {sections.name(post.sectionId)}
-              </Link>
-            )}
-            {post.topicId && post.topicTitle && (
-              <>
-                <span aria-hidden>·</span>
-                <Link to="/t/$topicId" params={{ topicId: post.topicId }} className="truncate">
-                  {post.topicTitle}
+          {(post.groupId || post.sectionId) && (
+            <p className="mt-0.5 flex min-w-0 items-center gap-1 text-[13px] text-muted-foreground">
+              {post.groupId && post.groupName ? (
+                <Link to="/g/$groupId" params={{ groupId: post.groupId }} className="flex min-w-0 items-center gap-1 font-medium text-coral">
+                  <Users className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{post.groupName}</span>
                 </Link>
-              </>
-            )}
-          </p>
+              ) : (
+                post.sectionId && (
+                  <Link to="/" search={{ s: post.sectionId }} className="shrink-0 font-medium text-coral">
+                    {sections.name(post.sectionId)}
+                  </Link>
+                )
+              )}
+              {post.topicId && post.topicTitle && (
+                <>
+                  <span aria-hidden>·</span>
+                  <Link to="/t/$topicId" params={{ topicId: post.topicId }} className="truncate">
+                    {post.topicTitle}
+                  </Link>
+                </>
+              )}
+            </p>
+          )}
 
           {post.title && (
             <button type="button" onClick={open} className="mt-1.5 block text-left text-base font-semibold leading-snug">

@@ -350,7 +350,7 @@ export type Database = {
           reply_to: string | null
           repost_of: string | null
           reposts_count: number
-          section_id: string
+          section_id: string | null
           title: string | null
           topic_id: string | null
         }
@@ -369,7 +369,7 @@ export type Database = {
           reply_to?: string | null
           repost_of?: string | null
           reposts_count?: number
-          section_id: string
+          section_id?: string | null
           title?: string | null
           topic_id?: string | null
         }
@@ -388,7 +388,7 @@ export type Database = {
           reply_to?: string | null
           repost_of?: string | null
           reposts_count?: number
-          section_id?: string
+          section_id?: string | null
           title?: string | null
           topic_id?: string | null
         }

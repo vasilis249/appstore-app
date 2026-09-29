@@ -311,8 +311,6 @@
     "dailyPromptDenied": "Allow notifications in iPhone Settings."
   },
   "posts": {
-    "forYou": "For you",
-    "following": "Following",
     "speak": "Say what you think",
     "trending": "Trending",
     "voicesCount_one": "{{count}} voice",
@@ -334,8 +332,6 @@
     "deleted": "Deleted",
     "emptyTitle": "Quiet so far",
     "empty": "Be the first to say what you think.",
-    "emptyFollowingTitle": "Nobody here yet",
-    "emptyFollowing": "Follow people to hear their voices here.",
     "emptySection": "No voices here yet.",
     "emptyTopic": "Nobody has spoken about this yet.",
     "giveYourTake": "Give your take",
@@ -347,12 +343,15 @@
     "replyingTo": "Replying to",
     "quoting": "Quoting",
     "titlePlaceholder": "Title (optional)",
-    "chooseSection": "Which section?",
     "publish": "Post",
     "published": "Posted!",
     "recordHint": "Tap and speak. Up to 2 minutes.",
     "replyingToUser": "Replying to",
-    "thread": "Thread"
+    "thread": "Thread",
+    "where": "Where does it go?",
+    "personal": "Personal",
+    "personalHint": "Your followers hear it under “Following”.",
+    "newsHint": "In News · {{section}}."
   },
   "feed": {
     "recordCta": "Record your day"
@@ -645,5 +644,15 @@
     "emptyHomeTitle": "No groups yet",
     "emptyHome": "Join groups about things you care about, or start your own.",
     "noOthers": "No other groups yet."
+  },
+  "home": {
+    "news": "News",
+    "following": "Following",
+    "groups": "Groups",
+    "all": "All",
+    "sayYourOwn": "Say something of your own…",
+    "emptyFollowingTitle": "Nothing here yet",
+    "emptyFollowing": "Hear what the people you follow say, outside the news.",
+    "findPeople": "Find people"
   }
 }

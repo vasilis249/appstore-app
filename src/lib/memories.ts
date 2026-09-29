@@ -5,7 +5,7 @@ export interface Memory {
   id: string;
   day: string; // YYYY-MM-DD in local time
   title: string | null;
-  section_id: string;
+  section_id: string | null;
   audio_path: string;
   duration_ms: number;
   created_at: string;

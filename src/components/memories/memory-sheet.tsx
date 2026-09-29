@@ -39,7 +39,7 @@ export function MemorySheet({ memories, onOpenChange }: { memories: Memory[] | n
           {(memories ?? []).map((m) => (
             <li key={m.id} className="space-y-2">
               <p className="text-sm">
-                <span className="font-semibold">{m.title ?? name(m.section_id)}</span>{" "}
+                <span className="font-semibold">{m.title ?? (m.section_id ? name(m.section_id) : t("posts.personal"))}</span>{" "}
                 <span className="text-muted-foreground">
                   · {new Date(m.created_at).toLocaleTimeString(i18n.language, { hour: "2-digit", minute: "2-digit" })}
                 </span>
