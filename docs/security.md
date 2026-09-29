@@ -29,6 +29,11 @@ live smoke tests with temporary users after each schema change.
   Counters (likes, replies, reposts, listens, topic posts) are trigger-maintained; one listen per
   person, the author's own plays don't count. Who liked / listened is never exposed. `voices` bucket:
   public by URL (unguessable paths), not listable, 3 MB, audio types only.
+- **Groups**: public = readable by every signed-in user, joined at once; private = name/description/counts
+  discoverable, voices and member list only for members (`private.can_see_group` inside `can_see_post` and
+  `feed_posts`). Only members post; group voices never leave the group (no feeds outside it, no reposts). Invites
+  only from members to friends (mutual follow), 50/h; join requests 30/h; groups 5/day per user. Roles owner/admin/
+  member enforced in the RPCs; tables are read-only for clients.
 - **Admins** (`private.admins`, granted by SQL): topics, news sources and moderation RPCs (`admin_*`) check
   `private.is_admin`; an admin can't be disabled through them.
 - **Blocks**: remove follows in both directions, drop the blocked person's unheard messages, hide both

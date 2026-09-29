@@ -120,6 +120,25 @@ User decisions:
   time (`timeAgoShort`: τώρα/5λ/2ω/3η/date), coral section → `/?tab=<section>` · topic, 16px title, pill player with
   "duration · 🎧 listens", actions reply/repost/like + share at the right (no @username, no listens icon). `FeedList`
   shows each voice once (plain repost next to its original). `/s/$sectionId` still exists for old links.
+- **Groups (user request 2026-09-29)** — "public/private groups on topics, invite friends, request to join" (like FB).
+  Plan: **G1** data model ✔ → **G2** UI (stop for "OK" after each).
+  **G1 ✔** migration `20261011100000_speak_groups.sql`: `groups` (name 3–60, description ≤ 300, section, privacy
+  public|private, members/posts counters, last_post_at), `group_members` (owner|admin|member, one owner),
+  `group_requests` (request | invite + invited_by), `posts.group_id`, `notifications.group_id` + kinds
+  group_invite/group_request/group_accepted, reports kind `group` + action `delete_group`. Rules: public = anyone
+  reads/joins at once; private = name/description/counts discoverable, voices + members for members only
+  (`private.can_see_group`, used by `can_see_post` and `feed_posts`); only members post (replies inherit the group);
+  group voices never in For you/all/following/section/topic/profile and can't be reposted/quoted; invites only by
+  members and only to friends (mutual follow), an invite is pre-approved; admins approve requests; owner sets roles or
+  hands over; owner leaving/deleted → oldest admin else oldest member becomes owner, nobody left → group deleted;
+  making a group public admits pending requests. RPCs: `create_group`, `update_group`, `delete_group`, `join_group`
+  ('joined'|'requested'), `leave_group` (also cancels request / declines invite), `invite_to_group`,
+  `respond_group_request`, `set_group_role`, `remove_group_member`, `group_detail` (my_role, my_pending,
+  invited_by_name, pending_requests), `my_groups`, `my_group_invites`, `discover_groups(query, section)` (slugify,
+  Greek/Latin), `group_members_list`, `group_requests_list`; `feed_posts` + `p_group`, scopes `group` / `groups`,
+  columns `group_id, group_name`; `create_post` + `p_group`; trending/profile counts skip group voices;
+  `admin_reports` + `group_name, group_exists`. Tests `test_groups.sql` 33. Live applied, types regenerated,
+  smoke 10/10. Known limit: audio files of deleted groups stay in `voices` (orphans, unguessable URLs).
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -247,7 +266,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (87).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (87) + `test_groups.sql` (33).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

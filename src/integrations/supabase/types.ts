@@ -80,10 +80,137 @@ export type Database = {
           },
         ]
       }
+      group_members: {
+        Row: {
+          created_at: string
+          group_id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          group_id: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          group_id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_requests: {
+        Row: {
+          created_at: string
+          group_id: string
+          invited_by: string | null
+          kind: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          group_id: string
+          invited_by?: string | null
+          kind: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          group_id?: string
+          invited_by?: string | null
+          kind?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_requests_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_requests_invited_by_fkey"
+            columns: ["invited_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_requests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      groups: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          last_post_at: string | null
+          members_count: number
+          name: string
+          posts_count: number
+          privacy: string
+          section_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          last_post_at?: string | null
+          members_count?: number
+          name: string
+          posts_count?: number
+          privacy: string
+          section_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          last_post_at?: string | null
+          members_count?: number
+          name?: string
+          posts_count?: number
+          privacy?: string
+          section_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "groups_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "sections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           actor_id: string
           created_at: string
+          group_id: string | null
           id: number
           kind: string
           post_id: string | null
@@ -93,6 +220,7 @@ export type Database = {
         Insert: {
           actor_id: string
           created_at?: string
+          group_id?: string | null
           id?: never
           kind: string
           post_id?: string | null
@@ -102,6 +230,7 @@ export type Database = {
         Update: {
           actor_id?: string
           created_at?: string
+          group_id?: string | null
           id?: never
           kind?: string
           post_id?: string | null
@@ -114,6 +243,13 @@ export type Database = {
             columns: ["actor_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
             referencedColumns: ["id"]
           },
           {
@@ -204,6 +340,7 @@ export type Database = {
           author_id: string
           created_at: string
           duration_ms: number | null
+          group_id: string | null
           hidden: boolean
           id: string
           likes_count: number
@@ -222,6 +359,7 @@ export type Database = {
           author_id: string
           created_at?: string
           duration_ms?: number | null
+          group_id?: string | null
           hidden?: boolean
           id?: string
           likes_count?: number
@@ -240,6 +378,7 @@ export type Database = {
           author_id?: string
           created_at?: string
           duration_ms?: number | null
+          group_id?: string | null
           hidden?: boolean
           id?: string
           likes_count?: number
@@ -259,6 +398,13 @@ export type Database = {
             columns: ["author_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
             referencedColumns: ["id"]
           },
           {
@@ -553,6 +699,8 @@ export type Database = {
         Returns: {
           action: string
           created_at: string
+          group_exists: boolean
+          group_name: string
           id: string
           kind: string
           post_audio_path: string
@@ -619,9 +767,19 @@ export type Database = {
           mime: string
         }[]
       }
+      create_group: {
+        Args: {
+          p_description?: string
+          p_name: string
+          p_privacy: string
+          p_section: string
+        }
+        Returns: string
+      }
       create_post: {
         Args: {
           p_duration_ms?: number
+          p_group?: string
           p_mime?: string
           p_path?: string
           p_reply_to?: string
@@ -632,10 +790,26 @@ export type Database = {
         }
         Returns: string
       }
+      delete_group: { Args: { p_group: string }; Returns: undefined }
+      discover_groups: {
+        Args: { p_limit?: number; p_query?: string; p_section?: string }
+        Returns: {
+          description: string
+          id: string
+          members_count: number
+          my_pending: string
+          my_role: string
+          name: string
+          posts_count: number
+          privacy: string
+          section_id: string
+        }[]
+      }
       feed_posts: {
         Args: {
           p_author?: string
           p_before?: string
+          p_group?: string
           p_ids?: string[]
           p_limit?: number
           p_offset?: number
@@ -652,6 +826,8 @@ export type Database = {
           author_username: string
           created_at: string
           duration_ms: number
+          group_id: string
+          group_name: string
           is_mine: boolean
           liked: boolean
           likes_count: number
@@ -698,6 +874,50 @@ export type Database = {
         }[]
       }
       follow_user: { Args: { p_user: string }; Returns: undefined }
+      group_detail: {
+        Args: { p_group: string }
+        Returns: {
+          created_at: string
+          description: string
+          id: string
+          invited_by_name: string
+          members_count: number
+          my_pending: string
+          my_role: string
+          name: string
+          pending_requests: number
+          posts_count: number
+          privacy: string
+          section_id: string
+        }[]
+      }
+      group_members_list: {
+        Args: { p_group: string; p_limit?: number; p_offset?: number }
+        Returns: {
+          avatar_path: string
+          full_name: string
+          joined_at: string
+          role: string
+          user_id: string
+          username: string
+        }[]
+      }
+      group_requests_list: {
+        Args: { p_group: string }
+        Returns: {
+          avatar_path: string
+          created_at: string
+          full_name: string
+          user_id: string
+          username: string
+        }[]
+      }
+      invite_to_group: {
+        Args: { p_group: string; p_user: string }
+        Returns: undefined
+      }
+      join_group: { Args: { p_group: string }; Returns: string }
+      leave_group: { Args: { p_group: string }; Returns: undefined }
       like_post: { Args: { p_post: string }; Returns: undefined }
       my_blocked: {
         Args: never
@@ -706,6 +926,33 @@ export type Database = {
           full_name: string
           id: string
           username: string
+        }[]
+      }
+      my_group_invites: {
+        Args: never
+        Returns: {
+          created_at: string
+          id: string
+          invited_by_name: string
+          invited_by_username: string
+          members_count: number
+          name: string
+          privacy: string
+          section_id: string
+        }[]
+      }
+      my_groups: {
+        Args: never
+        Returns: {
+          id: string
+          last_post_at: string
+          members_count: number
+          my_role: string
+          name: string
+          pending_requests: number
+          posts_count: number
+          privacy: string
+          section_id: string
         }[]
       }
       my_threads: {
@@ -741,8 +988,16 @@ export type Database = {
       }
       record_listen: { Args: { p_post: string }; Returns: undefined }
       remove_follower: { Args: { p_user: string }; Returns: undefined }
+      remove_group_member: {
+        Args: { p_group: string; p_user: string }
+        Returns: undefined
+      }
       report_content: {
         Args: { p_kind: string; p_reason?: string; p_target: string }
+        Returns: undefined
+      }
+      respond_group_request: {
+        Args: { p_accept: boolean; p_group: string; p_user: string }
         Returns: undefined
       }
       search_users: {
@@ -764,6 +1019,10 @@ export type Database = {
           p_to: string
         }
         Returns: string
+      }
+      set_group_role: {
+        Args: { p_group: string; p_role: string; p_user: string }
+        Returns: undefined
       }
       suggested_people: {
         Args: { p_limit?: number }
@@ -806,6 +1065,16 @@ export type Database = {
       unfollow_user: { Args: { p_user: string }; Returns: undefined }
       unlike_post: { Args: { p_post: string }; Returns: undefined }
       unrepost: { Args: { p_post: string }; Returns: undefined }
+      update_group: {
+        Args: {
+          p_description?: string
+          p_group: string
+          p_name: string
+          p_privacy: string
+          p_section: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

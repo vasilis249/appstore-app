@@ -47,6 +47,11 @@ old table/function/type in `public`, the `private` schema and the old storage po
    reported by 3 different people is hidden automatically until reviewed. Without the app: Table Editor →
    `reports` (`resolved_at is null`), `posts.hidden = true`, `profiles.disabled = true`.
 
+## Groups (migration `20261011100000_speak_groups.sql`)
+- Tables `groups`, `group_members`, `group_requests`; posts and notifications carry `group_id`. All writes through
+  RPCs (`create_group`, `join_group`, `invite_to_group`, `respond_group_request`, …). A reported group can be deleted
+  from Settings → Reports ("delete group"), or by SQL: `delete from public.groups where id = '…';`.
+
 ## Social login (Google, Apple)
 The sign-in screen asks Supabase (`/auth/v1/settings`) which providers are on and shows only those buttons, so
 turning one on needs no new build. Both come back to `/auth?welcome=1` (new accounts then pick a username); in the

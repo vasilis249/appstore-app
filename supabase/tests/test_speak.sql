@@ -246,7 +246,7 @@ SELECT pg_temp.ok('12a for you: engagement beats recency',
      author_avatar, section_id, topic_id, topic_title, reply_to, repost_of, title, audio_path, duration_ms, likes_count, replies_count,
      reposts_count, listens_count, liked, reposted, is_mine, orig_author_username, orig_author_name, orig_author_avatar, orig_title,
      orig_audio_path, orig_duration_ms, orig_created_at, orig_author_id, orig_likes_count, orig_replies_count, orig_reposts_count,
-     orig_listens_count, reply_to_username, n)));
+     orig_listens_count, reply_to_username, group_id, group_name, n)));
 SELECT pg_temp.ok('12b for you: no plain reposts, no replies',
   NOT EXISTS (SELECT 1 FROM public.feed_posts('foryou', p_limit := 50) WHERE audio_path IS NULL OR reply_to IS NOT NULL));
 SELECT pg_temp.ok('12c for you pages with offset', (SELECT count(*) FROM public.feed_posts('foryou', p_limit := 1, p_offset := 1)) = 1
