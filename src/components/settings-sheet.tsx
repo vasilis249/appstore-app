@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Ban, ChevronRight, FileText, LogOut, Mail, Megaphone, Shield } from "lucide-react";
+import { Ban, ChevronRight, FileText, Flag, LogOut, Mail, Megaphone, Shield } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { adminKeys, amIAdmin } from "@/lib/admin";
+import { adminKeys, amIAdmin, openReportsCount, reportKeys } from "@/lib/admin";
 import { useState } from "react";
 import { BlockedSheet } from "@/components/blocked-sheet";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
@@ -25,6 +25,7 @@ export function SettingsSheet({
   const navigate = useNavigate();
   const [blockedOpen, setBlockedOpen] = useState(false);
   const isAdmin = useQuery({ queryKey: adminKeys.isAdmin, queryFn: amIAdmin, enabled: open });
+  const openReports = useQuery({ queryKey: reportKeys.openCount, queryFn: openReportsCount, enabled: open && !!isAdmin.data });
 
   async function signOut() {
     onOpenChange(false);
@@ -58,7 +59,20 @@ export function SettingsSheet({
           </div>
 
           {isAdmin.data && (
-            <div className="rounded-2xl bg-secondary">
+            <div className="divide-y divide-border rounded-2xl bg-secondary">
+              <Link to="/admin/reports" onClick={() => onOpenChange(false)} className={row}>
+                <span className="inline-flex items-center gap-3">
+                  <Flag className="h-4 w-4 text-muted-foreground" /> {t("adminReports.title")}
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  {!!openReports.data && (
+                    <span className="min-w-5 rounded-full bg-badge px-1.5 text-center text-xs font-semibold leading-5 text-white">
+                      {openReports.data}
+                    </span>
+                  )}
+                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                </span>
+              </Link>
               <Link to="/admin/topics" onClick={() => onOpenChange(false)} className={row}>
                 <span className="inline-flex items-center gap-3">
                   <Megaphone className="h-4 w-4 text-muted-foreground" /> {t("admin.title")}

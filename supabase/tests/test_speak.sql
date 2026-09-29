@@ -258,3 +258,57 @@ SELECT pg_temp.ok('12f replying to @username', (SELECT reply_to_username FROM pu
 SELECT pg_temp.ok('12g replies tab on a profile', (SELECT array_agg(post_id) FROM public.feed_posts('author_replies', p_author := :B)) = ARRAY[:'r1'::uuid]);
 SELECT pg_temp.ok('12h root has no ancestors', public.post_ancestors(:'r0') = ARRAY[]::uuid[]);
 RESET ROLE;
+
+-- 13 moderation: admin notification, auto-hide, review queue, actions, undo
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT public.report_content('post', :'pnew', 'spam');
+RESET ROLE; SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT public.report_content('post', :'pnew', 'hate');
+RESET ROLE;
+SELECT pg_temp.ok('13a one "reports to review" notification per admin', (SELECT count(*) FROM public.notifications WHERE kind = 'report' AND user_id = :E) = 1
+  AND NOT EXISTS (SELECT 1 FROM public.notifications WHERE kind = 'report' AND user_id <> :E));
+SELECT pg_temp.ok('13b two reports do not hide a post', NOT (SELECT hidden FROM public.posts WHERE id = :'pnew'));
+SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+SELECT public.report_content('post', :'pnew', 'spam');
+RESET ROLE;
+SELECT pg_temp.ok('13c three different reporters hide it', (SELECT hidden FROM public.posts WHERE id = :'pnew'));
+SELECT pg_temp.as_user(:E); SET ROLE authenticated;
+SELECT public.report_content('user', :C, 'spam');
+RESET ROLE;
+SELECT pg_temp.ok('13c2 an admin who reports keeps their notification', (SELECT count(*) FROM public.notifications WHERE kind = 'report' AND user_id = :E) = 1);
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('13d non-admins cannot moderate', pg_temp.fails($$SELECT public.admin_reports()$$)
+  AND pg_temp.fails(format($$SELECT public.admin_set_post_hidden(%L, false)$$, :'pnew'))
+  AND pg_temp.fails(format($$SELECT public.admin_set_user_disabled(%L, true)$$, :B))
+  AND pg_temp.fails($$SELECT public.admin_open_reports()$$)
+  AND pg_temp.fails(format($$SELECT public.admin_resolve_report(id, 'dismiss') FROM public.reports LIMIT 1$$)));
+SELECT public.report_content('user', :B, 'harassment');
+SELECT public.report_content('user', :E, 'spam');
+RESET ROLE; SELECT pg_temp.as_user(:E); SET ROLE authenticated;
+SELECT pg_temp.ok('13e queue: counts per target, deleted posts flagged',
+  (SELECT reports_on_target FROM public.admin_reports() WHERE target_id = :'pnew' LIMIT 1) = 3
+  AND (SELECT NOT post_exists FROM public.admin_reports() WHERE target_id = :'pa')
+  AND public.admin_open_reports() = 7);
+SELECT public.admin_resolve_report(id, 'hide_post') AS closed FROM public.admin_reports() WHERE target_id = :'pnew' LIMIT 1 \gset
+SELECT pg_temp.ok('13f hide_post closes every report on the post', :closed = 3
+  AND public.admin_open_reports() = 4
+  AND (SELECT count(*) FROM public.admin_reports(false) WHERE action = 'hide_post') = 3);
+SELECT public.admin_set_post_hidden(:'pnew', false);
+SELECT pg_temp.ok('13g undo: the post is back', EXISTS (SELECT 1 FROM public.feed_posts('one', p_parent := :'pnew')));
+SELECT pg_temp.ok('13h hide_post only for post reports',
+  pg_temp.fails(format($$SELECT public.admin_resolve_report(id, 'hide_post') FROM public.admin_reports() WHERE kind = 'user' AND target_user_id = %L$$, :B)));
+SELECT pg_temp.ok('13i admins cannot be disabled',
+  pg_temp.fails(format($$SELECT public.admin_resolve_report(id, 'disable_user') FROM public.admin_reports() WHERE target_user_id = %L$$, :E)));
+SELECT public.admin_resolve_report(id, 'disable_user') FROM public.admin_reports() WHERE target_user_id = :B;
+RESET ROLE;
+SELECT pg_temp.ok('13j disable_user bans the account', (SELECT disabled FROM public.profiles WHERE id = :B));
+SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT pg_temp.ok('13k a disabled account cannot use the app', pg_temp.fails($$SELECT public.feed_posts('all')$$));
+RESET ROLE; SELECT pg_temp.as_user(:E); SET ROLE authenticated;
+SELECT public.admin_set_user_disabled(:B, false);
+SELECT public.admin_resolve_report(id, 'dismiss') FROM public.admin_reports();
+RESET ROLE;
+SELECT pg_temp.ok('13l empty queue clears the admin notification; undo re-enables',
+  NOT EXISTS (SELECT 1 FROM public.notifications WHERE kind = 'report')
+  AND NOT EXISTS (SELECT 1 FROM public.reports WHERE resolved_at IS NULL)
+  AND NOT (SELECT disabled FROM public.profiles WHERE id = :B));

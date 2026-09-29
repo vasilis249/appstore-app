@@ -2,7 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export interface AppNotification {
   id: number;
-  kind: "follow" | "like" | "reply" | "repost";
+  kind: "follow" | "like" | "reply" | "repost" | "report";
   created_at: string;
   read_at: string | null;
   post_id: string | null;

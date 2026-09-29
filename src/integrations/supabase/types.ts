@@ -320,32 +320,38 @@ export type Database = {
       }
       reports: {
         Row: {
+          action: string | null
           created_at: string
           id: string
           kind: string
           reason: string
           reporter_id: string | null
           resolved_at: string | null
+          resolved_by: string | null
           target_id: string | null
           target_user_id: string
         }
         Insert: {
+          action?: string | null
           created_at?: string
           id?: string
           kind: string
           reason?: string
           reporter_id?: string | null
           resolved_at?: string | null
+          resolved_by?: string | null
           target_id?: string | null
           target_user_id: string
         }
         Update: {
+          action?: string | null
           created_at?: string
           id?: string
           kind?: string
           reason?: string
           reporter_id?: string | null
           resolved_at?: string | null
+          resolved_by?: string | null
           target_id?: string | null
           target_user_id?: string
         }
@@ -353,6 +359,13 @@ export type Database = {
           {
             foreignKeyName: "reports_reporter_id_fkey"
             columns: ["reporter_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reports_resolved_by_fkey"
+            columns: ["resolved_by"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -533,9 +546,47 @@ export type Database = {
           url: string
         }[]
       }
+      admin_open_reports: { Args: never; Returns: number }
       admin_refresh_news: { Args: never; Returns: number }
+      admin_reports: {
+        Args: { p_limit?: number; p_open?: boolean }
+        Returns: {
+          action: string
+          created_at: string
+          id: string
+          kind: string
+          post_audio_path: string
+          post_duration_ms: number
+          post_exists: boolean
+          post_hidden: boolean
+          post_title: string
+          reason: string
+          reporter_username: string
+          reports_on_target: number
+          resolved_at: string
+          target_avatar: string
+          target_disabled: boolean
+          target_id: string
+          target_is_admin: boolean
+          target_name: string
+          target_user_id: string
+          target_username: string
+        }[]
+      }
+      admin_resolve_report: {
+        Args: { p_action: string; p_report: string }
+        Returns: number
+      }
       admin_set_feed: {
         Args: { p_enabled: boolean; p_feed: number }
+        Returns: undefined
+      }
+      admin_set_post_hidden: {
+        Args: { p_hidden: boolean; p_post: string }
+        Returns: undefined
+      }
+      admin_set_user_disabled: {
+        Args: { p_disabled: boolean; p_user: string }
         Returns: undefined
       }
       admin_topics: {

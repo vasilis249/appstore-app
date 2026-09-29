@@ -1,222 +1,8 @@
 {
-  "community": {
-    "title": "Community",
-    "subtitle": "Find players and manage your friends.",
-    "consentTitle": "Join the Community",
-    "consentBody": "If you join, other players will be able to find you by name and send you friend requests. We never share your email or phone. You can leave anytime.",
-    "consentAccept": "Join",
-    "consentDecline": "Not now",
-    "leave": "Leave the Community",
-    "leaveConfirm": "You will no longer be visible to other players. Continue?",
-    "searchPlaceholder": "Search players by name…",
-    "searchHint": "Type at least 2 characters.",
-    "noResults": "No players found.",
-    "searching": "Searching…",
-    "tabs": {
-      "search": "Search",
-      "friends": "Friends",
-      "requests": "Requests",
-      "requestsWithCount": "Requests ({{count}})",
-      "blocked": "Blocked"
-    },
-    "suggestedHeading": "Suggested",
-    "noSuggestions": "No suggestions right now.",
-    "add": "Add friend",
-    "pending": "Pending",
-    "incoming": "Sent you a request",
-    "friends": "Friend",
-    "accept": "Accept",
-    "decline": "Decline",
-    "remove": "Remove",
-    "block": "Block",
-    "unblock": "Unblock",
-    "noFriends": "No friends yet.",
-    "noIncoming": "No pending requests.",
-    "noOutgoing": "You haven't sent any requests.",
-    "noBlocked": "You haven't blocked anyone.",
-    "outgoing": "Sent",
-    "incomingHeading": "Incoming",
-    "outgoingHeading": "Outgoing",
-    "settings": "Settings",
-    "newMessage": "New message",
-    "newMessageFrom": "New message from {{name}}",
-    "open": "Open",
-    "unreadAria": "{{count}} unread messages",
-    "errors": {
-      "blocked": "You can't send a request to this player.",
-      "request_exists": "A request already exists between you.",
-      "already_friends": "You are already friends.",
-      "generic": "Something went wrong. Try again."
-    },
-    "toasts": {
-      "joined": "Welcome to the Community.",
-      "left": "You left the Community.",
-      "requestSent": "Request sent.",
-      "accepted": "Request accepted.",
-      "declined": "Request declined.",
-      "removed": "Friend removed.",
-      "blocked": "Player blocked.",
-      "unblocked": "Block removed."
-    },
-    "messages": {
-      "title": "Messages",
-      "openMessages": "Messages",
-      "minimize": "Minimize",
-      "close": "Close",
-      "filterPlaceholder": "Search conversations…",
-      "newChat": "New chat",
-      "newGroup": "New group",
-      "pickFriend": "Pick a friend",
-      "pickFriends": "Pick friends",
-      "groupTitle": "Group name",
-      "groupTitlePlaceholder": "e.g. Tennis crew",
-      "noConversations": "You have no conversations yet.",
-      "noFriendsHint": "Add friends first to start a conversation.",
-      "create": "Create",
-      "cancel": "Cancel",
-      "selectConversation": "Select a conversation.",
-      "composerPlaceholder": "Write a message…",
-      "send": "Send",
-      "messageDeleted": "Message deleted.",
-      "you": "You",
-      "group": "Group",
-      "members": "Members",
-      "leave": "Leave",
-      "leaveConfirm": "Are you sure you want to leave this conversation?",
-      "report": "Report",
-      "reportMessage": "Report message",
-      "reportConversation": "Report conversation",
-      "reportReasonPlaceholder": "Why are you reporting this? (optional)",
-      "reportSubmit": "Submit report",
-      "reportSent": "Report submitted. Thank you.",
-      "privacyNotice": "Messages are private but may be reviewed if a report is filed. We do not use end-to-end encryption so we can act on harassment or abuse.",
-      "block": "Block user",
-      "lastMessageDeleted": "(deleted message)",
-      "noMessages": "No messages yet. Say hello.",
-      "manageMembers": "Manage members",
-      "membersTitle": "Group members",
-      "adminBadge": "Admin",
-      "memberBadge": "Member",
-      "addMember": "Add member",
-      "add": "Add",
-      "removeMember": "Remove",
-      "removeConfirm": "Remove {{name}} from the group?",
-      "memberAdded": "Member added.",
-      "memberRemoved": "Member removed.",
-      "searchUsersPlaceholder": "Search players…",
-      "noSearchResults": "No players found.",
-      "searchHint": "Type at least 2 characters.",
-      "deletedUser": "Deleted user",
-      "time": {
-        "justNow": "just now",
-        "minute": "{{count}} min ago",
-        "minute_other": "{{count}} min ago",
-        "hour": "{{count}} hr ago",
-        "hour_other": "{{count}} hr ago",
-        "day": "{{count}} day ago",
-        "day_other": "{{count}} days ago"
-      },
-      "errors": {
-        "not_friends": "You can only chat with friends.",
-        "blocked": "Conversation is not available.",
-        "forbidden": "You don't have access to this conversation.",
-        "not_found": "Not found.",
-        "group_full": "The group is full.",
-        "invalid_target": "Invalid user.",
-        "generic": "Something went wrong. Try again."
-      }
-    }
-  },
-  "bookings": {
-    "filterCourt": "Court",
-    "allCourts": "All courts",
-    "subtitle": "Browse your bookings by day, week, or month.",
-    "emptyHint": "Browse another period or book a new court.",
-    "cardAriaLabel": "View booking details",
-    "joinedBadge": "Joined",
-    "leave": "Leave",
-    "confirmLeave": "Leave this game?",
-    "viewMode": {
-      "day": "Day",
-      "week": "Week",
-      "month": "Month"
-    },
-    "period": {
-      "currentDay": "Today",
-      "currentWeek": "Current week",
-      "currentMonth": "Current month",
-      "day": "Day",
-      "week": "Week",
-      "month": "Month"
-    },
-    "empty": {
-      "day": "No bookings on this day",
-      "week": "No bookings this week",
-      "month": "No bookings this month"
-    }
-  },
-  "bookingDetail": {
-    "back": "Back to my bookings",
-    "title": "Booking details",
-    "notFound": "This booking was not found or was cancelled.",
-    "directions": "Get directions",
-    "viewVenue": "View venue",
-    "cancel": "Cancel booking",
-    "cancelSeries": "Cancel whole series",
-    "confirmCancel": "Cancel this booking?",
-    "confirmCancelSeries": "Cancel the entire recurring series (future only)?"
-  },
-  "openVenues": {
-    "title": "Open Courts",
-    "subtitle": "Available booking times — updated in real time.",
-    "freeSlots": "Available times",
-    "book": "Book",
-    "sameSchedule": "Today and tomorrow have the same available times — the owner has set the same schedule.",
-    "emptyToday": "No available games today — check tomorrow.",
-    "emptyDate": "No available games on this day.",
-    "seeTomorrow": "See tomorrow",
-    "moreSlots": "+{{count}} more",
-    "subtitleToday": "Available times today — only times after now.",
-    "subtitleOther": "Times available to book.",
-    "emptyOther": "No available times on this day."
-  },
   "nav": {
-    "venues": "Venues",
-    "bookings": "Bookings",
-    "games": "Open Games",
-    "community": "Community",
-    "owner": "Owner",
-    "admin": "Admin",
-    "bookCourt": "Book a court",
-    "search": "Search",
-    "searchPlaceholder": "Area or venue…",
-    "profile": "Profile",
-    "signIn": "Sign in",
-    "nightMode": "Night mode",
-    "lightMode": "Light mode",
-    "language": "Language",
-    "ownerPanel": {
-      "dashboard": "Dashboard",
-      "overview": "Overview",
-      "myVenues": "My venues",
-      "bookings": "Venue bookings",
-      "pricing": "Pricing",
-      "hours": "Hours",
-      "reports": "Reports",
-      "settings": "Settings",
-      "addVenue": "Add venue",
-      "panelTitle": "Owner panel"
-    }
+    "language": "Language"
   },
   "account": {
-    "menu": "Account menu",
-    "profile": "My profile",
-    "signOut": "Sign out",
-    "signedOut": "Signed out",
-    "viewAs": "View as",
-    "viewAsAdmin": "Admin (default)",
-    "viewAsOwner": "Owner",
-    "viewAsPlayer": "Player",
     "delete": "Delete account",
     "deleteTitle": "Delete your account?",
     "deleteDesc": "Your account and its data (profile, friends, chats, reviews) will be permanently deleted. Your upcoming bookings will be cancelled. This cannot be undone.",
@@ -226,562 +12,34 @@
     "deleted": "Your account has been deleted",
     "deleteFailed": "Deletion failed. Please try again."
   },
-  "ownerBookings": {
-    "title": "Bookings",
-    "subtitle": "All bookings at your venues, updated in real time.",
-    "newPhone": "New phone booking",
-    "noVenues": "You don't have any venues yet.",
-    "dayHeading": "Today's bookings",
-    "cancelledHeading": "Cancelled (last 24 hours)",
-    "cancelledEmpty": "No cancelled bookings in the last 24 hours.",
-    "empty": "No bookings for this day.",
-    "cancel": "Cancel",
-    "tabs": {
-      "active": "Active",
-      "cancelled": "Cancelled"
-    },
-    "badge": {
-      "online": "Online",
-      "phone": "Phone",
-      "closed": "Blocked"
-    },
-    "dialog": {
-      "title": "New phone booking",
-      "court": "Court",
-      "start": "Start time",
-      "noSlots": "No available time",
-      "duration": "Duration (hours)",
-      "type": "Booking type",
-      "whole": "Whole court",
-      "wholeDesc": "Locks the full slot",
-      "slot": "One seat",
-      "slotDesc": "Counts towards the slot capacity",
-      "slotUnavailable": "Not supported for this sport",
-      "customer": "Customer name",
-      "customerPh": "e.g. John Smith",
-      "phone": "Phone",
-      "nameRequired": "Enter a customer name",
-      "phoneRequired": "Enter a valid phone number",
-      "save": "Save"
-    }
-  },
-  "bottomNav": {
-    "home": "Home",
-    "venues": "Venues",
-    "games": "Open today",
-    "community": "Community",
-    "bookings": "Bookings",
-    "owner": "Owner",
-    "profile": "Profile",
-    "signIn": "Sign in"
-  },
   "footer": {
-    "tagline": "Book your court — any sport.",
-    "platform": "Platform",
-    "venues": "Venues",
-    "bookings": "Bookings",
-    "games": "Open Games",
-    "support": "Support",
-    "help": "Help",
     "contact": "Contact",
-    "legal": "Legal",
     "terms": "Terms of service",
-    "privacy": "Privacy",
-    "copyright": "© Speak 2026"
+    "privacy": "Privacy"
   },
   "help": {
     "title": "Help & Support",
-    "subtitle": "We're here for you. Reach out and we'll get back to you as soon as we can.",
     "emailLabel": "Email",
-    "emailHint": "Send us a message",
-    "phoneLabel": "Phone",
-    "phoneHint": "Call us"
-  },
-  "home": {
-    "badge": "New in Greece",
-    "title1": "Book a",
-    "title2": "court",
-    "title3": "in seconds.",
-    "subtitle": "Pick your sport and find the court next door.",
-    "searchPlaceholder": "Area or venue...",
-    "searchCta": "Search",
-    "chooseSport": "Pick your sport",
-    "allVenues": "All venues",
-    "feature1Title": "Real-time availability",
-    "feature1Desc": "See which courts are free and book instantly.",
-    "feature2Title": "Open games",
-    "feature2Desc": "Join a group at your level and play.",
-    "feature3Title": "Player ratings",
-    "feature3Desc": "Build your reputation — find teammates by rating.",
-    "ownerCta": {
-      "navLink": "Are you an owner?",
-      "heading": "Do you run a sports venue?",
-      "subheading": "List it on Speak and fill your courts\n\n\n",
-      "benefit1Title": "All bookings in one calendar",
-      "benefit1Desc": "Online and phone bookings in real time, no double bookings.",
-      "benefit2Title": "Auto-fill empty hours",
-      "benefit2Desc": "Players find available courts and fill them on their own.",
-      "benefit3Title": "More bookings, no effort",
-      "benefit3Desc": "Track revenue, occupancy and trends per court and day.",
-      "benefit4Title": "Reach new players",
-      "benefit4Desc": "Get known by thousands of athletes looking for courts in your area.",
-      "cta": "List your venue"
-    }
-  },
-  "sports": {
-    "all": "All",
-    "padel": "Padel",
-    "tennis": "Tennis",
-    "basketball": "Basketball",
-    "football": "Football",
-    "volleyball": "Volleyball",
-    "beach_volley": "Beach Volley",
-    "tagline": {
-      "padel": "The hottest sport",
-      "tennis": "Classic & strong",
-      "basketball": "Pick-up in the hood",
-      "football": "5v5 with your crew",
-      "volleyball": "A team sport",
-      "beach_volley": "Sand, sun, friends"
-    }
+    "phoneLabel": "Phone"
   },
   "common": {
     "back": "Back",
     "loading": "Loading…",
-    "viewVenue": "View venue",
-    "perHour": "/hour",
-    "perPerson": "/ person",
-    "perPersonPerHour": "/person/hr",
-    "priceNotSet": "Price on request",
-    "from": "From",
     "cancel": "Cancel",
     "save": "Save",
     "saving": "Saving…",
-    "create": "Create",
-    "creating": "Creating…",
     "close": "Close",
-    "error": "Error",
-    "saved": "Saved",
-    "deleted": "Deleted",
-    "submit": "Submit",
-    "edit": "Edit",
-    "delete": "Delete",
-    "today": "Today",
-    "tomorrow": "Tomorrow",
-    "court": "Court",
-    "courts": "courts",
-    "court_one": "court",
-    "name": "Name",
-    "phone": "Phone",
-    "date": "Date",
-    "time": "Time",
-    "duration": "Duration",
-    "price": "Price",
-    "status": "Status",
-    "customer": "Customer",
-    "back2": "Back",
     "backHome": "Home",
     "clear": "Clear"
   },
-  "venuesList": {
-    "title": "Venues",
-    "resultsFor": "Results for “{{q}}”",
-    "titleSport": "Venues · {{sport}}",
-    "countSingular": "{{count}} venue",
-    "countPlural": "{{count}} venues",
-    "forSport": " for {{sport}}",
-    "errorTitle": "Failed to load",
-    "notFound": "No venues found.",
-    "emptyQ": "No venues found for “{{q}}”. Try another area or sport.",
-    "emptySport": "No venues found for this sport.",
-    "metaTitle": "Venues — Speak",
-    "metaDesc": "All venues for padel, tennis, basketball and football."
-  },
-  "venuePage": {
-    "metaFallback": "Venue — Speak",
-    "errorTitle": "Failed to load",
-    "notFoundTitle": "Venue not found",
-    "backAll": "All venues",
-    "bookCta": "Book",
-    "fromLabel": "From",
-    "perHour": "/hour",
-    "location": "Location",
-    "noCoords": "No coordinates available",
-    "directions": "Directions",
-    "amenities": "Amenities",
-    "noAmenities": "No amenities listed.",
-    "openGames": "Open games",
-    "openGamesDesc": "Join a group of players at the venue.",
-    "openGamesActive": "{{count}} active",
-    "noOpenGames": "No open games right now.",
-    "level": "Level",
-    "players": "players",
-    "emptySeat": "Open seat",
-    "signInToJoin": "Sign in to join",
-    "alreadyIn": "You're in",
-    "full": "Full",
-    "join": "Join",
-    "leave": "Leave",
-    "youAreHost": "You're the host",
-    "photoOf": "Photo {{n}}"
-  },
-  "levels": {
-    "beginner": "Beginner",
-    "intermediate": "Intermediate",
-    "advanced": "Advanced"
-  },
-  "booking": {
-    "slotBooked": "Booked",
-    "slotFull": "Full",
-    "court": "Court",
-    "allCourts": "All courts",
-    "metaTitle": "Book a court — Speak",
-    "errorTitle": "Error",
-    "notFound": "Venue not found",
-    "backToVenue": "Back to venue",
-    "title": "Booking",
-    "type": "Booking type",
-    "slotMode": "Single seat",
-    "slotModeDesc": "Find players & share the cost (up to {{n}} people).",
-    "popular": "Popular",
-    "wholeMode": "Whole court",
-    "wholeModeDesc": "Book the whole court alone or with your friends.",
-    "wholeOnly": "For {{sport}} only whole-court booking is supported.",
-    "date": "Date",
-    "duration": "Duration",
-    "fixedFor": "(fixed for {{sport}})",
-    "time": "Time",
-    "loadingAvail": "Loading availability…",
-    "noSlots": "No slots available for this day.",
-    "pricePerPerson": "Price / person",
-    "priceTotal": "Total price",
-    "totalFor": "€{{total}} total / up to {{n}} people",
-    "confirm": "Confirm booking",
-    "pickTime": "Pick a time to continue.",
-    "today": "Today",
-    "tomorrow": "Tomorrow",
-    "recurringCreated": "Created {{created}} recurring bookings.",
-    "recurringCreatedWithConflicts": "Created {{created}} bookings · skipped {{skipped}} already booked slots.",
-    "recurringCreatedWithFailures": "Created {{created}} bookings · {{failed}} failed: {{reason}}",
-    "recurringNoneCreatedConflict": "No bookings were created. All weeks are already booked.",
-    "recurringNoneCreatedReason": "No bookings were created: {{reason}}",
-    "recurringReasonNoCourt": "No court is available for this time.",
-    "recurringReasonPastSlot": "This time has already passed.",
-    "recurringReasonUserOverlap": "You already have a booking at this time.",
-    "recurringReasonSlotFull": "This slot is full.",
-    "recurringReasonVenueNotFound": "Venue not found.",
-    "recurringReasonUnknown": "The recurring booking could not be completed.",
-    "upTo": "up to {{n}} players"
-  },
-  "myBookings": {
-    "title": "My bookings",
-    "subtitle": "Upcoming and past bookings.",
-    "empty": "No bookings yet",
-    "emptyDesc": "Book your first court and it'll show up here.",
-    "metaTitle": "My bookings — Speak",
-    "metaDesc": "Manage your bookings."
-  },
-  "openGames": {
-    "metaTitle": "Open games — Speak",
-    "metaDesc": "Join open games at your level.",
-    "title": "Open games",
-    "subtitle": "Find a group and play today.",
-    "tabUpcoming": "Upcoming",
-    "tabMine": "Mine",
-    "tabPast": "To review",
-    "all": "All",
-    "loading": "Loading…",
-    "noGames": "No games here.",
-    "joined": "You joined the game",
-    "left": "You left",
-    "player": "Player",
-    "venueFallback": "Venue",
-    "leave": "Leave",
-    "join": "Join",
-    "signInToJoin": "Sign in to join",
-    "full": "Full",
-    "reviewTeammates": "Review your teammates",
-    "submitted": "Submitted",
-    "review": "Review",
-    "commentPh": "Comment (optional)",
-    "thanks": "Thank you!",
-    "signInFirst": "Sign in first"
-  },
   "profile": {
-    "metaTitle": "Profile — Speak",
-    "metaDesc": "Your player profile on Speak.",
-    "changePhoto": "Change photo",
-    "photoUpdated": "Photo updated",
-    "saved": "Saved",
-    "owner": "Owner",
-    "coach": "Coach",
-    "admin": "Admin",
-    "player": "Player",
     "edit": "Edit profile",
-    "games": "Games",
-    "rating": "Rating",
-    "level": "Level",
     "signOut": "Sign out",
-    "reviews": "Reviews",
-    "totalReviews": "{{n}} total",
-    "noReviews": "You haven't received any reviews yet.",
-    "namePh": "Name",
-    "phone": "Contact phone",
-    "phonePh": "Contact phone (e.g. 69…)",
-    "phoneHint": "Visible only to the venue owner, and only while you have an active booking there.",
-    "phoneInvalid": "Phone must be 6–40 characters",
-    "voiceSoon": "Your voice, once a day.",
     "fullName": "Name",
     "username": "Username",
-    "usernameHint": "3–20 characters: a–z, 0–9, . and _"
-  },
-  "ownerDashboard": {
-    "metaTitle": "Owner dashboard — Speak",
-    "title": "Dashboard",
-    "subtitle": "Court schedule and bookings in real time.",
-    "bookingsToday": "Bookings today",
-    "revenueToday": "Revenue today",
-    "occupancyToday": "Occupancy today",
-    "day": "Day",
-    "week": "Week",
-    "today": "Today",
-    "legendOnline": "Online",
-    "legendPhone": "Phone",
-    "legendClosed": "Blocked / maintenance",
-    "legendAvailable": "Available",
-    "empty": "You don't have any venues yet.",
-    "addFirst": "Add your first venue",
-    "noCourts": "No courts in this venue.",
-    "noScheduledSlots": "No scheduled slots",
-    "hour": "Hour",
-    "addSlot": "Available slot",
-    "add": "Add",
-    "maintenance": "Maintenance",
-    "customerFallback": "Customer",
-    "newAction": "New action",
-    "newPhone": "+ Phone booking",
-    "newPhoneDesc": "Record bookings from phone/walk-in customers",
-    "closeSlot": "+ Block slot",
-    "closeSlotDesc": "Maintenance, private use, unavailable",
-    "cancelled": "Booking cancelled",
-    "createdOk": "Created",
-    "phoneTitle": "Phone booking",
-    "phoneDesc": "The slot locks immediately and is not shown online.",
-    "customerName": "Customer name",
-    "customerNamePh": "e.g. John D.",
-    "phone": "Phone",
-    "phonePh": "69...",
-    "date": "Date",
-    "time": "Time",
-    "court": "Court",
-    "duration": "Duration",
-    "h1": "1 hour",
-    "h1_5": "1.5 hour",
-    "h2": "2 hours",
-    "payment": "Payment",
-    "cash": "Cash",
-    "total": "Total",
-    "errNameRequired": "Customer name is required",
-    "errNameLen": "Name up to 120 characters",
-    "errPhoneLen": "Phone up to 40 characters",
-    "errPhoneRequired": "Enter a customer phone",
-    "errPhoneShort": "Phone must be at least 6 characters",
-    "errNoSlot": "Pick an available time",
-    "slotPast": "past",
-    "saving": "Saving…",
-    "submit": "Save",
-    "back": "Back",
-    "closedTitle": "Block slot",
-    "closedDesc": "The slot will be blocked from online bookings.",
-    "reason": "Reason",
-    "reasonMaintenance": "Maintenance",
-    "reasonPrivate": "Private use",
-    "reasonTournament": "Tournament",
-    "reasonOther": "Other",
-    "description": "Description",
-    "descPh": "e.g. Cleaning",
-    "closeSubmit": "Block slot",
-    "details": {
-      "kind": "{{type}} booking",
-      "customer": "Customer",
-      "phone": "Phone",
-      "status": "Status",
-      "price": "Price",
-      "close": "Close",
-      "cancel": "Cancel booking",
-      "cancelling": "Cancelling…",
-      "viewPlayer": "View player profile"
-    }
-  },
-  "ownerVenues": {
-    "metaTitle": "My venues — Speak",
-    "title": "My venues",
-    "subtitle": "Edit details, photos and amenities.",
-    "add": "Add venue",
-    "loading": "Loading…",
-    "empty": "No venues yet. Create your first.",
-    "createdOk": "Venue created",
-    "pendingApproval": "Submitted — awaiting admin approval",
-    "deletedOk": "Venue deleted",
-    "deleteConfirm": "Delete \"{{name}}\"? This action cannot be undone.",
-    "delete": "Delete",
-    "statusApproved": "Approved",
-    "statusRejected": "Rejected",
-    "statusPending": "Pending approval",
-    "mapLocation": "Location",
-    "pickLocation": "Pick a valid location from the suggestions",
-    "pickLocationHint": "Pick an address from the map suggestions",
-    "newTitle": "New venue",
-    "newDesc": "Fill the basics. Photos, amenities and hours come next.",
-    "name": "Name",
-    "namePh": "e.g. Padel Club Athens",
-    "sport": "Sport",
-    "area": "Area",
-    "areaPh": "e.g. Glyfada",
-    "address": "Address (optional)",
-    "courtsCount": "Number of courts",
-    "price": "Whole court price (€/hour)",
-    "wholeCourtPrice": "Whole court price (€/hour)",
-    "wholeCourtHint": "Total a group pays to rent the entire court for one hour.",
-    "slotPrice": "Per-seat price (€/hour)",
-    "slotPriceAuto": "Auto-calculated: court price ÷ {{n}} players",
-    "slotPriceManualSync": "If you change this, the whole-court price updates too ({{n}} players × per-seat)."
-  },
-  "ownerVenueEdit": {
-    "metaTitle": "Edit venue — Speak",
-    "title": "Edit venue",
-    "back": "Back",
-    "loading": "Loading…",
-    "details": "Details",
-    "name": "Name",
-    "area": "Area",
-    "address": "Address",
-    "mapLocation": "Map location",
-    "basePrice": "Whole court price (€/hour)",
-    "amenities": "Amenities",
-    "photos": "Photos",
-    "upload": "New photo",
-    "uploading": "Uploading…",
-    "noPhotos": "No photos uploaded.",
-    "cover": "Cover",
-    "setCover": "Set as cover",
-    "coverSet": "Set as cover",
-    "courtsCount": "Number of courts",
-    "nameRequired": "Name is required",
-    "pickLocation": "Pick a valid location from the suggestions",
-    "autoSaveHint": "Saves automatically when it loses focus",
-    "statusApproved": "Approved — visible to players",
-    "statusRejected": "Rejected",
-    "statusPending": "Awaiting admin approval",
-    "tooLarge": "File is too large (max 8MB)",
-    "uploadOk": "Photo uploaded",
-    "uploadFail": "Upload failed"
-  },
-  "pricing": {
-    "metaTitle": "Pricing — Speak",
-    "title": "Pricing",
-    "subtitle": "Time zones per court and day.",
-    "subtitleSimple": "Court price and equipment prices.",
-    "courtPrice": "Court price",
-    "courtPriceSub": "Sport: {{sport}} · {{n}} players per court",
-    "editVenue": "Edit venue",
-    "preview": "Preview: whole court €{{base}} / hour · single seat €{{slot}} / hour",
-    "loading": "Loading…",
-    "noCourts": "No courts in this venue.",
-    "addZone": "Zone",
-    "noZones": "No time zones defined. The venue's base price will be used ({{price}} €/hour).",
-    "noZonesNoBase": "No time zones or base price set. Add a zone or set a base price for the venue.",
-    "addFirstZone": "Add zone",
-    "newZone": "New zone",
-    "zone": "Zone",
-    "from": "From",
-    "to": "To",
-    "perHour": "€/hour"
-  },
-  "equipment": {
-    "title": "Rental equipment",
-    "subtitle": "List what equipment you provide (e.g. padel racket, balls) and the extra fee for each. The price appears to the player exactly as you set it.",
-    "loading": "Loading…",
-    "empty": "No equipment yet.",
-    "namePh": "Equipment name (e.g. Padel racket)",
-    "pricePh": "Price €",
-    "add": "Add",
-    "save": "Save",
-    "active": "Active",
-    "delete": "Delete",
-    "deleteConfirm": "Delete \"{{name}}\"?"
-  },
-  "hours": {
-    "metaTitle": "Hours — Speak",
-    "title": "Opening hours",
-    "subtitle": "Enable or disable days and set times.",
-    "loading": "Loading…",
-    "saved": "Hours saved"
-  },
-  "ownerHours": {
-    "metaTitle": "Slots schedule — Speak",
-    "title": "Slots schedule",
-    "subtitle": "These hours are the single source of availability — they show up in online bookings, phone bookings and open games.",
-    "loading": "Loading…",
-    "noCourts": "No courts yet.",
-    "slotsFor": "Slots for {{day}}",
-    "noSlots": "No slots yet. Add manually or use auto-generate.",
-    "delete": "Delete",
-    "bulkTitle": "Auto-generate",
-    "from": "From",
-    "to": "To",
-    "slotMinutes": "Slot duration (minutes)",
-    "replaceExisting": "Replace existing",
-    "generate": "Generate",
-    "generated": "Generated {{count}} slots",
-    "addTitle": "Add slot",
-    "start": "Start",
-    "end": "End",
-    "add": "Add",
-    "error": "Error",
-    "closuresTitle": "Ad-hoc closures",
-    "closuresDesc": "Override specific hours (maintenance, holiday, private use). They won't appear as available.",
-    "closureKindDate": "Specific date",
-    "closureKindWeekday": "Weekly (every…)",
-    "reasonPh": "Reason (optional)",
-    "added": "Added",
-    "noClosures": "No closures yet.",
-    "every": "Every {{day}}"
-  },
-  "reports": {
-    "metaTitle": "Reports — Speak",
-    "title": "Reports",
-    "subtitle": "Revenue and stats for the period you select.",
-    "loading": "Loading…",
-    "revenue30": "30-day revenue",
-    "bookings30": "30-day bookings",
-    "onlinePhone": "Online / Phone",
-    "online": "Online",
-    "phone": "Phone",
-    "revenueLabel": "Revenue",
-    "dailyRevenue": "Revenue per day (last 7)",
-    "popularHours": "Most popular hours",
-    "mix": "Online vs Phone",
-    "noData": "No bookings yet",
-    "modeDay": "Day",
-    "modeMonth": "Month",
-    "modeCustom": "Custom",
-    "channelSplit": "Split online/phone",
-    "comparePrev": "Compare to previous period",
-    "revenuePeriod": "Revenue (period)",
-    "bookingsPeriod": "Completed bookings",
-    "avgBasket": "Avg per booking",
-    "current": "Current",
-    "previous": "Previous",
-    "from": "From",
-    "to": "To",
-    "revenueByDay": "Revenue per day",
-    "revenueByMonth": "Revenue per month"
-  },
-  "ownerSettings": {
-    "metaTitle": "Settings — Speak",
-    "title": "Settings",
-    "subtitle": "Business details and preferences."
+    "usernameHint": "3–20 characters: a–z, 0–9, . and _",
+    "photo": "Change photo",
+    "photoSaved": "Photo saved"
   },
   "admin": {
     "title": "Manage topics",
@@ -818,85 +76,111 @@
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "tryAgainOrHome": "Try again or go back home."
   },
-  "days": {
-    "short": [
-      "Mon",
-      "Tue",
-      "Wed",
-      "Thu",
-      "Fri",
-      "Sat",
-      "Sun"
-    ],
-    "long": [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday"
-    ]
-  },
   "legal": {
     "contactLine": "Questions about this document?",
     "terms": {
-      "title": "Terms of Service",
-      "updated": "Last updated: June 2026",
-      "intro": "Welcome to Speak. By using our platform you agree to the terms below. Please read them carefully. If you do not agree, please do not use the service.",
+      "title": "Terms of Use",
+      "updated": "Last updated: September 2026",
+      "intro": "These terms (and end-user licence agreement, EULA) apply between you and {controller} for your use of Speak, in the iOS app and on the website. By signing up or using the service you accept them. If you do not agree, do not use Speak.",
       "sections": [
         {
           "heading": "The service",
           "body": [
-            "Speak is a platform that connects players with sports venues (padel, tennis, basketball, football, volleyball, beach volley) and lets you book courts, create and join open games, and communicate with other members of the community.",
-            "We act as an intermediary. The sports venue itself is responsible for the availability, quality and delivery of its service."
+            "Speak is a voice social network: you post short voices (up to 2 minutes) with an optional title in sections and topics, listen, reply with your voice, like and repost, follow other people and send listen-once voice messages to people you follow mutually.",
+            "The service is free and provided \"as is\" and \"as available\". We may change, add or remove features or discontinue the service, letting you know where reasonable."
           ]
         },
         {
           "heading": "Your account",
           "body": [
-            "Most features require an account. You are responsible for keeping your password confidential and for all activity under your account.",
-            "You must provide accurate, truthful information. Creating an account on behalf of someone else without authorization is not permitted."
+            "You must be at least 15 years old. Give accurate details, keep one account per person and do not impersonate another person or organisation.",
+            "Keep your password safe; you are responsible for activity on your account. If you suspect unauthorised access, change your password and tell us at {email}."
           ]
         },
         {
-          "heading": "Bookings and cancellations",
+          "heading": "Your content",
           "body": [
-            "Each booking you complete is a commitment to the venue. Cancellation policies may vary by venue.",
-            "Speak does not guarantee court availability beyond what is shown at the time of booking. A venue owner may cancel a booking for reasons outside our control (e.g. weather, damage)."
+            "The voices, titles and messages you create belong to you. You give us a non-exclusive, worldwide, royalty-free licence to store, reproduce and distribute them within the service, only to run it. The licence ends when you delete the content or your account.",
+            "Your public voices can be heard by every Speak user, who may reply, like, repost or quote them with their own voice. Do not post anything you would not want heard publicly.",
+            "You are responsible for having the rights to what you post: do not record or post other people's voices without their consent and do not use music or third-party material without permission."
           ]
         },
         {
-          "heading": "Community rules",
+          "heading": "Zero tolerance for objectionable content and abusive users",
           "body": [
-            "You may not post or send content that is unlawful, abusive, threatening, misleading or offensive, and you may not harass other members.",
-            "We reserve the right to remove content and to suspend or delete accounts that violate these rules. You can report messages or users using the in-app tools."
+            "Speak has zero tolerance for objectionable content and abusive behaviour. In particular, the following are not allowed:",
+            "• hate speech or discrimination based on origin, religion, gender, sexual orientation, disability or any other characteristic; • harassment, bullying, threats or targeting people; • sexual content, and any content that sexualises minors; • violence, incitement to violence or encouraging self-harm; • illegal content or promoting illegal activities; • spam, scams, misleading advertising or mass automated actions; • sharing other people's personal details (address, phone number, etc.); • false information that can cause real harm; • copyright infringement; • attempts to bypass security measures or blocks.",
+            "If you break these rules we remove the content and may suspend or permanently close your account, without notice for serious or repeated violations."
           ]
         },
         {
-          "heading": "Venue owners",
+          "heading": "Reporting, blocking and moderation",
           "body": [
-            "As an owner, you are responsible for the accuracy of your venue details, prices, hours and availability. Venues are published after admin approval.",
-            "You agree to honour bookings made through the platform and to treat players with respect."
+            "Every voice, profile and conversation has \"Report\" and \"Block\". When you block someone, neither of you sees the other's content and you cannot contact each other.",
+            "We review every report within 24 hours and remove the content, or ban the user who posted it, when it breaks these terms. A voice reported by several people is hidden automatically until it is reviewed.",
+            "We do not review content before it is posted and are not responsible for what users say, but we act promptly once we become aware of illegal or prohibited content. For urgent matters write to {email}."
+          ]
+        },
+        {
+          "heading": "Listen-once voice messages",
+          "body": [
+            "Voice messages play once for the recipient and the audio is deleted right after. Messages that are never played are deleted after 10 days.",
+            "We cannot stop someone from recording a message with another device while it plays. Do not send anything you would not want kept."
+          ]
+        },
+        {
+          "heading": "News and third-party links",
+          "body": [
+            "Some topics are created automatically from public news feeds (RSS) of Greek media and contain only the headline and a link to the full article. Articles belong to their publishers.",
+            "We do not control or endorse third-party websites, or the opinions users express in their voices."
+          ]
+        },
+        {
+          "heading": "The app and our rights",
+          "body": [
+            "We grant you a personal, non-exclusive, non-transferable, revocable licence to use the app on Apple devices you own or control, as permitted by the App Store Usage Rules. Speak's name, design and code belong to us.",
+            "You may not copy, decompile or modify the app, scrape the service by automated means, or use it in a way that overloads it or harms others."
+          ]
+        },
+        {
+          "heading": "Deletion and termination",
+          "body": [
+            "You can delete your account at any time in the app: Profile → ⚙︎ → \"Delete account\". Your account, voices and other data are deleted as described in the Privacy Policy.",
+            "We may suspend or terminate your access if you break these terms or the law."
           ]
         },
         {
           "heading": "Liability",
           "body": [
-            "The service is provided \"as is\". To the maximum extent permitted by law, Speak is not liable for injuries, damages or losses arising from the use of sports facilities or from interaction with other members.",
-            "You are responsible for assessing whether any activity is suitable for your physical condition."
+            "To the extent permitted by law, we are not liable for indirect damages, data loss or service interruptions, or for content posted by users. Nothing in these terms limits our liability for intent or gross negligence, or your rights as a consumer."
+          ]
+        },
+        {
+          "heading": "Apple",
+          "body": [
+            "These terms are concluded between you and us only, not with Apple Inc. We, not Apple, are solely responsible for the app and its content.",
+            "Apple has no obligation to provide any maintenance or support for the app. To the maximum extent permitted by law, Apple has no warranty obligation with respect to the app.",
+            "We, not Apple, are responsible for addressing any claims relating to the app (product liability, failure to conform to legal or regulatory requirements, consumer protection or privacy claims, or third-party intellectual property claims).",
+            "You represent that you are not located in a country subject to a U.S. Government embargo and are not listed on any U.S. Government list of prohibited or restricted parties.",
+            "Apple Inc. and its subsidiaries are third-party beneficiaries of these terms and, once you accept them, have the right to enforce them against you."
+          ]
+        },
+        {
+          "heading": "Governing law",
+          "body": [
+            "Greek law applies. The courts of Athens have jurisdiction, without prejudice to mandatory rules that protect consumers in their country of residence."
           ]
         },
         {
           "heading": "Changes to these terms",
           "body": [
-            "We may update these terms. Material changes will be announced within the platform. Continued use after a change means you accept the new terms."
+            "We may change these terms. We will tell you about material changes in the app; if you keep using Speak, you accept the new terms."
           ]
         },
         {
           "heading": "Contact",
           "body": [
-            "For any question about these terms, contact us at {email}."
+            "{controller} · email: {email} · phone: {phone}."
           ]
         }
       ]
@@ -904,108 +188,106 @@
     "privacy": {
       "title": "Privacy Policy",
       "updated": "Last updated: September 2026",
-      "intro": "This policy explains what personal data Speak processes when you use the iOS app or the website, why, on which legal basis, who we share it with, how long we keep it and what rights you have under the EU General Data Protection Regulation 2016/679 (“GDPR”) and Greek Law 4624/2019.",
+      "intro": "This policy explains what personal data Speak processes when you use the iOS app or the website, why, on what legal basis, how long we keep it and what rights you have under the General Data Protection Regulation (GDPR). Speak is a voice social network, so your voice is the main data you share.",
       "sections": [
         {
-          "heading": "Data controller and contact",
+          "heading": "Controller and contact",
           "body": [
-            "The data controller is {controller}, operator of the Speak service.",
-            "For any question about your data, contact {email} or call {phone}. We reply within one month at the latest."
+            "The controller is {controller}, operator of the Speak service.",
+            "For anything about your data contact {email} or call {phone}. We reply within one month at the latest."
           ]
         },
         {
-          "heading": "Data we collect",
+          "heading": "What data we collect",
           "body": [
-            "Account data: email, full name, role (player or venue owner) and password, which is stored only in hashed form.",
-            "Profile data: username (@handle), profile photo (optional), short bio (optional), playing level, language preference, number of matches played per sport and a rating based on reviews from other players.",
-            "Contact phone (optional): if you add it to your profile.",
-            "Bookings and games: court, date, time, duration, price, equipment, status (confirmed/cancelled) and participation in open games.",
-            "Community: followers and accounts you follow (and follow requests), posts (photos, captions, matches), stories that last 24 hours and who viewed them, likes, comments, messages and group chats, player reviews, blocked users and content reports.",
-            "In-app notifications (e.g. new booking, cancellation, friend request).",
-            "For venue owners: venue details (name, address, map location, photos, opening hours, prices, equipment) and bookings they enter themselves, which may include a customer's name and phone.",
-            "Technical data: IP address, device/browser type and server logs, needed to run and secure the service.",
-            "Location (optional): only if you use the “Distance to me” filter and grant permission. It is used only on your device to calculate distances to venues and is never sent to or stored on our servers. You can revoke the permission in your device settings.",
-            "We do not collect payment data, contacts or health data. Court payments are made directly at the venue."
+            "Account: email, full name and password, stored only in hashed form.",
+            "Profile: username (@username), name and profile photo (optional).",
+            "Public voices: the recordings you post (up to 2 minutes), their title, section and topic, the time of posting, and your voice replies, reposts and quotes. Your voice is personal data because it can identify you and reveal information about you.",
+            "Activity: who you follow and who follows you, likes, which voices you have played (for the listen counter, once per voice), blocks, reports you make or that are made about you, in-app notifications.",
+            "Voice messages: the audio of each message is stored only until the recipient plays it, together with sender, recipient, time sent and whether it was played.",
+            "Technical data: IP address, device/browser type, server logs and a log of actions for usage limits (rate limits), needed to run and secure the service.",
+            "Microphone: used only while you record, after you grant permission. A recording stays on your device until you tap \"Post\" or \"Send\".",
+            "Reminders: the daily topic notifications are scheduled locally on your device; we do not use a push server.",
+            "We do not collect location, contacts, payment or health data. We do not transcribe your voice, use it for biometric identification or use it to train artificial intelligence systems."
           ]
         },
         {
           "heading": "Purposes and legal basis",
           "body": [
-            "Performance of a contract (Art. 6(1)(b) GDPR): creating and managing your account, bookings and cancellations, open games, messaging, booking notifications and account emails (sign-up confirmation, password reset).",
-            "Legitimate interests (Art. 6(1)(f) GDPR): security of the service, fraud and abuse prevention, handling reports and moderating content, resolving booking disputes.",
-            "Consent (Art. 6(1)(a) GDPR): appearing in community search (off by default, you turn it on), profile photo and contact phone. You can withdraw consent at any time by changing the setting or removing the data.",
-            "Legal obligation (Art. 6(1)(c) GDPR): where the law or a competent authority requires us to keep or disclose data.",
-            "We do not use your data for advertising, we do not sell it and we do not track you across other companies' apps or websites. No automated decisions with significant effects are made about you."
+            "Performance of a contract (Art. 6(1)(b) GDPR): your account, posting and playing voices, followers, likes, replies, voice messages, notifications and account emails (sign-up confirmation, password reset).",
+            "Legitimate interest (Art. 6(1)(f) GDPR): security, preventing spam and abuse, usage limits, handling reports and moderating content, ranking the \"For you\" feed using likes, replies, reposts, listens and who you follow.",
+            "Consent (Art. 6(1)(a) GDPR): profile photo, microphone and notification permissions, which you can withdraw at any time in the app or in your device settings.",
+            "Legal obligation (Art. 6(1)(c) GDPR): when the law or a competent authority requires us to keep or disclose data.",
+            "We do not use your data for advertising, do not sell it and do not track you across other apps or websites. Feed ranking does not produce decisions with legal or similarly significant effects on you."
           ]
         },
         {
           "heading": "Who can see your data",
           "body": [
-            "Other users: your name, @username, photo, bio, level, rating, number of matches and follower counts are visible to every signed-in user. Your posts, stories and follower lists are visible to all signed-in users if your account is public, or only to followers you approved if it is private. You appear in community search only if you enabled it. People you blocked cannot see your content. Your email is never shown to other users.",
-            "Venue owners: see bookings at their venues together with your name and profile. They see your phone number only while you have an active, confirmed upcoming booking at their venue.",
-            "Speak administrators: access data only as needed for support, venue approval and handling reports."
+            "Other users: your name, @username, photo, public voices (with title, time, likes, replies, reposts and listen count) and follower lists are visible to every signed-in user. Who played or liked a voice is not shown. Your email is never shown.",
+            "Audio files of public voices are stored under a random, unguessable link: anyone who obtains a file's link can play it. Voice messages are not stored under such a link and only the recipient can play them, once.",
+            "People you block cannot see your content or contact you.",
+            "Speak administrators: have access only as needed for support and for reviewing reports (e.g. playing a public voice that was reported). Voice messages are not available in the admin tools."
           ]
         },
         {
           "heading": "Service providers (processors)",
           "body": [
-            "Supabase Inc.: database, user authentication and photo storage.",
-            "Cloudflare, Inc.: hosting and running the application, protection against attacks.",
-            "Google LLC (Google Maps Platform): maps for venues. When you open a map, Google receives your IP address under its own privacy policy.",
-            "DeepL SE: automatic translation of venue names and areas. No personal user data is sent.",
-            "Email delivery provider: sends sign-up confirmation and password reset emails.",
-            "Apple: distributes the app through the App Store but has no access to your Speak account data.",
-            "All providers process data only on our instructions under data processing agreements (Art. 28 GDPR). Data may also be disclosed to public authorities where required by law."
+            "Supabase Inc.: database, user authentication and storage of audio files and photos.",
+            "Cloudflare, Inc.: hosting and running the app, protection against attacks.",
+            "Email delivery provider: sending sign-up confirmation and password reset emails.",
+            "Apple: distributes the app through the App Store, but has no access to your Speak account data.",
+            "For news topics our server reads public RSS feeds of Greek media; we do not send them any user data. When you open an article link, the publisher's website receives your IP address under its own policy.",
+            "All providers process data only on our instructions and are bound by data processing agreements (Art. 28 GDPR). Data may also be disclosed to public authorities when required by law."
           ]
         },
         {
           "heading": "Transfers outside the EEA",
           "body": [
-            "Some providers are based in the United States or may process data outside the European Economic Area. Such transfers rely on the EU-US Data Privacy Framework or the European Commission's Standard Contractual Clauses, with appropriate safeguards."
+            "Some providers are based in the US or may process data outside the European Economic Area. In those cases transfers rely on the EU-US Data Privacy Framework or the European Commission's Standard Contractual Clauses."
           ]
         },
         {
           "heading": "How long we keep data",
           "body": [
-            "For as long as your account is active.",
-            "When you delete your account, your account and profile data, photo, phone, posts, stories, likes, comments, followers, blocks, reviews, notifications and your membership in chats and open games are deleted immediately. Your upcoming bookings are cancelled. Stories stop being shown automatically after 24 hours.",
-            "Messages you already sent may remain in other people's conversations without your name or any link to you. Past bookings remain in the venue's history without your details, for accounting and tax purposes.",
-            "Content reports are kept for as long as needed to keep the community safe and to deal with repeated violations. Server logs are kept for a limited period by the hosting providers."
+            "Your account, profile and public voices are kept while your account is active or until you delete them. When you delete a voice, its audio file, replies, reposts, likes and listens are deleted too.",
+            "Voice messages: the audio is deleted as soon as it is played, or after 10 days if it is never played. Conversation records (who sent to whom and when) are deleted after 90 days.",
+            "Content reports are kept as long as needed for community safety and dealing with repeated violations. Server logs are kept for a limited time by the hosting providers."
           ]
         },
         {
           "heading": "Deleting your account",
           "body": [
-            "You can permanently delete your account in the app: Profile → “Delete account” (venue owners: Settings → “Delete account”). You can also send a request to {email}.",
-            "If you are a venue owner, your venues are removed from the public list when your account is deleted."
+            "You can permanently delete your account in the app: Profile → ⚙︎ → \"Delete account\". Alternatively, send a request to {email}.",
+            "Deletion immediately removes your account, profile, photo, all your voices and their audio files (and other people's replies and reposts of them), likes, followers, blocks, notifications and the voice messages you sent or received. Reports you made remain without any link to you."
           ]
         },
         {
           "heading": "Your rights",
           "body": [
-            "You have the right to access, rectify and erase your data, to restrict processing, to data portability and to object to processing based on legitimate interests (Art. 15–21 GDPR), and to withdraw consent at any time without affecting the lawfulness of earlier processing.",
-            "You can correct most data yourself in your profile. For other requests email {email}. We may ask you to confirm your identity.",
-            "If you believe your rights are being violated, you can lodge a complaint with the Hellenic Data Protection Authority (1-3 Kifisias Ave., 115 23 Athens, www.dpa.gr)."
+            "You have the right of access, rectification, erasure, restriction of processing, data portability and to object to processing based on legitimate interest (Arts. 15–21 GDPR), and to withdraw consent at any time without affecting the lawfulness of earlier processing.",
+            "You can change your name, @username and photo in your profile and delete any voice from its ⋯ menu. For other requests email {email}. We may ask you to confirm your identity.",
+            "If you believe your rights are infringed, you can lodge a complaint with the Hellenic Data Protection Authority (1-3 Kifisias Ave., 115 23 Athens, www.dpa.gr)."
           ]
         },
         {
           "heading": "Security",
           "body": [
-            "All communication is encrypted (HTTPS). Passwords are stored only in hashed form. Access to data is enforced at database level so each user sees only what they are entitled to, and administrative keys are kept on the server only, never in the app.",
-            "No system is perfectly secure. If we detect a breach that puts you at risk, we will inform you and the Authority as required by law."
+            "All communication is encrypted (HTTPS). Passwords are stored only in hashed form. Access to data is enforced at database level so every user sees only what they are entitled to, and admin keys live only on the server, never in the app.",
+            "No system is completely secure. If we detect a breach that puts you at risk, we will inform you and the Authority as the law requires."
           ]
         },
         {
-          "heading": "Children",
+          "heading": "Minors",
           "body": [
-            "The service is intended for people aged 15 and over (Art. 21 of Greek Law 4624/2019). If you are a parent and believe a child under 15 created an account, contact us and we will delete it."
+            "The service is for people aged 15 and over (Art. 21 Law 4624/2019). If you are a parent and believe a child under 15 has created an account, contact us and we will delete it."
           ]
         },
         {
           "heading": "Cookies and local storage",
           "body": [
-            "We only use strictly necessary storage on your device: to keep you signed in and to remember preferences such as language and theme.",
-            "We do not use advertising or analytics cookies and we do not track you across apps and websites."
+            "We only use strictly necessary local storage on your device: to keep you signed in and to remember preferences such as language and the daily reminder.",
+            "We do not use advertising or analytics cookies and do not track you across apps and websites."
           ]
         },
         {
@@ -1017,102 +299,8 @@
       ]
     }
   },
-  "ownerPlayerProfile": {
-    "metaTitle": "Player profile — Speak",
-    "unnamed": "Player",
-    "phone": "Phone",
-    "historyTitle": "Booking history at your venues",
-    "historyEmpty": "No bookings at your venues yet.",
-    "status": {
-      "pending": "Pending",
-      "confirmed": "Confirmed",
-      "cancelled": "Cancelled",
-      "completed": "Completed"
-    }
-  },
   "network": {
     "offline": "You are offline. Changes will not be saved until the connection is back."
-  },
-  "venueFilters": {
-    "open": "Filters",
-    "title": "Filters",
-    "description": "Filter venues by sport, distance, rating, price and amenities.",
-    "reset": "Reset",
-    "categories": "Sport",
-    "distance": "Distance to me",
-    "anyDistance": "Any",
-    "less": "Shorter distance",
-    "more": "Longer distance",
-    "rating": "Rating",
-    "ratingHint": "and up",
-    "price": "Price",
-    "priceMin": "Minimum price",
-    "priceMax": "Maximum price",
-    "priceHint": "The price shown on the card (per player for padel/tennis, per hour for other sports).",
-    "amenities": "Amenities",
-    "show": "Show results ({{count}})",
-    "empty": "No venues match your filters.",
-    "locationDenied": "Could not access your location. Check your location settings."
-  },
-  "venueMap": {
-    "unavailable": "The map is not available right now.",
-    "missing": "{{count}} without location",
-    "you": "Your location",
-    "showMap": "Show map",
-    "showList": "Show list"
-  },
-  "social": {
-    "posts": "Posts",
-    "followers": "Followers",
-    "following": "Following",
-    "requests": "Requests",
-    "matches": "Matches",
-    "follow": "Follow",
-    "followBack": "Follow back",
-    "requested": "Requested",
-    "followingBtn": "Following",
-    "followsYou": "Follows you",
-    "editProfile": "Edit profile",
-    "requestsCount": "Requests ({{count}})",
-    "accept": "Accept",
-    "decline": "Delete",
-    "noFollowers": "No followers yet.",
-    "noFollowing": "Not following anyone yet.",
-    "noRequests": "No requests.",
-    "listDescription": "Followers and following lists.",
-    "notFound": "User not found.",
-    "private": "Private account",
-    "privateTitle": "This account is private",
-    "privateHint": "Follow this account to see their posts and stories.",
-    "noPostsTitle": "No posts yet",
-    "noPostsMine": "Share photos from your games — they will show up here.",
-    "matchesPlayed_one": "{{count}} match",
-    "matchesPlayed_other": "{{count}} matches",
-    "username": "Username",
-    "usernameHint": "3–30 characters: lowercase letters, numbers, dot and _.",
-    "usernameTaken": "This username is already taken.",
-    "bio": "Bio",
-    "bioPh": "A few words about you (up to 150 characters)",
-    "privateToggle": "Private account",
-    "privateToggleHint": "Only people you approve will see your posts, stories and followers.",
-    "noReviews": "No reviews yet",
-    "discoverable": "Show me in search",
-    "discoverableHint": "Other players can find you by name or username."
-  },
-  "create": {
-    "title": "Create",
-    "book": "Book a court",
-    "bookHint": "Find a venue and pick a time",
-    "join": "Available times",
-    "joinHint": "See where a court is free",
-    "post": "New post",
-    "postHint": "Photos from your game",
-    "story": "Story",
-    "storyHint": "A photo for 24 hours"
-  },
-  "playTabs": {
-    "venues": "Venues",
-    "games": "Available times"
   },
   "settings": {
     "title": "Settings",
@@ -1153,7 +341,6 @@
     "giveYourTake": "Give your take",
     "source": "Source",
     "post": "Post",
-    "inReplyTo": "In reply to a post",
     "replyWithVoice": "Reply with your voice",
     "noReplies": "No replies yet.",
     "newPost": "New voice",
@@ -1167,109 +354,11 @@
     "replyingToUser": "Replying to",
     "thread": "Thread"
   },
-  "stories": {
-    "yours": "Your story",
-    "add": "New story",
-    "published": "Your story is up",
-    "emptyTray": "Stories from people you follow appear here",
-    "viewers": "Viewers",
-    "noViewers": "No one has seen it yet",
-    "delete": "Delete story",
-    "prev": "Previous",
-    "next": "Next"
-  },
-  "activity": {
-    "title": "Activity",
-    "empty": "No activity yet",
-    "likedMany_one": "{{name}} and {{count}} other liked your post.",
-    "likedMany_other": "{{name}} and {{count}} others liked your post."
-  },
-  "explore": {
-    "title": "Explore",
-    "searchPh": "Search people",
-    "noPeople": "No people found",
-    "empty": "No posts yet",
-    "suggested": "Suggested for you",
-    "discoverPrompt": "Other players can't find you in search.",
-    "discoverOn": "Turn on"
-  },
   "feed": {
-    "emptyTitle": "It's really calm in here!",
-    "emptyText": "Your friends haven't spoken yet today. Be the first one.",
     "recordCta": "Record your day"
-  },
-  "dm": {
-    "title": "Messages",
-    "primary": "Primary",
-    "requests": "Requests",
-    "requestsCount": "Requests ({{count}})",
-    "empty": "No messages yet",
-    "emptyRequests": "No requests",
-    "requestsHint": "Messages from people you don't follow. They won't know you've seen them until you accept.",
-    "new": "New message",
-    "searchPh": "Search",
-    "chat": "Chat",
-    "you": "You",
-    "sharedPost": "Shared post",
-    "storyReply": "Story reply",
-    "storyGone": "Story no longer available",
-    "postGone": "Post unavailable",
-    "messagePh": "Message…",
-    "send": "Send",
-    "sent": "Sent",
-    "seen": "Seen",
-    "requestBanner": "{{name}} wants to send you a message.",
-    "accept": "Accept",
-    "delete": "Delete",
-    "block": "Block",
-    "blocked": "User blocked",
-    "confirmBlock": "Block {{name}}? They won't be able to message you or see your profile.",
-    "confirmDelete": "Delete this chat from your messages?",
-    "deleteChat": "Delete chat",
-    "leaveGroup": "Leave group",
-    "report": "Report",
-    "reported": "Thanks, we'll review it",
-    "viewProfile": "View profile",
-    "members_one": "{{count}} member",
-    "members_other": "{{count}} members",
-    "loadOlder": "Older messages",
-    "message": "Message",
-    "notePh": "Write a message…",
-    "more": "More",
-    "replyStoryPh": "Reply to {{name}}…",
-    "replySent": "Reply sent",
-    "errors": {
-      "blocked": "You can't message this user",
-      "rate": "Too many messages, try again shortly",
-      "notFound": "Chat not found",
-      "generic": "Something went wrong"
-    }
-  },
-  "moderation": {
-    "content": "Content",
-    "messages": "Messages",
-    "count_one": "{{count}} report",
-    "count_other": "{{count}} reports",
-    "type": {
-      "post": "Post",
-      "comment": "Comment",
-      "story": "Story",
-      "profile": "Profile"
-    },
-    "status": {
-      "open": "Open",
-      "resolved": "Removed",
-      "dismissed": "Dismissed"
-    },
-    "remove": "Remove",
-    "removed": "Removed",
-    "gone": "No longer exists",
-    "disabled": "disabled",
-    "open": "Open post"
   },
   "tabs": {
     "feed": "Home",
-    "friends": "Friends",
     "record": "Record",
     "memories": "Memories",
     "profile": "Profile",
@@ -1278,38 +367,17 @@
     "search": "Search"
   },
   "friends": {
-    "searchPlaceholder": "Search username",
-    "myFriends": "My friends",
-    "empty": "Find friends by their username.",
-    "add": "Add",
-    "accept": "Accept",
-    "decline": "Decline",
-    "cancelRequest": "Cancel",
-    "alreadyFriends": "Friends",
     "noResults": "No users.",
-    "requests": "Friend requests",
-    "sentYouRequest": "Sent you a request",
-    "myFriendsCount_one": "My friends ({{count}})",
-    "myFriendsCount_other": "My friends ({{count}})",
-    "sent": "Pending",
     "yourUsername": "Your username",
     "shareText": "Find me on Speak: {{username}}",
     "copied": "Copied",
     "actions": "Actions",
-    "remove": "Remove friend",
     "report": "Report",
     "block": "Block",
     "blockConfirm": "They won't be able to find you or message you, and will be removed from your friends.",
-    "removeConfirm": "Remove from your friends?",
     "done": {
-      "remove": "Removed",
-      "block": "Blocked",
-      "report": "Report sent. Thank you."
+      "block": "Blocked"
     }
-  },
-  "record": {
-    "title": "Voice of the day",
-    "hint": "Up to 90 seconds."
   },
   "memories": {
     "list": "Memories",
@@ -1330,7 +398,8 @@
     "follow": "followed you",
     "like": "liked your voice",
     "reply": "replied to your voice",
-    "repost": "reposted your voice"
+    "repost": "reposted your voice",
+    "report": "New reports to review"
   },
   "rpcErrors": {
     "rateLimited": "Too many actions. Try again soon.",
@@ -1362,32 +431,14 @@
     "friendsOnly": "Voice messages only between people who follow each other."
   },
   "daily": {
-    "yourVoice": "Your voice",
-    "late": "late",
     "locked": "Locked",
     "play": "Play",
     "pause": "Pause",
-    "lockedTitle": "Today's voice is here",
-    "lockedText": "Share yours to hear your friends.",
-    "noFriendsYet": "Your friends haven't spoken yet.",
-    "promptAt": "Today's time: {{time}}",
-    "postedHint": "Your friends can listen for 24 hours. You keep it in Memories.",
     "delete": "Delete",
     "deleteConfirm": "Tap again to delete",
-    "recordHint": "Say what you're up to. Up to 90 seconds.",
     "recordingHint": "Tap to stop.",
-    "reviewHint": "Listen before you post.",
     "retake": "Retake",
-    "post": "Post",
-    "published": "You unlocked your friends' voices!",
-    "nextIn": "Next voice in {{time}}",
     "topicOfDay": "Topic of the day"
-  },
-  "time": {
-    "hLeft": "{{h}}h left",
-    "mLeft": "{{m}}m left",
-    "hm": "{{h}}h {{m}}m",
-    "m": "{{m}}m"
   },
   "prompt": {
     "title": "Today's topic is here!",
@@ -1427,5 +478,37 @@
     "followingCount": "Following",
     "replies": "Replies",
     "noReplies": "No replies yet."
+  },
+  "adminReports": {
+    "title": "Reports",
+    "open": "To review",
+    "history": "History",
+    "empty": "Nothing to review.",
+    "emptyHistory": "No history yet.",
+    "kind": {
+      "post": "Voice",
+      "user": "Account",
+      "voice_message": "Message"
+    },
+    "count_one": "{{count}} report",
+    "count_other": "{{count}} reports",
+    "by": "by @{{username}}",
+    "disabled": "Banned",
+    "hidden": "Hidden from everyone",
+    "postGone": "The voice was deleted.",
+    "messageGone": "Messages play once, so there is no audio to review.",
+    "hidePost": "Hide voice",
+    "disableUser": "Ban account",
+    "confirmDisable": "Tap again to ban",
+    "dismiss": "Dismiss",
+    "showPost": "Restore voice",
+    "enableUser": "Restore account",
+    "resolved_one": "{{count}} report closed",
+    "resolved_other": "{{count}} reports closed",
+    "action": {
+      "dismiss": "Dismissed",
+      "hide_post": "Voice hidden",
+      "disable_user": "Account banned"
+    }
   }
 }

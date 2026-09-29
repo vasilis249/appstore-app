@@ -77,3 +77,61 @@ export async function refreshNews(): Promise<number> {
   fail(error);
   return (data as number) ?? 0;
 }
+
+export type ReportAction = "dismiss" | "hide_post" | "disable_user";
+
+export interface AdminReport {
+  id: string;
+  kind: "user" | "voice_message" | "post";
+  reason: string;
+  created_at: string;
+  resolved_at: string | null;
+  action: ReportAction | null;
+  reporter_username: string | null;
+  target_user_id: string;
+  target_username: string;
+  target_name: string;
+  target_avatar: string | null;
+  target_disabled: boolean;
+  target_is_admin: boolean;
+  target_id: string | null;
+  post_title: string | null;
+  post_audio_path: string | null;
+  post_duration_ms: number | null;
+  post_hidden: boolean | null;
+  post_exists: boolean;
+  reports_on_target: number;
+}
+
+export const reportKeys = {
+  all: ["admin", "reports"] as const,
+  list: (open: boolean) => ["admin", "reports", open] as const,
+  openCount: ["admin", "reports", "count"] as const,
+};
+
+export async function adminReports(open: boolean): Promise<AdminReport[]> {
+  const { data, error } = await supabase.rpc("admin_reports", { p_open: open, p_limit: 150 });
+  fail(error);
+  return (data ?? []) as AdminReport[];
+}
+
+export async function openReportsCount(): Promise<number> {
+  const { data, error } = await supabase.rpc("admin_open_reports");
+  fail(error);
+  return (data as number) ?? 0;
+}
+
+/** Returns how many open reports the action closed. */
+export async function resolveReport(id: string, action: ReportAction): Promise<number> {
+  const { data, error } = await supabase.rpc("admin_resolve_report", { p_report: id, p_action: action });
+  fail(error);
+  return (data as number) ?? 0;
+}
+
+export async function setPostHidden(postId: string, hidden: boolean) {
+  fail((await supabase.rpc("admin_set_post_hidden", { p_post: postId, p_hidden: hidden })).error);
+}
+
+export async function setUserDisabled(userId: string, disabled: boolean) {
+  fail((await supabase.rpc("admin_set_user_disabled", { p_user: userId, p_disabled: disabled })).error);
+}

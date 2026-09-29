@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
+import { UserAvatar } from "@/components/user-avatar";
 import { supabase } from "@/integrations/supabase/client";
+import { uploadAvatar } from "@/lib/avatar";
 import { friendKeys, rpcErrorKey } from "@/lib/friends";
+import { postKeys } from "@/lib/posts";
 import type { MyProfile } from "@/hooks/use-my-profile";
 
 const USERNAME_RE = /^[a-z0-9._]{3,20}$/;
 
-/** Name + username (friends find you by username). */
+/** Photo, name + username (people find you by username). */
 export function EditProfileSheet({
   profile,
   open,
@@ -29,6 +32,22 @@ export function EditProfileSheet({
       setUsername(profile.username);
     }
   }, [open, profile]);
+
+  // The photo is saved as soon as it is picked (iOS offers camera or library); the old file is removed.
+  const fileRef = useRef<HTMLInputElement>(null);
+  const photo = useMutation({
+    mutationFn: async (file: File) => {
+      await uploadAvatar(profile.id, file);
+      if (profile.avatar_path) await supabase.storage.from("avatars").remove([profile.avatar_path]);
+    },
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: friendKeys.me });
+      void qc.invalidateQueries({ queryKey: friendKeys.all });
+      void qc.invalidateQueries({ queryKey: postKeys.all });
+      toast.success(t("profile.photoSaved"));
+    },
+    onError: (e) => toast.error(e instanceof Error && /[α-ω]/i.test(e.message) ? e.message : t(rpcErrorKey(e))),
+  });
 
   const valid = USERNAME_RE.test(username) && fullName.trim().length <= 60;
   const save = useMutation({
@@ -59,6 +78,28 @@ export function EditProfileSheet({
             if (valid) save.mutate();
           }}
         >
+          <div className="flex flex-col items-center gap-2 pb-1">
+            <UserAvatar name={profile.full_name || profile.username} path={profile.avatar_path} size={72} />
+            <button
+              type="button"
+              disabled={photo.isPending}
+              onClick={() => fileRef.current?.click()}
+              className="h-9 rounded-full bg-secondary px-4 text-sm font-semibold disabled:opacity-50"
+            >
+              {photo.isPending ? "…" : t("profile.photo")}
+            </button>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                e.target.value = "";
+                if (f) photo.mutate(f);
+              }}
+            />
+          </div>
           <label className="block">
             <span className="mb-1 block text-xs text-muted-foreground">{t("profile.fullName")}</span>
             <input value={fullName} maxLength={60} onChange={(e) => setFullName(e.target.value)} className={input} />

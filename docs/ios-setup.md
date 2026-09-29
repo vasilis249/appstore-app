@@ -1,4 +1,4 @@
-# Hosting + iOS app setup (Capacitor)
+# Hosting + iOS app setup (Capacitor) — Speak
 
 Architecture: the web app (TanStack Start + server functions) runs as a Cloudflare Worker.
 The iOS app is a Capacitor shell that loads that URL (`server.url`) and adds native features.
@@ -8,7 +8,7 @@ Where config lives (all git-ignored):
 | What | Where |
 |---|---|
 | Public Supabase URL + publishable key for the browser bundle | `.env` → `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` (build time) |
-| Server secrets (service_role, DeepL, Maps) | Cloudflare secrets (`wrangler secret put`) — never in `.env` for builds you ship |
+| Server secret (service_role) | Cloudflare secrets (`wrangler secret put`) — never in `.env` for builds you ship |
 | Web app URL + bundle ID for the iOS shell | `.env` → `CAP_SERVER_URL`, `CAP_APP_ID` |
 
 ## 1. One-time prerequisites (Mac)
@@ -30,14 +30,11 @@ npx wrangler login
 bun run deploy                     # prints https://courtsie.<your-subdomain>.workers.dev
 npx wrangler secret put SUPABASE_PUBLISHABLE_KEY
 npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
-npx wrangler secret put GOOGLE_MAPS_API_KEY   # optional: maps
-npx wrangler secret put DEEPL_API_KEY         # optional: translations
 ```
 `SUPABASE_URL` / `SUPABASE_PROJECT_ID` are plain vars in `wrangler.jsonc`.
 Then put the printed URL into `.env` as `CAP_SERVER_URL`, and in Supabase →
 Authentication → URL Configuration set Site URL = that URL, Redirect URLs = `<that URL>/**` and
 `courtsie://**` (auth emails requested from the app come back into the app through this scheme).
-Google Maps key: restrict HTTP referrers to `<that URL>/*`.
 
 ## 3. Open the iOS project
 ```bash

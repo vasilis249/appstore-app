@@ -88,6 +88,20 @@ User decisions:
   offset), post page = ancestors joined by a thread line (`PostCard threadLine`) + the post + replies; header
   "Συζήτηση" for replies; playing in a thread queues the conversation; "Replying to @x" on reply cards (hidden right
   under the parent); profile tabs Φωνές | Απαντήσεις. Tests `test_speak.sql` 74.
+- **S6 ✔ (hardening/release)** — migrations `20261010100000_speak_moderation.sql` (+ `…100100` fix): `reports.action/
+  resolved_by`; trigger `private.on_report` → one `report` notification per admin (not to the reporting admin's
+  loss) + auto-hide a post at 3 distinct open reporters; RPCs `admin_reports(p_open)`, `admin_resolve_report(id,
+  dismiss|hide_post|disable_user)` (closes all open reports on the same post/person), `admin_set_post_hidden`,
+  `admin_set_user_disabled` (never admins), `admin_open_reports`. UI `/admin/reports` (queue grouped per target,
+  play the voice, Hide / Ban (tap twice) / Dismiss; History with Restore), Settings row with open count, bell row
+  "Νέες αναφορές για έλεγχο". Profile photo picker in `EditProfileSheet` (`uploadAvatar`, old file removed).
+  Legal rewritten for Speak (el + en): Terms/EULA (zero tolerance, 24 h reports, one-listen DMs, RSS, Apple clauses,
+  Greek law) + Privacy (voice data, listens, public-by-URL files, retention 10/90 days, no AI/biometrics).
+  i18n pruned 1104 → 240 keys (scratchpad `i18n-usage.py` finds unused keys incl. dynamic prefixes).
+  `resources/render-assets.mjs [logo.svg|png] [--full] [--bg #hex]` writes icon + splash into Xcode (placeholder:
+  voice bars; favicon same). `deploy-all.sh`: SMTP_* env → custom SMTP + confirm email ON, else autoconfirm.
+  Docs rewritten: `release-checklist.md` (Speak test plan, TestFlight, review notes, privacy labels),
+  `security.md`, `supabase-setup.md`, `ios-setup.md`. Tests `test_speak.sql` 87. Live smoke 12/12.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -104,7 +118,7 @@ User decisions:
 - `src/lib/native.ts`: `isNativeApp()`, `authRedirectUrl()` (→ `courtsie://app/<path>` in the app),
   `initNativeShell()` (html.native-app, deep links, splash). Supabase client: PKCE in the app, implicit on web.
 - Server functions: only `src/lib/api/account.functions.ts` (`deleteMyAccount`: removes `avatars/<uid>/` and
-  `daily-posts/<uid>/`, then `auth.admin.deleteUser` → cascades). Everything else talks to Supabase RPCs
+  `voices/<uid>/`, then `auth.admin.deleteUser` → cascades). Everything else talks to Supabase RPCs
   directly with the anon key + user JWT.
 - Security headers: `src/lib/security-headers.server.ts` (CSP incl. `media-src`, Permissions-Policy
   `microphone=(self)`, HSTS, X-Frame DENY, COOP, no-store on server fns). Summary: `docs/security.md`.
@@ -113,16 +127,16 @@ User decisions:
 - Theme in ONE file `src/design-system.css`: black bg, white text, `bg-primary` = white (black text),
   `bg-secondary #2c2c2e` pills, grey text `#8e8e93`, `--coral #e4571c` small accent (recording), `--badge` red.
   System font (SF Pro on iPhone). `<html class="dark">` always; no theme toggle. Buttons/inputs rounded pills.
-- `BottomNav`: floating pill with labels — Home `/`, Friends `/friends`, white mic circle `/record`,
-  Memories `/memories` (segmented pill Memories | Calendar, `?view=calendar`), Profile (avatar initial).
-- `AppHeader` (`src/components/app-header.tsx`): centered `Wordmark` ("Courtsie.") or title, `back`, left/right
+- `BottomNav`: floating pill with labels — Home `/`, Search `/search`, white mic circle `/record`,
+  Memories `/memories` (segmented pill Memories | Calendar, `?view=calendar`), Profile (avatar).
+- `AppHeader` (`src/components/app-header.tsx`): centered `Wordmark` ("Speak") or title, `back`, left/right
   slots, `HeaderPill`; Home's right pill = paper-plane → `/messages` + bell → `/notifications`.
-  Profile ⚙︎ → `SettingsSheet` (language, contact/terms/privacy, sign out, delete account).
+  Profile ⚙︎ → `SettingsSheet` (language, daily reminder, admin: Reports + Manage topics, blocked, contact/terms/
+  privacy, sign out, delete account).
 - `EmptyState`: icon or bold title + one line + optional white pill button.
 - Routes: public `/auth`, `/forgot-password`, `/reset-password`, `/contact`, `/terms`, `/privacy`; everything
   else under `src/routes/_authenticated/` (ssr: false, redirects to `/auth`).
-- i18n keys: `tabs.*`, `feed.*`, `friends.*`, `record.*`, `memories.*`, `messages.*`, `notificationsPage.*`
-  (old locale keys still present; prune in Phase 4). Sign-up requires accepting Terms (guideline 1.2).
+- i18n: `src/i18n/locales/{el,en}.json` (same keys; unused ones pruned in S6). Sign-up requires accepting Terms (1.2).
 - UX principles: one primary action per screen; secondary actions in a sheet; no duplicated info; empty
   states = one icon/title + one short line; short neutral Greek copy.
 
@@ -215,7 +229,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (74).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (87).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

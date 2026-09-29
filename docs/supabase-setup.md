@@ -14,17 +14,12 @@ The baseline also works on a database that still has the old court-booking schem
 old table/function/type in `public`, the `private` schema and the old storage policies. Accounts in
 `auth.users` are kept and get a profile (username generated from the name, Greek → Latin).
 
-## What it creates
-- Tables (RLS on all): `profiles`, `friendships`, `blocks`, `notifications`, `voice_messages`,
-  `daily_posts`, `reports`; private: `private.voice_message_audio`, `private.rate_events`.
-- RPCs (signed-in users only): `search_users`, `my_friends`, `send_friend_request`,
-  `accept_friend_request`, `remove_friend`, `block_user`, `unblock_user`, `my_blocked`,
-  `send_voice_message`, `consume_voice_message`, `my_threads`, `today`, `prompt_schedule`,
-  `publish_daily_post`, `feed`, `report_content`.
-- Buckets: `daily-posts` (private, 2 MB, audio types), `avatars` (public URL, not listable, 5 MB).
-- Realtime: `voice_messages`, `friendships`, `notifications`, `daily_posts`.
-- pg_cron job `expire-voice-messages` (hourly): unheard messages expire after 10 days (audio deleted),
-  history rows removed after 90 days, old rate-limit rows purged.
+## What it creates (baseline, later reshaped by the Speak migrations below)
+- Tables (RLS on all): `profiles`, `blocks`, `notifications`, `voice_messages`, `reports`; private:
+  `private.voice_message_audio`, `private.rate_events`. (`friendships` / `daily_posts` from the BeReal-style
+  version were dropped in `20261007100000_speak_people.sql`.)
+- Bucket `avatars` (public URL, not listable, 5 MB). pg_cron job `expire-voice-messages` (hourly): unheard
+  messages expire after 10 days (audio deleted), history rows removed after 90 days, old rate-limit rows purged.
 
 ## Speak (migration `20261005100000_speak_social.sql`)
 - Tables: `follows`, `sections` (8 fixed), `topics` (admin/news/daily), `posts`, `post_likes`, `post_listens`;
@@ -32,8 +27,8 @@ old table/function/type in `public`, the `private` schema and the old storage po
   `remove_follower`, `profile_stats`, `create_post`, `unrepost`, `like_post`, `unlike_post`, `record_listen`,
   `feed_posts(scope …)`, `trending_topics`, `am_i_admin`, `admin_create_topic`, `admin_update_topic`.
 - Make someone an admin (SQL Editor): `insert into private.admins (user_id) select id from auth.users where email = '…';`
-- Moderate a post: `update public.posts set hidden = true where id = '…';` (the file stays until the author
-  or you delete it in Storage → voices).
+- Moderation happens in the app (migration `20261010100000_speak_moderation.sql`): Settings → Reports, see
+  "Dashboard steps" below.
 
 ## News (migration `20261008100000_speak_news.sql`)
 - Feeds live in `private.news_feeds` (add one: `insert into private.news_feeds (section_id, name, url) values (…)`).
@@ -47,10 +42,11 @@ old table/function/type in `public`, the `private` schema and the old storage po
 2. **Authentication → Emails → SMTP**: set a custom SMTP server before inviting real users (the built-in
    mailer only sends to members of the Supabase organisation, 2 emails/hour). Until then **Confirm email is
    OFF** (`mailer_autoconfirm: true`, set 2026-09-29) so sign-ups work; turn it back ON once SMTP is set.
-3. **Moderation**: open reports are in Table Editor → `reports` (filter `resolved_at is null`). To ban
-   someone set `profiles.disabled = true`; to remove a post delete its `daily_posts` row and the file in
-   Storage → `daily-posts/<user id>/`. Set `resolved_at` when done (App Store: act within 24 h).
+3. **Moderation** (App Store: act within 24 h): admins get a bell notification for new reports and review them in
+   the app → Profile → ⚙︎ → Reports (play the voice, Hide voice / Ban account / Dismiss; History has undo). A post
+   reported by 3 different people is hidden automatically until reviewed. Without the app: Table Editor →
+   `reports` (`resolved_at is null`), `posts.hidden = true`, `profiles.disabled = true`.
 
 ## Tests
 Local, without Docker (see CLAUDE.md for the Postgres cluster):
-`PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql`.
+`PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` + `test_speak.sql`.

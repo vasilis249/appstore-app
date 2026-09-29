@@ -10,7 +10,9 @@
 #   SUPABASE_ACCESS_TOKEN      optional — otherwise `supabase login` opens the browser;
 #                              with it the script also applies the Auth settings for you
 #   CLOUDFLARE_API_TOKEN (+ CLOUDFLARE_ACCOUNT_ID)  optional — otherwise `wrangler login` opens the browser
-#   GOOGLE_MAPS_API_KEY, DEEPL_API_KEY               optional
+#   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SENDER_EMAIL  optional — custom SMTP for auth emails;
+#                              with them email confirmation is turned ON, without them it stays OFF
+#                              (Supabase's built-in mailer only reaches members of your organisation)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -55,11 +57,14 @@ echo "▸ 4/6 Runtime secrets (SUPABASE_URL is a plain var in wrangler.jsonc)"
 put() { printf '%s' "$2" | npx wrangler secret put "$1" >/dev/null && echo "  set $1"; }
 put SUPABASE_PUBLISHABLE_KEY "$SUPABASE_ANON_KEY"
 put SUPABASE_SERVICE_ROLE_KEY "$SUPABASE_SERVICE_ROLE_KEY"
-if [ -n "${GOOGLE_MAPS_API_KEY:-}" ]; then put GOOGLE_MAPS_API_KEY "$GOOGLE_MAPS_API_KEY"; fi
-if [ -n "${DEEPL_API_KEY:-}" ]; then put DEEPL_API_KEY "$DEEPL_API_KEY"; fi
 
 echo "▸ 5/6 Auth settings (redirect URLs + security)"
-AUTH_JSON='"password_min_length":8,"mailer_autoconfirm":false,"mailer_secure_email_change_enabled":true,"security_update_password_require_reauthentication":true,"security_refresh_token_reuse_interval":10,"refresh_token_rotation_enabled":true'
+AUTH_JSON='"password_min_length":8,"mailer_secure_email_change_enabled":true,"security_update_password_require_reauthentication":true,"security_refresh_token_reuse_interval":10,"refresh_token_rotation_enabled":true'
+if [ -n "${SMTP_HOST:-}" ] && [ -n "${SMTP_PASS:-}" ]; then
+  AUTH_JSON="${AUTH_JSON},\"mailer_autoconfirm\":false,\"smtp_host\":\"${SMTP_HOST}\",\"smtp_port\":\"${SMTP_PORT:-587}\",\"smtp_user\":\"${SMTP_USER:-}\",\"smtp_pass\":\"${SMTP_PASS}\",\"smtp_admin_email\":\"${SMTP_SENDER_EMAIL:-${SMTP_USER:-}}\",\"smtp_sender_name\":\"Speak\",\"rate_limit_email_sent\":100"
+else
+  AUTH_JSON="${AUTH_JSON},\"mailer_autoconfirm\":true"
+fi
 if [ -n "$APP_URL" ]; then
   AUTH_JSON="${AUTH_JSON},\"site_url\":\"${APP_URL}\",\"uri_allow_list\":\"${APP_URL}/**,courtsie://**\""
 fi
@@ -71,7 +76,7 @@ else
   echo "  ! Set these by hand in Supabase → Authentication:"
   echo "    URL Configuration: Site URL = ${APP_URL:-<your workers.dev URL>}"
   echo "                       Redirect URLs = ${APP_URL:-<url>}/**  and  courtsie://**"
-  echo "    Sign In / Providers → Email: Confirm email ON, minimum password length 8"
+  echo "    Sign In / Providers → Email: minimum password length 8; Confirm email ON only with custom SMTP"
 fi
 
 echo "▸ 6/6 .env for the iOS app (public values only)"

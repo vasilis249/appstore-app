@@ -1,97 +1,88 @@
-# Test plan and App Store release checklist
+# Speak — test plan and App Store release checklist
 
-Prerequisites: `docs/supabase-setup.md` and `docs/ios-setup.md` done (schema pushed, web app
-deployed with secrets, `courtsie://**` in Supabase redirect URLs, app running from Xcode).
+Prerequisites: `docs/supabase-setup.md` and `docs/ios-setup.md` done (migrations applied, web app deployed
+with secrets, `courtsie://**` in Supabase redirect URLs, app running from Xcode after `bun run ios:sync`).
+Use two accounts (A and B) on two devices or one device + the website.
 
 ## Part A — Feature tests inside the iOS app
 
-Run on the simulator first, then on a real iPhone (camera, deep links and push behave differently).
-
 | # | Feature | How to test | Expected |
 |---|---|---|---|
-| 1 | Launch / splash | Cold start the app | Petrol splash with logo, then home page; no white flash, header below the notch, bottom nav above the home indicator |
-| 2 | Sign up | Sign up → the terms checkbox must be ticked → open the confirmation email **on the iPhone** (Mail app) | Link asks to open Courtsie, app opens signed in |
-| 3 | Sign in / out | Sign in, kill the app, reopen | Still signed in; sign out works |
-| 4 | Reset password | "Forgot password" → email on the iPhone → link | App opens on the reset page, new password works |
-| 5 | Venues list + map | Venues tab, open a venue, map, photos | List loads, map renders (needs `GOOGLE_MAPS_API_KEY` + referrer = your workers.dev URL) |
-| 5b | Filters | Venues → orange filter button: sport, rating, price range, amenities, "Distance to me" (+) | One iOS location prompt with our text; count on "Show results" matches the list; badge shows active filters |
-| 5c | Map view | Venues → map button next to filters | Grey map with black pins; tapping a pin turns it orange and highlights the venue below; list icon returns to the list |
-| 6 | Availability | Book → pick date/court | Slots load; closed hours/closures not offered |
-| 7 | Create booking | Book a slot | Success; a second phone/user cannot book the same court/time (server rejects) |
-| 8 | Cancel booking | My bookings → cancel | Status "cancelled"; owner gets a notification |
-| 9 | My bookings realtime | Keep "My bookings" open, cancel from the web on another device | List updates without refresh |
-| 10 | Open games | Create a slot game, join from a second account | Player count updates |
-| 11 | Profile photo | Profile → camera icon → Take Photo and Photo Library | Permission prompt with our text, upload works (≤ 5 MB) |
-| 12 | Community / chat | Send a message, report it, block a user | Realtime delivery; report and block work |
-| 13 | Owner | Make an owner account (`role` owner at sign-up) → create venue, hours, pricing, upload venue photo, phone booking | All save; admin approves the venue (`/admin/venues`) |
-| 14 | Admin | Grant yourself admin (SQL in supabase-setup.md) → `/admin` | Stats, users, venues, reports load |
-| 15 | Notifications bell | Book at an owner's venue | Owner's bell shows it in realtime |
-| 16 | Offline | Airplane mode → cold start | Offline page; "Try again" reloads once online. Going offline inside the app shows the red banner |
-| 17 | Delete account | Profile → Delete account → confirm | Signed out; the user no longer exists in Supabase → Authentication → Users; future bookings cancelled |
-| 18 | External links | Venue directions / phone links | Open in Maps / Phone / Safari, not inside the app |
+| 1 | Launch | Cold start | Splash with the Speak mark, then Home; no white flash; header below the notch, nav above the home indicator |
+| 2 | Sign up | Sign up, tick the Terms box; type `name@gmial.com` first | "Μήπως εννοείς …@gmail.com;" hint; with SMTP: confirmation email opens the app signed in; without SMTP: signed in right away |
+| 3 | Sign in / out | Sign in, kill the app, reopen; then sign out | Still signed in; sign out returns to /auth |
+| 4 | Reset password | "Forgot password" (needs SMTP) → link on the iPhone | App opens on the reset page, new password works |
+| 5 | Post a voice | Mic tab → record ≤ 2:00 (mic prompt with our text) → title → section → Post | Appears on For you / section / profile; plays with the silent switch on |
+| 6 | Continuous playback | "Play all" on a section or topic, lock the phone | Next voice starts by itself; lock-screen controls work; keeps playing in the background |
+| 7 | Like / reply / repost / quote | B likes, replies with voice, reposts and quotes A's voice | Counters update; A gets 4 notifications; thread view shows the reply chain |
+| 8 | Topics + news | Home → trending topic → "Give your take"; admin: Settings → Manage topics → Refresh | Topic page lists takes; news headlines link to the source in Safari |
+| 9 | Daily topic reminder | Settings → Daily reminder ON (permission prompt) | Local notification at the day's time opens the topic |
+| 10 | Follow + search | Search B by name/@username → Follow; B follows back | Counts update; "Message" appears only when mutual |
+| 11 | Voice DM (listen once) | A sends B a voice message; B plays it; B tries again | Plays once, then "Listened"; A sees "Opened" |
+| 12 | Report + block | B → ⋯ on A's voice → Report (reason) → Block | Thanks sheet ("within 24 h"); A's content disappears for B; A can't message B |
+| 13 | Moderation | Admin: bell shows "New reports to review" → Settings → Reports → play → Hide voice / Ban / Dismiss; History → Restore | Hidden voice disappears for everyone; banned account can't use the app; undo works |
+| 14 | Profile | Profile → Edit → Change photo (camera + library prompts), name, @username | Saved; new photo shows on posts |
+| 15 | Memories | Profile → Memories / Calendar | Own voices grouped by day |
+| 16 | Offline | Airplane mode → cold start | Offline page; "Try again" reloads once online |
+| 17 | Delete account | Profile → ⚙︎ → Delete account → confirm | Signed out; the user, their voices and files are gone (Supabase → Auth users, Storage → voices) |
+| 18 | Legal | Settings → Terms / Privacy | Speak texts (voice data, zero tolerance, Apple terms) in el and en |
 
-If something fails, note the step number and what you saw (a screenshot helps), and it can be fixed in a
-follow-up session.
+If something fails, note the step number and what you saw (a screenshot helps).
 
 ## Part B — Before the first TestFlight build
 
-- [x] Demo venues removed by migration `20260928130000_remove_demo_venues.sql` (runs with `db push`).
-  The app starts with no venues: create a real one as an owner and approve it as admin.
-- [x] Contact details (`src/lib/contact.ts`) and a new GDPR Privacy Policy (`legal.privacy`, el + en).
-- [ ] Set `CONTACT_CONTROLLER` in `src/lib/contact.ts` to your full name, or company name + ΑΦΜ
-  (GDPR requires the controller's identity). Review the Terms (`legal.terms`) the same way.
-- [ ] Check the Supabase project region (Settings → General); an EU region (e.g. Frankfurt) keeps the
-  database inside the EEA.
-- [ ] Custom SMTP set up in Supabase (otherwise confirmation emails stop after a few per hour).
-- [ ] Optional: custom domain for the Worker (Cloudflare → Workers → courtsie → Domains); then update
-  `CAP_SERVER_URL`, Supabase Site URL/Redirect URLs and the Maps key referrer.
+- [x] Moderation in the app (reports queue, auto-hide after 3 reporters, ban, undo), Terms/EULA with zero
+  tolerance + Apple clauses, Privacy Policy for voice data (el + en), unused texts pruned.
+- [ ] **Logo**: run `node resources/render-assets.mjs path/to/logo.svg` (or `logo.png --full` for a ready icon,
+  `--bg "#hex"` for the background) → writes the icon + splash into Xcode; update the favicon in
+  `src/routes/__root.tsx`. Until then a placeholder mark (voice bars) is used.
+- [ ] **Custom SMTP** (Gmail app password, Brevo or Resend): run `bun run deploy:all` with `SMTP_HOST`,
+  `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_SENDER_EMAIL` → email confirmation turns back ON. Optionally
+  translate the email templates (Supabase → Authentication → Emails) and put "Speak" in them.
+- [ ] `CONTACT_CONTROLLER` in `src/lib/contact.ts` = your full name, or company name + ΑΦΜ (GDPR needs the
+  controller's identity; it appears in the Terms and the Privacy Policy). Have both texts reviewed.
+- [ ] Supabase project region (Settings → General): an EU region keeps the data in the EEA; otherwise the
+  "Transfers outside the EEA" section already covers it.
+- [ ] Rotate the Supabase keys, DB password, access token and Cloudflare token that were shared during
+  development; update the Worker secrets and `.env`.
+- [ ] Optional: custom domain for the Worker; then update `CAP_SERVER_URL`, Supabase Site URL/Redirect URLs.
 - [ ] `.env` `CAP_SERVER_URL` points to production (not a LAN dev URL) → `bun run ios:sync`.
+- [ ] Storage: 1 GB free on Supabase ≈ 1,000–2,000 two-minute voices. Watch Settings → Usage; move audio to
+  Cloudflare R2 before it fills.
 
 ## Part C — Apple Developer / App Store Connect
 
-1. Enroll in the **Apple Developer Program** (99 USD/year) with the account that will own the app.
-2. developer.apple.com → Identifiers → register the Bundle ID (`gr.innera.courtsie` or yours).
-3. App Store Connect → My Apps → **+ New App**: platform iOS, name "Courtsie" (must be unique on the
-   store), primary language Greek, the Bundle ID, SKU (any, e.g. `courtsie-ios`).
-4. Xcode: target App → General → **Version** (e.g. 1.0.0) and **Build** (1, increase every upload).
-5. Xcode: select **Any iOS Device (arm64)** → Product → **Archive** → Distribute App →
-   **App Store Connect** → Upload.
-6. App Store Connect → TestFlight: the build appears after processing (~10–30 min). Internal testers
-   (your team) can install right away through the TestFlight app; external testers need a short beta review.
+1. Enroll in the **Apple Developer Program** (99 USD/year) — required for TestFlight and the App Store.
+2. developer.apple.com → Identifiers → register the Bundle ID (`gr.innera.courtsie` or a new one such as
+   `gr.innera.speak`; if you change it, update `CAP_APP_ID`, `ios:sync` and Xcode).
+3. App Store Connect → My Apps → **+ New App**: iOS, name "Speak" (must be unique on the store — have a
+   fallback like "Speak — Φωνή"), primary language Greek, the Bundle ID, SKU (e.g. `speak-ios`).
+4. Xcode: target App → General → **Version** (1.0.0) and **Build** (1, increase every upload).
+5. Xcode: **Any iOS Device (arm64)** → Product → **Archive** → Distribute App → **App Store Connect** → Upload.
+6. TestFlight: the build appears after processing (~10–30 min); internal testers install via TestFlight.
 
 ## Part D — App Store review requirements (what Apple checks for this app)
 
-- [x] **Account deletion in the app** (5.1.1(v)) — Profile / Owner settings → Delete account.
-- [x] **User-generated content** (1.2) — terms accepted at sign-up, report message/conversation,
-  block user. You must act on reports (admin → reports) within 24h.
+- [x] **Account deletion in the app** (5.1.1(v)) — Profile → ⚙︎ → Delete account (removes voices and files).
+- [x] **User-generated content** (1.2): Terms accepted at sign-up with zero tolerance for objectionable
+  content; report on every voice, profile and conversation; block; admins act on reports within 24 h in the
+  app; offending users can be banned. Mention this in the review notes.
 - [x] **No third-party login**, so Sign in with Apple is not required.
-- [x] Permission texts for camera, photos and location (when in use) in `Info.plist`.
-- [x] Export compliance: `ITSAppUsesNonExemptEncryption = NO` (HTTPS only) — no questionnaire per build.
-- [ ] **Minimum functionality (4.2)** — the biggest risk for a web-wrapper app. Mitigations in place:
-  native splash, offline screen, deep links, native camera/photo picker, safe-area layout, no website
-  chrome. Adding **push notifications** for bookings would strengthen it further (optional next step).
-- [ ] **Demo account for the reviewer**: in App Store Connect → App Review Information, give a player
-  login and (ideally) an owner login with a venue that has bookable courts, plus a note:
-  "Court booking app for Greek sports venues. Sign in with the demo account to book a court."
-- [ ] **Privacy policy URL** (required): `https://<your-domain>/privacy`.
-- [ ] **App Privacy (nutrition labels)**: data collected — Contact info (email, name, phone),
-  User content (messages, photos, reviews), Identifiers (user ID), Usage data if you add analytics.
-  Linked to the user, not used for tracking. Location is used only on the device (distance filter),
-  never sent to the server, so it is **not** "collected" in Apple's sense.
-- [ ] Support URL (`https://<your-domain>/contact`), age rating questionnaire (user-generated content /
-  unrestricted web access → likely 12+ or 17+ depending on answers), category Sports.
-- [ ] Screenshots: 6.9" (e.g. iPhone 16 Pro Max simulator, ⌘S in Simulator saves one) — at least 1,
-  ideally 3–5; 13" iPad only if you keep iPad support (Xcode → General → Supported Destinations;
-  remove iPad to skip iPad screenshots).
-- [ ] Description, keywords, promotional text in Greek (and English if you add the localization).
-
-## Social features (quick test with two accounts A and B)
-| # | Test | Expected |
-|---|------|----------|
-| S1 | A follows B, B posts a photo | Post appears in A's Home feed; double-tap likes it; B sees it in Activity |
-| S2 | A comments "@b_username" on a post | B gets a "mention" in Activity |
-| S3 | B posts a story; A opens it and replies | Reply appears in B's inbox with the story thumbnail |
-| S4 | C (not followed by A) sends A a message | It lands in A's **Requests**; Accept moves it to Primary; C sees "Seen" |
-| S5 | A shares a post (paper plane) to B | B sees the post card in the chat |
-| S6 | A blocks C from C's profile ⋯ | C can no longer message A; C is listed under Settings → Blocked accounts |
-| S7 | A reports a post / comment / story / profile | Admin sees it in Admin → Reports → Content, grouped; Remove deletes it |
+- [x] Permission texts: microphone (recording), camera + photo library (profile photo). Local notifications
+  ask at runtime. `UIBackgroundModes audio` is used for continuous playback — say so in the review notes.
+- [x] Export compliance: `ITSAppUsesNonExemptEncryption = NO` (HTTPS only).
+- [ ] **Minimum functionality (4.2)** — the main risk for an app that loads a website. In place: native
+  splash, offline page, deep links, microphone recording, background audio with lock-screen controls, local
+  notifications, safe-area layout, no browser chrome. Describe these in the review notes.
+- [ ] **Demo account for the reviewer**: App Store Connect → App Review Information → an account that follows a
+  few people, with some voices, a topic and one mutual follow (for DMs). Note: "Speak is a voice social
+  network: post short voice takes on news topics, listen back-to-back, reply with your voice. Microphone is
+  used only when you tap record; background audio plays the queue when the screen is locked."
+- [ ] **Age rating**: user-generated content with unrestricted communication → answer the questionnaire
+  honestly (expect 16+/18+ with the new ratings); the Terms say 15+ for GDPR, the store rating may be higher.
+- [ ] **Privacy policy URL**: `https://<your-domain>/privacy`; **Support URL**: `https://<your-domain>/contact`.
+- [ ] **App Privacy (nutrition labels)** — all "Linked to you", none "Used to track you":
+  Contact info (email, name) · User content (audio data — voices and voice messages, photos, other user
+  content such as titles) · Identifiers (user ID) · Usage data (product interaction: likes, listens, follows)
+  · Diagnostics: none. No location, contacts, payments or analytics.
+- [ ] Screenshots (6.9" iPhone): For you, a topic page, the recorder, a thread, a profile.
