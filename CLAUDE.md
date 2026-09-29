@@ -100,9 +100,11 @@ Work in phases; stop after each phase for the user's "OK".
   rate limits, public buckets not listable (avatars now use getPublicUrl + JPEG re-encode), admin fns zod,
   no-store on server-fn responses, deps updated (seroval/start-server-core fixed). New guards check the JWT
   role (`auth.role() = 'authenticated'`); local tests set `request.jwt.claims` accordingly.
-- Deploy everything with one command: `bun run deploy:all` (`scripts/deploy-all.sh`; env vars listed in the
-  script: SUPABASE_ACCESS_TOKEN, SUPABASE_DB_PASSWORD, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY,
-  CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID). Not yet run: no credentials in the cloud env so far.
+- Deploy everything with one command on the Mac: `bun run deploy:all` (`scripts/deploy-all.sh`, bash 3.2-safe):
+  asks for the anon + service_role keys (hidden), `supabase login` / `wrangler login` via browser unless
+  SUPABASE_ACCESS_TOKEN / CLOUDFLARE_API_TOKEN are set, db push, build, deploy, secrets (SUPABASE_URL is a
+  wrangler var, not a secret), Auth settings (API if token, else printed), writes public values + CAP_SERVER_URL
+  to `.env`, then `ios:sync` + `ios:open` on macOS. Not yet run: no credentials in the cloud env so far.
 - Local full-stack testing (no Supabase needed): PostgREST 12 binary + `local-supabase.mjs` proxy in the
   scratchpad (JWT HS256 minted locally, fake /auth/v1/user and storage signing), seed users, then
   `wrangler dev --var ...`; inject session into localStorage key `sb-127-auth-token`. Reload PostgREST
