@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Bell, Flag, Heart, MessageCircle, Repeat2, UserPlus } from "lucide-react";
+import { Bell, Flag, Heart, MessageCircle, Repeat2, UserPlus, Users } from "lucide-react";
 import { AppHeader } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FollowButton } from "@/components/friends/follow-button";
@@ -16,8 +16,8 @@ export const Route = createFileRoute("/_authenticated/notifications")({
   component: NotificationsPage,
 });
 
-const ICON = { follow: UserPlus, like: Heart, reply: MessageCircle, repost: Repeat2 } as const;
-const COLOR = { follow: "text-sky-400", like: "text-rose-500", reply: "text-foreground", repost: "text-emerald-400" } as const;
+const ICON = { follow: UserPlus, like: Heart, reply: MessageCircle, repost: Repeat2, group_invite: Users, group_request: Users, group_accepted: Users, group_joined: Users } as const;
+const COLOR = { follow: "text-sky-400", like: "text-rose-500", reply: "text-foreground", repost: "text-emerald-400", group_invite: "text-coral", group_request: "text-coral", group_accepted: "text-coral", group_joined: "text-coral" } as const;
 
 /** New followers, likes, replies and reposts (admins also: reports to review); opening the page marks everything read. */
 function NotificationsPage() {
@@ -40,7 +40,8 @@ function NotificationsPage() {
   }, [hasUnread, qc]);
 
   function open(n: AppNotification) {
-    if (n.post_id) void navigate({ to: "/p/$postId", params: { postId: n.post_id } });
+    if (n.group_id) void navigate({ to: "/g/$groupId", params: { groupId: n.group_id } });
+    else if (n.post_id) void navigate({ to: "/p/$postId", params: { postId: n.post_id } });
     else if (n.actor) void navigate({ to: "/u/$username", params: { username: n.actor.username } });
   }
 
@@ -73,7 +74,7 @@ function NotificationsPage() {
               <button type="button" onClick={() => open(n)} className="min-w-0 flex-1 text-left">
                 <UserAvatar name={a.full_name || a.username} path={a.avatar_path} size={32} />
                 <p className="mt-1.5 text-sm">
-                  <span className="font-semibold">{a.full_name || a.username}</span> {t(`notificationsPage.${n.kind}`)}
+                  <span className="font-semibold">{a.full_name || a.username}</span> {t(`notificationsPage.${n.kind}`, { group: n.group?.name ?? "" })}
                   <span className="text-muted-foreground"> · {timeAgo(n.created_at, i18n.language)}</span>
                 </p>
                 {n.post?.title && <p className="mt-0.5 truncate text-sm text-muted-foreground">{n.post.title}</p>}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Headphones, Heart, MessageCircle, MoreHorizontal, Pause, Play, Repeat2, Share } from "lucide-react";
+import { Headphones, Heart, MessageCircle, MoreHorizontal, Pause, Play, Repeat2, Share, Users } from "lucide-react";
 import { toast } from "sonner";
 import { UserAvatar } from "@/components/user-avatar";
 import { Waveform } from "@/components/voice/waveform";
@@ -109,9 +109,15 @@ export function PostCard({
           )}
 
           <p className="mt-0.5 flex min-w-0 items-center gap-1 text-[13px] text-muted-foreground">
-            <Link to="/" search={{ tab: post.sectionId }} className="shrink-0 font-medium text-coral">
-              {sections.name(post.sectionId)}
-            </Link>
+            {post.groupId && post.groupName ? (
+              <Link to="/g/$groupId" params={{ groupId: post.groupId }} className="flex min-w-0 items-center gap-1 font-medium text-coral">
+                <Users className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{post.groupName}</span>
+              </Link>
+            ) : (
+              <Link to="/" search={{ tab: post.sectionId }} className="shrink-0 font-medium text-coral">
+                {sections.name(post.sectionId)}
+              </Link>
+            )}
             {post.topicId && post.topicTitle && (
               <>
                 <span aria-hidden>·</span>
@@ -164,14 +170,16 @@ export function PostCard({
             <button type="button" onClick={open} className={action} aria-label={t("posts.reply")}>
               <MessageCircle className="h-[18px] w-[18px]" /> {post.replies > 0 && compact.format(post.replies)}
             </button>
-            <button
-              type="button"
-              onClick={() => setRepostOpen(true)}
-              className={cn(action, post.reposted && "text-emerald-400")}
-              aria-label={t("posts.repost")}
-            >
-              <Repeat2 className="h-[18px] w-[18px]" /> {post.reposts > 0 && compact.format(post.reposts)}
-            </button>
+            {!post.groupId && (
+              <button
+                type="button"
+                onClick={() => setRepostOpen(true)}
+                className={cn(action, post.reposted && "text-emerald-400")}
+                aria-label={t("posts.repost")}
+              >
+                <Repeat2 className="h-[18px] w-[18px]" /> {post.reposts > 0 && compact.format(post.reposts)}
+              </button>
+            )}
             <button
               type="button"
               onClick={() => like.mutate()}

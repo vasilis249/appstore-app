@@ -121,7 +121,7 @@ SELECT pg_temp.ok('05c invite: notification + listed', EXISTS (SELECT 1 FROM pub
   AND (SELECT my_pending FROM public.group_detail(:'g')) = 'invite');
 SELECT pg_temp.ok('05d accepting an invite joins a private group at once', public.join_group(:'g') = 'joined');
 RESET ROLE;
-SELECT pg_temp.ok('05e inviter told', EXISTS (SELECT 1 FROM public.notifications WHERE user_id = :A AND actor_id = :D AND kind = 'group_accepted'));
+SELECT pg_temp.ok('05e inviter told', EXISTS (SELECT 1 FROM public.notifications WHERE user_id = :A AND actor_id = :D AND kind = 'group_joined'));
 
 -- 06 cancel a request
 SELECT pg_temp.as_user(:E); SET ROLE authenticated;

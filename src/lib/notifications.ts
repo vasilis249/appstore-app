@@ -2,12 +2,14 @@ import { supabase } from "@/integrations/supabase/client";
 
 export interface AppNotification {
   id: number;
-  kind: "follow" | "like" | "reply" | "repost" | "report";
+  kind: "follow" | "like" | "reply" | "repost" | "report" | "group_invite" | "group_request" | "group_accepted" | "group_joined";
   created_at: string;
   read_at: string | null;
   post_id: string | null;
   actor: { id: string; username: string; full_name: string; avatar_path: string | null } | null;
   post: { title: string | null } | null;
+  group_id: string | null;
+  group: { name: string } | null;
 }
 
 export const notificationKeys = {
@@ -20,7 +22,7 @@ export async function listNotifications(): Promise<AppNotification[]> {
   const { data, error } = await supabase
     .from("notifications")
     .select(
-      "id, kind, created_at, read_at, post_id, actor:profiles!notifications_actor_id_fkey(id, username, full_name, avatar_path), post:posts(title)",
+      "id, kind, created_at, read_at, post_id, group_id, group:groups(name), actor:profiles!notifications_actor_id_fkey(id, username, full_name, avatar_path), post:posts(title)",
     )
     .order("created_at", { ascending: false })
     .limit(60);

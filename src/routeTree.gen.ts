@@ -24,12 +24,16 @@ import { Route as AuthenticatedRecordRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedSearchRouteImport } from './routes/_authenticated/search'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin/reports'
 import { Route as AuthenticatedAdminTopicsRouteImport } from './routes/_authenticated/admin/topics'
+import { Route as AuthenticatedGroupsIndexRouteImport } from './routes/_authenticated/groups.index'
+import { Route as AuthenticatedGroupsNewRouteImport } from './routes/_authenticated/groups.new'
 import { Route as AuthenticatedMessagesIndexRouteImport } from './routes/_authenticated/messages.index'
 import { Route as AuthenticatedMessagesUserIdRouteImport } from './routes/_authenticated/messages.$userId'
 import { Route as AuthenticatedPPostIdRouteImport } from './routes/_authenticated/p.$postId'
 import { Route as AuthenticatedSSectionIdRouteImport } from './routes/_authenticated/s.$sectionId'
 import { Route as AuthenticatedTTopicIdRouteImport } from './routes/_authenticated/t.$topicId'
 import { Route as AuthenticatedUUsernameRouteImport } from './routes/_authenticated/u.$username'
+import { Route as AuthenticatedGGroupIdIndexRouteImport } from './routes/_authenticated/g.$groupId.index'
+import { Route as AuthenticatedGGroupIdEditRouteImport } from './routes/_authenticated/g.$groupId.edit'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -108,6 +112,17 @@ const AuthenticatedAdminTopicsRoute =
     path: '/admin/topics',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedGroupsIndexRoute =
+  AuthenticatedGroupsIndexRouteImport.update({
+    id: '/groups/',
+    path: '/groups/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGroupsNewRoute = AuthenticatedGroupsNewRouteImport.update({
+  id: '/groups/new',
+  path: '/groups/new',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedMessagesIndexRoute =
   AuthenticatedMessagesIndexRouteImport.update({
     id: '/messages/',
@@ -140,6 +155,18 @@ const AuthenticatedUUsernameRoute = AuthenticatedUUsernameRouteImport.update({
   path: '/u/$username',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedGGroupIdIndexRoute =
+  AuthenticatedGGroupIdIndexRouteImport.update({
+    id: '/g/$groupId/',
+    path: '/g/$groupId/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGGroupIdEditRoute =
+  AuthenticatedGGroupIdEditRouteImport.update({
+    id: '/g/$groupId/edit',
+    path: '/g/$groupId/edit',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -156,12 +183,16 @@ export interface FileRoutesByFullPath {
   '/search': typeof AuthenticatedSearchRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
+  '/groups/new': typeof AuthenticatedGroupsNewRoute
   '/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/p/$postId': typeof AuthenticatedPPostIdRoute
   '/s/$sectionId': typeof AuthenticatedSSectionIdRoute
   '/t/$topicId': typeof AuthenticatedTTopicIdRoute
   '/u/$username': typeof AuthenticatedUUsernameRoute
+  '/groups/': typeof AuthenticatedGroupsIndexRoute
   '/messages/': typeof AuthenticatedMessagesIndexRoute
+  '/g/$groupId/edit': typeof AuthenticatedGGroupIdEditRoute
+  '/g/$groupId/': typeof AuthenticatedGGroupIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
@@ -178,12 +209,16 @@ export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
+  '/groups/new': typeof AuthenticatedGroupsNewRoute
   '/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/p/$postId': typeof AuthenticatedPPostIdRoute
   '/s/$sectionId': typeof AuthenticatedSSectionIdRoute
   '/t/$topicId': typeof AuthenticatedTTopicIdRoute
   '/u/$username': typeof AuthenticatedUUsernameRoute
+  '/groups': typeof AuthenticatedGroupsIndexRoute
   '/messages': typeof AuthenticatedMessagesIndexRoute
+  '/g/$groupId/edit': typeof AuthenticatedGGroupIdEditRoute
+  '/g/$groupId': typeof AuthenticatedGGroupIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -202,12 +237,16 @@ export interface FileRoutesById {
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/admin/topics': typeof AuthenticatedAdminTopicsRoute
+  '/_authenticated/groups/new': typeof AuthenticatedGroupsNewRoute
   '/_authenticated/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/_authenticated/p/$postId': typeof AuthenticatedPPostIdRoute
   '/_authenticated/s/$sectionId': typeof AuthenticatedSSectionIdRoute
   '/_authenticated/t/$topicId': typeof AuthenticatedTTopicIdRoute
   '/_authenticated/u/$username': typeof AuthenticatedUUsernameRoute
+  '/_authenticated/groups/': typeof AuthenticatedGroupsIndexRoute
   '/_authenticated/messages/': typeof AuthenticatedMessagesIndexRoute
+  '/_authenticated/g/$groupId/edit': typeof AuthenticatedGGroupIdEditRoute
+  '/_authenticated/g/$groupId/': typeof AuthenticatedGGroupIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -226,12 +265,16 @@ export interface FileRouteTypes {
     | '/search'
     | '/admin/reports'
     | '/admin/topics'
+    | '/groups/new'
     | '/messages/$userId'
     | '/p/$postId'
     | '/s/$sectionId'
     | '/t/$topicId'
     | '/u/$username'
+    | '/groups/'
     | '/messages/'
+    | '/g/$groupId/edit'
+    | '/g/$groupId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
@@ -248,12 +291,16 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/reports'
     | '/admin/topics'
+    | '/groups/new'
     | '/messages/$userId'
     | '/p/$postId'
     | '/s/$sectionId'
     | '/t/$topicId'
     | '/u/$username'
+    | '/groups'
     | '/messages'
+    | '/g/$groupId/edit'
+    | '/g/$groupId'
   id:
     | '__root__'
     | '/_authenticated'
@@ -271,12 +318,16 @@ export interface FileRouteTypes {
     | '/_authenticated/'
     | '/_authenticated/admin/reports'
     | '/_authenticated/admin/topics'
+    | '/_authenticated/groups/new'
     | '/_authenticated/messages/$userId'
     | '/_authenticated/p/$postId'
     | '/_authenticated/s/$sectionId'
     | '/_authenticated/t/$topicId'
     | '/_authenticated/u/$username'
+    | '/_authenticated/groups/'
     | '/_authenticated/messages/'
+    | '/_authenticated/g/$groupId/edit'
+    | '/_authenticated/g/$groupId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -396,6 +447,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTopicsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/groups/': {
+      id: '/_authenticated/groups/'
+      path: '/groups'
+      fullPath: '/groups/'
+      preLoaderRoute: typeof AuthenticatedGroupsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/groups/new': {
+      id: '/_authenticated/groups/new'
+      path: '/groups/new'
+      fullPath: '/groups/new'
+      preLoaderRoute: typeof AuthenticatedGroupsNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/messages/': {
       id: '/_authenticated/messages/'
       path: '/messages'
@@ -438,6 +503,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUUsernameRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/g/$groupId/': {
+      id: '/_authenticated/g/$groupId/'
+      path: '/g/$groupId'
+      fullPath: '/g/$groupId/'
+      preLoaderRoute: typeof AuthenticatedGGroupIdIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/g/$groupId/edit': {
+      id: '/_authenticated/g/$groupId/edit'
+      path: '/g/$groupId/edit'
+      fullPath: '/g/$groupId/edit'
+      preLoaderRoute: typeof AuthenticatedGGroupIdEditRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -450,12 +529,16 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
   AuthenticatedAdminTopicsRoute: typeof AuthenticatedAdminTopicsRoute
+  AuthenticatedGroupsNewRoute: typeof AuthenticatedGroupsNewRoute
   AuthenticatedMessagesUserIdRoute: typeof AuthenticatedMessagesUserIdRoute
   AuthenticatedPPostIdRoute: typeof AuthenticatedPPostIdRoute
   AuthenticatedSSectionIdRoute: typeof AuthenticatedSSectionIdRoute
   AuthenticatedTTopicIdRoute: typeof AuthenticatedTTopicIdRoute
   AuthenticatedUUsernameRoute: typeof AuthenticatedUUsernameRoute
+  AuthenticatedGroupsIndexRoute: typeof AuthenticatedGroupsIndexRoute
   AuthenticatedMessagesIndexRoute: typeof AuthenticatedMessagesIndexRoute
+  AuthenticatedGGroupIdEditRoute: typeof AuthenticatedGGroupIdEditRoute
+  AuthenticatedGGroupIdIndexRoute: typeof AuthenticatedGGroupIdIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -467,12 +550,16 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
   AuthenticatedAdminTopicsRoute: AuthenticatedAdminTopicsRoute,
+  AuthenticatedGroupsNewRoute: AuthenticatedGroupsNewRoute,
   AuthenticatedMessagesUserIdRoute: AuthenticatedMessagesUserIdRoute,
   AuthenticatedPPostIdRoute: AuthenticatedPPostIdRoute,
   AuthenticatedSSectionIdRoute: AuthenticatedSSectionIdRoute,
   AuthenticatedTTopicIdRoute: AuthenticatedTTopicIdRoute,
   AuthenticatedUUsernameRoute: AuthenticatedUUsernameRoute,
+  AuthenticatedGroupsIndexRoute: AuthenticatedGroupsIndexRoute,
   AuthenticatedMessagesIndexRoute: AuthenticatedMessagesIndexRoute,
+  AuthenticatedGGroupIdEditRoute: AuthenticatedGGroupIdEditRoute,
+  AuthenticatedGGroupIdIndexRoute: AuthenticatedGGroupIdIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

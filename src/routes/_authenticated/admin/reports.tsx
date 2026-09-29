@@ -70,7 +70,7 @@ function groups(list: AdminReport[], open: boolean): AdminReport[][] {
   if (!open) return list.map((r) => [r]);
   const byTarget = new Map<string, AdminReport[]>();
   for (const r of list) {
-    const key = r.kind === "post" ? `post:${r.target_id}` : `${r.kind}:${r.target_user_id}`;
+    const key = r.kind === "post" || r.kind === "group" ? `${r.kind}:${r.target_id}` : `${r.kind}:${r.target_user_id}`;
     byTarget.set(key, [...(byTarget.get(key) ?? []), r]);
   }
   return [...byTarget.values()];
@@ -148,6 +148,14 @@ function ReportItem({ group }: { group: AdminReport[] }) {
           <p className="text-xs text-muted-foreground">{t("adminReports.postGone")}</p>
         ))}
       {r.kind === "voice_message" && <p className="text-xs text-muted-foreground">{t("adminReports.messageGone")}</p>}
+      {r.kind === "group" &&
+        (r.group_exists && r.target_id ? (
+          <Link to="/g/$groupId" params={{ groupId: r.target_id }} className="block rounded-2xl bg-secondary p-3 text-sm font-semibold">
+            {r.group_name}
+          </Link>
+        ) : (
+          <p className="text-xs text-muted-foreground">{t("adminReports.groupGone")}</p>
+        ))}
 
       {r.resolved_at ? (
         <div className="flex flex-wrap items-center gap-2">
@@ -167,6 +175,11 @@ function ReportItem({ group }: { group: AdminReport[] }) {
         </div>
       ) : (
         <div className="flex flex-wrap gap-2">
+          {r.kind === "group" && r.group_exists && (
+            <button type="button" disabled={busy} onClick={() => resolve.mutate("delete_group")} className={cn(pill, "bg-primary text-primary-foreground")}>
+              {t("adminReports.deleteGroup")}
+            </button>
+          )}
           {r.kind === "post" && r.post_exists && (
             <button type="button" disabled={busy} onClick={() => resolve.mutate("hide_post")} className={cn(pill, "bg-primary text-primary-foreground")}>
               {t("adminReports.hidePost")}

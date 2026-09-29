@@ -121,7 +121,7 @@ User decisions:
   "duration · 🎧 listens", actions reply/repost/like + share at the right (no @username, no listens icon). `FeedList`
   shows each voice once (plain repost next to its original). `/s/$sectionId` still exists for old links.
 - **Groups (user request 2026-09-29)** — "public/private groups on topics, invite friends, request to join" (like FB).
-  Plan: **G1** data model ✔ → **G2** UI (stop for "OK" after each).
+  Plan: **G1** data model ✔ → **G2** UI ✔.
   **G1 ✔** migration `20261011100000_speak_groups.sql`: `groups` (name 3–60, description ≤ 300, section, privacy
   public|private, members/posts counters, last_post_at), `group_members` (owner|admin|member, one owner),
   `group_requests` (request | invite + invited_by), `posts.group_id`, `notifications.group_id` + kinds
@@ -139,6 +139,20 @@ User decisions:
   columns `group_id, group_name`; `create_post` + `p_group`; trending/profile counts skip group voices;
   `admin_reports` + `group_name, group_exists`. Tests `test_groups.sql` 33. Live applied, types regenerated,
   smoke 10/10. Known limit: audio files of deleted groups stay in `voices` (orphans, unguessable URLs).
+  **G2 ✔ (UI)** — migration `20261011100100_group_joined_notice.sql` (inviter gets `group_joined`, not
+  `group_accepted`). `src/lib/groups.ts` (types, `groupKeys`, RPC wrappers); posts: `FeedRow.group_id/group_name`,
+  `PostView.groupId/groupName`, `FeedParams.group`, `createPost({ group })`. Components `components/groups/*`:
+  `GroupTile` (section icon on a tile = the group's picture), `GroupMeta`, `GroupRow`, `GroupActions` (Join · Ask to
+  join · Request sent (tap twice cancels) · Accept/Decline invite · members: Πες κάτι + Πρόσκληση), `InviteSheet`
+  (mutual follows not in the group), `RequestsSheet` (admins), `MembersList` (roles; ⋯ make admin / remove admin /
+  hand over / remove), `GroupMenuSheet` (edit, leave, delete, report with reasons), `GroupForm`, `MyGroupsStrip`.
+  Routes: `/groups` (search, invites, my groups with pending badges, suggested), `/groups/new`, `/g/$groupId`
+  (tile + name + meta + description, actions, pending-requests row, tabs Φωνές | Μέλη; private non-member → lock
+  wall), `/g/$groupId/edit`, `/record?group=`. Home: tab "Ομάδες" (strip + invites line + scope `groups`). PostCard:
+  group name (👥, coral → group) instead of the section; no repost button on group voices. Notifications for the 4
+  group kinds open the group; RealtimeSync also invalidates `groupKeys`. Admin reports: kind group → link + "Διαγραφή
+  ομάδας". `hooks/use-debounced.ts` shared. Browser flow 15/15 (create → invite friend → accept → speak → private wall
+  → request → approve → roles → home tab → isolation).
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 

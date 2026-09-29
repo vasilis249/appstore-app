@@ -7,10 +7,11 @@ import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
 import { TopicStrip } from "@/components/posts/topic-strip";
 import { DailyTopicCard } from "@/components/posts/daily-topic-card";
+import { MyGroupsStrip } from "@/components/groups/my-groups-strip";
 import { useSections } from "@/hooks/use-sections";
 import { cn } from "@/lib/utils";
 
-/** "foryou" | "following" | a section id (the feed filtered in place). */
+/** "foryou" | "following" | "groups" | a section id (the feed filtered in place). */
 type Tab = string;
 
 export const Route = createFileRoute("/_authenticated/")({
@@ -42,7 +43,7 @@ function HomePage() {
   const { sections, name } = useSections();
   const playAll = useRef<(() => void) | null>(null);
   const bar = useRef<HTMLDivElement>(null);
-  const isSection = tab !== "foryou" && tab !== "following";
+  const isSection = tab !== "foryou" && tab !== "following" && tab !== "groups";
 
   // Keep the chosen category in view when the row is scrolled.
   useEffect(() => {
@@ -52,6 +53,7 @@ function HomePage() {
   const tabs: { id: Tab; label: string }[] = [
     { id: "foryou", label: t("posts.forYou") },
     { id: "following", label: t("posts.following") },
+    { id: "groups", label: t("groups.title") },
     ...sections.map((s) => ({ id: s.id, label: name(s.id) })),
   ];
 
@@ -94,19 +96,32 @@ function HomePage() {
       </div>
 
       {tab === "foryou" && <DailyTopicCard />}
-      {tab !== "following" && <TopicStrip variant="pills" section={isSection ? tab : undefined} />}
+      {(tab === "foryou" || isSection) && <TopicStrip variant="pills" section={isSection ? tab : undefined} />}
+      {tab === "groups" && <MyGroupsStrip />}
 
       <div className="pt-2">
         <FeedList
           key={tab}
           playAllRef={playAll}
-          params={isSection ? { scope: "section", section: tab } : { scope: tab === "following" ? "following" : "foryou" }}
+          params={isSection ? { scope: "section", section: tab } : { scope: tab === "following" || tab === "groups" ? tab : "foryou" }}
           empty={
+            tab === "groups" ? (
+              <EmptyState
+                title={t("groups.emptyHomeTitle")}
+                text={t("groups.emptyHome")}
+                action={
+                  <Link to="/groups" className="inline-flex h-12 items-center rounded-full bg-primary px-8 font-semibold text-primary-foreground">
+                    {t("groups.find")}
+                  </Link>
+                }
+              />
+            ) : (
             <EmptyState
               title={t(tab === "following" ? "posts.emptyFollowingTitle" : "posts.emptyTitle")}
               text={t(tab === "following" ? "posts.emptyFollowing" : "posts.empty")}
               action={<RecordCta section={isSection ? tab : undefined} />}
             />
+            )
           }
         />
       </div>

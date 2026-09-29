@@ -10,20 +10,21 @@ import { useSections } from "@/hooks/use-sections";
 import { formatClock } from "@/lib/audio";
 import { rpcErrorKey } from "@/lib/friends";
 import { createPost, fetchFeed, getTopic, POST_MAX_MS, postKeys, TITLE_MAX } from "@/lib/posts";
+import { groupDetail, groupKeys } from "@/lib/groups";
 import { promptPermission, requestPromptPermission, syncDailyPrompts } from "@/lib/prompt-notifications";
 import { cn } from "@/lib/utils";
 
-type Search = { section?: string; topic?: string; reply?: string; quote?: string };
+type Search = { section?: string; topic?: string; reply?: string; quote?: string; group?: string };
 
 export const Route = createFileRoute("/_authenticated/record")({
   validateSearch: (s: Record<string, unknown>): Search => {
     const str = (v: unknown) => (typeof v === "string" && v ? v : undefined);
-    return { section: str(s.section), topic: str(s.topic), reply: str(s.reply), quote: str(s.quote) };
+    return { section: str(s.section), topic: str(s.topic), reply: str(s.reply), quote: str(s.quote), group: str(s.group) };
   },
   component: ComposePage,
 });
 
-/** New voice post (≤ 2 min): in a section, on a topic, as a reply or as a quote. */
+/** New voice post (≤ 2 min): in a section, on a topic, in a group, as a reply or as a quote. */
 function ComposePage() {
   const search = Route.useSearch();
   const { t } = useTranslation();
@@ -44,7 +45,8 @@ function ComposePage() {
     enabled: !!parentId,
   });
   const p = parent.data?.[0];
-  const needsSection = !search.topic && !search.reply && !search.quote;
+  const group = useQuery({ queryKey: groupKeys.detail(search.group ?? ""), queryFn: () => groupDetail(search.group!), enabled: !!search.group });
+  const needsSection = !search.topic && !search.reply && !search.quote && !search.group;
 
   const post = useMutation({
     mutationFn: () =>
@@ -54,12 +56,15 @@ function ComposePage() {
         replyTo: search.reply,
         quoteOf: search.quote,
         title: search.reply ? undefined : title,
+        group: search.reply ? undefined : search.group,
       }),
     onSuccess: async (id) => {
       await qc.invalidateQueries({ queryKey: postKeys.all });
+      void qc.invalidateQueries({ queryKey: groupKeys.all });
       toast.success(t("posts.published"));
       if (search.reply) void navigate({ to: "/p/$postId", params: { postId: search.reply }, replace: true });
       else if (search.topic) void navigate({ to: "/t/$topicId", params: { topicId: search.topic }, replace: true });
+      else if (search.group) void navigate({ to: "/g/$groupId", params: { groupId: search.group }, replace: true });
       else void navigate({ to: "/p/$postId", params: { postId: id }, replace: true });
       // Good moment to offer the daily-topic reminder.
       if ((await promptPermission()) === "prompt" && (await requestPromptPermission()) === "granted") void syncDailyPrompts();
@@ -78,6 +83,12 @@ function ComposePage() {
           <div className="rounded-2xl bg-card p-3 ring-1 ring-border">
             <p className="text-xs text-muted-foreground">{name(topic.data.section_id)}</p>
             <p className="font-semibold leading-snug">{topic.data.title}</p>
+          </div>
+        )}
+        {group.data && (
+          <div className="rounded-2xl bg-card p-3 ring-1 ring-border">
+            <p className="text-xs text-muted-foreground">{t("groups.postingIn")}</p>
+            <p className="font-semibold leading-snug">{group.data.name}</p>
           </div>
         )}
         {p && (

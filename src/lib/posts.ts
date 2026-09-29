@@ -3,7 +3,9 @@ import { supabase } from "@/integrations/supabase/client";
 export const POST_MAX_MS = 120_000;
 export const TITLE_MAX = 100;
 
-export type FeedScope = "foryou" | "all" | "following" | "section" | "topic" | "author" | "author_replies" | "replies" | "one" | "ids";
+export type FeedScope =
+  | "foryou" | "all" | "following" | "section" | "topic" | "author" | "author_replies" | "replies" | "one" | "ids"
+  | "group" | "groups";
 
 /** One row of feed_posts(). Plain reposts have no audio; the original is in orig_*. */
 export interface FeedRow {
@@ -41,6 +43,8 @@ export interface FeedRow {
   orig_reposts_count: number | null;
   orig_listens_count: number | null;
   reply_to_username: string | null;
+  group_id: string | null;
+  group_name: string | null;
 }
 
 /** What a card shows: the post itself, or — for a plain repost — the original, credited to the reposter. */
@@ -56,6 +60,9 @@ export interface PostView {
   topicTitle: string | null;
   replyTo: string | null;
   replyToUsername: string | null;
+  /** Voices inside a group show the group instead of the section. */
+  groupId: string | null;
+  groupName: string | null;
   title: string | null;
   path: string;
   durationMs: number;
@@ -76,7 +83,8 @@ export function toView(row: FeedRow): PostView | null {
     return {
       id: row.post_id, authorId: row.author_id, username: row.author_username, name: row.author_name || row.author_username,
       avatar: row.author_avatar, createdAt: row.created_at, sectionId: row.section_id, topicId: row.topic_id,
-      topicTitle: row.topic_title, replyTo: row.reply_to, replyToUsername: row.reply_to_username, title: row.title, path: row.audio_path, durationMs: row.duration_ms,
+      topicTitle: row.topic_title, replyTo: row.reply_to, replyToUsername: row.reply_to_username,
+      groupId: row.group_id, groupName: row.group_name, title: row.title, path: row.audio_path, durationMs: row.duration_ms,
       likes: row.likes_count, replies: row.replies_count, reposts: row.reposts_count, listens: row.listens_count,
       liked: row.liked, reposted: row.reposted, repostedBy: null,
       quote: row.repost_of && row.orig_author_username
@@ -91,7 +99,7 @@ export function toView(row: FeedRow): PostView | null {
       id: row.repost_of, authorId: row.orig_author_id, username: row.orig_author_username,
       name: row.orig_author_name || row.orig_author_username, avatar: row.orig_author_avatar,
       createdAt: row.orig_created_at ?? row.created_at, sectionId: row.section_id, topicId: null, topicTitle: null,
-      replyTo: null, replyToUsername: null, title: row.orig_title, path: row.orig_audio_path, durationMs: row.orig_duration_ms,
+      replyTo: null, replyToUsername: null, groupId: null, groupName: null, title: row.orig_title, path: row.orig_audio_path, durationMs: row.orig_duration_ms,
       likes: row.orig_likes_count ?? 0, replies: row.orig_replies_count ?? 0, reposts: row.orig_reposts_count ?? 0,
       listens: row.orig_listens_count ?? 0, liked: row.liked, reposted: row.reposted,
       repostedBy: { name: row.author_name || row.author_username, mine: row.is_mine }, quote: null, row,
@@ -107,6 +115,7 @@ export interface FeedParams {
   author?: string;
   parent?: string;
   ids?: string[];
+  group?: string;
 }
 
 export interface Section {
@@ -153,6 +162,7 @@ export async function fetchFeed(p: FeedParams, cursor?: string | number): Promis
     p_author: p.author,
     p_parent: p.parent,
     p_ids: p.ids,
+    p_group: p.group,
     p_before: typeof cursor === "string" ? cursor : undefined,
     p_offset: typeof cursor === "number" ? cursor : undefined,
     p_limit: PAGE,
@@ -207,7 +217,7 @@ const EXT: Record<string, string> = { "audio/mp4": "m4a", "audio/x-m4a": "m4a", 
 export async function createPost(
   uid: string,
   clip: { blob: Blob; mime: string; durationMs: number },
-  opts: { section?: string; topic?: string; replyTo?: string; quoteOf?: string; title?: string },
+  opts: { section?: string; topic?: string; replyTo?: string; quoteOf?: string; title?: string; group?: string },
 ): Promise<string> {
   const path = `${uid}/${crypto.randomUUID()}.${EXT[clip.mime] ?? "m4a"}`;
   const bucket = supabase.storage.from("voices");
@@ -218,6 +228,7 @@ export async function createPost(
     p_topic: opts.topic,
     p_reply_to: opts.replyTo,
     p_repost_of: opts.quoteOf,
+    p_group: opts.group,
     p_title: opts.title?.trim() || undefined,
     p_path: path,
     p_mime: clip.mime,

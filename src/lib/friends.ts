@@ -78,7 +78,7 @@ export async function blockUser(id: string) {
   unwrap(await supabase.rpc("block_user", { p_user: id }));
 }
 
-export type ReportKind = "user" | "voice_message" | "post";
+export type ReportKind = "user" | "voice_message" | "post" | "group";
 export const REPORT_REASONS = ["spam", "harassment", "hate", "sexual", "violence", "other"] as const;
 
 export async function reportContent(kind: ReportKind, target: string, reason: string) {

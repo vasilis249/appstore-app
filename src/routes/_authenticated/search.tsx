@@ -9,19 +9,11 @@ import { FollowButton } from "@/components/friends/follow-button";
 import { PersonRow } from "@/components/friends/person-row";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { friendKeys, searchUsers, suggestedPeople } from "@/lib/friends";
+import { useDebounced } from "@/hooks/use-debounced";
 
 export const Route = createFileRoute("/_authenticated/search")({
   component: SearchPage,
 });
-
-function useDebounced(value: string, ms: number) {
-  const [v, setV] = useState(value);
-  useEffect(() => {
-    const id = setTimeout(() => setV(value), ms);
-    return () => clearTimeout(id);
-  }, [value, ms]);
-  return v;
-}
 
 /** Find people by name or username; suggestions when the box is empty. */
 function SearchPage() {

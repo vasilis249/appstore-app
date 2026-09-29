@@ -78,11 +78,11 @@ export async function refreshNews(): Promise<number> {
   return (data as number) ?? 0;
 }
 
-export type ReportAction = "dismiss" | "hide_post" | "disable_user";
+export type ReportAction = "dismiss" | "hide_post" | "disable_user" | "delete_group";
 
 export interface AdminReport {
   id: string;
-  kind: "user" | "voice_message" | "post";
+  kind: "user" | "voice_message" | "post" | "group";
   reason: string;
   created_at: string;
   resolved_at: string | null;
@@ -101,6 +101,8 @@ export interface AdminReport {
   post_hidden: boolean | null;
   post_exists: boolean;
   reports_on_target: number;
+  group_name: string | null;
+  group_exists: boolean;
 }
 
 export const reportKeys = {
