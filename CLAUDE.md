@@ -469,6 +469,21 @@ User decisions:
   start zoom 16; friends strip only as wide as needed. Real-tile screenshots: scratchpad `tiles-shot.mjs <port> <name>`
   (Playwright route → curl `--suppress-connect-headers` through the agent proxy; LOCAL build needed — the prod bundle
   talks to the live Supabase). map 11/11, precision 7/7, nearby 10/10.
+  **"My location doesn't show" ✔ (user report)** — the iPhone app loads the web part from the live site, but its
+  NATIVE part only changes with a new Xcode build; an app built before L1 has no BackgroundGeolocation plugin, and
+  `watchLocal` asked only the plugin (rejection swallowed) → no position ever. Now `tracker.ts`: `hasNativeLocation()`
+  (`Capacitor.isPluginAvailable`), `watchLocal(onProblem: "denied" | "unavailable")` = plugin, falling back to the web
+  view's `navigator.geolocation` when the plugin is missing, errors, or gives no fix within 8 s; `startTracking` too
+  (foreground only without the plugin); `openLocationSettings` falls back to `app-settings:`. `/map`: no fix → card
+  «Βρίσκουμε τη θέση σου…», after 15 s or on a problem «Δεν βρίσκουμε τη θέση σου» / «Δεν έχεις δώσει πρόσβαση…» with
+  iOS steps (While Using/Always + Precise + Location Services), «Δοκίμασε ξανά» (restarts the watch) + Ρυθμίσεις, and
+  «παλιότερο build» note when the plugin is missing. `LiveMap`: `me.live`; the camera is placed on your stored position
+  first and AGAIN on the first live fix unless you already dragged/zoomed (it used to stay on a stale spot).
+  Also fixed (pre-existing): `prompt-notifications.ts` returned the LocalNotifications proxy from an async function →
+  resolving it called the proxy's `then` → native "then() is not implemented" → daily reminders never scheduled in the
+  app; now wrapped (`{ ln }`). Never return a Capacitor plugin proxy from an async function / promise. Browser
+  `mylocation-flow.mjs` 5/5 (fake iOS bridge without the plugin via `window.webkit.messageHandlers.bridge` +
+  `window.Capacitor.PluginHeaders`, denied → retry, stale stored spot vs live), map 11/11, precision 7/7, nearby 10/10.
   **L3 ✔ (push to talk on the map)** migration `20261023100000_nearby_talk.sql`: `private.nearby_knocks` (last knock per
   pair), `public.nearby_messages` + `private.nearby_audio` (24 h, like walkie), `private.may_talk_nearby(a, b)`
   (are_nearby + nobody disabled + b's talk_from), `knocked_recently(a, b)` (5 min), `may_send_nearby` (may talk, or

@@ -38,6 +38,8 @@ export interface LivePosition {
   lat: number;
   lng: number;
   accuracy?: number | null;
+  /** From this device right now (else: the last position you shared, from the server). */
+  live?: boolean;
 }
 
 /** Where to move the camera: yourself, your radius, or a point (a friend). Change `key` to move again. */
@@ -176,7 +178,10 @@ export function LiveMap({
   const markers = useRef(new Map<string, { marker: Marker; sig: string }>());
   const meMarker = useRef<{ marker: Marker; sig: string; beam: HTMLElement } | null>(null);
   const styleReady = useRef(false);
-  const placed = useRef(false);
+  // Where the camera was first put: on your stored position, then again on your live one when it arrives (unless you
+  // already moved the map yourself).
+  const placed = useRef<"none" | "stored" | "live">("none");
+  const userMoved = useRef(false);
   const latest = useRef({ me, meFace, radius, people, onSelect, talking, ageOf, lang });
   latest.current = { me, meFace, radius, people, onSelect, talking, ageOf, lang };
 
@@ -199,6 +204,11 @@ export function LiveMap({
         dragRotate: false,
       });
       m.touchZoomRotate.disableRotation();
+      const byUser = (e: { originalEvent?: unknown }) => {
+        if (e.originalEvent) userMoved.current = true;
+      };
+      m.on("dragstart", byUser);
+      m.on("zoomstart", byUser);
       m.on("load", () => {
         styleReady.current = true;
         localizeLabels(m, latest.current.lang);
@@ -224,7 +234,8 @@ export function LiveMap({
       all.clear();
       meMarker.current = null;
       styleReady.current = false;
-      placed.current = false;
+      placed.current = "none";
+      userMoved.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -279,8 +290,9 @@ export function LiveMap({
         meMarker.current = { marker: new ml.Marker({ element: el }).setLngLat([pos.lng, pos.lat]).addTo(m), sig, beam };
         pointBeam();
       } else glide(meMarker.current.marker, [pos.lng, pos.lat]);
-      if (!placed.current) {
-        placed.current = true;
+      const kind = pos.live ? "live" : "stored";
+      if (placed.current === "none" || (placed.current === "stored" && kind === "live" && !userMoved.current)) {
+        placed.current = kind;
         if (r) frameRadius(false);
         else m.jumpTo({ center: [pos.lng, pos.lat], zoom: ME_ZOOM });
       }
@@ -318,7 +330,7 @@ export function LiveMap({
   }, [lang]);
 
   const talkingKey = talking.join();
-  useEffect(sync, [me?.lat, me?.lng, me?.accuracy, meFace.name, meFace.path, people, radius, talkingKey]);
+  useEffect(sync, [me?.lat, me?.lng, me?.accuracy, me?.live, meFace.name, meFace.path, people, radius, talkingKey]);
 
   // The beam on your marker follows the compass (or your course).
   const headingRef = useRef(heading);

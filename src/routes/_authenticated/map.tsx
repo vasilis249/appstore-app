@@ -13,7 +13,17 @@ import { locationKeys, mapPeople, mySharing, type MapPerson } from "@/lib/locati
 import { formatDistance } from "@/lib/location/format";
 import { nearbyPerson } from "@/lib/location/nearby";
 import { compassHeading, enableCompass, onCompass } from "@/lib/location/compass";
-import { APPROXIMATE_M, localFix, metres, onLocalFix, openLocationSettings, watchLocal, type LocalFix } from "@/lib/location/tracker";
+import {
+  APPROXIMATE_M,
+  hasNativeLocation,
+  localFix,
+  metres,
+  onLocalFix,
+  openLocationSettings,
+  watchLocal,
+  type LocalFix,
+  type LocalProblem,
+} from "@/lib/location/tracker";
 import { isNativeApp } from "@/lib/native";
 import { timeAgoShort } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
@@ -35,23 +45,28 @@ function directionsUrl(lat: number, lng: number) {
 /** Your position straight from this device, live while the map is open (nothing is sent unless you share). */
 function useLocalFix() {
   const [fix, setFix] = useState<LocalFix | null>(localFix);
-  const [denied, setDenied] = useState(false);
-  // The first fixes are often rough for a few seconds: only call it "approximate" once it stays so.
+  const [problem, setProblem] = useState<LocalProblem | null>(null);
+  // The first fixes are often rough for a few seconds: only call it "approximate" once it stays so. Also: after
+  // 15 s without any position, say so (instead of an endless "finding you").
   const [settled, setSettled] = useState(false);
+  const [slow, setSlow] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   useEffect(() => {
+    setSlow(false);
+    setProblem(null);
     const off = onLocalFix((f) => {
       setFix(f);
-      setDenied(false);
+      setProblem(null);
     });
-    const stop = watchLocal(() => setDenied(true));
-    const timer = setTimeout(() => setSettled(true), 8_000);
+    const stop = watchLocal(setProblem);
+    const timers = [setTimeout(() => setSettled(true), 8_000), setTimeout(() => setSlow(true), 15_000)];
     return () => {
       off();
       stop();
-      clearTimeout(timer);
+      timers.forEach(clearTimeout);
     };
-  }, []);
-  return { fix, denied, settled };
+  }, [attempt]);
+  return { fix, problem, settled, slow, retry: () => setAttempt((a) => a + 1) };
 }
 
 /** Where the phone points (compass, once allowed from a tap). */
@@ -93,7 +108,7 @@ function MapPage() {
   const s = sharing.data;
   // You: this phone's live position, else the last one you shared.
   const me = local.fix
-    ? { lat: local.fix.lat, lng: local.fix.lng, accuracy: local.fix.accuracy }
+    ? { lat: local.fix.lat, lng: local.fix.lng, accuracy: local.fix.accuracy, live: true }
     : on && s?.lat != null && s?.lng != null
       ? { lat: s.lat, lng: s.lng, accuracy: s.accuracy_m }
       : null;
@@ -260,19 +275,29 @@ function MapPage() {
             </Link>
           </div>
         )}
-        {s && !me && (on || local.denied) && (
+        {!local.fix && (local.problem || local.slow || (s && on && !me)) && (
           <div className="rounded-3xl bg-[#141415]/95 p-4 shadow-xl backdrop-blur">
-            <p className="text-[15px] font-semibold">{t(local.denied ? "map.deniedTitle" : "map.waitingTitle")}</p>
-            {local.denied && (
-              <p className="mt-1 text-sm text-muted-foreground">
-                {isNativeApp() ? (
-                  <button type="button" onClick={openLocationSettings} className="font-semibold text-[#0a84ff]">
-                    {t("location.openSettings")}
+            <p className="flex items-center gap-2 text-[15px] font-semibold">
+              <LocateFixed className={cn("h-4 w-4 text-[#0a84ff]", !local.problem && !local.slow && "animate-pulse")} />
+              {t(local.problem === "denied" ? "map.deniedTitle" : local.problem || local.slow ? "map.notFoundTitle" : "map.waitingTitle")}
+            </p>
+            {(local.problem || local.slow) && (
+              <>
+                <p className="mt-1 text-sm leading-snug text-muted-foreground">
+                  {t(isNativeApp() ? "map.notFoundIos" : local.problem === "denied" ? "location.deniedWeb" : "map.notFoundWeb")}
+                </p>
+                {isNativeApp() && !hasNativeLocation() && <p className="mt-1 text-sm leading-snug text-muted-foreground">{t("map.oldApp")}</p>}
+                <div className="mt-3 flex gap-2">
+                  <button type="button" onClick={local.retry} className="h-10 flex-1 rounded-full bg-primary text-sm font-semibold text-primary-foreground">
+                    {t("map.retry")}
                   </button>
-                ) : (
-                  t("location.deniedWeb")
-                )}
-              </p>
+                  {isNativeApp() && (
+                    <button type="button" onClick={openLocationSettings} className="h-10 flex-1 rounded-full bg-secondary text-sm font-semibold">
+                      {t("location.openSettings")}
+                    </button>
+                  )}
+                </div>
+              </>
             )}
           </div>
         )}

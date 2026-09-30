@@ -1,4 +1,4 @@
-import { registerPlugin } from "@capacitor/core";
+import { Capacitor, registerPlugin } from "@capacitor/core";
 import { isNativeApp } from "@/lib/native";
 import { sendPosition } from "./api";
 
@@ -36,6 +36,15 @@ interface BackgroundGeolocationPlugin {
   openSettings(): Promise<void>;
 }
 const BackgroundGeolocation = registerPlugin<BackgroundGeolocationPlugin>("BackgroundGeolocation");
+
+/**
+ * The app's native location plugin is there. An iPhone app built before the plugin was added (the web part updates
+ * by itself, the native part only with a new Xcode build) doesn't have it: then location comes from the web view's
+ * own geolocation, foreground only.
+ */
+export function hasNativeLocation(): boolean {
+  return isNativeApp() && Capacitor.isPluginAvailable("BackgroundGeolocation");
+}
 
 export type TrackerStatus = "idle" | "running" | "denied" | "unavailable";
 
@@ -139,7 +148,7 @@ export function onTrackerStatus(fn: (s: TrackerStatus) => void): () => void {
 /** Start sending your position (asks for permission the first time). */
 export async function startTracking(texts: { title: string; message: string }) {
   if (status === "running") return;
-  if (isNativeApp()) {
+  if (hasNativeLocation()) {
     try {
       nativeWatcher = await BackgroundGeolocation.addWatcher(
         { backgroundTitle: texts.title, backgroundMessage: texts.message, requestPermissions: true, stale: false, distanceFilter: 5 },
@@ -208,7 +217,12 @@ export async function stopTracking() {
 
 /** iOS: open Speak's page in Settings (to switch location to "Always"). */
 export function openLocationSettings() {
-  if (isNativeApp()) void BackgroundGeolocation.openSettings().catch(() => {});
+  if (!isNativeApp()) return;
+  const viaUrl = () => {
+    window.location.href = "app-settings:"; // iOS Settings → Speak (UIApplication.openSettingsURLString)
+  };
+  if (hasNativeLocation()) void BackgroundGeolocation.openSettings().catch(viaUrl);
+  else viaUrl();
 }
 
 /** Latest position of this device (may be a few seconds old), or null. */
@@ -230,41 +244,72 @@ let localUsers = 0;
 let localNative: string | null = null;
 let localWeb: number | null = null;
 
+let localFallback: ReturnType<typeof setTimeout> | null = null;
+const localProblems = new Set<(p: LocalProblem) => void>();
+
+/** Why there is no position: permission refused, or no location service at all. */
+export type LocalProblem = "denied" | "unavailable";
+
+function problem(p: LocalProblem) {
+  localProblems.forEach((fn) => fn(p));
+}
+
+function startWebLocal() {
+  if (localWeb !== null) return;
+  if (typeof navigator === "undefined" || !navigator.geolocation) return problem("unavailable");
+  localWeb = navigator.geolocation.watchPosition(
+    (pos) => onLocal(fromCoords(pos.coords)),
+    (err) => {
+      if (err.code === err.PERMISSION_DENIED) problem("denied");
+    },
+    { enableHighAccuracy: true, maximumAge: 0, timeout: 30_000 },
+  );
+}
+
+function startNativeLocal() {
+  void BackgroundGeolocation.addWatcher({ requestPermissions: true, stale: false, distanceFilter: 5 }, (position, error) => {
+    if (error) {
+      if (error.code === "NOT_AUTHORIZED") problem("denied");
+      else startWebLocal(); // anything else from the plugin: let the web view try
+      return;
+    }
+    if (position) onLocal({ lat: position.latitude, lng: position.longitude, accuracy: position.accuracy, heading: position.bearing, speed: position.speed });
+  })
+    .then((id) => {
+      if (localUsers > 0) localNative = id;
+      else void BackgroundGeolocation.removeWatcher({ id }).catch(() => {});
+    })
+    .catch(() => startWebLocal());
+}
+
 /**
  * Follow your position while a screen needs it (the map), foreground only. Returns the stop. Nothing is sent
  * because of it — except that while sharing is on, these extra fixes also keep the shared position precise.
- * onDenied: location permission refused.
+ * In the app the native plugin answers; if it is missing (older app build), fails, or gives nothing within 8 s, the
+ * web view's own geolocation takes over too. onProblem: permission refused / no location at all.
  */
-export function watchLocal(onDenied?: () => void): () => void {
+export function watchLocal(onProblem?: (p: LocalProblem) => void): () => void {
+  if (onProblem) localProblems.add(onProblem);
   localUsers++;
   if (localUsers === 1) {
-    if (isNativeApp()) {
-      void BackgroundGeolocation.addWatcher({ requestPermissions: true, stale: false, distanceFilter: 5 }, (position, error) => {
-        if (error) {
-          if (error.code === "NOT_AUTHORIZED") onDenied?.();
-          return;
-        }
-        if (position) onLocal({ lat: position.latitude, lng: position.longitude, accuracy: position.accuracy, heading: position.bearing, speed: position.speed });
-      })
-        .then((id) => {
-          if (localUsers > 0) localNative = id;
-          else void BackgroundGeolocation.removeWatcher({ id }).catch(() => {});
-        })
-        .catch(() => {});
-    } else if (typeof navigator !== "undefined" && navigator.geolocation) {
-      localWeb = navigator.geolocation.watchPosition(
-        (pos) => onLocal(fromCoords(pos.coords)),
-        (err) => err.code === err.PERMISSION_DENIED && onDenied?.(),
-        { enableHighAccuracy: true, maximumAge: 0 },
-      );
-    }
+    if (hasNativeLocation()) {
+      startNativeLocal();
+      const since = Date.now();
+      localFallback = setTimeout(() => {
+        localFallback = null;
+        if (localUsers > 0 && (!fix || fix.at < since)) startWebLocal();
+      }, 8_000);
+    } else startWebLocal();
   }
   let stopped = false;
   return () => {
     if (stopped) return;
     stopped = true;
+    if (onProblem) localProblems.delete(onProblem);
     localUsers--;
     if (localUsers > 0) return;
+    if (localFallback) clearTimeout(localFallback);
+    localFallback = null;
     if (localNative) {
       const id = localNative;
       localNative = null;

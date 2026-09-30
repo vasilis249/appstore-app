@@ -881,7 +881,12 @@
     "accuracy": "Accuracy ±{{distance}}",
     "approxTitle": "Your position is approximate (±{{accuracy}})",
     "approxIos": "On iPhone: Settings → Speak → Location → turn on “Precise Location” for an accuracy of a few metres, like Find My.",
-    "approxWeb": "This device only gives an approximate position. In the phone app, with GPS, it is accurate to a few metres."
+    "approxWeb": "This device only gives an approximate position. In the phone app, with GPS, it is accurate to a few metres.",
+    "notFoundTitle": "We can't find your location",
+    "notFoundIos": "On iPhone: Settings → Speak → Location → “While Using” or “Always”, with “Precise Location” on. Also check that Location Services are on (Settings → Privacy).",
+    "notFoundWeb": "Allow location for this page and check that location is on for this device.",
+    "oldApp": "Your app is an older build: for location in the background too, build it again from Xcode.",
+    "retry": "Try again"
   },
   "nearby": {
     "hold": "Hold and talk",
