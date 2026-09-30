@@ -14,7 +14,7 @@ export function MyGroupsStrip() {
   return (
     <div className="pt-3">
       {!!invites.data?.length && (
-        <Link to="/groups" className="mx-4 mb-3 flex items-center justify-between rounded-2xl bg-secondary px-4 py-3 text-[15px] font-semibold">
+        <Link to="/groups" className="mx-4 mb-3 flex items-center justify-between rounded-2xl bg-card px-4 py-3 text-callout font-semibold">
           <span>{t("groups.invitesCount", { count: invites.data.length })}</span>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
         </Link>
@@ -24,19 +24,19 @@ export function MyGroupsStrip() {
           <span className="grid h-14 w-14 place-items-center rounded-2xl ring-1 ring-border">
             <Search className="h-6 w-6" />
           </span>
-          <span className="w-full truncate text-xs font-medium">{t("groups.find")}</span>
+          <span className="w-full truncate text-fine font-normal">{t("groups.find")}</span>
         </Link>
         {(mine.data ?? []).map((g) => (
           <Link key={g.id} to="/g/$groupId" params={{ groupId: g.id }} className={tile}>
             <span className="relative">
               <GroupTile section={g.section_id} size={56} />
               {g.pending_requests > 0 && (
-                <span className="absolute -right-1 -top-1 min-w-5 rounded-full bg-badge px-1 text-center text-[11px] font-semibold leading-5 text-white">
+                <span className="absolute -right-1 -top-1 min-w-5 rounded-full bg-badge px-1 text-center text-[11px] font-semibold leading-5 text-destructive-foreground">
                   {g.pending_requests}
                 </span>
               )}
             </span>
-            <span className="w-full truncate text-xs font-medium">{g.name}</span>
+            <span className="w-full truncate text-fine font-normal">{g.name}</span>
           </Link>
         ))}
       </nav>

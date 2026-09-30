@@ -129,16 +129,16 @@ export function WalkieBanner() {
         if (nearby) void navigate({ to: "/map", search: { u: talking.peer } });
         else void navigate({ to: "/talk/$userId", params: { userId: talking.peer } });
       }}
-      className="fixed inset-x-4 top-[calc(env(safe-area-inset-top)+0.75rem)] z-50 mx-auto flex max-w-md items-center gap-3 rounded-full bg-live px-3 py-2 text-left text-white shadow-lg"
+      className="fixed inset-x-4 top-[calc(env(safe-area-inset-top)+0.75rem)] z-50 mx-auto flex max-w-md items-center gap-3 rounded-full bg-live px-3 py-2 text-left text-destructive-foreground shadow-float"
     >
       <UserAvatar name={name} path={c?.avatar_path ?? null} size={36} />
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[15px] font-semibold">{t("walkie.bannerTalking", { name: name.split(" ")[0] })}</span>
+        <span className="block truncate text-callout font-semibold">{t("walkie.bannerTalking", { name: name.split(" ")[0] })}</span>
         {talking.snap.audioLocked ? (
-          <span className="block text-xs text-white/85">{t("walkie.bannerTap")}</span>
+          <span className="block text-fine text-destructive-foreground/85">{t("walkie.bannerTap")}</span>
         ) : (
           nearby && (
-            <span className="block text-xs text-white/85">
+            <span className="block text-fine text-destructive-foreground/85">
               {dist != null ? t("nearby.bannerFrom", { distance: formatDistance(dist, i18n.language) }) : t("nearby.bannerMap")}
             </span>
           )

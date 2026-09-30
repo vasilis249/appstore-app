@@ -79,6 +79,12 @@ function dropHold(peer: string) {
   h.release();
 }
 
+/** Blocked from the map: close that conversation and forget their knock. */
+export function forgetNearby(peer: string) {
+  dropHold(peer);
+  people.delete(peer);
+}
+
 /** Sign-out / sharing off: close every map conversation. */
 export function releaseAllNearby() {
   for (const peer of [...holds.keys()]) dropHold(peer);

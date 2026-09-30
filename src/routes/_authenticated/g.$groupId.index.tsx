@@ -15,6 +15,7 @@ import { RequestsSheet } from "@/components/groups/requests-sheet";
 import { groupDetail, groupKeys } from "@/lib/groups";
 import { cn } from "@/lib/utils";
 import { VoiceIcon } from "@/components/voice/voice-icon";
+import { Segmented } from "@/components/segmented";
 
 export const Route = createFileRoute("/_authenticated/g/$groupId/")({
   component: GroupPage,
@@ -59,22 +60,22 @@ function GroupPage() {
             <div className="flex items-center gap-4">
               <GroupTile section={d.section_id} size={64} />
               <div className="min-w-0">
-                <h1 className="text-2xl font-extrabold leading-tight">{d.name}</h1>
+                <h1 className="text-display font-semibold leading-tight">{d.name}</h1>
                 <GroupMeta privacy={d.privacy} members={d.members_count} section={d.auto ? undefined : d.section_id} />
                 {d.auto && (
-                  <p className="mt-0.5 flex items-center gap-1 text-[13px] font-medium text-link">
+                  <p className="mt-0.5 flex items-center gap-1 text-caption font-normal text-link">
                     <GraduationCap className="h-3.5 w-3.5" /> {t("groups.autoGroup")}
                   </p>
                 )}
               </div>
             </div>
-            {d.description && <p className="whitespace-pre-line text-[15px] leading-snug text-foreground/90">{d.description}</p>}
+            {d.description && <p className="whitespace-pre-line text-callout leading-snug text-foreground/90">{d.description}</p>}
             <GroupActions group={d} onInvite={() => setInvite(true)} />
             {d.pending_requests > 0 && (
-              <button type="button" onClick={() => setRequests(true)} className="flex w-full items-center justify-between rounded-2xl bg-secondary px-4 py-3 text-[15px] font-semibold">
+              <button type="button" onClick={() => setRequests(true)} className="flex w-full items-center justify-between rounded-2xl bg-card px-4 py-3 text-callout font-semibold">
                 <span>{t("groups.pendingRequests", { count: d.pending_requests })}</span>
                 <span className="flex items-center gap-2">
-                  <span className="min-w-5 rounded-full bg-badge px-1.5 text-center text-xs leading-5 text-white">{d.pending_requests}</span>
+                  <span className="min-w-5 rounded-full bg-badge px-1.5 text-center text-fine leading-5 text-destructive-foreground">{d.pending_requests}</span>
                   <ChevronRight className="h-4 w-4 text-muted-foreground" />
                 </span>
               </button>
@@ -83,18 +84,15 @@ function GroupPage() {
 
           {canSee ? (
             <>
-              <div className="flex border-y border-border">
-                {(["voices", "members"] as const).map((k) => (
-                  <button
-                    key={k}
-                    type="button"
-                    onClick={() => setView(k)}
-                    className={cn("relative flex-1 py-3 text-[15px] font-semibold", view === k ? "text-foreground" : "text-muted-foreground")}
-                  >
-                    {k === "voices" ? t("people.voices") : t("groups.membersTab", { count: d.members_count })}
-                    {view === k && <span className="absolute inset-x-1/3 bottom-0 h-1 rounded-full bg-primary" />}
-                  </button>
-                ))}
+              <div className="border-t border-border px-4 pt-3">
+                <Segmented
+                  value={view}
+                  onChange={setView}
+                  options={[
+                    { value: "voices", label: t("people.voices") },
+                    { value: "members", label: t("groups.membersTab", { count: d.members_count }) },
+                  ]}
+                />
               </div>
               <div className="pt-2">
                 {view === "voices" ? (

@@ -18,12 +18,12 @@ export function BlockedSheet({ open, onOpenChange }: { open: boolean; onOpenChan
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange} nested>
-      <DrawerContent className="mx-auto h-[70vh] max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
-        <DrawerTitle className="pt-4 text-center text-lg font-bold">{t("settings.blocked")}</DrawerTitle>
+      <DrawerContent className="mx-auto h-[70vh] max-w-lg">
+        <DrawerTitle className="pt-4 text-center text-body font-semibold">{t("settings.blocked")}</DrawerTitle>
         <DrawerDescription className="sr-only">{t("settings.blocked")}</DrawerDescription>
         <ul className="safe-bottom flex-1 overflow-y-auto px-4 py-2">
           {list.data && !list.data.length && (
-            <p className="py-12 text-center text-sm text-muted-foreground">{t("settings.noBlocked")}</p>
+            <p className="py-12 text-center text-caption text-muted-foreground">{t("settings.noBlocked")}</p>
           )}
           {(list.data ?? []).map((p) => (
             <PersonRow key={p.id} person={p}>

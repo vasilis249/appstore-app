@@ -117,9 +117,9 @@ export function NearbyTalk({ person }: { person: MapPerson }) {
   const items = history.data ?? [];
   return (
     <div className="mt-5 flex flex-col items-center">
-      <p className={cn("h-5 text-center text-sm", s?.peerTalking || s?.talking ? "font-semibold text-live" : "text-muted-foreground")}>{status}</p>
+      <p className={cn("h-5 text-center text-caption", s?.peerTalking || s?.talking ? "font-semibold text-live" : "text-muted-foreground")}>{status}</p>
       {s?.audioLocked && s.peerTalking && (
-        <button type="button" onClick={w.unlockAudio} className="mt-2 flex h-9 items-center gap-2 rounded-full bg-secondary px-4 text-sm font-semibold">
+        <button type="button" onClick={w.unlockAudio} className="mt-2 flex h-9 items-center gap-2 rounded-full bg-secondary px-4 text-caption font-semibold">
           <Volume2 className="h-4 w-4" /> {t("walkie.enableSound")}
         </button>
       )}
@@ -143,9 +143,9 @@ export function NearbyTalk({ person }: { person: MapPerson }) {
           style={{ WebkitTouchCallout: "none", touchAction: "none" }}
           aria-label={t("nearby.hold")}
           className={cn(
-            "grid h-28 w-28 place-items-center rounded-full shadow-lg transition-transform duration-150 disabled:opacity-40",
+            "grid h-28 w-28 place-items-center rounded-full transition-transform duration-150 disabled:opacity-40",
             s?.talking || s?.starting
-              ? "scale-105 bg-live text-white"
+              ? "scale-105 bg-live text-destructive-foreground"
               : s?.peerTalking
                 ? "bg-secondary text-muted-foreground"
                 : "bg-primary text-primary-foreground",
@@ -155,11 +155,11 @@ export function NearbyTalk({ person }: { person: MapPerson }) {
           <VoiceIcon className="h-11 w-11" strokeWidth={1.8} live={!!s?.talking || !!s?.peerTalking} />
         </button>
       </div>
-      <p className="mt-1 h-5 text-sm tabular-nums text-muted-foreground">{s?.talking ? `${formatClock(s.elapsedMs)} / ${formatClock(WALKIE_MAX_MS)}` : ""}</p>
+      <p className="mt-1 h-5 text-caption tabular-nums text-muted-foreground">{s?.talking ? `${formatClock(s.elapsedMs)} / ${formatClock(WALKIE_MAX_MS)}` : ""}</p>
 
       {items.length > 0 && (
         <section className="mt-3 w-full">
-          <h3 className="pb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{t("walkie.last24h")}</h3>
+          <h3 className="pb-1 text-callout font-semibold text-muted-foreground">{t("walkie.last24h")}</h3>
           <ul className="max-h-40 divide-y divide-border overflow-y-auto">
             {items.map((m) => (
               <HistoryRow key={m.id} item={m} mine={m.sender_id === user?.id} name={first} locale={i18n.language} load={nearbyAudio} />

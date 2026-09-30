@@ -20,8 +20,8 @@ export function RequestsSheet({ groupId, open, onOpenChange }: { groupId: string
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="mx-auto max-h-[80vh] max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
-        <DrawerTitle className="pt-4 text-center text-lg font-bold">{t("groups.requests")}</DrawerTitle>
+      <DrawerContent className="mx-auto max-h-[80vh] max-w-lg">
+        <DrawerTitle className="pt-4 text-center text-body font-semibold">{t("groups.requests")}</DrawerTitle>
         <DrawerDescription className="sr-only">{t("groups.requests")}</DrawerDescription>
         <ul className="safe-bottom overflow-y-auto px-4 pb-4">
           {(list.data ?? []).map((p) => (
@@ -30,7 +30,7 @@ export function RequestsSheet({ groupId, open, onOpenChange }: { groupId: string
                 type="button"
                 disabled={respond.isPending}
                 onClick={() => respond.mutate({ id: p.user_id, accept: true })}
-                className="h-9 rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground disabled:opacity-50"
+                className="h-9 rounded-full bg-primary px-4 text-caption font-semibold text-primary-foreground disabled:opacity-50"
               >
                 {t("groups.accept")}
               </button>
@@ -45,7 +45,7 @@ export function RequestsSheet({ groupId, open, onOpenChange }: { groupId: string
               </button>
             </PersonRow>
           ))}
-          {list.data && !list.data.length && <p className="py-10 text-center text-sm text-muted-foreground">{t("groups.noRequests")}</p>}
+          {list.data && !list.data.length && <p className="py-10 text-center text-caption text-muted-foreground">{t("groups.noRequests")}</p>}
         </ul>
       </DrawerContent>
     </Drawer>

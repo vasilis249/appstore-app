@@ -45,7 +45,7 @@ function MyProfilePage() {
             person={p}
             isMe
             ownAction={
-              <button type="button" onClick={() => setEditOpen(true)} className="h-10 rounded-full bg-secondary px-6 text-sm font-semibold">
+              <button type="button" onClick={() => setEditOpen(true)} className="h-10 rounded-full bg-secondary px-6 text-caption font-semibold">
                 {t("profile.edit")}
               </button>
             }

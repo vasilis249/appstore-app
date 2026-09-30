@@ -22,7 +22,7 @@ export function OfflineBanner() {
   return (
     <div
       role="status"
-      className="fixed inset-x-0 top-0 z-50 flex items-center justify-center gap-2 bg-destructive px-4 pb-2 text-center text-xs font-medium text-destructive-foreground"
+      className="fixed inset-x-0 top-0 z-50 flex items-center justify-center gap-2 bg-destructive px-4 pb-2 text-center text-fine font-normal text-destructive-foreground"
       style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 0.5rem)" }}
     >
       <WifiOff className="h-4 w-4 shrink-0" /> {t("network.offline")}

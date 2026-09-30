@@ -12,6 +12,7 @@ import { friendKeys, profileStats, type Person } from "@/lib/friends";
 import { useCampus } from "@/lib/campus";
 import { cn } from "@/lib/utils";
 import { VoiceIcon } from "@/components/voice/voice-icon";
+import { Segmented } from "@/components/segmented";
 
 const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
 
@@ -31,35 +32,35 @@ export function ProfileView({ person, isMe, ownAction }: { person: Person; isMe:
     <>
       <section className="flex flex-col items-center px-4 pb-4 pt-4 text-center">
         <UserAvatar name={name} path={person.avatar_path} size={96} />
-        <h1 className="mt-3 text-2xl font-bold">{name}</h1>
+        <h1 className="mt-3 text-display font-semibold">{name}</h1>
         <p className="text-muted-foreground">
           @{person.username}
-          {!isMe && s?.follows_me && <span className="ml-2 rounded-md bg-secondary px-1.5 py-0.5 text-xs">{t("people.followsYou")}</span>}
+          {!isMe && s?.follows_me && <span className="ml-2 rounded-md bg-secondary px-1.5 py-0.5 text-fine">{t("people.followsYou")}</span>}
         </p>
         {school ? (
-          <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-sm font-semibold">
+          <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-caption font-semibold">
             <GraduationCap className="h-4 w-4" /> {school}
           </p>
         ) : (
           isMe &&
           campus.loaded && (
-            <Link to="/student" className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-link">
+            <Link to="/student" className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-caption font-semibold text-link">
               <GraduationCap className="h-4 w-4" /> {t("student.cta")}
             </Link>
           )
         )}
         <div className="mt-4 flex gap-8">
           <div className={count}>
-            <span className="text-lg font-bold tabular-nums">{s ? compact.format(s.posts) : "–"}</span>
-            <span className="text-xs text-muted-foreground">{t("people.voices")}</span>
+            <span className="text-body font-semibold tabular-nums">{s ? compact.format(s.posts) : "–"}</span>
+            <span className="text-fine text-muted-foreground">{t("people.voices")}</span>
           </div>
           <button type="button" className={count} onClick={() => setTab("followers")}>
-            <span className="text-lg font-bold tabular-nums">{s ? compact.format(s.followers) : "–"}</span>
-            <span className="text-xs text-muted-foreground">{t("people.followers")}</span>
+            <span className="text-body font-semibold tabular-nums">{s ? compact.format(s.followers) : "–"}</span>
+            <span className="text-fine text-muted-foreground">{t("people.followers")}</span>
           </button>
           <button type="button" className={count} onClick={() => setTab("following")}>
-            <span className="text-lg font-bold tabular-nums">{s ? compact.format(s.following) : "–"}</span>
-            <span className="text-xs text-muted-foreground">{t("people.followingCount")}</span>
+            <span className="text-body font-semibold tabular-nums">{s ? compact.format(s.following) : "–"}</span>
+            <span className="text-fine text-muted-foreground">{t("people.followingCount")}</span>
           </button>
         </div>
         <div className="mt-4 flex gap-2">
@@ -72,7 +73,7 @@ export function ProfileView({ person, isMe, ownAction }: { person: Person; isMe:
                     <Link
                       to="/messages/$userId"
                       params={{ userId: person.id }}
-                      className="flex h-10 items-center gap-2 rounded-full bg-secondary px-5 text-sm font-semibold"
+                      className="flex h-10 items-center gap-2 rounded-full bg-secondary px-5 text-caption font-semibold"
                     >
                       <Send className="h-4 w-4" /> {t("people.message")}
                     </Link>
@@ -91,18 +92,15 @@ export function ProfileView({ person, isMe, ownAction }: { person: Person; isMe:
               )}
         </div>
       </section>
-      <div className="flex border-y border-border">
-        {(["voices", "replies"] as const).map((k) => (
-          <button
-            key={k}
-            type="button"
-            onClick={() => setView(k)}
-            className={cn("relative flex-1 py-3 text-[15px] font-semibold", view === k ? "text-foreground" : "text-muted-foreground")}
-          >
-            {t(k === "voices" ? "people.voices" : "people.replies")}
-            {view === k && <span className="absolute inset-x-1/3 bottom-0 h-1 rounded-full bg-primary" />}
-          </button>
-        ))}
+      <div className="border-t border-border px-4 pt-3">
+        <Segmented
+          value={view}
+          onChange={setView}
+          options={[
+            { value: "voices", label: t("people.voices") },
+            { value: "replies", label: t("people.replies") },
+          ]}
+        />
       </div>
       <div className="pt-2">
         <FeedList

@@ -50,8 +50,8 @@ export function HistoryRow({
       >
         {state === "playing" ? <Pause className="h-4 w-4" fill="currentColor" /> : <Play className="ml-0.5 h-4 w-4" fill="currentColor" />}
       </button>
-      <span className="flex-1 text-[15px] font-medium">{mine ? t("walkie.you") : name}</span>
-      <span className="text-sm tabular-nums text-muted-foreground">
+      <span className="flex-1 text-callout font-normal">{mine ? t("walkie.you") : name}</span>
+      <span className="text-caption tabular-nums text-muted-foreground">
         {formatClock(item.duration_ms)} · {timeAgoShort(item.created_at, locale)}
       </span>
     </li>

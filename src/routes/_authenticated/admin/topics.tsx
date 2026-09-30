@@ -97,14 +97,14 @@ function NewTopic() {
     },
     onError: (e) => toast.error(e instanceof Error && e.message.includes("daily_date") ? t("admin.dailyTaken") : t(rpcErrorKey(e))),
   });
-  const input = "h-12 w-full rounded-2xl bg-secondary px-4 text-base outline-none placeholder:text-muted-foreground";
+  const input = "h-12 w-full rounded-2xl bg-secondary px-4 text-body outline-none placeholder:text-muted-foreground";
   const valid = sectionOk && title.trim().length >= 3 && (!url.trim() || /^https?:\/\//.test(url.trim()));
 
   return (
     <section className="space-y-3">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("admin.newTopic")}</h2>
+      <h2 className="text-callout font-semibold text-muted-foreground">{t("admin.newTopic")}</h2>
       {openUnis.length > 0 && (
-        <label className="flex items-center justify-between gap-3 rounded-2xl bg-secondary px-4 py-3 text-sm font-medium">
+        <label className="flex items-center justify-between gap-3 rounded-2xl bg-card px-4 py-3 text-body">
           <span>{t("admin.campusOnly")}</span>
           <Switch
             checked={campusOnly}
@@ -122,7 +122,7 @@ function NewTopic() {
             key={s.id}
             type="button"
             onClick={() => setSection(s.id)}
-            className={cn("h-8 rounded-full px-3 text-sm font-semibold", section === s.id ? "bg-primary text-primary-foreground" : "bg-secondary")}
+            className={cn("h-8 rounded-full px-3 text-caption font-semibold", section === s.id ? "bg-primary text-primary-foreground" : "bg-secondary")}
           >
             {name(s.id)}
           </button>
@@ -130,7 +130,7 @@ function NewTopic() {
       </div>
       <input value={title} maxLength={160} onChange={(e) => setTitle(e.target.value)} placeholder={t("admin.titlePlaceholder")} className={input} />
       <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder={t("admin.linkPlaceholder")} inputMode="url" className={input} />
-      <label className="flex items-center justify-between gap-3 rounded-2xl bg-secondary px-4 py-3 text-sm font-medium">
+      <label className="flex items-center justify-between gap-3 rounded-2xl bg-card px-4 py-3 text-body">
         <span>{t("admin.asDaily")}</span>
         <Switch checked={daily} onCheckedChange={setDaily} />
       </label>
@@ -164,7 +164,7 @@ function CampusPicker({ value, onChange }: { value?: string; onChange: (id: stri
             type="button"
             onClick={() => onChange(u.id)}
             aria-pressed={value === u.id}
-            className={cn("h-8 shrink-0 rounded-full px-3 text-sm font-semibold", value === u.id ? "bg-primary text-primary-foreground" : "bg-secondary")}
+            className={cn("h-8 shrink-0 rounded-full px-3 text-caption font-semibold", value === u.id ? "bg-primary text-primary-foreground" : "bg-secondary")}
           >
             {en ? u.short_en : u.short_el}
           </button>
@@ -185,7 +185,7 @@ function CampusAdmin() {
   const mods = useQuery({ queryKey: adminKeys.moderators(uni?.id ?? ""), queryFn: () => campusModerators(uni!.id), enabled: !!uni });
   const [min, setMin] = useState("");
   const [username, setUsername] = useState("");
-  const input = "h-12 w-full rounded-2xl bg-secondary px-4 text-base outline-none placeholder:text-muted-foreground";
+  const input = "h-12 w-full rounded-2xl bg-secondary px-4 text-body outline-none placeholder:text-muted-foreground";
   const saveMin = useMutation({
     mutationFn: () => setCampusThreshold(uni!.id, Number(min) || 0),
     onSuccess: () => {
@@ -209,9 +209,9 @@ function CampusAdmin() {
   const short = campus.label({ university_id: uni.id });
   return (
     <section className="space-y-3">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("admin.campusTitle", { uni: short })}</h2>
+      <h2 className="text-callout font-semibold text-muted-foreground">{t("admin.campusTitle", { uni: short })}</h2>
       <CampusPicker value={uni.id} onChange={setPicked} />
-      <p className="text-sm text-muted-foreground">
+      <p className="text-caption text-muted-foreground">
         {status ? t("admin.campusNow", { students: status.students, min: status.min_students }) : t("admin.campusNotStudent")}
       </p>
       <div className="flex gap-2">
@@ -220,18 +220,18 @@ function CampusAdmin() {
           {t("admin.save")}
         </button>
       </div>
-      <p className="pt-2 text-sm font-semibold">{t("admin.moderators")}</p>
-      <ul className="divide-y divide-border rounded-2xl bg-secondary">
+      <p className="pt-2 text-caption font-semibold">{t("admin.moderators")}</p>
+      <ul className="divide-y divide-border rounded-2xl bg-card">
         {(mods.data ?? []).map((m) => (
           <li key={m.user_id} className="flex items-center gap-3 px-4 py-2.5">
             <UserAvatar name={m.full_name || m.username} path={m.avatar_path} size={32} />
-            <span className="min-w-0 flex-1 truncate text-sm font-semibold">@{m.username}</span>
-            <button type="button" onClick={() => mod.mutate({ name: m.username, on: false })} className="text-sm font-semibold text-destructive">
+            <span className="min-w-0 flex-1 truncate text-caption font-semibold">@{m.username}</span>
+            <button type="button" onClick={() => mod.mutate({ name: m.username, on: false })} className="text-caption font-semibold text-destructive">
               {t("admin.remove")}
             </button>
           </li>
         ))}
-        {mods.data && !mods.data.length && <li className="px-4 py-3 text-sm text-muted-foreground">{t("admin.noModerators")}</li>}
+        {mods.data && !mods.data.length && <li className="px-4 py-3 text-caption text-muted-foreground">{t("admin.noModerators")}</li>}
       </ul>
       <div className="flex gap-2">
         <input value={username} onChange={(e) => setUsername(e.target.value.trim())} placeholder="@username" autoCapitalize="none" className={input} />
@@ -264,19 +264,19 @@ function Feeds() {
   return (
     <section className="space-y-3">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("admin.feeds")}</h2>
-        <button type="button" disabled={run.isPending} onClick={() => run.mutate()} className="flex h-9 items-center gap-1.5 rounded-full bg-secondary px-4 text-sm font-semibold disabled:opacity-50">
+        <h2 className="text-callout font-semibold text-muted-foreground">{t("admin.feeds")}</h2>
+        <button type="button" disabled={run.isPending} onClick={() => run.mutate()} className="flex h-9 items-center gap-1.5 rounded-full bg-secondary px-4 text-caption font-semibold disabled:opacity-50">
           <RefreshCw className={cn("h-4 w-4", run.isPending && "animate-spin")} /> {t("admin.refresh")}
         </button>
       </div>
-      <ul className="divide-y divide-border rounded-2xl bg-secondary">
+      <ul className="divide-y divide-border rounded-2xl bg-card">
         {(feeds.data ?? []).map((f) => (
           <li key={f.id} className="flex items-center gap-3 px-4 py-3">
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold">
+              <p className="truncate text-caption font-semibold">
                 {f.name} <span className="font-normal text-muted-foreground">· {name(f.section_id)}</span>
               </p>
-              <p className={cn("truncate text-xs", f.last_error ? "text-destructive" : "text-muted-foreground")}>
+              <p className={cn("truncate text-fine", f.last_error ? "text-destructive" : "text-muted-foreground")}>
                 {f.last_error ??
                   (f.last_fetched_at ? `${timeAgo(f.last_fetched_at, i18n.language)} · +${f.last_added ?? 0}` : t("admin.never"))}
               </p>
@@ -306,17 +306,17 @@ function Topics() {
       : t(`admin.kind.${tp.kind}`);
   return (
     <section className="space-y-3">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("admin.topics")}</h2>
-      <ul className="divide-y divide-border rounded-2xl bg-secondary">
+      <h2 className="text-callout font-semibold text-muted-foreground">{t("admin.topics")}</h2>
+      <ul className="divide-y divide-border rounded-2xl bg-card">
         {(topics.data ?? []).map((tp) => (
           <li key={tp.id} className={cn("flex items-start gap-2 px-4 py-3", tp.hidden && "opacity-50")}>
             <Link to="/t/$topicId" params={{ topicId: tp.id }} className="min-w-0 flex-1">
-              <p className="text-xs text-muted-foreground">
+              <p className="text-fine text-muted-foreground">
                 <span className={cn("font-semibold", tp.kind === "daily" && "text-link")}>{badge(tp)}</span> · {name(tp.section_id)}
                 {tp.university_id && <span className="font-semibold text-foreground"> · {campus.label({ university_id: tp.university_id })}</span>}
                 {tp.source_name && ` · ${tp.source_name}`} · {timeAgo(tp.created_at, i18n.language)} · {t("posts.voicesCount", { count: tp.posts_count })}
               </p>
-              <p className="mt-0.5 text-sm font-semibold leading-snug">{tp.title}</p>
+              <p className="mt-0.5 text-caption font-semibold leading-snug">{tp.title}</p>
             </Link>
             <button type="button" aria-label={tp.pinned ? t("admin.unpin") : t("admin.pin")} onClick={() => upd.mutate({ id: tp.id, patch: { pinned: !tp.pinned } })} className={cn("grid h-9 w-9 place-items-center rounded-full", tp.pinned && "text-link")}>
               {tp.pinned ? <PinOff className="h-4 w-4" /> : <Pin className="h-4 w-4" />}

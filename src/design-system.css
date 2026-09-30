@@ -68,6 +68,11 @@
   --color-ring: var(--ring);
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
+  /* iOS sheets: grouped background with rows in white (light) / tile-2 (dark) groups. */
+  --color-sheet: var(--sheet);
+  --color-group: var(--group);
+  /* Selected segment of an iOS segmented control (white on the grey track; lighter grey in dark). */
+  --color-segment: var(--segment);
 
   /* Blue text (links, section names), live red (recording / talking / unread), friend green. */
   --color-link: var(--link);
@@ -97,6 +102,9 @@
   --foreground: #1d1d1f;
   --surface: #ffffff;
   --surface-elevated: #ffffff;
+  --sheet: #f5f5f7;
+  --group: #ffffff;
+  --segment: #ffffff;
   --card: #ffffff;
   --card-foreground: #1d1d1f;
   --popover: #ffffff;
@@ -128,6 +136,9 @@
     --foreground: #ffffff;
     --surface: #1c1c1e;
     --surface-elevated: #2a2a2c;
+    --sheet: #1c1c1e;
+    --group: #2c2c2e;
+    --segment: #636366;
     --card: #1c1c1e;
     --card-foreground: #ffffff;
     --popover: #2a2a2c;

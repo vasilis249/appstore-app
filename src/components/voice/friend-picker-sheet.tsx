@@ -16,8 +16,8 @@ export function FriendPickerSheet({ open, onOpenChange }: { open: boolean; onOpe
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="mx-auto max-h-[80vh] max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
-        <DrawerTitle className="pt-4 text-center text-lg font-bold">{t("voice.newMessage")}</DrawerTitle>
+      <DrawerContent className="mx-auto max-h-[80vh] max-w-lg">
+        <DrawerTitle className="pt-4 text-center text-body font-semibold">{t("voice.newMessage")}</DrawerTitle>
         <DrawerDescription className="sr-only">{t("voice.newMessage")}</DrawerDescription>
         <ul className="safe-bottom overflow-y-auto px-4 pb-4">
           {friends.map((p) => (
@@ -31,7 +31,7 @@ export function FriendPickerSheet({ open, onOpenChange }: { open: boolean; onOpe
             />
           ))}
           {list.data && !friends.length && (
-            <p className="py-10 text-center text-sm text-muted-foreground">{t("voice.noFriends")}</p>
+            <p className="py-10 text-center text-caption text-muted-foreground">{t("voice.noFriends")}</p>
           )}
         </ul>
       </DrawerContent>

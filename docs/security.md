@@ -61,7 +61,9 @@ schema change.
   5 min) and signals only the recipient's inbox topic `nearby-in:<id>` via `realtime.send` (clients can't write
   there). The pair channel `nearby:<a>:<b>` admits only the two, while one may talk to the other; the audio waits on
   the talker's phone until the knock is approved. Limits: 60 knocks/min, 30 different people/hour, saves 60/min and
-  1,000/day; saved transmissions are kept 24 h (replay, reports), a block wipes them.
+  1,000/day; saved transmissions are kept 24 h (replay, reports), a block wipes them. Every map card has ⋯ →
+  report (kind user) / block; a block removes both from each other's map, knocks and pair channel at once (server)
+  and closes the open conversation on the phone (`forgetNearby`).
 - **Admins** (`private.admins`, granted by SQL): topics, news sources and moderation RPCs (`admin_*`) check
   `private.is_admin`; an admin can't be disabled through them.
 - **Blocks**: remove follows in both directions, drop the blocked person's unheard messages, hide both

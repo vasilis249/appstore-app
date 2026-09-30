@@ -83,7 +83,7 @@ export function VoiceRecorder({
             aria-label={t("voice.holdToTalk")}
             className={cn(
               "grid h-32 w-32 place-items-center rounded-full transition-transform duration-150",
-              live || ptt.holding ? "scale-110 bg-live text-white" : "bg-primary text-primary-foreground",
+              live || ptt.holding ? "scale-110 bg-live text-primary-foreground" : "bg-primary text-primary-foreground",
             )}
           >
             <VoiceIcon className="h-14 w-14" strokeWidth={1.8} live={live} />
@@ -91,7 +91,7 @@ export function VoiceRecorder({
         )}
       </div>
 
-      <p className={cn("text-3xl font-bold tabular-nums", !live && !recorded && "text-muted-foreground")}>{formatClock(ms)}</p>
+      <p className={cn("text-hero font-semibold tabular-nums", !live && !recorded && "text-muted-foreground")}>{formatClock(ms)}</p>
 
       {recorded ? (
         <button
@@ -101,12 +101,12 @@ export function VoiceRecorder({
             setPreviewing(false);
             r.discard();
           }}
-          className="flex h-9 items-center gap-1.5 text-sm font-semibold text-muted-foreground"
+          className="flex h-9 items-center gap-1.5 text-caption font-semibold text-muted-foreground"
         >
           <RotateCcw className="h-4 w-4" /> {t("daily.retake")}
         </button>
       ) : (
-        <p className="text-sm text-muted-foreground">
+        <p className="text-caption text-muted-foreground">
           {live ? t("voice.releaseToStop") : t("voice.holdToTalkLimit", { max: formatClock(maxMs) })}
         </p>
       )}

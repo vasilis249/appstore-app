@@ -73,7 +73,7 @@ export function PostCard({
   }
 
   const open = () => linkToPost && void navigate({ to: "/p/$postId", params: { postId: post.id } });
-  const action = "flex min-h-8 items-center gap-1.5 text-[13px] tabular-nums text-muted-foreground";
+  const action = "flex min-h-8 items-center gap-1.5 text-caption tabular-nums text-muted-foreground";
 
   // Deleted by its author after others answered: a placeholder that keeps the conversation readable.
   if (post.deleted)
@@ -90,7 +90,7 @@ export function PostCard({
             type="button"
             onClick={open}
             disabled={!linkToPost}
-            className="min-w-0 flex-1 rounded-2xl bg-secondary/60 px-4 py-3 text-left text-[15px] text-muted-foreground"
+            className="min-w-0 flex-1 rounded-2xl bg-secondary/60 px-4 py-3 text-left text-callout text-muted-foreground"
           >
             {t("posts.deletedVoice")}
           </button>
@@ -101,7 +101,7 @@ export function PostCard({
   return (
     <article className={cn("px-4 py-3", !threadLine && "border-b border-border")}>
       {post.repostedBy && (
-        <p className="mb-1 ml-12 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+        <p className="mb-1 ml-12 flex items-center gap-1.5 text-fine font-semibold text-muted-foreground">
           <Repeat2 className="h-3.5 w-3.5" />
           {post.repostedBy.mine ? t("posts.youReposted") : t("posts.reposted", { name: post.repostedBy.name })}
         </p>
@@ -114,12 +114,12 @@ export function PostCard({
           {threadLine && <span className="-mb-3 mt-1 w-0.5 flex-1 rounded-full bg-border" aria-hidden />}
         </div>
         <div className="min-w-0 flex-1">
-          <header className="flex items-center gap-1.5 text-[15px] leading-5">
+          <header className="flex items-center gap-1.5 text-callout leading-5">
             <Link to="/u/$username" params={{ username: post.username }} className="min-w-0 truncate font-semibold">
               {post.name}
             </Link>
-            {school && <span className="min-w-0 shrink truncate text-sm text-muted-foreground">· {school}</span>}
-            <span className="shrink-0 text-sm text-muted-foreground">· {timeAgoShort(post.createdAt, i18n.language)}</span>
+            {school && <span className="min-w-0 shrink truncate text-caption text-muted-foreground">· {school}</span>}
+            <span className="shrink-0 text-caption text-muted-foreground">· {timeAgoShort(post.createdAt, i18n.language)}</span>
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
@@ -131,21 +131,21 @@ export function PostCard({
           </header>
 
           {post.replyTo && post.replyToUsername && !hideReplyTo && (
-            <p className="mt-0.5 text-xs text-muted-foreground">
+            <p className="mt-0.5 text-fine text-muted-foreground">
               {t("posts.replyingToUser")}{" "}
-              <Link to="/u/$username" params={{ username: post.replyToUsername }} className="font-medium text-link">
+              <Link to="/u/$username" params={{ username: post.replyToUsername }} className="font-normal text-link">
                 @{post.replyToUsername}
               </Link>
             </p>
           )}
 
           {(post.groupId || post.sectionId || post.campus) && (
-            <p className="mt-0.5 flex min-w-0 items-center gap-1 text-[13px] text-muted-foreground">
+            <p className="mt-0.5 flex min-w-0 items-center gap-1 text-caption text-muted-foreground">
               {post.campus ? (
                 <Link
                   to="/"
                   search={post.sectionId ? { tab: "campus", s: post.sectionId } : { tab: "campus" }}
-                  className="flex min-w-0 items-center gap-1 font-medium text-link"
+                  className="flex min-w-0 items-center gap-1 font-normal text-link"
                 >
                   <GraduationCap className="h-3.5 w-3.5 shrink-0" />
                   <span className="truncate">
@@ -154,12 +154,12 @@ export function PostCard({
                   </span>
                 </Link>
               ) : post.groupId && post.groupName ? (
-                <Link to="/g/$groupId" params={{ groupId: post.groupId }} className="flex min-w-0 items-center gap-1 font-medium text-link">
+                <Link to="/g/$groupId" params={{ groupId: post.groupId }} className="flex min-w-0 items-center gap-1 font-normal text-link">
                   <Users className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{post.groupName}</span>
                 </Link>
               ) : (
                 post.sectionId && (
-                  <Link to="/" search={{ s: post.sectionId }} className="shrink-0 font-medium text-link">
+                  <Link to="/" search={{ s: post.sectionId }} className="shrink-0 font-normal text-link">
                     {sections.name(post.sectionId)}
                   </Link>
                 )
@@ -176,7 +176,7 @@ export function PostCard({
           )}
 
           {post.title && (
-            <button type="button" onClick={open} className="mt-1.5 block text-left text-base font-semibold leading-snug">
+            <button type="button" onClick={open} className="mt-1.5 block text-left text-body font-semibold leading-snug">
               {post.title}
             </button>
           )}
@@ -191,7 +191,7 @@ export function PostCard({
               {playing ? <Pause className="h-4 w-4" fill="currentColor" /> : <Play className="ml-0.5 h-4 w-4" fill="currentColor" />}
             </button>
             <Waveform seed={post.id} progress={isCurrent ? q.progress : 0} />
-            <span className="shrink-0 text-right text-[13px] tabular-nums text-muted-foreground">
+            <span className="shrink-0 text-right text-caption tabular-nums text-muted-foreground">
               {formatClock(post.durationMs)}
               {post.listens > 0 && (
                 <span aria-label={t("posts.listens", { count: post.listens })}>
@@ -202,13 +202,13 @@ export function PostCard({
           </div>
 
           {post.quote?.deleted && (
-            <p className="mt-2 rounded-2xl border border-border px-3 py-2 text-sm text-muted-foreground">{t("posts.quoteDeleted")}</p>
+            <p className="mt-2 rounded-2xl border border-border px-3 py-2 text-caption text-muted-foreground">{t("posts.quoteDeleted")}</p>
           )}
           {post.quote && !post.quote.deleted && (
             <Link
               to="/p/$postId"
               params={{ postId: post.quote.id }}
-              className="mt-2 block rounded-2xl border border-border px-3 py-2 text-sm"
+              className="mt-2 block rounded-2xl border border-border px-3 py-2 text-caption"
             >
               <span className="font-semibold">{post.quote.name}</span>{" "}
               <span className="text-muted-foreground">@{post.quote.username} · {formatClock(post.quote.durationMs)}</span>

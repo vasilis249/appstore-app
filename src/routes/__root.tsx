@@ -33,13 +33,13 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-primary">404</h1>
-        <h2 className="mt-4 text-xl font-semibold">{t("errors.notFoundTitle")}</h2>
-        <p className="mt-2 text-sm text-muted-foreground">{t("errors.notFoundDesc")}</p>
+        <h1 className="text-7xl font-semibold text-primary">404</h1>
+        <h2 className="mt-4 text-tagline font-semibold">{t("errors.notFoundTitle")}</h2>
+        <p className="mt-2 text-caption text-muted-foreground">{t("errors.notFoundDesc")}</p>
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:opacity-90"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-caption font-normal text-primary-foreground transition-colors hover:opacity-90"
           >
             {t("errors.goHome")}
           </Link>
@@ -60,21 +60,21 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold">{t("errors.generic")}</h1>
-        <p className="mt-2 text-sm text-muted-foreground">{t("errors.tryAgainOrHome")}</p>
+        <h1 className="text-tagline font-semibold">{t("errors.generic")}</h1>
+        <p className="mt-2 text-caption text-muted-foreground">{t("errors.tryAgainOrHome")}</p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-caption font-normal text-primary-foreground"
           >
             {t("errors.tryAgain")}
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-full bg-secondary px-5 py-2.5 text-sm font-medium"
+            className="inline-flex items-center justify-center rounded-full bg-secondary px-5 py-2.5 text-caption font-normal"
           >
             {t("errors.goHome")}
           </a>
@@ -115,7 +115,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href:
           "data:image/svg+xml;utf8," +
           encodeURIComponent(
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" rx="46" fill="#E4571C"/><rect x="37" y="82" width="18" height="36" rx="9" fill="#FFFFFF"/><rect x="64" y="65" width="18" height="70" rx="9" fill="#FFFFFF"/><rect x="91" y="48" width="18" height="104" rx="9" fill="#FFFFFF"/><rect x="118" y="65" width="18" height="70" rx="9" fill="#FFFFFF"/><rect x="145" y="82" width="18" height="36" rx="9" fill="#FFFFFF"/></svg>',
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="5.5" fill="#0066CC"/><g transform="translate(4.2 4.2) scale(0.65)" fill="none" stroke="#FFFFFF" stroke-width="1.3" stroke-linecap="round"><line x1="2" x2="2" y1="12" y2="12"/><line x1="4" x2="4" y1="10.2" y2="13.8"/><line x1="6" x2="6" y1="8" y2="16"/><line x1="8" x2="8" y1="3" y2="21"/><line x1="10" x2="10" y1="6.5" y2="17.5"/><line x1="12" x2="12" y1="8.4" y2="15.6"/><line x1="14" x2="14" y1="6.5" y2="17.5"/><line x1="16" x2="16" y1="3" y2="21"/><line x1="18" x2="18" y1="8" y2="16"/><line x1="20" x2="20" y1="10.2" y2="13.8"/><line x1="22" x2="22" y1="12" y2="12"/></g></svg>',
           ),
       },
     ],

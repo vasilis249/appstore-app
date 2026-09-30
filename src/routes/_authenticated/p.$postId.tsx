@@ -61,7 +61,7 @@ function PostPage() {
             key={view.id}
             params={{ scope: "replies", parent: view.id }}
             hideReplyTo
-            empty={<p className="py-10 text-center text-sm text-muted-foreground">{t("posts.noReplies")}</p>}
+            empty={<p className="py-10 text-center text-caption text-muted-foreground">{t("posts.noReplies")}</p>}
           />
         </>
       )}

@@ -124,29 +124,29 @@ function ResetPasswordPage() {
 
   return (
     <AuthShell>
-      <h1 className="font-display text-3xl font-bold text-foreground">Νέος κωδικός</h1>
-      <p className="mt-1 text-sm text-muted-foreground">
+      <h1 className="font-display text-hero font-semibold text-foreground">Νέος κωδικός</h1>
+      <p className="mt-1 text-caption text-muted-foreground">
         Όρισε έναν νέο κωδικό για τον λογαριασμό σου.
       </p>
 
       {done ? (
-        <p className="mt-6 rounded-lg border border-border bg-secondary px-3 py-3 text-sm text-foreground">
+        <p className="mt-6 rounded-lg border border-border bg-secondary px-3 py-3 text-caption text-foreground">
           Ο κωδικός σου ενημερώθηκε. Σε ανακατευθύνουμε…
         </p>
       ) : linkInvalid && !sessionReady ? (
         <div className="mt-6 space-y-3">
-          <p className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-3 text-sm text-destructive">
+          <p className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-3 text-caption text-destructive">
             Ο σύνδεσμος επαναφοράς έληξε ή είναι άκυρος — ζήτησε νέο.
           </p>
           <Link
             to="/forgot-password"
-            className="block w-full rounded-full bg-primary py-3.5 text-center text-sm font-bold text-primary-foreground transition hover:opacity-90"
+            className="block w-full rounded-full bg-primary py-3.5 text-center text-caption font-semibold text-primary-foreground transition hover:opacity-90"
           >
             Ζήτησε νέο σύνδεσμο
           </Link>
           <Link
             to="/auth"
-            className="block w-full text-center text-xs text-muted-foreground hover:text-foreground"
+            className="block w-full text-center text-fine text-muted-foreground hover:text-foreground"
           >
             ← Πίσω στη σύνδεση
           </Link>
@@ -161,7 +161,7 @@ function ResetPasswordPage() {
             minLength={8}
             placeholder="Νέος κωδικός"
             disabled={!sessionReady}
-            className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-sm outline-none focus:border-muted-foreground disabled:opacity-60"
+            className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-caption outline-none focus:border-muted-foreground disabled:opacity-60"
           />
           <input
             type="password"
@@ -171,28 +171,28 @@ function ResetPasswordPage() {
             minLength={8}
             placeholder="Επιβεβαίωση κωδικού"
             disabled={!sessionReady}
-            className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-sm outline-none focus:border-muted-foreground disabled:opacity-60"
+            className="w-full rounded-2xl border border-border bg-secondary px-4 py-3.5 text-caption outline-none focus:border-muted-foreground disabled:opacity-60"
           />
           {!sessionReady && !initializing && (
-            <p className="rounded-lg border border-border bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
+            <p className="rounded-lg border border-border bg-muted/40 px-3 py-2 text-fine text-muted-foreground">
               Επαλήθευση συνδέσμου επαναφοράς…
             </p>
           )}
           {error && (
-            <p className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+            <p className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-fine text-destructive">
               {error}
             </p>
           )}
           <button
             type="submit"
             disabled={loading || !sessionReady}
-            className="w-full rounded-full bg-primary py-3.5 text-sm font-bold text-primary-foreground transition hover:opacity-90 disabled:opacity-60"
+            className="w-full rounded-full bg-primary py-3.5 text-caption font-semibold text-primary-foreground transition hover:opacity-90 disabled:opacity-60"
           >
             {loading ? "..." : "Αποθήκευση"}
           </button>
           <Link
             to="/auth"
-            className="block w-full text-center text-xs text-muted-foreground hover:text-foreground"
+            className="block w-full text-center text-fine text-muted-foreground hover:text-foreground"
           >
             ← Πίσω στη σύνδεση
           </Link>

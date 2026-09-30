@@ -9,7 +9,7 @@ const BARS: [number, number][] = [
  * Used everywhere a voice is recorded (instead of a microphone). `live` makes the bars move — while recording.
  * Drop-in for a lucide icon (`className`, `strokeWidth`).
  */
-export function VoiceIcon({ className, strokeWidth = 2, live = false }: { className?: string; strokeWidth?: number; live?: boolean }) {
+export function VoiceIcon({ className, strokeWidth = 1.6, live = false }: { className?: string; strokeWidth?: number; live?: boolean }) {
   return (
     <svg
       viewBox="0 0 24 24"

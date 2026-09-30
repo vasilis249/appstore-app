@@ -13,13 +13,13 @@ export function MiniPlayer({ lifted }: { lifted: boolean }) {
       className="fixed inset-x-0 z-40 px-3"
       style={{ bottom: lifted ? "calc(max(env(safe-area-inset-bottom, 0px), 0.75rem) + 4.5rem)" : "calc(env(safe-area-inset-bottom, 0px) + 0.75rem)" }}
     >
-      <div className="relative mx-auto flex max-w-lg items-center gap-3 overflow-hidden rounded-2xl bg-surface-elevated px-3 py-2 shadow-lg ring-1 ring-border">
+      <div className="relative mx-auto flex max-w-lg items-center gap-3 overflow-hidden glass rounded-2xl border border-border/60 px-3 py-2 shadow-float">
         <span className="absolute inset-x-0 bottom-0 h-0.5 bg-foreground/20">
           <span className="block h-full bg-foreground" style={{ width: `${q.progress * 100}%` }} />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold">{item.title}</p>
-          <p className="truncate text-xs text-muted-foreground">
+          <p className="truncate text-caption font-semibold">{item.title}</p>
+          <p className="truncate text-fine text-muted-foreground">
             {item.author} · {q.index + 1}/{q.items.length}
           </p>
         </div>

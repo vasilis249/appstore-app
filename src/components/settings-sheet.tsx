@@ -43,17 +43,17 @@ export function SettingsSheet({
     { to: "/terms", icon: FileText, label: t("footer.terms") },
     { to: "/privacy", icon: Shield, label: t("footer.privacy") },
   ];
-  const row = "flex min-h-12 items-center justify-between gap-3 px-4 py-2 text-sm font-medium";
+  const row = "flex min-h-11 items-center justify-between gap-3 px-4 py-2.5 text-body";
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="mx-auto max-h-[92vh] max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
-        <DrawerTitle className="pt-4 text-center font-display text-lg font-bold">
+      <DrawerContent className="mx-auto max-h-[92vh] max-w-lg">
+        <DrawerTitle className="pt-4 text-center font-display text-body font-semibold">
           {t("settings.title")}
         </DrawerTitle>
         <DrawerDescription className="sr-only">{t("settings.title")}</DrawerDescription>
         <div className="safe-bottom space-y-3 overflow-y-auto p-4">
-          <div className="divide-y divide-border rounded-2xl bg-secondary">
+          <div className="divide-y divide-border rounded-2xl bg-group">
             <div className={row}>
               <span>{t("nav.language")}</span>
               <LanguageToggle />
@@ -62,72 +62,72 @@ export function SettingsSheet({
           </div>
 
           {isStaff && (
-            <div className="divide-y divide-border rounded-2xl bg-secondary">
+            <div className="divide-y divide-border rounded-2xl bg-group">
               <Link to="/admin/reports" onClick={() => onOpenChange(false)} className={row}>
                 <span className="inline-flex items-center gap-3">
-                  <Flag className="h-4 w-4 text-muted-foreground" /> {t("adminReports.title")}
+                  <Flag className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} /> {t("adminReports.title")}
                 </span>
                 <span className="inline-flex items-center gap-2">
                   {!!openReports.data && (
-                    <span className="min-w-5 rounded-full bg-badge px-1.5 text-center text-xs font-semibold leading-5 text-white">
+                    <span className="min-w-5 rounded-full bg-badge px-1.5 text-center text-fine font-semibold leading-5 text-destructive-foreground">
                       {openReports.data}
                     </span>
                   )}
-                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  <ChevronRight className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} />
                 </span>
               </Link>
               {isAdmin.data && (
                 <Link to="/admin/topics" onClick={() => onOpenChange(false)} className={row}>
                   <span className="inline-flex items-center gap-3">
-                    <Megaphone className="h-4 w-4 text-muted-foreground" /> {t("admin.title")}
+                    <Megaphone className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} /> {t("admin.title")}
                   </span>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  <ChevronRight className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} />
                 </Link>
               )}
             </div>
           )}
 
-          <div className="divide-y divide-border rounded-2xl bg-secondary">
+          <div className="divide-y divide-border rounded-2xl bg-group">
             <Link to="/student" onClick={() => onOpenChange(false)} className={row}>
               <span className="inline-flex items-center gap-3">
-                <GraduationCap className="h-4 w-4 text-muted-foreground" /> {t("student.settingsRow")}
+                <GraduationCap className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} /> {t("student.settingsRow")}
               </span>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              <ChevronRight className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} />
             </Link>
             <Link to="/location" onClick={() => onOpenChange(false)} className={row}>
               <span className="inline-flex items-center gap-3">
-                <MapPin className="h-4 w-4 text-muted-foreground" /> {t("location.settingsRow")}
+                <MapPin className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} /> {t("location.settingsRow")}
               </span>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              <ChevronRight className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} />
             </Link>
             <button type="button" onClick={() => setBlockedOpen(true)} className={`${row} w-full`}>
               <span className="inline-flex items-center gap-3">
-                <Ban className="h-4 w-4 text-muted-foreground" /> {t("settings.blocked")}
+                <Ban className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} /> {t("settings.blocked")}
               </span>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              <ChevronRight className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} />
             </button>
           </div>
 
-          <ul className="divide-y divide-border rounded-2xl bg-secondary">
+          <ul className="divide-y divide-border rounded-2xl bg-group">
             {links.map(({ to, icon: Icon, label }) => (
               <li key={to}>
                 <Link to={to} onClick={() => onOpenChange(false)} className={row}>
                   <span className="inline-flex items-center gap-3">
-                    <Icon className="h-4 w-4 text-muted-foreground" /> {label}
+                    <Icon className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} /> {label}
                   </span>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  <ChevronRight className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} />
                 </Link>
               </li>
             ))}
           </ul>
 
-          <div className="rounded-2xl bg-secondary p-2">
+          <div className="divide-y divide-border overflow-hidden rounded-2xl bg-group">
             <button
               type="button"
               onClick={signOut}
-              className="flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold"
+              className="flex min-h-11 w-full items-center justify-center gap-2 py-2.5 text-body text-link"
             >
-              <LogOut className="h-4 w-4" /> {t("profile.signOut")}
+              <LogOut className="h-5 w-5" strokeWidth={1.8} /> {t("profile.signOut")}
             </button>
             <DeleteAccountButton />
           </div>

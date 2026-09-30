@@ -67,18 +67,18 @@ export function NavRecordButton() {
         type="button"
         {...ptt.bind}
         aria-label={t("voice.navRecord")}
-        className={cn(base, live ? "scale-110 bg-live text-white" : "bg-primary text-primary-foreground")}
+        className={cn(base, live ? "scale-110 bg-live text-primary-foreground" : "bg-primary text-primary-foreground")}
       >
-        <VoiceIcon className="h-7 w-7" strokeWidth={2} live={live} />
+        <VoiceIcon className="h-7 w-7" strokeWidth={1.8} live={live} />
       </button>
       {live && (
         <div className="pointer-events-none fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom,0px)+6.5rem)] z-50 flex justify-center px-4">
           <div className="glass flex items-center gap-3 rounded-full border border-border/60 py-2.5 pl-4 pr-5 shadow-float animate-scale-in">
             <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-live" />
-            <span className="text-[15px] font-semibold tabular-nums">
+            <span className="text-callout font-semibold tabular-nums">
               {formatClock(r.elapsedMs)} <span className="font-normal text-muted-foreground">/ {formatClock(POST_MAX_MS)}</span>
             </span>
-            <span className="text-sm text-muted-foreground">· {t("voice.releaseToContinue")}</span>
+            <span className="text-caption text-muted-foreground">· {t("voice.releaseToContinue")}</span>
           </div>
         </div>
       )}

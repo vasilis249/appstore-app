@@ -21,7 +21,7 @@ export function GroupMeta({ privacy, members, section }: { privacy: GroupPrivacy
   const { t } = useTranslation();
   const { name } = useSections();
   return (
-    <span className="flex min-w-0 items-center gap-1 text-[13px] text-muted-foreground">
+    <span className="flex min-w-0 items-center gap-1 text-caption text-muted-foreground">
       {privacy === "private" && <Lock className="h-3 w-3 shrink-0" />}
       <span className="truncate">
         {t(privacy === "private" ? "groups.private" : "groups.public")} · {t("groups.members", { count: members })}
@@ -43,7 +43,7 @@ export function GroupRow({
       <Link to="/g/$groupId" params={{ groupId: group.id }} className="flex min-w-0 flex-1 items-center gap-3">
         <GroupTile section={group.section_id} />
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[15px] font-semibold">{group.name}</span>
+          <span className="block truncate text-callout font-semibold">{group.name}</span>
           <GroupMeta privacy={group.privacy} members={group.members_count} section={group.section_id} />
         </span>
       </Link>

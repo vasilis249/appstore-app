@@ -67,7 +67,7 @@ function WalkieListPage() {
         />
       ) : (
         <div className="px-4 pb-6">
-          <p className="pb-2 pt-1 text-sm text-muted-foreground">{t("walkie.listHint")}</p>
+          <p className="pb-2 pt-1 text-caption text-muted-foreground">{t("walkie.listHint")}</p>
           <ul>
             {(list.data ?? []).map((c) => {
               const name = c.full_name || c.username;
@@ -89,8 +89,8 @@ function WalkieListPage() {
                       <UserAvatar name={name} path={c.avatar_path} size={52} />
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-base font-semibold">{name}</span>
-                      {sub && <span className={cn("block truncate text-sm", c.unheard ? "font-semibold text-live" : "text-muted-foreground")}>{sub}</span>}
+                      <span className="block truncate text-body font-semibold">{name}</span>
+                      {sub && <span className={cn("block truncate text-caption", c.unheard ? "font-semibold text-live" : "text-muted-foreground")}>{sub}</span>}
                     </span>
                   </button>
                   <label className="flex shrink-0 flex-col items-center gap-1 text-[11px] text-muted-foreground">
@@ -106,10 +106,10 @@ function WalkieListPage() {
             })}
           </ul>
           {isNativeApp() && anyOn && (
-            <label className="mt-4 flex items-start justify-between gap-3 rounded-2xl bg-secondary px-4 py-3">
+            <label className="mt-4 flex items-start justify-between gap-3 rounded-2xl bg-card px-4 py-3">
               <span>
-                <span className="block text-[15px] font-semibold">{t("walkie.background")}</span>
-                <span className="block text-sm text-muted-foreground">{t("walkie.backgroundHint")}</span>
+                <span className="block text-callout font-semibold">{t("walkie.background")}</span>
+                <span className="block text-caption text-muted-foreground">{t("walkie.backgroundHint")}</span>
               </span>
               <Switch
                 checked={background}

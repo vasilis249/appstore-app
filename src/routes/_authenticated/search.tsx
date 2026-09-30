@@ -48,7 +48,7 @@ function SearchPage() {
             autoCapitalize="none"
             autoCorrect="off"
             spellCheck={false}
-            className="w-full bg-transparent text-base outline-none placeholder:text-muted-foreground focus-visible:shadow-none"
+            className="w-full bg-transparent text-body outline-none placeholder:text-muted-foreground focus-visible:shadow-none"
           />
           {query && (
             <button type="button" aria-label={t("common.clear")} onClick={() => setQuery("")} className="text-muted-foreground">
@@ -57,7 +57,7 @@ function SearchPage() {
           )}
         </label>
         {!searching && (
-          <h2 className="mb-1 mt-6 text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("people.suggested")}</h2>
+          <h2 className="mb-1 mt-6 text-callout font-semibold text-muted-foreground">{t("people.suggested")}</h2>
         )}
         <ul className={searching ? "mt-3" : undefined}>
           {(people ?? []).map((p) => (
@@ -67,7 +67,7 @@ function SearchPage() {
           ))}
         </ul>
         {people && !people.length && (
-          <p className="py-12 text-center text-sm text-muted-foreground">{searching ? t("friends.noResults") : t("people.nobodyYet")}</p>
+          <p className="py-12 text-center text-caption text-muted-foreground">{searching ? t("friends.noResults") : t("people.nobodyYet")}</p>
         )}
         {!searching && <InviteShare className="mt-8" />}
         {!searching && <ShareUsername />}
@@ -95,9 +95,9 @@ function ShareUsername() {
     }
   }
   return (
-    <button type="button" onClick={share} className="mt-3 flex w-full items-center gap-3 rounded-2xl bg-secondary px-4 py-3 text-left">
+    <button type="button" onClick={share} className="mt-3 flex w-full items-center gap-3 rounded-2xl bg-card px-4 py-3 text-left">
       <span className="min-w-0 flex-1">
-        <span className="block text-xs text-muted-foreground">{t("friends.yourUsername")}</span>
+        <span className="block text-fine text-muted-foreground">{t("friends.yourUsername")}</span>
         <span className="block truncate font-semibold">@{username}</span>
       </span>
       <Share className="h-5 w-5 shrink-0" />

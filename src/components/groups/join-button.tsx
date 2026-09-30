@@ -10,7 +10,7 @@ import { postKeys } from "@/lib/posts";
 import { cn } from "@/lib/utils";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 
-const pill = "flex h-11 flex-1 items-center justify-center gap-2 rounded-full text-[15px] font-semibold active:opacity-80 disabled:opacity-50";
+const pill = "flex h-11 flex-1 items-center justify-center gap-2 rounded-full text-callout font-semibold active:opacity-80 disabled:opacity-50";
 
 /**
  * The group's main action for you: Join (public) · Ask to join (private) · Request sent (tap twice to cancel) ·
@@ -67,7 +67,7 @@ export function GroupActions({ group, onInvite }: { group: GroupDetail; onInvite
   if (group.my_pending === "invite")
     return (
       <div className="space-y-2">
-        <p className="text-sm text-muted-foreground">{t("groups.invitedBy", { name: group.invited_by_name ?? "" })}</p>
+        <p className="text-caption text-muted-foreground">{t("groups.invitedBy", { name: group.invited_by_name ?? "" })}</p>
         <div className="flex gap-2">
           <button type="button" disabled={busy} onClick={() => join.mutate()} className={cn(pill, "bg-primary text-primary-foreground")}>
             {t("groups.accept")}
@@ -85,7 +85,7 @@ export function GroupActions({ group, onInvite }: { group: GroupDetail; onInvite
         type="button"
         disabled={busy}
         onClick={() => (confirmCancel ? leave.mutate() : setConfirmCancel(true))}
-        className={cn(pill, "w-full", confirmCancel ? "bg-destructive text-white" : "bg-secondary")}
+        className={cn(pill, "w-full", confirmCancel ? "bg-destructive text-destructive-foreground" : "bg-secondary")}
       >
         {t(confirmCancel ? "groups.cancelRequest" : "groups.requestSent")}
       </button>

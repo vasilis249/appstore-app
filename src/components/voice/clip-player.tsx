@@ -77,9 +77,9 @@ export function ClipPlayer({
         {playing ? <Pause className="h-5 w-5" fill="currentColor" /> : <Play className="h-5 w-5" fill="currentColor" />}
       </span>
       <Waveform seed={id} progress={progress} className={locked ? "blur-[3px]" : undefined} />
-      <span className="w-10 shrink-0 text-right text-sm tabular-nums text-muted-foreground">{formatClock(durationMs)}</span>
+      <span className="w-10 shrink-0 text-right text-caption tabular-nums text-muted-foreground">{formatClock(durationMs)}</span>
       {locked && (
-        <span className="absolute inset-0 flex items-center justify-center gap-2 rounded-2xl bg-background/50 text-sm font-semibold backdrop-blur-[2px]">
+        <span className="absolute inset-0 flex items-center justify-center gap-2 rounded-2xl bg-background/50 text-caption font-semibold backdrop-blur-[2px]">
           <Lock className="h-4 w-4" /> {t("daily.locked")}
         </span>
       )}

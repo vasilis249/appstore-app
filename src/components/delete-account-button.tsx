@@ -46,8 +46,8 @@ export function DeleteAccountButton() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <button className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium text-destructive transition hover:bg-destructive/10">
-          <Trash2 className="h-4 w-4" /> {t("account.delete")}
+        <button className="inline-flex min-h-11 w-full items-center justify-center gap-2 py-2.5 text-body text-destructive">
+          <Trash2 className="h-5 w-5" strokeWidth={1.8} /> {t("account.delete")}
         </button>
       </AlertDialogTrigger>
       <AlertDialogContent>

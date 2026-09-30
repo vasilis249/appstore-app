@@ -21,7 +21,7 @@ export function LanguageToggle() {
       onClick={toggle}
       aria-label={t("nav.language")}
       title={t("nav.language")}
-      className="inline-flex h-10 items-center gap-1.5 rounded-full bg-background/40 px-3 text-xs font-semibold uppercase tracking-wide text-foreground transition hover:bg-muted"
+      className="inline-flex h-10 items-center gap-1.5 rounded-full bg-background/40 px-3 text-fine font-semibold uppercase tracking-wide text-foreground transition hover:bg-muted"
     >
       <Languages className="h-4 w-4" />
       <span>{current === "el" ? "EL" : "EN"}</span>

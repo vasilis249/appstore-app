@@ -33,18 +33,18 @@ function TopicPage() {
         <>
           <section className="px-4 pb-4">
             <NewsCover src={tp.image_url} section={tp.section_id} />
-            <p className="mt-3 text-[12px] text-muted-foreground">
-              <span className="font-medium text-foreground/80">{name(tp.section_id)}</span>
+            <p className="mt-3 text-fine text-muted-foreground">
+              <span className="font-normal text-foreground/80">{name(tp.section_id)}</span>
               {tp.source_name && ` · ${tp.source_name}`} · {timeAgoShort(tp.created_at, i18n.language)}
             </p>
-            <h1 className="mt-1 text-[24px] font-extrabold leading-[1.18] tracking-tight">{tp.title}</h1>
-            {tp.summary && <p className="mt-2 text-[15px] text-muted-foreground">{tp.summary}</p>}
+            <h1 className="mt-1 text-display font-semibold">{tp.title}</h1>
+            {tp.summary && <p className="mt-2 text-callout text-muted-foreground">{tp.summary}</p>}
             {tp.source_url && (
               <a
                 href={tp.source_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-muted-foreground underline"
+                className="mt-2 inline-flex items-center gap-1 text-caption font-normal text-muted-foreground underline"
               >
                 {t("news.readAt", { source: tp.source_name ?? t("posts.source") })} <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
@@ -68,7 +68,7 @@ function TopicPage() {
               )}
             </div>
           </section>
-          <h2 className="border-t border-border px-4 pb-1 pt-4 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <h2 className="border-t border-border px-4 pb-1 pt-4 text-callout font-semibold text-muted-foreground">
             {t("posts.voicesCount", { count: tp.posts_count })}
           </h2>
           <FeedList params={{ scope: "topic", topic: tp.id }} playAllRef={playAll} empty={<EmptyState text={t("posts.emptyTopic")} />} />

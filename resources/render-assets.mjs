@@ -3,7 +3,7 @@
 //   node resources/render-assets.mjs                      → placeholder mark (voice bars)
 //   node resources/render-assets.mjs logo.svg             → your logo (SVG or PNG), centred with padding
 //   node resources/render-assets.mjs logo.png --full      → your logo already designed as a full-bleed icon
-//   options: --bg "#E4571C" (background colour behind the logo, also the splash colour)
+//   options: --bg "#0066CC" (background colour behind the logo, also the splash colour)
 // Writes resources/icon.png + resources/splash.png, then the files in ios/App/App/Assets.xcassets.
 // iOS applies its own rounded mask to the icon, so never draw rounded corners yourself; no transparency.
 import { chromium } from "playwright";
@@ -13,14 +13,14 @@ import { extname, resolve } from "node:path";
 const args = process.argv.slice(2);
 const logoPath = args.find((a) => !a.startsWith("--") && args[args.indexOf(a) - 1] !== "--bg");
 const full = args.includes("--full");
-const bg = args.includes("--bg") ? args[args.indexOf("--bg") + 1] : "#E4571C";
+const bg = args.includes("--bg") ? args[args.indexOf("--bg") + 1] : "#0066CC"; // Action Blue (DESIGN.md)
 
-// Placeholder until the real logo arrives: five rounded bars, like a voice level meter.
+// Placeholder until the real logo arrives: the Speak voice mark (11 symmetric bars, as VoiceIcon), white on blue.
+const BARS = [[2, 0], [4, 1.8], [6, 4], [8, 9], [10, 5.5], [12, 3.6], [14, 5.5], [16, 9], [18, 4], [20, 1.8], [22, 0]];
 const placeholder = `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
-  ${[[46, 36], [73, 70], [100, 104], [127, 70], [154, 36]]
-    .map(([x, h]) => `<rect x="${x - 9}" y="${100 - h / 2}" width="18" height="${h}" rx="9" fill="#FFFFFF"/>`)
-    .join("")}
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="#FFFFFF"
+  stroke-width="1.3" stroke-linecap="round">
+  ${BARS.map(([x, h]) => `<line x1="${x}" x2="${x}" y1="${12 - h}" y2="${12 + h}"/>`).join("")}
 </svg>`;
 
 function logoHtml() {
@@ -37,7 +37,7 @@ const box = (size, inner) => `<html><body style="margin:0;background:${bg};displ
 const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
 const page = await browser.newPage();
 await page.setViewportSize({ width: 1024, height: 1024 });
-await page.setContent(box(1024, full ? 1024 : logoPath ? 640 : 1024));
+await page.setContent(box(1024, full ? 1024 : 640));
 await page.screenshot({ path: "resources/icon.png", omitBackground: false });
 await page.setViewportSize({ width: 2732, height: 2732 });
 await page.setContent(box(2732, 640));

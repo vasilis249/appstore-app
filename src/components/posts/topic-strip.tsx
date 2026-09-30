@@ -22,7 +22,7 @@ export function TopicStrip({ section, variant = "cards" }: { section?: string; v
             key={tp.id}
             to="/t/$topicId"
             params={{ topicId: tp.id }}
-            className="h-8 max-w-[15rem] shrink-0 truncate rounded-full px-3 text-[13px] font-medium leading-8 ring-1 ring-border"
+            className="h-8 max-w-[15rem] shrink-0 truncate rounded-full px-3 text-caption font-normal leading-8 ring-1 ring-border"
           >
             {tp.title}
           </Link>
@@ -31,7 +31,7 @@ export function TopicStrip({ section, variant = "cards" }: { section?: string; v
     );
   return (
     <section className="pb-3">
-      <h2 className="flex items-center gap-1.5 px-4 pb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+      <h2 className="flex items-center gap-1.5 px-4 pb-2 text-callout font-semibold text-muted-foreground">
         <Flame className="h-4 w-4" /> {t("posts.trending")}
       </h2>
       <div className="no-scrollbar flex gap-2 overflow-x-auto px-4">
@@ -42,13 +42,13 @@ export function TopicStrip({ section, variant = "cards" }: { section?: string; v
             params={{ topicId: tp.id }}
             className="flex w-60 shrink-0 flex-col justify-between rounded-2xl bg-card p-3 ring-1 ring-border"
           >
-            <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1 text-fine text-muted-foreground">
               {tp.kind === "news" && <Newspaper className="h-3.5 w-3.5" />}
               {name(tp.section_id)}
               {tp.source_name && ` · ${tp.source_name}`}
             </span>
-            <span className="mt-1 line-clamp-2 text-sm font-semibold leading-snug">{tp.title}</span>
-            <span className="mt-2 text-xs text-muted-foreground">{t("posts.voicesCount", { count: tp.posts_count })}</span>
+            <span className="mt-1 line-clamp-2 text-caption font-semibold leading-snug">{tp.title}</span>
+            <span className="mt-2 text-fine text-muted-foreground">{t("posts.voicesCount", { count: tp.posts_count })}</span>
           </Link>
         ))}
       </div>

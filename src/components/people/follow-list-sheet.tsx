@@ -30,10 +30,10 @@ export function FollowListSheet({
     queryFn: () => followList(userId, tab!),
     enabled: !!tab,
   });
-  const seg = "flex-1 rounded-full py-2 text-sm font-semibold";
+  const seg = "flex-1 rounded-full py-2 text-caption font-semibold";
   return (
     <Drawer open={!!tab} onOpenChange={onOpenChange}>
-      <DrawerContent className="mx-auto h-[80vh] max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
+      <DrawerContent className="mx-auto h-[80vh] max-w-lg">
         <DrawerTitle className="sr-only">{t(tab === "following" ? "people.followingCount" : "people.followers")}</DrawerTitle>
         <DrawerDescription className="sr-only">{t(tab === "following" ? "people.followingCount" : "people.followers")}</DrawerDescription>
         <div className="mx-4 mt-3 flex rounded-full bg-secondary p-1">
@@ -44,7 +44,7 @@ export function FollowListSheet({
           ))}
         </div>
         <ul className="safe-bottom flex-1 overflow-y-auto px-4 py-2">
-          {list.data && !list.data.length && <p className="py-12 text-center text-sm text-muted-foreground">{t("people.nobody")}</p>}
+          {list.data && !list.data.length && <p className="py-12 text-center text-caption text-muted-foreground">{t("people.nobody")}</p>}
           {(list.data ?? []).map((p) => (
             <PersonRow
               key={p.id}

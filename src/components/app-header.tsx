@@ -75,7 +75,7 @@ export function HeaderIconLink({
     <Link to={to} aria-label={label} className="relative grid h-11 w-11 place-items-center rounded-full text-foreground">
       {children}
       {badge ? (
-        <span className="absolute right-0.5 top-0.5 min-w-5 rounded-full bg-live px-1.5 text-center text-[11px] font-semibold leading-5 text-white">
+        <span className="absolute right-0.5 top-0.5 min-w-5 rounded-full bg-live px-1.5 text-center text-[11px] font-semibold leading-5 text-destructive-foreground">
           {badge > 9 ? "9+" : badge}
         </span>
       ) : null}

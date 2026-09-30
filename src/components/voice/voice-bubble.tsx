@@ -56,19 +56,19 @@ export function VoiceBubble({ msg, mine }: { msg: VoiceMessage; mine: boolean })
         <button
           type="button"
           onClick={() => void listen()}
-          className="relative w-60 overflow-hidden rounded-3xl bg-primary px-4 py-3 text-left text-white"
+          className="relative w-60 overflow-hidden rounded-3xl bg-primary px-4 py-3 text-left text-primary-foreground"
         >
           <span
-            className="absolute inset-y-0 left-0 bg-white/20 transition-[width] duration-100"
+            className="absolute inset-y-0 left-0 bg-primary-foreground/20 transition-[width] duration-100"
             style={{ width: `${progress * 100}%` }}
           />
           <span className="relative flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-primary">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-primary-foreground text-primary">
               {phase === "idle" ? <Play className="h-5 w-5" fill="currentColor" /> : <AudioLines className="h-5 w-5 animate-pulse" />}
             </span>
             <span className="min-w-0">
               <span className="block font-semibold">{phase === "idle" ? t("voice.tapToListen") : t("voice.playing")}</span>
-              <span className="block text-xs text-white/80">
+              <span className="block text-fine text-primary-foreground/80">
                 {formatClock(msg.duration_ms)} · {t("voice.onceOnly")}
               </span>
             </span>
@@ -79,7 +79,7 @@ export function VoiceBubble({ msg, mine }: { msg: VoiceMessage; mine: boolean })
           <div className="flex items-center gap-2 font-semibold tabular-nums">
             <AudioLines className="h-5 w-5 text-muted-foreground" /> {formatClock(msg.duration_ms)}
           </div>
-          <div className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+          <div className="mt-1 flex items-center gap-1 text-fine text-muted-foreground">
             <Icon className="h-3.5 w-3.5" /> {status} · {when}
           </div>
         </div>

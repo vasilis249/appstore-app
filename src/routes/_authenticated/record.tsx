@@ -107,7 +107,7 @@ function ComposePage() {
       <div className="flex flex-1 flex-col gap-5 px-4 pt-2">
         {topic.data && (
           <div className="rounded-2xl bg-card p-3 ring-1 ring-border">
-            <p className="text-xs text-muted-foreground">{name(topic.data.section_id)}</p>
+            <p className="text-fine text-muted-foreground">{name(topic.data.section_id)}</p>
             <p className="font-semibold leading-snug">{topic.data.title}</p>
           </div>
         )}
@@ -116,19 +116,19 @@ function ComposePage() {
             <GraduationCap className="h-5 w-5 shrink-0 text-link" />
             <div className="min-w-0">
               <p className="font-semibold leading-snug">{t("campus.postingIn", { uni: campus.label({ university_id: me.data?.university_id }) || "…" })}</p>
-              <p className="text-xs text-muted-foreground">{verified || !me.data ? t("campus.postingHint") : t("campus.locked")}</p>
+              <p className="text-fine text-muted-foreground">{verified || !me.data ? t("campus.postingHint") : t("campus.locked")}</p>
             </div>
           </div>
         )}
         {group.data && (
           <div className="rounded-2xl bg-card p-3 ring-1 ring-border">
-            <p className="text-xs text-muted-foreground">{t("groups.postingIn")}</p>
+            <p className="text-fine text-muted-foreground">{t("groups.postingIn")}</p>
             <p className="font-semibold leading-snug">{group.data.name}</p>
           </div>
         )}
         {p && (
           <div className="rounded-2xl bg-card p-3 ring-1 ring-border">
-            <p className="text-xs text-muted-foreground">
+            <p className="text-fine text-muted-foreground">
               {search.reply ? t("posts.replyingTo") : t("posts.quoting")} @{p.author_username} · {formatClock(p.duration_ms ?? 0)}
             </p>
             {p.title && <p className="font-semibold leading-snug">{p.title}</p>}
@@ -144,15 +144,15 @@ function ComposePage() {
               maxLength={TITLE_MAX}
               onChange={(e) => setTitle(e.target.value)}
               placeholder={t("posts.titlePlaceholder")}
-              className="h-12 w-full rounded-2xl bg-secondary px-4 text-base outline-none placeholder:text-muted-foreground"
+              className="h-12 w-full rounded-2xl bg-secondary px-4 text-body outline-none placeholder:text-muted-foreground"
             />
-            <span className="mt-1 block text-right text-xs text-muted-foreground">{title.length}/{TITLE_MAX}</span>
+            <span className="mt-1 block text-right text-fine text-muted-foreground">{title.length}/{TITLE_MAX}</span>
           </label>
         )}
 
         {campusMode && (
           <div>
-            <p className="mb-2 text-sm font-semibold">{t("posts.where")}</p>
+            <p className="mb-2 text-caption font-semibold">{t("posts.where")}</p>
             <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4">
               {[{ id: "general" }, ...campusSections].map((s) => {
                 const Icon = s.id === "general" ? GraduationCap : icon(s.id);
@@ -163,7 +163,7 @@ function ComposePage() {
                     onClick={() => setCampusPlace(s.id)}
                     aria-pressed={campusPlace === s.id}
                     className={cn(
-                      "flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold",
+                      "flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-caption font-semibold",
                       campusPlace === s.id ? "bg-primary text-primary-foreground" : "bg-secondary",
                     )}
                   >
@@ -177,7 +177,7 @@ function ComposePage() {
 
         {needsPlace && (
           <div>
-            <p className="mb-2 text-sm font-semibold">{t("posts.where")}</p>
+            <p className="mb-2 text-caption font-semibold">{t("posts.where")}</p>
             <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4">
               {[{ id: "personal" }, ...sections].map((s) => {
                 const Icon = s.id === "personal" ? User : icon(s.id);
@@ -188,7 +188,7 @@ function ComposePage() {
                     onClick={() => setPlace(s.id)}
                     aria-pressed={place === s.id}
                     className={cn(
-                      "flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold",
+                      "flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-caption font-semibold",
                       place === s.id ? "bg-primary text-primary-foreground" : "bg-secondary",
                     )}
                   >
@@ -198,7 +198,7 @@ function ComposePage() {
               })}
             </div>
             {place && (
-              <p className="mt-2 text-xs text-muted-foreground">
+              <p className="mt-2 text-fine text-muted-foreground">
                 {place === "personal" ? t("posts.personalHint") : t("posts.newsHint", { section: name(place) })}
               </p>
             )}

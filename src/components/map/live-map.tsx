@@ -115,7 +115,7 @@ function personElement(p: MapPerson, talking: boolean, age: string | null, onSel
     face(
       name,
       p.avatar_path,
-      `h-12 w-12 border-[3px] text-base ${
+      `h-12 w-12 border-[3px] text-body ${
         talking ? "animate-pulse border-live ring-4 ring-live/40" : age ? "border-muted-foreground" : p.is_friend ? "border-success" : "border-white"
       }`,
     ),
@@ -146,7 +146,7 @@ function meElement(name: string, path: string | null): { el: HTMLElement; beam: 
   beam.style.borderRadius = "9999px";
   const pulse = document.createElement("span");
   pulse.className = "absolute inset-0 animate-ping rounded-full bg-primary/30";
-  wrap.append(beam, pulse, face(name, path, "relative h-11 w-11 border-[3px] border-primary text-base"));
+  wrap.append(beam, pulse, face(name, path, "relative h-11 w-11 border-[3px] border-primary text-body"));
   return { el: wrap, beam };
 }
 

@@ -84,7 +84,7 @@ export function FeedList({
           <button
             type="button"
             onClick={() => play(views, views.find((v) => !v.deleted)!)}
-            className="flex h-9 items-center gap-1.5 rounded-full bg-secondary px-4 text-sm font-semibold"
+            className="flex h-9 items-center gap-1.5 rounded-full bg-secondary px-4 text-caption font-semibold"
           >
             <Play className="h-4 w-4" fill="currentColor" /> {t("posts.playAll")}
           </button>
@@ -94,7 +94,7 @@ export function FeedList({
         <PostCard key={v.row.post_id} post={v} onPlay={() => play(views, v)} hideReplyTo={hideReplyTo} />
       ))}
       <div ref={sentinel} />
-      {q.isFetchingNextPage && <p className="py-4 text-center text-sm text-muted-foreground">{t("common.loading")}</p>}
+      {q.isFetchingNextPage && <p className="py-4 text-center text-caption text-muted-foreground">{t("common.loading")}</p>}
     </div>
   );
 }

@@ -30,9 +30,9 @@ export function InviteSheet({ groupId, open, onOpenChange }: { groupId: string; 
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="mx-auto max-h-[80vh] max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
-        <DrawerTitle className="pt-4 text-center text-lg font-bold">{t("groups.inviteFriends")}</DrawerTitle>
-        <DrawerDescription className="px-6 pt-1 text-center text-sm text-muted-foreground">{t("groups.inviteHint")}</DrawerDescription>
+      <DrawerContent className="mx-auto max-h-[80vh] max-w-lg">
+        <DrawerTitle className="pt-4 text-center text-body font-semibold">{t("groups.inviteFriends")}</DrawerTitle>
+        <DrawerDescription className="px-6 pt-1 text-center text-caption text-muted-foreground">{t("groups.inviteHint")}</DrawerDescription>
         <ul className="safe-bottom overflow-y-auto px-4 pb-4">
           {list.map((p) => (
             <PersonRow key={p.id} person={p}>
@@ -40,14 +40,14 @@ export function InviteSheet({ groupId, open, onOpenChange }: { groupId: string; 
                 type="button"
                 disabled={sent.has(p.id) || invite.isPending}
                 onClick={() => invite.mutate(p.id)}
-                className="h-9 rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground disabled:bg-secondary disabled:text-muted-foreground"
+                className="h-9 rounded-full bg-primary px-4 text-caption font-semibold text-primary-foreground disabled:bg-secondary disabled:text-muted-foreground"
               >
                 {t(sent.has(p.id) ? "groups.invited" : "groups.invite")}
               </button>
             </PersonRow>
           ))}
           {friends.data && members.data && !list.length && (
-            <p className="py-10 text-center text-sm text-muted-foreground">{t("groups.noFriendsToInvite")}</p>
+            <p className="py-10 text-center text-caption text-muted-foreground">{t("groups.noFriendsToInvite")}</p>
           )}
         </ul>
       </DrawerContent>

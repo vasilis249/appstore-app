@@ -23,7 +23,7 @@ function SectionPage() {
       <AppHeader
         back
         center={
-          <span className="flex items-center gap-2 text-lg font-bold">
+          <span className="flex items-center gap-2 text-body font-semibold">
             <Icon className="h-5 w-5" /> {name(sectionId)}
           </span>
         }

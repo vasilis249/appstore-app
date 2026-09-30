@@ -28,8 +28,8 @@ export function GroupForm({
   const { sections, name: sectionName, icon } = useSections();
   const [v, setV] = useState<GroupFormValue>(initial ?? { name: "", description: "", section: "", privacy: "public" });
   const valid = v.name.trim().length >= 3 && !!v.section;
-  const input = "w-full rounded-2xl bg-secondary px-4 text-base outline-none placeholder:text-muted-foreground";
-  const label = "mb-2 block text-sm font-semibold";
+  const input = "w-full rounded-2xl bg-secondary px-4 text-body outline-none placeholder:text-muted-foreground";
+  const label = "mb-2 block text-caption font-semibold";
 
   return (
     <form
@@ -65,7 +65,7 @@ export function GroupForm({
                 type="button"
                 aria-pressed={v.section === s.id}
                 onClick={() => setV({ ...v, section: s.id })}
-                className={cn("flex h-9 items-center gap-1.5 rounded-full px-3.5 text-sm font-semibold", v.section === s.id ? "bg-primary text-primary-foreground" : "bg-secondary")}
+                className={cn("flex h-9 items-center gap-1.5 rounded-full px-3.5 text-caption font-semibold", v.section === s.id ? "bg-primary text-primary-foreground" : "bg-secondary")}
               >
                 <Icon className="h-4 w-4" /> {sectionName(s.id)}
               </button>
@@ -87,7 +87,7 @@ export function GroupForm({
               {p === "public" ? <Globe className="mt-0.5 h-5 w-5 shrink-0" /> : <Lock className="mt-0.5 h-5 w-5 shrink-0" />}
               <span>
                 <span className="block font-semibold">{t(p === "public" ? "groups.public" : "groups.private")}</span>
-                <span className="block text-sm text-muted-foreground">{t(p === "public" ? "groups.publicHint" : "groups.privateHint")}</span>
+                <span className="block text-caption text-muted-foreground">{t(p === "public" ? "groups.publicHint" : "groups.privateHint")}</span>
               </span>
             </button>
           ))}

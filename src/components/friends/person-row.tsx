@@ -18,9 +18,9 @@ export function PersonRow({
     <>
       <UserAvatar name={person.full_name || person.username} path={person.avatar_path} size={56} />
       <span className="min-w-0 flex-1 text-left">
-        <span className="block truncate text-base font-semibold">{person.full_name || person.username}</span>
-        <span className="block truncate text-sm text-muted-foreground">{person.username}</span>
-        {subtitle && <span className="block truncate text-sm text-muted-foreground">{subtitle}</span>}
+        <span className="block truncate text-body font-semibold">{person.full_name || person.username}</span>
+        <span className="block truncate text-caption text-muted-foreground">{person.username}</span>
+        {subtitle && <span className="block truncate text-caption text-muted-foreground">{subtitle}</span>}
       </span>
     </>
   );
@@ -56,7 +56,7 @@ export function PillButton({
       onClick={onClick}
       disabled={disabled}
       className={
-        "h-10 rounded-full px-5 text-sm font-semibold disabled:opacity-50 " +
+        "h-10 rounded-full px-5 text-caption font-semibold disabled:opacity-50 " +
         (variant === "primary" ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground")
       }
     >

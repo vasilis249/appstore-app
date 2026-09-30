@@ -52,8 +52,8 @@ export function StepShell({
         )}
         {right}
       </div>
-      <h1 className="mt-5 text-[32px] font-extrabold leading-[1.15] tracking-tight">{title}</h1>
-      {subtitle && <div className="mt-2 text-[15px] leading-snug text-muted-foreground">{subtitle}</div>}
+      <h1 className="mt-5 text-hero font-semibold">{title}</h1>
+      {subtitle && <div className="mt-2 text-callout leading-snug text-muted-foreground">{subtitle}</div>}
       <div className="mt-7 animate-fade-in-up">{children}</div>
 
       <div
@@ -65,7 +65,7 @@ export function StepShell({
           type="submit"
           disabled={disabled || loading}
           className={cn(
-            "h-14 w-full rounded-full text-lg font-semibold transition",
+            "h-14 w-full rounded-full text-body font-semibold transition",
             disabled ? "bg-secondary text-muted-foreground" : "bg-primary text-primary-foreground active:opacity-80",
             loading && "opacity-60",
           )}
@@ -82,12 +82,12 @@ export const BigInput = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInp
   function BigInput({ prefix, className, ...props }, ref) {
     return (
       <label className="flex items-center gap-2">
-        {prefix && <span className="text-[30px] leading-tight">{prefix}</span>}
+        {prefix && <span className="text-display">{prefix}</span>}
         <input
           ref={ref}
           {...props}
           className={cn(
-            "w-full min-w-0 appearance-none rounded-none border-0 bg-transparent p-0 text-[30px] leading-tight shadow-none outline-none ring-0 caret-[#0a84ff] placeholder:text-muted-foreground focus:outline-none focus:ring-0",
+            "w-full min-w-0 appearance-none rounded-none border-0 bg-transparent p-0 text-display shadow-none outline-none ring-0 caret-primary placeholder:text-muted-foreground focus:outline-none focus:ring-0",
             className,
           )}
         />
@@ -98,5 +98,5 @@ export const BigInput = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInp
 
 /** Small grey/red line under the input. */
 export function FieldNote({ children, error }: { children: ReactNode; error?: boolean }) {
-  return <p className={cn("mt-4 text-[15px] leading-snug", error ? "text-destructive" : "text-muted-foreground")}>{children}</p>;
+  return <p className={cn("mt-4 text-callout leading-snug", error ? "text-destructive" : "text-muted-foreground")}>{children}</p>;
 }

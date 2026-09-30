@@ -21,14 +21,14 @@ export function RepostSheet({ post, onOpenChange }: { post: PostView | null; onO
     },
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });
-  const row = "flex w-full items-center gap-3 px-4 py-3.5 text-base font-medium disabled:opacity-50";
+  const row = "flex w-full items-center gap-3 px-4 py-3.5 text-body font-normal disabled:opacity-50";
   return (
     <Drawer open={!!post} onOpenChange={onOpenChange}>
-      <DrawerContent className="mx-auto max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
+      <DrawerContent className="mx-auto max-w-lg">
         <DrawerTitle className="sr-only">{t("posts.repost")}</DrawerTitle>
         <DrawerDescription className="sr-only">{t("posts.repost")}</DrawerDescription>
         <div className="safe-bottom p-4">
-          <div className="divide-y divide-border overflow-hidden rounded-2xl bg-secondary">
+          <div className="divide-y divide-border overflow-hidden rounded-2xl bg-group">
             <button type="button" className={row} disabled={run.isPending} onClick={() => run.mutate()}>
               <Repeat2 className="h-5 w-5" /> {post?.reposted ? t("posts.undoRepost") : t("posts.repost")}
             </button>

@@ -5,17 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Speak</title>
     <style>
+      /* DESIGN.md (Apple): parchment / ink by day, black / white at night, Action Blue button. */
       :root {
-        --bg: #e4571c;
-        --accent: #ffffff;
+        color-scheme: light dark;
+        --bg: #f5f5f7;
+        --fg: #1d1d1f;
+        --muted: #6e6e73;
+        --primary: #0066cc;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #000000;
+          --fg: #ffffff;
+          --muted: #98989d;
+          --primary: #0071e3;
+        }
       }
       html,
       body {
         margin: 0;
         height: 100%;
         background: var(--bg);
-        color: #fff;
+        color: var(--fg);
         font-family: -apple-system, system-ui, sans-serif;
+        letter-spacing: -0.374px;
       }
       main {
         min-height: 100%;
@@ -24,29 +37,35 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 16px;
+        gap: 12px;
         padding: calc(env(safe-area-inset-top) + 24px) 24px calc(env(safe-area-inset-bottom) + 24px);
         text-align: center;
       }
       h1 {
-        margin: 0;
-        font-size: 22px;
+        margin: 8px 0 0;
+        font-size: 21px;
+        font-weight: 600;
       }
       p {
         margin: 0;
         max-width: 320px;
-        opacity: 0.85;
-        line-height: 1.45;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.47;
       }
       button {
-        margin-top: 8px;
+        margin-top: 12px;
         border: 0;
-        border-radius: 12px;
-        padding: 14px 28px;
-        font-size: 16px;
-        font-weight: 600;
-        background: var(--accent);
-        color: #e4571c;
+        border-radius: 9999px;
+        padding: 0 28px;
+        height: 50px;
+        font-size: 17px;
+        font-weight: 400;
+        background: var(--primary);
+        color: #ffffff;
+      }
+      button:active {
+        transform: scale(0.95);
       }
     </style>
     <script src="server-url.js"></script>
@@ -54,15 +73,8 @@
   <body>
     <!-- Shown by Capacitor (server.errorPath) when the hosted web app can't be loaded. -->
     <main>
-      <svg width="72" height="72" viewBox="0 0 200 200" aria-hidden="true">
-        <path
-          d="M141 68 A52 52 0 1 0 141 132"
-          fill="none"
-          stroke="#fff"
-          stroke-width="19"
-          stroke-linecap="round"
-        />
-        <circle cx="146.8" cy="100" r="20" fill="#fff" />
+      <svg width="72" height="72" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round">
+        <line x1="2" x2="2" y1="12" y2="12" /><line x1="4" x2="4" y1="10.2" y2="13.8" /><line x1="6" x2="6" y1="8" y2="16" /><line x1="8" x2="8" y1="3" y2="21" /><line x1="10" x2="10" y1="6.5" y2="17.5" /><line x1="12" x2="12" y1="8.4" y2="15.6" /><line x1="14" x2="14" y1="6.5" y2="17.5" /><line x1="16" x2="16" y1="3" y2="21" /><line x1="18" x2="18" y1="8" y2="16" /><line x1="20" x2="20" y1="10.2" y2="13.8" /><line x1="22" x2="22" y1="12" y2="12" />
       </svg>
       <h1 id="title">Δεν υπάρχει σύνδεση</h1>
       <p id="body">Έλεγξε τη σύνδεσή σου στο internet και δοκίμασε ξανά.</p>

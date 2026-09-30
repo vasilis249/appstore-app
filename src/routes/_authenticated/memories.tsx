@@ -26,7 +26,7 @@ function MemoriesPage() {
   const { view = "list" } = Route.useSearch();
   const [open, setOpen] = useState<Memory[] | null>(null);
   const memories = useQuery({ queryKey: memoryKeys.list, queryFn: () => listMemories(user!.id), enabled: !!user });
-  const seg = "rounded-full px-5 py-2 text-sm font-semibold transition-colors";
+  const seg = "rounded-full px-5 py-2 text-caption font-semibold transition-colors";
 
   return (
     <>
@@ -80,7 +80,7 @@ function MemoryList({ memories, onOpen }: { memories: Memory[]; onOpen: (m: Memo
         const [y, mo] = key.split("-").map(Number);
         return (
           <section key={key} className="mt-4">
-            <h2 className="mb-3 text-xl font-bold">{monthTitle(y, mo - 1, i18n.language)}</h2>
+            <h2 className="mb-3 text-tagline font-semibold">{monthTitle(y, mo - 1, i18n.language)}</h2>
             <ul className="grid grid-cols-3 gap-2">
               {items.map((m) => (
                 <li key={m.id}>
@@ -89,13 +89,13 @@ function MemoryList({ memories, onOpen }: { memories: Memory[]; onOpen: (m: Memo
                     onClick={() => onOpen([m])}
                     className="flex aspect-[3/4] w-full flex-col justify-between rounded-2xl bg-card p-2.5 text-left ring-1 ring-border"
                   >
-                    <span className="text-3xl font-bold leading-none">{momentDate(m.day).getDate()}</span>
+                    <span className="text-hero font-semibold leading-none">{momentDate(m.day).getDate()}</span>
                     {m.title ? (
-                      <span className="line-clamp-2 text-xs font-semibold leading-snug">{m.title}</span>
+                      <span className="line-clamp-2 text-fine font-semibold leading-snug">{m.title}</span>
                     ) : (
                       <Waveform seed={m.id} bars={14} className="h-8 flex-none" />
                     )}
-                    <span className="text-xs tabular-nums text-muted-foreground">{formatClock(m.duration_ms)}</span>
+                    <span className="text-fine tabular-nums text-muted-foreground">{formatClock(m.duration_ms)}</span>
                   </button>
                 </li>
               ))}
@@ -138,8 +138,8 @@ function MemoryCalendar({ memories, onOpen }: { memories: Memory[]; onOpen: (m: 
           <ChevronLeft className="h-5 w-5" />
         </button>
         <div className="text-center">
-          <p className="text-lg font-bold">{monthTitle(year, month, i18n.language)}</p>
-          <p className="text-xs text-muted-foreground">{t("memories.count", { count })}</p>
+          <p className="text-body font-semibold">{monthTitle(year, month, i18n.language)}</p>
+          <p className="text-fine text-muted-foreground">{t("memories.count", { count })}</p>
         </div>
         <button type="button" className={nav} disabled={!canForward} onClick={() => setCursor(new Date(year, month + 1, 1))} aria-label={t("memories.next")}>
           <ChevronRight className="h-5 w-5" />
@@ -147,7 +147,7 @@ function MemoryCalendar({ memories, onOpen }: { memories: Memory[]; onOpen: (m: 
       </div>
       <div className="mt-5 grid grid-cols-7 gap-y-2 text-center">
         {weekdays.map((w, i) => (
-          <span key={i} className="text-xs font-semibold text-muted-foreground">{w}</span>
+          <span key={i} className="text-fine font-semibold text-muted-foreground">{w}</span>
         ))}
         {Array.from({ length: lead }, (_, i) => <span key={`x${i}`} />)}
         {Array.from({ length: days }, (_, i) => {
@@ -161,7 +161,7 @@ function MemoryCalendar({ memories, onOpen }: { memories: Memory[]; onOpen: (m: 
                 disabled={!m}
                 onClick={() => m && onOpen(m)}
                 className={cn(
-                  "grid h-10 w-10 place-items-center rounded-full text-sm font-semibold tabular-nums",
+                  "grid h-10 w-10 place-items-center rounded-full text-caption font-semibold tabular-nums",
                   m ? "bg-primary text-primary-foreground" : "text-muted-foreground",
                   isToday && !m && "ring-1 ring-foreground/60 text-foreground",
                 )}

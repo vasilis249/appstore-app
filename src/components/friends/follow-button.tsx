@@ -34,7 +34,7 @@ export function FollowButton({
       onClick={() => m.mutate()}
       className={cn(
         "shrink-0 rounded-full font-semibold disabled:opacity-50",
-        size === "lg" ? "h-10 px-6 text-sm" : "h-9 px-4 text-sm",
+        size === "lg" ? "h-11 px-6 text-callout" : "h-8 px-3.5 text-caption",
         following ? "bg-secondary text-foreground" : "bg-primary text-primary-foreground",
       )}
     >

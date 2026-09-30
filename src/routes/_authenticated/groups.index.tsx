@@ -25,7 +25,7 @@ function GroupsPage() {
   const found = useQuery({ queryKey: groupKeys.discover(query), queryFn: () => discoverGroups(query) });
   const mineIds = new Set((mine.data ?? []).map((g) => g.id));
   const suggested = (found.data ?? []).filter((g) => !mineIds.has(g.id) && g.my_pending !== "invite");
-  const h2 = "px-4 pb-1 pt-5 text-sm font-semibold uppercase tracking-wide text-muted-foreground";
+  const h2 = "px-4 pb-1 pt-5 text-callout font-semibold text-muted-foreground";
 
   return (
     <>
@@ -45,7 +45,7 @@ function GroupsPage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={t("groups.searchPlaceholder")}
-            className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground"
+            className="min-w-0 flex-1 bg-transparent text-body outline-none placeholder:text-muted-foreground"
           />
           {q && (
             <button type="button" onClick={() => setQ("")} aria-label={t("common.cancel")}>
@@ -73,7 +73,7 @@ function GroupsPage() {
             {mine.data.map((g) => (
               <GroupRow key={g.id} group={g}>
                 {g.pending_requests > 0 && (
-                  <span className="min-w-5 rounded-full bg-badge px-1.5 text-center text-xs font-semibold leading-5 text-white">{g.pending_requests}</span>
+                  <span className="min-w-5 rounded-full bg-badge px-1.5 text-center text-fine font-semibold leading-5 text-destructive-foreground">{g.pending_requests}</span>
                 )}
               </GroupRow>
             ))}
@@ -85,7 +85,7 @@ function GroupsPage() {
         <h2 className={h2}>{t(query ? "groups.results" : "groups.discover")}</h2>
         {found.data && !suggested.length ? (
           query || mine.data?.length || invites.data?.length ? (
-            <p className="px-4 py-8 text-center text-sm text-muted-foreground">{t(query ? "groups.noResults" : "groups.noOthers")}</p>
+            <p className="px-4 py-8 text-center text-caption text-muted-foreground">{t(query ? "groups.noResults" : "groups.noOthers")}</p>
           ) : (
             <EmptyState icon={Users} text={t("groups.emptyDiscover")} action={<CreateCta />} />
           )
@@ -114,8 +114,8 @@ function CreateCta() {
 
 function Status({ group }: { group: GroupCard }) {
   const { t } = useTranslation();
-  if (group.my_role) return <span className="text-xs text-muted-foreground">{t("groups.member")}</span>;
-  if (group.my_pending === "request") return <span className="text-xs text-muted-foreground">{t("groups.requestSent")}</span>;
+  if (group.my_role) return <span className="text-fine text-muted-foreground">{t("groups.member")}</span>;
+  if (group.my_pending === "request") return <span className="text-fine text-muted-foreground">{t("groups.requestSent")}</span>;
   return null;
 }
 
@@ -134,7 +134,7 @@ function InviteRow({ group, by }: { group: { id: string; name: string; section_i
           type="button"
           disabled={act.isPending}
           onClick={() => act.mutate(true)}
-          className="h-9 rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground disabled:opacity-50"
+          className="h-9 rounded-full bg-primary px-4 text-caption font-semibold text-primary-foreground disabled:opacity-50"
         >
           {t("groups.accept")}
         </button>
@@ -148,7 +148,7 @@ function InviteRow({ group, by }: { group: { id: string; name: string; section_i
           <X className="h-4 w-4" />
         </button>
       </GroupRow>
-      <p className="-mt-1 pb-2 pl-[3.75rem] text-xs text-muted-foreground">{t("groups.invitedBy", { name: by })}</p>
+      <p className="-mt-1 pb-2 pl-[3.75rem] text-fine text-muted-foreground">{t("groups.invitedBy", { name: by })}</p>
     </div>
   );
 }

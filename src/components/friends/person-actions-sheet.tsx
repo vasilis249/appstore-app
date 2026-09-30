@@ -64,25 +64,25 @@ export function PersonActionsSheet({
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });
 
-  const row = "flex w-full items-center gap-3 px-4 py-3.5 text-base font-medium disabled:opacity-50";
+  const row = "flex w-full items-center gap-3 px-4 py-3.5 text-body font-normal disabled:opacity-50";
   const name = person ? person.full_name || person.username : "";
   const busy = sendReport.isPending || act.isPending;
 
   return (
     <Drawer open={!!person} onOpenChange={onOpenChange}>
-      <DrawerContent className="mx-auto max-h-[92vh] max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
+      <DrawerContent className="mx-auto max-h-[92vh] max-w-lg">
         <DrawerTitle className="sr-only">{name}</DrawerTitle>
         <DrawerDescription className="sr-only">{t("friends.actions")}</DrawerDescription>
         {person && (
           <div className="safe-bottom overflow-y-auto p-4">
             <div className="mb-4 flex flex-col items-center gap-2 text-center">
               <UserAvatar name={name} path={person.avatar_path} size={72} />
-              <p className="text-lg font-bold">{name}</p>
-              <p className="-mt-2 text-sm text-muted-foreground">{person.username}</p>
+              <p className="text-body font-semibold">{name}</p>
+              <p className="-mt-2 text-caption text-muted-foreground">{person.username}</p>
             </div>
 
             {step === "menu" && (
-              <div className="divide-y divide-border overflow-hidden rounded-2xl bg-secondary">
+              <div className="divide-y divide-border overflow-hidden rounded-2xl bg-group">
                 <button type="button" className={row} onClick={() => setStep("reasons")}>
                   <Flag className="h-5 w-5" /> {report?.label ?? t("friends.report")}
                 </button>
@@ -94,8 +94,8 @@ export function PersonActionsSheet({
 
             {step === "reasons" && (
               <>
-                <p className="mb-3 text-center text-sm font-semibold">{t("report.why")}</p>
-                <div className="divide-y divide-border overflow-hidden rounded-2xl bg-secondary">
+                <p className="mb-3 text-center text-caption font-semibold">{t("report.why")}</p>
+                <div className="divide-y divide-border overflow-hidden rounded-2xl bg-group">
                   {REPORT_REASONS.map((r) => (
                     <button key={r} type="button" disabled={busy} className={`${row} justify-between`} onClick={() => sendReport.mutate(r)}>
                       {t(`report.reasons.${r}`)}
@@ -108,8 +108,8 @@ export function PersonActionsSheet({
 
             {step === "reported" && (
               <div className="space-y-3 text-center">
-                <p className="text-base font-semibold">{t("report.thanks")}</p>
-                <p className="px-4 text-sm text-muted-foreground">{t("report.review")}</p>
+                <p className="text-body font-semibold">{t("report.thanks")}</p>
+                <p className="px-4 text-caption text-muted-foreground">{t("report.review")}</p>
                 <button
                   type="button"
                   disabled={busy}
@@ -126,7 +126,7 @@ export function PersonActionsSheet({
 
             {step === "confirmBlock" && (
               <div className="space-y-3 text-center">
-                <p className="px-4 text-sm text-muted-foreground">{t("friends.blockConfirm")}</p>
+                <p className="px-4 text-caption text-muted-foreground">{t("friends.blockConfirm")}</p>
                 <button
                   type="button"
                   disabled={busy}

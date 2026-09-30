@@ -57,25 +57,25 @@ function MemberSheet({ groupId, member, myRole, onClose }: { groupId: string; me
     },
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });
-  const row = "flex w-full items-center px-4 py-3.5 text-base font-medium disabled:opacity-50";
+  const row = "flex w-full items-center px-4 py-3.5 text-body font-normal disabled:opacity-50";
   const name = member ? member.full_name || member.username : "";
 
   return (
     <Drawer open={!!member} onOpenChange={(o) => !o && (setConfirm(null), onClose())}>
-      <DrawerContent className="mx-auto max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
-        <DrawerTitle className="pt-4 text-center text-lg font-bold">{name}</DrawerTitle>
+      <DrawerContent className="mx-auto max-w-lg">
+        <DrawerTitle className="pt-4 text-center text-body font-semibold">{name}</DrawerTitle>
         <DrawerDescription className="sr-only">{t("friends.actions")}</DrawerDescription>
         <div className="safe-bottom p-4">
           {confirm ? (
             <div className="space-y-3 text-center">
-              <p className="px-4 text-sm text-muted-foreground">
+              <p className="px-4 text-caption text-muted-foreground">
                 {t(confirm === "owner" ? "groups.makeOwnerConfirm" : "groups.removeConfirm", { name })}
               </p>
               <button
                 type="button"
                 disabled={run.isPending}
                 onClick={() => run.mutate(confirm)}
-                className="h-12 w-full rounded-full bg-destructive font-semibold text-white disabled:opacity-50"
+                className="h-12 w-full rounded-full bg-destructive font-semibold text-destructive-foreground disabled:opacity-50"
               >
                 {t(confirm === "owner" ? "groups.makeOwner" : "groups.remove")}
               </button>
@@ -84,7 +84,7 @@ function MemberSheet({ groupId, member, myRole, onClose }: { groupId: string; me
               </button>
             </div>
           ) : (
-            <div className="divide-y divide-border overflow-hidden rounded-2xl bg-secondary">
+            <div className="divide-y divide-border overflow-hidden rounded-2xl bg-group">
               {myRole === "owner" && member?.role === "member" && (
                 <button type="button" disabled={run.isPending} className={row} onClick={() => run.mutate("admin")}>
                   {t("groups.makeAdmin")}

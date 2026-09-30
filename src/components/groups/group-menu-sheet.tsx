@@ -52,11 +52,11 @@ export function GroupMenuSheet({ group, open, onOpenChange }: { group: GroupDeta
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });
 
-  const row = "flex w-full items-center gap-3 px-4 py-3.5 text-base font-medium disabled:opacity-50";
+  const row = "flex w-full items-center gap-3 px-4 py-3.5 text-body font-normal disabled:opacity-50";
   const confirm = (text: string, label: string, run: () => void, busy: boolean) => (
     <div className="space-y-3 text-center">
-      <p className="px-4 text-sm text-muted-foreground">{text}</p>
-      <button type="button" disabled={busy} onClick={run} className="h-12 w-full rounded-full bg-destructive font-semibold text-white disabled:opacity-50">
+      <p className="px-4 text-caption text-muted-foreground">{text}</p>
+      <button type="button" disabled={busy} onClick={run} className="h-12 w-full rounded-full bg-destructive font-semibold text-destructive-foreground disabled:opacity-50">
         {label}
       </button>
       <button type="button" onClick={() => setStep("menu")} className="h-12 w-full rounded-full bg-secondary font-semibold">
@@ -67,12 +67,12 @@ export function GroupMenuSheet({ group, open, onOpenChange }: { group: GroupDeta
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="mx-auto max-h-[85vh] max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
-        <DrawerTitle className="px-6 pt-4 text-center text-lg font-bold">{group.name}</DrawerTitle>
+      <DrawerContent className="mx-auto max-h-[85vh] max-w-lg">
+        <DrawerTitle className="px-6 pt-4 text-center text-body font-semibold">{group.name}</DrawerTitle>
         <DrawerDescription className="sr-only">{t("friends.actions")}</DrawerDescription>
         <div className="safe-bottom overflow-y-auto p-4">
           {step === "menu" && (
-            <div className="divide-y divide-border overflow-hidden rounded-2xl bg-secondary">
+            <div className="divide-y divide-border overflow-hidden rounded-2xl bg-group">
               {isAdmin && (
                 <button
                   type="button"
@@ -107,8 +107,8 @@ export function GroupMenuSheet({ group, open, onOpenChange }: { group: GroupDeta
           {step === "delete" && confirm(t("groups.deleteConfirm"), t("groups.delete"), () => remove.mutate(), remove.isPending)}
           {step === "reasons" && (
             <>
-              <p className="mb-3 text-center text-sm font-semibold">{t("report.why")}</p>
-              <div className="divide-y divide-border overflow-hidden rounded-2xl bg-secondary">
+              <p className="mb-3 text-center text-caption font-semibold">{t("report.why")}</p>
+              <div className="divide-y divide-border overflow-hidden rounded-2xl bg-group">
                 {REPORT_REASONS.map((r) => (
                   <button key={r} type="button" disabled={report.isPending} className={`${row} justify-between`} onClick={() => report.mutate(r)}>
                     {t(`report.reasons.${r}`)}
@@ -120,8 +120,8 @@ export function GroupMenuSheet({ group, open, onOpenChange }: { group: GroupDeta
           )}
           {step === "reported" && (
             <div className="space-y-3 text-center">
-              <p className="text-base font-semibold">{t("report.thanks")}</p>
-              <p className="px-4 text-sm text-muted-foreground">{t("groups.reportReview")}</p>
+              <p className="text-body font-semibold">{t("report.thanks")}</p>
+              <p className="px-4 text-caption text-muted-foreground">{t("groups.reportReview")}</p>
               <button type="button" onClick={() => onOpenChange(false)} className="h-12 w-full rounded-full bg-secondary font-semibold">
                 {t("report.done")}
               </button>

@@ -65,11 +65,11 @@ export function EditProfileSheet({
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });
 
-  const input = "h-12 w-full rounded-2xl bg-secondary px-4 text-base outline-none placeholder:text-muted-foreground";
+  const input = "h-12 w-full rounded-2xl bg-secondary px-4 text-body outline-none placeholder:text-muted-foreground";
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="mx-auto max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
-        <DrawerTitle className="pt-4 text-center text-lg font-bold">{t("profile.edit")}</DrawerTitle>
+      <DrawerContent className="mx-auto max-w-lg">
+        <DrawerTitle className="pt-4 text-center text-body font-semibold">{t("profile.edit")}</DrawerTitle>
         <DrawerDescription className="sr-only">{t("profile.edit")}</DrawerDescription>
         <form
           className="safe-bottom space-y-3 p-4"
@@ -84,7 +84,7 @@ export function EditProfileSheet({
               type="button"
               disabled={photo.isPending}
               onClick={() => fileRef.current?.click()}
-              className="h-9 rounded-full bg-secondary px-4 text-sm font-semibold disabled:opacity-50"
+              className="h-9 rounded-full bg-secondary px-4 text-caption font-semibold disabled:opacity-50"
             >
               {photo.isPending ? "…" : t("profile.photo")}
             </button>
@@ -101,11 +101,11 @@ export function EditProfileSheet({
             />
           </div>
           <label className="block">
-            <span className="mb-1 block text-xs text-muted-foreground">{t("profile.fullName")}</span>
+            <span className="mb-1 block text-fine text-muted-foreground">{t("profile.fullName")}</span>
             <input value={fullName} maxLength={60} onChange={(e) => setFullName(e.target.value)} className={input} />
           </label>
           <label className="block">
-            <span className="mb-1 block text-xs text-muted-foreground">{t("profile.username")}</span>
+            <span className="mb-1 block text-fine text-muted-foreground">{t("profile.username")}</span>
             <input
               value={username}
               maxLength={20}
@@ -115,7 +115,7 @@ export function EditProfileSheet({
               onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9._]/g, ""))}
               className={input}
             />
-            <span className="mt-1 block text-xs text-muted-foreground">{t("profile.usernameHint")}</span>
+            <span className="mt-1 block text-fine text-muted-foreground">{t("profile.usernameHint")}</span>
           </label>
           <button
             type="submit"

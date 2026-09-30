@@ -40,6 +40,8 @@ Use two accounts (A and B) on two devices or one device + the website.
 | 29 | Live map | A and B are friends and share; C (stranger) shares with everyone near A; A: Χάρτης tab | Normal street map; A = own photo with a blue ring (moves live, also with sharing off); «Φίλοι»: B anywhere with name + strip at the bottom (tap → flies there; card: Walkie-talkie, Οδηγίες opens Maps, Προφίλ); «Κοντά μου»: C within 100 / 250 / 500 μ, push to talk; Memories open from Profile (calendar icon) |
 | 30 | Push to talk on the map | A and B share with everyone ~100 m apart; B is anywhere in the app. A: Χάρτης → tap B → hold «Κράτα πατημένο και μίλα» | B hears A live within ~1 s (banner «… σου μιλάει · Από τον χάρτη»); B taps the banner and answers; both cards list the last 24 h; B's bell: «σου μίλησε από τον χάρτη». B sets «Κανείς» → A's button is off |
 | 31 | Map precision (like Find My) | A with Precise Location OFF (Settings → Speak → Location) opens Χάρτης; then ON. B (friend) leaves the phone still for 20 min, then walks | OFF: iOS asks "precise location temporarily" (SpeakMap text); if refused, card «κατά προσέγγιση (±… χλμ)». ON: halo of a few metres; tap ◎ → allow motion → blue direction beam. B still shows «Τώρα» while still (heartbeat); after B's app is closed for 20 min: faded «Νίκος · 20λ», card «τελευταία θέση πριν 20λ · Ακρίβεια ±… μ»; B walking: marker glides, distance follows A's own position |
+| 32 | Report / block from the map | A (sharing, everyone) taps stranger C on the map → ⋯ → Αναφορά → a reason → Αποκλεισμός | Report thanks screen; after blocking, C disappears from A's map and A from C's; C can no longer talk to A (card says not nearby); admin sees the report in Αναφορές.
+| 33 | Light / Dark (Apple design) | Settings → Display → Light, open Home, a post, Profile ⚙︎, Χάρτης; then Dark | Light: light-grey canvas, white cards, blue buttons/links, frosted bar and nav; Dark: black canvas, dark-grey cards, dark map. Red only while recording/talking and on badges. Switching in Control Center updates the app (incl. the map) without restarting.
 
 If something fails, note the step number and what you saw (a screenshot helps).
 
@@ -80,8 +82,8 @@ If something fails, note the step number and what you saw (a screenshot helps).
 
 - [x] **Account deletion in the app** (5.1.1(v)) — Profile → ⚙︎ → Delete account (removes voices and files).
 - [x] **User-generated content** (1.2): Terms accepted at sign-up with zero tolerance for objectionable
-  content; report on every voice, profile and conversation; block; admins act on reports within 24 h in the
-  app; offending users can be banned. Mention this in the review notes.
+  content; report on every voice, profile, conversation and person on the map (⋯ on their map card); block;
+  admins act on reports within 24 h in the app; offending users can be banned. Mention this in the review notes.
 - [ ] **Sign in with Apple (4.8)**: required as soon as Google sign-in is offered. Needs the Developer Program →
   create the Services ID/key and enable Apple in Supabase (see `supabase-setup.md` → Social login).
 - [x] Permission texts: microphone (recording and walkie-talkie), camera + photo library (profile photo). Local
@@ -92,9 +94,11 @@ If something fails, note the step number and what you saw (a screenshot helps).
 - [ ] **Location "Always" (5.1.1, 5.1.5)**: explain in the review notes that the live map shows your position to
   friends and to people within 500 m only if you turn it on, with Off / Friends / Everyone nearby, a warning before
   "everyone", reciprocity (you see others only while sharing), no history (latest position only, deleted after 1 h),
-  and that "Always" keeps you visible with the app closed. App Privacy label: add **Location → Precise Location**
-  (linked to you, app functionality). Apple may still question strangers seeing exact positions and users 15–17:
-  be ready to switch strangers to approximate positions or 18+.
+  and that "Always" keeps you visible with the app closed. Push to talk on the map: only between people who both
+  share, within 500 m, if the other allows it (everyone / people they follow / nobody), rate-limited (30 people/h),
+  voices kept 24 h; report + block on every map card; Terms section "Map and talking to people nearby".
+  Apple may still question strangers seeing exact positions and users 15–17: be ready to switch strangers to
+  approximate positions or 18+. Precise location: the app asks iOS for temporary full accuracy ("SpeakMap").
 - [x] Export compliance: `ITSAppUsesNonExemptEncryption = NO` (HTTPS only).
 - [ ] **Minimum functionality (4.2)** — the main risk for an app that loads a website. In place: native
   splash, offline page, deep links, microphone recording, background audio with lock-screen controls, local
@@ -103,14 +107,17 @@ If something fails, note the step number and what you saw (a screenshot helps).
   few people, with some voices, a topic and one mutual follow (for DMs). Note: "Speak is a voice social
   network: post short voice takes on news topics, listen back-to-back, reply with your voice. Microphone is
   used only when you tap record or hold the walkie-talkie button; background audio plays the queue when the
-  screen is locked and lets you hear a friend's walkie-talkie. Student features need a university email: use the
-  demo account, already verified."
+  screen is locked and lets you hear a friend's walkie-talkie. Location is used only if you turn on the live map
+  (Profile → ⚙︎ → Location): friends see you, and optionally people within 500 m who share too; nothing is kept
+  but your latest position (deleted after 1 h). Student features need a university email: use the demo account,
+  already verified."
 - [ ] **Age rating**: user-generated content with unrestricted communication → answer the questionnaire
   honestly (expect 16+/18+ with the new ratings); the Terms say 15+ for GDPR, the store rating may be higher.
 - [ ] **Privacy policy URL**: `https://<your-domain>/privacy`; **Support URL**: `https://<your-domain>/contact`.
 - [ ] **App Privacy (nutrition labels)** — all "Linked to you", none "Used to track you":
   Contact info (email, name) · User content (audio data — voices and voice messages, photos, other user
   content such as titles) · Identifiers (user ID) · Usage data (product interaction: likes, listens, follows)
-  · Other data (optional: university, department, year of study) · Diagnostics: none. No location, contacts,
-  payments or analytics. The academic email is not stored (only a hash, to allow one account per address).
+  · **Location (Precise Location — app functionality; only when the user turns sharing on)** · Other data
+  (optional: university, department, year of study) · Diagnostics: none. No contacts, payments or analytics.
+  The academic email is not stored (only a hash, to allow one account per address).
 - [ ] Screenshots (6.9" iPhone): For you, a topic page, the recorder, a thread, a profile.

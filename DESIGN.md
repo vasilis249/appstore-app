@@ -581,6 +581,9 @@ is the same media query). Info.plist has no forced `UIUserInterfaceStyle`.
 | Card / sheet / list group | `#ffffff` | `#1c1c1e` (between black and tile-1) | `bg-card` |
 | Elevated (popover, map controls) | `#ffffff` | `#2a2a2c` tile-2 | `bg-popover` |
 | Fill (chips, secondary buttons, inputs) | `#e8e8ed` | `#333336` | `bg-secondary` |
+| Sheet (bottom drawer) | `#f5f5f7` | `#1c1c1e` | `bg-sheet` (the Drawer default) |
+| Grouped rows inside a sheet | `#ffffff` | `#2c2c2e` | `bg-group` |
+| Selected segment | `#ffffff` | `#636366` | `bg-segment` (in `Segmented`) |
 | Secondary text | `#6e6e73` | `#98989d` | `text-muted-foreground` |
 | Hairline | `#e0e0e0` | `#38383a` | `border-border` |
 | Action (buttons, selected, focus) | `#0066cc` Action Blue | `#0071e3` | `bg-primary` / `text-primary-foreground` |
@@ -619,9 +622,15 @@ one soft shadow `shadow-float`. Press state everywhere: `scale(0.95)`.
 - **Header**: frosted bar, 17px/600 centred title, blue text buttons / 44px icon buttons.
 - **Primary button**: `bg-primary text-primary-foreground rounded-full`, 17px, height 44–50px. Secondary: `bg-secondary`
   pill; ghost: blue text. One primary action per screen (unchanged UX rule).
-- **Chips / segmented control**: `bg-secondary` pill track; selected = `bg-card` pill with ink text (iOS segmented) or,
-  for filters, `bg-foreground text-background`.
-- **Cards & grouped lists**: `bg-card rounded-3xl` (18px), 1px hairline only on light when a card sits on white.
+- **Chips / segmented control**: two or three views of one screen (Φωνές | Απαντήσεις, Φωνές | Μέλη, who may talk)
+  use `components/segmented.tsx` `Segmented` (grey track, `bg-segment` pill, role tab). Filters (sections) are pills;
+  the selected filter is `bg-primary`. The Home tabs (4 + ▶) stay text tabs with a blue underline.
+- **Sheets**: vaul Drawer = `bg-sheet`, 18px top radius, 36×5 grabber, dim 40 %; title 17/600 centred; actions in
+  `bg-group rounded-2xl divide-y` groups, rows 17px ≥ 44px, destructive rows in red, no filled pills inside.
+- **Cards & grouped lists**: `bg-card rounded-2xl` (18px) on the canvas — never `bg-secondary` for a card (grey is
+  for fills: inputs, chips, secondary buttons); a list of options = one card with `divide-y` rows and a blue ✓ on
+  the chosen one (iOS radio list), not separate filled tiles.
+- **Rows**: name 15–17/600, meta 14 grey, a compact 32px pill action at the right (Follow back), unread = red dot.
 - **Voice player**: round play button `bg-primary`, waveform in `foreground` / `foreground/25`.
 - **Push-to-talk / record**: idle `bg-primary`; holding = `bg-live` with white bars.
 - **Map**: OpenFreeMap `liberty` in light, `dark` in dark mode; your marker Action Blue ring; friends green; controls

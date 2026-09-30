@@ -503,8 +503,35 @@ User decisions:
   `setStyle`, overlays re-added on `style.load`), overlay colours read from tokens (`--link`, `--success`). Screens
   checked in both schemes (scratchpad `design-shots.mjs <port> <tag> [paths]` + `collage-grid.mjs`). Flows: map,
   mylocation, nearby, walkie, ptt pass; `home3-flow.mjs` fails at an obsolete tap-to-record step (outdated since the
-  push-to-talk redesign, not this phase). NEXT: D2 = per-screen typography/spacing to the Apple scale (text-body/
-  caption, grouped lists, segmented controls), D3 = QA both modes + map + deploy.
+  push-to-talk redesign, not this phase). 
+  **D2 ✔ (per-screen type/spacing, user: "go through all phases")** — codemod (scratchpad `d2-codemod.py`) over every
+  screen: `text-xs/sm/base/lg/xl/2xl…` and `text-[NNpx]` → `text-fine/caption/body/tagline/display/hero`, 700/800 →
+  600, 500 → 400, uppercase section labels → sentence-case `text-callout` grey, no decorative shadows. Tokens
+  `--sheet`/`--group`/`--segment` (`bg-sheet` = Drawer default, 18px top, 36×5 grabber, dim 40 %; `bg-group` rows in
+  sheets; `bg-segment`). `components/segmented.tsx` `Segmented` (role tab) for profile Φωνές|Απαντήσεις, group
+  Φωνές|Μέλη, admin reports, location "who can talk". Cards = `bg-card` (not grey) everywhere; location modes = one
+  grouped list with a blue ✓; settings rows 17px/44px with 20px icons, sign out blue / delete red rows; notifications
+  row = 44px avatar with the kind icon badge + compact Follow back (h-8). `text-white`/`bg-white` → on-colour tokens.
+  Placeholder mark = the 11-bar VoiceIcon, white on Action Blue: favicon, `render-assets.mjs` (default `--bg
+  #0066CC`, icon + splash re-rendered), splash `backgroundColor #0066CC`, offline page light/dark. VoiceIcon default
+  stroke 1.6.
+  **L4 ✔ (map safety/legal/docs)** — map person card ⋯ → `PersonActionsSheet` (report user / block; block →
+  `forgetNearby(peer)` closes the conversation + forgets the knock, map queries refetched; the server already removes
+  both from each other's map/knocks/pair channel). Friend card: Walkie = the one blue button, Οδηγίες grey. Terms
+  (el/en) new section "Χάρτης και φωνή σε όσους είναι κοντά" (consent, no tracking/harassment, report/block on every
+  card, 112) + report paragraph mentions the map; Privacy location section + "Φωνή στον χάρτη" (knock with name/photo/
+  distance, 24 h, who may talk, only when/whom logged). `release-checklist.md`: privacy label Location → Precise
+  Location, review notes for map talk + demo note, tests 32 (report/block from the map) and 33 (Light/Dark);
+  `security.md` map block line.
+  **D3 ✔ (QA both modes)** — every screen shot in light + dark (scratchpad `design-shots.mjs`, `sheet-shots.mjs`,
+  `collage-grid.mjs`); `Segmented` segments size to their label (`flex-auto`, "Όσοι ακολουθώ" fits). Full browser
+  suite on the final build: scratchpad `run-flows.sh <port>` (fresh seed per flow; `FLOWS="map nearby"` to pick) —
+  17 flows 157/157 (groups 15, news 10, delete 5, campus 15, campus-groups 7, growth 12, attica 13, acg 7, location 6,
+  map 11, mylocation 5, precision 7, nearby 10, walkie 11, walkie-hub 12, walkie-reconnect 4, mapblock 7); DB suites
+  all green. Obsolete flows (not in the runner): `home-flow`, `home3-flow` (pre-News/PTT Home), `student-flow`
+  (pre-N5 copy; attica/acg cover it). Flaky runs were `reset-local.sh` failing to drop the DB while PostgREST
+  reconnected → migrations re-ran on the old DB and `nearby_talk` failed (policy exists) → map functions missing; it
+  now uses `DROP DATABASE … WITH (FORCE)` and stops on failure.
   **L3 ✔ (push to talk on the map)** migration `20261023100000_nearby_talk.sql`: `private.nearby_knocks` (last knock per
   pair), `public.nearby_messages` + `private.nearby_audio` (24 h, like walkie), `private.may_talk_nearby(a, b)`
   (are_nearby + nobody disabled + b's talk_from), `knocked_recently(a, b)` (5 min), `may_send_nearby` (may talk, or
@@ -541,8 +568,8 @@ User decisions:
 - **Capacitor 8.5.2** (SPM) iOS shell loading the hosted web app (`server.url` = `CAP_SERVER_URL` from `.env`,
   `CAP_APP_ID` default `gr.innera.courtsie`). Plugins: `@capacitor/app`, `@capacitor/splash-screen`, `@capacitor/local-notifications`.
   `ios/` committed; `ios/App/App/capacitor.config.json` and `public/` git-ignored. `bun run ios:sync` / `ios:open`.
-  Info.plist: mic string, camera/photo strings, `courtsie` URL scheme, `UIUserInterfaceStyle=Dark`,
-  `ITSAppUsesNonExemptEncryption=false`. Web view background `#000`. Offline page `capacitor/www/offline.html`.
+  Info.plist: mic/camera/photo/location strings, `courtsie` URL scheme, no forced interface style,
+  `ITSAppUsesNonExemptEncryption=false`. Offline page `capacitor/www/offline.html`.
 - **Web app**: TanStack Start (React 19, SSR, file routes), Vite 8, Tailwind 4, shadcn/Radix, vaul Drawer,
   TanStack Query, i18next (el/en), Bun. Hosted as Cloudflare Worker `courtsie` (nitro; `wrangler.jsonc` vars
   `SUPABASE_URL`, `SUPABASE_PROJECT_ID`; secrets `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`).
@@ -667,7 +694,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79) + `test_location.sql` (26) + `test_nearby.sql` (28).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79) + `test_location.sql` (26) + `test_nearby.sql` (28).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

@@ -21,7 +21,7 @@ export function UserAvatar({
   return (
     <span
       style={style}
-      className={cn("grid shrink-0 place-items-center rounded-full bg-secondary font-bold uppercase", className)}
+      className={cn("grid shrink-0 place-items-center rounded-full bg-secondary font-semibold uppercase", className)}
     >
       {(name.trim() || "?").charAt(0)}
     </span>

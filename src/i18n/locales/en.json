@@ -128,7 +128,7 @@
         {
           "heading": "Reporting, blocking and moderation",
           "body": [
-            "Every voice, profile and conversation has \"Report\" and \"Block\". When you block someone, neither of you sees the other's content and you cannot contact each other.",
+            "Every voice, profile, conversation and person on the map has \"Report\" and \"Block\". When you block someone, neither of you sees the other's content and you cannot contact each other.",
             "We review every report within 24 hours and remove the content, or ban the user who posted it, when it breaks these terms. A voice reported by several people is hidden automatically until it is reviewed.",
             "We do not review content before it is posted and are not responsible for what users say, but we act promptly once we become aware of illegal or prohibited content. For urgent matters write to {email}."
           ]
@@ -141,6 +141,14 @@
             "Bullying, harassment and publishing personal details of fellow students, teaching staff or employees are forbidden, as is sharing exam questions or answers during an exam and material that infringes copyright.",
             "Student moderators, appointed by Speak, see the reports on their campus's voices (without seeing who made them) and can hide them; decisions about accounts are taken by Speak.",
             "With an invite link, the new user and the person who invited them start following each other; either can change that at any time."
+          ]
+        },
+        {
+          "heading": "Map and talking to people nearby",
+          "body": [
+            "Sharing your location is optional and you can turn it off at any time. With “Everyone nearby” strangers within 500 m see your exact position — only turn it on if you really want that.",
+            "You may not use the map to follow, track or harass anyone, to keep talking to someone who showed they don't want it, or to share another person's location. Be careful if you meet in person someone you met here.",
+            "Every person's card on the map has “Report” and “Block”; someone you block no longer sees you or talks to you. Abuse leads to a ban. In danger, call 112."
           ]
         },
         {
@@ -260,7 +268,8 @@
           "body": [
             "Only if you turn it on (Profile → ⚙︎ → “Location”), the app sends your exact position (latitude/longitude, accuracy, heading, speed), also with the app closed if you allow “Always”. Legal basis: your consent (Art. 6(1)(a) GDPR), which you withdraw at any time by turning it off.",
             "Who sees it: with “Friends only”, people you follow each other with; with “Everyone nearby”, also any user within 500 m of you who shares their location too, together with your name, @username and photo. The distance is measured from the other person's real position, not from a point they pick.",
-            "We keep only your latest position (no history), with its accuracy. Your friends see it with its time for up to 1 hour (like Find My); everyone else only if it is less than 15 minutes old. While you stand still the app re-sends it once a minute so it shows as current. It is deleted after 1 hour, immediately when you turn sharing off, and when you delete your account. People you have blocked don't see you."
+            "We keep only your latest position (no history), with its accuracy. Your friends see it with its time for up to 1 hour (like Find My); everyone else only if it is less than 15 minutes old. While you stand still the app re-sends it once a minute so it shows as current. It is deleted after 1 hour, immediately when you turn sharing off, and when you delete your account. People you have blocked don't see you.",
+            "Voice on the map: when you press to talk to someone near you, we notify them with your name, photo and distance. The audio plays live and is kept for 24 hours so only the two of you can replay it, then it is deleted. You choose who may talk to you (everyone, people you follow, nobody); we only record when and to whom you talked (for abuse limits)."
           ]
         },
         {

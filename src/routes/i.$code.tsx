@@ -36,37 +36,37 @@ function InvitePage() {
 
   return (
     <main className="safe-top mx-auto flex min-h-dvh max-w-md flex-col items-center px-6 pb-10 pt-10 text-center">
-      <Wordmark className="text-4xl" />
+      <Wordmark className="text-hero" />
       <div className="flex flex-1 flex-col items-center justify-center">
         {who.data ? (
           <>
             <UserAvatar name={who.data.name} path={who.data.avatar_path} size={96} />
-            <h1 className="mt-5 text-[28px] font-extrabold leading-tight">{who.data.name}</h1>
-            <p className="text-lg text-muted-foreground">{t("invite.invitesYou")}</p>
+            <h1 className="mt-5 text-display font-semibold">{who.data.name}</h1>
+            <p className="text-body text-muted-foreground">{t("invite.invitesYou")}</p>
             {who.data.school && (
-              <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-sm font-semibold">
+              <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-caption font-semibold">
                 <GraduationCap className="h-4 w-4" /> {who.data.school}
               </p>
             )}
-            <p className="mt-4 text-[15px] text-muted-foreground">{t("invite.pageText")}</p>
+            <p className="mt-4 text-callout text-muted-foreground">{t("invite.pageText")}</p>
           </>
         ) : who.isFetched ? (
           <>
-            <h1 className="text-[28px] font-extrabold leading-tight">{t("invite.genericTitle")}</h1>
-            <p className="mt-4 text-[15px] text-muted-foreground">{t("invite.pageText")}</p>
+            <h1 className="text-display font-semibold">{t("invite.genericTitle")}</h1>
+            <p className="mt-4 text-callout text-muted-foreground">{t("invite.pageText")}</p>
           </>
         ) : null}
       </div>
       {user ? (
-        <button type="button" onClick={() => void goOn()} className="h-14 w-full rounded-full bg-primary text-lg font-semibold text-primary-foreground">
+        <button type="button" onClick={() => void goOn()} className="h-14 w-full rounded-full bg-primary text-body font-semibold text-primary-foreground">
           {t("auth.continue")}
         </button>
       ) : (
         <>
-          <Link to="/auth" search={{ mode: "signup" }} className="grid h-14 w-full place-items-center rounded-full bg-primary text-lg font-semibold text-primary-foreground">
+          <Link to="/auth" search={{ mode: "signup" }} className="grid h-14 w-full place-items-center rounded-full bg-primary text-body font-semibold text-primary-foreground">
             {t("invite.join")}
           </Link>
-          <Link to="/auth" search={{ mode: "signin" }} className="mt-4 text-[15px] font-semibold text-muted-foreground">
+          <Link to="/auth" search={{ mode: "signin" }} className="mt-4 text-callout font-semibold text-muted-foreground">
             {t("invite.haveAccount")}
           </Link>
         </>

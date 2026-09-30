@@ -10,6 +10,7 @@ import { locationKeys, mySharing, setSharing, type ShareMode, type TalkFrom } fr
 import { onTrackerStatus, openLocationSettings, trackerStatus, type TrackerStatus } from "@/lib/location/tracker";
 import { timeAgo } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
+import { Segmented } from "@/components/segmented";
 
 export const Route = createFileRoute("/_authenticated/location")({
   component: LocationPage,
@@ -48,9 +49,9 @@ function LocationPage() {
     <>
       <AppHeader back title={t("location.title")} />
       <div className="space-y-6 px-4 pb-10 pt-2">
-        <p className="text-[15px] leading-snug text-muted-foreground">{t("location.intro")}</p>
+        <p className="text-callout leading-snug text-muted-foreground">{t("location.intro")}</p>
 
-        <ul className="space-y-2" role="radiogroup">
+        <ul className="divide-y divide-border overflow-hidden rounded-2xl bg-card" role="radiogroup">
           {MODES.map((m) => (
             <li key={m}>
               <button
@@ -59,18 +60,15 @@ function LocationPage() {
                 aria-checked={s?.mode === m}
                 disabled={!s || save.isPending}
                 onClick={() => pick(m)}
-                className={cn(
-                  "flex w-full items-start gap-3 rounded-2xl px-4 py-3 text-left",
-                  s?.mode === m ? "bg-primary text-primary-foreground" : "bg-secondary",
-                )}
+                className="flex w-full items-start gap-3 px-4 py-3 text-left disabled:opacity-60"
               >
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[16px] font-semibold">{t(`location.mode.${m}`)}</span>
-                  <span className={cn("block text-sm leading-snug", s?.mode === m ? "text-primary-foreground/70" : "text-muted-foreground")}>
+                  <span className="block text-body font-semibold">{t(`location.mode.${m}`)}</span>
+                  <span className="block text-caption leading-snug text-muted-foreground">
                     {t(`location.modeHint.${m}`)}
                   </span>
                 </span>
-                {s?.mode === m && <Check className="mt-1 h-5 w-5 shrink-0" />}
+                <Check className={cn("mt-1 h-5 w-5 shrink-0 text-link", s?.mode !== m && "invisible")} strokeWidth={2.4} />
               </button>
             </li>
           ))}
@@ -78,7 +76,7 @@ function LocationPage() {
 
         {confirmEveryone && (
           <div className="space-y-3 rounded-2xl border border-live/60 bg-live/10 p-4">
-            <p className="flex items-start gap-2 text-[15px] leading-snug">
+            <p className="flex items-start gap-2 text-callout leading-snug">
               <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-live" />
               {t("location.everyoneWarning")}
             </p>
@@ -103,26 +101,17 @@ function LocationPage() {
         {s && s.mode !== "off" && (
           <>
             <section className="space-y-2">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("location.talkTitle")}</h2>
-              <div className="flex flex-wrap gap-2">
-                {TALK.map((k) => (
-                  <button
-                    key={k}
-                    type="button"
-                    aria-pressed={s.talk_from === k}
-                    disabled={save.isPending}
-                    onClick={() => save.mutate({ mode: s.mode, talk: k })}
-                    className={cn("h-10 rounded-full px-4 text-[15px] font-semibold", s.talk_from === k ? "bg-primary text-primary-foreground" : "bg-secondary")}
-                  >
-                    {t(`location.talk.${k}`)}
-                  </button>
-                ))}
-              </div>
+              <h2 className="text-callout font-semibold text-muted-foreground">{t("location.talkTitle")}</h2>
+              <Segmented
+                value={s.talk_from}
+                onChange={(k) => !save.isPending && save.mutate({ mode: s.mode, talk: k })}
+                options={TALK.map((k) => ({ value: k, label: t(`location.talk.${k}`) }))}
+              />
             </section>
 
-            <section className="flex items-start gap-3 rounded-2xl bg-secondary p-4">
+            <section className="flex items-start gap-3 rounded-2xl bg-card p-4">
               <MapPin className={cn("mt-0.5 h-5 w-5 shrink-0", tracker === "denied" ? "text-destructive" : "text-success")} />
-              <div className="min-w-0 flex-1 text-[15px] leading-snug">
+              <div className="min-w-0 flex-1 text-callout leading-snug">
                 {tracker === "denied" ? (
                   <>
                     <p className="font-semibold">{t("location.denied")}</p>

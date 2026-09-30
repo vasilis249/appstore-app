@@ -24,6 +24,7 @@ import { notificationKeys } from "@/lib/notifications";
 import { postKeys, voiceUrl } from "@/lib/posts";
 import { timeAgo } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
+import { Segmented } from "@/components/segmented";
 
 export const Route = createFileRoute("/_authenticated/admin/reports")({
   component: AdminReportsPage,
@@ -44,18 +45,15 @@ function AdminReportsPage() {
   return (
     <>
       <AppHeader back title={t("adminReports.title")} />
-      <div className="flex border-b border-border">
-        {([true, false] as const).map((k) => (
-          <button
-            key={String(k)}
-            type="button"
-            onClick={() => setOpen(k)}
-            className={cn("relative flex-1 py-3 text-[15px] font-semibold", open === k ? "text-foreground" : "text-muted-foreground")}
-          >
-            {t(k ? "adminReports.open" : "adminReports.history")}
-            {open === k && <span className="absolute inset-x-1/3 bottom-0 h-1 rounded-full bg-primary" />}
-          </button>
-        ))}
+      <div className="px-4 pt-3 pb-1">
+        <Segmented
+          value={open}
+          onChange={setOpen}
+          options={[
+            { value: true, label: t("adminReports.open") },
+            { value: false, label: t("adminReports.history") },
+          ]}
+        />
       </div>
       {list.data && !list.data.length && (
         <EmptyState icon={Flag} text={t(open ? "adminReports.empty" : "adminReports.emptyHistory")} />
@@ -113,13 +111,13 @@ function ReportItem({ group }: { group: AdminReport[] }) {
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });
   const busy = resolve.isPending || undo.isPending;
-  const pill = "h-9 rounded-full px-4 text-sm font-semibold disabled:opacity-40";
+  const pill = "h-9 rounded-full px-4 text-caption font-semibold disabled:opacity-40";
 
   return (
     <li className="space-y-3 border-b border-border px-4 py-4">
-      <p className="text-xs text-muted-foreground">
+      <p className="text-fine text-muted-foreground">
         {!r.resolved_at && group.length > 1 && (
-          <span className="mr-1.5 inline-block whitespace-nowrap rounded-full bg-badge px-1.5 py-0.5 font-semibold text-white">
+          <span className="mr-1.5 inline-block whitespace-nowrap rounded-full bg-badge px-1.5 py-0.5 font-semibold text-destructive-foreground">
             {t("adminReports.count", { count: group.length })}
           </span>
         )}
@@ -131,8 +129,8 @@ function ReportItem({ group }: { group: AdminReport[] }) {
       <Link to="/u/$username" params={{ username: r.target_username }} className="flex items-center gap-3">
         <UserAvatar name={r.target_name || r.target_username} path={r.target_avatar} size={36} />
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold">{r.target_name || r.target_username}</p>
-          <p className="truncate text-xs text-muted-foreground">
+          <p className="truncate text-caption font-semibold">{r.target_name || r.target_username}</p>
+          <p className="truncate text-fine text-muted-foreground">
             @{r.target_username}
             {r.target_disabled && <span className="text-destructive"> · {t("adminReports.disabled")}</span>}
           </p>
@@ -141,31 +139,31 @@ function ReportItem({ group }: { group: AdminReport[] }) {
 
       {r.kind === "post" &&
         (r.post_exists && r.post_audio_path ? (
-          <div className="space-y-2 rounded-2xl bg-secondary p-3">
-            {r.post_title && <p className="text-sm font-semibold leading-snug">{r.post_title}</p>}
+          <div className="space-y-2 rounded-2xl bg-card p-3">
+            {r.post_title && <p className="text-caption font-semibold leading-snug">{r.post_title}</p>}
             <ClipPlayer
               id={`report-${r.id}`}
               durationMs={r.post_duration_ms ?? 0}
               load={() => fetch(voiceUrl(r.post_audio_path!)).then((res) => res.blob())}
             />
-            {r.post_hidden && <p className="text-xs font-semibold text-muted-foreground">{t("adminReports.hidden")}</p>}
+            {r.post_hidden && <p className="text-fine font-semibold text-muted-foreground">{t("adminReports.hidden")}</p>}
           </div>
         ) : (
-          <p className="text-xs text-muted-foreground">{t("adminReports.postGone")}</p>
+          <p className="text-fine text-muted-foreground">{t("adminReports.postGone")}</p>
         ))}
-      {r.kind === "voice_message" && <p className="text-xs text-muted-foreground">{t("adminReports.messageGone")}</p>}
+      {r.kind === "voice_message" && <p className="text-fine text-muted-foreground">{t("adminReports.messageGone")}</p>}
       {r.kind === "group" &&
         (r.group_exists && r.target_id ? (
-          <Link to="/g/$groupId" params={{ groupId: r.target_id }} className="block rounded-2xl bg-secondary p-3 text-sm font-semibold">
+          <Link to="/g/$groupId" params={{ groupId: r.target_id }} className="block rounded-2xl bg-card p-3 text-caption font-semibold">
             {r.group_name}
           </Link>
         ) : (
-          <p className="text-xs text-muted-foreground">{t("adminReports.groupGone")}</p>
+          <p className="text-fine text-muted-foreground">{t("adminReports.groupGone")}</p>
         ))}
 
       {r.resolved_at ? (
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs text-muted-foreground">
+          <span className="text-fine text-muted-foreground">
             {t(`adminReports.action.${r.action ?? "dismiss"}`)} · {timeAgo(r.resolved_at, i18n.language)}
           </span>
           {r.kind === "post" && r.post_exists && r.post_hidden && (
@@ -196,7 +194,7 @@ function ReportItem({ group }: { group: AdminReport[] }) {
               type="button"
               disabled={busy}
               onClick={() => (confirmBan ? resolve.mutate("disable_user") : setConfirmBan(true))}
-              className={cn(pill, confirmBan ? "bg-destructive text-white" : "bg-secondary text-destructive")}
+              className={cn(pill, confirmBan ? "bg-destructive text-destructive-foreground" : "bg-secondary text-destructive")}
             >
               {t(confirmBan ? "adminReports.confirmDisable" : "adminReports.disableUser")}
             </button>

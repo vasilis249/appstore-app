@@ -59,7 +59,7 @@ function NotificationsPage() {
           <li className="border-b border-border">
             <Link to="/admin/reports" className="flex items-center gap-3 px-4 py-3">
               <Flag className="h-5 w-5 shrink-0 text-live" />
-              <p className="min-w-0 flex-1 text-sm font-semibold">
+              <p className="min-w-0 flex-1 text-caption font-semibold">
                 {t("notificationsPage.report")}
                 <span className="font-normal text-muted-foreground"> · {timeAgo(report.created_at, i18n.language)}</span>
               </p>
@@ -71,20 +71,26 @@ function NotificationsPage() {
           const Icon = ICON[n.kind as keyof typeof ICON];
           const a = n.actor!;
           return (
-            <li key={n.id} className="flex items-start gap-3 border-b border-border px-4 py-3">
-              <Icon className={`mt-1 h-5 w-5 shrink-0 ${COLOR[n.kind as keyof typeof COLOR]}`} fill={n.kind === "like" ? "currentColor" : "none"} />
-              <button type="button" onClick={() => open(n)} className="min-w-0 flex-1 text-left">
-                <UserAvatar name={a.full_name || a.username} path={a.avatar_path} size={32} />
-                <p className="mt-1.5 text-sm">
-                  <span className="font-semibold">{a.full_name || a.username}</span> {t(`notificationsPage.${n.kind}`, { group: n.group?.name ?? "" })}
-                  <span className="text-muted-foreground"> · {timeAgo(n.created_at, i18n.language)}</span>
-                </p>
-                {n.post?.title && <p className="mt-0.5 truncate text-sm text-muted-foreground">{n.post.title}</p>}
+            <li key={n.id} className="flex items-center gap-3 border-b border-border px-4 py-3">
+              <button type="button" onClick={() => open(n)} className="flex min-w-0 flex-1 items-center gap-3 text-left">
+                <span className="relative shrink-0">
+                  <UserAvatar name={a.full_name || a.username} path={a.avatar_path} size={44} />
+                  <span className="absolute -bottom-1 -right-1 grid h-6 w-6 place-items-center rounded-full bg-background">
+                    <Icon className={`h-4 w-4 ${COLOR[n.kind as keyof typeof COLOR]}`} fill={n.kind === "like" ? "currentColor" : "none"} />
+                  </span>
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-callout">
+                    <span className="font-semibold">{a.full_name || a.username}</span> {t(`notificationsPage.${n.kind}`, { group: n.group?.name ?? "" })}
+                    <span className="text-muted-foreground"> · {timeAgo(n.created_at, i18n.language)}</span>
+                  </span>
+                  {n.post?.title && <span className="mt-0.5 block truncate text-caption text-muted-foreground">{n.post.title}</span>}
+                </span>
               </button>
               {n.kind === "follow" && following.data && !iFollow.has(a.id) && (
                 <FollowButton userId={a.id} following={false} followsMe />
               )}
-              {!n.read_at && <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-badge" aria-hidden />}
+              {!n.read_at && <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-badge" aria-hidden />}
             </li>
           );
         })}

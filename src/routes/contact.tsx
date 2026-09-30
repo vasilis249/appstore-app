@@ -15,8 +15,8 @@ function ContactPage() {
   ];
   return (
     <div className="px-4 py-8">
-      <h1 className="font-display text-2xl font-bold">{t("help.title")}</h1>
-      <ul className="mt-6 divide-y divide-border/70 rounded-2xl bg-card shadow-sm ring-1 ring-border/60">
+      <h1 className="font-display text-display font-semibold">{t("help.title")}</h1>
+      <ul className="mt-6 divide-y divide-border/70 rounded-2xl bg-card">
         {items.map(({ href, icon: Icon, label, value }) => (
           <li key={href}>
             <a href={href} className="flex min-h-14 items-center gap-3 px-4 py-3">
@@ -24,8 +24,8 @@ function ContactPage() {
                 <Icon className="h-5 w-5" />
               </span>
               <span className="min-w-0">
-                <span className="block text-xs text-muted-foreground">{label}</span>
-                <span className="block break-all text-sm font-medium">{value}</span>
+                <span className="block text-fine text-muted-foreground">{label}</span>
+                <span className="block break-all text-caption font-normal">{value}</span>
               </span>
             </a>
           </li>

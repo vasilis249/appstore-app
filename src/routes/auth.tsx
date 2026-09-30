@@ -93,7 +93,7 @@ function AuthPage() {
 function Terms() {
   const { t } = useTranslation();
   return (
-    <p className="px-2 pb-3 text-center text-[13px] leading-snug text-muted-foreground">
+    <p className="px-2 pb-3 text-center text-caption leading-snug text-muted-foreground">
       {t("auth.termsPrefix")}{" "}
       <Link to="/terms" className="text-foreground underline">
         {t("auth.terms")}
@@ -126,12 +126,12 @@ function Welcome({ go }: { go: (s: Step) => void }) {
     }
   }
 
-  const pill = "flex h-14 w-full items-center justify-center gap-3 rounded-full text-[17px] font-semibold active:opacity-80 disabled:opacity-60";
+  const pill = "flex h-14 w-full items-center justify-center gap-3 rounded-full text-body font-semibold active:opacity-80 disabled:opacity-60";
   return (
     <div className="safe-top safe-bottom mx-auto flex min-h-dvh max-w-md flex-col px-6 pb-6">
       <div className="flex flex-1 flex-col justify-center">
         <Wordmark className="text-[56px] leading-none" />
-        <p className="mt-4 text-[28px] font-bold leading-tight">{t("auth.tagline")}</p>
+        <p className="mt-4 text-display font-semibold">{t("auth.tagline")}</p>
       </div>
       <div className="space-y-3">
         {social.map((p) => (
@@ -141,7 +141,7 @@ function Welcome({ go }: { go: (s: Step) => void }) {
           </button>
         ))}
         {social.length > 0 && (
-          <div className="flex items-center gap-3 py-1 text-sm text-muted-foreground">
+          <div className="flex items-center gap-3 py-1 text-caption text-muted-foreground">
             <span className="h-px flex-1 bg-border" /> {t("auth.or")} <span className="h-px flex-1 bg-border" />
           </div>
         )}
@@ -152,9 +152,9 @@ function Welcome({ go }: { go: (s: Step) => void }) {
         >
           {t("auth.createAccount")}
         </button>
-        {error && <p className="text-center text-sm text-destructive">{error}</p>}
+        {error && <p className="text-center text-caption text-destructive">{error}</p>}
         <Terms />
-        <p className="pt-2 text-center text-[15px] text-muted-foreground">
+        <p className="pt-2 text-center text-callout text-muted-foreground">
           {t("auth.haveAccount")}{" "}
           <button type="button" onClick={() => go("signinEmail")} className="font-semibold text-foreground">
             {t("auth.signin")}
@@ -210,7 +210,7 @@ function EmailStep({
         onChange={(e) => setEmail(e.target.value)}
       />
       {suggestion && (
-        <button type="button" onClick={() => setEmail(suggestion)} className="mt-4 block text-left text-[15px] text-muted-foreground">
+        <button type="button" onClick={() => setEmail(suggestion)} className="mt-4 block text-left text-callout text-muted-foreground">
           {t("auth.didYouMean")} <span className="font-semibold text-foreground underline">{suggestion}</span>;
         </button>
       )}
@@ -286,7 +286,7 @@ function SigninPassword({
       subtitle={email}
       onBack={() => go("signinEmail")}
       right={
-        <Link to="/forgot-password" search={{ email }} className="text-[17px] font-medium">
+        <Link to="/forgot-password" search={{ email }} className="text-body font-normal">
           {t("auth.forgot")}
         </Link>
       }
@@ -372,7 +372,7 @@ function SignupPassword({
       <PasswordInput value={password} onChange={setPassword} autoComplete="new-password" />
       <ul className="mt-5 space-y-2">
         {checks.map((c) => (
-          <li key={c.id} className="flex items-center gap-2.5 text-[15px]">
+          <li key={c.id} className="flex items-center gap-2.5 text-callout">
             <span
               className={cn(
                 "grid h-5 w-5 place-items-center rounded-full",
@@ -405,7 +405,7 @@ function ResendButton({ email }: { email: string }) {
         });
         setState(error ? mapAuthError(error) : "sent");
       }}
-      className="mt-4 block text-left text-[15px] font-semibold underline disabled:no-underline disabled:opacity-60"
+      className="mt-4 block text-left text-callout font-semibold underline disabled:no-underline disabled:opacity-60"
     >
       {state === "sent" ? t("auth.resent") : state === "idle" ? t("auth.resend") : state}
     </button>
@@ -461,7 +461,7 @@ function UsernameStep({ user }: { user: User }) {
       title={t("auth.usernameTitle")}
       subtitle={t("auth.usernameHint")}
       right={
-        <button type="button" onClick={() => void navigate({ to: "/student", search: { welcome: 1 }, replace: true })} className="text-[17px] font-medium">
+        <button type="button" onClick={() => void navigate({ to: "/student", search: { welcome: 1 }, replace: true })} className="text-body font-normal">
           {t("auth.skip")}
         </button>
       }
@@ -510,7 +510,7 @@ function AppleIcon() {
 export function AuthShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="safe-top mx-auto flex min-h-screen max-w-md flex-col px-5">
-      <Wordmark className="mt-4 mb-10 text-center text-3xl" />
+      <Wordmark className="mt-4 mb-10 text-center text-display" />
       <div className="animate-fade-in-up">{children}</div>
     </div>
   );

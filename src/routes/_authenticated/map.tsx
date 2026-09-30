@@ -1,17 +1,18 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { LocateFixed, MapPin, Navigation, RadioTower, Users } from "lucide-react";
+import { LocateFixed, MapPin, MoreHorizontal, Navigation, RadioTower, Users } from "lucide-react";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { LiveMap, type MapFocus } from "@/components/map/live-map";
 import { NearbyTalk } from "@/components/map/nearby-talk";
+import { PersonActionsSheet } from "@/components/friends/person-actions-sheet";
 import { useHubPeers } from "@/components/walkie/walkie-hub";
 import { UserAvatar } from "@/components/user-avatar";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { locationKeys, mapPeople, mySharing, type MapPerson } from "@/lib/location/api";
 import { formatDistance } from "@/lib/location/format";
-import { nearbyPerson } from "@/lib/location/nearby";
+import { forgetNearby, nearbyPerson } from "@/lib/location/nearby";
 import { compassHeading, enableCompass, onCompass } from "@/lib/location/compass";
 import {
   APPROXIMATE_M,
@@ -97,6 +98,9 @@ function MapPage() {
   const { u } = Route.useSearch();
   const navigate = useNavigate({ from: "/map" });
   const [listOpen, setListOpen] = useState(false);
+  // Report / block someone from their card (App Store 1.2: every place you meet people has both).
+  const [actionsFor, setActionsFor] = useState<MapPerson | null>(null);
+  const qc = useQueryClient();
   const [focus, setFocus] = useState<MapFocus | null>(null);
   const move = (target: MapFocus["target"]) => setFocus((f) => ({ key: (f?.key ?? 0) + 1, target }));
   const talking = useHubPeers()
@@ -166,7 +170,7 @@ function MapPage() {
 
       {/* top: friends | nearby (+ radius) */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex flex-col items-center gap-2 px-4 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
-        <div className="pointer-events-auto flex items-center gap-1 rounded-full glass border border-border/60 shadow-float p-1 shadow-lg backdrop-blur" role="tablist">
+        <div className="pointer-events-auto flex items-center gap-1 rounded-full glass border border-border/60 shadow-float p-1" role="tablist">
           {(["friends", "nearby"] as const).map((v) => (
             <button
               key={v}
@@ -174,14 +178,14 @@ function MapPage() {
               role="tab"
               aria-selected={view === v}
               onClick={() => switchView(v)}
-              className={cn("h-9 rounded-full px-5 text-sm font-semibold", view === v ? "bg-primary text-primary-foreground" : "text-foreground/90")}
+              className={cn("h-9 rounded-full px-5 text-caption font-semibold", view === v ? "bg-primary text-primary-foreground" : "text-foreground/90")}
             >
               {t(v === "friends" ? "map.friendsTab" : "map.nearbyTab")}
             </button>
           ))}
         </div>
         {view === "nearby" && (
-          <div className="pointer-events-auto flex items-center gap-1 rounded-full glass border border-border/60 shadow-float p-1 shadow-lg backdrop-blur">
+          <div className="pointer-events-auto flex items-center gap-1 rounded-full glass border border-border/60 shadow-float p-1">
             {RADII.map((r) => (
               <button
                 key={r}
@@ -191,7 +195,7 @@ function MapPage() {
                   setRadius(r);
                   move("radius");
                 }}
-                className={cn("h-8 rounded-full px-3.5 text-[13px] font-semibold", radius === r ? "bg-card text-foreground shadow-float" : "text-foreground/85")}
+                className={cn("h-8 rounded-full px-3.5 text-caption font-semibold", radius === r ? "bg-segment text-foreground" : "text-foreground/85")}
               >
                 {formatDistance(r, i18n.language)}
               </button>
@@ -217,7 +221,7 @@ function MapPage() {
         )}
 
         {on && view === "friends" && (
-          <div className="max-w-full self-start rounded-3xl glass border border-border/60 shadow-float p-3 shadow-lg backdrop-blur">
+          <div className="max-w-full self-start rounded-3xl glass border border-border/60 shadow-float p-3">
             {friends.length ? (
               <ul className="flex gap-3 overflow-x-auto px-0.5 py-1" aria-label={t("map.friendsTab")}>
                 {friends.map((p) => (
@@ -226,7 +230,7 @@ function MapPage() {
                       <span className="rounded-full p-0.5 ring-2 ring-success">
                         <UserAvatar name={p.full_name || p.username} path={p.avatar_path} size={48} />
                       </span>
-                      <span className="w-full truncate text-xs font-semibold">{(p.full_name || p.username).split(" ")[0]}</span>
+                      <span className="w-full truncate text-fine font-semibold">{(p.full_name || p.username).split(" ")[0]}</span>
                       <span className="w-full truncate text-[11px] text-muted-foreground">
                         {ageOf(p) ?? formatDistance(distOf(p), i18n.language)}
                       </span>
@@ -235,7 +239,7 @@ function MapPage() {
                 ))}
               </ul>
             ) : (
-              <p className="px-1 py-1 text-sm text-muted-foreground">{t("map.noFriends")}</p>
+              <p className="px-1 py-1 text-caption text-muted-foreground">{t("map.noFriends")}</p>
             )}
           </div>
         )}
@@ -244,7 +248,7 @@ function MapPage() {
           <button
             type="button"
             onClick={() => setListOpen(true)}
-            className="flex h-12 items-center gap-2 self-start rounded-full glass border border-border/60 shadow-float px-5 text-[15px] font-semibold shadow-lg backdrop-blur"
+            className="flex h-12 items-center gap-2 self-start rounded-full glass border border-border/60 shadow-float px-5 text-callout font-semibold"
           >
             <Users className="h-5 w-5" /> {t("map.nearby", { count: nearby.length })}
           </button>
@@ -252,11 +256,11 @@ function MapPage() {
 
         {/* your position is only approximate (iOS "Precise Location" off, or no GPS) */}
         {approximate && (
-          <div className="rounded-3xl glass border border-border/60 shadow-float p-4 shadow-xl backdrop-blur">
-            <p className="text-[15px] font-semibold">{t("map.approxTitle", { accuracy: formatDistance(me!.accuracy!, i18n.language) })}</p>
-            <p className="mt-1 text-sm leading-snug text-muted-foreground">{t(isNativeApp() ? "map.approxIos" : "map.approxWeb")}</p>
+          <div className="rounded-3xl glass border border-border/60 shadow-float p-4">
+            <p className="text-callout font-semibold">{t("map.approxTitle", { accuracy: formatDistance(me!.accuracy!, i18n.language) })}</p>
+            <p className="mt-1 text-caption leading-snug text-muted-foreground">{t(isNativeApp() ? "map.approxIos" : "map.approxWeb")}</p>
             {isNativeApp() && (
-              <button type="button" onClick={openLocationSettings} className="mt-2 text-sm font-semibold text-link">
+              <button type="button" onClick={openLocationSettings} className="mt-2 text-caption font-semibold text-link">
                 {t("location.openSettings")}
               </button>
             )}
@@ -265,34 +269,34 @@ function MapPage() {
 
         {/* sharing off, or no position yet */}
         {s && !on && (
-          <div className="rounded-3xl glass border border-border/60 shadow-float p-5 shadow-xl backdrop-blur">
-            <p className="flex items-center gap-2 text-lg font-bold">
+          <div className="rounded-3xl glass border border-border/60 shadow-float p-5">
+            <p className="flex items-center gap-2 text-body font-semibold">
               <MapPin className="h-5 w-5 text-link" /> {t("map.offTitle")}
             </p>
-            <p className="mt-1 text-[15px] leading-snug text-muted-foreground">{t("map.off")}</p>
+            <p className="mt-1 text-callout leading-snug text-muted-foreground">{t("map.off")}</p>
             <Link to="/location" className="mt-4 flex h-12 items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground">
               {t("map.turnOn")}
             </Link>
           </div>
         )}
         {!local.fix && (local.problem || local.slow || (s && on && !me)) && (
-          <div className="rounded-3xl glass border border-border/60 shadow-float p-4 shadow-xl backdrop-blur">
-            <p className="flex items-center gap-2 text-[15px] font-semibold">
+          <div className="rounded-3xl glass border border-border/60 shadow-float p-4">
+            <p className="flex items-center gap-2 text-callout font-semibold">
               <LocateFixed className={cn("h-4 w-4 text-link", !local.problem && !local.slow && "animate-pulse")} />
               {t(local.problem === "denied" ? "map.deniedTitle" : local.problem || local.slow ? "map.notFoundTitle" : "map.waitingTitle")}
             </p>
             {(local.problem || local.slow) && (
               <>
-                <p className="mt-1 text-sm leading-snug text-muted-foreground">
+                <p className="mt-1 text-caption leading-snug text-muted-foreground">
                   {t(isNativeApp() ? "map.notFoundIos" : local.problem === "denied" ? "location.deniedWeb" : "map.notFoundWeb")}
                 </p>
-                {isNativeApp() && !hasNativeLocation() && <p className="mt-1 text-sm leading-snug text-muted-foreground">{t("map.oldApp")}</p>}
+                {isNativeApp() && !hasNativeLocation() && <p className="mt-1 text-caption leading-snug text-muted-foreground">{t("map.oldApp")}</p>}
                 <div className="mt-3 flex gap-2">
-                  <button type="button" onClick={local.retry} className="h-10 flex-1 rounded-full bg-primary text-sm font-semibold text-primary-foreground">
+                  <button type="button" onClick={local.retry} className="h-10 flex-1 rounded-full bg-primary text-caption font-semibold text-primary-foreground">
                     {t("map.retry")}
                   </button>
                   {isNativeApp() && (
-                    <button type="button" onClick={openLocationSettings} className="h-10 flex-1 rounded-full bg-secondary text-sm font-semibold">
+                    <button type="button" onClick={openLocationSettings} className="h-10 flex-1 rounded-full bg-secondary text-caption font-semibold">
                       {t("location.openSettings")}
                     </button>
                   )}
@@ -306,10 +310,10 @@ function MapPage() {
       {/* nearby list */}
       <Drawer open={listOpen} onOpenChange={setListOpen}>
         <DrawerContent className="max-h-[80vh]">
-          <DrawerTitle className="px-4 pt-2 text-lg font-bold">{t("map.nearby", { count: nearby.length })}</DrawerTitle>
-          <DrawerDescription className="px-4 text-sm text-muted-foreground">{t("map.listHint", { radius: formatDistance(radius, i18n.language) })}</DrawerDescription>
+          <DrawerTitle className="px-4 pt-2 text-body font-semibold">{t("map.nearby", { count: nearby.length })}</DrawerTitle>
+          <DrawerDescription className="px-4 text-caption text-muted-foreground">{t("map.listHint", { radius: formatDistance(radius, i18n.language) })}</DrawerDescription>
           <ul className="overflow-y-auto px-4 pb-8 pt-2">
-            {nearby.length === 0 && <li className="py-6 text-center text-sm text-muted-foreground">{t("map.nobody")}</li>}
+            {nearby.length === 0 && <li className="py-6 text-center text-caption text-muted-foreground">{t("map.nobody")}</li>}
             {nearby.map((p) => (
               <li key={p.user_id}>
                 <button
@@ -325,7 +329,7 @@ function MapPage() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-semibold">{p.full_name || p.username}</span>
-                    <span className="block truncate text-sm text-muted-foreground">
+                    <span className="block truncate text-caption text-muted-foreground">
                       {[formatDistance(distOf(p), i18n.language), p.is_friend ? t("map.friend") : null].filter(Boolean).join(" · ")}
                     </span>
                   </span>
@@ -345,17 +349,28 @@ function MapPage() {
                 <span className={cn("rounded-full p-1 ring-4", current.is_friend ? "ring-success" : "ring-border")}>
                   <UserAvatar name={current.full_name || current.username} path={current.avatar_path} size={64} />
                 </span>
-                <div className="min-w-0">
-                  <DrawerTitle className="truncate text-xl font-bold">{current.full_name || current.username}</DrawerTitle>
-                  <DrawerDescription className="truncate text-sm text-muted-foreground">@{current.username}</DrawerDescription>
-                  <p className="mt-0.5 text-sm font-semibold text-link">
+                <div className="min-w-0 flex-1">
+                  <DrawerTitle className="truncate text-tagline font-semibold">{current.full_name || current.username}</DrawerTitle>
+                  <DrawerDescription className="truncate text-caption text-muted-foreground">@{current.username}</DrawerDescription>
+                  <p className="mt-0.5 text-caption font-semibold text-link">
                     {t("map.away", { distance: formatDistance(distOf(current), i18n.language) })} ·{" "}
                     {ageOf(current) ? t("map.lastSeen", { when: ageOf(current) }) : t("map.now")}
                   </p>
                   {current.accuracy_m != null && (
-                    <p className="text-xs text-muted-foreground">{t("map.accuracy", { distance: formatDistance(current.accuracy_m, i18n.language) })}</p>
+                    <p className="text-fine text-muted-foreground">{t("map.accuracy", { distance: formatDistance(current.accuracy_m, i18n.language) })}</p>
                   )}
                 </div>
+                <button
+                  type="button"
+                  aria-label={t("friends.actions")}
+                  onClick={() => {
+                    setActionsFor(current);
+                    select(null);
+                  }}
+                  className="grid h-11 w-11 shrink-0 place-items-center self-start rounded-full bg-secondary"
+                >
+                  <MoreHorizontal className="h-5 w-5" />
+                </button>
               </div>
               {current.is_friend ? (
                 <div className="mt-5 grid grid-cols-2 gap-2">
@@ -370,7 +385,7 @@ function MapPage() {
                     href={directionsUrl(current.lat, current.lng)}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex h-12 items-center justify-center gap-2 rounded-full bg-primary font-semibold text-white"
+                    className="flex h-12 items-center justify-center gap-2 rounded-full bg-secondary font-semibold"
                   >
                     <Navigation className="h-5 w-5" /> {t("map.directions")}
                   </a>
@@ -389,6 +404,15 @@ function MapPage() {
           )}
         </DrawerContent>
       </Drawer>
+
+      <PersonActionsSheet
+        person={actionsFor && { id: actionsFor.user_id, username: actionsFor.username, full_name: actionsFor.full_name, avatar_path: actionsFor.avatar_path }}
+        onOpenChange={(o) => !o && setActionsFor(null)}
+        onBlocked={() => {
+          if (actionsFor) forgetNearby(actionsFor.user_id);
+          void qc.invalidateQueries({ queryKey: ["location"] });
+        }}
+      />
     </div>
   );
 }

@@ -49,7 +49,7 @@ const config: CapacitorConfig = {
       // Hidden by initNativeShell() once the web app has mounted; this is the upper bound.
       launchShowDuration: 3000,
       launchAutoHide: true,
-      backgroundColor: "#E4571C",
+      backgroundColor: "#0066CC",
       showSpinner: false,
     },
   },

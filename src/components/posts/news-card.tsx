@@ -39,14 +39,14 @@ export function NewsCard({ topic, daily }: { topic: NewsTopic; daily?: boolean }
   return (
     <Link to="/t/$topicId" params={{ topicId: topic.id }} className="block px-4 pb-5 pt-2 active:opacity-80">
       <NewsCover src={topic.image_url} section={topic.section_id} />
-      <p className="mt-2.5 flex items-center gap-1 text-[12px] text-muted-foreground">
-        {daily && <span className="font-bold uppercase tracking-wide text-link">{t("daily.topicOfDay")} ·</span>}
-        <span className="font-medium text-foreground/80">{name(topic.section_id)}</span>
+      <p className="mt-2.5 flex items-center gap-1 text-fine text-muted-foreground">
+        {daily && <span className="font-semibold text-link">{t("daily.topicOfDay")} ·</span>}
+        <span className="font-normal text-foreground/80">{name(topic.section_id)}</span>
         {topic.source_name && <span className="truncate">· {topic.source_name}</span>}
         <span className="shrink-0">· {timeAgoShort(topic.created_at, i18n.language)}</span>
       </p>
-      <h2 className="mt-1 line-clamp-3 text-[21px] font-bold leading-[1.2] tracking-tight">{topic.title}</h2>
-      <div className="mt-2 flex items-center gap-2 text-[13px] text-muted-foreground">
+      <h2 className="mt-1 line-clamp-3 text-tagline font-semibold">{topic.title}</h2>
+      <div className="mt-2 flex items-center gap-2 text-caption text-muted-foreground">
         {topic.speakers_count > 0 ? (
           <>
             <span className="flex -space-x-2">
@@ -65,7 +65,7 @@ export function NewsCard({ topic, daily }: { topic: NewsTopic; daily?: boolean }
             </span>
           </>
         ) : (
-          <span className="font-medium text-link">{t("news.beFirst")}</span>
+          <span className="font-normal text-link">{t("news.beFirst")}</span>
         )}
       </div>
     </Link>

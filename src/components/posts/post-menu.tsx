@@ -38,7 +38,7 @@ export function PostMenu({ post, onOpenChange }: { post: PostView | null; onOpen
   }
   return (
     <Drawer open={!!post} onOpenChange={onOpenChange}>
-      <DrawerContent className="mx-auto max-w-lg rounded-t-[28px] border-0 bg-surface-elevated">
+      <DrawerContent className="mx-auto max-w-lg">
         <DrawerTitle className="sr-only">{t("friends.actions")}</DrawerTitle>
         <DrawerDescription className="sr-only">{t("friends.actions")}</DrawerDescription>
         <div className="safe-bottom p-4">
@@ -46,7 +46,7 @@ export function PostMenu({ post, onOpenChange }: { post: PostView | null; onOpen
             type="button"
             disabled={del.isPending}
             onClick={() => (confirm ? del.mutate() : setConfirm(true))}
-            className="h-12 w-full rounded-full bg-secondary font-semibold text-destructive disabled:opacity-50"
+            className="h-12 w-full rounded-2xl bg-group text-body text-destructive disabled:opacity-50"
           >
             {confirm ? t("daily.deleteConfirm") : t("posts.delete")}
           </button>

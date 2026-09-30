@@ -129,19 +129,19 @@ function TalkPage() {
             <UserAvatar name={name} path={other.data?.avatar_path ?? null} size={96} />
           </span>
           {s?.peerTalking && (
-            <span className="absolute -bottom-2 left-1/2 grid h-8 w-8 -translate-x-1/2 place-items-center rounded-full bg-live text-white">
+            <span className="absolute -bottom-2 left-1/2 grid h-8 w-8 -translate-x-1/2 place-items-center rounded-full bg-live text-destructive-foreground">
               <VoiceIcon className="h-4 w-4" live />
             </span>
           )}
         </div>
-        <h1 className="mt-4 text-2xl font-bold">{name}</h1>
-        <p className={cn("mt-1 h-5 text-sm", s?.peerTalking || s?.talking ? "font-semibold text-live" : "text-muted-foreground")}>{status}</p>
+        <h1 className="mt-4 text-display font-semibold">{name}</h1>
+        <p className={cn("mt-1 h-5 text-caption", s?.peerTalking || s?.talking ? "font-semibold text-live" : "text-muted-foreground")}>{status}</p>
 
         {friends && s?.audioLocked && (
           <button
             type="button"
             onClick={w.unlockAudio}
-            className="mt-4 flex h-10 items-center gap-2 rounded-full bg-secondary px-4 text-sm font-semibold"
+            className="mt-4 flex h-10 items-center gap-2 rounded-full bg-secondary px-4 text-caption font-semibold"
           >
             <Volume2 className="h-4 w-4" /> {t("walkie.enableSound")}
           </button>
@@ -167,9 +167,9 @@ function TalkPage() {
             style={{ WebkitTouchCallout: "none", touchAction: "none" }}
             aria-label={t("walkie.hold")}
             className={cn(
-              "grid h-44 w-44 place-items-center rounded-full shadow-lg transition-transform duration-150 disabled:opacity-40",
+              "grid h-44 w-44 place-items-center rounded-full transition-transform duration-150 disabled:opacity-40",
               s?.talking || s?.starting
-                ? "scale-105 bg-live text-white"
+                ? "scale-105 bg-live text-destructive-foreground"
                 : s?.peerTalking
                   ? "bg-secondary text-muted-foreground"
                   : "bg-primary text-primary-foreground",
@@ -179,15 +179,15 @@ function TalkPage() {
             <VoiceIcon className="h-16 w-16" strokeWidth={1.8} live={!!s?.talking} />
           </button>
         </div>
-        <p className="mt-4 h-5 text-sm tabular-nums text-muted-foreground">
+        <p className="mt-4 h-5 text-caption tabular-nums text-muted-foreground">
           {s?.talking ? `${formatClock(s.elapsedMs)} / ${formatClock(WALKIE_MAX_MS)}` : friends ? t("walkie.hold") : ""}
         </p>
 
         {friends && (
-          <label className="mt-8 flex w-full items-center justify-between gap-3 rounded-2xl bg-secondary px-4 py-3">
+          <label className="mt-8 flex w-full items-center justify-between gap-3 rounded-2xl bg-card px-4 py-3">
             <span>
-              <span className="block text-[15px] font-semibold">{t("walkie.channelOn")}</span>
-              <span className="block text-sm text-muted-foreground">{t("walkie.channelOnHint")}</span>
+              <span className="block text-callout font-semibold">{t("walkie.channelOn")}</span>
+              <span className="block text-caption text-muted-foreground">{t("walkie.channelOnHint")}</span>
             </span>
             <Switch checked={channelOn} disabled={channel.isPending} onCheckedChange={(on) => channel.mutate(on)} />
           </label>
@@ -195,8 +195,8 @@ function TalkPage() {
 
         {friends && (
           <section className="mt-6 w-full">
-            <h2 className="pb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("walkie.last24h")}</h2>
-            {history.data && !history.data.length && <p className="py-4 text-sm text-muted-foreground">{t("walkie.noHistory")}</p>}
+            <h2 className="pb-2 text-callout font-semibold text-muted-foreground">{t("walkie.last24h")}</h2>
+            {history.data && !history.data.length && <p className="py-4 text-caption text-muted-foreground">{t("walkie.noHistory")}</p>}
             <ul className="divide-y divide-border">
               {(history.data ?? []).map((m) => (
                 <HistoryRow key={m.id} item={m} mine={m.sender_id === user?.id} name={first} locale={i18n.language} load={walkieAudio} />

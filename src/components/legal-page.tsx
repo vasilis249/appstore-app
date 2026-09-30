@@ -35,20 +35,20 @@ export function LegalPage({
     <div className="mx-auto max-w-3xl px-6 py-12 sm:py-16">
       <Link
         to="/"
-        className="inline-flex items-center gap-1 text-sm text-muted-foreground transition hover:text-foreground"
+        className="inline-flex items-center gap-1 text-caption text-muted-foreground transition hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" /> {t("common.backHome", "Αρχική")}
       </Link>
 
       <header className="mt-6 mb-8">
-        <h1 className={`font-display text-3xl font-bold ${headingClassName} sm:text-4xl`}>
+        <h1 className={`font-display text-hero font-semibold ${headingClassName}`}>
           {t(titleKey)}
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">{t(updatedKey)}</p>
+        <p className="mt-2 text-caption text-muted-foreground">{t(updatedKey)}</p>
       </header>
 
       <div className="rounded-3xl border border-border/60 bg-card p-6 sm:p-8">
-        <p className="text-sm leading-relaxed text-foreground/90">
+        <p className="text-caption leading-relaxed text-foreground/90">
           {withEmail(t(introKey))}
         </p>
 
@@ -56,14 +56,14 @@ export function LegalPage({
           {Array.isArray(sections) &&
             sections.map((sec, i) => (
               <section key={i}>
-                <h2 className={`font-display text-lg font-semibold ${headingClassName}`}>
+                <h2 className={`font-display text-body font-semibold ${headingClassName}`}>
                   {i + 1}. {sec.heading}
                 </h2>
                 <div className="mt-2 space-y-2">
                   {sec.body.map((p, j) => (
                     <p
                       key={j}
-                      className="text-sm leading-relaxed text-foreground/80"
+                      className="text-caption leading-relaxed text-foreground/80"
                     >
                       {withEmail(p)}
                     </p>
@@ -73,11 +73,11 @@ export function LegalPage({
             ))}
         </div>
 
-        <p className="mt-8 border-t border-border/60 pt-6 text-sm text-muted-foreground">
+        <p className="mt-8 border-t border-border/60 pt-6 text-caption text-muted-foreground">
           {t("legal.contactLine", "Ερωτήσεις;")}{" "}
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className="font-medium text-primary hover:underline"
+            className="font-normal text-primary hover:underline"
           >
             {CONTACT_EMAIL}
           </a>

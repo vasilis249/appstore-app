@@ -23,13 +23,13 @@ export function InviteShare({ className, text }: { className?: string; text?: st
     }
   }
   return (
-    <button type="button" onClick={() => void share()} disabled={!inv.data} className={cn("flex w-full items-center gap-3 rounded-2xl bg-secondary px-4 py-3 text-left", className)}>
+    <button type="button" onClick={() => void share()} disabled={!inv.data} className={cn("flex w-full items-center gap-3 rounded-2xl bg-card px-4 py-3 text-left", className)}>
       <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
         <UserPlus className="h-5 w-5" />
       </span>
       <span className="min-w-0 flex-1">
         <span className="block font-semibold">{text ?? t("invite.title")}</span>
-        <span className="block truncate text-xs text-muted-foreground">
+        <span className="block truncate text-fine text-muted-foreground">
           {inv.data?.joined ? t("invite.joined", { count: inv.data.joined }) : t("invite.hint")}
         </span>
       </span>

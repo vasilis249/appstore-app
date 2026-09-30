@@ -86,7 +86,7 @@ function ThreadPage() {
       />
       <div className="flex flex-1 flex-col gap-3 px-4 pb-32 pt-2">
         {messages.data && !messages.data.length && (
-          <p className="py-16 text-center text-sm text-muted-foreground">{t("voice.threadEmpty")}</p>
+          <p className="py-16 text-center text-caption text-muted-foreground">{t("voice.threadEmpty")}</p>
         )}
         {(messages.data ?? []).map((m) => (
           <VoiceBubble key={m.id} msg={m} mine={m.sender_id === user?.id} />
@@ -100,7 +100,7 @@ function ThreadPage() {
         onBlocked={() => void navigate({ to: "/messages" })}
       />
       {friends.data && !isFriend ? (
-        <div className="safe-bottom fixed inset-x-0 bottom-0 border-t border-border bg-background/95 py-5 text-center text-sm text-muted-foreground">
+        <div className="safe-bottom fixed inset-x-0 bottom-0 border-t border-border bg-background/95 py-5 text-center text-caption text-muted-foreground">
           {t("voice.friendsOnly")}
         </div>
       ) : (

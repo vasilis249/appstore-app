@@ -113,7 +113,7 @@ function StudentPage() {
   }
 
   const skip = search.welcome ? (
-    <button type="button" onClick={leave} className="text-[17px] font-medium">
+    <button type="button" onClick={leave} className="text-body font-normal">
       {t("auth.skip")}
     </button>
   ) : undefined;
@@ -143,19 +143,19 @@ function StudentPage() {
             type="button"
             disabled={loading}
             onClick={() => void remove()}
-            className={cn("mb-2 h-12 w-full rounded-full text-[15px] font-semibold", confirmRemove ? "bg-destructive text-white" : "text-destructive")}
+            className={cn("mb-2 h-12 w-full rounded-full text-callout font-semibold", confirmRemove ? "bg-destructive text-destructive-foreground" : "text-destructive")}
           >
             {confirmRemove ? t("student.removeConfirm") : t("student.remove")}
           </button>
         }
       >
-        <div className="flex items-center gap-4 rounded-2xl bg-secondary p-4">
+        <div className="flex items-center gap-4 rounded-2xl bg-card p-4">
           <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
             <GraduationCap className="h-6 w-6" />
           </span>
           <div className="min-w-0">
             <p className="font-semibold leading-snug">{campus.uniName(me.data?.university_id)}</p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-caption text-muted-foreground">
               {[campus.depName(me.data?.department_id), me.data?.study_year ? t(`student.years.${me.data.study_year}`) : null]
                 .filter(Boolean)
                 .join(" · ")}
@@ -198,7 +198,7 @@ function StudentPage() {
         ) : (
           <FieldNote>{t("student.emailPrivacy")}</FieldNote>
         )}
-        {accepted && <p className="mt-4 text-[13px] leading-snug text-muted-foreground">{t("student.supported", { list: accepted })}</p>}
+        {accepted && <p className="mt-4 text-caption leading-snug text-muted-foreground">{t("student.supported", { list: accepted })}</p>}
       </StepShell>
     );
 
@@ -225,7 +225,7 @@ function StudentPage() {
           onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
         />
         {error && <FieldNote error>{error}</FieldNote>}
-        <button type="button" disabled={loading} onClick={() => void sendCode()} className="mt-5 text-[15px] font-semibold text-link">
+        <button type="button" disabled={loading} onClick={() => void sendCode()} className="mt-5 text-callout font-semibold text-link">
           {t("student.resend")}
         </button>
       </StepShell>
@@ -251,7 +251,7 @@ function StudentPage() {
               placeholder={t("student.searchSchool")}
               autoCapitalize="none"
               autoCorrect="off"
-              className="min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground"
+              className="min-w-0 flex-1 bg-transparent text-callout outline-none placeholder:text-muted-foreground"
             />
           </label>
         )}
@@ -266,7 +266,7 @@ function StudentPage() {
               >
                 <span className="min-w-0 flex-1">
                   <span className="block font-semibold leading-snug">{en ? d.short_en : d.short_el}</span>
-                  <span className="block text-sm leading-snug text-muted-foreground">{en ? d.name_en : d.name_el}</span>
+                  <span className="block text-caption leading-snug text-muted-foreground">{en ? d.name_en : d.name_el}</span>
                 </span>
                 {school === d.id && <Check className="h-5 w-5 shrink-0" />}
               </button>
@@ -280,7 +280,7 @@ function StudentPage() {
             setSchool(null);
             go("year");
           }}
-          className="mt-3 text-[15px] font-semibold text-link"
+          className="mt-3 text-callout font-semibold text-link"
         >
           {t("student.noSchool")}
         </button>
@@ -304,7 +304,7 @@ function StudentPage() {
             type="button"
             onClick={() => setYear(year === y ? null : y)}
             aria-pressed={year === y}
-            className={cn("h-11 rounded-full px-5 text-[15px] font-semibold", year === y ? "bg-primary text-primary-foreground" : "bg-secondary")}
+            className={cn("h-11 rounded-full px-5 text-callout font-semibold", year === y ? "bg-primary text-primary-foreground" : "bg-secondary")}
           >
             {t(`student.years.${y}`)}
           </button>
