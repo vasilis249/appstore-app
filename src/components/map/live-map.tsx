@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
-import type { Map as MlMap, Marker } from "maplibre-gl";
+import type { ExpressionSpecification, Map as MlMap, Marker } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+// MapLibre 6 draws the map (streets, buildings, labels) in a web worker it loads from a file next to its own script,
+// which the app bundle doesn't have: without this the map shows no streets at all. Bundle the worker ourselves.
+import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import { avatarUrl } from "@/lib/avatar";
 import type { MapPerson } from "@/lib/location/api";
 
@@ -14,7 +17,22 @@ import type { MapPerson } from "@/lib/location/api";
 
 const STYLE = "https://tiles.openfreemap.org/styles/liberty";
 const ATHENS: [number, number] = [23.7275, 37.9838];
-const ME_ZOOM = 15;
+const ME_ZOOM = 16;
+
+/**
+ * Place and street names in the app's language (the style shows "Latin / local" pairs): Greek → the local name
+ * (Greek in Greece), English → the English name, else the Latin transliteration, else the local one.
+ */
+function localizeLabels(m: MlMap, lang: string) {
+  const name: ExpressionSpecification = lang.startsWith("en")
+    ? ["coalesce", ["get", "name:en"], ["get", "name:latin"], ["get", "name"]]
+    : ["coalesce", ["get", "name:el"], ["get", "name"], ["get", "name:latin"]];
+  for (const layer of m.getStyle()?.layers ?? []) {
+    if (layer.type !== "symbol") continue;
+    const field = m.getLayoutProperty(layer.id, "text-field");
+    if (field && JSON.stringify(field).includes('"name')) m.setLayoutProperty(layer.id, "text-field", name);
+  }
+}
 
 export interface LivePosition {
   lat: number;
@@ -134,6 +152,7 @@ export function LiveMap({
   talking,
   heading,
   ageOf,
+  lang,
 }: {
   me: LivePosition | null;
   meFace: { name: string; path: string | null };
@@ -148,6 +167,8 @@ export function LiveMap({
   heading: number | null;
   /** "20λ" for a last known (old) position, null when it is current. */
   ageOf: (p: MapPerson) => string | null;
+  /** App language, for place names. */
+  lang: string;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<MlMap | null>(null);
@@ -156,8 +177,8 @@ export function LiveMap({
   const meMarker = useRef<{ marker: Marker; sig: string; beam: HTMLElement } | null>(null);
   const styleReady = useRef(false);
   const placed = useRef(false);
-  const latest = useRef({ me, meFace, radius, people, onSelect, talking, ageOf });
-  latest.current = { me, meFace, radius, people, onSelect, talking, ageOf };
+  const latest = useRef({ me, meFace, radius, people, onSelect, talking, ageOf, lang });
+  latest.current = { me, meFace, radius, people, onSelect, talking, ageOf, lang };
 
   // Create the map once.
   useEffect(() => {
@@ -165,6 +186,7 @@ export function LiveMap({
     const all = markers.current;
     void import("maplibre-gl").then((ml) => {
       if (cancelled || !box.current) return;
+      if (ml.getWorkerUrl() !== maplibreWorkerUrl) ml.setWorkerUrl(maplibreWorkerUrl);
       lib.current = ml;
       const start = latest.current.me;
       const m = new ml.Map({
@@ -179,6 +201,7 @@ export function LiveMap({
       m.touchZoomRotate.disableRotation();
       m.on("load", () => {
         styleReady.current = true;
+        localizeLabels(m, latest.current.lang);
         const empty = { type: "FeatureCollection" as const, features: [] };
         m.addSource("radius", { type: "geojson", data: empty });
         m.addLayer({ id: "radius-fill", type: "fill", source: "radius", paint: { "fill-color": "#e4571c", "fill-opacity": 0.08 } });
@@ -288,6 +311,11 @@ export function LiveMap({
     }
     drawAreas();
   }
+
+  // Language switched while the map is open.
+  useEffect(() => {
+    if (map.current && styleReady.current) localizeLabels(map.current, lang);
+  }, [lang]);
 
   const talkingKey = talking.join();
   useEffect(sync, [me?.lat, me?.lng, me?.accuracy, meFace.name, meFace.path, people, radius, talkingKey]);

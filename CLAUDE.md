@@ -423,8 +423,8 @@ User decisions:
   μακριά · τώρα", Προφίλ; sharing off → card → /location; refetch 10 s), `lib/location/format.ts`
   (`formatDistance`). Nav: **Χάρτης replaces Αναμνήσεις**; Memories = calendar icon in the Profile header (Memories
   page got a back button). Privacy: OpenFreeMap as a provider. Tests location 21; browser `map-flow.mjs` 10/10
-  (headless Chromium: `--use-angle=swiftshader`; tiles can't load in the container — no proxy for Chromium — so the map
-  is black there; markers/circle/UI verified).
+  (headless Chromium: `--use-angle=swiftshader`; the black map there was really the missing MapLibre worker — see
+  "Map shows streets" below).
   **Map like Snap Map / Find My ✔ (user request after L3)** — no migration. Style OpenFreeMap `liberty` (normal colour
   street map, same host). `tracker.ts`: `watchLocal(onDenied)` (ref-counted foreground watch while the map is open:
   plugin watcher without backgroundMessage / web watchPosition; nothing sent) + `localFix` / `onLocalFix` (tracking
@@ -458,6 +458,17 @@ User decisions:
   nearby 10/10 (one earlier flaky run, three clean since), location 6/6. Live smoke (rolled back): friend 40 min shown
   with accuracy, stranger 20 min hidden. NOT verified: iPhone (patch compile, precise prompt, compass, heartbeat in
   the background).
+  **Map shows streets ✔ (user report: no streets/details)** — ROOT CAUSE: MapLibre 6's ESM build loads its tile
+  worker from `new URL('./maplibre-gl-worker.mjs', import.meta.url)`, a file Vite never emitted → "Worker failed to
+  load" → no streets, buildings or labels ever rendered (only our markers/circles). The L2/L3 notes blaming the
+  container's missing proxy were wrong. Fix: `import maplibreWorkerUrl from
+  "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url"` + `ml.setWorkerUrl()` in `live-map.tsx`, and
+  `vite.worker.format: "es"` in `vite.config.ts` (the worker imports a shared chunk; bundled as
+  `assets/maplibre-gl-worker-*.js`). Also `localizeLabels(map, lang)`: symbol layers whose text-field uses `name` →
+  el: name:el › name › name:latin, en: name:en › name:latin › name (the liberty style showed "Latin / local" pairs);
+  start zoom 16; friends strip only as wide as needed. Real-tile screenshots: scratchpad `tiles-shot.mjs <port> <name>`
+  (Playwright route → curl `--suppress-connect-headers` through the agent proxy; LOCAL build needed — the prod bundle
+  talks to the live Supabase). map 11/11, precision 7/7, nearby 10/10.
   **L3 ✔ (push to talk on the map)** migration `20261023100000_nearby_talk.sql`: `private.nearby_knocks` (last knock per
   pair), `public.nearby_messages` + `private.nearby_audio` (24 h, like walkie), `private.may_talk_nearby(a, b)`
   (are_nearby + nobody disabled + b's talk_from), `knocked_recently(a, b)` (5 min), `may_send_nearby` (may talk, or

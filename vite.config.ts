@@ -12,4 +12,9 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    // Web workers as ES modules: the map's MapLibre worker is an ES module (maplibre-gl-worker.mjs imports a shared
+    // chunk), bundled by `?worker&url` in components/map/live-map.tsx.
+    worker: { format: "es" },
+  },
 });

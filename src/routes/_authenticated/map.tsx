@@ -146,6 +146,7 @@ function MapPage() {
         talking={talking}
         heading={heading}
         ageOf={ageOf}
+        lang={i18n.language}
       />
 
       {/* top: friends | nearby (+ radius) */}
@@ -201,7 +202,7 @@ function MapPage() {
         )}
 
         {on && view === "friends" && (
-          <div className="rounded-3xl bg-[#141415]/90 p-3 shadow-lg backdrop-blur">
+          <div className="max-w-full self-start rounded-3xl bg-[#141415]/90 p-3 shadow-lg backdrop-blur">
             {friends.length ? (
               <ul className="flex gap-3 overflow-x-auto px-0.5 py-1" aria-label={t("map.friendsTab")}>
                 {friends.map((p) => (
