@@ -337,6 +337,8 @@ User decisions:
   <link>s, 3.6 MB), ΟΠΑ `aueb.gr/el/rss.xml` (quiet since June), Πάντειο / ΠΑΔΑ / Χαροκόπειο / ΑΣΚΤ / ΑΣΠΑΙΤΕ `/feed/`
   (WordPress). ΓΠΑ (empty feed) and ΠΑΠΕΙ (site unreachable from the container, no feed found) have none. Parser checked
   on the real files (ΕΚΠΑ items carry photos). Tests campus 78, speak 111 (11e: 17 feeds).
+  Live first run: ΕΚΠΑ 2 (with photos), ΑΣΚΤ 2, Χαροκόπειο 1, ΑΣΠΑΙΤΕ 1; ΟΠΑ timed out from Supabase (TLS
+  handshake, retried by cron); Πάντειο / ΠΑΔΑ had nothing newer than 36 h.
 - **Email (2026-09-30)**: Brevo (free, 300/day, sender `vasilis.har@gmail.com`). Worker secrets `BREVO_API_KEY` +
   `MAIL_FROM_EMAIL` set (student codes). Supabase Auth custom SMTP = `smtp-relay.brevo.com:587`, user
   `bbd8b8001@smtp-brevo.com`, the SMTP key, sender name Speak, 100 emails/h; `mailer_autoconfirm` still true
