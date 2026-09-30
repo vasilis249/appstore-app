@@ -373,6 +373,19 @@ User decisions:
   RSS `acg.edu/feed/` → announcements (parses: 10 items with photos; nothing < 36 h at first). Copy now says
   "πανεπιστήμιο" instead of "ΑΕΙ" (emailTitle, notAcademic with …@acg.edu, manageHint, campus.locked). Tests campus 79
   (13a/13k 11 institutions, 13m ACG), speak 11e = 18 feeds; browser `acg-flow.mjs` 7/7, attica-flow 13/13.
+- **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
+  `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
+  section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
+  url)`; `ingest_feed_xml` files each headline under its routed section or skips it. Rules: ΕΡΤ (athlitismos → sports,
+  eidiseis/oikonomia|politiki|politismos|epistimi → economy/politics/entertainment/tech, rest news); Καθημερινή
+  drop_unmatched (athletics, economy, politics, culture → entertainment, life|k → lifestyle, world|society → news;
+  opinion/columns/eortologio/istoria/visual dropped); Gazzetta drop_unmatched (football|basketball|tennis|… → sports,
+  gmotion F1/MotoGP/rally → sports; /plus, other /gmotion dropped); LiFO (now/world|greece → news, now/politics|economy|
+  tech-science|sport|entertainment → theirs, guide|thegoodlifo|lifoland… → lifestyle, /agora advertorials dropped).
+  Single-subject feeds (Techblog, Ναυτεμπορική, Cinemagazine, campus feeds) need no rules. Existing 7-day headlines
+  with no voices were re-routed / removed. Live: 23 rules; before → after: Gazzetta 24 → 20, LiFO lifestyle 24 → 7
+  (+15 news), ΕΡΤ 3 → sports, Καθημερινή split over 4 sections. Checked on the real feed files first. Tests speak 118
+  (section 19). Add a rule: `INSERT INTO private.news_routes (feed_id, position, pattern, section_id)`.
 - **Email (2026-09-30)**: Brevo (free, 300/day, sender `vasilis.har@gmail.com`). Worker secrets `BREVO_API_KEY` +
   `MAIL_FROM_EMAIL` set (student codes). Supabase Auth custom SMTP = `smtp-relay.brevo.com:587`, user
   `bbd8b8001@smtp-brevo.com`, the SMTP key, sender name Speak, 100 emails/h; `mailer_autoconfirm` still true

@@ -69,3 +69,10 @@ iOS app the provider page opens in Safari (`@capacitor/browser`) and returns thr
 ## Tests
 Local, without Docker (see CLAUDE.md for the Postgres cluster):
 `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` + `test_speak.sql`.
+
+## News sections (RSS routing)
+Each feed has a default section, but a headline is filed by the path of its URL (`private.news_routes`, first match
+wins; `section_id` NULL drops it; feeds with `drop_unmatched = true` drop what no rule matches). To fix a
+miscategorised source, add a rule in SQL, e.g.
+`INSERT INTO private.news_routes (feed_id, position, pattern, section_id) VALUES (1, 0, '^/eidiseis/ygeia(/|$)', 'lifestyle');`
+Check a URL with `SELECT private.route_news(<feed id>, '<article url>');`.

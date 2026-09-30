@@ -470,3 +470,45 @@ WITH d AS (DELETE FROM storage.objects WHERE name = '00000000-0000-0000-0000-000
 SELECT count(*) AS removed_other FROM d \gset
 SELECT pg_temp.ok('18b remove own file, not someone else''s', :removed = 1 AND :removed_other = 0);
 RESET ROLE;
+
+-- 19 news routing: each headline to the section of its URL, or left out
+SELECT format($x$<?xml version="1.0"?><rss><channel>
+<item><title>Ολυμπιακός: νίκη στο ντέρμπι</title><link>https://www.gazzetta.gr/football/superleague/1/oly</link><guid>r-g1</guid><pubDate>%1$s</pubDate></item>
+<item><title>Tokio Hotel: επιστρέφουν</title><link>https://www.gazzetta.gr/plus/2/tokio</link><guid>r-g2</guid><pubDate>%1$s</pubDate></item>
+<item><title>Νέο SUV στην αγορά</title><link>https://www.gazzetta.gr/gmotion/3/suv</link><guid>r-g3</guid><pubDate>%1$s</pubDate></item>
+<item><title>Euroleague: διπλό στο Κάουνας</title><link>https://www.gazzetta.gr/basketball/euroleague/4/zal</link><guid>r-g4</guid><pubDate>%1$s</pubDate></item>
+</channel></rss>$x$, to_char(now(), 'Dy, DD Mon YYYY HH24:MI:SS "+0000"')) AS g_rss \gset
+SELECT private.ingest_feed_xml((SELECT id FROM private.news_feeds WHERE url = 'https://www.gazzetta.gr/rss'), :'g_rss', 10) AS g_added \gset
+SELECT pg_temp.ok('19a Gazzetta: only sport gets in', :g_added = 2
+  AND (SELECT count(*) FROM public.topics WHERE external_id IN ('r-g1', 'r-g4') AND section_id = 'sports') = 2
+  AND NOT EXISTS (SELECT 1 FROM public.topics WHERE external_id IN ('r-g2', 'r-g3')));
+SELECT format($x$<?xml version="1.0"?><rss><channel>
+<item><title>Nations League: σάρωσε η Ισπανία</title><link>https://www.ertnews.gr/athlitismos/nations-league</link><guid>r-e1</guid><pubDate>%1$s</pubDate></item>
+<item><title>Επίδομα ενοικίου: τέλος χρόνου</title><link>https://www.ertnews.gr/eidiseis/oikonomia/epidoma</link><guid>r-e2</guid><pubDate>%1$s</pubDate></item>
+<item><title>Κακοκαιρία στα Χανιά</title><link>https://www.ertnews.gr/eidiseis/xania-kairos</link><guid>r-e3</guid><pubDate>%1$s</pubDate></item>
+</channel></rss>$x$, to_char(now(), 'Dy, DD Mon YYYY HH24:MI:SS "+0000"')) AS e_rss \gset
+SELECT private.ingest_feed_xml((SELECT id FROM private.news_feeds WHERE url = 'https://www.ertnews.gr/feed/'), :'e_rss', 10);
+SELECT pg_temp.ok('19b ΕΡΤ: sports → Αθλητικά, economy → Οικονομία, the rest Επικαιρότητα',
+  (SELECT section_id FROM public.topics WHERE external_id = 'r-e1') = 'sports'
+  AND (SELECT section_id FROM public.topics WHERE external_id = 'r-e2') = 'economy'
+  AND (SELECT section_id FROM public.topics WHERE external_id = 'r-e3') = 'news');
+SELECT pg_temp.ok('19c Καθημερινή (strict): desks routed, opinion / name days / unknown out',
+  private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%kathimerini%'), 'https://www.kathimerini.gr/athletics/analysis/1/x/') = 'sports'
+  AND private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%kathimerini%'), 'https://www.kathimerini.gr/culture/cinema/1/x/') = 'entertainment'
+  AND private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%kathimerini%'), 'https://www.kathimerini.gr/world/1/x/') = 'news'
+  AND private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%kathimerini%'), 'https://www.kathimerini.gr/eortologio/1/x/') IS NULL
+  AND private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%kathimerini%'), 'https://www.kathimerini.gr/opinion/1/x/') IS NULL
+  AND private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%kathimerini%'), 'https://www.kathimerini.gr/something-new/1/') IS NULL);
+SELECT pg_temp.ok('19d LiFO: world news → Επικαιρότητα, guides stay Lifestyle, advertorials out',
+  private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%lifo%'), 'https://www.lifo.gr/now/world/x') = 'news'
+  AND private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%lifo%'), 'https://www.lifo.gr/guide/taste/news/x') = 'lifestyle'
+  AND private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%lifo%'), 'https://www.lifo.gr/now/entertainment/x') = 'entertainment'
+  AND private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%lifo%'), 'https://www.lifo.gr/agora/business-news/x') IS NULL);
+SELECT pg_temp.ok('19e single-subject and campus feeds keep their section',
+  private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%techblog%'), 'https://www.techblog.gr/anything/x') = 'tech'
+  AND private.route_news((SELECT id FROM private.news_feeds WHERE university_id = 'ntua' LIMIT 1), 'https://www.ntua.gr/el/news/1') = 'announcements');
+SELECT pg_temp.ok('19g Gazzetta motor racing counts as sport, car news does not',
+  private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%gazzetta%'), 'https://www.gazzetta.gr/gmotion/2573357/f1-mpahrein-programma') = 'sports'
+  AND private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%gazzetta%'), 'https://www.gazzetta.gr/gmotion/2573336/nea-metra-gia-ta-kaysima') IS NULL);
+SELECT pg_temp.ok('19f rules are private', NOT has_table_privilege('authenticated', 'private.news_routes', 'SELECT')
+  AND NOT has_function_privilege('authenticated', 'private.route_news(int, text)', 'EXECUTE'));
