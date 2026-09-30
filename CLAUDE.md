@@ -447,8 +447,9 @@ User decisions:
   (notice taps now use `router.history.push`). Tests `test_nearby.sql` 28; browser `nearby-flow.mjs` 10/10 (two
   strangers: knock → live on Home with banner, saved + notice, answer from the card, "nobody", server refusal) +
   walkie 11/11, walkie-hub 12/12, walkie-reconnect 4/4, map 10/10, location 6/6. Bug caught by the walkie-hub flow:
-  pinned channels must open with kind walkie. NOT verified: real Realtime server `realtime.send` delivery (live
-  function exists, dry run OK) and a real iPhone.
+  pinned channels must open with kind walkie. Live smoke (rolled back) 7/7: knock near ok / far not_nearby, save, pair topic
+  yes / far no, a knock row for the inbox topic, notice. NOT verified: the real Realtime server relaying
+  `realtime.send` to the phone, and a real iPhone.
 - **Email (2026-09-30)**: Brevo (free, 300/day, sender `vasilis.har@gmail.com`). Worker secrets `BREVO_API_KEY` +
   `MAIL_FROM_EMAIL` set (student codes). Supabase Auth custom SMTP = `smtp-relay.brevo.com:587`, user
   `bbd8b8001@smtp-brevo.com`, the SMTP key, sender name Speak, 100 emails/h; `mailer_autoconfirm` still true
