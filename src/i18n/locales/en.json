@@ -436,7 +436,7 @@
     "usernameFormat": "3–20 characters: a–z, 0–9, . and _",
     "notAllowed": "Not allowed.",
     "notFound": "Not found.",
-    "notAcademic": "You need an email from a university in Attica (e.g. …@uoa.gr, …@mail.ntua.gr).",
+    "notAcademic": "You need an email from a university in Attica (e.g. …@uoa.gr, …@mail.ntua.gr, …@acg.edu).",
     "emailTaken": "This email is already used by another account.",
     "tooManyCodes": "You asked for many codes. Try again in a while.",
     "mailUnavailable": "Couldn't send email right now. Try again later."

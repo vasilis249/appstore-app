@@ -366,6 +366,13 @@ User decisions:
   on the real files (ΕΚΠΑ items carry photos). Tests campus 78, speak 111 (11e: 17 feeds).
   Live first run: ΕΚΠΑ 2 (with photos), ΑΣΚΤ 2, Χαροκόπειο 1, ΑΣΠΑΙΤΕ 1; ΟΠΑ timed out from Supabase (TLS
   handshake, retried by cron); Πάντειο / ΠΑΔΑ had nothing newer than 36 h.
+  **ACG / Deree ✔ (user request 2026-09-30)** migration `20261019100000_acg_deree.sql`: university `acg` ("Deree — The
+  American University of Greece (ACG)", short ACG; licensed as a non-state university under Law 5094/2024 on
+  2026-07-24), domain `acg.edu` (confirmed: students use @acg.edu / webmail.acg.edu), 35 undergraduate majors from
+  acg.edu (Business & Economics 14, Science & Technology 6, Frances Rich School 15; English names in el too, 4 years),
+  RSS `acg.edu/feed/` → announcements (parses: 10 items with photos; nothing < 36 h at first). Copy now says
+  "πανεπιστήμιο" instead of "ΑΕΙ" (emailTitle, notAcademic with …@acg.edu, manageHint, campus.locked). Tests campus 79
+  (13a/13k 11 institutions, 13m ACG), speak 11e = 18 feeds; browser `acg-flow.mjs` 7/7, attica-flow 13/13.
 - **Email (2026-09-30)**: Brevo (free, 300/day, sender `vasilis.har@gmail.com`). Worker secrets `BREVO_API_KEY` +
   `MAIL_FROM_EMAIL` set (student codes). Supabase Auth custom SMTP = `smtp-relay.brevo.com:587`, user
   `bbd8b8001@smtp-brevo.com`, the SMTP key, sender name Speak, 100 emails/h; `mailer_autoconfirm` still true
@@ -497,7 +504,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (78).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

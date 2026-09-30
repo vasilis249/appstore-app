@@ -312,8 +312,8 @@ SELECT pg_temp.ok('12g removed moderator: no access', pg_temp.fails('SELECT * FR
 RESET ROLE;
 
 -- 13 Attica universities
-SELECT pg_temp.ok('13a ten open universities in Attica, every one with departments',
-  (SELECT count(*) FROM public.universities WHERE open) = 10
+SELECT pg_temp.ok('13a eleven open institutions in Attica, every one with departments',
+  (SELECT count(*) FROM public.universities WHERE open) = 11
   AND NOT EXISTS (SELECT 1 FROM public.universities u WHERE NOT EXISTS (SELECT 1 FROM public.departments d WHERE d.university_id = u.id)));
 SELECT pg_temp.ok('13b each address to its university',
   private.university_for_email('sdi2000001@di.uoa.gr') = 'uoa' AND private.university_for_email('p3200001@aueb.gr') = 'aueb'
@@ -358,8 +358,13 @@ RESET ROLE;
 INSERT INTO private.admins (user_id) VALUES (:E);
 SELECT pg_temp.as_user(:E); SET ROLE authenticated;
 SELECT pg_temp.ok('13k admin overview lists every open campus with its students',
-  (SELECT count(*) FROM public.admin_campuses()) = 10
+  (SELECT count(*) FROM public.admin_campuses()) = 11
   AND (SELECT students FROM public.admin_campuses() WHERE university_id = 'uoa') = 1);
 RESET ROLE;
 SELECT pg_temp.ok('13l campus news feeds for 7 more universities, into Ανακοινώσεις',
   (SELECT count(DISTINCT university_id) FROM private.news_feeds WHERE university_id IN ('uoa','aueb','panteion','uniwa','hua','asfa','aspete') AND section_id = 'announcements' AND enabled) = 7);
+SELECT pg_temp.ok('13m ACG / Deree: @acg.edu, 35 majors, 4 years, its news feed',
+  private.university_for_email('jdoe@acg.edu') = 'acg' AND private.university_for_email('a@acg.edu.gr') IS NULL
+  AND (SELECT count(*) FROM public.departments WHERE university_id = 'acg') = 35
+  AND NOT EXISTS (SELECT 1 FROM public.departments WHERE university_id = 'acg' AND years <> 4)
+  AND EXISTS (SELECT 1 FROM private.news_feeds WHERE university_id = 'acg' AND section_id = 'announcements'));
