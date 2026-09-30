@@ -6,7 +6,7 @@ import type { MapPerson } from "@/lib/location/api";
 
 /**
  * The live map: OpenFreeMap's dark style (free, no key), you as a blue dot with the radius circle, everyone else as
- * a round photo (green ring = friend). MapLibre is loaded on demand; markers are plain DOM buttons.
+ * a round photo (green ring = friend, pulsing coral = talking to you). MapLibre is loaded on demand; markers are plain DOM buttons.
  */
 
 const STYLE = "https://tiles.openfreemap.org/styles/dark";
@@ -28,13 +28,14 @@ function circle(center: LivePosition, radiusM: number, steps = 72): [number, num
   return pts;
 }
 
-function personElement(p: MapPerson, onSelect: (p: MapPerson) => void): HTMLButtonElement {
+function personElement(p: MapPerson, talking: boolean, onSelect: (p: MapPerson) => void): HTMLButtonElement {
   const el = document.createElement("button");
   el.type = "button";
   el.setAttribute("aria-label", p.full_name || p.username);
   el.className = `grid h-11 w-11 place-items-center overflow-hidden rounded-full border-[3px] bg-[#2c2c2e] text-base font-bold text-white shadow-lg ${
-    p.is_friend ? "border-emerald-500" : "border-white"
+    talking ? "animate-pulse border-coral ring-4 ring-coral/40" : p.is_friend ? "border-emerald-500" : "border-white"
   }`;
+  if (talking) el.dataset.talking = "1";
   const url = avatarUrl(p.avatar_path);
   if (url) {
     const img = document.createElement("img");
@@ -58,10 +59,13 @@ export function LiveMap({
   people,
   onSelect,
   recenterKey,
+  talking,
 }: {
   me: LivePosition | null;
   radius: number;
   people: MapPerson[];
+  /** People talking to you right now. */
+  talking: string[];
   onSelect: (p: MapPerson) => void;
   /** Change it to fit the map to your radius again. */
   recenterKey: number;
@@ -73,8 +77,8 @@ export function LiveMap({
   const meMarker = useRef<Marker | null>(null);
   const styleReady = useRef(false);
   const fitted = useRef(false);
-  const latest = useRef({ me, radius, people, onSelect });
-  latest.current = { me, radius, people, onSelect };
+  const latest = useRef({ me, radius, people, onSelect, talking });
+  latest.current = { me, radius, people, onSelect, talking };
 
   // Create the map once.
   useEffect(() => {
@@ -142,7 +146,7 @@ export function LiveMap({
     const m = map.current;
     const ml = lib.current;
     if (!m || !ml) return;
-    const { me: pos, people: list, onSelect: select } = latest.current;
+    const { me: pos, people: list, onSelect: select, talking: live } = latest.current;
     // you
     if (pos) {
       if (!meMarker.current) {
@@ -160,14 +164,15 @@ export function LiveMap({
     const seen = new Set<string>();
     for (const p of list) {
       seen.add(p.user_id);
-      const sig = `${p.avatar_path}|${p.is_friend}|${p.full_name}`;
+      const talks = live.includes(p.user_id);
+      const sig = `${p.avatar_path}|${p.is_friend}|${p.full_name}|${talks}`;
       const cur = markers.current.get(p.user_id);
       if (cur && cur.sig === sig) {
         cur.marker.setLngLat([p.lng, p.lat]);
         continue;
       }
       cur?.marker.remove();
-      const marker = new ml.Marker({ element: personElement(p, select) }).setLngLat([p.lng, p.lat]).addTo(m);
+      const marker = new ml.Marker({ element: personElement(p, talks, select) }).setLngLat([p.lng, p.lat]).addTo(m);
       markers.current.set(p.user_id, { marker, sig });
     }
     for (const [id, { marker }] of markers.current) {
@@ -179,7 +184,8 @@ export function LiveMap({
     drawRadius();
   }
 
-  useEffect(sync, [me?.lat, me?.lng, people, radius]);
+  const talkingKey = talking.join();
+  useEffect(sync, [me?.lat, me?.lng, people, radius, talkingKey]);
   useEffect(() => {
     if (recenterKey) fit();
   }, [recenterKey, radius]);

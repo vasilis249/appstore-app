@@ -51,6 +51,9 @@ CREATE POLICY "Authenticated can use realtime" ON realtime.messages FOR SELECT T
 CREATE FUNCTION realtime.probe(p_topic text) RETURNS bigint LANGUAGE sql SECURITY DEFINER AS
 $$ INSERT INTO realtime.messages (topic, extension, private) VALUES (p_topic, 'broadcast', true) RETURNING id $$;
 GRANT EXECUTE ON FUNCTION realtime.probe(text) TO authenticated;
+-- Broadcast from the database (hosted: realtime.send writes a message the server relays to the topic).
+CREATE FUNCTION realtime.send(payload jsonb, event text, topic text, private boolean DEFAULT true) RETURNS void
+LANGUAGE sql AS $$ INSERT INTO realtime.messages (topic, extension, payload, event, private) VALUES ($3, 'broadcast', $1, $2, $4) $$;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO anon, authenticated, service_role;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO anon, authenticated, service_role;

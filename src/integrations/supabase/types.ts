@@ -302,6 +302,45 @@ export type Database = {
           },
         ]
       }
+      nearby_messages: {
+        Row: {
+          created_at: string
+          duration_ms: number
+          id: string
+          recipient_id: string
+          sender_id: string
+        }
+        Insert: {
+          created_at?: string
+          duration_ms: number
+          id?: string
+          recipient_id: string
+          sender_id: string
+        }
+        Update: {
+          created_at?: string
+          duration_ms?: number
+          id?: string
+          recipient_id?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nearby_messages_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "nearby_messages_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           actor_id: string
@@ -1381,6 +1420,23 @@ export type Database = {
           username: string
         }[]
       }
+      nearby_audio: {
+        Args: { p_id: string }
+        Returns: {
+          audio_b64: string
+          mime: string
+        }[]
+      }
+      nearby_history: {
+        Args: { p_limit?: number; p_other: string }
+        Returns: {
+          created_at: string
+          duration_ms: number
+          id: string
+          sender_id: string
+        }[]
+      }
+      nearby_knock: { Args: { p_to: string }; Returns: undefined }
       news_topics: {
         Args: { p_limit?: number; p_offset?: number; p_section?: string }
         Returns: {
@@ -1441,6 +1497,15 @@ export type Database = {
           id: string
           username: string
         }[]
+      }
+      send_nearby: {
+        Args: {
+          p_audio_b64: string
+          p_duration_ms: number
+          p_mime: string
+          p_to: string
+        }
+        Returns: string
       }
       send_voice_message: {
         Args: {

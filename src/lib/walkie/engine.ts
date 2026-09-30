@@ -4,7 +4,9 @@ import { blobToBase64, pickRecorderMime, silenceAll } from "@/lib/audio";
 import { CHUNK_SAMPLES, decodeChunk, Downsampler, encodeChunk, WALKIE_RATE } from "./codec";
 
 /**
- * One live walkie-talkie channel between two friends (Supabase Realtime, private channel `walkie:<a>:<b>`).
+ * One live walkie-talkie channel between two people (Supabase Realtime, private channel `<kind>:<a>:<b>`):
+ * `walkie` = two friends, `nearby` = two people near each other on the map (each transmission is approved by the
+ * server first — a knock — and waits on your phone until the other one has joined).
  *
  * Talking: the microphone runs through a ScriptProcessor → 16 kHz μ-law pieces of 0.25 s → binary broadcast
  * `audio`, framed by `start` / `end`. A MediaRecorder records the same voice so it can be saved (24 h replay).
@@ -23,6 +25,7 @@ const BEEP_S = 0.09;
 const MIN_SAVE_MS = 500;
 
 export type WalkieError = "denied" | "unsupported" | "channel";
+export type WalkieKind = "walkie" | "nearby";
 export interface WalkieSnapshot {
   connected: boolean;
   peerOnline: boolean;
@@ -30,6 +33,8 @@ export interface WalkieSnapshot {
   starting: boolean;
   /** You are on air. */
   talking: boolean;
+  /** You talk, but your voice waits on this phone (approval, the other one joining). */
+  waiting: boolean;
   peerTalking: boolean;
   elapsedMs: number;
   /** iOS needs one tap before Web Audio may play. */
@@ -37,9 +42,11 @@ export interface WalkieSnapshot {
   error: WalkieError | null;
 }
 
-export function walkieTopic(a: string, b: string): string {
-  return a < b ? `walkie:${a}:${b}` : `walkie:${b}:${a}`;
+export function walkieTopic(a: string, b: string, kind: WalkieKind = "walkie"): string {
+  return a < b ? `${kind}:${a}:${b}` : `${kind}:${b}:${a}`;
 }
+
+const BACKLOG_KEEP_MS = 20_000; // a held-back transmission nobody joined for is dropped (the saved copy remains)
 
 // ---------------------------------------------------------------------------------------------------------------
 // One AudioContext for the app (iOS allows few), unlocked by a tap.
@@ -124,6 +131,9 @@ interface Transmission {
   mime: string;
   timer: ReturnType<typeof setInterval>;
   aborted: boolean;
+  /** Approval of this transmission (nearby knock); nothing leaves the phone before it. */
+  gate: Promise<unknown> | null;
+  gateOk: boolean;
 }
 
 export type WalkieEvent = "saved" | "yield" | "peerStart";
@@ -144,6 +154,9 @@ export class WalkieSession {
   private retry: ReturnType<typeof setTimeout> | null = null;
   private failures = 0;
   private disposed = false;
+  /** Messages held back until the gate is open and the other one is on the channel. */
+  private backlog: { event: string; payload: unknown }[] | null = null;
+  private backlogDrop: ReturnType<typeof setTimeout> | null = null;
   private listeners = new Set<(s: WalkieSnapshot) => void>();
   private handlers: Record<WalkieEvent, Set<() => void>> = { saved: new Set(), yield: new Set(), peerStart: new Set() };
   private snap: WalkieSnapshot = {
@@ -151,6 +164,7 @@ export class WalkieSession {
     peerOnline: false,
     starting: false,
     talking: false,
+    waiting: false,
     peerTalking: false,
     elapsedMs: 0,
     audioLocked: true,
@@ -160,6 +174,7 @@ export class WalkieSession {
   constructor(
     readonly me: string,
     readonly peer: string,
+    readonly kind: WalkieKind = "walkie",
   ) {}
 
   get snapshot() {
@@ -224,14 +239,17 @@ export class WalkieSession {
   }
 
   private openChannel() {
-    const ch = supabase.channel(walkieTopic(this.me, this.peer), {
+    const ch = supabase.channel(walkieTopic(this.me, this.peer, this.kind), {
       config: { private: true, broadcast: { self: false }, presence: { key: this.me } },
     });
     ch.on("broadcast", { event: "start" }, ({ payload }) => this.onPeerStart(payload as { sid: string; at: number }))
       .on("broadcast", { event: "audio" }, ({ payload }) => this.onPeerAudio(payload as ArrayBuffer))
       .on("broadcast", { event: "end" }, ({ payload }) => this.onPeerEnd(payload as { sid: string }))
       .on("broadcast", { event: "saved" }, () => this.emit("saved"))
-      .on("presence", { event: "sync" }, () => this.set({ peerOnline: (ch.presenceState()[this.peer]?.length ?? 0) > 0 }))
+      .on("presence", { event: "sync" }, () => {
+        this.set({ peerOnline: (ch.presenceState()[this.peer]?.length ?? 0) > 0 });
+        this.tryFlush();
+      })
       .subscribe((status) => {
         if (this.disposed || this.channel !== ch) return; // a replaced channel's late status
         if (status === "SUBSCRIBED") {
@@ -252,6 +270,7 @@ export class WalkieSession {
     this.disposed = true;
     live.delete(this);
     if (this.retry) clearTimeout(this.retry);
+    if (this.backlogDrop) clearTimeout(this.backlogDrop);
     if (this.tx) this.finishTransmission(false);
     if (this.watchdog) clearInterval(this.watchdog);
     if (this.channel) {
@@ -271,8 +290,12 @@ export class WalkieSession {
   }
 
   // ------------------------------------------------------------------------------------------------ talking ----
-  /** Start talking (call from the press). Resolves false if busy, no microphone or not connected. */
-  async press(): Promise<boolean> {
+  /**
+   * Start talking (call from the press). Resolves false if busy, no microphone or not connected. With a gate (the
+   * server's approval), the voice is held on this phone until the gate resolves and the other one is on the channel;
+   * a rejected gate aborts the transmission.
+   */
+  async press(gate?: Promise<unknown>): Promise<boolean> {
     if (this.tx || this.snap.starting || !this.channel || !this.snap.connected || this.snap.peerTalking) return false;
     const c = audioContext();
     void this.unlockAudio(); // the press is a gesture: good moment on iOS
@@ -335,6 +358,8 @@ export class WalkieSession {
         if (ms >= WALKIE_MAX_MS) this.release();
       }, 200),
       aborted: false,
+      gate: gate ?? null,
+      gateOk: !gate,
     };
     if (recorder) {
       recorder.ondataavailable = (e) => e.data.size && tx.recorded.push(e.data);
@@ -352,9 +377,59 @@ export class WalkieSession {
     };
     this.tx = tx;
     beep(c, 880);
-    void this.channel.send({ type: "broadcast", event: "start", payload: { sid: tx.sid, at: tx.at } });
+    if (gate || (this.kind === "nearby" && !this.snap.peerOnline)) this.holdBack();
+    if (gate) {
+      gate.then(
+        () => {
+          tx.gateOk = true;
+          this.tryFlush();
+        },
+        () => {
+          if (this.tx === tx) this.abort();
+        },
+      );
+    }
+    this.out("start", { sid: tx.sid, at: tx.at });
     this.set({ starting: false, talking: true, elapsedMs: 0 });
     return true;
+  }
+
+  /** Stop at once, nothing sent any more, nothing saved (the approval was refused). */
+  abort() {
+    if (this.tx) {
+      this.tx.aborted = true;
+      this.finishTransmission(false);
+    }
+    this.dropBacklog();
+  }
+
+  private holdBack() {
+    if (this.backlogDrop) clearTimeout(this.backlogDrop);
+    this.backlogDrop = null;
+    this.backlog = [];
+    this.set({ waiting: true });
+  }
+
+  private dropBacklog() {
+    if (this.backlogDrop) clearTimeout(this.backlogDrop);
+    this.backlogDrop = null;
+    this.backlog = null;
+    if (this.snap.waiting) this.set({ waiting: false });
+  }
+
+  /** Send what was held back once it is approved and the other one is here. */
+  private tryFlush() {
+    if (!this.backlog || !this.channel || !this.snap.peerOnline) return;
+    if (this.tx && !this.tx.gateOk) return;
+    const items = this.backlog;
+    this.dropBacklog();
+    for (const m of items) void this.channel.send({ type: "broadcast", event: m.event, payload: m.payload });
+  }
+
+  /** Broadcast now, or hold it back while the transmission waits. */
+  private out(event: string, payload: unknown) {
+    if (this.backlog) this.backlog.push({ event, payload });
+    else void this.channel?.send({ type: "broadcast", event, payload });
   }
 
   /** Stop talking (release). The voice is saved for 24 h replay. */
@@ -363,7 +438,7 @@ export class WalkieSession {
   }
 
   private sendAudio(tx: Transmission, samples: Float32Array) {
-    void this.channel?.send({ type: "broadcast", event: "audio", payload: encodeChunk(tx.seq++, samples) });
+    this.out("audio", encodeChunk(tx.seq++, samples));
   }
 
   private finishTransmission(save: boolean) {
@@ -381,7 +456,9 @@ export class WalkieSession {
       /* already */
     }
     const ms = Date.now() - tx.startedAt;
-    void this.channel?.send({ type: "broadcast", event: "end", payload: { sid: tx.sid, ms } });
+    this.out("end", { sid: tx.sid, ms });
+    // Still held back: give the other one a little longer to join, then drop it (the saved copy remains).
+    if (this.backlog) this.backlogDrop = setTimeout(() => this.dropBacklog(), BACKLOG_KEEP_MS);
     const stopTracks = () => tx.stream.getTracks().forEach((t) => t.stop());
     const keep = save && !tx.aborted && ms >= MIN_SAVE_MS && tx.recorder;
     if (tx.recorder && tx.recorder.state !== "inactive") {
@@ -399,8 +476,9 @@ export class WalkieSession {
   private async save(tx: Transmission, ms: number) {
     if (!tx.recorded.length) return;
     try {
+      if (tx.gate) await tx.gate; // refused → nothing saved
       const blob = new Blob(tx.recorded, { type: tx.mime });
-      const { error } = await supabase.rpc("send_walkie", {
+      const { error } = await supabase.rpc(this.kind === "nearby" ? "send_nearby" : "send_walkie", {
         p_to: this.peer,
         p_audio_b64: await blobToBase64(blob),
         p_mime: tx.mime,
@@ -408,7 +486,7 @@ export class WalkieSession {
       });
       if (error) throw error;
       this.emit("saved");
-      void this.channel?.send({ type: "broadcast", event: "saved", payload: { sid: tx.sid } });
+      this.out("saved", { sid: tx.sid });
     } catch {
       /* live part already heard; the replay copy is best effort */
     }

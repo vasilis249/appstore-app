@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import { UserAvatar } from "@/components/user-avatar";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 import { useAuth } from "@/hooks/use-auth";
+import { formatDistance } from "@/lib/location/format";
+import { nearbyPerson } from "@/lib/location/nearby";
 import { isNativeApp } from "@/lib/native";
 import { resumeWalkieAudio, unlockWalkieAudio, walkieAudioRunning } from "@/lib/walkie/engine";
 import { walkieKeys, walkieList, type WalkieContact } from "@/lib/walkie/history";
@@ -17,7 +19,8 @@ export function useWalkieList(enabled = true) {
   return useQuery({ queryKey: walkieKeys.list, queryFn: walkieList, enabled: enabled && !!user, staleTime: 60_000 });
 }
 
-function useHubPeers() {
+/** Every open walkie session (re-renders on any change). */
+export function useHubPeers() {
   useSyncExternalStore(walkieHub.subscribe, walkieHub.version, walkieHub.version);
   return walkieHub.peers();
 }
@@ -43,12 +46,12 @@ export function WalkieHubSync() {
 
   useEffect(() => {
     const tap = () => {
-      if (!walkieHub.pinnedCount()) return;
+      if (!walkieHub.wantsAudio()) return;
       if (!walkieAudioRunning()) void unlockWalkieAudio();
       arm();
     };
     const vis = () => {
-      onVisibility(walkieHub.pinnedCount() > 0);
+      onVisibility(walkieHub.wantsAudio());
       if (document.visibilityState === "visible") {
         resumeWalkieAudio();
         walkieHub.refresh();
@@ -68,52 +71,78 @@ export function WalkieHubSync() {
   const contacts = list.data;
   useEffect(
     () =>
-      walkieHub.onPeerStart((peer) => {
+      walkieHub.onPeerStart((peer, kind) => {
         if (document.visibilityState !== "hidden" || !isNativeApp()) return;
+        if (kind === "nearby") {
+          const p = nearbyPerson(peer);
+          void notifyTalking(p ? p.full_name || p.username : "", t("nearby.notifyBody"), `/map?u=${peer}`);
+          return;
+        }
         const c = contacts?.find((x) => x.user_id === peer);
-        void notifyTalking(c ? c.full_name || c.username : "", t("walkie.notifyBody"), peer);
+        void notifyTalking(c ? c.full_name || c.username : "", t("walkie.notifyBody"), `/talk/${peer}`);
       }),
     [contacts, t],
   );
   return null;
 }
 
-async function notifyTalking(title: string, body: string, peer: string) {
+async function notifyTalking(title: string, body: string, route: string) {
   try {
     const { LocalNotifications } = await import("@capacitor/local-notifications");
     if ((await LocalNotifications.checkPermissions()).display !== "granted") return;
     await LocalNotifications.schedule({
-      notifications: [{ id: 40_000_000 + Math.floor(Math.random() * 1_000_000), title: title || "Speak", body, extra: { route: `/talk/${peer}` } }],
+      notifications: [{ id: 40_000_000 + Math.floor(Math.random() * 1_000_000), title: title || "Speak", body, extra: { route } }],
     });
   } catch {
     /* best effort */
   }
 }
 
-/** "Νίκος σου μιλάει" over every screen except that friend's walkie; tap opens it (and turns sound on). */
+/**
+ * "Νίκος σου μιλάει" over every screen except the one where you already see them (that friend's walkie, or their
+ * card on the map); tap opens it (and turns sound on).
+ */
 export function WalkieBanner() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const path = useRouterState({ select: (s) => s.location.pathname });
+  const loc = useRouterState({ select: (s) => ({ path: s.location.pathname, u: (s.location.search as { u?: string }).u }) });
   const peers = useHubPeers();
   const list = useWalkieList();
-  const talking = peers.find((p) => p.snap.peerTalking && path !== `/talk/${p.peer}`);
+  const talking = peers.find(
+    (p) =>
+      p.snap.peerTalking &&
+      !(p.kind === "walkie" && loc.path === `/talk/${p.peer}`) &&
+      !(p.kind === "nearby" && loc.path === "/map" && loc.u === p.peer),
+  );
   if (!talking) return null;
-  const c: Pick<WalkieContact, "full_name" | "username" | "avatar_path"> | undefined = list.data?.find((x) => x.user_id === talking.peer);
+  const nearby = talking.kind === "nearby";
+  const c: Pick<WalkieContact, "full_name" | "username" | "avatar_path"> | undefined = nearby
+    ? nearbyPerson(talking.peer)
+    : list.data?.find((x) => x.user_id === talking.peer);
   const name = c ? c.full_name || c.username : "";
+  const dist = nearby ? nearbyPerson(talking.peer)?.distance_m : null;
   return (
     <button
       type="button"
       onClick={() => {
         void unlockWalkieAudio();
-        void navigate({ to: "/talk/$userId", params: { userId: talking.peer } });
+        if (nearby) void navigate({ to: "/map", search: { u: talking.peer } });
+        else void navigate({ to: "/talk/$userId", params: { userId: talking.peer } });
       }}
       className="fixed inset-x-4 top-[calc(env(safe-area-inset-top)+0.75rem)] z-50 mx-auto flex max-w-md items-center gap-3 rounded-full bg-coral px-3 py-2 text-left text-white shadow-lg"
     >
       <UserAvatar name={name} path={c?.avatar_path ?? null} size={36} />
       <span className="min-w-0 flex-1">
         <span className="block truncate text-[15px] font-semibold">{t("walkie.bannerTalking", { name: name.split(" ")[0] })}</span>
-        {talking.snap.audioLocked && <span className="block text-xs text-white/85">{t("walkie.bannerTap")}</span>}
+        {talking.snap.audioLocked ? (
+          <span className="block text-xs text-white/85">{t("walkie.bannerTap")}</span>
+        ) : (
+          nearby && (
+            <span className="block text-xs text-white/85">
+              {dist != null ? t("nearby.bannerFrom", { distance: formatDistance(dist, i18n.language) }) : t("nearby.bannerMap")}
+            </span>
+          )
+        )}
       </span>
       <VoiceIcon className="h-6 w-6 shrink-0" live />
     </button>

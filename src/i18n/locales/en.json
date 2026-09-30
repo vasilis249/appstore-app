@@ -438,7 +438,8 @@
     "group_accepted": "accepted you into «{{group}}»",
     "group_joined": "joined «{{group}}»",
     "invite_joined": "joined Speak with your invite — you're friends now",
-    "walkie": "talked to you on walkie-talkie"
+    "walkie": "talked to you on walkie-talkie",
+    "nearby": "talked to you from the map"
   },
   "rpcErrors": {
     "rateLimited": "Too many actions. Try again soon.",
@@ -871,5 +872,17 @@
     "friend": "Friend",
     "away": "{{distance}} away",
     "profile": "Profile"
+  },
+  "nearby": {
+    "hold": "Hold and talk",
+    "calling": "You're talking — {{name}} is joining…",
+    "stillCalling": "Waiting for {{name}} to join…",
+    "cantTalk": "{{name}} doesn't take voices from the map",
+    "tooFar": "You can only talk to people within 500 m",
+    "notNearby": "You can't talk to {{name}} right now",
+    "tooManyPeople": "You talked to many people this hour. Try again later.",
+    "bannerFrom": "From the map · {{distance}}",
+    "bannerMap": "From the map",
+    "notifyBody": "is talking to you from the map"
   }
 }

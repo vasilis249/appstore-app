@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Pause, Play, Volume2 } from "lucide-react";
+import { Volume2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AppHeader } from "@/components/app-header";
@@ -10,14 +10,14 @@ import { Switch } from "@/components/ui/switch";
 import { useWalkieList } from "@/components/walkie/walkie-hub";
 import { UserAvatar } from "@/components/user-avatar";
 import { VoiceIcon } from "@/components/voice/voice-icon";
+import { HistoryRow } from "@/components/walkie/history-row";
 import { useAuth } from "@/hooks/use-auth";
 import { useWalkie } from "@/hooks/use-walkie";
-import { base64ToBlob, formatClock, player } from "@/lib/audio";
+import { formatClock } from "@/lib/audio";
 import { friendKeys, profileStats } from "@/lib/friends";
-import { timeAgoShort } from "@/lib/time-ago";
 import { WALKIE_MAX_MS } from "@/lib/walkie/engine";
 import { notificationKeys } from "@/lib/notifications";
-import { setWalkieChannel, walkieAudio, walkieHistory, walkieKeys, walkieSeen, type WalkieItem } from "@/lib/walkie/history";
+import { setWalkieChannel, walkieAudio, walkieHistory, walkieKeys, walkieSeen } from "@/lib/walkie/history";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/talk/$userId")({
@@ -199,50 +199,12 @@ function TalkPage() {
             {history.data && !history.data.length && <p className="py-4 text-sm text-muted-foreground">{t("walkie.noHistory")}</p>}
             <ul className="divide-y divide-border">
               {(history.data ?? []).map((m) => (
-                <HistoryRow key={m.id} item={m} mine={m.sender_id === user?.id} name={first} locale={i18n.language} />
+                <HistoryRow key={m.id} item={m} mine={m.sender_id === user?.id} name={first} locale={i18n.language} load={walkieAudio} />
               ))}
             </ul>
           </section>
         )}
       </div>
     </>
-  );
-}
-
-function HistoryRow({ item, mine, name, locale }: { item: WalkieItem; mine: boolean; name: string; locale: string }) {
-  const { t } = useTranslation();
-  const [state, setState] = useState<"idle" | "loading" | "playing">("idle");
-  async function toggle() {
-    if (state !== "idle") {
-      player.stop();
-      setState("idle");
-      return;
-    }
-    player.prime(); // inside the tap (iOS)
-    setState("loading");
-    try {
-      const a = await walkieAudio(item.id);
-      setState("playing");
-      await player.play(base64ToBlob(a.audio_b64, a.mime), { durationMs: item.duration_ms, onEnd: () => setState("idle") });
-    } catch {
-      setState("idle");
-      toast.error(t("voice.playFailed"));
-    }
-  }
-  return (
-    <li className="flex items-center gap-3 py-2.5">
-      <button
-        type="button"
-        onClick={() => void toggle()}
-        aria-label={state === "playing" ? t("daily.pause") : t("daily.play")}
-        className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-full", mine ? "bg-secondary" : "bg-primary text-primary-foreground")}
-      >
-        {state === "playing" ? <Pause className="h-4 w-4" fill="currentColor" /> : <Play className="ml-0.5 h-4 w-4" fill="currentColor" />}
-      </button>
-      <span className="flex-1 text-[15px] font-medium">{mine ? t("walkie.you") : name}</span>
-      <span className="text-sm tabular-nums text-muted-foreground">
-        {formatClock(item.duration_ms)} · {timeAgoShort(item.created_at, locale)}
-      </span>
-    </li>
   );
 }

@@ -1,10 +1,11 @@
 import { silenceAll } from "@/lib/audio";
-import { WalkieSession, walkieAudioRunning, type WalkieSnapshot } from "./engine";
+import { WalkieSession, walkieAudioRunning, type WalkieKind, type WalkieSnapshot } from "./engine";
 
 /**
- * Every live walkie session of this device, one per friend. "Channel on" friends are kept connected while you use
- * the rest of the app (you hear them anywhere, they see you as here); a friend's walkie screen borrows the same
- * session, so there is never a second join of the same channel.
+ * Every live walkie session of this device, one per person and kind. "Channel on" friends are kept connected while
+ * you use the rest of the app (you hear them anywhere, they see you as here); a friend's walkie screen borrows the
+ * same session, so there is never a second join of the same channel. Nearby (map) sessions are held by
+ * lib/location/nearby.ts for a few minutes after a knock.
  */
 
 interface Entry {
@@ -16,45 +17,50 @@ interface Entry {
 
 export interface HubPeer {
   peer: string;
+  kind: WalkieKind;
   snap: WalkieSnapshot;
 }
 
 let me: string | null = null;
 const entries = new Map<string, Entry>();
 const listeners = new Set<() => void>();
-const startListeners = new Set<(peer: string) => void>();
+const startListeners = new Set<(peer: string, kind: WalkieKind) => void>();
 let version = 0;
+let nearbyArmed = false;
+
+const keyOf = (peer: string, kind: WalkieKind) => `${kind}:${peer}`;
 
 function changed() {
   version++;
   listeners.forEach((fn) => fn());
 }
 
-function open(peer: string): Entry {
-  let e = entries.get(peer);
+function open(peer: string, kind: WalkieKind = "walkie"): Entry {
+  const key = keyOf(peer, kind);
+  let e = entries.get(key);
   if (e) return e;
-  const session = new WalkieSession(me!, peer);
+  const session = new WalkieSession(me!, peer, kind);
   e = { session, refs: 0, pinned: false, off: [] };
   e.off.push(session.subscribe(changed));
   e.off.push(
     session.on("peerStart", () => {
       // An incoming voice interrupts the podcast queue / clips, like a call.
       if (walkieAudioRunning()) silenceAll();
-      startListeners.forEach((fn) => fn(peer));
+      startListeners.forEach((fn) => fn(peer, kind));
     }),
   );
-  entries.set(peer, e);
+  entries.set(key, e);
   session.connect();
   changed();
   return e;
 }
 
-function closeIfUnused(peer: string) {
-  const e = entries.get(peer);
+function closeIfUnused(key: string) {
+  const e = entries.get(key);
   if (!e || e.refs > 0 || e.pinned) return;
   e.off.forEach((f) => f());
   e.session.dispose();
-  entries.delete(peer);
+  entries.delete(key);
   changed();
 }
 
@@ -62,10 +68,10 @@ export const walkieHub = {
   /** Signed-in user (null on sign-out closes everything). */
   setUser(id: string | null) {
     if (id === me) return;
-    for (const [peer, e] of entries) {
+    for (const [key, e] of entries) {
       e.off.forEach((f) => f());
       e.session.dispose();
-      entries.delete(peer);
+      entries.delete(key);
     }
     me = id;
     changed();
@@ -74,20 +80,20 @@ export const walkieHub = {
   /** Friends whose channel stays open (walkie_list → channel_on). */
   setPinned(peers: string[]) {
     if (!me) return;
-    const want = new Set(peers);
-    for (const [peer, e] of entries) {
-      if (e.pinned && !want.has(peer)) {
+    const want = new Set(peers.map((p) => keyOf(p, "walkie")));
+    for (const [key, e] of entries) {
+      if (e.pinned && !want.has(key)) {
         e.pinned = false;
-        closeIfUnused(peer);
+        closeIfUnused(key);
       }
     }
-    for (const peer of want) open(peer).pinned = true;
+    for (const peer of peers) open(peer, "walkie").pinned = true;
   },
 
-  /** A screen uses this friend's session until it calls the returned release. */
-  acquire(peer: string): { session: WalkieSession; release: () => void } | null {
+  /** A screen uses this person's session until it calls the returned release. */
+  acquire(peer: string, kind: WalkieKind = "walkie"): { session: WalkieSession; release: () => void } | null {
     if (!me || peer === me) return null;
-    const e = open(peer);
+    const e = open(peer, kind);
     e.refs++;
     let released = false;
     return {
@@ -97,14 +103,14 @@ export const walkieHub = {
         released = true;
         e.refs--;
         // Let a quick remount (route change, StrictMode) reuse the connection.
-        setTimeout(() => closeIfUnused(peer), 1500);
+        setTimeout(() => closeIfUnused(keyOf(peer, kind)), 1500);
       },
     };
   },
 
   /** Every open session (for the "… is talking" banner). */
   peers(): HubPeer[] {
-    return [...entries.entries()].map(([peer, e]) => ({ peer, snap: e.session.snapshot }));
+    return [...entries.values()].map((e) => ({ peer: e.session.peer, kind: e.session.kind, snap: e.session.snapshot }));
   },
 
   /** Back in the foreground / online again: rejoin whatever is not connected. */
@@ -116,13 +122,23 @@ export const walkieHub = {
     return [...entries.values()].filter((e) => e.pinned).length;
   },
 
+  /** Location sharing is on: someone near you may start talking any moment. */
+  setNearbyArmed(on: boolean) {
+    nearbyArmed = on;
+  },
+
+  /** Something may play without a tap (unlock Web Audio on the first tap, keep-alive in the background). */
+  wantsAudio(): boolean {
+    return nearbyArmed || [...entries.values()].some((e) => e.pinned || e.session.kind === "nearby");
+  },
+
   subscribe(fn: () => void): () => void {
     listeners.add(fn);
     return () => void listeners.delete(fn);
   },
 
-  /** A friend started talking on any open session. */
-  onPeerStart(fn: (peer: string) => void): () => void {
+  /** Someone started talking on any open session. */
+  onPeerStart(fn: (peer: string, kind: WalkieKind) => void): () => void {
     startListeners.add(fn);
     return () => void startListeners.delete(fn);
   },

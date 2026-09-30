@@ -1,17 +1,21 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { LocateFixed, MapPin, Users } from "lucide-react";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { LiveMap } from "@/components/map/live-map";
+import { NearbyTalk } from "@/components/map/nearby-talk";
+import { useHubPeers } from "@/components/walkie/walkie-hub";
 import { UserAvatar } from "@/components/user-avatar";
 import { locationKeys, mapPeople, mySharing, type MapPerson } from "@/lib/location/api";
 import { formatDistance } from "@/lib/location/format";
+import { nearbyPerson } from "@/lib/location/nearby";
 import { timeAgoShort } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/map")({
+  validateSearch: (s: Record<string, unknown>): { u?: string } => (typeof s.u === "string" && s.u ? { u: s.u } : {}),
   component: MapPage,
 });
 
@@ -19,7 +23,8 @@ const RADII = [100, 250, 500] as const;
 
 /**
  * Live map: you in the middle of a 100 / 250 / 500 m circle, everyone within it who shares with everyone, and your
- * friends wherever they are. Refreshes every 10 s. Tap someone → who they are, how far, their profile.
+ * friends wherever they are. Refreshes every 10 s. Tap someone → who they are, how far, their profile, and hold to
+ * talk to them live (?u=<id> opens that card, e.g. from the "… is talking to you" banner).
  */
 function MapPage() {
   const { t, i18n } = useTranslation();
@@ -27,20 +32,36 @@ function MapPage() {
   const [radius, setRadius] = useState<number>(500);
   const on = !!sharing.data && sharing.data.mode !== "off";
   const people = useQuery({ queryKey: locationKeys.people(radius), queryFn: () => mapPeople(radius), enabled: on, refetchInterval: 10_000 });
-  const [selected, setSelected] = useState<MapPerson | null>(null);
+  const { u } = Route.useSearch();
+  const navigate = useNavigate({ from: "/map" });
+  const setSelected = (p: MapPerson | null) => void navigate({ search: p ? { u: p.user_id } : {}, replace: true });
   const [listOpen, setListOpen] = useState(false);
+  const talking = useHubPeers()
+    .filter((p) => p.kind === "nearby" && p.snap.peerTalking)
+    .map((p) => p.peer);
   const [recenter, setRecenter] = useState(0);
 
   const s = sharing.data;
   const me = on && s?.lat != null && s?.lng != null ? { lat: s.lat, lng: s.lng } : null;
   const list = people.data ?? [];
   const nearby = list.filter((p) => p.distance_m <= radius);
-  // Keep the open sheet in step with the latest position of that person.
-  const current = selected ? (list.find((p) => p.user_id === selected.user_id) ?? selected) : null;
+  // The open card follows that person's latest position; someone who talked to you but is off your map right now
+  // still gets a card (from their knock) so you can answer.
+  const known = u ? nearbyPerson(u) : undefined;
+  const current: MapPerson | null = u
+    ? (list.find((p) => p.user_id === u) ??
+      (known
+        ? { ...known, lat: 0, lng: 0, accuracy_m: null, heading: null, updated_at: new Date().toISOString(), distance_m: known.distance_m ?? 0, is_friend: false, can_talk: true }
+        : null))
+    : null;
+  // Opened from the banner with a small radius: widen it so they show on the map.
+  useEffect(() => {
+    if (u && people.data && !people.data.some((p) => p.user_id === u) && radius < 500) setRadius(500);
+  }, [u, people.data, radius]);
 
   return (
     <div className="fixed inset-0 z-0 bg-black">
-      <LiveMap me={me} radius={radius} people={list} onSelect={setSelected} recenterKey={recenter} />
+      <LiveMap me={me} radius={radius} people={list} onSelect={setSelected} recenterKey={recenter} talking={talking} />
 
       {/* top: title + radius */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex flex-col items-center gap-2 px-4 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
@@ -148,10 +169,11 @@ function MapPage() {
                   </p>
                 </div>
               </div>
+              {on && <NearbyTalk person={current} />}
               <Link
                 to="/u/$username"
                 params={{ username: current.username }}
-                className="mt-5 flex h-12 items-center justify-center rounded-full bg-secondary font-semibold"
+                className="mt-4 flex h-12 items-center justify-center rounded-full bg-secondary font-semibold"
               >
                 {t("map.profile")}
               </Link>

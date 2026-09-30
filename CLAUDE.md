@@ -425,6 +425,30 @@ User decisions:
   page got a back button). Privacy: OpenFreeMap as a provider. Tests location 21; browser `map-flow.mjs` 10/10
   (headless Chromium: `--use-angle=swiftshader`; tiles can't load in the container — no proxy for Chromium — so the map
   is black there; markers/circle/UI verified).
+  **L3 ✔ (push to talk on the map)** migration `20261023100000_nearby_talk.sql`: `private.nearby_knocks` (last knock per
+  pair), `public.nearby_messages` + `private.nearby_audio` (24 h, like walkie), `private.may_talk_nearby(a, b)`
+  (are_nearby + nobody disabled + b's talk_from), `knocked_recently(a, b)` (5 min), `may_send_nearby` (may talk, or
+  b talked to a < 5 min = an answer; never across a block), `nearby_topic_ok` + policies `nearby_read/nearby_write`
+  on `nearby:<smaller>:<larger>` and `nearby_inbox_read` (`nearby-in:<uid>`, nobody writes). `nearby_knock(to)`
+  (not_nearby | too_many_people = 30 different people/h | rate_limited 60/min) → `realtime.send(… 'knock',
+  'nearby-in:<to>')` with name/photo/distance (live has `realtime.send`; stub in supabase_stubs.sql; the local
+  mock relays it via `public.rt_poll` in rt_mock.sql). `send_nearby` (needs your knock < 5 min), `nearby_audio`,
+  `nearby_history`; notification kind `nearby` (→ `/map?u=<actor>`); block wipes pair + knocks; cron `expire-nearby`
+  `39 * * * *`; `map_people.can_talk` now needs ≤ 500 m (friends far away: no) or an answer window. Client:
+  `WalkieSession(me, peer, kind 'walkie' | 'nearby')` topic `<kind>:a:b`, `press(gate)` holds the voice on the phone
+  (`waiting`) until the gate (the knock) resolves AND the other one is present, then flushes; a rejected gate aborts,
+  nothing saved; `abort()`. Hub keys `<kind>:<peer>`, `peers()` + kind, `onPeerStart(peer, kind)`,
+  `setNearbyArmed` / `wantsAudio()` (tap unlock + keep-alive). `lib/location/nearby.ts` (holds a conversation 3 min
+  after a knock either way, ≤ 6 open, metas for the banner, knock/history/audio RPCs); `LocationSync` listens to
+  `nearby-in:<me>` while sharing. UI: map person card `components/map/nearby-talk.tsx` (status, 112 px PTT with 60 s
+  ring, "δεν δέχεται φωνές" / "έως 500 μ" when off, last 24 h via shared `components/walkie/history-row.tsx`), map
+  `?u=<id>` = open card (widens to 500 m; someone off your map who knocked still gets a card), coral pulsing marker
+  while they talk; `WalkieBanner` for nearby ("Από τον χάρτη · 100 μ" → /map?u=), local notice route `/map?u=`
+  (notice taps now use `router.history.push`). Tests `test_nearby.sql` 28; browser `nearby-flow.mjs` 10/10 (two
+  strangers: knock → live on Home with banner, saved + notice, answer from the card, "nobody", server refusal) +
+  walkie 11/11, walkie-hub 12/12, walkie-reconnect 4/4, map 10/10, location 6/6. Bug caught by the walkie-hub flow:
+  pinned channels must open with kind walkie. NOT verified: real Realtime server `realtime.send` delivery (live
+  function exists, dry run OK) and a real iPhone.
 - **Email (2026-09-30)**: Brevo (free, 300/day, sender `vasilis.har@gmail.com`). Worker secrets `BREVO_API_KEY` +
   `MAIL_FROM_EMAIL` set (student codes). Supabase Auth custom SMTP = `smtp-relay.brevo.com:587`, user
   `bbd8b8001@smtp-brevo.com`, the SMTP key, sender name Speak, 100 emails/h; `mailer_autoconfirm` still true
@@ -556,7 +580,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79) + `test_location.sql` (21).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79) + `test_location.sql` (21) + `test_nearby.sql` (28).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

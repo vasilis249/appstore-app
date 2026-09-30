@@ -32,7 +32,7 @@ function WalkieListPage() {
   const qc = useQueryClient();
   const list = useWalkieList();
   useSyncExternalStore(walkieHub.subscribe, walkieHub.version, walkieHub.version);
-  const online = new Set(walkieHub.peers().filter((p) => p.snap.peerOnline).map((p) => p.peer));
+  const online = new Set(walkieHub.peers().filter((p) => p.kind === "walkie" && p.snap.peerOnline).map((p) => p.peer));
   const [background, setBackground] = useState(backgroundWanted);
 
   const toggle = useMutation({

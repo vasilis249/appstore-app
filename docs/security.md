@@ -53,12 +53,20 @@ schema change.
 - **Invite links**: `invite_preview` (name, photo, school of the inviter) is served by the Worker with the service
   role — anon can't call it; `claim_invite` works once, only for accounts younger than 7 days, and makes the two
   friends.
+- **Live map / push to talk nearby**: positions only in `private.user_locations` (latest only, no client access,
+  hidden after 15 min, deleted after 1 h); `map_people` measures the radius from your own stored position and needs
+  you to share too. Talking: every transmission starts with `nearby_knock`, which checks `private.may_send_nearby`
+  (both sharing, ≤ 500 m, not blocked/disabled, the other's "who can talk to you" setting, or an answer within
+  5 min) and signals only the recipient's inbox topic `nearby-in:<id>` via `realtime.send` (clients can't write
+  there). The pair channel `nearby:<a>:<b>` admits only the two, while one may talk to the other; the audio waits on
+  the talker's phone until the knock is approved. Limits: 60 knocks/min, 30 different people/hour, saves 60/min and
+  1,000/day; saved transmissions are kept 24 h (replay, reports), a block wipes them.
 - **Admins** (`private.admins`, granted by SQL): topics, news sources and moderation RPCs (`admin_*`) check
   `private.is_admin`; an admin can't be disabled through them.
 - **Blocks**: remove follows in both directions, drop the blocked person's unheard messages, hide both
   profiles and all posts from each other and from search; no DMs, likes, replies or follows across a block.
 - **Rate limits** (per user): posts 30/h, likes 300/h, follows 200/h, voice messages 30/min and 500/day,
-  walkie saves 60/min and 2,000/day, student codes 5/h, reports 20/h, admin news refresh 20/h.
+  walkie saves 60/min and 2,000/day, map talk: knocks 60/min and 30 people/h, student codes 5/h, reports 20/h, admin news refresh 20/h.
 - **Reports / moderation** (App Store 1.2): insert-only through `report_content` (post, user, voice
   message); not readable by clients. Each new report puts one "reports to review" notification on every
   admin's bell; a post with 3 distinct open reporters is hidden automatically. Admins review in the app

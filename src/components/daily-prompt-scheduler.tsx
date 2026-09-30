@@ -34,7 +34,8 @@ export function DailyPromptScheduler() {
 
   useEffect(() => {
     let off: (() => void) | undefined;
-    void onDailyPromptTap((route) => void router.navigate({ to: route })).then((f) => (off = f));
+    // history.push: routes may carry a query (/map?u=…).
+    void onDailyPromptTap((route) => router.history.push(route)).then((f) => (off = f));
     return () => off?.();
   }, [router]);
 
