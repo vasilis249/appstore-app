@@ -24,7 +24,7 @@ function supabaseOrigin(): string | null {
 function buildCsp(): string {
   const sb = supabaseOrigin();
   // Supabase realtime uses secure WebSockets on the same host.
-  const sbWs = sb ? sb.replace(/^https:/, "wss:") : null;
+  const sbWs = sb ? sb.replace(/^http(s?):/, "ws$1:") : null; // wss: in production, ws: for the local stack
 
   const connectSrc = [
     "'self'",

@@ -1,6 +1,6 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, RadioTower } from "lucide-react";
 import { HeaderPill } from "@/components/app-header";
 import { PersonActionsSheet } from "@/components/friends/person-actions-sheet";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -64,6 +64,11 @@ function ThreadPage() {
         right={
           other.data && (
             <HeaderPill>
+              {isFriend && (
+                <Link to="/talk/$userId" params={{ userId }} aria-label={t("walkie.title")} className="grid h-9 w-10 place-items-center rounded-full">
+                  <RadioTower className="h-5 w-5" />
+                </Link>
+              )}
               <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className="grid h-9 w-10 place-items-center rounded-full">
                 <MoreHorizontal className="h-5 w-5" />
               </button>

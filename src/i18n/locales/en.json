@@ -205,8 +205,9 @@
             "Public voices: the recordings you post (up to 2 minutes), their title, section and topic, the time of posting, and your voice replies, reposts and quotes. Your voice is personal data because it can identify you and reveal information about you.",
             "Activity: who you follow and who follows you, likes, which voices you have played (for the listen counter, once per voice), blocks, reports you make or that are made about you, in-app notifications.",
             "Voice messages: the audio of each message is stored only until the recipient plays it, together with sender, recipient, time sent and whether it was played.",
+            "Walkie-talkie: when you hold the button and talk to a friend, your voice is streamed live only to them through Supabase Realtime (not stored there). Each transmission is also saved, with sender, recipient, length and time, so the two of you can replay it for 24 hours. Your friend can also see when you have the walkie screen with them open.",
             "Technical data: IP address, device/browser type, server logs and a log of actions for usage limits (rate limits), needed to run and secure the service.",
-            "Microphone: used only while you record, after you grant permission. A recording stays on your device until you tap \"Post\" or \"Send\".",
+            "Microphone: used only while you record or hold the walkie-talkie button, after you grant permission. A recording stays on your device until you tap \"Post\" or \"Send\"; on the walkie-talkie your voice reaches your friend live while you talk.",
             "Reminders: the daily topic notifications are scheduled locally on your device; we do not use a push server.",
             "We do not collect location, contacts, payment or health data. We do not transcribe your voice, use it for biometric identification or use it to train artificial intelligence systems."
           ]
@@ -225,9 +226,9 @@
           "heading": "Who can see your data",
           "body": [
             "Other users: your name, @username, photo, public voices (with title, time, likes, replies, reposts and listen count) and follower lists are visible to every signed-in user. Who played or liked a voice is not shown. Your email is never shown.",
-            "Audio files of public voices are stored under a random, unguessable link: anyone who obtains a file's link can play it. Voice messages are not stored under such a link and only the recipient can play them, once.",
+            "Audio files of public voices are stored under a random, unguessable link: anyone who obtains a file's link can play it. Voice messages are not stored under such a link and only the recipient can play them, once. Walkie-talkie transmissions are not stored under such a link; only you and your friend can play them.",
             "People you block cannot see your content or contact you.",
-            "Speak administrators: have access only as needed for support and for reviewing reports (e.g. playing a public voice that was reported). Voice messages are not available in the admin tools."
+            "Speak administrators: have access only as needed for support and for reviewing reports (e.g. playing a public voice that was reported). Voice messages are not available in the admin tools. The same goes for the walkie-talkie."
           ]
         },
         {
@@ -250,8 +251,9 @@
         {
           "heading": "How long we keep data",
           "body": [
-            "Your account, profile and public voices are kept while your account is active or until you delete them. When you delete a voice, its audio file, replies, reposts, likes and listens are deleted too.",
+            "Your account, profile and public voices are kept while your account is active or until you delete them. When you delete a voice, its audio file, title, likes, listens and plain reposts are deleted. If others had replied to it or quoted it, their voices stay and \"This voice was deleted\" is shown in its place, without a name or audio.",
             "Voice messages: the audio is deleted as soon as it is played, or after 10 days if it is never played. Conversation records (who sent to whom and when) are deleted after 90 days.",
+            "Walkie-talkie: each transmission (audio and details) is deleted automatically after 24 hours, or at once if you block the other person.",
             "Content reports are kept as long as needed for community safety and dealing with repeated violations. Server logs are kept for a limited time by the hosting providers."
           ]
         },
@@ -259,7 +261,7 @@
           "heading": "Deleting your account",
           "body": [
             "You can permanently delete your account in the app: Profile → ⚙︎ → \"Delete account\". Alternatively, send a request to {email}.",
-            "Deletion immediately removes your account, profile, photo, all your voices and their audio files (and other people's replies and reposts of them), likes, followers, blocks, notifications and the voice messages you sent or received. Reports you made remain without any link to you."
+            "Deletion immediately removes your account, profile, photo, all your voices and their audio files, likes, followers, blocks, notifications, and the voice messages and walkie-talkie transmissions you sent or received. Voices of yours that others had replied to or quoted remain as \"This voice was deleted\" without a name, audio or title, so their voices are not lost. Reports you made remain without any link to you."
           ]
         },
         {
@@ -667,5 +669,22 @@
     "empty": "News refresh every 3 hours.",
     "readAt": "Read on {{source}}",
     "listenAll": "Play all"
+  },
+  "walkie": {
+    "title": "Walkie-talkie",
+    "hold": "Hold and talk",
+    "onAir": "You're live — they hear you now",
+    "starting": "Starting the microphone…",
+    "peerTalking": "{{name}} is talking…",
+    "peerHere": "{{name}} is here",
+    "peerAway": "{{name}} is away — they'll hear it later",
+    "connecting": "Connecting…",
+    "cantConnect": "Couldn't connect",
+    "friendsOnly": "Walkie-talkie only when you follow each other.",
+    "enableSound": "Tap to hear live",
+    "last24h": "Last 24 hours",
+    "noHistory": "Nothing yet. What you say stays here for 24 hours.",
+    "you": "You",
+    "yielded": "{{name}} spoke first"
   }
 }

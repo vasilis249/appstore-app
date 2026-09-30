@@ -217,6 +217,36 @@ User decisions:
   `$SUPABASE_PUBLISHABLE_KEY`, which `deploy.env` doesn't define → client bundle without Supabase config (live app
   couldn't reach the backend). Fixed + redeployed. ALWAYS deploy with scratchpad `deploy-prod.sh` (builds with the
   URL literal + `SUPABASE_ANON_KEY`, refuses a bundle without URL/anon key or with the service key / local URL).
+- **Walkie-talkie (user request 2026-09-30, "like Zello, free")** — decisions: 1-to-1 between friends only (mutual
+  follows), LIVE audio while holding, transmissions kept 24 h. Free stack limits: Supabase Realtime free = 200
+  connections, 100 msg/s, 2 M messages/month (each 0.25 s piece = 1 sent + 1 received → ~70 h of talk/month);
+  no APNs (free Apple ID) → you hear live only while the app is open (background = W2, best effort).
+  Plan: **W1** live 1-to-1 ✔ → **W2** receive anywhere in the app + "channel on" in the background (silent audio
+  keep-alive, lock-screen), walkie list/entry points, local notice → **W3** polish/limits/docs.
+  **W1 ✔** migration `20261015100000_speak_walkie.sql`: `walkie_messages` (sender, recipient, 300–60000 ms, RLS: the
+  two only, no client writes) + `private.walkie_audio` (bytea, like DMs), `send_walkie(to, b64 ≤ 1.5 MB, mime, ms)`
+  (friends only, rate limits), `walkie_audio(id)` (replay, 24 h), `walkie_history(other)`, cron `expire-walkie`
+  `37 * * * *`, block wipes the pair's history. Realtime authorization: `private.walkie_topic_ok(topic)` +
+  policies `walkie_read` (SELECT) / `walkie_write` (INSERT) on `realtime.messages` for private topics
+  `walkie:<smaller id>:<larger id>` (live project also has "Authenticated can use realtime": SELECT on topics not
+  ending in a uuid or ending in your own id — never grants a pair channel to a third person). Also fixed there:
+  `orphan_voice_files` is now an invoker wrapper that raises unless `current_user = service_role` (every migration's
+  blanket `GRANT … ALL FUNCTIONS` had given it back to `authenticated`). Client: `src/lib/walkie/codec.ts` (16 kHz
+  μ-law, 0.25 s pieces, header version + seq, `Downsampler`), `engine.ts` `WalkieSession` (private channel, presence
+  key = user id, binary broadcast `audio` framed by `start`/`end` + `saved`; ScriptProcessor capture, MediaRecorder
+  copy at 32 kbps → `send_walkie`; receive = Web Audio schedule with 0.3 s jitter cushion; floor: can't press while the
+  friend talks, simultaneous press → earlier `at` wins, loser gets `onYield`; watchdog ends a silent peer after
+  1.5 s; beeps 880/660 Hz; `navigator.audioSession` playback / play-and-record so it plays with the silent switch;
+  60 s max), `hooks/use-walkie.ts`, `lib/walkie/history.ts`. UI `/talk/$userId` (avatar with green ring = here,
+  coral pulse = talking, status line, "Πάτα για να ακούς ζωντανά" when iOS audio is locked, 176 px PTT button
+  with a 60 s ring, shake if refused, "Τελευταίες 24 ώρες" replay list); entry: RadioTower in the conversation
+  header and on a friend's profile; nav/mini player hidden on /talk. CSP connect-src now derives ws: from http:
+  (local stack). Privacy (el/en) updated for walkie + for deleted voices staying as placeholders. Tests
+  `test_walkie.sql` 19; browser `walkie-flow.mjs` 11/11 (two browsers, fake mic 440 Hz: presence, live pieces while
+  holding with the tone's level, no echo, saved on both sides, one at a time, replay, outsider refused incl. a
+  hand-made join); live policy check (rolled back): friends rw, outsider --, after unfollow --. NOT verified: the
+  real Realtime server (the container's proxy can't do WebSockets) and a real iPhone (WKWebView ScriptProcessor,
+  audio route/earpiece with play-and-record, background) → user test with two accounts.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -344,8 +374,11 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session
   injected into localStorage `sb-127-auth-token`. Chromium can't trust the proxy CA → check the live site with curl.
+- Local Realtime: scratchpad `realtime-mock.mjs` (Phoenix vsn 2.0.0: JSON arrays + binary user broadcasts, presence,
+  private joins authorized by the real RLS policies via `public.rt_authorize`, `rt_mock.sql`, loaded by `reset-local.sh`)
+  attached to `local-supabase.mjs`. Fake mic file: `--use-file-for-fake-audio-capture=<wav>` (`tone440.wav`).

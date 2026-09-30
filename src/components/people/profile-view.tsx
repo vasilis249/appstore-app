@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Send } from "lucide-react";
+import { RadioTower, Send } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { FollowButton } from "@/components/friends/follow-button";
 import { FeedList } from "@/components/posts/feed-list";
@@ -60,6 +60,16 @@ export function ProfileView({ person, isMe, ownAction }: { person: Person; isMe:
                       className="flex h-10 items-center gap-2 rounded-full bg-secondary px-5 text-sm font-semibold"
                     >
                       <Send className="h-4 w-4" /> {t("people.message")}
+                    </Link>
+                  )}
+                  {s.i_follow && s.follows_me && (
+                    <Link
+                      to="/talk/$userId"
+                      params={{ userId: person.id }}
+                      aria-label={t("walkie.title")}
+                      className="grid h-10 w-10 place-items-center rounded-full bg-secondary"
+                    >
+                      <RadioTower className="h-4 w-4" />
                     </Link>
                   )}
                 </>

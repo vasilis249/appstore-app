@@ -669,6 +669,45 @@ export type Database = {
           },
         ]
       }
+      walkie_messages: {
+        Row: {
+          created_at: string
+          duration_ms: number
+          id: string
+          recipient_id: string
+          sender_id: string
+        }
+        Insert: {
+          created_at?: string
+          duration_ms: number
+          id?: string
+          recipient_id: string
+          sender_id: string
+        }
+        Update: {
+          created_at?: string
+          duration_ms?: number
+          id?: string
+          recipient_id?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "walkie_messages_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "walkie_messages_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -1047,6 +1086,15 @@ export type Database = {
         }
         Returns: string
       }
+      send_walkie: {
+        Args: {
+          p_audio_b64: string
+          p_duration_ms: number
+          p_mime: string
+          p_to: string
+        }
+        Returns: string
+      }
       set_group_role: {
         Args: { p_group: string; p_role: string; p_user: string }
         Returns: undefined
@@ -1101,6 +1149,22 @@ export type Database = {
           p_section: string
         }
         Returns: undefined
+      }
+      walkie_audio: {
+        Args: { p_id: string }
+        Returns: {
+          audio_b64: string
+          mime: string
+        }[]
+      }
+      walkie_history: {
+        Args: { p_limit?: number; p_other: string }
+        Returns: {
+          created_at: string
+          duration_ms: number
+          id: string
+          sender_id: string
+        }[]
       }
     }
     Enums: {

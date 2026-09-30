@@ -38,6 +38,19 @@ CREATE PUBLICATION supabase_realtime;
 CREATE SCHEMA realtime;
 CREATE TABLE realtime.messages (id bigserial PRIMARY KEY, topic text, extension text, payload jsonb, event text, private boolean, inserted_at timestamptz DEFAULT now());
 CREATE FUNCTION realtime.topic() RETURNS text LANGUAGE sql STABLE AS $$ SELECT current_setting('realtime.topic', true) $$;
+-- Realtime authorization like the hosted project: RLS on realtime.messages, and the policy it already has there.
+ALTER TABLE realtime.messages ENABLE ROW LEVEL SECURITY;
+GRANT USAGE ON SCHEMA realtime TO authenticated, anon;
+GRANT SELECT, INSERT ON realtime.messages TO authenticated;
+GRANT USAGE ON SEQUENCE realtime.messages_id_seq TO authenticated;
+GRANT EXECUTE ON FUNCTION realtime.topic() TO authenticated, anon;
+CREATE POLICY "Authenticated can use realtime" ON realtime.messages FOR SELECT TO authenticated
+  USING ((realtime.topic() !~ ':[0-9a-fA-F-]{36}$') OR (right(realtime.topic(), 36) = (auth.uid())::text));
+-- For the local Realtime mock (scratchpad local-supabase.mjs): may the caller read / write this private topic?
+-- Evaluates the RLS policies the way the Realtime server does (probe row, then SELECT / INSERT as the user).
+CREATE FUNCTION realtime.probe(p_topic text) RETURNS bigint LANGUAGE sql SECURITY DEFINER AS
+$$ INSERT INTO realtime.messages (topic, extension, private) VALUES (p_topic, 'broadcast', true) RETURNING id $$;
+GRANT EXECUTE ON FUNCTION realtime.probe(text) TO authenticated;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO anon, authenticated, service_role;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO anon, authenticated, service_role;

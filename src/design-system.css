@@ -184,6 +184,13 @@
 .animate-fade-in-up { animation: fade-in-up 600ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 .animate-scale-in { animation: scale-in 400ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 .animate-pulse-glow { animation: pulse-glow 2.8s ease-in-out infinite; }
+/* "Not now" (e.g. walkie button while the friend talks). */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.animate-shake { animation: shake 400ms ease-in-out; }
 
 /* Shine sweep for primary CTAs. */
 .btn-shine { position: relative; overflow: hidden; }
