@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GraduationCap, Play, Search } from "lucide-react";
 import { AppHeader, HomeHeaderActions } from "@/components/app-header";
@@ -11,7 +11,8 @@ import { UserAvatar } from "@/components/user-avatar";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { useSections } from "@/hooks/use-sections";
 import { campusTopics, NEWS_PAGE, newsTopics, postKeys, type FeedParams, type NewsTopic, type Section } from "@/lib/posts";
-import { useCampus } from "@/lib/campus";
+import { campusLeaderboard, campusStatus, campusStatusKeys, useCampus, type CampusStatus } from "@/lib/campus";
+import { InviteShare } from "@/components/invite-share";
 import { friendKeys, suggestedPeople } from "@/lib/friends";
 import { FollowButton } from "@/components/friends/follow-button";
 import { timeAgoShort } from "@/lib/time-ago";
@@ -54,6 +55,9 @@ function HomePage() {
   const playAll = useRef<(() => void) | null>(null);
 
   const params: FeedParams = tab === "following" ? { scope: "personal" } : { scope: "groups" };
+  // A campus still waiting for students has no sections or feed to play yet.
+  const status = useQuery({ queryKey: campusStatusKeys.status, queryFn: campusStatus, enabled: tab === "campus" && verified });
+  const campusOpen = status.data?.is_open !== false;
   const label = (x: Tab) => (x === "campus" ? campus.label({ university_id: me.data?.university_id }) || t("home.campus") : t(`home.${x}`));
   return (
     <>
@@ -77,7 +81,7 @@ function HomePage() {
               );
             })}
           </nav>
-          {tab && tab !== "news" && !(tab === "campus" && !verified) && (
+          {tab && tab !== "news" && !(tab === "campus" && (!verified || !campusOpen)) && (
             <button
               type="button"
               onClick={() => playAll.current?.()}
@@ -89,7 +93,7 @@ function HomePage() {
           )}
         </div>
         {tab === "news" && <SectionPills tab="news" active={section} />}
-        {tab === "campus" && verified && <SectionPills tab="campus" active={section} />}
+        {tab === "campus" && verified && campusOpen && <SectionPills tab="campus" active={section} />}
       </div>
 
       {tab === null ? null : tab === "campus" ? (
@@ -190,7 +194,9 @@ function OtherVoicesEmpty({ section }: { section?: string }) {
  */
 function CampusView({ section, playAllRef }: { section?: string; playAllRef: React.MutableRefObject<(() => void) | null> }) {
   const { t } = useTranslation();
-  const topics = useQuery({ queryKey: postKeys.campusTopics(section), queryFn: () => campusTopics(section, 4) });
+  const status = useQuery({ queryKey: campusStatusKeys.status, queryFn: campusStatus });
+  const topics = useQuery({ queryKey: postKeys.campusTopics(section), queryFn: () => campusTopics(section, 4), enabled: !!status.data?.is_open });
+  if (status.data && !status.data.is_open) return <CampusWaiting status={status.data} />;
   const daily = topics.data?.find((x) => x.is_daily);
   const rest = (topics.data ?? []).filter((x) => !x.is_daily).slice(0, 3);
   return (
@@ -204,6 +210,7 @@ function CampusView({ section, playAllRef }: { section?: string; playAllRef: Rea
         </ul>
       )}
       {!section && <ClassmatesStrip />}
+      {!section && <SchoolsBoard />}
       <Link
         to="/record"
         search={section ? { campus: 1, section } : { campus: 1 }}
@@ -221,6 +228,72 @@ function CampusView({ section, playAllRef }: { section?: string; playAllRef: Rea
         empty={<EmptyState title={t("campus.emptyTitle")} text={t("campus.empty")} />}
       />
     </div>
+  );
+}
+
+/** A campus that opens at N verified students: how far it is, invite classmates, which school brings most. */
+function CampusWaiting({ status }: { status: CampusStatus }) {
+  const { t } = useTranslation();
+  const campus = useCampus();
+  const pct = Math.min(100, Math.round((status.students / Math.max(1, status.min_students)) * 100));
+  return (
+    <div className="px-4 pt-8">
+      <div className="flex flex-col items-center text-center">
+        <span className="grid h-16 w-16 place-items-center rounded-full bg-secondary text-coral">
+          <GraduationCap className="h-8 w-8" />
+        </span>
+        <h2 className="mt-4 text-2xl font-extrabold">{t("campus.waitingTitle", { uni: campus.label({ university_id: status.university_id }) })}</h2>
+        <p className="mt-2 text-[15px] text-muted-foreground">{t("campus.waiting", { count: status.min_students })}</p>
+        <p className="mt-6 text-4xl font-extrabold tabular-nums">
+          {status.students}
+          <span className="text-2xl text-muted-foreground"> / {status.min_students}</span>
+        </p>
+        <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-secondary" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
+          <div className="h-full rounded-full bg-coral transition-all" style={{ width: `${pct}%` }} />
+        </div>
+      </div>
+      <InviteShare className="mt-8" text={t("campus.inviteClassmates")} />
+      <div className="-mx-4 mt-6">
+        <SchoolsBoard expanded />
+      </div>
+    </div>
+  );
+}
+
+/** Schools of your campus by students ("Η Πληροφορική οδηγεί!"): top 3 and yours, or all of them. */
+function SchoolsBoard({ expanded = false }: { expanded?: boolean }) {
+  const { t, i18n } = useTranslation();
+  const campus = useCampus();
+  const me = useMyProfile();
+  const [all, setAll] = useState(expanded);
+  const board = useQuery({ queryKey: campusStatusKeys.leaderboard, queryFn: campusLeaderboard });
+  const rows = (board.data ?? []).map((r, i) => ({ ...r, rank: i + 1 }));
+  if (!rows.length || !rows[0].students) return null;
+  const mine = me.data?.department_id;
+  const shown = all ? rows : rows.filter((r) => r.rank <= 3 || r.department_id === mine);
+  const en = i18n.language.startsWith("en");
+  return (
+    <section className="mx-4 mb-3 rounded-2xl bg-secondary/60 p-4">
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("campus.schools")}</h2>
+      <ol className="mt-2 space-y-1.5">
+        {shown.map((r) => {
+          const d = campus.dep(r.department_id);
+          return (
+            <li key={r.department_id} className={cn("flex items-center gap-3 rounded-xl px-2 py-1.5", r.department_id === mine && "bg-secondary")}>
+              <span className={cn("w-5 text-right text-sm font-bold tabular-nums", r.rank === 1 ? "text-coral" : "text-muted-foreground")}>{r.rank}</span>
+              <span className="min-w-0 flex-1 truncate text-[15px] font-semibold">{d ? (en ? d.short_en : d.short_el) : r.department_id}</span>
+              <span className="text-sm tabular-nums text-muted-foreground">{t("campus.students", { count: r.students })}</span>
+            </li>
+          );
+        })}
+      </ol>
+      {rows.length > shown.length && (
+        <button type="button" onClick={() => setAll(true)} className="mt-2 text-sm font-semibold text-[#0a84ff]">
+          {t("campus.allSchools")}
+        </button>
+      )}
+      {!expanded && <InviteShare className="mt-3 bg-background/60" text={t("campus.inviteClassmates")} />}
+    </section>
   );
 }
 

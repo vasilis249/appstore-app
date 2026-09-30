@@ -11,7 +11,7 @@ import { ClipPlayer } from "@/components/voice/clip-player";
 import {
   adminKeys,
   adminReports,
-  amIAdmin,
+  myStaffRole,
   reportKeys,
   resolveReport,
   setPostHidden,
@@ -29,13 +29,17 @@ export const Route = createFileRoute("/_authenticated/admin/reports")({
   component: AdminReportsPage,
 });
 
-/** Admin: the report queue (oldest first, act within 24 h) and the history with undo. */
+/**
+ * The report queue (oldest first, act within 24 h) and the history with undo. Admins: everything. Campus moderators:
+ * reports on their campus's voices, hide / dismiss only, without who reported.
+ */
 function AdminReportsPage() {
   const { t } = useTranslation();
-  const isAdmin = useQuery({ queryKey: adminKeys.isAdmin, queryFn: amIAdmin });
+  const staff = useQuery({ queryKey: adminKeys.staff, queryFn: myStaffRole });
+  const allowed = !!staff.data && (staff.data.is_admin || !!staff.data.moderates);
   const [open, setOpen] = useState(true);
-  const list = useQuery({ queryKey: reportKeys.list(open), queryFn: () => adminReports(open), enabled: !!isAdmin.data });
-  if (isAdmin.data === false) return <Navigate to="/" replace />;
+  const list = useQuery({ queryKey: reportKeys.list(open), queryFn: () => adminReports(open), enabled: allowed });
+  if (staff.data && !allowed) return <Navigate to="/" replace />;
 
   return (
     <>
@@ -86,6 +90,8 @@ function useRefresh() {
 }
 
 function ReportItem({ group }: { group: AdminReport[] }) {
+  const staff = useQuery({ queryKey: adminKeys.staff, queryFn: myStaffRole });
+  const isAdmin = !!staff.data?.is_admin;
   const { t, i18n } = useTranslation();
   const r = group[0];
   const reasons = [...new Set(group.map((x) => t(`report.reasons.${x.reason}`, { defaultValue: x.reason || t("report.reasons.other") })))];
@@ -167,7 +173,7 @@ function ReportItem({ group }: { group: AdminReport[] }) {
               {t("adminReports.showPost")}
             </button>
           )}
-          {r.target_disabled && (
+          {isAdmin && r.target_disabled && (
             <button type="button" disabled={busy} onClick={() => undo.mutate("user")} className={cn(pill, "bg-secondary")}>
               {t("adminReports.enableUser")}
             </button>
@@ -175,7 +181,7 @@ function ReportItem({ group }: { group: AdminReport[] }) {
         </div>
       ) : (
         <div className="flex flex-wrap gap-2">
-          {r.kind === "group" && r.group_exists && (
+          {isAdmin && r.kind === "group" && r.group_exists && (
             <button type="button" disabled={busy} onClick={() => resolve.mutate("delete_group")} className={cn(pill, "bg-primary text-primary-foreground")}>
               {t("adminReports.deleteGroup")}
             </button>
@@ -185,7 +191,7 @@ function ReportItem({ group }: { group: AdminReport[] }) {
               {t("adminReports.hidePost")}
             </button>
           )}
-          {!r.target_is_admin && !r.target_disabled && (
+          {isAdmin && !r.target_is_admin && !r.target_disabled && (
             <button
               type="button"
               disabled={busy}

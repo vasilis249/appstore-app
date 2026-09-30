@@ -304,6 +304,20 @@ User decisions:
   "Συμφοιτητής / Ίδια σχολή · ΕΜΠ · ΗΜΜΥ"; ΕΜΠ tab "Συμφοιτητές σου" strip (same school, avatar, "ΗΜΜΥ · 3ο",
   Follow). Tests `test_campus.sql` 46; browser `campus-groups-flow.mjs` 7/7 (seed-campus.sh adds classmates),
   campus-flow 15/15, groups-flow 15/15.
+  **N4 ✔ (growth + student moderators)** migration `20261016100300_campus_growth.sql`: `profiles.invite_code`
+  (8 chars, no look-alikes, from `uuid_send(gen_random_uuid())`), `invited_by`; `my_invite()` (code + joined count),
+  `invite_preview(code)` (invoker wrapper: anon refused, service_role/authenticated only → public page via the Worker),
+  `claim_invite(code)` → ok (mutual follow + `invite_joined` notice) | already | too_old (account > 7 days) | self |
+  not_found. `universities.min_students` + `campus_status()` (verified count, is_open) + `campus_leaderboard()`
+  (students per school). `private.campus_moderators` (admin names verified students of that university:
+  `admin_set_campus_moderator(username, uni, on)`, `admin_campus_moderators`, `admin_set_campus(uni, min)`),
+  `my_staff_role()` admin | moderator | null; moderators get report notices for their campus's posts and see/resolve
+  only those (dismiss / hide_post; no reporter username, no bans). UI: `/i/$code` public page (inviter avatar + name,
+  school, Γράψου / Έχω λογαριασμό; `lib/api/invite.functions.ts` server fn), code kept in localStorage
+  `courtsie:invite` and claimed after login (`InviteClaimer` in root), `InviteShare` (Web Share / copy + "n joined");
+  ΕΜΠ tab: closed campus → `CampusWaiting` (progress to the threshold, invite, schools board) and no ▶ / pills; open →
+  `SchoolsBoard` (top 3 + yours); Admin topics → Campus (threshold, moderators); `/admin/reports` for moderators.
+  Terms el/en "Campus φοιτητών". Tests `test_campus.sql` 66; browser `growth-flow.mjs` 12/12.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -431,7 +445,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (46).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (66).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

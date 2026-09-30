@@ -23,6 +23,7 @@ import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedRecordRouteImport } from './routes/_authenticated/record'
 import { Route as AuthenticatedSearchRouteImport } from './routes/_authenticated/search'
 import { Route as AuthenticatedStudentRouteImport } from './routes/_authenticated/student'
+import { Route as ICodeRouteImport } from './routes/i.$code'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin/reports'
 import { Route as AuthenticatedAdminTopicsRouteImport } from './routes/_authenticated/admin/topics'
 import { Route as AuthenticatedGroupsIndexRouteImport } from './routes/_authenticated/groups.index'
@@ -106,6 +107,11 @@ const AuthenticatedStudentRoute = AuthenticatedStudentRouteImport.update({
   id: '/student',
   path: '/student',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ICodeRoute = ICodeRouteImport.update({
+  id: '/i/$code',
+  path: '/i/$code',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminReportsRoute =
   AuthenticatedAdminReportsRouteImport.update({
@@ -194,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/record': typeof AuthenticatedRecordRoute
   '/search': typeof AuthenticatedSearchRoute
   '/student': typeof AuthenticatedStudentRoute
+  '/i/$code': typeof ICodeRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
   '/groups/new': typeof AuthenticatedGroupsNewRoute
@@ -221,6 +228,7 @@ export interface FileRoutesByTo {
   '/record': typeof AuthenticatedRecordRoute
   '/search': typeof AuthenticatedSearchRoute
   '/student': typeof AuthenticatedStudentRoute
+  '/i/$code': typeof ICodeRoute
   '/': typeof AuthenticatedIndexRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
@@ -251,6 +259,7 @@ export interface FileRoutesById {
   '/_authenticated/record': typeof AuthenticatedRecordRoute
   '/_authenticated/search': typeof AuthenticatedSearchRoute
   '/_authenticated/student': typeof AuthenticatedStudentRoute
+  '/i/$code': typeof ICodeRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/admin/topics': typeof AuthenticatedAdminTopicsRoute
@@ -282,6 +291,7 @@ export interface FileRouteTypes {
     | '/record'
     | '/search'
     | '/student'
+    | '/i/$code'
     | '/admin/reports'
     | '/admin/topics'
     | '/groups/new'
@@ -309,6 +319,7 @@ export interface FileRouteTypes {
     | '/record'
     | '/search'
     | '/student'
+    | '/i/$code'
     | '/'
     | '/admin/reports'
     | '/admin/topics'
@@ -338,6 +349,7 @@ export interface FileRouteTypes {
     | '/_authenticated/record'
     | '/_authenticated/search'
     | '/_authenticated/student'
+    | '/i/$code'
     | '/_authenticated/'
     | '/_authenticated/admin/reports'
     | '/_authenticated/admin/topics'
@@ -362,6 +374,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TermsRoute: typeof TermsRoute
+  ICodeRoute: typeof ICodeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -463,6 +476,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/student'
       preLoaderRoute: typeof AuthenticatedStudentRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/i/$code': {
+      id: '/i/$code'
+      path: '/i/$code'
+      fullPath: '/i/$code'
+      preLoaderRoute: typeof ICodeRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/reports': {
       id: '/_authenticated/admin/reports'
@@ -615,6 +635,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TermsRoute: TermsRoute,
+  ICodeRoute: ICodeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

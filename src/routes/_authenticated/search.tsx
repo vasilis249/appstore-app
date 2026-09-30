@@ -10,6 +10,7 @@ import { PersonRow } from "@/components/friends/person-row";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { friendKeys, searchUsers, suggestedPeople, type Person } from "@/lib/friends";
 import { useCampus } from "@/lib/campus";
+import { InviteShare } from "@/components/invite-share";
 import { useDebounced } from "@/hooks/use-debounced";
 
 export const Route = createFileRoute("/_authenticated/search")({
@@ -68,6 +69,7 @@ function SearchPage() {
         {people && !people.length && (
           <p className="py-12 text-center text-sm text-muted-foreground">{searching ? t("friends.noResults") : t("people.nobodyYet")}</p>
         )}
+        {!searching && <InviteShare className="mt-8" />}
         {!searching && <ShareUsername />}
       </div>
     </>
@@ -93,7 +95,7 @@ function ShareUsername() {
     }
   }
   return (
-    <button type="button" onClick={share} className="mt-8 flex w-full items-center gap-3 rounded-2xl bg-secondary px-4 py-3 text-left">
+    <button type="button" onClick={share} className="mt-3 flex w-full items-center gap-3 rounded-2xl bg-secondary px-4 py-3 text-left">
       <span className="min-w-0 flex-1">
         <span className="block text-xs text-muted-foreground">{t("friends.yourUsername")}</span>
         <span className="block truncate font-semibold">@{username}</span>

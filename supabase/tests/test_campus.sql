@@ -225,3 +225,87 @@ SELECT pg_temp.ok('09a suggestions: same school + year first (classmate), then s
   AND EXISTS (SELECT 1 FROM public.suggested_people(10) WHERE id = :A AND reason = 'campus')
   AND EXISTS (SELECT 1 FROM public.suggested_people(10) WHERE id = :C AND reason IS NULL));
 RESET ROLE;
+
+-- 10 invites
+INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES ('00000000-0000-0000-0000-00000000000f', 'fay@x', '{"full_name":"Fay"}');
+\set F '''00000000-0000-0000-0000-00000000000f'''
+SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+SELECT code AS dcode FROM public.my_invite() \gset
+SELECT pg_temp.ok('10a an 8-letter invite code, the same every time', :'dcode' ~ '^[a-z0-9]{8}$' AND (SELECT code FROM public.my_invite()) = :'dcode');
+RESET ROLE; SET ROLE service_role;
+SELECT pg_temp.ok('10b the invite page knows who invites (service role)', (SELECT full_name FROM public.invite_preview(upper(:'dcode'))) = 'Dora');
+RESET ROLE; SET ROLE anon;
+SELECT pg_temp.ok('10c ... anon can''t ask directly', pg_temp.fails(format('SELECT * FROM public.invite_preview(%L)', :'dcode')));
+RESET ROLE; SELECT pg_temp.as_user(:F); SET ROLE authenticated;
+SELECT pg_temp.ok('10d a new account claims it: friends at once', (SELECT status FROM public.claim_invite(:'dcode')) = 'ok');
+RESET ROLE;
+SELECT pg_temp.ok('10e mutual follow, invited_by, the inviter is told',
+  private.are_friends(:D, :F) AND (SELECT invited_by FROM public.profiles WHERE id = :F) = :D
+  AND EXISTS (SELECT 1 FROM public.notifications WHERE user_id = :D AND actor_id = :F AND kind = 'invite_joined'));
+SELECT pg_temp.as_user(:F); SET ROLE authenticated;
+SELECT pg_temp.ok('10f only once; not your own; not for old accounts', (SELECT status FROM public.claim_invite(:'dcode')) = 'already'
+  AND (SELECT joined FROM public.my_invite()) = 0);
+RESET ROLE; SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+SELECT pg_temp.ok('10g ... (self)', (SELECT status FROM public.claim_invite(:'dcode')) = 'self' AND (SELECT joined FROM public.my_invite()) = 1);
+RESET ROLE;
+UPDATE public.profiles SET created_at = now() - interval '30 days' WHERE id = :C;
+SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT pg_temp.ok('10h ... (old account)', (SELECT status FROM public.claim_invite(:'dcode')) = 'too_old'
+  AND (SELECT status FROM public.claim_invite('zzzzzzzz')) = 'not_found');
+SELECT pg_temp.ok('10i nobody can set invited_by / invite_code by hand', pg_temp.fails(format('UPDATE public.profiles SET invited_by = %L WHERE id = auth.uid()', :D)));
+RESET ROLE;
+
+-- 11 leaderboard, unlock
+SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT pg_temp.ok('11a leaderboard: every NTUA school, most students first',
+  (SELECT count(*) FROM public.campus_leaderboard()) = 9
+  AND (SELECT department_id FROM public.campus_leaderboard() LIMIT 1) = 'ntua-civil'
+  AND (SELECT students FROM public.campus_leaderboard() WHERE department_id = 'ntua-civil') = 2);
+SELECT pg_temp.ok('11b campus open by default', (SELECT is_open AND min_students = 0 FROM public.campus_status()));
+RESET ROLE; SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT public.admin_set_campus('ntua', 50);
+RESET ROLE; SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT pg_temp.ok('11c admin sets 50 → waiting (students < 50)', (SELECT NOT is_open AND min_students = 50 AND students >= 3 FROM public.campus_status())
+  AND pg_temp.fails($$SELECT public.admin_set_campus('ntua', 0)$$));
+RESET ROLE; SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT pg_temp.ok('11d non-students: no status, no leaderboard', NOT EXISTS (SELECT 1 FROM public.campus_status()) AND NOT EXISTS (SELECT 1 FROM public.campus_leaderboard()));
+RESET ROLE;
+UPDATE public.universities SET min_students = 0 WHERE id = 'ntua';
+
+-- 12 campus moderators
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT public.admin_set_campus_moderator('@' || (SELECT username FROM public.profiles WHERE id = :B), 'ntua', true);
+SELECT pg_temp.ok('12a admin names a campus moderator (a student of it only)',
+  (SELECT count(*) FROM public.admin_campus_moderators('ntua')) = 1
+  AND pg_temp.fails(format($$SELECT public.admin_set_campus_moderator(%L, 'ntua', true)$$, (SELECT username FROM public.profiles WHERE id = :C))));
+RESET ROLE; SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+DELETE FROM public.notifications;
+SELECT public.report_content('post', :'cv', 'harassment');
+RESET ROLE;
+INSERT INTO storage.objects (bucket_id, name) VALUES ('voices', '00000000-0000-0000-0000-00000000000c/pub.m4a');
+SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT public.create_post(p_path := '00000000-0000-0000-0000-00000000000c/pub.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000) AS pub \gset
+RESET ROLE; SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+SELECT public.report_content('post', :'pub', 'spam');
+RESET ROLE;
+SELECT pg_temp.ok('12b the moderator gets the report notice for the campus voice',
+  EXISTS (SELECT 1 FROM public.notifications WHERE user_id = :B AND kind = 'report'));
+SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT pg_temp.ok('12c moderator: my_staff_role, sees only campus reports, without the reporter',
+  (SELECT NOT is_admin AND moderates = 'ntua' FROM public.my_staff_role())
+  AND (SELECT count(*) FROM public.admin_reports()) = 1 AND (SELECT reporter_username IS NULL AND target_id = :'cv' FROM public.admin_reports())
+  AND public.admin_open_reports() = 1);
+SELECT pg_temp.ok('12d moderator: hide or dismiss only; nothing outside the campus',
+  pg_temp.fails(format($$SELECT public.admin_resolve_report(%L, 'disable_user')$$, (SELECT id FROM public.admin_reports() LIMIT 1)))
+  AND pg_temp.fails(format('SELECT public.admin_set_post_hidden(%L, true)', :'pub'))
+  AND pg_temp.fails(format($$SELECT public.admin_set_campus('ntua', 1)$$)));
+SELECT public.admin_resolve_report((SELECT id FROM public.admin_reports() LIMIT 1), 'hide_post');
+RESET ROLE;
+SELECT pg_temp.ok('12e ... hides the campus voice', (SELECT hidden FROM public.posts WHERE id = :'cv'));
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('12f admins still see everything (with the reporter)', (SELECT count(*) FROM public.admin_reports()) >= 1
+  AND (SELECT reporter_username IS NOT NULL FROM public.admin_reports() WHERE target_id = :'pub'));
+SELECT public.admin_set_campus_moderator((SELECT username FROM public.profiles WHERE id = :B), 'ntua', false);
+RESET ROLE; SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT pg_temp.ok('12g removed moderator: no access', pg_temp.fails('SELECT * FROM public.admin_reports()'));
+RESET ROLE;

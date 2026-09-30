@@ -67,7 +67,18 @@
       "news": "News",
       "daily": "Daily"
     },
-    "campusOnly": "Only for {{uni}}"
+    "campusOnly": "Only for {{uni}}",
+    "campusTitle": "{{uni}} campus",
+    "campusNow": "Now: {{students}} verified students · opens at {{min}} (0 = open).",
+    "campusNotStudent": "Students needed before the campus opens (0 = open).",
+    "minStudents": "Students to open",
+    "save": "Save",
+    "saved": "Saved",
+    "moderators": "Student moderators (they see the campus's reports)",
+    "remove": "Remove",
+    "noModerators": "None yet.",
+    "add": "Add",
+    "notStudent": "This user isn't a verified student of this university."
   },
   "errors": {
     "generic": "Something went wrong",
@@ -120,6 +131,16 @@
             "Every voice, profile and conversation has \"Report\" and \"Block\". When you block someone, neither of you sees the other's content and you cannot contact each other.",
             "We review every report within 24 hours and remove the content, or ban the user who posted it, when it breaks these terms. A voice reported by several people is hidden automatically until it is reviewed.",
             "We do not review content before it is posted and are not responsible for what users say, but we act promptly once we become aware of illegal or prohibited content. For urgent matters write to {email}."
+          ]
+        },
+        {
+          "heading": "Student campus",
+          "body": [
+            "Only people who confirm with their university email that they belong to a university can enter its campus. One university email matches one account; using someone else's email or selling/handing over an account is forbidden.",
+            "Campus voices, school and year groups and campus topics are for its students only. Don't repost them outside the campus and don't record or share other people's voices without their consent.",
+            "Bullying, harassment and publishing personal details of fellow students, teaching staff or employees are forbidden, as is sharing exam questions or answers during an exam and material that infringes copyright.",
+            "Student moderators, appointed by Speak, see the reports on their campus's voices (without seeing who made them) and can hide them; decisions about accounts are taken by Speak.",
+            "With an invite link, the new user and the person who invited them start following each other; either can change that at any time."
           ]
         },
         {
@@ -405,7 +426,8 @@
     "group_invite": "invited you to «{{group}}»",
     "group_request": "asked to join «{{group}}»",
     "group_accepted": "accepted you into «{{group}}»",
-    "group_joined": "joined «{{group}}»"
+    "group_joined": "joined «{{group}}»",
+    "invite_joined": "joined Speak with your invite — you're friends now"
   },
   "rpcErrors": {
     "rateLimited": "Too many actions. Try again soon.",
@@ -748,6 +770,28 @@
     "empty": "Nobody has spoken here yet. Be the first!",
     "postingIn": "On {{uni}}",
     "postingHint": "Only verified students hear it.",
-    "general": "General"
+    "general": "General",
+    "waitingTitle": "{{uni}} campus opens soon",
+    "waiting_one": "It opens once {{count}} student joins. Invite your classmates!",
+    "waiting_other": "It opens once {{count}} students join. Invite your classmates!",
+    "inviteClassmates": "Invite classmates",
+    "schools": "Schools leaderboard",
+    "students_one": "{{count}} student",
+    "students_other": "{{count}} students",
+    "allSchools": "All schools"
+  },
+  "invite": {
+    "title": "Invite friends",
+    "hint": "Anyone who signs up through your link becomes your friend right away.",
+    "joined_one": "1 person joined with your invite",
+    "joined_other": "{{count}} people joined with your invite",
+    "shareText": "Come to Speak — we talk with our voices!",
+    "copied": "Link copied",
+    "genericTitle": "You're invited to Speak",
+    "pageText": "The social network of voices: say what you think, hear your friends, talk like on a walkie-talkie.",
+    "join": "Sign up",
+    "haveAccount": "I already have an account",
+    "claimed": "You and @{{username}} now follow each other.",
+    "invitesYou": "invites you to Speak"
   }
 }

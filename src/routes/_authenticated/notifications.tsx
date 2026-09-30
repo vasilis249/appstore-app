@@ -16,8 +16,8 @@ export const Route = createFileRoute("/_authenticated/notifications")({
   component: NotificationsPage,
 });
 
-const ICON = { follow: UserPlus, like: Heart, reply: MessageCircle, repost: Repeat2, group_invite: Users, group_request: Users, group_accepted: Users, group_joined: Users } as const;
-const COLOR = { follow: "text-sky-400", like: "text-rose-500", reply: "text-foreground", repost: "text-emerald-400", group_invite: "text-coral", group_request: "text-coral", group_accepted: "text-coral", group_joined: "text-coral" } as const;
+const ICON = { follow: UserPlus, like: Heart, reply: MessageCircle, repost: Repeat2, group_invite: Users, group_request: Users, group_accepted: Users, group_joined: Users, invite_joined: UserPlus } as const;
+const COLOR = { follow: "text-sky-400", like: "text-rose-500", reply: "text-foreground", repost: "text-emerald-400", group_invite: "text-coral", group_request: "text-coral", group_accepted: "text-coral", group_joined: "text-coral", invite_joined: "text-emerald-400" } as const;
 
 /** New followers, likes, replies and reposts (admins also: reports to review); opening the page marks everything read. */
 function NotificationsPage() {

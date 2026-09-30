@@ -8,7 +8,12 @@ import { AppHeader } from "@/components/app-header";
 import { Switch } from "@/components/ui/switch";
 import { useSections } from "@/hooks/use-sections";
 import { useCampus } from "@/lib/campus";
-import { adminFeeds, adminKeys, adminTopics, amIAdmin, createTopic, refreshNews, setFeed, updateTopic } from "@/lib/admin";
+import {
+  adminFeeds, adminKeys, adminTopics, amIAdmin, campusModerators, createTopic, refreshNews, setCampusModerator, setCampusThreshold,
+  setFeed, updateTopic,
+} from "@/lib/admin";
+import { campusStatus, campusStatusKeys } from "@/lib/campus";
+import { UserAvatar } from "@/components/user-avatar";
 import { dailyKeys, getToday } from "@/lib/daily";
 import { rpcErrorKey } from "@/lib/friends";
 import { toMoment } from "@/lib/memories";
@@ -31,6 +36,7 @@ function AdminTopicsPage() {
       {isAdmin.data && (
         <div className="space-y-8 px-4 pb-10 pt-2">
           <NewTopic />
+          <CampusAdmin />
           <Feeds />
           <Topics />
         </div>
@@ -137,6 +143,73 @@ function NewTopic() {
       >
         {t("admin.create")}
       </button>
+    </section>
+  );
+}
+
+/** The open campus (ΕΜΠ): students needed before it opens (0 = open), and its student moderators. */
+function CampusAdmin() {
+  const { t } = useTranslation();
+  const qc = useQueryClient();
+  const campus = useCampus();
+  const uni = campus.universities.find((u) => u.open);
+  const status = useQuery({ queryKey: campusStatusKeys.status, queryFn: campusStatus });
+  const mods = useQuery({ queryKey: adminKeys.moderators(uni?.id ?? ""), queryFn: () => campusModerators(uni!.id), enabled: !!uni });
+  const [min, setMin] = useState("");
+  const [username, setUsername] = useState("");
+  const input = "h-12 w-full rounded-2xl bg-secondary px-4 text-base outline-none placeholder:text-muted-foreground";
+  const saveMin = useMutation({
+    mutationFn: () => setCampusThreshold(uni!.id, Number(min) || 0),
+    onSuccess: () => {
+      setMin("");
+      toast.success(t("admin.saved"));
+      void qc.invalidateQueries({ queryKey: campusStatusKeys.status });
+    },
+    onError: (e) => toast.error(t(rpcErrorKey(e))),
+  });
+  const mod = useMutation({
+    mutationFn: ({ name, on }: { name: string; on: boolean }) => setCampusModerator(name, uni!.id, on),
+    onSuccess: () => {
+      setUsername("");
+      void qc.invalidateQueries({ queryKey: adminKeys.moderators(uni!.id) });
+    },
+    onError: (e) => toast.error(e instanceof Error && e.message.includes("not_student") ? t("admin.notStudent") : t(rpcErrorKey(e))),
+  });
+  if (!uni) return null;
+  const short = campus.label({ university_id: uni.id });
+  return (
+    <section className="space-y-3">
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("admin.campusTitle", { uni: short })}</h2>
+      <p className="text-sm text-muted-foreground">
+        {status.data
+          ? t("admin.campusNow", { students: status.data.students, min: status.data.min_students })
+          : t("admin.campusNotStudent")}
+      </p>
+      <div className="flex gap-2">
+        <input value={min} onChange={(e) => setMin(e.target.value.replace(/\D/g, ""))} inputMode="numeric" placeholder={t("admin.minStudents")} className={input} />
+        <button type="button" disabled={!min || saveMin.isPending} onClick={() => saveMin.mutate()} className="h-12 shrink-0 rounded-full bg-primary px-5 font-semibold text-primary-foreground disabled:opacity-40">
+          {t("admin.save")}
+        </button>
+      </div>
+      <p className="pt-2 text-sm font-semibold">{t("admin.moderators")}</p>
+      <ul className="divide-y divide-border rounded-2xl bg-secondary">
+        {(mods.data ?? []).map((m) => (
+          <li key={m.user_id} className="flex items-center gap-3 px-4 py-2.5">
+            <UserAvatar name={m.full_name || m.username} path={m.avatar_path} size={32} />
+            <span className="min-w-0 flex-1 truncate text-sm font-semibold">@{m.username}</span>
+            <button type="button" onClick={() => mod.mutate({ name: m.username, on: false })} className="text-sm font-semibold text-destructive">
+              {t("admin.remove")}
+            </button>
+          </li>
+        ))}
+        {mods.data && !mods.data.length && <li className="px-4 py-3 text-sm text-muted-foreground">{t("admin.noModerators")}</li>}
+      </ul>
+      <div className="flex gap-2">
+        <input value={username} onChange={(e) => setUsername(e.target.value.trim())} placeholder="@username" autoCapitalize="none" className={input} />
+        <button type="button" disabled={username.length < 3 || mod.isPending} onClick={() => mod.mutate({ name: username, on: true })} className="h-12 shrink-0 rounded-full bg-primary px-5 font-semibold text-primary-foreground disabled:opacity-40">
+          {t("admin.add")}
+        </button>
+      </div>
     </section>
   );
 }

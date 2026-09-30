@@ -88,3 +88,30 @@ export async function clearStudentIdentity() {
   const { error } = await supabase.rpc("clear_student_identity");
   if (error) throw new Error(error.message);
 }
+
+export interface CampusStatus {
+  university_id: string;
+  students: number;
+  min_students: number;
+  is_open: boolean;
+}
+export interface SchoolRank {
+  department_id: string;
+  students: number;
+  voices_week: number;
+}
+export const campusStatusKeys = { status: ["campus", "status"] as const, leaderboard: ["campus", "leaderboard"] as const };
+
+/** Your campus: verified students and whether it is open (a campus can wait for N students). */
+export async function campusStatus(): Promise<CampusStatus | null> {
+  const { data, error } = await supabase.rpc("campus_status");
+  if (error) throw new Error(error.message);
+  return ((data ?? [])[0] as CampusStatus | undefined) ?? null;
+}
+
+/** Every school of your campus by verified students (then this week's voices). */
+export async function campusLeaderboard(): Promise<SchoolRank[]> {
+  const { data, error } = await supabase.rpc("campus_leaderboard");
+  if (error) throw new Error(error.message);
+  return (data ?? []) as SchoolRank[];
+}

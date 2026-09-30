@@ -3,7 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Ban, ChevronRight, FileText, Flag, GraduationCap, LogOut, Mail, Megaphone, Shield } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { adminKeys, amIAdmin, openReportsCount, reportKeys } from "@/lib/admin";
+import { adminKeys, myStaffRole, openReportsCount, reportKeys } from "@/lib/admin";
 import { useState } from "react";
 import { BlockedSheet } from "@/components/blocked-sheet";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
@@ -24,8 +24,11 @@ export function SettingsSheet({
   const qc = useQueryClient();
   const navigate = useNavigate();
   const [blockedOpen, setBlockedOpen] = useState(false);
-  const isAdmin = useQuery({ queryKey: adminKeys.isAdmin, queryFn: amIAdmin, enabled: open });
-  const openReports = useQuery({ queryKey: reportKeys.openCount, queryFn: openReportsCount, enabled: open && !!isAdmin.data });
+  const staff = useQuery({ queryKey: adminKeys.staff, queryFn: myStaffRole, enabled: open });
+  // Admins get Reports + Manage topics; campus moderators get Reports (their campus).
+  const isAdmin = { data: staff.data?.is_admin };
+  const isStaff = !!staff.data && (staff.data.is_admin || !!staff.data.moderates);
+  const openReports = useQuery({ queryKey: reportKeys.openCount, queryFn: openReportsCount, enabled: open && isStaff });
 
   async function signOut() {
     onOpenChange(false);
@@ -58,7 +61,7 @@ export function SettingsSheet({
             <DailyPromptSwitch className={row} />
           </div>
 
-          {isAdmin.data && (
+          {isStaff && (
             <div className="divide-y divide-border rounded-2xl bg-secondary">
               <Link to="/admin/reports" onClick={() => onOpenChange(false)} className={row}>
                 <span className="inline-flex items-center gap-3">
@@ -73,12 +76,14 @@ export function SettingsSheet({
                   <ChevronRight className="h-4 w-4 text-muted-foreground" />
                 </span>
               </Link>
-              <Link to="/admin/topics" onClick={() => onOpenChange(false)} className={row}>
-                <span className="inline-flex items-center gap-3">
-                  <Megaphone className="h-4 w-4 text-muted-foreground" /> {t("admin.title")}
-                </span>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </Link>
+              {isAdmin.data && (
+                <Link to="/admin/topics" onClick={() => onOpenChange(false)} className={row}>
+                  <span className="inline-flex items-center gap-3">
+                    <Megaphone className="h-4 w-4 text-muted-foreground" /> {t("admin.title")}
+                  </span>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                </Link>
+              )}
             </div>
           )}
 

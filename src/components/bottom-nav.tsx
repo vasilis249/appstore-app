@@ -11,7 +11,7 @@ import { NavRecordButton } from "@/components/voice/nav-record-button";
  * Memories, Profile (avatar). Labels under icons; active tab gets a pill.
  */
 /** Sign-in / sign-up / password pages (also shown right after sign-up, while already signed in). */
-export const AUTH_PATHS = /^\/(auth|forgot-password|reset-password)(\/|$)/;
+export const AUTH_PATHS = /^\/(auth|forgot-password|reset-password|i)(\/|$)/;
 
 export function BottomNav() {
   const { user } = useAuth();

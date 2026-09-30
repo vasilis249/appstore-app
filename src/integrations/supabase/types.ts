@@ -525,6 +525,8 @@ export type Database = {
           disabled: boolean
           full_name: string
           id: string
+          invite_code: string | null
+          invited_by: string | null
           student_verified_at: string | null
           study_year: number | null
           university_id: string | null
@@ -537,6 +539,8 @@ export type Database = {
           disabled?: boolean
           full_name?: string
           id: string
+          invite_code?: string | null
+          invited_by?: string | null
           student_verified_at?: string | null
           study_year?: number | null
           university_id?: string | null
@@ -549,6 +553,8 @@ export type Database = {
           disabled?: boolean
           full_name?: string
           id?: string
+          invite_code?: string | null
+          invited_by?: string | null
           student_verified_at?: string | null
           study_year?: number | null
           university_id?: string | null
@@ -560,6 +566,13 @@ export type Database = {
             columns: ["department_id"]
             isOneToOne: false
             referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profiles_invited_by_fkey"
+            columns: ["invited_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
           {
@@ -746,6 +759,7 @@ export type Database = {
           city: string | null
           email_domains: string[]
           id: string
+          min_students: number
           name_el: string
           name_en: string
           open: boolean
@@ -757,6 +771,7 @@ export type Database = {
           city?: string | null
           email_domains: string[]
           id: string
+          min_students?: number
           name_el: string
           name_en: string
           open?: boolean
@@ -768,6 +783,7 @@ export type Database = {
           city?: string | null
           email_domains?: string[]
           id?: string
+          min_students?: number
           name_el?: string
           name_en?: string
           open?: boolean
@@ -866,6 +882,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_campus_moderators: {
+        Args: { p_university: string }
+        Returns: {
+          avatar_path: string
+          full_name: string
+          user_id: string
+          username: string
+        }[]
+      }
       admin_create_topic: {
         Args: {
           p_daily_date?: string
@@ -924,6 +949,14 @@ export type Database = {
         Args: { p_action: string; p_report: string }
         Returns: number
       }
+      admin_set_campus: {
+        Args: { p_min_students: number; p_university: string }
+        Returns: undefined
+      }
+      admin_set_campus_moderator: {
+        Args: { p_on: boolean; p_university: string; p_username: string }
+        Returns: undefined
+      }
       admin_set_feed: {
         Args: { p_enabled: boolean; p_feed: number }
         Returns: undefined
@@ -959,6 +992,23 @@ export type Database = {
       }
       am_i_admin: { Args: never; Returns: boolean }
       block_user: { Args: { p_user: string }; Returns: undefined }
+      campus_leaderboard: {
+        Args: never
+        Returns: {
+          department_id: string
+          students: number
+          voices_week: number
+        }[]
+      }
+      campus_status: {
+        Args: never
+        Returns: {
+          is_open: boolean
+          min_students: number
+          students: number
+          university_id: string
+        }[]
+      }
       campus_topics: {
         Args: { p_limit?: number; p_offset?: number; p_section?: string }
         Returns: {
@@ -975,6 +1025,13 @@ export type Database = {
           speakers: Json
           speakers_count: number
           title: string
+        }[]
+      }
+      claim_invite: {
+        Args: { p_code: string }
+        Returns: {
+          inviter_username: string
+          status: string
         }[]
       }
       clear_student_identity: { Args: never; Returns: undefined }
@@ -1140,6 +1197,16 @@ export type Database = {
           username: string
         }[]
       }
+      invite_preview: {
+        Args: { p_code: string }
+        Returns: {
+          avatar_path: string
+          department_id: string
+          full_name: string
+          university_id: string
+          username: string
+        }[]
+      }
       invite_to_group: {
         Args: { p_group: string; p_user: string }
         Returns: undefined
@@ -1181,6 +1248,20 @@ export type Database = {
           posts_count: number
           privacy: string
           section_id: string
+        }[]
+      }
+      my_invite: {
+        Args: never
+        Returns: {
+          code: string
+          joined: number
+        }[]
+      }
+      my_staff_role: {
+        Args: never
+        Returns: {
+          is_admin: boolean
+          moderates: string
         }[]
       }
       my_threads: {

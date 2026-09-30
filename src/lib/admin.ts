@@ -30,12 +30,37 @@ export interface AdminFeed {
 
 export const adminKeys = {
   isAdmin: ["admin", "me"] as const,
+  staff: ["admin", "staff"] as const,
+  moderators: (uni: string) => ["admin", "moderators", uni] as const,
   topics: ["admin", "topics"] as const,
   feeds: ["admin", "feeds"] as const,
 };
 
 function fail(error: { message: string } | null) {
   if (error) throw new Error(error.message);
+}
+
+/** Admin (everything) and/or the campus you moderate (reports on its voices: hide / dismiss). */
+export interface StaffRole {
+  is_admin: boolean;
+  moderates: string | null;
+}
+export async function myStaffRole(): Promise<StaffRole> {
+  const { data, error } = await supabase.rpc("my_staff_role");
+  fail(error);
+  return ((data ?? [])[0] as StaffRole | undefined) ?? { is_admin: false, moderates: null };
+}
+
+export async function campusModerators(university: string) {
+  const { data, error } = await supabase.rpc("admin_campus_moderators", { p_university: university });
+  fail(error);
+  return (data ?? []) as { user_id: string; username: string; full_name: string; avatar_path: string | null }[];
+}
+export async function setCampusModerator(username: string, university: string, on: boolean) {
+  fail((await supabase.rpc("admin_set_campus_moderator", { p_username: username, p_university: university, p_on: on })).error);
+}
+export async function setCampusThreshold(university: string, minStudents: number) {
+  fail((await supabase.rpc("admin_set_campus", { p_university: university, p_min_students: minStudents })).error);
 }
 
 export async function amIAdmin(): Promise<boolean> {
