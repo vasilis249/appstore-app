@@ -12,10 +12,11 @@
     "format": "prettier --write .",
     "deploy": "vite build && wrangler deploy",
     "deploy:all": "bash scripts/deploy-all.sh",
-    "ios:sync": "cap sync ios",
+    "ios:sync": "node scripts/patch-native-plugins.mjs && cap sync ios",
     "ios:open": "cap open ios"
   },
   "dependencies": {
+    "@capacitor-community/background-geolocation": "1.2.26",
     "@capacitor/app": "8.1.1",
     "@capacitor/browser": "8.0.4",
     "@capacitor/core": "8.5.2",

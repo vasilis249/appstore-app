@@ -38,7 +38,9 @@ Authentication → URL Configuration set Site URL = that URL, Redirect URLs = `<
 
 ## 3. Open the iOS project
 ```bash
+bun install         # after pulling: picks up new plugins (e.g. background location)
 bun run ios:sync    # after any change to capacitor.config.ts, .env CAP_* values or plugins
+                    # (also patches plugins whose Swift package pins an older Capacitor: scripts/patch-native-plugins.mjs)
 bun run ios:open    # opens ios/App/App.xcodeproj in Xcode
 ```
 
@@ -52,6 +54,11 @@ bun run ios:open    # opens ios/App/App.xcodeproj in Xcode
    enable Settings → Privacy & Security → **Developer Mode** (phone restarts), select the phone in
    the device menu → ▶. With a free Apple ID: Settings → General → VPN & Device Management →
    trust your developer certificate; the install expires after 7 days.
+6. **Live map (location)**: Info.plist already has the location texts and `UIBackgroundModes` → `location` (with
+   `audio`); in *Signing & Capabilities* you should see **Background Modes** with *Audio* and *Location updates*
+   ticked (add the capability if Xcode doesn't show it). On the phone: Speak → Profile → ⚙︎ → Τοποθεσία → choose a
+   mode → allow location → later iOS asks to "Change to Always Allow" (or Settings → Speak → Location → Always).
+   The blue location pill in the status bar while it runs in the background is expected.
 
 ## Dev tip: test unreleased web changes on the phone
 Run `bun run dev` (listens on all interfaces, port 8080), set `CAP_SERVER_URL=http://<your-mac-LAN-IP>:8080` in `.env`,

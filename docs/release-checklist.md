@@ -35,6 +35,8 @@ Use two accounts (A and B) on two devices or one device + the website.
 | 24 | Walkie anywhere | B: 📡 list → B's switch "Κανάλι" for A ON → go to Home. A talks | On B's Home an orange banner "A σου μιλάει" + live voice; tap → A's walkie. Try with the silent switch on and with headphones |
 | 25 | Walkie missed | B closes the app, A talks | B gets a notification "σου μίλησε στο walkie-talkie" (bell); the 📡 button shows 1; replay works |
 | 26 | Walkie background (experimental) | B: 📡 list → "Και με κλειστή οθόνη" ON → lock the phone, A talks | Report what happens: voice heard / local notification / nothing (iOS may suspend the app) |
+| 27 | Location sharing | Profile → ⚙︎ → Τοποθεσία → «Όλοι κοντά μου» (warning → Ενεργοποίηση) → allow location → Always | Status "Η θέση σου ενημερώθηκε …"; turning it Off removes you at once |
+| 28 | Location in the background | Location on "Always", lock the phone, walk 100 m; B (sharing, nearby) checks the map (L2) | Your position moves while the app is closed; blue location pill shows; hidden 15 min after the last update |
 
 If something fails, note the step number and what you saw (a screenshot helps).
 
@@ -84,6 +86,12 @@ If something fails, note the step number and what you saw (a screenshot helps).
   walkie-talkie friends — say so in the review notes. The experimental "screen off" walkie option plays a silent
   loop to stay awake; Apple may object (2.5.4) — if review complains, remove that switch (it is opt-in and off by
   default) or move walkie to Apple's PushToTalk framework.
+- [ ] **Location "Always" (5.1.1, 5.1.5)**: explain in the review notes that the live map shows your position to
+  friends and to people within 500 m only if you turn it on, with Off / Friends / Everyone nearby, a warning before
+  "everyone", reciprocity (you see others only while sharing), no history (latest position only, deleted after 1 h),
+  and that "Always" keeps you visible with the app closed. App Privacy label: add **Location → Precise Location**
+  (linked to you, app functionality). Apple may still question strangers seeing exact positions and users 15–17:
+  be ready to switch strangers to approximate positions or 18+.
 - [x] Export compliance: `ITSAppUsesNonExemptEncryption = NO` (HTTPS only).
 - [ ] **Minimum functionality (4.2)** — the main risk for an app that loads a website. In place: native
   splash, offline page, deep links, microphone recording, background audio with lock-screen controls, local

@@ -256,6 +256,14 @@
           ]
         },
         {
+          "heading": "Location and map",
+          "body": [
+            "Only if you turn it on (Profile → ⚙︎ → “Location”), the app sends your exact position (latitude/longitude, accuracy, heading, speed), also with the app closed if you allow “Always”. Legal basis: your consent (Art. 6(1)(a) GDPR), which you withdraw at any time by turning it off.",
+            "Who sees it: with “Friends only”, people you follow each other with; with “Everyone nearby”, also any user within 500 m of you who shares their location too, together with your name, @username and photo. The distance is measured from the other person's real position, not from a point they pick.",
+            "We keep only your latest position (no history). It is hidden if not updated for 15 minutes and deleted after 1 hour, immediately when you turn sharing off, and when you delete your account. People you have blocked don't see you."
+          ]
+        },
+        {
           "heading": "Service providers (processors)",
           "body": [
             "Supabase Inc.: database, user authentication and storage of audio files and photos.",
@@ -814,5 +822,37 @@
     "haveAccount": "I already have an account",
     "claimed": "You and @{{username}} now follow each other.",
     "invitesYou": "invites you to Speak"
+  },
+  "location": {
+    "settingsRow": "Location (map)",
+    "title": "Location",
+    "intro": "Show where you are on the Speak map. You only see others while you share too.",
+    "mode": {
+      "off": "Off",
+      "friends": "Friends only",
+      "everyone": "Everyone nearby"
+    },
+    "modeHint": {
+      "off": "Nobody sees you and you see nobody.",
+      "friends": "People you follow each other with see your exact position, wherever you are.",
+      "everyone": "Your friends anywhere, and anyone within 500 m sees your exact position and your profile."
+    },
+    "everyoneWarning": "Anyone within 500 m will see your exact position and who you are, even with the app closed, and can talk to you. Turn it off at home or whenever you don't want to be seen.",
+    "everyoneConfirm": "Turn on",
+    "talkTitle": "Who can talk to you from the map",
+    "talk": {
+      "everyone": "Everyone",
+      "following": "People I follow",
+      "nobody": "Nobody"
+    },
+    "denied": "Location permission is off.",
+    "openSettings": "Open Settings",
+    "deniedWeb": "Allow location for this page in your browser's settings.",
+    "updated": "Your position was updated {{when}}",
+    "waiting": "Waiting for your first position…",
+    "alwaysHint": "To be seen with the app closed, choose “Always” when your iPhone asks. Your position is hidden if it isn't updated for 15 minutes.",
+    "webHint": "On the web your position is sent only while the page is open. It's hidden if not updated for 15 minutes.",
+    "bgTitle": "Speak: sharing location",
+    "bgMessage": "Your position shows on the map as you set it."
   }
 }

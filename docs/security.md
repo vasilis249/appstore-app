@@ -72,7 +72,7 @@ schema change.
 - Server functions that need a user use `requireSupabaseAuth` (bearer token, no cookie CSRF).
 - Headers on every response: CSP (incl. `media-src` for audio; `img-src https:` for news cover photos shown from the
   publishers), HSTS, X-Frame-Options DENY, nosniff,
-  Referrer-Policy, Permissions-Policy (`microphone=(self)` only), COOP; server functions `no-store`.
+  Referrer-Policy, Permissions-Policy (`microphone=(self)` and `geolocation=(self)` only, for the live map), COOP; server functions `no-store`.
 
 ## Auth
 - Email + password, min 8 characters (the app also requires a lowercase letter and a digit), secure email

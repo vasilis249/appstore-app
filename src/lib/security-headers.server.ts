@@ -86,7 +86,7 @@ export function applySecurityHeaders(response: Response, request?: Request): Res
   headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   headers.set(
     "Permissions-Policy",
-    "camera=(), microphone=(self), geolocation=(), payment=(), usb=(), interest-cohort=()",
+    "camera=(), microphone=(self), geolocation=(self), payment=(), usb=(), interest-cohort=()",
   );
   headers.set(
     "Strict-Transport-Security",

@@ -391,6 +391,28 @@ User decisions:
   `private.route_headline(feed, url, title)` drops those from non-campus feeds, used by `ingest_feed_xml`; the re-file
   now also moves headlines WITH voices (their posts' section_id follows; a dropped route → Gazzetta lifestyle, else
   news). Live: αλκοτέστ → Lifestyle, Flydubai → Επικαιρότητα, Novibet removed. Tests speak 119.
+- **Live map (user request 2026-09-30: live locations, 500 m radius, push to talk to whoever is next to you)** —
+  user decisions: EXACT position for everyone who can see you, anyone within 500 m may talk to you, age as now (15+;
+  18+ was recommended and declined), "Always" location via a native plugin. Plan (stop for "OK" after each): **L1**
+  sharing ✔ → **L2** map section (MapLibre + free tiles, people within the radius, who is who) → **L3** push to talk on
+  the map (pair channel authorized by `private.are_nearby`) → **L4** safety/legal/docs (report/block from the map…).
+  **L1 ✔** migration `20261021100000_live_location.sql`: `location_sharing` (mode off|friends|everyone, talk_from
+  everyone|following|nobody; own row readable, RPC writes), `private.user_locations` (latest only, no client access),
+  `private.distance_m` (haversine), `my_location_sharing()`, `set_location_sharing(mode, talk_from)` (off deletes the
+  position), `update_my_location(lat, lng, acc, heading, speed)` (ignored while off, ≤ 1 write / 3 s),
+  `map_people(radius 50–500)` (reciprocity: you must share with a < 15 min position; friends sharing friends|everyone
+  at any distance + mode everyone within the radius of YOUR stored position; blocked/disabled/stale out; can_talk from
+  talk_from), `private.are_nearby(a, b)` (for L3), cron `expire-locations` `*/10` (> 1 h deleted). Client:
+  `lib/location/api.ts`, `lib/location/tracker.ts` (native: `@capacitor-community/background-geolocation` 1.2.26 via
+  `registerPlugin("BackgroundGeolocation")`, distanceFilter 10, Always permission; web: watchPosition; sends ≤ every
+  10 s unless moved ≥ 20 m), `components/location/location-sync.tsx` (root: tracks while mode ≠ off), `/location`
+  page (3 radio cards, warning + confirm before "everyone", "who can talk" pills, status / permission denied → iOS
+  Settings), Settings row "Τοποθεσία (χάρτης)". iOS: plugin in CapApp-SPM Package.swift; its Package.swift pins
+  capacitor-swift-pm 7.x → `scripts/patch-native-plugins.mjs` (run by `ios:sync`) makes it 8.x; Info.plist location
+  strings + UIBackgroundModes location. Permissions-Policy now `geolocation=(self)` (was `()` → blocked the web API).
+  Privacy (el/en) new section "Τοποθεσία και χάρτης" (consent, who sees, latest only, 15 min / 1 h). Tests
+  `test_location.sql` 20; browser `location-flow.mjs` 6/6 (Playwright geolocation). NOT verified: the native plugin on
+  a real iPhone (needs `bun install` + `bun run ios:sync` + Xcode build).
 - **Email (2026-09-30)**: Brevo (free, 300/day, sender `vasilis.har@gmail.com`). Worker secrets `BREVO_API_KEY` +
   `MAIL_FROM_EMAIL` set (student codes). Supabase Auth custom SMTP = `smtp-relay.brevo.com:587`, user
   `bbd8b8001@smtp-brevo.com`, the SMTP key, sender name Speak, 100 emails/h; `mailer_autoconfirm` still true
@@ -522,7 +544,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79) + `test_location.sql` (20).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

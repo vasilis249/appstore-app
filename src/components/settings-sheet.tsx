@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Ban, ChevronRight, FileText, Flag, GraduationCap, LogOut, Mail, Megaphone, Shield } from "lucide-react";
+import { Ban, ChevronRight, FileText, Flag, GraduationCap, LogOut, Mail, MapPin, Megaphone, Shield } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { adminKeys, myStaffRole, openReportsCount, reportKeys } from "@/lib/admin";
 import { useState } from "react";
@@ -91,6 +91,12 @@ export function SettingsSheet({
             <Link to="/student" onClick={() => onOpenChange(false)} className={row}>
               <span className="inline-flex items-center gap-3">
                 <GraduationCap className="h-4 w-4 text-muted-foreground" /> {t("student.settingsRow")}
+              </span>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </Link>
+            <Link to="/location" onClick={() => onOpenChange(false)} className={row}>
+              <span className="inline-flex items-center gap-3">
+                <MapPin className="h-4 w-4 text-muted-foreground" /> {t("location.settingsRow")}
               </span>
               <ChevronRight className="h-4 w-4 text-muted-foreground" />
             </Link>

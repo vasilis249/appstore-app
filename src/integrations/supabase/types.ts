@@ -273,6 +273,35 @@ export type Database = {
           },
         ]
       }
+      location_sharing: {
+        Row: {
+          mode: string
+          talk_from: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          mode?: string
+          talk_from?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          mode?: string
+          talk_from?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "location_sharing_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           actor_id: string
@@ -1260,6 +1289,23 @@ export type Database = {
       join_group: { Args: { p_group: string }; Returns: string }
       leave_group: { Args: { p_group: string }; Returns: undefined }
       like_post: { Args: { p_post: string }; Returns: undefined }
+      map_people: {
+        Args: { p_radius_m?: number }
+        Returns: {
+          accuracy_m: number
+          avatar_path: string
+          can_talk: boolean
+          distance_m: number
+          full_name: string
+          heading: number
+          is_friend: boolean
+          lat: number
+          lng: number
+          updated_at: string
+          user_id: string
+          username: string
+        }[]
+      }
       my_blocked: {
         Args: never
         Returns: {
@@ -1301,6 +1347,15 @@ export type Database = {
         Returns: {
           code: string
           joined: number
+        }[]
+      }
+      my_location_sharing: {
+        Args: never
+        Returns: {
+          has_position: boolean
+          mode: string
+          position_at: string
+          talk_from: string
         }[]
       }
       my_staff_role: {
@@ -1406,6 +1461,10 @@ export type Database = {
         Args: { p_group: string; p_role: string; p_user: string }
         Returns: undefined
       }
+      set_location_sharing: {
+        Args: { p_mode: string; p_talk_from?: string }
+        Returns: undefined
+      }
       set_student_info: {
         Args: { p_department: string; p_year: number }
         Returns: undefined
@@ -1468,6 +1527,16 @@ export type Database = {
           p_section: string
         }
         Returns: undefined
+      }
+      update_my_location: {
+        Args: {
+          p_accuracy?: number
+          p_heading?: number
+          p_lat: number
+          p_lng: number
+          p_speed?: number
+        }
+        Returns: boolean
       }
       verify_student_code: { Args: { p_code: string }; Returns: string }
       walkie_audio: {
