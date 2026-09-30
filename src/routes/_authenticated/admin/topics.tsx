@@ -9,10 +9,10 @@ import { Switch } from "@/components/ui/switch";
 import { useSections } from "@/hooks/use-sections";
 import { useCampus } from "@/lib/campus";
 import {
-  adminFeeds, adminKeys, adminTopics, amIAdmin, campusModerators, createTopic, refreshNews, setCampusModerator, setCampusThreshold,
-  setFeed, updateTopic,
+  adminCampuses, adminFeeds, adminKeys, adminTopics, amIAdmin, campusModerators, createTopic, refreshNews, setCampusModerator,
+  setCampusThreshold, setFeed, updateTopic,
 } from "@/lib/admin";
-import { campusStatus, campusStatusKeys } from "@/lib/campus";
+import { campusStatusKeys } from "@/lib/campus";
 import { UserAvatar } from "@/components/user-avatar";
 import { dailyKeys, getToday } from "@/lib/daily";
 import { rpcErrorKey } from "@/lib/friends";
@@ -59,7 +59,8 @@ function NewTopic() {
   const { t } = useTranslation();
   const { sections, campusSections, name } = useSections();
   const campus = useCampus();
-  const openUni = campus.universities.find((u) => u.open);
+  const openUnis = campus.universities.filter((u) => u.open);
+  const [uniId, setUniId] = useState<string | null>(null);
   const today = useQuery({ queryKey: dailyKeys.today, queryFn: getToday });
   const refresh = useRefreshAll();
   const [section, setSection] = useState("news");
@@ -85,7 +86,7 @@ function NewTopic() {
         title: title.trim(),
         sourceUrl: url.trim(),
         dailyDate: daily ? date || nextDay : undefined,
-        university: campusOnly ? openUni?.id : undefined,
+        university: campusOnly ? (uniId ?? openUnis[0]?.id) : undefined,
       }),
     onSuccess: () => {
       setTitle("");
@@ -102,9 +103,9 @@ function NewTopic() {
   return (
     <section className="space-y-3">
       <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("admin.newTopic")}</h2>
-      {openUni && (
+      {openUnis.length > 0 && (
         <label className="flex items-center justify-between gap-3 rounded-2xl bg-secondary px-4 py-3 text-sm font-medium">
-          <span>{t("admin.campusOnly", { uni: campus.uni(openUni.id)?.short_el })}</span>
+          <span>{t("admin.campusOnly")}</span>
           <Switch
             checked={campusOnly}
             onCheckedChange={(on) => {
@@ -114,6 +115,7 @@ function NewTopic() {
           />
         </label>
       )}
+      {campusOnly && <CampusPicker value={uniId ?? openUnis[0]?.id} onChange={setUniId} />}
       <div className="flex flex-wrap gap-2">
         {pickable.map((s) => (
           <button
@@ -147,13 +149,39 @@ function NewTopic() {
   );
 }
 
-/** The open campus (ΕΜΠ): students needed before it opens (0 = open), and its student moderators. */
+/** One row of campus chips (every open university, in the database's order). */
+function CampusPicker({ value, onChange }: { value?: string; onChange: (id: string) => void }) {
+  const { i18n } = useTranslation();
+  const campus = useCampus();
+  const en = i18n.language.startsWith("en");
+  return (
+    <div className="-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]">
+      {campus.universities
+        .filter((u) => u.open)
+        .map((u) => (
+          <button
+            key={u.id}
+            type="button"
+            onClick={() => onChange(u.id)}
+            aria-pressed={value === u.id}
+            className={cn("h-8 shrink-0 rounded-full px-3 text-sm font-semibold", value === u.id ? "bg-primary text-primary-foreground" : "bg-secondary")}
+          >
+            {en ? u.short_en : u.short_el}
+          </button>
+        ))}
+    </div>
+  );
+}
+
+/** One campus at a time: students needed before it opens (0 = open), and its student moderators. */
 function CampusAdmin() {
   const { t } = useTranslation();
   const qc = useQueryClient();
   const campus = useCampus();
-  const uni = campus.universities.find((u) => u.open);
-  const status = useQuery({ queryKey: campusStatusKeys.status, queryFn: campusStatus });
+  const campuses = useQuery({ queryKey: adminKeys.campuses, queryFn: adminCampuses });
+  const [picked, setPicked] = useState<string | null>(null);
+  const uni = campus.uni(picked) ?? campus.universities.find((u) => u.open);
+  const status = campuses.data?.find((c) => c.university_id === uni?.id);
   const mods = useQuery({ queryKey: adminKeys.moderators(uni?.id ?? ""), queryFn: () => campusModerators(uni!.id), enabled: !!uni });
   const [min, setMin] = useState("");
   const [username, setUsername] = useState("");
@@ -163,6 +191,7 @@ function CampusAdmin() {
     onSuccess: () => {
       setMin("");
       toast.success(t("admin.saved"));
+      void qc.invalidateQueries({ queryKey: adminKeys.campuses });
       void qc.invalidateQueries({ queryKey: campusStatusKeys.status });
     },
     onError: (e) => toast.error(t(rpcErrorKey(e))),
@@ -172,6 +201,7 @@ function CampusAdmin() {
     onSuccess: () => {
       setUsername("");
       void qc.invalidateQueries({ queryKey: adminKeys.moderators(uni!.id) });
+      void qc.invalidateQueries({ queryKey: adminKeys.campuses });
     },
     onError: (e) => toast.error(e instanceof Error && e.message.includes("not_student") ? t("admin.notStudent") : t(rpcErrorKey(e))),
   });
@@ -180,10 +210,9 @@ function CampusAdmin() {
   return (
     <section className="space-y-3">
       <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("admin.campusTitle", { uni: short })}</h2>
+      <CampusPicker value={uni.id} onChange={setPicked} />
       <p className="text-sm text-muted-foreground">
-        {status.data
-          ? t("admin.campusNow", { students: status.data.students, min: status.data.min_students })
-          : t("admin.campusNotStudent")}
+        {status ? t("admin.campusNow", { students: status.students, min: status.min_students }) : t("admin.campusNotStudent")}
       </p>
       <div className="flex gap-2">
         <input value={min} onChange={(e) => setMin(e.target.value.replace(/\D/g, ""))} inputMode="numeric" placeholder={t("admin.minStudents")} className={input} />

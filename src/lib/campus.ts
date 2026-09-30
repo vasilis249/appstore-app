@@ -1,4 +1,4 @@
-// Campus identity: universities, their schools, verified students (NTUA first).
+// Campus identity: universities, their departments, verified students (Attica's universities).
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
@@ -31,6 +31,11 @@ export const STUDENT_COLUMNS = "university_id, department_id, study_year";
 
 export const campusKeys = { all: ["campus"] as const };
 
+/** Year codes a department offers: its undergraduate years, then 8 = master's, 9 = PhD. */
+export function yearOptions(years = 6): number[] {
+  return [...Array.from({ length: years }, (_, i) => i + 1), 8, 9];
+}
+
 /** Universities and schools (static data, loaded once). */
 export function useCampus() {
   const { i18n } = useTranslation();
@@ -60,6 +65,12 @@ export function useCampus() {
     dep,
     uniName: (id?: string | null) => (uni(id) ? (en ? uni(id)!.name_en : uni(id)!.name_el) : ""),
     depName: (id?: string | null) => (dep(id) ? (en ? dep(id)!.name_en : dep(id)!.name_el) : ""),
+    /** The open university an address belongs to (same rule as the database: @domain or @<sub>.domain). */
+    uniForEmail: (email: string) => {
+      const host = email.trim().toLowerCase().split("@")[1];
+      if (!host) return undefined;
+      return universities.find((u) => u.open && u.email_domains.some((d) => host === d || host.endsWith(`.${d}`)));
+    },
     /** "ΕΜΠ · ΗΜΜΥ" (or just "ΕΜΠ"), empty for non-students. */
     label: (p: StudentFields | null | undefined) => {
       const u = uni(p?.university_id);

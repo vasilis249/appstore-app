@@ -891,6 +891,16 @@ export type Database = {
           username: string
         }[]
       }
+      admin_campuses: {
+        Args: never
+        Returns: {
+          is_open: boolean
+          min_students: number
+          moderators: number
+          students: number
+          university_id: string
+        }[]
+      }
       admin_create_topic: {
         Args: {
           p_daily_date?: string

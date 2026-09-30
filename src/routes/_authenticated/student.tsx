@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useTranslation } from "react-i18next";
-import { Check, GraduationCap } from "lucide-react";
+import { Check, GraduationCap, Search } from "lucide-react";
 import { BigInput, FieldNote, StepShell } from "@/components/auth/step-shell";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { sendStudentCode } from "@/lib/api/student.functions";
-import { clearStudentIdentity, setStudentInfo, useCampus, verifyStudentCode } from "@/lib/campus";
+import { clearStudentIdentity, setStudentInfo, useCampus, verifyStudentCode, yearOptions } from "@/lib/campus";
 import { friendKeys, rpcErrorKey } from "@/lib/friends";
 import { cn } from "@/lib/utils";
 
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/_authenticated/student")({
 type Step = "manage" | "email" | "code" | "school" | "year";
 
 /**
- * Student identity, one question per screen: academic email → 6-digit code → school → year.
+ * Student identity, one question per screen: academic email (any open university) → 6-digit code → department → year.
  * `?welcome=1` right after sign-up (with "Skip"); from Settings it opens on what you have, with change / remove.
  */
 function StudentPage() {
@@ -36,6 +36,7 @@ function StudentPage() {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [school, setSchool] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
   const [year, setYear] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -88,7 +89,8 @@ function StudentPage() {
   async function saveInfo() {
     setLoading(true);
     try {
-      await setStudentInfo(school, year);
+      // A year the new department doesn't have (e.g. 6th after switching away from Medicine) is dropped.
+      await setStudentInfo(school, year && yearOptions(campus.dep(school)?.years).includes(year) ? year : null);
       await refresh();
       leave();
     } catch (e) {
@@ -115,9 +117,16 @@ function StudentPage() {
       {t("auth.skip")}
     </button>
   ) : undefined;
-  const uniId = me.data?.university_id ?? "ntua";
+  const en = i18n.language.startsWith("en");
+  const uniId = me.data?.university_id;
   const schools = campus.departments.filter((d) => d.university_id === uniId);
-  const maxYear = campus.dep(school)?.years ?? 5;
+  // Big universities (ΕΚΠΑ has 42 departments) get a search box; accents and case don't matter.
+  const fold = (x: string) => x.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+  const shown = query.trim()
+    ? schools.filter((d) => [d.short_el, d.name_el, d.short_en, d.name_en].some((x) => fold(x).includes(fold(query.trim()))))
+    : schools;
+  const detected = campus.uniForEmail(email);
+  const accepted = campus.universities.filter((u) => u.open).map((u) => (en ? u.short_en : u.short_el)).join(" · ");
 
   if (!step) return null;
 
@@ -176,11 +185,20 @@ function StudentPage() {
           autoCorrect="off"
           spellCheck={false}
           enterKeyHint="send"
-          placeholder="el19001@mail.ntua.gr"
+          placeholder="…@uoa.gr"
           value={email}
           onChange={(e) => setEmail(e.target.value.trim())}
         />
-        {error ? <FieldNote error>{error}</FieldNote> : <FieldNote>{t("student.emailPrivacy")}</FieldNote>}
+        {error ? (
+          <FieldNote error>{error}</FieldNote>
+        ) : detected ? (
+          <FieldNote>
+            <span className="font-semibold text-foreground">{t("student.detected", { uni: en ? detected.name_en : detected.name_el })}</span>
+          </FieldNote>
+        ) : (
+          <FieldNote>{t("student.emailPrivacy")}</FieldNote>
+        )}
+        {accepted && <p className="mt-4 text-[13px] leading-snug text-muted-foreground">{t("student.supported", { list: accepted })}</p>}
       </StepShell>
     );
 
@@ -224,8 +242,21 @@ function StudentPage() {
         disabled={!school}
         onSubmit={() => go("year")}
       >
+        {schools.length > 12 && (
+          <label className="mb-3 flex h-11 items-center gap-2 rounded-full bg-secondary px-4">
+            <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={t("student.searchSchool")}
+              autoCapitalize="none"
+              autoCorrect="off"
+              className="min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground"
+            />
+          </label>
+        )}
         <ul className="-mx-1 space-y-1">
-          {schools.map((d) => (
+          {shown.map((d) => (
             <li key={d.id}>
               <button
                 type="button"
@@ -234,14 +265,25 @@ function StudentPage() {
                 className={cn("flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left", school === d.id ? "bg-secondary" : "active:bg-secondary/60")}
               >
                 <span className="min-w-0 flex-1">
-                  <span className="block font-semibold leading-snug">{i18n.language.startsWith("en") ? d.short_en : d.short_el}</span>
-                  <span className="block text-sm leading-snug text-muted-foreground">{i18n.language.startsWith("en") ? d.name_en : d.name_el}</span>
+                  <span className="block font-semibold leading-snug">{en ? d.short_en : d.short_el}</span>
+                  <span className="block text-sm leading-snug text-muted-foreground">{en ? d.name_en : d.name_el}</span>
                 </span>
                 {school === d.id && <Check className="h-5 w-5 shrink-0" />}
               </button>
             </li>
           ))}
         </ul>
+        {/* Not listed: stay a verified student of the university, without a department (and its groups). */}
+        <button
+          type="button"
+          onClick={() => {
+            setSchool(null);
+            go("year");
+          }}
+          className="mt-3 text-[15px] font-semibold text-[#0a84ff]"
+        >
+          {t("student.noSchool")}
+        </button>
       </StepShell>
     );
 
@@ -256,7 +298,7 @@ function StudentPage() {
       onSubmit={() => void saveInfo()}
     >
       <div className="flex flex-wrap gap-2">
-        {[...Array.from({ length: maxYear }, (_, i) => i + 1), 6, 7].map((y) => (
+        {yearOptions(campus.dep(school)?.years).map((y) => (
           <button
             key={y}
             type="button"

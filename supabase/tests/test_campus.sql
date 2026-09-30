@@ -52,8 +52,9 @@ SELECT pg_temp.ok('03c right code → verified NTUA student', :'res' = 'ok'
 SELECT pg_temp.ok('03d the code is used up', public.verify_student_code('482913') = 'no_code');
 SELECT public.set_student_info('ntua-ece', 3);
 SELECT pg_temp.ok('03e school and year', (SELECT department_id = 'ntua-ece' AND study_year = 3 FROM public.profiles WHERE id = auth.uid()));
-SELECT pg_temp.ok('03f no school of another university, no year 9',
-  pg_temp.fails($$SELECT public.set_student_info('uoa-law', 1)$$) AND pg_temp.fails($$SELECT public.set_student_info('ntua-ece', 9)$$));
+SELECT pg_temp.ok('03f no school of another university, no year past the school''s (6th at ΕΜΠ, 7 is no code)',
+  pg_temp.fails($$SELECT public.set_student_info('uoa-law', 1)$$) AND pg_temp.fails($$SELECT public.set_student_info('ntua-ece', 6)$$)
+  AND pg_temp.fails($$SELECT public.set_student_info('ntua-ece', 7)$$));
 RESET ROLE;
 
 -- 04 one address, one account; limits
@@ -308,4 +309,55 @@ SELECT pg_temp.ok('12f admins still see everything (with the reporter)', (SELECT
 SELECT public.admin_set_campus_moderator((SELECT username FROM public.profiles WHERE id = :B), 'ntua', false);
 RESET ROLE; SELECT pg_temp.as_user(:B); SET ROLE authenticated;
 SELECT pg_temp.ok('12g removed moderator: no access', pg_temp.fails('SELECT * FROM public.admin_reports()'));
+RESET ROLE;
+
+-- 13 Attica universities
+SELECT pg_temp.ok('13a ten open universities in Attica, every one with departments',
+  (SELECT count(*) FROM public.universities WHERE open) = 10
+  AND NOT EXISTS (SELECT 1 FROM public.universities u WHERE NOT EXISTS (SELECT 1 FROM public.departments d WHERE d.university_id = u.id)));
+SELECT pg_temp.ok('13b each address to its university',
+  private.university_for_email('sdi2000001@di.uoa.gr') = 'uoa' AND private.university_for_email('p3200001@aueb.gr') = 'aueb'
+  AND private.university_for_email('mpsp1@unipi.gr') = 'unipi' AND private.university_for_email('a@panteion.gr') = 'panteion'
+  AND private.university_for_email('ice19001@uniwa.gr') = 'uniwa' AND private.university_for_email('st1@aua.gr') = 'aua'
+  AND private.university_for_email('it2@hua.gr') = 'hua' AND private.university_for_email('a@asfa.gr') = 'asfa'
+  AND private.university_for_email('a@aspete.gr') = 'aspete' AND private.university_for_email('a@uoa.gr.evil.com') IS NULL
+  AND private.university_for_email('a@fakeuoa.gr') IS NULL);
+SELECT pg_temp.ok('13c short labels are unique inside each university',
+  NOT EXISTS (SELECT 1 FROM public.departments GROUP BY university_id, short_el HAVING count(*) > 1));
+INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES
+  ('00000000-0000-0000-0000-00000000000e', 'med@x', '{"full_name":"Eleni"}');
+\set E '''00000000-0000-0000-0000-00000000000e'''
+SET ROLE service_role;
+SELECT public.student_code_issue(:E, 'med1@med.uoa.gr', '246810') AS uni_e \gset
+RESET ROLE;
+SELECT pg_temp.ok('13d a code for an ΕΚΠΑ address', :'uni_e' = 'uoa');
+SELECT pg_temp.as_user(:E); SET ROLE authenticated;
+SELECT public.verify_student_code('246810') AS verified_e \gset
+SELECT pg_temp.ok('13e verified at ΕΚΠΑ', :'verified_e' = 'ok'
+  AND (SELECT university_id = 'uoa' FROM public.profiles WHERE id = auth.uid()));
+SELECT public.set_student_info('uoa-med', 6);
+SELECT pg_temp.ok('13f Medicine has a 6th year; master''s is 8, PhD 9; law has no 6th',
+  (SELECT study_year = 6 FROM public.profiles WHERE id = auth.uid())
+  AND pg_temp.fails($$SELECT public.set_student_info('uoa-law', 6)$$)
+  AND pg_temp.fails($$SELECT public.set_student_info('ntua-ece', 1)$$)
+  AND pg_temp.err($$SELECT public.set_student_info('uoa-law', 8)$$) = 'none'
+  AND pg_temp.err($$SELECT public.set_student_info('uoa-law', 9)$$) = 'none');
+SELECT public.set_student_info('uoa-med', 6);
+RESET ROLE;
+SELECT pg_temp.ok('13g ΕΚΠΑ school-year group, labelled for everyone',
+  (SELECT name = 'ΕΚΠΑ · Ιατρική · 6ο έτος' AND description = '6ο έτος · Ιατρικής · ΕΚΠΑ.' AND university_id = 'uoa'
+   FROM public.groups WHERE auto AND department_id = 'uoa-med' AND study_year = 6)
+  AND EXISTS (SELECT 1 FROM public.group_members m JOIN public.groups g ON g.id = m.group_id
+              WHERE g.auto AND g.department_id = 'uoa-med' AND g.study_year IS NULL AND m.user_id = :E));
+SELECT pg_temp.ok('13h year labels', private.year_label(6) = '6ο έτος' AND private.year_label(8) = 'Μεταπτυχιακό'
+  AND private.year_label(9) = 'Διδακτορικό' AND private.year_label(7) IS NULL);
+SELECT pg_temp.ok('13i profiles refuse year 7', pg_temp.fails(format('UPDATE public.profiles SET study_year = 7 WHERE id = %L', :E)));
+SELECT pg_temp.as_user(:E); SET ROLE authenticated;
+SELECT pg_temp.ok('13j admin overview: admins only', pg_temp.fails('SELECT * FROM public.admin_campuses()'));
+RESET ROLE;
+INSERT INTO private.admins (user_id) VALUES (:E);
+SELECT pg_temp.as_user(:E); SET ROLE authenticated;
+SELECT pg_temp.ok('13k admin overview lists every open campus with its students',
+  (SELECT count(*) FROM public.admin_campuses()) = 10
+  AND (SELECT students FROM public.admin_campuses() WHERE university_id = 'uoa') = 1);
 RESET ROLE;

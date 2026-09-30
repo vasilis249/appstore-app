@@ -67,8 +67,8 @@
       "news": "News",
       "daily": "Daily"
     },
-    "campusOnly": "Only for {{uni}}",
-    "campusTitle": "{{uni}} campus",
+    "campusOnly": "Only for one campus",
+    "campusTitle": "Campus · {{uni}}",
     "campusNow": "Now: {{students}} verified students · opens at {{min}} (0 = open).",
     "campusNotStudent": "Students needed before the campus opens (0 = open).",
     "minStudents": "Students to open",
@@ -435,7 +435,7 @@
     "usernameFormat": "3–20 characters: a–z, 0–9, . and _",
     "notAllowed": "Not allowed.",
     "notFound": "Not found.",
-    "notAcademic": "You need an NTUA university email (…@mail.ntua.gr).",
+    "notAcademic": "You need an email from a university in Attica (e.g. …@uoa.gr, …@mail.ntua.gr).",
     "emailTaken": "This email is already used by another account.",
     "tooManyCodes": "You asked for many codes. Try again in a while.",
     "mailUnavailable": "Couldn't send email right now. Try again later."
@@ -514,7 +514,7 @@
     "noReplies": "No replies yet.",
     "reason": {
       "classmate": "Classmate",
-      "school": "Same school"
+      "school": "Same department"
     },
     "classmates": "Your classmates"
   },
@@ -680,8 +680,8 @@
     "emptyHomeTitle": "No groups yet",
     "emptyHome": "Join groups about things you care about, or start your own.",
     "noOthers": "No other groups yet.",
-    "autoOnly": "Only for students of this school and year. You join automatically through your student identity.",
-    "autoGroup": "School group · automatic"
+    "autoOnly": "Only for students of this department and its year. You join automatically from your student identity.",
+    "autoGroup": "Department group · automatic"
   },
   "home": {
     "news": "News",
@@ -725,23 +725,23 @@
     "yielded": "{{name}} spoke first"
   },
   "student": {
-    "cta": "Confirm you study at NTUA",
+    "cta": "Confirm you are a student",
     "settingsRow": "Student identity",
-    "emailTitle": "Do you study at NTUA?",
-    "emailHint": "Confirm it with your university email to join the campus.",
+    "emailTitle": "Where do you study?",
+    "emailHint": "Confirm it with your university email to join your campus.",
     "emailPrivacy": "We'll send you a code. Your email isn't stored or shown anywhere.",
     "sendCode": "Send code",
     "codeTitle": "Enter the code",
     "codeHint": "We sent it to {{email}}. It's valid for 15 minutes.",
     "verify": "Verify",
     "resend": "Send again",
-    "schoolTitle": "Which school?",
+    "schoolTitle": "Which department?",
     "yearTitle": "Which year?",
     "yearHint": "Optional. It helps you find classmates.",
     "done": "Done",
     "manageTitle": "Student identity",
-    "manageHint": "Shown on your profile as \"NTUA · school\".",
-    "change": "Change school or year",
+    "manageHint": "Shown on your profile as \"university · department\".",
+    "change": "Change department or year",
     "remove": "Remove",
     "removeConfirm": "Tap again to remove",
     "years": {
@@ -750,8 +750,9 @@
       "3": "3rd",
       "4": "4th",
       "5": "5th",
-      "6": "Master's",
-      "7": "PhD"
+      "6": "6th",
+      "8": "Master's",
+      "9": "PhD"
     },
     "codeErrors": {
       "bad_code": "Wrong code.",
@@ -759,26 +760,30 @@
       "too_many": "Too many wrong tries. Ask for a new code.",
       "no_code": "Ask for a code first.",
       "email_taken": "This email is already used by another account."
-    }
+    },
+    "supported": "Accepted emails from: {{list}}",
+    "detected": "✓ {{uni}}",
+    "searchSchool": "Search departments",
+    "noSchool": "My department isn't listed"
   },
   "campus": {
     "lockedTitle": "Your campus",
-    "locked": "Confirm you study at NTUA to hear and talk with your classmates.",
+    "locked": "Confirm you study at a university in Attica to hear and talk with your classmates.",
     "verify": "Verify as a student",
     "say": "Say something on campus…",
     "emptyTitle": "Quiet on campus",
     "empty": "Nobody has spoken here yet. Be the first!",
-    "postingIn": "On {{uni}}",
+    "postingIn": "Campus · {{uni}}",
     "postingHint": "Only verified students hear it.",
     "general": "General",
     "waitingTitle": "{{uni}} campus opens soon",
     "waiting_one": "It opens once {{count}} student joins. Invite your classmates!",
     "waiting_other": "It opens once {{count}} students join. Invite your classmates!",
     "inviteClassmates": "Invite classmates",
-    "schools": "Schools leaderboard",
+    "schools": "Departments ranking",
     "students_one": "{{count}} student",
     "students_other": "{{count}} students",
-    "allSchools": "All schools"
+    "allSchools": "All departments"
   },
   "invite": {
     "title": "Invite friends",

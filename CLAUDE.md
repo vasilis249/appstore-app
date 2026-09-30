@@ -318,6 +318,25 @@ User decisions:
   ΕΜΠ tab: closed campus → `CampusWaiting` (progress to the threshold, invite, schools board) and no ▶ / pills; open →
   `SchoolsBoard` (top 3 + yours); Admin topics → Campus (threshold, moderators); `/admin/reports` for moderators.
   Terms el/en "Campus φοιτητών". Tests `test_campus.sql` 66; browser `growth-flow.mjs` 12/12.
+  **N5 ✔ (all public ΑΕΙ of Attica, user request 2026-09-30)** migration `20261017100000_attica_universities.sql`: 9 more
+  open universities + 111 departments (Wikipedia lists, ΑΣΠΑΙΤΕ from its site): ΕΚΠΑ `uoa` (42 incl. Ψαχνά), ΟΠΑ `aueb`
+  (8), ΠΑΠΕΙ `unipi` (10), Πάντειο `panteion` (9), ΠΑΔΑ `uniwa` (27), ΓΠΑ `aua` (6, 5 years), Χαροκόπειο `hua` (4),
+  ΑΣΚΤ `asfa` (2), ΑΣΠΑΙΤΕ `aspete` (3); domains = the institution's (`uoa.gr` also covers `di.uoa.gr` …); all start
+  open (min_students 0). **Year codes changed**: 1–6 undergraduate (Medicine 6, Pharmacy/Dentistry/engineering 5),
+  8 master's, 9 PhD (was 6/7; CHECKs on profiles/groups, `year_label`, `set_student_info` checks the department's
+  years). Auto group description `private.auto_group_description` ("6ο έτος · Ιατρικής · ΕΚΠΑ."), existing ones
+  rewritten. `admin_campuses()` (admin: every open campus, students, threshold, open, moderators). UI: copy says
+  τμήμα / ΑΕΙ instead of σχολή / ΕΜΠ; `/student` email step shows the detected university (`useCampus().uniForEmail`)
+  and "Δεκτά email από: …"; department step has an accent-insensitive search (> 12 departments) and "Δεν βρίσκω το
+  τμήμα μου" (verified without a department); years from `yearOptions(dep.years)` (a year the new department lacks
+  is dropped on save). Admin topics: `CampusPicker` chips for campus-only topics and for threshold / moderators.
+  Tests `test_campus.sql` 77; browser `attica-flow.mjs` 13/13 (+ campus 15/15, campus-groups 7/7, growth 12/12 after
+  copy updates). Seed note: `seed-campus.sh` is not idempotent → run `seed-speak.sh` (reset) first.
+  No RSS for the new universities yet (only ΕΜΠ has campus news feeds).
+- **Email (2026-09-30)**: Brevo (free, 300/day, sender `vasilis.har@gmail.com`). Worker secrets `BREVO_API_KEY` +
+  `MAIL_FROM_EMAIL` set (student codes). Supabase Auth custom SMTP = `smtp-relay.brevo.com:587`, user
+  `bbd8b8001@smtp-brevo.com`, the SMTP key, sender name Speak, 100 emails/h; `mailer_autoconfirm` still true
+  (sign-up without confirmation) until the user decides. Keys only in scratchpad `deploy.env` (rotate later).
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -445,7 +464,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (66).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (77).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session
