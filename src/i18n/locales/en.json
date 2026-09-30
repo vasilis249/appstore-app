@@ -271,7 +271,8 @@
             "Email delivery provider: sending sign-up confirmation and password reset emails.",
             "Apple: distributes the app through the App Store, but has no access to your Speak account data.",
             "For news topics our server reads public RSS feeds of Greek media; we do not send them any user data. News photos are shown straight from the publisher's server, so when you see them or open an article link, the publisher receives your IP address under its own policy.",
-            "All providers process data only on our instructions and are bound by data processing agreements (Art. 28 GDPR). Data may also be disclosed to public authorities when required by law."
+            "All providers process data only on our instructions and are bound by data processing agreements (Art. 28 GDPR). Data may also be disclosed to public authorities when required by law.",
+            "OpenFreeMap: map images are loaded from its servers when you open the map (they see your device's IP address and the map area requested, not your account or your position)."
           ]
         },
         {
@@ -395,7 +396,8 @@
     "profile": "Profile",
     "messages": "Messages",
     "notifications": "Notifications",
-    "search": "Search"
+    "search": "Search",
+    "map": "Map"
   },
   "friends": {
     "noResults": "No users.",
@@ -854,5 +856,20 @@
     "webHint": "On the web your position is sent only while the page is open. It's hidden if not updated for 15 minutes.",
     "bgTitle": "Speak: sharing location",
     "bgMessage": "Your position shows on the map as you set it."
+  },
+  "map": {
+    "nearby_one": "Nearby · {{count}}",
+    "nearby_other": "Nearby · {{count}}",
+    "recenter": "Centre on me",
+    "offTitle": "The map",
+    "off": "Turn on location sharing to see who is near you. You only see others while you share too.",
+    "turnOn": "Turn on location",
+    "waitingTitle": "Finding you…",
+    "waiting": "As soon as your first position arrives you'll see who is near.",
+    "listHint": "Within {{radius}}, plus your friends wherever they are.",
+    "nobody": "Nobody near you right now.",
+    "friend": "Friend",
+    "away": "{{distance}} away",
+    "profile": "Profile"
   }
 }

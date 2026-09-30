@@ -10,6 +10,10 @@ export interface LocationSharing {
   talk_from: TalkFrom;
   has_position: boolean;
   position_at: string | null;
+  /** Your own latest position (the map centres on it). */
+  lat: number | null;
+  lng: number | null;
+  accuracy_m: number | null;
 }
 
 /** Someone on your map (friends anywhere, others within the radius of your own position). */
@@ -40,7 +44,7 @@ function fail(error: { message: string } | null) {
 export async function mySharing(): Promise<LocationSharing> {
   const { data, error } = await supabase.rpc("my_location_sharing");
   fail(error);
-  return ((data ?? [])[0] as LocationSharing | undefined) ?? { mode: "off", talk_from: "everyone", has_position: false, position_at: null };
+  return ((data ?? [])[0] as LocationSharing | undefined) ?? { mode: "off", talk_from: "everyone", has_position: false, position_at: null, lat: null, lng: null, accuracy_m: null };
 }
 
 export async function setSharing(mode: ShareMode, talkFrom?: TalkFrom) {

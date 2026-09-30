@@ -31,6 +31,7 @@ function MemoriesPage() {
   return (
     <>
       <AppHeader
+        back
         center={
           <div className="flex rounded-full bg-secondary p-1">
             <Link to="/memories" search={{}} className={cn(seg, view === "list" ? "bg-[#3a3a3c]" : "text-foreground/80")}>

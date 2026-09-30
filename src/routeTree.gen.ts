@@ -18,6 +18,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedLocationRouteImport } from './routes/_authenticated/location'
+import { Route as AuthenticatedMapRouteImport } from './routes/_authenticated/map'
 import { Route as AuthenticatedMemoriesRouteImport } from './routes/_authenticated/memories'
 import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
@@ -82,6 +83,11 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
 const AuthenticatedLocationRoute = AuthenticatedLocationRouteImport.update({
   id: '/location',
   path: '/location',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMapRoute = AuthenticatedMapRouteImport.update({
+  id: '/map',
+  path: '/map',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedMemoriesRoute = AuthenticatedMemoriesRouteImport.update({
@@ -207,6 +213,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
   '/location': typeof AuthenticatedLocationRoute
+  '/map': typeof AuthenticatedMapRoute
   '/memories': typeof AuthenticatedMemoriesRoute
   '/notifications': typeof AuthenticatedNotificationsRoute
   '/profile': typeof AuthenticatedProfileRoute
@@ -237,6 +244,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
   '/location': typeof AuthenticatedLocationRoute
+  '/map': typeof AuthenticatedMapRoute
   '/memories': typeof AuthenticatedMemoriesRoute
   '/notifications': typeof AuthenticatedNotificationsRoute
   '/profile': typeof AuthenticatedProfileRoute
@@ -270,6 +278,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
   '/_authenticated/location': typeof AuthenticatedLocationRoute
+  '/_authenticated/map': typeof AuthenticatedMapRoute
   '/_authenticated/memories': typeof AuthenticatedMemoriesRoute
   '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
@@ -304,6 +313,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/terms'
     | '/location'
+    | '/map'
     | '/memories'
     | '/notifications'
     | '/profile'
@@ -334,6 +344,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/terms'
     | '/location'
+    | '/map'
     | '/memories'
     | '/notifications'
     | '/profile'
@@ -366,6 +377,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/terms'
     | '/_authenticated/location'
+    | '/_authenticated/map'
     | '/_authenticated/memories'
     | '/_authenticated/notifications'
     | '/_authenticated/profile'
@@ -464,6 +476,13 @@ declare module '@tanstack/react-router' {
       path: '/location'
       fullPath: '/location'
       preLoaderRoute: typeof AuthenticatedLocationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/map': {
+      id: '/_authenticated/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof AuthenticatedMapRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/memories': {
@@ -618,6 +637,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedLocationRoute: typeof AuthenticatedLocationRoute
+  AuthenticatedMapRoute: typeof AuthenticatedMapRoute
   AuthenticatedMemoriesRoute: typeof AuthenticatedMemoriesRoute
   AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
@@ -643,6 +663,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedLocationRoute: AuthenticatedLocationRoute,
+  AuthenticatedMapRoute: AuthenticatedMapRoute,
   AuthenticatedMemoriesRoute: AuthenticatedMemoriesRoute,
   AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,

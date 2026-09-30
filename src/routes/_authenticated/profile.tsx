@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Settings } from "lucide-react";
+import { CalendarDays, Settings } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { AppHeader, HeaderPill } from "@/components/app-header";
 import { EditProfileSheet } from "@/components/edit-profile-sheet";
@@ -25,6 +25,9 @@ function MyProfilePage() {
         title={t("tabs.profile")}
         right={
           <HeaderPill>
+            <Link to="/memories" aria-label={t("tabs.memories")} className="grid h-9 w-10 place-items-center rounded-full">
+              <CalendarDays className="h-5 w-5" />
+            </Link>
             <button
               type="button"
               onClick={() => setSettingsOpen(true)}

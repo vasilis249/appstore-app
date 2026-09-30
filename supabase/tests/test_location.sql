@@ -127,3 +127,7 @@ SELECT pg_temp.ok('05d account deletion removes position and settings',
 SET ROLE anon;
 SELECT pg_temp.ok('05e anon: nothing', pg_temp.fails('SELECT * FROM public.map_people()') AND pg_temp.fails('SELECT * FROM public.location_sharing'));
 RESET ROLE;
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('06a your own settings return your own position (for the map)',
+  (SELECT mode = 'everyone' AND round(lat::numeric, 4) = 37.9755 AND round(lng::numeric, 4) = 23.7348 FROM public.my_location_sharing()));
+RESET ROLE;

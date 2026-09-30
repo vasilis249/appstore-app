@@ -1352,7 +1352,10 @@ export type Database = {
       my_location_sharing: {
         Args: never
         Returns: {
+          accuracy_m: number
           has_position: boolean
+          lat: number
+          lng: number
           mode: string
           position_at: string
           talk_from: string

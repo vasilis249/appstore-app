@@ -37,6 +37,7 @@ Use two accounts (A and B) on two devices or one device + the website.
 | 26 | Walkie background (experimental) | B: 📡 list → "Και με κλειστή οθόνη" ON → lock the phone, A talks | Report what happens: voice heard / local notification / nothing (iOS may suspend the app) |
 | 27 | Location sharing | Profile → ⚙︎ → Τοποθεσία → «Όλοι κοντά μου» (warning → Ενεργοποίηση) → allow location → Always | Status "Η θέση σου ενημερώθηκε …"; turning it Off removes you at once |
 | 28 | Location in the background | Location on "Always", lock the phone, walk 100 m; B (sharing, nearby) checks the map (L2) | Your position moves while the app is closed; blue location pill shows; hidden 15 min after the last update |
+| 29 | Live map | A and B share with everyone, stand near each other; A: Χάρτης tab | Dark map, you as a blue dot in the circle, B as a photo; 100 / 250 / 500 μ chips filter; tap B → name, distance, Profile; Memories now open from Profile (calendar icon) |
 
 If something fails, note the step number and what you saw (a screenshot helps).
 

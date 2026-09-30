@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { CalendarDays, Home, Search } from "lucide-react";
+import { Home, MapPin, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/use-auth";
 import { useMyProfile } from "@/hooks/use-my-profile";
@@ -8,7 +8,7 @@ import { NavRecordButton } from "@/components/voice/nav-record-button";
 
 /**
  * Floating pill nav: Home, Search, the round voice button in the middle (tap = compose, hold = push to talk),
- * Memories, Profile (avatar). Labels under icons; active tab gets a pill.
+ * the live Map, Profile (avatar; Memories are reached from there). Labels under icons; active tab gets a pill.
  */
 /** Sign-in / sign-up / password pages (also shown right after sign-up, while already signed in). */
 export const AUTH_PATHS = /^\/(auth|forgot-password|reset-password|i)(\/|$)/;
@@ -46,9 +46,9 @@ export function BottomNav() {
           <NavRecordButton />
         </li>
         <li>
-          <Link to="/memories" className={item} activeProps={active}>
-            <CalendarDays className="h-6 w-6" strokeWidth={2} />
-            <span>{t("tabs.memories")}</span>
+          <Link to="/map" className={item} activeProps={active}>
+            <MapPin className="h-6 w-6" strokeWidth={2} />
+            <span>{t("tabs.map")}</span>
           </Link>
         </li>
         <li>

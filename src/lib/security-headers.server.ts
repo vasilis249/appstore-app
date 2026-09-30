@@ -32,6 +32,8 @@ function buildCsp(): string {
     sbWs,
     "https://*.supabase.co",
     "wss://*.supabase.co",
+    // Live map: style, vector tiles, glyphs and sprites (OpenFreeMap, free, no key).
+    "https://tiles.openfreemap.org",
   ].filter(Boolean);
 
   // News cover photos are shown straight from the publishers' servers (any https host).

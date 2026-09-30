@@ -413,6 +413,18 @@ User decisions:
   Privacy (el/en) new section "Τοποθεσία και χάρτης" (consent, who sees, latest only, 15 min / 1 h). Tests
   `test_location.sql` 20; browser `location-flow.mjs` 6/6 (Playwright geolocation). NOT verified: the native plugin on
   a real iPhone (needs `bun install` + `bun run ios:sync` + Xcode build).
+  **L2 ✔ (map section)** migration `20261022100000_live_map.sql`: `my_location_sharing()` also returns your own
+  lat/lng/accuracy. `maplibre-gl` 6.11.2 + OpenFreeMap `styles/dark` (free, no key; CSP connect-src
+  `https://tiles.openfreemap.org`). `components/map/live-map.tsx` (MapLibre loaded on demand; the container lives in an
+  inner full-size div because MapLibre's CSS makes it `position: relative`; first framing = `cameraForBounds` +
+  `jumpTo` — an animated fitBounds never finished while the style hadn't loaded; blue dot = you, radius circle layer,
+  people = DOM button markers with photo/initial, green ring = friend), `/map` (full screen under the floating nav:
+  100/250/500 μ chips top, "Κοντά σου · n" list drawer + recenter bottom, person drawer: name, @username, "120 μ
+  μακριά · τώρα", Προφίλ; sharing off → card → /location; refetch 10 s), `lib/location/format.ts`
+  (`formatDistance`). Nav: **Χάρτης replaces Αναμνήσεις**; Memories = calendar icon in the Profile header (Memories
+  page got a back button). Privacy: OpenFreeMap as a provider. Tests location 21; browser `map-flow.mjs` 10/10
+  (headless Chromium: `--use-angle=swiftshader`; tiles can't load in the container — no proxy for Chromium — so the map
+  is black there; markers/circle/UI verified).
 - **Email (2026-09-30)**: Brevo (free, 300/day, sender `vasilis.har@gmail.com`). Worker secrets `BREVO_API_KEY` +
   `MAIL_FROM_EMAIL` set (student codes). Supabase Auth custom SMTP = `smtp-relay.brevo.com:587`, user
   `bbd8b8001@smtp-brevo.com`, the SMTP key, sender name Speak, 100 emails/h; `mailer_autoconfirm` still true
@@ -544,7 +556,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79) + `test_location.sql` (20).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79) + `test_location.sql` (21).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session
