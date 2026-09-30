@@ -27,6 +27,14 @@ Use two accounts (A and B) on two devices or one device + the website.
 | 16 | Offline | Airplane mode → cold start | Offline page; "Try again" reloads once online |
 | 17 | Delete account | Profile → ⚙︎ → Delete account → confirm | Signed out; the user, their voices and files are gone (Supabase → Auth users, Storage → voices) |
 | 18 | Legal | Settings → Terms / Privacy | Speak texts (voice data, zero tolerance, Apple terms) in el and en |
+| 19 | Groups | Create a private group → invite B (mutual follow) → B accepts → both post; C asks to join → approve | Only members hear the voices; roles and requests work |
+| 20 | Student verification | Profile → "Επιβεβαίωσε ότι είσαι φοιτητής" → your academic email (e.g. …@mail.ntua.gr, …@uoa.gr) → code from the email → department → year | The university is recognised while typing; code arrives within a minute (check spam); profile shows "ΕΚΠΑ · τμήμα" |
+| 21 | Campus | Verified student → Home opens on your university tab → "Πες κάτι στο campus…" | Only students of that university hear it; school/year groups appear under Groups |
+| 22 | Invite link | Search → "Κάλεσε φίλους" → open the link signed out on another device → sign up | The new account and you follow each other; you get a notification |
+| 23 | Walkie live | A and B follow each other. A: Messages → 📡 → B → hold the big button and talk; B has the same screen open | B hears A **while A is still talking**; one speaker at a time; both see it under "Τελευταίες 24 ώρες" |
+| 24 | Walkie anywhere | B: 📡 list → B's switch "Κανάλι" for A ON → go to Home. A talks | On B's Home an orange banner "A σου μιλάει" + live voice; tap → A's walkie. Try with the silent switch on and with headphones |
+| 25 | Walkie missed | B closes the app, A talks | B gets a notification "σου μίλησε στο walkie-talkie" (bell); the 📡 button shows 1; replay works |
+| 26 | Walkie background (experimental) | B: 📡 list → "Και με κλειστή οθόνη" ON → lock the phone, A talks | Report what happens: voice heard / local notification / nothing (iOS may suspend the app) |
 
 If something fails, note the step number and what you saw (a screenshot helps).
 
@@ -37,9 +45,10 @@ If something fails, note the step number and what you saw (a screenshot helps).
 - [ ] **Logo**: run `node resources/render-assets.mjs path/to/logo.svg` (or `logo.png --full` for a ready icon,
   `--bg "#hex"` for the background) → writes the icon + splash into Xcode; update the favicon in
   `src/routes/__root.tsx`. Until then a placeholder mark (voice bars) is used.
-- [ ] **Custom SMTP** (Gmail app password, Brevo or Resend): run `bun run deploy:all` with `SMTP_HOST`,
-  `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_SENDER_EMAIL` → email confirmation turns back ON. Optionally
-  translate the email templates (Supabase → Authentication → Emails) and put "Speak" in them.
+- [x] **Custom SMTP**: Brevo (2026-09-30) for auth emails + the Brevo API for student codes.
+- [ ] Check deliverability ("Forgot password" to a Gmail and an academic address; not in spam), then turn **Confirm
+  email ON**. Better: a sender on your own domain authenticated in Brevo (SPF/DKIM) instead of the Gmail
+  address. Optionally translate the email templates (Supabase → Authentication → Emails) and put "Speak" in them.
 - [ ] `CONTACT_CONTROLLER` in `src/lib/contact.ts` = your full name, or company name + ΑΦΜ (GDPR needs the
   controller's identity; it appears in the Terms and the Privacy Policy). Have both texts reviewed.
 - [ ] Supabase project region (Settings → General): an EU region keeps the data in the EEA; otherwise the
@@ -70,8 +79,11 @@ If something fails, note the step number and what you saw (a screenshot helps).
   app; offending users can be banned. Mention this in the review notes.
 - [ ] **Sign in with Apple (4.8)**: required as soon as Google sign-in is offered. Needs the Developer Program →
   create the Services ID/key and enable Apple in Supabase (see `supabase-setup.md` → Social login).
-- [x] Permission texts: microphone (recording), camera + photo library (profile photo). Local notifications
-  ask at runtime. `UIBackgroundModes audio` is used for continuous playback — say so in the review notes.
+- [x] Permission texts: microphone (recording and walkie-talkie), camera + photo library (profile photo). Local
+  notifications ask at runtime. `UIBackgroundModes audio` is used for continuous playback and for hearing
+  walkie-talkie friends — say so in the review notes. The experimental "screen off" walkie option plays a silent
+  loop to stay awake; Apple may object (2.5.4) — if review complains, remove that switch (it is opt-in and off by
+  default) or move walkie to Apple's PushToTalk framework.
 - [x] Export compliance: `ITSAppUsesNonExemptEncryption = NO` (HTTPS only).
 - [ ] **Minimum functionality (4.2)** — the main risk for an app that loads a website. In place: native
   splash, offline page, deep links, microphone recording, background audio with lock-screen controls, local
@@ -79,12 +91,15 @@ If something fails, note the step number and what you saw (a screenshot helps).
 - [ ] **Demo account for the reviewer**: App Store Connect → App Review Information → an account that follows a
   few people, with some voices, a topic and one mutual follow (for DMs). Note: "Speak is a voice social
   network: post short voice takes on news topics, listen back-to-back, reply with your voice. Microphone is
-  used only when you tap record; background audio plays the queue when the screen is locked."
+  used only when you tap record or hold the walkie-talkie button; background audio plays the queue when the
+  screen is locked and lets you hear a friend's walkie-talkie. Student features need a university email: use the
+  demo account, already verified."
 - [ ] **Age rating**: user-generated content with unrestricted communication → answer the questionnaire
   honestly (expect 16+/18+ with the new ratings); the Terms say 15+ for GDPR, the store rating may be higher.
 - [ ] **Privacy policy URL**: `https://<your-domain>/privacy`; **Support URL**: `https://<your-domain>/contact`.
 - [ ] **App Privacy (nutrition labels)** — all "Linked to you", none "Used to track you":
   Contact info (email, name) · User content (audio data — voices and voice messages, photos, other user
   content such as titles) · Identifiers (user ID) · Usage data (product interaction: likes, listens, follows)
-  · Diagnostics: none. No location, contacts, payments or analytics.
+  · Other data (optional: university, department, year of study) · Diagnostics: none. No location, contacts,
+  payments or analytics. The academic email is not stored (only a hash, to allow one account per address).
 - [ ] Screenshots (6.9" iPhone): For you, a topic page, the recorder, a thread, a profile.

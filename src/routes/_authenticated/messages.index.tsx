@@ -1,11 +1,12 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RadioTower, Send, SquarePen } from "lucide-react";
-import { AppHeader, HeaderPill } from "@/components/app-header";
+import { AppHeader, HeaderIconLink, HeaderPill } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { PersonRow } from "@/components/friends/person-row";
 import { FriendPickerSheet } from "@/components/voice/friend-picker-sheet";
+import { useWalkieList } from "@/components/walkie/walkie-hub";
 import { useThreads } from "@/hooks/use-threads";
 import { timeAgo } from "@/lib/time-ago";
 import type { Thread } from "@/lib/voice";
@@ -19,6 +20,8 @@ function MessagesPage() {
   const navigate = useNavigate();
   const threads = useThreads();
   const [pickerOpen, setPickerOpen] = useState(false);
+  const walkie = useWalkieList();
+  const walkieUnheard = (walkie.data ?? []).reduce((n, c) => n + c.unheard, 0);
 
   function subtitle(th: Thread) {
     const when = timeAgo(th.last_at, i18n.language);
@@ -36,9 +39,9 @@ function MessagesPage() {
         title={t("tabs.messages")}
         right={
           <HeaderPill>
-            <Link to="/talk" aria-label={t("walkie.title")} className="grid h-9 w-10 place-items-center rounded-full">
+            <HeaderIconLink to="/talk" label={t("walkie.title")} badge={walkieUnheard}>
               <RadioTower className="h-5 w-5" />
-            </Link>
+            </HeaderIconLink>
             <button
               type="button"
               onClick={() => setPickerOpen(true)}

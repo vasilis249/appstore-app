@@ -66,7 +66,7 @@ export function HeaderIconLink({
   children,
   badge,
 }: {
-  to: "/messages" | "/notifications";
+  to: "/messages" | "/notifications" | "/talk";
   label: string;
   children: ReactNode;
   badge?: number;

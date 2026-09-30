@@ -13,6 +13,8 @@
 #   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SENDER_EMAIL  optional — custom SMTP for auth emails;
 #                              with them email confirmation is turned ON, without them it stays OFF
 #                              (Supabase's built-in mailer only reaches members of your organisation)
+#   BREVO_API_KEY, MAIL_FROM_EMAIL  optional — student verification codes (a Brevo v3 API key `xkeysib-…` and a
+#                              sender verified in Brevo); already set Worker secrets are kept when omitted
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -57,6 +59,8 @@ echo "▸ 4/6 Runtime secrets (SUPABASE_URL is a plain var in wrangler.jsonc)"
 put() { printf '%s' "$2" | npx wrangler secret put "$1" >/dev/null && echo "  set $1"; }
 put SUPABASE_PUBLISHABLE_KEY "$SUPABASE_ANON_KEY"
 put SUPABASE_SERVICE_ROLE_KEY "$SUPABASE_SERVICE_ROLE_KEY"
+if [ -n "${BREVO_API_KEY:-}" ]; then put BREVO_API_KEY "$BREVO_API_KEY"; fi
+if [ -n "${MAIL_FROM_EMAIL:-}" ]; then put MAIL_FROM_EMAIL "$MAIL_FROM_EMAIL"; fi
 
 echo "▸ 5/6 Auth settings (redirect URLs + security)"
 AUTH_JSON='"password_min_length":8,"mailer_secure_email_change_enabled":true,"security_update_password_require_reauthentication":true,"security_refresh_token_reuse_interval":10,"refresh_token_rotation_enabled":true'

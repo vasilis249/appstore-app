@@ -39,9 +39,12 @@ old table/function/type in `public`, the `private` schema and the old storage po
 ## Dashboard steps (manual)
 1. **Authentication → URL Configuration**: Site URL = the Worker URL; Redirect URLs = `<url>/**` and
    `courtsie://**` (already set by `scripts/deploy-all.sh` when SUPABASE_ACCESS_TOKEN is present).
-2. **Authentication → Emails → SMTP**: set a custom SMTP server before inviting real users (the built-in
-   mailer only sends to members of the Supabase organisation, 2 emails/hour). Until then **Confirm email is
-   OFF** (`mailer_autoconfirm: true`, set 2026-09-29) so sign-ups work; turn it back ON once SMTP is set.
+2. **Authentication → Emails → SMTP**: set since 2026-09-30 to **Brevo** (`smtp-relay.brevo.com:587`, the Brevo
+   SMTP login + SMTP key, sender name Speak, 100 emails/hour; Brevo free = 300 emails/day for everything).
+   **Confirm email is still OFF** (`mailer_autoconfirm: true`) until a "Forgot password" test shows the mail
+   lands in the inbox, not spam; then turn it ON (Authentication → Sign In / Providers → Email).
+   Student verification codes go through the Brevo **API** from the Worker: secrets `BREVO_API_KEY`
+   (`xkeysib-…`, not the SMTP key) and `MAIL_FROM_EMAIL` (a sender verified in Brevo).
 3. **Moderation** (App Store: act within 24 h): admins get a bell notification for new reports and review them in
    the app → Profile → ⚙︎ → Reports (play the voice, Hide voice / Ban account / Dismiss; History has undo). A post
    reported by 3 different people is hidden automatically until reviewed. Without the app: Table Editor →

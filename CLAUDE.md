@@ -264,6 +264,16 @@ User decisions:
   κανάλι" switch. Notifications: walkie → /talk/<actor>; RealtimeSync also refreshes the walkie list. Privacy (el/en)
   mentions open channels. Tests `test_walkie.sql` 28; browser `walkie-hub-flow.mjs` 12/12 + `walkie-flow.mjs` 11/11.
   NOT verified: background keep-alive + local notice on a real iPhone (can't in the container).
+  **W3 ✔ (polish, limits, docs)** — `WalkieSession.reconnect()` (new channel on the same session object; stale
+  channel statuses ignored) + retry after CHANNEL_ERROR/TIMED_OUT (5 s, 15 s, 45 s, then 60 s); `walkieHub.refresh()`
+  on app visible / `online` rejoins sessions that aren't connected; `resumeWalkieAudio()` on visible. Messages header
+  📡 button shows the walkie unheard total (`HeaderIconLink` now also takes `/talk`). Docs: `security.md` (walkie,
+  student campus, invite links, rate limits, "live audio can't be metered" + Realtime free quotas, background limits),
+  `release-checklist.md` (tests 19–26: groups, student, campus, invite, walkie live/anywhere/missed/background; SMTP
+  done → deliverability then Confirm email ON; review notes + 2.5.4 risk of the silent keep-alive; privacy label
+  "Other data" for university info), `supabase-setup.md` (Brevo SMTP + API), `deploy-all.sh` (optional
+  BREVO_API_KEY / MAIL_FROM_EMAIL). Browser: `walkie-reconnect-flow.mjs` 4/4 (Chromium offline emulation keeps open
+  WebSockets, so a real network drop is NOT exercised), walkie-hub 12/12, walkie 11/11.
 - **Campus-first, NTUA first (user request 2026-09-30: target college students, start with ΕΜΠ)** — playbook: verified
   students only, each university its own world, one campus at a time. Plan (stop for "OK" after each): **N1** student
   identity ✔ → **N2** campus-first Home (Campus tab = your university's voices, student sections, badges on cards,

@@ -107,6 +107,11 @@ export const walkieHub = {
     return [...entries.entries()].map(([peer, e]) => ({ peer, snap: e.session.snapshot }));
   },
 
+  /** Back in the foreground / online again: rejoin whatever is not connected. */
+  refresh() {
+    for (const e of entries.values()) if (!e.session.snapshot.connected) e.session.reconnect();
+  },
+
   pinnedCount(): number {
     return [...entries.values()].filter((e) => e.pinned).length;
   },

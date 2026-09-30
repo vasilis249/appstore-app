@@ -65,6 +65,11 @@ function setAudioSession(type: AudioSessionType) {
   }
 }
 
+/** Back from the background: iOS may have suspended / interrupted the context. Best effort (no gesture). */
+export function resumeWalkieAudio() {
+  if (ctx && ctx.state !== "running") void ctx.resume().catch(() => {});
+}
+
 /** Call inside a tap: lets Web Audio play (iOS) and plays nothing audible. */
 export async function unlockWalkieAudio(): Promise<boolean> {
   const c = audioContext();
@@ -136,6 +141,8 @@ export class WalkieSession {
   private tx: Transmission | null = null;
   private rx: Reception | null = null;
   private watchdog: ReturnType<typeof setInterval> | null = null;
+  private retry: ReturnType<typeof setTimeout> | null = null;
+  private failures = 0;
   private disposed = false;
   private listeners = new Set<(s: WalkieSnapshot) => void>();
   private handlers: Record<WalkieEvent, Set<() => void>> = { saved: new Set(), yield: new Set(), peerStart: new Set() };
@@ -187,6 +194,36 @@ export class WalkieSession {
     live.add(this);
     setAudioSession("playback");
     this.set({ audioLocked: typeof window === "undefined" || audioContext().state !== "running" });
+    this.openChannel();
+    this.watchdog = setInterval(() => this.checkPeerSilence(), 500);
+  }
+
+  /** Drop the channel and join again (after an error, a long background, the network coming back). */
+  reconnect() {
+    if (this.disposed || this.tx) return;
+    if (this.retry) clearTimeout(this.retry);
+    this.retry = null;
+    if (this.channel) {
+      void this.channel.untrack();
+      void supabase.removeChannel(this.channel);
+      this.channel = null;
+    }
+    this.rx = null;
+    this.set({ connected: false, peerOnline: false, peerTalking: false });
+    this.openChannel();
+  }
+
+  /** Joining failed: try again later (5 s, 15 s, 45 s, then every 60 s). */
+  private scheduleRetry() {
+    if (this.disposed || this.retry) return;
+    const wait = Math.min(60_000, 5_000 * 3 ** this.failures++);
+    this.retry = setTimeout(() => {
+      this.retry = null;
+      this.reconnect();
+    }, wait);
+  }
+
+  private openChannel() {
     const ch = supabase.channel(walkieTopic(this.me, this.peer), {
       config: { private: true, broadcast: { self: false }, presence: { key: this.me } },
     });
@@ -196,23 +233,25 @@ export class WalkieSession {
       .on("broadcast", { event: "saved" }, () => this.emit("saved"))
       .on("presence", { event: "sync" }, () => this.set({ peerOnline: (ch.presenceState()[this.peer]?.length ?? 0) > 0 }))
       .subscribe((status) => {
-        if (this.disposed) return;
+        if (this.disposed || this.channel !== ch) return; // a replaced channel's late status
         if (status === "SUBSCRIBED") {
+          this.failures = 0;
           this.set({ connected: true, error: null });
           void ch.track({ at: Date.now() });
         } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
           this.set({ connected: false, error: "channel" });
+          this.scheduleRetry();
         } else if (status === "CLOSED") {
           this.set({ connected: false });
         }
       });
     this.channel = ch;
-    this.watchdog = setInterval(() => this.checkPeerSilence(), 500);
   }
 
   dispose() {
     this.disposed = true;
     live.delete(this);
+    if (this.retry) clearTimeout(this.retry);
     if (this.tx) this.finishTransmission(false);
     if (this.watchdog) clearInterval(this.watchdog);
     if (this.channel) {

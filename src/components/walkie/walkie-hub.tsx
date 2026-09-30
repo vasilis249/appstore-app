@@ -6,7 +6,7 @@ import { UserAvatar } from "@/components/user-avatar";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 import { useAuth } from "@/hooks/use-auth";
 import { isNativeApp } from "@/lib/native";
-import { unlockWalkieAudio, walkieAudioRunning } from "@/lib/walkie/engine";
+import { resumeWalkieAudio, unlockWalkieAudio, walkieAudioRunning } from "@/lib/walkie/engine";
 import { walkieKeys, walkieList, type WalkieContact } from "@/lib/walkie/history";
 import { walkieHub } from "@/lib/walkie/hub";
 import { arm, onVisibility } from "@/lib/walkie/keepalive";
@@ -47,12 +47,21 @@ export function WalkieHubSync() {
       if (!walkieAudioRunning()) void unlockWalkieAudio();
       arm();
     };
-    const vis = () => onVisibility(walkieHub.pinnedCount() > 0);
+    const vis = () => {
+      onVisibility(walkieHub.pinnedCount() > 0);
+      if (document.visibilityState === "visible") {
+        resumeWalkieAudio();
+        walkieHub.refresh();
+      }
+    };
+    const online = () => walkieHub.refresh();
     document.addEventListener("pointerdown", tap, { capture: true, passive: true });
     document.addEventListener("visibilitychange", vis);
+    window.addEventListener("online", online);
     return () => {
       document.removeEventListener("pointerdown", tap, { capture: true });
       document.removeEventListener("visibilitychange", vis);
+      window.removeEventListener("online", online);
     };
   }, []);
 
