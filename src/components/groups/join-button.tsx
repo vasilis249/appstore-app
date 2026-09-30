@@ -48,11 +48,21 @@ export function GroupActions({ group, onInvite }: { group: GroupDetail; onInvite
         <Link to="/record" search={{ group: group.id }} className={cn(pill, "bg-primary text-primary-foreground")}>
           <VoiceIcon className="h-4 w-4" /> {t("groups.speak")}
         </Link>
-        <button type="button" onClick={onInvite} className={cn(pill, "bg-secondary")}>
-          <UserPlus className="h-4 w-4" /> {t("groups.invite")}
-        </button>
+        {!group.auto && (
+          <button type="button" onClick={onInvite} className={cn(pill, "bg-secondary")}>
+            <UserPlus className="h-4 w-4" /> {t("groups.invite")}
+          </button>
+        )}
       </div>
     );
+
+  // School / year groups: students of it get in (again) at once; for anyone else the page's lock says why.
+  if (group.auto)
+    return group.can_join ? (
+      <button type="button" disabled={busy} onClick={() => join.mutate()} className={cn(pill, "w-full bg-primary text-primary-foreground")}>
+        {t("groups.join")}
+      </button>
+    ) : null;
 
   if (group.my_pending === "invite")
     return (

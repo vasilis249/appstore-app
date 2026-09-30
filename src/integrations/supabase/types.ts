@@ -205,7 +205,9 @@ export type Database = {
       }
       groups: {
         Row: {
+          auto: boolean
           created_at: string
+          department_id: string | null
           description: string
           id: string
           last_post_at: string | null
@@ -214,9 +216,13 @@ export type Database = {
           posts_count: number
           privacy: string
           section_id: string
+          study_year: number | null
+          university_id: string | null
         }
         Insert: {
+          auto?: boolean
           created_at?: string
+          department_id?: string | null
           description?: string
           id?: string
           last_post_at?: string | null
@@ -225,9 +231,13 @@ export type Database = {
           posts_count?: number
           privacy: string
           section_id: string
+          study_year?: number | null
+          university_id?: string | null
         }
         Update: {
+          auto?: boolean
           created_at?: string
+          department_id?: string | null
           description?: string
           id?: string
           last_post_at?: string | null
@@ -236,13 +246,29 @@ export type Database = {
           posts_count?: number
           privacy?: string
           section_id?: string
+          study_year?: number | null
+          university_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "groups_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "groups_section_id_fkey"
             columns: ["section_id"]
             isOneToOne: false
             referencedRelation: "sections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "groups_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities"
             referencedColumns: ["id"]
           },
         ]
@@ -1077,6 +1103,8 @@ export type Database = {
       group_detail: {
         Args: { p_group: string }
         Returns: {
+          auto: boolean
+          can_join: boolean
           created_at: string
           description: string
           id: string
@@ -1263,10 +1291,14 @@ export type Database = {
         Args: { p_limit?: number }
         Returns: {
           avatar_path: string
+          department_id: string
           follows_me: boolean
           full_name: string
           i_follow: boolean
           id: string
+          reason: string
+          study_year: number
+          university_id: string
           username: string
         }[]
       }

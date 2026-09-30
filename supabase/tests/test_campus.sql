@@ -174,3 +174,54 @@ SELECT pg_temp.ok('07f students see it in campus topics, not in News',
   EXISTS (SELECT 1 FROM public.campus_topics(p_limit := 50) t JOIN public.topics x ON x.id = t.id WHERE x.external_id = 'ntua-5617')
   AND NOT EXISTS (SELECT 1 FROM public.news_topics(p_limit := 50) WHERE title LIKE 'Η Βραδιά%'));
 RESET ROLE;
+
+-- 08 school and school-year groups follow the profile
+INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES
+  ('00000000-0000-0000-0000-00000000000d', 'dora@x', '{"full_name":"Dora"}'),
+  ('00000000-0000-0000-0000-00000000000e', 'eli@x', '{"full_name":"Eli"}');
+\set D '''00000000-0000-0000-0000-00000000000d'''
+\set E '''00000000-0000-0000-0000-00000000000e'''
+UPDATE public.profiles SET university_id = 'ntua', student_verified_at = now() WHERE id IN (:D, :E);
+SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+SELECT public.set_student_info('ntua-civil', 2);
+RESET ROLE;
+SELECT pg_temp.ok('08a choosing school + year puts you in "ΕΜΠ · Πολιτικοί" and "ΕΜΠ · Πολιτικοί · 2ο έτος"',
+  (SELECT array_agg(g.name ORDER BY g.name) FROM public.group_members m JOIN public.groups g ON g.id = m.group_id WHERE m.user_id = :D AND g.auto)
+    = ARRAY['ΕΜΠ · Πολιτικοί', 'ΕΜΠ · Πολιτικοί · 2ο έτος']
+  AND NOT EXISTS (SELECT 1 FROM public.group_members m JOIN public.groups g ON g.id = m.group_id WHERE g.auto AND m.role <> 'member'));
+SELECT pg_temp.as_user(:E); SET ROLE authenticated;
+SELECT public.set_student_info('ntua-civil', 4);
+SELECT pg_temp.ok('08b a classmate joins the same school group (made once), their own year group',
+  (SELECT count(*) FROM public.groups WHERE auto AND department_id = 'ntua-civil') = 3
+  AND (SELECT members_count FROM public.groups WHERE auto AND department_id = 'ntua-civil' AND study_year IS NULL) = 2);
+SELECT pg_temp.ok('08c auto groups are private, not in discover, no invites',
+  (SELECT privacy FROM public.groups WHERE auto LIMIT 1) = 'private'
+  AND NOT EXISTS (SELECT 1 FROM public.discover_groups() WHERE name LIKE 'ΕΜΠ ·%')
+  AND pg_temp.fails(format('SELECT public.invite_to_group(%L, %L)', (SELECT id FROM public.groups WHERE auto AND department_id = 'ntua-civil' AND study_year IS NULL), :D)));
+SELECT public.leave_group((SELECT id FROM public.groups WHERE auto AND department_id = 'ntua-civil' AND study_year IS NULL));
+SELECT pg_temp.ok('08d you can leave and come back (you still fit)',
+  public.join_group((SELECT id FROM public.groups WHERE auto AND department_id = 'ntua-civil' AND study_year IS NULL)) = 'joined');
+SELECT pg_temp.ok('08e ... but not into a year group that isn''t yours',
+  pg_temp.fails(format('SELECT public.join_group(%L)', (SELECT id FROM public.groups WHERE auto AND department_id = 'ntua-civil' AND study_year = 2)))
+  AND (SELECT NOT can_join AND auto FROM public.group_detail((SELECT id FROM public.groups WHERE auto AND department_id = 'ntua-civil' AND study_year = 2))));
+SELECT public.set_student_info('ntua-arch', 4);
+RESET ROLE;
+SELECT pg_temp.ok('08f changing school moves you (out of Πολιτικοί, into Αρχιτέκτονες)',
+  (SELECT array_agg(g.name ORDER BY g.name) FROM public.group_members m JOIN public.groups g ON g.id = m.group_id WHERE m.user_id = :E AND g.auto)
+    = ARRAY['ΕΜΠ · Αρχιτέκτονες', 'ΕΜΠ · Αρχιτέκτονες · 4ο έτος']);
+SELECT pg_temp.as_user(:E); SET ROLE authenticated;
+SELECT public.clear_student_identity();
+RESET ROLE;
+SELECT pg_temp.ok('08g removing your student identity takes you out of them all',
+  NOT EXISTS (SELECT 1 FROM public.group_members m JOIN public.groups g ON g.id = m.group_id WHERE m.user_id = :E AND g.auto)
+  AND EXISTS (SELECT 1 FROM public.groups WHERE auto AND department_id = 'ntua-arch'));
+
+-- 09 classmates first in suggestions
+UPDATE public.profiles SET department_id = 'ntua-civil', study_year = 2 WHERE id = :B;
+SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+SELECT pg_temp.ok('09a suggestions: same school + year first (classmate), then same campus',
+  (SELECT id FROM public.suggested_people(5) LIMIT 1) = :B
+  AND (SELECT reason FROM public.suggested_people(5) LIMIT 1) = 'classmate'
+  AND EXISTS (SELECT 1 FROM public.suggested_people(10) WHERE id = :A AND reason = 'campus')
+  AND EXISTS (SELECT 1 FROM public.suggested_people(10) WHERE id = :C AND reason IS NULL));
+RESET ROLE;

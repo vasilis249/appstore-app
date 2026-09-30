@@ -489,7 +489,12 @@
     "noVoicesMine": "You haven't posted a voice yet.",
     "followingCount": "Following",
     "replies": "Replies",
-    "noReplies": "No replies yet."
+    "noReplies": "No replies yet.",
+    "reason": {
+      "classmate": "Classmate",
+      "school": "Same school"
+    },
+    "classmates": "Your classmates"
   },
   "adminReports": {
     "title": "Reports",
@@ -652,7 +657,9 @@
     "find": "Find groups",
     "emptyHomeTitle": "No groups yet",
     "emptyHome": "Join groups about things you care about, or start your own.",
-    "noOthers": "No other groups yet."
+    "noOthers": "No other groups yet.",
+    "autoOnly": "Only for students of this school and year. You join automatically through your student identity.",
+    "autoGroup": "School group · automatic"
   },
   "home": {
     "news": "News",

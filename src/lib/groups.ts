@@ -18,6 +18,10 @@ export interface GroupDetail {
   my_pending: "request" | "invite" | null;
   invited_by_name: string | null;
   pending_requests: number;
+  /** A school / school-year group: membership follows the student profile, nobody runs it. */
+  auto: boolean;
+  /** Auto groups: whether you fit it (and may join again). */
+  can_join: boolean;
 }
 
 export interface MyGroup {

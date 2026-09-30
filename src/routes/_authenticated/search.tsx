@@ -8,7 +8,8 @@ import { AppHeader } from "@/components/app-header";
 import { FollowButton } from "@/components/friends/follow-button";
 import { PersonRow } from "@/components/friends/person-row";
 import { useMyProfile } from "@/hooks/use-my-profile";
-import { friendKeys, searchUsers, suggestedPeople } from "@/lib/friends";
+import { friendKeys, searchUsers, suggestedPeople, type Person } from "@/lib/friends";
+import { useCampus } from "@/lib/campus";
 import { useDebounced } from "@/hooks/use-debounced";
 
 export const Route = createFileRoute("/_authenticated/search")({
@@ -24,6 +25,12 @@ function SearchPage() {
   const searching = q.length >= 2;
   const results = useQuery({ queryKey: friendKeys.search(q), queryFn: () => searchUsers(q), enabled: searching });
   const suggested = useQuery({ queryKey: friendKeys.suggested, queryFn: () => suggestedPeople(15), enabled: !searching });
+  const campus = useCampus();
+  // "Συμφοιτητής · ΕΜΠ · ΗΜΜΥ" under suggested classmates.
+  const whoIs = (p: Person) =>
+    [p.reason === "classmate" ? t("people.reason.classmate") : p.reason === "school" ? t("people.reason.school") : null, campus.label(p)]
+      .filter(Boolean)
+      .join(" · ") || undefined;
   const people = searching ? results.data : suggested.data;
   const open = (username: string) => void navigate({ to: "/u/$username", params: { username } });
 
@@ -53,7 +60,7 @@ function SearchPage() {
         )}
         <ul className={searching ? "mt-3" : undefined}>
           {(people ?? []).map((p) => (
-            <PersonRow key={p.id} person={p} onOpen={() => open(p.username)}>
+            <PersonRow key={p.id} person={p} subtitle={whoIs(p)} onOpen={() => open(p.username)}>
               <FollowButton userId={p.id} following={!!p.i_follow} followsMe={p.follows_me} />
             </PersonRow>
           ))}

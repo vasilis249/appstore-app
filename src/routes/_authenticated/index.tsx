@@ -12,6 +12,8 @@ import { useMyProfile } from "@/hooks/use-my-profile";
 import { useSections } from "@/hooks/use-sections";
 import { campusTopics, NEWS_PAGE, newsTopics, postKeys, type FeedParams, type NewsTopic, type Section } from "@/lib/posts";
 import { useCampus } from "@/lib/campus";
+import { friendKeys, suggestedPeople } from "@/lib/friends";
+import { FollowButton } from "@/components/friends/follow-button";
 import { timeAgoShort } from "@/lib/time-ago";
 import { dailyKeys, getToday } from "@/lib/daily";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
@@ -201,6 +203,7 @@ function CampusView({ section, playAllRef }: { section?: string; playAllRef: Rea
           ))}
         </ul>
       )}
+      {!section && <ClassmatesStrip />}
       <Link
         to="/record"
         search={section ? { campus: 1, section } : { campus: 1 }}
@@ -218,6 +221,36 @@ function CampusView({ section, playAllRef }: { section?: string; playAllRef: Rea
         empty={<EmptyState title={t("campus.emptyTitle")} text={t("campus.empty")} />}
       />
     </div>
+  );
+}
+
+/** Classmates to follow (same school and year first): friends make DMs and the walkie-talkie possible. */
+function ClassmatesStrip() {
+  const { t } = useTranslation();
+  const campus = useCampus();
+  const q = useQuery({ queryKey: friendKeys.suggested, queryFn: () => suggestedPeople(15) });
+  const people = (q.data ?? []).filter((p) => p.reason === "classmate" || p.reason === "school").slice(0, 10);
+  if (!people.length) return null;
+  return (
+    <section className="mb-3">
+      <h2 className="px-4 pb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("people.classmates")}</h2>
+      <div className="no-scrollbar flex gap-3 overflow-x-auto px-4">
+        {people.map((p) => (
+          <div key={p.id} className="flex w-32 shrink-0 flex-col items-center rounded-2xl bg-secondary/60 p-3 text-center">
+            <Link to="/u/$username" params={{ username: p.username }} className="flex w-full flex-col items-center">
+              <UserAvatar name={p.full_name || p.username} path={p.avatar_path} size={56} />
+              <span className="mt-2 w-full truncate text-sm font-semibold">{(p.full_name || p.username).split(" ")[0]}</span>
+              <span className="w-full truncate text-xs text-muted-foreground">
+                {[campus.label(p).split(" · ").pop(), p.study_year ? t(`student.years.${p.study_year}`) : null].filter(Boolean).join(" · ")}
+              </span>
+            </Link>
+            <div className="mt-2">
+              <FollowButton userId={p.id} following={false} followsMe={p.follows_me} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 

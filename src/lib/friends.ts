@@ -9,6 +9,8 @@ export interface Person extends StudentFields {
   avatar_path: string | null;
   i_follow?: boolean;
   follows_me?: boolean;
+  /** Suggestions: why (same school and year / same school / same campus). */
+  reason?: "classmate" | "school" | "campus" | null;
 }
 
 export interface ProfileStats {
@@ -40,7 +42,7 @@ export async function searchUsers(q: string): Promise<Person[]> {
 }
 
 export async function suggestedPeople(limit = 10): Promise<Person[]> {
-  return unwrap(await supabase.rpc("suggested_people", { p_limit: limit })) ?? [];
+  return ((unwrap(await supabase.rpc("suggested_people", { p_limit: limit })) ?? []) as Person[]);
 }
 
 export async function followList(user: string, which: "followers" | "following"): Promise<Person[]> {

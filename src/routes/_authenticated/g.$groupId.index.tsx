@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { ChevronRight, Lock, MoreHorizontal } from "lucide-react";
+import { ChevronRight, GraduationCap, Lock, MoreHorizontal } from "lucide-react";
 import { AppHeader } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
@@ -60,7 +60,12 @@ function GroupPage() {
               <GroupTile section={d.section_id} size={64} />
               <div className="min-w-0">
                 <h1 className="text-2xl font-extrabold leading-tight">{d.name}</h1>
-                <GroupMeta privacy={d.privacy} members={d.members_count} section={d.section_id} />
+                <GroupMeta privacy={d.privacy} members={d.members_count} section={d.auto ? undefined : d.section_id} />
+                {d.auto && (
+                  <p className="mt-0.5 flex items-center gap-1 text-[13px] font-medium text-coral">
+                    <GraduationCap className="h-3.5 w-3.5" /> {t("groups.autoGroup")}
+                  </p>
+                )}
               </div>
             </div>
             {d.description && <p className="whitespace-pre-line text-[15px] leading-snug text-foreground/90">{d.description}</p>}
@@ -104,7 +109,7 @@ function GroupPage() {
               </div>
             </>
           ) : (
-            <EmptyState icon={Lock} title={t("groups.privateTitle")} text={t("groups.privateText")} />
+            <EmptyState icon={Lock} title={t("groups.privateTitle")} text={t(d.auto ? "groups.autoOnly" : "groups.privateText")} />
           )}
 
           <GroupMenuSheet group={d} open={menu} onOpenChange={setMenu} />

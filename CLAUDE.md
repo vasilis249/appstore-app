@@ -292,6 +292,18 @@ User decisions:
   Composer `?campus=1`: "Στο ΕΜΠ" card + Γενικά/student-section chips. NavRecordButton hold on the ΕΜΠ tab → campus.
   Admin topics: "Μόνο για το ΕΜΠ" switch (student sections), ΕΜΠ tag in the list. Tests `test_campus.sql` 38,
   `test_speak.sql` 111; browser `campus-flow.mjs` 15/15 (+ `seed-campus.sh`).
+  **N3 ✔ (school groups + classmates)** migration `20261016100200_campus_groups.sql`: `groups.auto, university_id,
+  department_id, study_year` (unique per school / school-year; name "ΕΜΠ · ΗΜΜΥ" / "ΕΜΠ · ΗΜΜΥ · 3ο έτος", private,
+  section courses, no owner). `private.auto_group` (made on first use) + `private.sync_student_groups` fired by the
+  trigger `profile_campus_changed` (AFTER UPDATE of university/department/year/disabled): in the groups that fit, out of
+  the rest; clearing the identity → out of all. `join_group`: auto groups only for students they fit (straight in);
+  `invite_to_group` refuses auto groups; `discover_groups` hides them; `group_detail` + `auto, can_join`.
+  `suggested_people` + campus columns + `reason` classmate (same school+year) › school › campus › friends of friends.
+  UI: GroupActions for auto groups (Speak, no Invite; "Γίνε μέλος" again if you fit; nothing otherwise — the lock wall
+  says "Μόνο για φοιτητές αυτής της σχολής…"), "🎓 Ομάδα σχολής · αυτόματη" under the name; /search suggestions show
+  "Συμφοιτητής / Ίδια σχολή · ΕΜΠ · ΗΜΜΥ"; ΕΜΠ tab "Συμφοιτητές σου" strip (same school, avatar, "ΗΜΜΥ · 3ο",
+  Follow). Tests `test_campus.sql` 46; browser `campus-groups-flow.mjs` 7/7 (seed-campus.sh adds classmates),
+  campus-flow 15/15, groups-flow 15/15.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -419,7 +431,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (38).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (46).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session
