@@ -2,15 +2,18 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { LocateFixed, MapPin, Users } from "lucide-react";
+import { LocateFixed, MapPin, Navigation, RadioTower, Users } from "lucide-react";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
-import { LiveMap } from "@/components/map/live-map";
+import { LiveMap, type MapFocus } from "@/components/map/live-map";
 import { NearbyTalk } from "@/components/map/nearby-talk";
 import { useHubPeers } from "@/components/walkie/walkie-hub";
 import { UserAvatar } from "@/components/user-avatar";
+import { useMyProfile } from "@/hooks/use-my-profile";
 import { locationKeys, mapPeople, mySharing, type MapPerson } from "@/lib/location/api";
 import { formatDistance } from "@/lib/location/format";
 import { nearbyPerson } from "@/lib/location/nearby";
+import { localFix, onLocalFix, openLocationSettings, watchLocal, type LocalFix } from "@/lib/location/tracker";
+import { isNativeApp } from "@/lib/native";
 import { timeAgoShort } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
 
@@ -20,31 +23,78 @@ export const Route = createFileRoute("/_authenticated/map")({
 });
 
 const RADII = [100, 250, 500] as const;
+type View = "friends" | "nearby";
+
+/** Directions in Apple Maps on Apple devices, Google Maps elsewhere. */
+function directionsUrl(lat: number, lng: number) {
+  const apple = typeof navigator !== "undefined" && /iPhone|iPad|Macintosh/.test(navigator.userAgent);
+  return apple ? `https://maps.apple.com/?daddr=${lat},${lng}&dirflg=d` : `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+}
+
+/** Your position straight from this device, live while the map is open (nothing is sent unless you share). */
+function useLocalFix() {
+  const [fix, setFix] = useState<LocalFix | null>(localFix);
+  const [denied, setDenied] = useState(false);
+  useEffect(() => {
+    const off = onLocalFix((f) => {
+      setFix(f);
+      setDenied(false);
+    });
+    const stop = watchLocal(() => setDenied(true));
+    return () => {
+      off();
+      stop();
+    };
+  }, []);
+  return { fix, denied };
+}
 
 /**
- * Live map: you in the middle of a 100 / 250 / 500 m circle, everyone within it who shares with everyone, and your
- * friends wherever they are. Refreshes every 10 s. Tap someone → who they are, how far, their profile, and hold to
- * talk to them live (?u=<id> opens that card, e.g. from the "… is talking to you" banner).
+ * The map, like Snap Map / Find My. "Φίλοι": you (live, from this phone) and your friends who share, wherever they
+ * are, with a strip of them at the bottom to fly to each one. "Κοντά μου": everyone sharing with everyone within
+ * 100 / 250 / 500 m, whom you can talk to (push to talk). Refreshes every 10 s. ?u=<id> opens that person's card
+ * (e.g. from the "… is talking to you" banner).
  */
 function MapPage() {
   const { t, i18n } = useTranslation();
+  const profile = useMyProfile();
   const sharing = useQuery({ queryKey: locationKeys.sharing, queryFn: mySharing, refetchInterval: 10_000 });
+  const [view, setView] = useState<View>("friends");
   const [radius, setRadius] = useState<number>(500);
   const on = !!sharing.data && sharing.data.mode !== "off";
   const people = useQuery({ queryKey: locationKeys.people(radius), queryFn: () => mapPeople(radius), enabled: on, refetchInterval: 10_000 });
   const { u } = Route.useSearch();
   const navigate = useNavigate({ from: "/map" });
-  const setSelected = (p: MapPerson | null) => void navigate({ search: p ? { u: p.user_id } : {}, replace: true });
   const [listOpen, setListOpen] = useState(false);
+  const [focus, setFocus] = useState<MapFocus | null>(null);
+  const move = (target: MapFocus["target"]) => setFocus((f) => ({ key: (f?.key ?? 0) + 1, target }));
   const talking = useHubPeers()
     .filter((p) => p.kind === "nearby" && p.snap.peerTalking)
     .map((p) => p.peer);
-  const [recenter, setRecenter] = useState(0);
+  const local = useLocalFix();
 
   const s = sharing.data;
-  const me = on && s?.lat != null && s?.lng != null ? { lat: s.lat, lng: s.lng } : null;
+  // You: this phone's live position, else the last one you shared.
+  const me = local.fix
+    ? { lat: local.fix.lat, lng: local.fix.lng, accuracy: local.fix.accuracy }
+    : on && s?.lat != null && s?.lng != null
+      ? { lat: s.lat, lng: s.lng, accuracy: s.accuracy_m }
+      : null;
   const list = people.data ?? [];
+  const friends = list.filter((p) => p.is_friend);
   const nearby = list.filter((p) => p.distance_m <= radius);
+  const shown = view === "friends" ? friends : nearby;
+
+  const select = (p: MapPerson | null) => {
+    void navigate({ search: p ? { u: p.user_id } : {}, replace: true });
+    if (p && (p.lat || p.lng)) move({ lat: p.lat, lng: p.lng });
+  };
+  const switchView = (v: View) => {
+    if (v === view) return;
+    setView(v);
+    move(v === "nearby" ? "radius" : "me");
+  };
+
   // The open card follows that person's latest position; someone who talked to you but is off your map right now
   // still gets a card (from their knock) so you can answer.
   const known = u ? nearbyPerson(u) : undefined;
@@ -54,70 +104,136 @@ function MapPage() {
         ? { ...known, lat: 0, lng: 0, accuracy_m: null, heading: null, updated_at: new Date().toISOString(), distance_m: known.distance_m ?? 0, is_friend: false, can_talk: true }
         : null))
     : null;
-  // Opened from the banner with a small radius: widen it so they show on the map.
+  // Opened for someone who isn't a friend (e.g. from the banner): the nearby view, at 500 m so they show.
+  const currentIsFriend = current?.is_friend;
   useEffect(() => {
-    if (u && people.data && !people.data.some((p) => p.user_id === u) && radius < 500) setRadius(500);
-  }, [u, people.data, radius]);
+    if (!u || currentIsFriend !== false) return;
+    setView("nearby");
+    setRadius(500);
+  }, [u, currentIsFriend]);
 
   return (
     <div className="fixed inset-0 z-0 bg-black">
-      <LiveMap me={me} radius={radius} people={list} onSelect={setSelected} recenterKey={recenter} talking={talking} />
+      <LiveMap
+        me={me}
+        meFace={{ name: profile.data?.full_name || profile.data?.username || "", path: profile.data?.avatar_path ?? null }}
+        radius={view === "nearby" ? radius : null}
+        people={shown}
+        onSelect={select}
+        focus={focus}
+        talking={talking}
+      />
 
-      {/* top: title + radius */}
+      {/* top: friends | nearby (+ radius) */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex flex-col items-center gap-2 px-4 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
-        <div className="pointer-events-auto flex items-center gap-1 rounded-full bg-[#141415]/90 p-1 shadow-lg backdrop-blur">
-          {RADII.map((r) => (
+        <div className="pointer-events-auto flex items-center gap-1 rounded-full bg-[#141415]/90 p-1 shadow-lg backdrop-blur" role="tablist">
+          {(["friends", "nearby"] as const).map((v) => (
             <button
-              key={r}
+              key={v}
               type="button"
-              aria-pressed={radius === r}
-              onClick={() => {
-                setRadius(r);
-                setRecenter((k) => k + 1);
-              }}
-              className={cn("h-9 rounded-full px-4 text-sm font-semibold", radius === r ? "bg-primary text-primary-foreground" : "text-foreground/90")}
+              role="tab"
+              aria-selected={view === v}
+              onClick={() => switchView(v)}
+              className={cn("h-9 rounded-full px-5 text-sm font-semibold", view === v ? "bg-primary text-primary-foreground" : "text-foreground/90")}
             >
-              {formatDistance(r, i18n.language)}
+              {t(v === "friends" ? "map.friendsTab" : "map.nearbyTab")}
             </button>
           ))}
         </div>
+        {view === "nearby" && (
+          <div className="pointer-events-auto flex items-center gap-1 rounded-full bg-[#141415]/85 p-1 shadow-lg backdrop-blur">
+            {RADII.map((r) => (
+              <button
+                key={r}
+                type="button"
+                aria-pressed={radius === r}
+                onClick={() => {
+                  setRadius(r);
+                  move("radius");
+                }}
+                className={cn("h-8 rounded-full px-3.5 text-[13px] font-semibold", radius === r ? "bg-white/90 text-black" : "text-foreground/85")}
+              >
+                {formatDistance(r, i18n.language)}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* bottom: who is nearby + recenter (above the floating nav) */}
-      {on && (
-        <div className="absolute inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+6.5rem)] z-10 flex items-center justify-between gap-2 px-4">
+      {/* bottom (above the floating nav) */}
+      <div className="absolute inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+6.5rem)] z-10 flex flex-col gap-3 px-4">
+        {me && (
+          <button
+            type="button"
+            onClick={() => move(view === "nearby" ? "radius" : "me")}
+            aria-label={t("map.recenter")}
+            className="grid h-12 w-12 place-items-center self-end rounded-full bg-[#141415]/90 shadow-lg backdrop-blur"
+          >
+            <LocateFixed className="h-5 w-5 text-[#0a84ff]" />
+          </button>
+        )}
+
+        {on && view === "friends" && (
+          <div className="rounded-3xl bg-[#141415]/90 p-3 shadow-lg backdrop-blur">
+            {friends.length ? (
+              <ul className="flex gap-3 overflow-x-auto px-0.5 py-1" aria-label={t("map.friendsTab")}>
+                {friends.map((p) => (
+                  <li key={p.user_id} className="shrink-0">
+                    <button type="button" onClick={() => select(p)} className="flex w-16 flex-col items-center gap-1 text-center">
+                      <span className="rounded-full p-0.5 ring-2 ring-emerald-500">
+                        <UserAvatar name={p.full_name || p.username} path={p.avatar_path} size={48} />
+                      </span>
+                      <span className="w-full truncate text-xs font-semibold">{(p.full_name || p.username).split(" ")[0]}</span>
+                      <span className="w-full truncate text-[11px] text-muted-foreground">{formatDistance(p.distance_m, i18n.language)}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="px-1 py-1 text-sm text-muted-foreground">{t("map.noFriends")}</p>
+            )}
+          </div>
+        )}
+
+        {on && view === "nearby" && (
           <button
             type="button"
             onClick={() => setListOpen(true)}
-            className="flex h-12 items-center gap-2 rounded-full bg-[#141415]/90 px-5 text-[15px] font-semibold shadow-lg backdrop-blur"
+            className="flex h-12 items-center gap-2 self-start rounded-full bg-[#141415]/90 px-5 text-[15px] font-semibold shadow-lg backdrop-blur"
           >
             <Users className="h-5 w-5" /> {t("map.nearby", { count: nearby.length })}
           </button>
-          <button
-            type="button"
-            onClick={() => setRecenter((k) => k + 1)}
-            aria-label={t("map.recenter")}
-            className="grid h-12 w-12 place-items-center rounded-full bg-[#141415]/90 shadow-lg backdrop-blur"
-          >
-            <LocateFixed className="h-5 w-5" />
-          </button>
-        </div>
-      )}
+        )}
 
-      {/* sharing off / waiting */}
-      {s && (!on || !me) && (
-        <div className="absolute inset-x-4 bottom-[calc(env(safe-area-inset-bottom)+6.5rem)] z-10 mx-auto max-w-md rounded-3xl bg-[#141415]/95 p-5 shadow-xl backdrop-blur">
-          <p className="flex items-center gap-2 text-lg font-bold">
-            <MapPin className="h-5 w-5 text-coral" /> {t(on ? "map.waitingTitle" : "map.offTitle")}
-          </p>
-          <p className="mt-1 text-[15px] leading-snug text-muted-foreground">{t(on ? "map.waiting" : "map.off")}</p>
-          {!on && (
+        {/* sharing off, or no position yet */}
+        {s && !on && (
+          <div className="rounded-3xl bg-[#141415]/95 p-5 shadow-xl backdrop-blur">
+            <p className="flex items-center gap-2 text-lg font-bold">
+              <MapPin className="h-5 w-5 text-coral" /> {t("map.offTitle")}
+            </p>
+            <p className="mt-1 text-[15px] leading-snug text-muted-foreground">{t("map.off")}</p>
             <Link to="/location" className="mt-4 flex h-12 items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground">
               {t("map.turnOn")}
             </Link>
-          )}
-        </div>
-      )}
+          </div>
+        )}
+        {s && !me && (on || local.denied) && (
+          <div className="rounded-3xl bg-[#141415]/95 p-4 shadow-xl backdrop-blur">
+            <p className="text-[15px] font-semibold">{t(local.denied ? "map.deniedTitle" : "map.waitingTitle")}</p>
+            {local.denied && (
+              <p className="mt-1 text-sm text-muted-foreground">
+                {isNativeApp() ? (
+                  <button type="button" onClick={openLocationSettings} className="font-semibold text-[#0a84ff]">
+                    {t("location.openSettings")}
+                  </button>
+                ) : (
+                  t("location.deniedWeb")
+                )}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
 
       {/* nearby list */}
       <Drawer open={listOpen} onOpenChange={setListOpen}>
@@ -125,14 +241,14 @@ function MapPage() {
           <DrawerTitle className="px-4 pt-2 text-lg font-bold">{t("map.nearby", { count: nearby.length })}</DrawerTitle>
           <DrawerDescription className="px-4 text-sm text-muted-foreground">{t("map.listHint", { radius: formatDistance(radius, i18n.language) })}</DrawerDescription>
           <ul className="overflow-y-auto px-4 pb-8 pt-2">
-            {list.length === 0 && <li className="py-6 text-center text-sm text-muted-foreground">{t("map.nobody")}</li>}
-            {list.map((p) => (
+            {nearby.length === 0 && <li className="py-6 text-center text-sm text-muted-foreground">{t("map.nobody")}</li>}
+            {nearby.map((p) => (
               <li key={p.user_id}>
                 <button
                   type="button"
                   onClick={() => {
                     setListOpen(false);
-                    setSelected(p);
+                    select(p);
                   }}
                   className="flex w-full items-center gap-3 py-2.5 text-left"
                 >
@@ -153,7 +269,7 @@ function MapPage() {
       </Drawer>
 
       {/* one person */}
-      <Drawer open={!!current} onOpenChange={(o) => !o && setSelected(null)}>
+      <Drawer open={!!current} onOpenChange={(o) => !o && select(null)}>
         <DrawerContent>
           {current && (
             <div className="px-5 pb-8 pt-3">
@@ -169,11 +285,31 @@ function MapPage() {
                   </p>
                 </div>
               </div>
-              {on && <NearbyTalk person={current} />}
+              {current.is_friend ? (
+                <div className="mt-5 grid grid-cols-2 gap-2">
+                  <Link
+                    to="/talk/$userId"
+                    params={{ userId: current.user_id }}
+                    className="flex h-12 items-center justify-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground"
+                  >
+                    <RadioTower className="h-5 w-5" /> {t("walkie.title")}
+                  </Link>
+                  <a
+                    href={directionsUrl(current.lat, current.lng)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex h-12 items-center justify-center gap-2 rounded-full bg-[#0a84ff] font-semibold text-white"
+                  >
+                    <Navigation className="h-5 w-5" /> {t("map.directions")}
+                  </a>
+                </div>
+              ) : (
+                on && <NearbyTalk person={current} />
+              )}
               <Link
                 to="/u/$username"
                 params={{ username: current.username }}
-                className="mt-4 flex h-12 items-center justify-center rounded-full bg-secondary font-semibold"
+                className={cn("flex h-12 items-center justify-center rounded-full bg-secondary font-semibold", current.is_friend ? "mt-2" : "mt-4")}
               >
                 {t("map.profile")}
               </Link>

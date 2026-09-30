@@ -5,16 +5,26 @@ import { avatarUrl } from "@/lib/avatar";
 import type { MapPerson } from "@/lib/location/api";
 
 /**
- * The live map: OpenFreeMap's dark style (free, no key), you as a blue dot with the radius circle, everyone else as
- * a round photo (green ring = friend, pulsing coral = talking to you). MapLibre is loaded on demand; markers are plain DOM buttons.
+ * The live map, like Snap Map / Find My: a normal street map (OpenFreeMap "liberty", free, no key), you as your photo
+ * with a blue ring and an accuracy halo, everyone else as a round photo with their first name (green ring = friend,
+ * pulsing coral = talking to you). Optional radius circle (the "Κοντά μου" view). MapLibre is loaded on demand;
+ * markers are plain DOM elements.
  */
 
-const STYLE = "https://tiles.openfreemap.org/styles/dark";
+const STYLE = "https://tiles.openfreemap.org/styles/liberty";
 const ATHENS: [number, number] = [23.7275, 37.9838];
+const ME_ZOOM = 15;
 
 export interface LivePosition {
   lat: number;
   lng: number;
+  accuracy?: number | null;
+}
+
+/** Where to move the camera: yourself, your radius, or a point (a friend). Change `key` to move again. */
+export interface MapFocus {
+  key: number;
+  target: "me" | "radius" | { lat: number; lng: number };
 }
 
 function circle(center: LivePosition, radiusM: number, steps = 72): [number, number][] {
@@ -28,15 +38,10 @@ function circle(center: LivePosition, radiusM: number, steps = 72): [number, num
   return pts;
 }
 
-function personElement(p: MapPerson, talking: boolean, onSelect: (p: MapPerson) => void): HTMLButtonElement {
-  const el = document.createElement("button");
-  el.type = "button";
-  el.setAttribute("aria-label", p.full_name || p.username);
-  el.className = `grid h-11 w-11 place-items-center overflow-hidden rounded-full border-[3px] bg-[#2c2c2e] text-base font-bold text-white shadow-lg ${
-    talking ? "animate-pulse border-coral ring-4 ring-coral/40" : p.is_friend ? "border-emerald-500" : "border-white"
-  }`;
-  if (talking) el.dataset.talking = "1";
-  const url = avatarUrl(p.avatar_path);
+function face(name: string, path: string | null, className: string): HTMLElement {
+  const el = document.createElement("span");
+  el.className = `grid place-items-center overflow-hidden rounded-full bg-[#2c2c2e] font-bold text-white shadow-lg ${className}`;
+  const url = avatarUrl(path);
   if (url) {
     const img = document.createElement("img");
     img.src = url;
@@ -44,53 +49,91 @@ function personElement(p: MapPerson, talking: boolean, onSelect: (p: MapPerson) 
     img.className = "h-full w-full object-cover";
     el.appendChild(img);
   } else {
-    el.textContent = (p.full_name || p.username || "?").trim().charAt(0).toUpperCase();
+    el.textContent = (name || "?").trim().charAt(0).toUpperCase();
   }
-  el.addEventListener("click", (e) => {
+  return el;
+}
+
+function personElement(p: MapPerson, talking: boolean, onSelect: (p: MapPerson) => void): HTMLElement {
+  const name = p.full_name || p.username;
+  const wrap = document.createElement("div");
+  wrap.className = "relative h-12 w-12";
+  if (talking) wrap.dataset.talking = "1";
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.setAttribute("aria-label", name);
+  btn.className = "block h-12 w-12 rounded-full";
+  btn.appendChild(
+    face(
+      name,
+      p.avatar_path,
+      `h-12 w-12 border-[3px] text-base ${talking ? "animate-pulse border-coral ring-4 ring-coral/40" : p.is_friend ? "border-emerald-500" : "border-white"}`,
+    ),
+  );
+  btn.addEventListener("click", (e) => {
     e.stopPropagation();
     onSelect(p);
   });
-  return el;
+  const label = document.createElement("span");
+  label.className =
+    "pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/80 px-2 py-0.5 text-[11px] font-semibold text-white shadow";
+  label.textContent = name.split(" ")[0];
+  wrap.append(btn, label);
+  return wrap;
+}
+
+function meElement(name: string, path: string | null): HTMLElement {
+  const wrap = document.createElement("div");
+  wrap.setAttribute("aria-label", "me");
+  wrap.className = "relative grid h-12 w-12 place-items-center";
+  const pulse = document.createElement("span");
+  pulse.className = "absolute inset-0 animate-ping rounded-full bg-[#0a84ff]/30";
+  wrap.append(pulse, face(name, path, "relative h-11 w-11 border-[3px] border-[#0a84ff] text-base"));
+  return wrap;
 }
 
 export function LiveMap({
   me,
+  meFace,
   radius,
   people,
   onSelect,
-  recenterKey,
+  focus,
   talking,
 }: {
   me: LivePosition | null;
-  radius: number;
+  meFace: { name: string; path: string | null };
+  /** Draw this radius around you (the nearby view), or null. */
+  radius: number | null;
   people: MapPerson[];
+  onSelect: (p: MapPerson) => void;
+  focus: MapFocus | null;
   /** People talking to you right now. */
   talking: string[];
-  onSelect: (p: MapPerson) => void;
-  /** Change it to fit the map to your radius again. */
-  recenterKey: number;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<MlMap | null>(null);
   const lib = useRef<typeof import("maplibre-gl") | null>(null);
   const markers = useRef(new Map<string, { marker: Marker; sig: string }>());
-  const meMarker = useRef<Marker | null>(null);
+  const meMarker = useRef<{ marker: Marker; sig: string } | null>(null);
   const styleReady = useRef(false);
-  const fitted = useRef(false);
-  const latest = useRef({ me, radius, people, onSelect, talking });
-  latest.current = { me, radius, people, onSelect, talking };
+  const placed = useRef(false);
+  const latest = useRef({ me, meFace, radius, people, onSelect, talking });
+  latest.current = { me, meFace, radius, people, onSelect, talking };
 
   // Create the map once.
   useEffect(() => {
     let cancelled = false;
+    const all = markers.current;
     void import("maplibre-gl").then((ml) => {
       if (cancelled || !box.current) return;
       lib.current = ml;
+      const start = latest.current.me;
       const m = new ml.Map({
         container: box.current,
         style: STYLE,
-        center: me ? [me.lng, me.lat] : ATHENS,
-        zoom: me ? 15 : 11,
+        center: start ? [start.lng, start.lat] : ATHENS,
+        zoom: start ? ME_ZOOM : 11,
         attributionControl: { compact: true },
         pitchWithRotate: false,
         dragRotate: false,
@@ -98,10 +141,14 @@ export function LiveMap({
       m.touchZoomRotate.disableRotation();
       m.on("load", () => {
         styleReady.current = true;
-        m.addSource("radius", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
+        const empty = { type: "FeatureCollection" as const, features: [] };
+        m.addSource("radius", { type: "geojson", data: empty });
         m.addLayer({ id: "radius-fill", type: "fill", source: "radius", paint: { "fill-color": "#e4571c", "fill-opacity": 0.08 } });
-        m.addLayer({ id: "radius-line", type: "line", source: "radius", paint: { "line-color": "#e4571c", "line-width": 1.5, "line-opacity": 0.7 } });
-        drawRadius();
+        m.addLayer({ id: "radius-line", type: "line", source: "radius", paint: { "line-color": "#e4571c", "line-width": 1.5, "line-opacity": 0.8 } });
+        m.addSource("me-acc", { type: "geojson", data: empty });
+        m.addLayer({ id: "me-acc-fill", type: "fill", source: "me-acc", paint: { "fill-color": "#0a84ff", "fill-opacity": 0.12 } });
+        m.addLayer({ id: "me-acc-line", type: "line", source: "me-acc", paint: { "line-color": "#0a84ff", "line-width": 1, "line-opacity": 0.4 } });
+        drawAreas();
       });
       map.current = m;
       sync();
@@ -110,35 +157,38 @@ export function LiveMap({
       cancelled = true;
       map.current?.remove();
       map.current = null;
-      markers.current.clear();
+      all.clear();
       meMarker.current = null;
       styleReady.current = false;
+      placed.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function drawRadius() {
+  function drawAreas() {
     const m = map.current;
     const { me: pos, radius: r } = latest.current;
     if (!m || !styleReady.current) return;
-    const src = m.getSource("radius") as { setData: (d: unknown) => void } | undefined;
-    src?.setData({
-      type: "FeatureCollection",
-      features: pos ? [{ type: "Feature", properties: {}, geometry: { type: "Polygon", coordinates: [circle(pos, r)] } }] : [],
-    });
+    const set = (id: string, ring: [number, number][] | null) =>
+      (m.getSource(id) as { setData: (d: unknown) => void } | undefined)?.setData({
+        type: "FeatureCollection",
+        features: ring ? [{ type: "Feature", properties: {}, geometry: { type: "Polygon", coordinates: [ring] } }] : [],
+      });
+    set("radius", pos && r ? circle(pos, r) : null);
+    set("me-acc", pos?.accuracy && pos.accuracy > 15 ? circle(pos, Math.min(pos.accuracy, 2000), 48) : null);
   }
 
-  /** Frame your radius: a jump the first time, a short glide when you ask for it. */
-  function fit(animate = true) {
+  function frameRadius(animate: boolean) {
     const m = map.current;
     const { me: pos, radius: r } = latest.current;
-    if (!m || !pos) return;
+    if (!m || !pos || !r) return;
     const ring = circle(pos, r, 16);
     const lngs = ring.map((p) => p[0]);
     const lats = ring.map((p) => p[1]);
-    const cam = m.cameraForBounds([Math.min(...lngs), Math.min(...lats), Math.max(...lngs), Math.max(...lats)], { padding: 48 });
+    const cam = m.cameraForBounds([Math.min(...lngs), Math.min(...lats), Math.max(...lngs), Math.max(...lats)], { padding: 56 });
     if (!cam) return;
-    if (animate) m.easeTo({ ...cam, duration: 500 });
+    // A jump while the style may still be loading (an animated move would never finish then).
+    if (animate) m.easeTo({ ...cam, duration: 600 });
     else m.jumpTo(cam);
   }
 
@@ -146,18 +196,18 @@ export function LiveMap({
     const m = map.current;
     const ml = lib.current;
     if (!m || !ml) return;
-    const { me: pos, people: list, onSelect: select, talking: live } = latest.current;
+    const { me: pos, meFace: mf, radius: r, people: list, onSelect: select, talking: live } = latest.current;
     // you
     if (pos) {
-      if (!meMarker.current) {
-        const dot = document.createElement("div");
-        dot.setAttribute("aria-label", "me");
-        dot.className = "h-5 w-5 rounded-full border-[3px] border-white bg-[#0a84ff] shadow-[0_0_0_6px_rgba(10,132,255,0.25)]";
-        meMarker.current = new ml.Marker({ element: dot }).setLngLat([pos.lng, pos.lat]).addTo(m);
-      } else meMarker.current.setLngLat([pos.lng, pos.lat]);
-      if (!fitted.current) {
-        fitted.current = true;
-        fit(false);
+      const sig = `${mf.name}|${mf.path}`;
+      if (!meMarker.current || meMarker.current.sig !== sig) {
+        meMarker.current?.marker.remove();
+        meMarker.current = { marker: new ml.Marker({ element: meElement(mf.name, mf.path) }).setLngLat([pos.lng, pos.lat]).addTo(m), sig };
+      } else meMarker.current.marker.setLngLat([pos.lng, pos.lat]);
+      if (!placed.current) {
+        placed.current = true;
+        if (r) frameRadius(false);
+        else m.jumpTo({ center: [pos.lng, pos.lat], zoom: ME_ZOOM });
       }
     }
     // everyone else
@@ -181,14 +231,23 @@ export function LiveMap({
         markers.current.delete(id);
       }
     }
-    drawRadius();
+    drawAreas();
   }
 
   const talkingKey = talking.join();
-  useEffect(sync, [me?.lat, me?.lng, people, radius, talkingKey]);
+  useEffect(sync, [me?.lat, me?.lng, me?.accuracy, meFace.name, meFace.path, people, radius, talkingKey]);
+
+  // Camera requests: back to you, your radius, or a friend.
   useEffect(() => {
-    if (recenterKey) fit();
-  }, [recenterKey, radius]);
+    const m = map.current;
+    if (!focus || !m) return;
+    const t = focus.target;
+    if (t === "radius") return frameRadius(true);
+    const pos = t === "me" ? latest.current.me : t;
+    if (!pos) return;
+    m.flyTo({ center: [pos.lng, pos.lat], zoom: Math.max(m.getZoom(), ME_ZOOM), duration: 900 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focus?.key]);
 
   // MapLibre makes its container position: relative, so it gets its own full-size box inside the absolute one.
   return (

@@ -7,6 +7,9 @@ import { sendPosition } from "./api";
  * In the iOS app: @capacitor-community/background-geolocation (Always permission → updates keep coming with the
  * app closed; iOS shows the blue location indicator). On the web: watchPosition, only while the page is open.
  * Sent at most every 10 s, sooner if you moved more than 20 m, and at least once a minute while updates arrive.
+ *
+ * Separately, the map shows where you are right now straight from the device (`watchLocal`), whether you share or
+ * not; that position never leaves the phone unless sharing is on.
  */
 
 interface BgLocation {
@@ -37,6 +40,20 @@ let nativeWatcher: string | null = null;
 let webWatcher: number | null = null;
 let last: { lat: number; lng: number; at: number } | null = null;
 const listeners = new Set<(s: TrackerStatus) => void>();
+
+/** Your position on this device (for your own dot on the map). */
+export interface LocalFix {
+  lat: number;
+  lng: number;
+  accuracy: number | null;
+  at: number;
+}
+let fix: LocalFix | null = null;
+const fixListeners = new Set<(f: LocalFix) => void>();
+function emitFix(lat: number, lng: number, accuracy: number | null | undefined) {
+  fix = { lat, lng, accuracy: accuracy ?? null, at: Date.now() };
+  fixListeners.forEach((fn) => fn(fix!));
+}
 
 function setStatus(s: TrackerStatus) {
   status = s;
@@ -86,6 +103,7 @@ export async function startTracking(texts: { title: string; message: string }) {
           }
           if (!position) return;
           if (status !== "running") setStatus("running");
+          emitFix(position.latitude, position.longitude, position.accuracy);
           report({ lat: position.latitude, lng: position.longitude, accuracy: position.accuracy, heading: position.bearing, speed: position.speed });
         },
       );
@@ -99,6 +117,7 @@ export async function startTracking(texts: { title: string; message: string }) {
   webWatcher = navigator.geolocation.watchPosition(
     (pos) => {
       if (status !== "running") setStatus("running");
+      emitFix(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy);
       report({ lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy, heading: pos.coords.heading, speed: pos.coords.speed });
     },
     (err) => setStatus(err.code === err.PERMISSION_DENIED ? "denied" : "unavailable"),
@@ -124,4 +143,64 @@ export async function stopTracking() {
 /** iOS: open Speak's page in Settings (to switch location to "Always"). */
 export function openLocationSettings() {
   if (isNativeApp()) void BackgroundGeolocation.openSettings().catch(() => {});
+}
+
+/** Latest position of this device (may be a few seconds old), or null. */
+export function localFix(): LocalFix | null {
+  return fix;
+}
+
+export function onLocalFix(fn: (f: LocalFix) => void): () => void {
+  fixListeners.add(fn);
+  return () => void fixListeners.delete(fn);
+}
+
+let localUsers = 0;
+let localNative: string | null = null;
+let localWeb: number | null = null;
+
+/**
+ * Follow your position while a screen needs it (the map), foreground only, nothing sent. Returns the stop.
+ * onDenied: location permission refused.
+ */
+export function watchLocal(onDenied?: () => void): () => void {
+  localUsers++;
+  if (localUsers === 1) {
+    if (isNativeApp()) {
+      void BackgroundGeolocation.addWatcher({ requestPermissions: true, stale: false, distanceFilter: 5 }, (position, error) => {
+        if (error) {
+          if (error.code === "NOT_AUTHORIZED") onDenied?.();
+          return;
+        }
+        if (position) emitFix(position.latitude, position.longitude, position.accuracy);
+      })
+        .then((id) => {
+          if (localUsers > 0) localNative = id;
+          else void BackgroundGeolocation.removeWatcher({ id }).catch(() => {});
+        })
+        .catch(() => {});
+    } else if (typeof navigator !== "undefined" && navigator.geolocation) {
+      localWeb = navigator.geolocation.watchPosition(
+        (pos) => emitFix(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy),
+        (err) => err.code === err.PERMISSION_DENIED && onDenied?.(),
+        { enableHighAccuracy: true, maximumAge: 5_000 },
+      );
+    }
+  }
+  let stopped = false;
+  return () => {
+    if (stopped) return;
+    stopped = true;
+    localUsers--;
+    if (localUsers > 0) return;
+    if (localNative) {
+      const id = localNative;
+      localNative = null;
+      void BackgroundGeolocation.removeWatcher({ id }).catch(() => {});
+    }
+    if (localWeb !== null) {
+      navigator.geolocation.clearWatch(localWeb);
+      localWeb = null;
+    }
+  };
 }

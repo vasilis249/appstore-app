@@ -425,6 +425,16 @@ User decisions:
   page got a back button). Privacy: OpenFreeMap as a provider. Tests location 21; browser `map-flow.mjs` 10/10
   (headless Chromium: `--use-angle=swiftshader`; tiles can't load in the container — no proxy for Chromium — so the map
   is black there; markers/circle/UI verified).
+  **Map like Snap Map / Find My ✔ (user request after L3)** — no migration. Style OpenFreeMap `liberty` (normal colour
+  street map, same host). `tracker.ts`: `watchLocal(onDenied)` (ref-counted foreground watch while the map is open:
+  plugin watcher without backgroundMessage / web watchPosition; nothing sent) + `localFix` / `onLocalFix` (tracking
+  fixes feed it too) → your own marker = your photo with a blue ring + ping + accuracy halo, live, also with sharing
+  off. `/map`: tabs «Φίλοι» (default: only friends who share, anywhere, first-name labels; bottom strip of them with
+  distance → flyTo + card) | «Κοντά μου» (radius chips 100/250/500 + circle, everyone within it, list, push to talk);
+  friend card = Walkie-talkie (/talk/$id) + Οδηγίες (Apple Maps on Apple devices, else Google Maps) + Προφίλ; stranger
+  card = NearbyTalk; recenter button; `?u=` of a non-friend opens «Κοντά μου» at 500 m. `LiveMap(me, meFace, radius |
+  null, people, focus {key, target me|radius|point}, talking)`. Browser `map-flow.mjs` 11/11, nearby 10/10,
+  location 6/6, walkie-hub 12/12. NOT verified: tiles in the container (black there) and the foreground watcher on iOS.
   **L3 ✔ (push to talk on the map)** migration `20261023100000_nearby_talk.sql`: `private.nearby_knocks` (last knock per
   pair), `public.nearby_messages` + `private.nearby_audio` (24 h, like walkie), `private.may_talk_nearby(a, b)`
   (are_nearby + nobody disabled + b's talk_from), `knocked_recently(a, b)` (5 min), `may_send_nearby` (may talk, or
