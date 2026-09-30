@@ -31,7 +31,10 @@ function PostPage() {
   const above = useMemo(() => (ancestors.data ?? []).map(toView).filter((v): v is PostView => !!v), [ancestors.data]);
   // Playing anything in the thread plays the conversation from there down to this post.
   const thread = useMemo(() => (view ? [...above, view] : above), [above, view]);
-  const playFrom = (v: PostView) => playQueue(thread.map(item), Math.max(0, thread.indexOf(v)));
+  const playFrom = (v: PostView) => {
+    const voices = thread.filter((x) => !x.deleted); // a deleted voice in the chain has nothing to play
+    playQueue(voices.map(item), Math.max(0, voices.indexOf(v)));
+  };
 
   return (
     <>
@@ -43,6 +46,7 @@ function PostPage() {
             <PostCard key={a.row.post_id} post={a} threadLine hideReplyTo={i > 0} onPlay={() => playFrom(a)} />
           ))}
           <PostCard post={view} linkToPost={false} hideReplyTo={above.length > 0} onPlay={() => playFrom(view)} />
+          {!view.deleted && (
           <div className="border-b border-border px-4 py-3">
             <Link
               to="/record"
@@ -52,6 +56,7 @@ function PostPage() {
               <VoiceIcon className="h-5 w-5" /> {t("posts.replyWithVoice")}
             </Link>
           </div>
+          )}
           <FeedList
             key={view.id}
             params={{ scope: "replies", parent: view.id }}

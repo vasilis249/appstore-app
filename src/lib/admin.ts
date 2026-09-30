@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { sweepVoiceFilesLater } from "@/lib/api/voice-files.functions";
 
 export interface AdminTopic {
   id: string;
@@ -127,6 +128,7 @@ export async function openReportsCount(): Promise<number> {
 export async function resolveReport(id: string, action: ReportAction): Promise<number> {
   const { data, error } = await supabase.rpc("admin_resolve_report", { p_report: id, p_action: action });
   fail(error);
+  if (action === "delete_group") sweepVoiceFilesLater();
   return (data as number) ?? 0;
 }
 

@@ -11,7 +11,7 @@ function toQueue(views: PostView[], from: PostView): { items: QueueItem[]; index
   const seen = new Set<string>();
   const items: QueueItem[] = [];
   for (const v of views) {
-    if (seen.has(v.id)) continue;
+    if (v.deleted || seen.has(v.id)) continue;
     seen.add(v.id);
     items.push({ id: v.id, url: voiceUrl(v.path), durationMs: v.durationMs, title: v.title ?? v.name, author: v.name });
   }
@@ -59,7 +59,7 @@ export function FeedList({
 
   useEffect(() => {
     if (!playAllRef) return;
-    playAllRef.current = views.length ? () => play(views, views[0]) : null;
+    playAllRef.current = views.some((v) => !v.deleted) ? () => play(views, views.find((v) => !v.deleted)!) : null;
     return () => {
       playAllRef.current = null;
     };
@@ -79,11 +79,11 @@ export function FeedList({
   if (q.data && !views.length) return <>{empty}</>;
   return (
     <div>
-      {playAll && !playAllRef && views.length > 1 && (
+      {playAll && !playAllRef && views.filter((v) => !v.deleted).length > 1 && (
         <div className="flex justify-end px-4 pb-1">
           <button
             type="button"
-            onClick={() => play(views, views[0])}
+            onClick={() => play(views, views.find((v) => !v.deleted)!)}
             className="flex h-9 items-center gap-1.5 rounded-full bg-secondary px-4 text-sm font-semibold"
           >
             <Play className="h-4 w-4" fill="currentColor" /> {t("posts.playAll")}

@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { sweepVoiceFilesLater } from "@/lib/api/voice-files.functions";
 
 export type GroupPrivacy = "public" | "private";
 export type GroupRole = "owner" | "admin" | "member";
@@ -148,6 +149,7 @@ export async function updateGroup(id: string, g: { name: string; description: st
 
 export async function deleteGroup(id: string) {
   fail((await supabase.rpc("delete_group", { p_group: id })).error);
+  sweepVoiceFilesLater(); // the group's voices went with it; their audio is removed server-side
 }
 
 /** 'joined' (public group or an invite) or 'requested' (private group). */
@@ -160,6 +162,7 @@ export async function joinGroup(id: string): Promise<"joined" | "requested"> {
 /** Leave, cancel your request or decline an invite. */
 export async function leaveGroup(id: string) {
   fail((await supabase.rpc("leave_group", { p_group: id })).error);
+  sweepVoiceFilesLater(); // the last one out deletes the group
 }
 
 export async function inviteToGroup(id: string, userId: string) {

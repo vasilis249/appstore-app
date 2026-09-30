@@ -337,8 +337,9 @@ export type Database = {
       posts: {
         Row: {
           audio_path: string | null
-          author_id: string
+          author_id: string | null
           created_at: string
+          deleted_at: string | null
           duration_ms: number | null
           group_id: string | null
           hidden: boolean
@@ -356,8 +357,9 @@ export type Database = {
         }
         Insert: {
           audio_path?: string | null
-          author_id: string
+          author_id?: string | null
           created_at?: string
+          deleted_at?: string | null
           duration_ms?: number | null
           group_id?: string | null
           hidden?: boolean
@@ -375,8 +377,9 @@ export type Database = {
         }
         Update: {
           audio_path?: string | null
-          author_id?: string
+          author_id?: string | null
           created_at?: string
+          deleted_at?: string | null
           duration_ms?: number | null
           group_id?: string | null
           hidden?: boolean
@@ -794,6 +797,7 @@ export type Database = {
         Returns: string
       }
       delete_group: { Args: { p_group: string }; Returns: undefined }
+      delete_post: { Args: { p_post: string }; Returns: undefined }
       discover_groups: {
         Args: { p_limit?: number; p_query?: string; p_section?: string }
         Returns: {
@@ -828,6 +832,7 @@ export type Database = {
           author_name: string
           author_username: string
           created_at: string
+          deleted: boolean
           duration_ms: number
           group_id: string
           group_name: string
@@ -841,6 +846,7 @@ export type Database = {
           orig_author_name: string
           orig_author_username: string
           orig_created_at: string
+          orig_deleted: boolean
           orig_duration_ms: number
           orig_likes_count: number
           orig_listens_count: number
@@ -988,6 +994,7 @@ export type Database = {
           title: string
         }[]
       }
+      orphan_voice_files: { Args: { p_limit?: number }; Returns: string[] }
       post_ancestors: { Args: { p_post: string }; Returns: string[] }
       profile_stats: {
         Args: { p_user: string }

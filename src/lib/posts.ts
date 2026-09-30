@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { sweepVoiceFilesLater } from "@/lib/api/voice-files.functions";
 
 export const POST_MAX_MS = 120_000;
 export const TITLE_MAX = 100;
@@ -46,6 +47,10 @@ export interface FeedRow {
   reply_to_username: string | null;
   group_id: string | null;
   group_name: string | null;
+  /** A voice its author deleted after others answered it: kept (no author, no audio) so the thread reads on. */
+  deleted: boolean;
+  /** A quote whose original was deleted. */
+  orig_deleted: boolean;
 }
 
 /** What a card shows: the post itself, or — for a plain repost — the original, credited to the reposter. */
@@ -74,12 +79,23 @@ export interface PostView {
   liked: boolean;
   reposted: boolean;
   repostedBy: { name: string; mine: boolean } | null;
-  quote: { id: string; name: string; username: string; title: string | null; durationMs: number } | null;
+  quote: { id: string; name: string; username: string; title: string | null; durationMs: number; deleted: boolean } | null;
+  /** "This voice was deleted" (only inside a conversation). */
+  deleted: boolean;
   /** The feed row (for delete / menus). */
   row: FeedRow;
 }
 
 export function toView(row: FeedRow): PostView | null {
+  if (row.deleted) {
+    return {
+      id: row.post_id, authorId: "", username: "", name: "", avatar: null, createdAt: row.created_at,
+      sectionId: row.section_id, topicId: null, topicTitle: null, replyTo: row.reply_to, replyToUsername: null,
+      groupId: row.group_id, groupName: row.group_name, title: null, path: "", durationMs: 0, likes: 0,
+      replies: row.replies_count, reposts: 0, listens: 0, liked: false, reposted: false, repostedBy: null, quote: null,
+      deleted: true, row,
+    };
+  }
   if (row.audio_path && row.duration_ms) {
     return {
       id: row.post_id, authorId: row.author_id, username: row.author_username, name: row.author_name || row.author_username,
@@ -88,10 +104,13 @@ export function toView(row: FeedRow): PostView | null {
       groupId: row.group_id, groupName: row.group_name, title: row.title, path: row.audio_path, durationMs: row.duration_ms,
       likes: row.likes_count, replies: row.replies_count, reposts: row.reposts_count, listens: row.listens_count,
       liked: row.liked, reposted: row.reposted, repostedBy: null,
-      quote: row.repost_of && row.orig_author_username
-        ? { id: row.repost_of, name: row.orig_author_name || row.orig_author_username, username: row.orig_author_username,
-            title: row.orig_title, durationMs: row.orig_duration_ms ?? 0 }
-        : null,
+      quote: row.repost_of && row.orig_deleted
+        ? { id: row.repost_of, name: "", username: "", title: null, durationMs: 0, deleted: true }
+        : row.repost_of && row.orig_author_username
+          ? { id: row.repost_of, name: row.orig_author_name || row.orig_author_username, username: row.orig_author_username,
+              title: row.orig_title, durationMs: row.orig_duration_ms ?? 0, deleted: false }
+          : null,
+      deleted: false,
       row,
     };
   }
@@ -103,7 +122,7 @@ export function toView(row: FeedRow): PostView | null {
       replyTo: null, replyToUsername: null, groupId: null, groupName: null, title: row.orig_title, path: row.orig_audio_path, durationMs: row.orig_duration_ms,
       likes: row.orig_likes_count ?? 0, replies: row.orig_replies_count ?? 0, reposts: row.orig_reposts_count ?? 0,
       listens: row.orig_listens_count ?? 0, liked: row.liked, reposted: row.reposted,
-      repostedBy: { name: row.author_name || row.author_username, mine: row.is_mine }, quote: null, row,
+      repostedBy: { name: row.author_name || row.author_username, mine: row.is_mine }, quote: null, deleted: false, row,
     };
   }
   return null;
@@ -272,7 +291,12 @@ export async function setLiked(postId: string, liked: boolean) {
 export async function recordListen(postId: string) {
   await supabase.rpc("record_listen", { p_post: postId });
 }
+/**
+ * Delete your voice. One that others answered or quoted stays as "deleted" so their voices keep their place;
+ * the audio goes either way.
+ */
 export async function deletePost(row: Pick<FeedRow, "post_id" | "audio_path">) {
-  fail((await supabase.from("posts").delete().eq("id", row.post_id)).error);
+  fail((await supabase.rpc("delete_post", { p_post: row.post_id })).error);
   if (row.audio_path) await supabase.storage.from("voices").remove([row.audio_path]);
+  sweepVoiceFilesLater(); // and anything else left behind (e.g. a deleted group's voices)
 }

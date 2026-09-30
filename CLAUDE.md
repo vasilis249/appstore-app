@@ -196,8 +196,27 @@ User decisions:
   RequestsSheet stays mounted for admins (it used to reopen by itself on the next request). Tests speak 100,
   groups 34. Scratchpad `seed-news.sh` (covers for `news-flow.mjs`); if `local-build.sh` serves 404 assets, a stale
   `wrangler dev` holds the port → `serve.sh <new port>`.
-  Open (user's call): deleting a post cascades to OTHER people's replies + quotes (FK ON DELETE CASCADE) and their
-  audio stays in `voices` as orphans (also after account deletion); X keeps replies ("post deleted").
+- **Deleted voices like X + audio cleanup ✔ (user OK 2026-09-30)** — migration `20261014100000_speak_deleted_voices.sql`:
+  `posts.deleted_at`, `author_id` nullable (NULL ⇔ tombstone). `private.remove_post` = delete, or — if it has replies
+  or quotes — tombstone (no author/audio/title; likes, listens, plain reposts, notifications removed; topic/group
+  counts given back, counter triggers skip tombstones). `delete_post(p_post)` RPC replaces the direct DELETE policy.
+  Trigger `posts_tombstone_gc`: a tombstone goes when its last reply/quote goes (up the thread). `profile_deleting`
+  (BEFORE DELETE on profiles, bottom-up loop): an account's answered voices stay as tombstones. `feed_posts` + columns
+  `deleted`, `orig_deleted` (tombstones only in replies/one/ids; quotes of a deleted voice stay); `post_ancestors`
+  keeps tombstones (`private.can_see_tombstone`); `admin_reports.post_exists` false for tombstones.
+  `orphan_voice_files(limit)` (service role only): `voices` objects > 1 h old that no post points at;
+  `src/lib/api/voice-files.functions.ts` `sweepVoiceFiles` (Worker, service key → Storage API remove) fired by
+  `sweepVoiceFilesLater()` after deletePost / deleteGroup / leaveGroup / admin delete_group.
+  `20261014100100_storage_select_own.sql`: SELECT policies on own `voices/avatars` folder — the Storage API needs
+  SELECT to delete, so removing your own file (deleted voice, old avatar, failed post) silently did nothing before.
+  UI: `PostView.deleted` → PostCard placeholder "Αυτή η φωνή διαγράφηκε από τον δημιουργό της." (MicOff, links to
+  its thread), no "Απάντησε" under it, not queued; quote block "Η αρχική φωνή δεν είναι πλέον διαθέσιμη."
+  Tests speak 111; browser `delete-flow.mjs` 5/5 (+ `seed-delete.sh`); live smoke (rolled back) 4/4; the one live
+  orphan (17 KB) removed.
+- **Deploy incident (2026-09-29 night → 09-30)**: the night-review deploys built with `$SUPABASE_URL`/
+  `$SUPABASE_PUBLISHABLE_KEY`, which `deploy.env` doesn't define → client bundle without Supabase config (live app
+  couldn't reach the backend). Fixed + redeployed. ALWAYS deploy with scratchpad `deploy-prod.sh` (builds with the
+  URL literal + `SUPABASE_ANON_KEY`, refuses a bundle without URL/anon key or with the service key / local URL).
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -312,8 +331,8 @@ User decisions:
 ## Credentials / deploy
 - The user pasted Supabase + Cloudflare credentials in chat; they are only in the session scratchpad
   (`deploy.env`, chmod 600) and must be rotated after testing. Never commit them.
-- Deploy from the container: build with `VITE_SUPABASE_URL/PUBLISHABLE_KEY/PROJECT_ID`, check the client bundle
-  has no service key, `npx wrangler deploy` (CLOUDFLARE_API_TOKEN + ACCOUNT_ID).
+- Deploy from the container: scratchpad `deploy-prod.sh` (VITE_SUPABASE_URL = the project URL literal,
+  VITE_SUPABASE_PUBLISHABLE_KEY = `$SUPABASE_ANON_KEY`; checks URL/key present, no service key; `npx wrangler deploy`).
 - On the Mac: `bun run deploy:all` (`scripts/deploy-all.sh`, bash 3.2-safe; db push, build, deploy, secrets,
   Auth settings, `.env`, `ios:sync` + `ios:open`). Auth: site_url + redirect URLs (`<url>/**`, `courtsie://**`),
   min password 8, confirm email, secure email change, token rotation. Custom SMTP needed before real users.
@@ -325,7 +344,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (100) + `test_groups.sql` (34).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

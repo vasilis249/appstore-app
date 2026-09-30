@@ -348,7 +348,9 @@
     "where": "Where does it go?",
     "personal": "Personal",
     "personalHint": "Your followers hear it under “Following”.",
-    "newsHint": "In News · {{section}}."
+    "newsHint": "In News · {{section}}.",
+    "deletedVoice": "This voice was deleted by its author.",
+    "quoteDeleted": "The original voice is no longer available."
   },
   "feed": {
     "recordCta": "Record your day"

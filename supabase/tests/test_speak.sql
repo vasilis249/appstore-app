@@ -159,12 +159,39 @@ SELECT pg_temp.as_user(:C); SET ROLE authenticated;
 SELECT pg_temp.ok('08a report a post', NOT pg_temp.fails(format($$SELECT public.report_content('post', %L, 'spam')$$, :'pa')));
 SELECT pg_temp.ok('08b upload only into own folder', pg_temp.fails($$INSERT INTO storage.objects (bucket_id, name) VALUES ('voices', '00000000-0000-0000-0000-00000000000a/x.m4a')$$)
   AND NOT pg_temp.fails($$INSERT INTO storage.objects (bucket_id, name) VALUES ('voices', '00000000-0000-0000-0000-00000000000c/x.m4a')$$));
-SELECT pg_temp.ok('08c delete own post (replies cascade)', NOT pg_temp.fails(format('DELETE FROM public.posts WHERE id = %L', :'pc')));
+SELECT pg_temp.ok('08c delete own post', NOT pg_temp.fails(format('SELECT public.delete_post(%L)', :'pc'))
+  AND pg_temp.fails(format('SELECT public.delete_post(%L)', :'pa')));
 RESET ROLE;
+SELECT pg_temp.ok('08c2 a post without replies or quotes is gone', NOT EXISTS (SELECT 1 FROM public.posts WHERE id = :'pc'));
 SELECT pg_temp.as_user(:A); SET ROLE authenticated;
-DELETE FROM public.posts WHERE id = :'pa';
+SELECT pg_temp.ok('08c3 no direct deletes', NOT pg_temp.fails(format('DELETE FROM public.posts WHERE id = %L', :'pa')));
+SELECT public.delete_post(:'pa');
 RESET ROLE;
-SELECT pg_temp.ok('08d deleting a post removes its replies and reposts', NOT EXISTS (SELECT 1 FROM public.posts WHERE reply_to = :'pa' OR repost_of = :'pa'));
+SELECT pg_temp.ok('08d answered post becomes a tombstone; replies and quotes stay, plain reposts go',
+  (SELECT deleted_at IS NOT NULL AND author_id IS NULL AND audio_path IS NULL AND title IS NULL AND likes_count = 0
+   FROM public.posts WHERE id = :'pa')
+  AND EXISTS (SELECT 1 FROM public.posts WHERE id = :'rb') AND EXISTS (SELECT 1 FROM public.posts WHERE id = :'qb')
+  AND NOT EXISTS (SELECT 1 FROM public.posts WHERE repost_of = :'pa' AND audio_path IS NULL)
+  AND NOT EXISTS (SELECT 1 FROM public.post_likes WHERE post_id = :'pa')
+  AND (SELECT posts_count FROM public.topics WHERE id = :'t1') = 0);
+SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT pg_temp.ok('08e tombstone only in its thread; the quote says the original is gone',
+  (SELECT deleted AND author_id IS NULL FROM public.feed_posts('one', p_parent := :'pa'))
+  AND EXISTS (SELECT 1 FROM public.feed_posts('replies', p_parent := :'pa') WHERE post_id = :'rb')
+  AND NOT EXISTS (SELECT 1 FROM public.feed_posts('all', p_limit := 50) WHERE post_id = :'pa')
+  AND NOT EXISTS (SELECT 1 FROM public.feed_posts('topic', p_topic := :'t1') WHERE post_id = :'pa')
+  AND (SELECT orig_deleted AND orig_author_username IS NULL FROM public.feed_posts('all', p_limit := 50) WHERE post_id = :'qb')
+  AND public.post_ancestors(:'rb') = ARRAY[:'pa'::uuid]);
+SELECT pg_temp.ok('08f no reply / like / report on a tombstone',
+  pg_temp.fails(format($$SELECT public.create_post(p_reply_to := %L, p_path := '00000000-0000-0000-0000-00000000000b/b1.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000)$$, :'pa'))
+  AND pg_temp.fails(format('SELECT public.like_post(%L)', :'pa')));
+SELECT public.delete_post(:'rb');
+RESET ROLE;
+SELECT pg_temp.ok('08g tombstone stays while a quote hangs on it', EXISTS (SELECT 1 FROM public.posts WHERE id = :'pa'));
+SET ROLE authenticated;
+SELECT public.delete_post(:'qb');
+RESET ROLE;
+SELECT pg_temp.ok('08h last reply / quote gone → tombstone gone', NOT EXISTS (SELECT 1 FROM public.posts WHERE id = :'pa'));
 
 -- 09 notifications (follow / like / reply / repost), lists, suggestions
 DELETE FROM public.notifications;
@@ -391,4 +418,55 @@ SELECT pg_temp.ok('16b topic of the day first in News, not forced into a section
   (SELECT id FROM public.news_topics(p_limit := 1)) = :'dly'
   AND (SELECT count(*) FROM public.news_topics(p_limit := 50) WHERE id = :'dly') = 1
   AND NOT EXISTS (SELECT 1 FROM public.news_topics('news', 50) WHERE id = :'dly'));
+RESET ROLE;
+
+-- 17 account deletion keeps what others said: answered voices → tombstones (bottom-up), the rest goes;
+--    audio nobody points at is listed for the Worker to remove
+INSERT INTO storage.objects (bucket_id, name, created_at) VALUES
+  ('voices', '00000000-0000-0000-0000-00000000000a/k1.m4a', now() - interval '2 hours'),
+  ('voices', '00000000-0000-0000-0000-00000000000a/k2.m4a', now() - interval '2 hours'),
+  ('voices', '00000000-0000-0000-0000-00000000000a/k3.m4a', now() - interval '2 hours'),
+  ('voices', '00000000-0000-0000-0000-00000000000a/k4.m4a', now() - interval '2 hours'),
+  ('voices', '00000000-0000-0000-0000-00000000000a/k5.m4a', now() - interval '2 hours'),
+  ('voices', '00000000-0000-0000-0000-00000000000a/k6.m4a', now()),
+  ('voices', '00000000-0000-0000-0000-00000000000c/k7.m4a', now() - interval '2 hours'),
+  ('voices', '00000000-0000-0000-0000-00000000000c/k8.m4a', now() - interval '2 hours'),
+  ('voices', '00000000-0000-0000-0000-00000000000c/k9.m4a', now() - interval '2 hours');
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT public.create_post(p_title := 'answered', p_path := '00000000-0000-0000-0000-00000000000a/k1.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000) AS x1 \gset
+SELECT public.create_post(p_title := 'alone', p_path := '00000000-0000-0000-0000-00000000000a/k2.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000) AS x2 \gset
+SELECT public.create_post(p_reply_to := :'x2', p_path := '00000000-0000-0000-0000-00000000000a/k3.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000) AS x2r \gset
+SELECT public.create_post(p_title := 'deep', p_path := '00000000-0000-0000-0000-00000000000a/k4.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000) AS x3 \gset
+SELECT public.create_post(p_reply_to := :'x3', p_path := '00000000-0000-0000-0000-00000000000a/k5.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000) AS x3r \gset
+RESET ROLE; SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT public.create_post(p_reply_to := :'x1', p_path := '00000000-0000-0000-0000-00000000000c/k7.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000) AS y1 \gset
+SELECT public.create_post(p_reply_to := :'x3r', p_path := '00000000-0000-0000-0000-00000000000c/k8.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000) AS y3 \gset
+RESET ROLE;
+DELETE FROM auth.users WHERE id = :A;
+SELECT pg_temp.ok('17a deleted account: answered voices (and the voice above an answered reply) stay as tombstones',
+  (SELECT count(*) FROM public.posts WHERE id IN (:'x1', :'x3', :'x3r') AND deleted_at IS NOT NULL AND author_id IS NULL) = 3
+  AND (SELECT count(*) FROM public.posts WHERE id IN (:'y1', :'y3')) = 2
+  AND NOT EXISTS (SELECT 1 FROM public.posts WHERE id IN (:'x2', :'x2r'))
+  AND NOT EXISTS (SELECT 1 FROM public.posts WHERE author_id = :A));
+SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT pg_temp.ok('17b the thread still reads root → reply', public.post_ancestors(:'y3') = ARRAY[:'x3'::uuid, :'x3r'::uuid]);
+SELECT pg_temp.ok('17c clients cannot list orphan files', pg_temp.fails('SELECT public.orphan_voice_files()'));
+RESET ROLE; SET ROLE service_role;
+SELECT pg_temp.ok('17d orphan files: unreferenced and older than an hour only',
+  (SELECT array_agg(f ORDER BY f) FROM public.orphan_voice_files() f WHERE f LIKE '%/k%')
+    = ARRAY['00000000-0000-0000-0000-00000000000a/k1.m4a', '00000000-0000-0000-0000-00000000000a/k2.m4a',
+            '00000000-0000-0000-0000-00000000000a/k3.m4a', '00000000-0000-0000-0000-00000000000a/k4.m4a',
+            '00000000-0000-0000-0000-00000000000a/k5.m4a', '00000000-0000-0000-0000-00000000000c/k9.m4a']);
+RESET ROLE;
+
+-- 18 you can remove your own files (the Storage API needs SELECT as well as DELETE), and see nobody else's
+SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT pg_temp.ok('18a own voice files visible, others'' not',
+  EXISTS (SELECT 1 FROM storage.objects WHERE name = '00000000-0000-0000-0000-00000000000c/k9.m4a')
+  AND NOT EXISTS (SELECT 1 FROM storage.objects WHERE name NOT LIKE '00000000-0000-0000-0000-00000000000c/%'));
+WITH d AS (DELETE FROM storage.objects WHERE name = '00000000-0000-0000-0000-00000000000c/k9.m4a' RETURNING name)
+SELECT count(*) AS removed FROM d \gset
+WITH d AS (DELETE FROM storage.objects WHERE name = '00000000-0000-0000-0000-00000000000b/b2.m4a' RETURNING name)
+SELECT count(*) AS removed_other FROM d \gset
+SELECT pg_temp.ok('18b remove own file, not someone else''s', :removed = 1 AND :removed_other = 0);
 RESET ROLE;

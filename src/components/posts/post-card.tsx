@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Headphones, Heart, MessageCircle, MoreHorizontal, Pause, Play, Repeat2, Share, Users } from "lucide-react";
+import { Headphones, Heart, MessageCircle, MicOff, MoreHorizontal, Pause, Play, Repeat2, Share, Users } from "lucide-react";
 import { toast } from "sonner";
 import { UserAvatar } from "@/components/user-avatar";
 import { Waveform } from "@/components/voice/waveform";
@@ -68,6 +68,29 @@ export function PostCard({
 
   const open = () => linkToPost && void navigate({ to: "/p/$postId", params: { postId: post.id } });
   const action = "flex min-h-8 items-center gap-1.5 text-[13px] tabular-nums text-muted-foreground";
+
+  // Deleted by its author after others answered: a placeholder that keeps the conversation readable.
+  if (post.deleted)
+    return (
+      <article className={cn("px-4 py-3", !threadLine && "border-b border-border")}>
+        <div className="flex gap-3">
+          <div className="flex shrink-0 flex-col items-center">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-secondary text-muted-foreground" aria-hidden>
+              <MicOff className="h-4 w-4" />
+            </span>
+            {threadLine && <span className="-mb-3 mt-1 w-0.5 flex-1 rounded-full bg-border" aria-hidden />}
+          </div>
+          <button
+            type="button"
+            onClick={open}
+            disabled={!linkToPost}
+            className="min-w-0 flex-1 rounded-2xl bg-secondary/60 px-4 py-3 text-left text-[15px] text-muted-foreground"
+          >
+            {t("posts.deletedVoice")}
+          </button>
+        </div>
+      </article>
+    );
 
   return (
     <article className={cn("px-4 py-3", !threadLine && "border-b border-border")}>
@@ -159,7 +182,10 @@ export function PostCard({
             </span>
           </div>
 
-          {post.quote && (
+          {post.quote?.deleted && (
+            <p className="mt-2 rounded-2xl border border-border px-3 py-2 text-sm text-muted-foreground">{t("posts.quoteDeleted")}</p>
+          )}
+          {post.quote && !post.quote.deleted && (
             <Link
               to="/p/$postId"
               params={{ postId: post.quote.id }}
