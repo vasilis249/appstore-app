@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { AppHeader } from "@/components/app-header";
 import { Switch } from "@/components/ui/switch";
 import { useSections } from "@/hooks/use-sections";
+import { useCampus } from "@/lib/campus";
 import { adminFeeds, adminKeys, adminTopics, amIAdmin, createTopic, refreshNews, setFeed, updateTopic } from "@/lib/admin";
 import { dailyKeys, getToday } from "@/lib/daily";
 import { rpcErrorKey } from "@/lib/friends";
@@ -50,7 +51,9 @@ function useRefreshAll() {
 
 function NewTopic() {
   const { t } = useTranslation();
-  const { sections, name } = useSections();
+  const { sections, campusSections, name } = useSections();
+  const campus = useCampus();
+  const openUni = campus.universities.find((u) => u.open);
   const today = useQuery({ queryKey: dailyKeys.today, queryFn: getToday });
   const refresh = useRefreshAll();
   const [section, setSection] = useState("news");
@@ -58,6 +61,10 @@ function NewTopic() {
   const [url, setUrl] = useState("");
   const [daily, setDaily] = useState(false);
   const [date, setDate] = useState("");
+  // A topic for one campus (its students only) uses the student sections.
+  const [campusOnly, setCampusOnly] = useState(false);
+  const pickable = campusOnly ? campusSections : sections;
+  const sectionOk = pickable.some((s) => s.id === section);
   // Default day: today's moment if you haven't picked its topic yet, otherwise the next one.
   const nextDay = today.data
     ? today.data.topic_is_pick
@@ -67,7 +74,13 @@ function NewTopic() {
 
   const create = useMutation({
     mutationFn: () =>
-      createTopic({ section, title: title.trim(), sourceUrl: url.trim(), dailyDate: daily ? date || nextDay : undefined }),
+      createTopic({
+        section,
+        title: title.trim(),
+        sourceUrl: url.trim(),
+        dailyDate: daily ? date || nextDay : undefined,
+        university: campusOnly ? openUni?.id : undefined,
+      }),
     onSuccess: () => {
       setTitle("");
       setUrl("");
@@ -78,13 +91,25 @@ function NewTopic() {
     onError: (e) => toast.error(e instanceof Error && e.message.includes("daily_date") ? t("admin.dailyTaken") : t(rpcErrorKey(e))),
   });
   const input = "h-12 w-full rounded-2xl bg-secondary px-4 text-base outline-none placeholder:text-muted-foreground";
-  const valid = title.trim().length >= 3 && (!url.trim() || /^https?:\/\//.test(url.trim()));
+  const valid = sectionOk && title.trim().length >= 3 && (!url.trim() || /^https?:\/\//.test(url.trim()));
 
   return (
     <section className="space-y-3">
       <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("admin.newTopic")}</h2>
+      {openUni && (
+        <label className="flex items-center justify-between gap-3 rounded-2xl bg-secondary px-4 py-3 text-sm font-medium">
+          <span>{t("admin.campusOnly", { uni: campus.uni(openUni.id)?.short_el })}</span>
+          <Switch
+            checked={campusOnly}
+            onCheckedChange={(on) => {
+              setCampusOnly(on);
+              setSection(on ? "courses" : "news");
+            }}
+          />
+        </label>
+      )}
       <div className="flex flex-wrap gap-2">
-        {sections.map((s) => (
+        {pickable.map((s) => (
           <button
             key={s.id}
             type="button"
@@ -165,6 +190,7 @@ function Feeds() {
 function Topics() {
   const { t, i18n } = useTranslation();
   const { name } = useSections();
+  const campus = useCampus();
   const refresh = useRefreshAll();
   const topics = useQuery({ queryKey: adminKeys.topics, queryFn: adminTopics });
   const upd = useMutation({
@@ -185,6 +211,7 @@ function Topics() {
             <Link to="/t/$topicId" params={{ topicId: tp.id }} className="min-w-0 flex-1">
               <p className="text-xs text-muted-foreground">
                 <span className={cn("font-semibold", tp.kind === "daily" && "text-coral")}>{badge(tp)}</span> · {name(tp.section_id)}
+                {tp.university_id && <span className="font-semibold text-foreground"> · {campus.label({ university_id: tp.university_id })}</span>}
                 {tp.source_name && ` · ${tp.source_name}`} · {timeAgo(tp.created_at, i18n.language)} · {t("posts.voicesCount", { count: tp.posts_count })}
               </p>
               <p className="mt-0.5 text-sm font-semibold leading-snug">{tp.title}</p>

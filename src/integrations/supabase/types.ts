@@ -395,6 +395,7 @@ export type Database = {
           section_id: string | null
           title: string | null
           topic_id: string | null
+          university_id: string | null
         }
         Insert: {
           audio_path?: string | null
@@ -415,6 +416,7 @@ export type Database = {
           section_id?: string | null
           title?: string | null
           topic_id?: string | null
+          university_id?: string | null
         }
         Update: {
           audio_path?: string | null
@@ -435,6 +437,7 @@ export type Database = {
           section_id?: string | null
           title?: string | null
           topic_id?: string | null
+          university_id?: string | null
         }
         Relationships: [
           {
@@ -477,6 +480,13 @@ export type Database = {
             columns: ["topic_id"]
             isOneToOne: false
             referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities"
             referencedColumns: ["id"]
           },
         ]
@@ -600,6 +610,7 @@ export type Database = {
         Row: {
           icon: string
           id: string
+          kind: string
           name_el: string
           name_en: string
           position: number
@@ -607,6 +618,7 @@ export type Database = {
         Insert: {
           icon: string
           id: string
+          kind?: string
           name_el: string
           name_en: string
           position: number
@@ -614,6 +626,7 @@ export type Database = {
         Update: {
           icon?: string
           id?: string
+          kind?: string
           name_el?: string
           name_en?: string
           position?: number
@@ -638,6 +651,7 @@ export type Database = {
           source_url: string | null
           summary: string | null
           title: string
+          university_id: string | null
         }
         Insert: {
           created_at?: string
@@ -656,6 +670,7 @@ export type Database = {
           source_url?: string | null
           summary?: string | null
           title: string
+          university_id?: string | null
         }
         Update: {
           created_at?: string
@@ -674,6 +689,7 @@ export type Database = {
           source_url?: string | null
           summary?: string | null
           title?: string
+          university_id?: string | null
         }
         Relationships: [
           {
@@ -688,6 +704,13 @@ export type Database = {
             columns: ["section_id"]
             isOneToOne: false
             referencedRelation: "sections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "topics_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities"
             referencedColumns: ["id"]
           },
         ]
@@ -825,6 +848,7 @@ export type Database = {
           p_source_url?: string
           p_summary?: string
           p_title: string
+          p_university?: string
         }
         Returns: string
       }
@@ -900,6 +924,7 @@ export type Database = {
           source_name: string
           source_url: string
           title: string
+          university_id: string
         }[]
       }
       admin_update_topic: {
@@ -908,6 +933,24 @@ export type Database = {
       }
       am_i_admin: { Args: never; Returns: boolean }
       block_user: { Args: { p_user: string }; Returns: undefined }
+      campus_topics: {
+        Args: { p_limit?: number; p_offset?: number; p_section?: string }
+        Returns: {
+          created_at: string
+          id: string
+          image_url: string
+          is_daily: boolean
+          kind: string
+          last_post_at: string
+          posts_count: number
+          section_id: string
+          source_name: string
+          source_url: string
+          speakers: Json
+          speakers_count: number
+          title: string
+        }[]
+      }
       clear_student_identity: { Args: never; Returns: undefined }
       consume_voice_message: {
         Args: { p_id: string }
@@ -928,6 +971,7 @@ export type Database = {
       }
       create_post: {
         Args: {
+          p_campus?: boolean
           p_duration_ms?: number
           p_group?: string
           p_mime?: string
@@ -972,8 +1016,10 @@ export type Database = {
         Returns: {
           audio_path: string
           author_avatar: string
+          author_department_id: string
           author_id: string
           author_name: string
+          author_university_id: string
           author_username: string
           created_at: string
           deleted: boolean
@@ -1008,6 +1054,7 @@ export type Database = {
           title: string
           topic_id: string
           topic_title: string
+          university_id: string
         }[]
       }
       follow_list: {

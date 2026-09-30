@@ -94,3 +94,83 @@ SET ROLE anon;
 SELECT pg_temp.ok('05d anon sees no universities', pg_temp.fails('SELECT * FROM public.universities')
   OR NOT EXISTS (SELECT 1 FROM public.universities));
 RESET ROLE;
+
+-- 06 campus voices: only students of that university hear them; nowhere else
+INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES ('00000000-0000-0000-0000-00000000000c', 'chris@x', '{"full_name":"Chris"}');
+\set C '''00000000-0000-0000-0000-00000000000c'''
+UPDATE public.profiles SET university_id = 'ntua', student_verified_at = now(), department_id = 'ntua-ece' WHERE id IN (:A, :B);
+INSERT INTO private.admins (user_id) VALUES (:A);
+INSERT INTO public.follows (follower_id, followee_id) VALUES (:C, :A), (:B, :A);
+INSERT INTO storage.objects (bucket_id, name) VALUES
+  ('voices', '00000000-0000-0000-0000-00000000000a/c1.m4a'), ('voices', '00000000-0000-0000-0000-00000000000a/c2.m4a'),
+  ('voices', '00000000-0000-0000-0000-00000000000b/c3.m4a'), ('voices', '00000000-0000-0000-0000-00000000000b/c4.m4a'),
+  ('voices', '00000000-0000-0000-0000-00000000000c/c5.m4a'), ('voices', '00000000-0000-0000-0000-00000000000c/c6.m4a');
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT public.create_post(p_section := 'exams', p_title := 'Ανάλυση ΙΙ tips', p_path := '00000000-0000-0000-0000-00000000000a/c1.m4a',
+  p_mime := 'audio/mp4', p_duration_ms := 3000, p_campus := true) AS cv \gset
+SELECT pg_temp.ok('06a campus voice in a student section',
+  (SELECT university_id = 'ntua' AND section_id = 'exams' FROM public.posts WHERE id = :'cv'));
+SELECT pg_temp.ok('06b sections must match (no Tech on campus, no Εξεταστική outside)',
+  pg_temp.err($$SELECT public.create_post(p_section := 'tech', p_path := '00000000-0000-0000-0000-00000000000a/c2.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000, p_campus := true)$$) = 'bad_section'
+  AND pg_temp.err($$SELECT public.create_post(p_section := 'exams', p_path := '00000000-0000-0000-0000-00000000000a/c2.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000)$$) = 'bad_section');
+SELECT public.create_post(p_path := '00000000-0000-0000-0000-00000000000a/c2.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000, p_campus := true) AS cv2 \gset
+SELECT pg_temp.ok('06c a campus voice without a section is fine', (SELECT university_id = 'ntua' AND section_id IS NULL FROM public.posts WHERE id = :'cv2'));
+RESET ROLE; SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT pg_temp.ok('06d not a student: no campus voice', pg_temp.err($$SELECT public.create_post(p_path := '00000000-0000-0000-0000-00000000000c/c5.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000, p_campus := true)$$) = 'not_verified');
+SELECT pg_temp.ok('06e outsiders can''t see, open, like, reply or repost it',
+  NOT EXISTS (SELECT 1 FROM public.feed_posts('campus')) AND NOT EXISTS (SELECT 1 FROM public.feed_posts('one', p_parent := :'cv'))
+  AND NOT EXISTS (SELECT 1 FROM public.feed_posts('author', p_author := :A) WHERE post_id = :'cv')
+  AND NOT EXISTS (SELECT 1 FROM public.posts WHERE id = :'cv')
+  AND pg_temp.fails(format('SELECT public.like_post(%L)', :'cv'))
+  AND pg_temp.fails(format($$SELECT public.create_post(p_reply_to := %L, p_path := '00000000-0000-0000-0000-00000000000c/c5.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000)$$, :'cv')));
+SELECT pg_temp.ok('06f ... and profile counts skip it', (SELECT posts FROM public.profile_stats(:A)) = 0);
+RESET ROLE; SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT pg_temp.ok('06g classmates hear it in Campus (and by section), with the author''s school',
+  (SELECT count(*) FROM public.feed_posts('campus')) = 2
+  AND (SELECT count(*) FROM public.feed_posts('campus', p_section := 'exams')) = 1
+  AND (SELECT author_university_id = 'ntua' AND author_department_id = 'ntua-ece' AND university_id = 'ntua'
+       FROM public.feed_posts('campus', p_section := 'exams')));
+SELECT pg_temp.ok('06h campus voices stay out of every other feed',
+  NOT EXISTS (SELECT 1 FROM public.feed_posts('all', p_limit := 50) WHERE university_id IS NOT NULL)
+  AND NOT EXISTS (SELECT 1 FROM public.feed_posts('foryou', p_limit := 50) WHERE university_id IS NOT NULL)
+  AND NOT EXISTS (SELECT 1 FROM public.feed_posts('news', p_limit := 50) WHERE university_id IS NOT NULL)
+  AND NOT EXISTS (SELECT 1 FROM public.feed_posts('personal', p_limit := 50) WHERE university_id IS NOT NULL)
+  AND NOT EXISTS (SELECT 1 FROM public.feed_posts('following', p_limit := 50) WHERE university_id IS NOT NULL));
+SELECT public.create_post(p_reply_to := :'cv', p_path := '00000000-0000-0000-0000-00000000000b/c3.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000) AS cr \gset
+SELECT pg_temp.ok('06i replies stay on campus; no repost / quote out of it',
+  (SELECT university_id = 'ntua' FROM public.posts WHERE id = :'cr')
+  AND pg_temp.fails(format('SELECT public.create_post(p_repost_of := %L)', :'cv'))
+  AND pg_temp.fails(format($$SELECT public.create_post(p_repost_of := %L, p_path := '00000000-0000-0000-0000-00000000000b/c4.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000)$$, :'cv')));
+RESET ROLE;
+
+-- 07 campus topics, topic of the day, university RSS
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT public.admin_create_topic('courses', 'Ποιο μάθημα σε έκοψε;', p_daily_date := private.current_moment(), p_university := 'ntua') AS ct \gset
+SELECT pg_temp.ok('07a admin: a campus topic needs a student section', pg_temp.fails($$SELECT public.admin_create_topic('tech', 'Λάθος ενότητα', p_university := 'ntua')$$)
+  AND pg_temp.fails($$SELECT public.admin_create_topic('exams', 'Λάθος ενότητα')$$));
+SELECT public.admin_create_topic('tech', 'Γενικό θέμα της ημέρας', p_daily_date := private.current_moment()) AS gt \gset
+RESET ROLE; SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT pg_temp.ok('07b the campus has its own topic of the day, first; the global one stays global',
+  (SELECT id FROM public.campus_topics(p_limit := 1)) = :'ct' AND (SELECT is_daily FROM public.campus_topics(p_limit := 1))
+  AND (SELECT topic_id FROM public.today()) = :'gt'
+  AND NOT EXISTS (SELECT 1 FROM public.news_topics(p_limit := 50) WHERE id = :'ct')
+  AND NOT EXISTS (SELECT 1 FROM public.trending_topics(p_limit := 50) WHERE id = :'ct'));
+SELECT public.create_post(p_topic := :'ct', p_path := '00000000-0000-0000-0000-00000000000b/c4.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000) AS tv \gset
+SELECT pg_temp.ok('07c a voice on a campus topic is a campus voice', (SELECT university_id = 'ntua' AND section_id = 'courses' FROM public.posts WHERE id = :'tv'));
+RESET ROLE; SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT pg_temp.ok('07d outsiders: no campus topics, can''t speak on them',
+  NOT EXISTS (SELECT 1 FROM public.topics WHERE id = :'ct') AND NOT EXISTS (SELECT 1 FROM public.campus_topics())
+  AND pg_temp.err(format($$SELECT public.create_post(p_topic := %L, p_path := '00000000-0000-0000-0000-00000000000c/c6.m4a', p_mime := 'audio/mp4', p_duration_ms := 2000)$$, :'ct')) = 'not_found');
+RESET ROLE;
+SELECT format($x$<?xml version="1.0" encoding="utf-8"?><rss version="2.0"><channel><title>ΝΕΑ</title>
+<item><title>Η Βραδιά του Ερευνητή 2026 στο ΕΜΠ</title><link>https://www.ntua.gr/el/news/item/5617</link><guid>ntua-5617</guid><pubDate>%1$s</pubDate>
+  <description><![CDATA[<img src="https://www.ntua.gr/images/x.jpg" /> κείμενο]]></description></item>
+</channel></rss>$x$, to_char(now() AT TIME ZONE 'UTC', 'Dy, DD Mon YYYY HH24:MI:SS') || ' +0000') AS ntua_rss \gset
+SELECT private.ingest_feed_xml((SELECT id FROM private.news_feeds WHERE university_id = 'ntua' ORDER BY id LIMIT 1), :'ntua_rss', 2);
+SELECT pg_temp.ok('07e university RSS → a campus news topic with its photo',
+  (SELECT university_id = 'ntua' AND section_id = 'announcements' AND image_url = 'https://www.ntua.gr/images/x.jpg' FROM public.topics WHERE external_id = 'ntua-5617'));
+SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT pg_temp.ok('07f students see it in campus topics, not in News',
+  EXISTS (SELECT 1 FROM public.campus_topics(p_limit := 50) t JOIN public.topics x ON x.id = t.id WHERE x.external_id = 'ntua-5617')
+  AND NOT EXISTS (SELECT 1 FROM public.news_topics(p_limit := 50) WHERE title LIKE 'Η Βραδιά%'));
+RESET ROLE;

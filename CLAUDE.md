@@ -271,6 +271,27 @@ User decisions:
   ΕΜΠ" link, Settings row "Φοιτητική ταυτότητα". i18n `student.*`, `rpcErrors.notAcademic/emailTaken/tooManyCodes/
   mailUnavailable`; Privacy (el/en) + student identity. Tests `test_campus.sql` 23; browser `student-flow.mjs` 10/10
   (code read from the wrangler log), `auth-shots.mjs` 15/15 (+ scratchpad `seed-auth.sh`).
+  **N2 ✔ (campus-first Home)** migration `20261016100100_campus_home.sql`: `sections.kind` news|campus + 8 student
+  sections (courses Μαθήματα, exams Εξεταστική, campuslife Φοιτητική ζωή, housing Στέγαση, events, market Αγγελίες,
+  questions Ερωτήσεις, announcements Ανακοινώσεις). `posts.university_id` = campus voice: only verified students of that
+  university see / like / reply (`private.my_university()`, in `can_see_post`, `can_see_tombstone`, `feed_posts`),
+  student section or none, replies inherit, no repost/quote out, out of every other scope. `create_post(+ p_campus)`
+  (`not_verified`, `bad_section` if the section kind doesn't match). `feed_posts` scope `campus` (+ p_section, newest
+  first) + columns `university_id, author_university_id, author_department_id`. `topics.university_id` (topics_select
+  hides other campuses; one topic of the day per day globally and per campus — unique index replaces
+  `topics_daily_date_key`); `today`, `news_topics`, `trending_topics` global only; `campus_topics(section, limit,
+  offset)` (+ `is_daily`: admin's campus pick, else the most talked-about campus topic of 48 h);
+  `admin_create_topic(+ p_university)`, `admin_topics(+ university_id)`; `profile_stats` counts only what you can
+  hear. `private.news_feeds.university_id` + NTUA feeds (Νέα with photos, Ανακοινώσεις → section announcements; live
+  first run added 4). UI: Home tabs ΕΜΠ (label = your university's short name, "Campus" for others) · Ακολουθείς ·
+  Ομάδες · Ειδήσεις; no tab → Campus for verified students else News (`?s` alone = News, old links kept);
+  `CampusView` (campus topic of the day = NewsCard, up to 3 campus headlines as rows, "Πες κάτι στο campus…" →
+  `/record?campus=1[&section]`, feed `campus`), non-students get a lock screen → `/student`; `SectionPills tab`.
+  `useSections()` → `sections` (news only, unchanged consumers) + `campusSections`. PostCard: "· ΗΜΜΥ" (or "ΕΜΠ ·
+  ΗΜΜΥ" off campus) after the name, "🎓 ΕΜΠ · Εξεταστική" line → `/?tab=campus&s=`, no repost on campus voices.
+  Composer `?campus=1`: "Στο ΕΜΠ" card + Γενικά/student-section chips. NavRecordButton hold on the ΕΜΠ tab → campus.
+  Admin topics: "Μόνο για το ΕΜΠ" switch (student sections), ΕΜΠ tag in the list. Tests `test_campus.sql` 38,
+  `test_speak.sql` 111; browser `campus-flow.mjs` 15/15 (+ `seed-campus.sh`).
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -398,7 +419,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (23).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (38).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

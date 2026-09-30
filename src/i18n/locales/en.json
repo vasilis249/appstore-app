@@ -66,7 +66,8 @@
       "topic": "Topic",
       "news": "News",
       "daily": "Daily"
-    }
+    },
+    "campusOnly": "Only for {{uni}}"
   },
   "errors": {
     "generic": "Something went wrong",
@@ -661,7 +662,8 @@
     "sayYourOwn": "Say something of your own…",
     "emptyFollowingTitle": "Nothing here yet",
     "emptyFollowing": "Hear what the people you follow say, outside the news.",
-    "findPeople": "Find people"
+    "findPeople": "Find people",
+    "campus": "Campus"
   },
   "news": {
     "spokeOne": "{{name}} spoke",
@@ -729,5 +731,16 @@
       "no_code": "Ask for a code first.",
       "email_taken": "This email is already used by another account."
     }
+  },
+  "campus": {
+    "lockedTitle": "Your campus",
+    "locked": "Confirm you study at NTUA to hear and talk with your classmates.",
+    "verify": "Verify as a student",
+    "say": "Say something on campus…",
+    "emptyTitle": "Quiet on campus",
+    "empty": "Nobody has spoken here yet. Be the first!",
+    "postingIn": "On {{uni}}",
+    "postingHint": "Only verified students hear it.",
+    "general": "General"
   }
 }

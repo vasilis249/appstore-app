@@ -4,24 +4,32 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 import { useRecorder } from "@/hooks/use-recorder";
+import { useMyProfile } from "@/hooks/use-my-profile";
 import { usePushToTalk } from "@/hooks/use-push-to-talk";
 import { formatClock } from "@/lib/audio";
 import { setPendingClip } from "@/lib/pending-clip";
 import { POST_MAX_MS } from "@/lib/posts";
 import { cn } from "@/lib/utils";
 
-type RecordSearch = { section?: string; topic?: string; group?: string; news?: 1 };
+type RecordSearch = { section?: string; topic?: string; group?: string; news?: 1; campus?: 1 };
 
-/** Where a voice started from here belongs: the group / topic / news section you're looking at, else personal. */
-function targetFor(pathname: string, search: Record<string, unknown>): RecordSearch {
+/**
+ * Where a voice started from here belongs: the group / topic / campus (section) / news section you're looking at,
+ * else personal. Home without a tab is Campus for verified students.
+ */
+function targetFor(pathname: string, search: Record<string, unknown>, student: boolean): RecordSearch {
   const g = /^\/g\/([^/]+)\/?$/.exec(pathname);
   if (g) return { group: g[1] };
   const tp = /^\/t\/([^/]+)/.exec(pathname);
   if (tp) return { topic: tp[1] };
-  const s = /^\/s\/([^/]+)/.exec(pathname);
-  if (s) return { section: s[1] };
+  const sec = /^\/s\/([^/]+)/.exec(pathname);
+  if (sec) return { section: sec[1] };
+  const s = typeof search.s === "string" ? search.s : undefined;
+  if (pathname === "/" && (search.tab === "campus" || (!search.tab && !s && student))) {
+    return student ? (s ? { campus: 1, section: s } : { campus: 1 }) : {};
+  }
   if (pathname === "/" && search.tab !== "following" && search.tab !== "groups") {
-    return typeof search.s === "string" ? { section: search.s } : { news: 1 };
+    return s ? { section: s } : { news: 1 };
   }
   return {};
 }
@@ -35,7 +43,8 @@ export function NavRecordButton() {
   const navigate = useNavigate();
   const loc = useRouterState({ select: (s) => ({ pathname: s.location.pathname, search: s.location.search as Record<string, unknown> }) });
   const r = useRecorder(POST_MAX_MS);
-  const target = targetFor(loc.pathname, loc.search);
+  const me = useMyProfile();
+  const target = targetFor(loc.pathname, loc.search, !!me.data?.university_id);
   const ptt = usePushToTalk(r, { minMs: 700, tapMs: 700, onTap: () => void navigate({ to: "/record", search: target }) });
   const live = r.state === "recording";
 

@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Headphones, Heart, MessageCircle, MicOff, MoreHorizontal, Pause, Play, Repeat2, Share, Users } from "lucide-react";
+import { GraduationCap, Headphones, Heart, MessageCircle, MicOff, MoreHorizontal, Pause, Play, Repeat2, Share, Users } from "lucide-react";
 import { toast } from "sonner";
 import { UserAvatar } from "@/components/user-avatar";
 import { Waveform } from "@/components/voice/waveform";
 import { RepostSheet } from "@/components/posts/repost-sheet";
 import { PostMenu } from "@/components/posts/post-menu";
 import { useSections } from "@/hooks/use-sections";
+import { useCampus } from "@/lib/campus";
 import { formatClock } from "@/lib/audio";
 import { postKeys, setLiked, type PostView } from "@/lib/posts";
 import { currentId, toggle, useQueue } from "@/lib/queue";
@@ -42,6 +43,11 @@ export function PostCard({
   const navigate = useNavigate();
   const q = useQueue();
   const sections = useSections();
+  const campus = useCampus();
+  // The author's school next to the name: just "ΗΜΜΥ" on campus, "ΕΜΠ · ΗΜΜΥ" elsewhere.
+  const school = post.campus
+    ? campus.label({ university_id: post.authorSchool.university, department_id: post.authorSchool.department }).split(" · ").pop()
+    : campus.label({ university_id: post.authorSchool.university, department_id: post.authorSchool.department });
   const [repostOpen, setRepostOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const isCurrent = currentId(q) === post.id;
@@ -112,6 +118,7 @@ export function PostCard({
             <Link to="/u/$username" params={{ username: post.username }} className="min-w-0 truncate font-semibold">
               {post.name}
             </Link>
+            {school && <span className="min-w-0 shrink truncate text-sm text-muted-foreground">· {school}</span>}
             <span className="shrink-0 text-sm text-muted-foreground">· {timeAgoShort(post.createdAt, i18n.language)}</span>
             <button
               type="button"
@@ -132,9 +139,21 @@ export function PostCard({
             </p>
           )}
 
-          {(post.groupId || post.sectionId) && (
+          {(post.groupId || post.sectionId || post.campus) && (
             <p className="mt-0.5 flex min-w-0 items-center gap-1 text-[13px] text-muted-foreground">
-              {post.groupId && post.groupName ? (
+              {post.campus ? (
+                <Link
+                  to="/"
+                  search={post.sectionId ? { tab: "campus", s: post.sectionId } : { tab: "campus" }}
+                  className="flex min-w-0 items-center gap-1 font-medium text-coral"
+                >
+                  <GraduationCap className="h-3.5 w-3.5 shrink-0" />
+                  <span className="truncate">
+                    {campus.label({ university_id: post.campus })}
+                    {post.sectionId && ` · ${sections.name(post.sectionId)}`}
+                  </span>
+                </Link>
+              ) : post.groupId && post.groupName ? (
                 <Link to="/g/$groupId" params={{ groupId: post.groupId }} className="flex min-w-0 items-center gap-1 font-medium text-coral">
                   <Users className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{post.groupName}</span>
                 </Link>
@@ -201,7 +220,7 @@ export function PostCard({
             <button type="button" onClick={open} className={action} aria-label={t("posts.reply")}>
               <MessageCircle className="h-[18px] w-[18px]" /> {post.replies > 0 && compact.format(post.replies)}
             </button>
-            {!post.groupId && (
+            {!post.groupId && !post.campus && (
               <button
                 type="button"
                 onClick={() => setRepostOpen(true)}

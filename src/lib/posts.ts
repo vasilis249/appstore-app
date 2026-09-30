@@ -6,7 +6,7 @@ export const TITLE_MAX = 100;
 
 export type FeedScope =
   | "foryou" | "all" | "following" | "section" | "topic" | "author" | "author_replies" | "replies" | "one" | "ids"
-  | "group" | "groups" | "news" | "personal" | "loose";
+  | "group" | "groups" | "news" | "personal" | "loose" | "campus";
 
 /** One row of feed_posts(). Plain reposts have no audio; the original is in orig_*. */
 export interface FeedRow {
@@ -51,6 +51,10 @@ export interface FeedRow {
   deleted: boolean;
   /** A quote whose original was deleted. */
   orig_deleted: boolean;
+  /** Set on campus voices (heard only by that university's students). */
+  university_id: string | null;
+  author_university_id: string | null;
+  author_department_id: string | null;
 }
 
 /** What a card shows: the post itself, or — for a plain repost — the original, credited to the reposter. */
@@ -82,6 +86,10 @@ export interface PostView {
   quote: { id: string; name: string; username: string; title: string | null; durationMs: number; deleted: boolean } | null;
   /** "This voice was deleted" (only inside a conversation). */
   deleted: boolean;
+  /** Campus voice: the university it belongs to. */
+  campus: string | null;
+  /** The author's university / school (badge). */
+  authorSchool: { university: string | null; department: string | null };
   /** The feed row (for delete / menus). */
   row: FeedRow;
 }
@@ -93,7 +101,7 @@ export function toView(row: FeedRow): PostView | null {
       sectionId: row.section_id, topicId: null, topicTitle: null, replyTo: row.reply_to, replyToUsername: null,
       groupId: row.group_id, groupName: row.group_name, title: null, path: "", durationMs: 0, likes: 0,
       replies: row.replies_count, reposts: 0, listens: 0, liked: false, reposted: false, repostedBy: null, quote: null,
-      deleted: true, row,
+      deleted: true, campus: row.university_id, authorSchool: { university: null, department: null }, row,
     };
   }
   if (row.audio_path && row.duration_ms) {
@@ -111,6 +119,8 @@ export function toView(row: FeedRow): PostView | null {
               title: row.orig_title, durationMs: row.orig_duration_ms ?? 0, deleted: false }
           : null,
       deleted: false,
+      campus: row.university_id,
+      authorSchool: { university: row.author_university_id, department: row.author_department_id },
       row,
     };
   }
@@ -122,7 +132,8 @@ export function toView(row: FeedRow): PostView | null {
       replyTo: null, replyToUsername: null, groupId: null, groupName: null, title: row.orig_title, path: row.orig_audio_path, durationMs: row.orig_duration_ms,
       likes: row.orig_likes_count ?? 0, replies: row.orig_replies_count ?? 0, reposts: row.orig_reposts_count ?? 0,
       listens: row.orig_listens_count ?? 0, liked: row.liked, reposted: row.reposted,
-      repostedBy: { name: row.author_name || row.author_username, mine: row.is_mine }, quote: null, deleted: false, row,
+      repostedBy: { name: row.author_name || row.author_username, mine: row.is_mine }, quote: null, deleted: false,
+      campus: null, authorSchool: { university: null, department: null }, row,
     };
   }
   return null;
@@ -144,6 +155,7 @@ export interface Section {
   name_el: string;
   name_en: string;
   icon: string;
+  kind: "news" | "campus";
 }
 
 export interface Topic {
@@ -166,6 +178,8 @@ export interface NewsTopic extends Topic {
   last_post_at: string | null;
   speakers_count: number;
   speakers: { name: string; avatar_path: string | null }[];
+  /** campus_topics only: the campus's topic of the day. */
+  is_daily?: boolean;
 }
 
 export const postKeys = {
@@ -175,6 +189,7 @@ export const postKeys = {
   trending: (section?: string) => ["posts", "trending", section ?? "all"] as const,
   topic: (id: string) => ["posts", "topic", id] as const,
   news: (section?: string) => ["posts", "news", section ?? "all"] as const,
+  campusTopics: (section?: string) => ["posts", "campus-topics", section ?? "all"] as const,
 };
 
 const PAGE = 20;
@@ -218,7 +233,7 @@ export async function fetchAncestors(postId: string): Promise<FeedRow[]> {
 export async function listSections(): Promise<Section[]> {
   const { data, error } = await supabase.from("sections").select("*").order("position");
   fail(error);
-  return data ?? [];
+  return (data ?? []) as Section[];
 }
 
 export async function trendingTopics(section?: string, limit = 10): Promise<Topic[]> {
@@ -231,6 +246,13 @@ export const NEWS_PAGE = 15;
 
 export async function newsTopics(section: string | undefined, offset: number): Promise<NewsTopic[]> {
   const { data, error } = await supabase.rpc("news_topics", { p_section: section, p_limit: NEWS_PAGE, p_offset: offset });
+  fail(error);
+  return (data ?? []) as unknown as NewsTopic[];
+}
+
+/** Your campus's topics (its topic of the day first). */
+export async function campusTopics(section: string | undefined, limit = 5): Promise<NewsTopic[]> {
+  const { data, error } = await supabase.rpc("campus_topics", { p_section: section, p_limit: limit });
   fail(error);
   return (data ?? []) as unknown as NewsTopic[];
 }
@@ -255,7 +277,7 @@ const EXT: Record<string, string> = { "audio/mp4": "m4a", "audio/x-m4a": "m4a", 
 export async function createPost(
   uid: string,
   clip: { blob: Blob; mime: string; durationMs: number },
-  opts: { section?: string; topic?: string; replyTo?: string; quoteOf?: string; title?: string; group?: string },
+  opts: { section?: string; topic?: string; replyTo?: string; quoteOf?: string; title?: string; group?: string; campus?: boolean },
 ): Promise<string> {
   const path = `${uid}/${crypto.randomUUID()}.${EXT[clip.mime] ?? "m4a"}`;
   const bucket = supabase.storage.from("voices");
@@ -267,6 +289,7 @@ export async function createPost(
     p_reply_to: opts.replyTo,
     p_repost_of: opts.quoteOf,
     p_group: opts.group,
+    p_campus: opts.campus || undefined,
     p_title: opts.title?.trim() || undefined,
     p_path: path,
     p_mime: clip.mime,

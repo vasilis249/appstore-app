@@ -33,7 +33,7 @@ GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA pg_temp TO authenticated, anon;
 
 -- 01 sections
 SELECT pg_temp.as_user(:A); SET ROLE authenticated;
-SELECT pg_temp.ok('01a eight sections', (SELECT count(*) FROM public.sections) = 8);
+SELECT pg_temp.ok('01a eight news sections + eight student ones', (SELECT count(*) FROM public.sections WHERE kind = 'news') = 8 AND (SELECT count(*) FROM public.sections WHERE kind = 'campus') = 8);
 SELECT pg_temp.ok('01b clients cannot add sections', pg_temp.fails($$INSERT INTO public.sections VALUES ('x', 9, 'x', 'x', 'x')$$));
 RESET ROLE; SET ROLE anon;
 SELECT pg_temp.ok('01c anon sees nothing', pg_temp.fails($$SELECT * FROM public.posts$$) AND pg_temp.fails($$SELECT public.feed_posts('all')$$));
@@ -245,7 +245,7 @@ RESET ROLE; SELECT pg_temp.as_user(:E); SET ROLE authenticated;
 SELECT public.admin_create_topic('humor', 'Ποιο είναι το χειρότερο αστείο που ξέρεις;', NULL, NULL, NULL, (SELECT moment FROM public.today())) AS dt \gset
 SELECT pg_temp.ok('11c admin daily topic wins', (SELECT topic_id = :'dt' AND topic_is_pick FROM public.today()));
 SELECT pg_temp.ok('11d one daily topic per day', pg_temp.fails($$SELECT public.admin_create_topic('news', 'Δεύτερο της ημέρας', NULL, NULL, NULL, (SELECT moment FROM public.today()))$$));
-SELECT pg_temp.ok('11e admin lists topics and feeds', (SELECT count(*) FROM public.admin_topics()) >= 4 AND (SELECT count(*) FROM public.admin_feeds()) = 8);
+SELECT pg_temp.ok('11e admin lists topics and feeds', (SELECT count(*) FROM public.admin_topics()) >= 4 AND (SELECT count(*) FROM public.admin_feeds()) = 10);
 SELECT public.admin_set_feed(1, false);
 SELECT pg_temp.ok('11f admin toggles a feed', NOT (SELECT enabled FROM public.admin_feeds() WHERE id = 1));
 RESET ROLE;

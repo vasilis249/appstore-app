@@ -13,6 +13,8 @@ export interface AdminTopic {
   hidden: boolean;
   posts_count: number;
   created_at: string;
+  /** A campus topic (only that university's students see it). */
+  university_id: string | null;
 }
 
 export interface AdminFeed {
@@ -54,13 +56,21 @@ export async function adminFeeds(): Promise<AdminFeed[]> {
   return (data ?? []) as AdminFeed[];
 }
 
-export async function createTopic(t: { section: string; title: string; summary?: string; sourceUrl?: string; dailyDate?: string }) {
+export async function createTopic(t: {
+  section: string;
+  title: string;
+  summary?: string;
+  sourceUrl?: string;
+  dailyDate?: string;
+  university?: string;
+}) {
   const { error } = await supabase.rpc("admin_create_topic", {
     p_section: t.section,
     p_title: t.title,
     p_summary: t.summary || undefined,
     p_source_url: t.sourceUrl || undefined,
     p_daily_date: t.dailyDate || undefined,
+    p_university: t.university || undefined,
   });
   fail(error);
 }

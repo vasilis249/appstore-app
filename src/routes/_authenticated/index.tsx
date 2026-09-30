@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Play, Search } from "lucide-react";
+import { GraduationCap, Play, Search } from "lucide-react";
 import { AppHeader, HomeHeaderActions } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
@@ -10,40 +10,49 @@ import { MyGroupsStrip } from "@/components/groups/my-groups-strip";
 import { UserAvatar } from "@/components/user-avatar";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { useSections } from "@/hooks/use-sections";
-import { NEWS_PAGE, newsTopics, postKeys, type FeedParams } from "@/lib/posts";
+import { campusTopics, NEWS_PAGE, newsTopics, postKeys, type FeedParams, type NewsTopic, type Section } from "@/lib/posts";
+import { useCampus } from "@/lib/campus";
+import { timeAgoShort } from "@/lib/time-ago";
 import { dailyKeys, getToday } from "@/lib/daily";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 
-type Tab = "news" | "following" | "groups";
-const TABS: Tab[] = ["news", "following", "groups"];
+type Tab = "campus" | "following" | "groups" | "news";
+const TABS: Tab[] = ["campus", "following", "groups", "news"];
 
 export const Route = createFileRoute("/_authenticated/")({
-  // ?tab=following|groups, ?s=<section> inside News. Old links ?tab=<section> still land in that section.
+  // ?tab=campus|following|groups|news, ?s=<section> inside Campus or News. No tab: Campus for verified students, else
+  // News (?s alone = News, as old links; old ?tab=<section> still lands in that News section).
   validateSearch: (s: Record<string, unknown>): { tab?: Tab; s?: string } => {
     const tab = typeof s.tab === "string" ? s.tab : undefined;
     const section = typeof s.s === "string" && /^[a-z_-]{2,30}$/.test(s.s) ? s.s : undefined;
     if (tab === "following" || tab === "groups") return { tab };
-    if (tab && tab !== "news" && /^[a-z_-]{2,30}$/.test(tab) && tab !== "foryou") return { s: tab };
-    return section ? { s: section } : {};
+    if (tab === "campus" || tab === "news") return section ? { tab, s: section } : { tab };
+    if (tab && /^[a-z_-]{2,30}$/.test(tab) && tab !== "foryou") return { tab: "news", s: tab };
+    return section ? { tab: "news", s: section } : {};
   },
   component: HomePage,
 });
 
 /**
- * Home in three parts: News (every section, ranked; chips for one section, the topic of the day, trends),
- * Following (personal voices of the people you follow) and Groups. A round ▶ plays the list you're looking at.
+ * Home in four parts: your Campus first (ΕΜΠ: its topic of the day, news, student sections and classmates' voices —
+ * students only), then Following (personal voices of the people you follow), Groups and News (every section, ranked).
+ * A round ▶ plays the list you're looking at.
  */
 function HomePage() {
   const { t } = useTranslation();
   const search = Route.useSearch();
-  // Anything unknown in ?tab (e.g. an old ?tab=<section> link) means News.
-  const tab: Tab = TABS.includes(search.tab as Tab) ? (search.tab as Tab) : "news";
-  const section = tab === "news" ? search.s : undefined;
+  const me = useMyProfile();
+  const campus = useCampus();
+  const verified = !!me.data?.university_id;
+  // No tab in the URL: Campus for verified students, News for everyone else (wait for the profile to know).
+  const tab: Tab | null = search.tab ?? (me.data ? (verified ? "campus" : "news") : null);
+  const section = tab === "news" || tab === "campus" ? search.s : undefined;
   const playAll = useRef<(() => void) | null>(null);
 
   const params: FeedParams = tab === "following" ? { scope: "personal" } : { scope: "groups" };
+  const label = (x: Tab) => (x === "campus" ? campus.label({ university_id: me.data?.university_id }) || t("home.campus") : t(`home.${x}`));
   return (
     <>
       <AppHeader right={<HomeHeaderActions />} />
@@ -56,17 +65,17 @@ function HomePage() {
                 <Link
                   key={x}
                   to="/"
-                  search={x === "news" ? {} : { tab: x }}
+                  search={{ tab: x }}
                   replace
-                  className={cn("relative flex-1 py-3 text-center text-base font-semibold transition-colors", on ? "text-foreground" : "text-muted-foreground")}
+                  className={cn("relative flex-1 py-3 text-center text-[15px] font-semibold transition-colors", on ? "text-foreground" : "text-muted-foreground")}
                 >
-                  {t(`home.${x}`)}
+                  {label(x)}
                   {on && <span className="absolute inset-x-1/4 bottom-0 h-[3px] rounded-full bg-primary" />}
                 </Link>
               );
             })}
           </nav>
-          {tab !== "news" && (
+          {tab && tab !== "news" && !(tab === "campus" && !verified) && (
             <button
               type="button"
               onClick={() => playAll.current?.()}
@@ -77,10 +86,26 @@ function HomePage() {
             </button>
           )}
         </div>
-        {tab === "news" && <SectionPills active={section} />}
+        {tab === "news" && <SectionPills tab="news" active={section} />}
+        {tab === "campus" && verified && <SectionPills tab="campus" active={section} />}
       </div>
 
-      {tab === "news" ? (
+      {tab === null ? null : tab === "campus" ? (
+        verified ? (
+          <CampusView key={section ?? "all"} section={section} playAllRef={playAll} />
+        ) : (
+          <EmptyState
+            icon={GraduationCap}
+            title={t("campus.lockedTitle")}
+            text={t("campus.locked")}
+            action={
+              <Link to="/student" className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-8 font-semibold text-primary-foreground">
+                {t("campus.verify")}
+              </Link>
+            }
+          />
+        )
+      ) : tab === "news" ? (
         <NewsList key={section ?? "all"} section={section} />
       ) : (
         <>
@@ -157,10 +182,67 @@ function OtherVoicesEmpty({ section }: { section?: string }) {
   );
 }
 
-/** News → All · Επικαιρότητα · Tech · … (small pills, the chosen one white). */
-function SectionPills({ active }: { active?: string }) {
+/**
+ * Your campus: its topic of the day (big card), a few campus headlines (announcements, events), "Say something on
+ * campus" and classmates' voices, newest first. Only students of the university see any of it.
+ */
+function CampusView({ section, playAllRef }: { section?: string; playAllRef: React.MutableRefObject<(() => void) | null> }) {
   const { t } = useTranslation();
-  const { sections, name } = useSections();
+  const topics = useQuery({ queryKey: postKeys.campusTopics(section), queryFn: () => campusTopics(section, 4) });
+  const daily = topics.data?.find((x) => x.is_daily);
+  const rest = (topics.data ?? []).filter((x) => !x.is_daily).slice(0, 3);
+  return (
+    <div className="pt-2">
+      {daily && <NewsCard topic={daily} daily />}
+      {rest.length > 0 && (
+        <ul className="mx-4 mb-3 divide-y divide-border rounded-2xl bg-secondary/60">
+          {rest.map((tp) => (
+            <CampusTopicRow key={tp.id} topic={tp} />
+          ))}
+        </ul>
+      )}
+      <Link
+        to="/record"
+        search={section ? { campus: 1, section } : { campus: 1 }}
+        className="mx-4 mb-2 flex items-center gap-3 rounded-full bg-secondary py-1.5 pl-4 pr-2 text-[15px] text-muted-foreground"
+      >
+        <span className="flex-1">{t("campus.say")}</span>
+        <span className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground">
+          <VoiceIcon className="h-4 w-4" />
+        </span>
+      </Link>
+      <FeedList
+        key={`campus-${section ?? ""}`}
+        params={{ scope: "campus", section }}
+        playAllRef={playAllRef}
+        empty={<EmptyState title={t("campus.emptyTitle")} text={t("campus.empty")} />}
+      />
+    </div>
+  );
+}
+
+function CampusTopicRow({ topic }: { topic: NewsTopic }) {
+  const { t, i18n } = useTranslation();
+  return (
+    <li>
+      <Link to="/t/$topicId" params={{ topicId: topic.id }} className="block px-4 py-3 active:opacity-70">
+        <p className="line-clamp-2 text-[15px] font-semibold leading-snug">{topic.title}</p>
+        <p className="mt-0.5 text-xs text-muted-foreground">
+          {[topic.source_name, timeAgoShort(topic.created_at, i18n.language), topic.posts_count > 0 ? t("posts.voicesCount", { count: topic.posts_count }) : t("news.beFirst")]
+            .filter(Boolean)
+            .join(" · ")}
+        </p>
+      </Link>
+    </li>
+  );
+}
+
+/** News or Campus → Όλα · <sections> (small pills, the chosen one white). */
+function SectionPills({ tab, active }: { tab: "news" | "campus"; active?: string }) {
+  const { t } = useTranslation();
+  const all = useSections();
+  const sections: Section[] = tab === "campus" ? all.campusSections : all.sections;
+  const name = all.name;
   const bar = useRef<HTMLDivElement>(null);
   useEffect(() => {
     bar.current?.querySelector<HTMLElement>("[data-active=true]")?.scrollIntoView({ inline: "center", block: "nearest" });
@@ -169,11 +251,11 @@ function SectionPills({ active }: { active?: string }) {
     cn("h-8 shrink-0 rounded-full px-3.5 text-sm font-semibold leading-8 transition-colors", on ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground");
   return (
     <nav ref={bar} className="no-scrollbar flex gap-2 overflow-x-auto px-4 pb-2.5">
-      <Link to="/" search={{}} replace data-active={!active} className={pill(!active)}>
+      <Link to="/" search={{ tab }} replace data-active={!active} className={pill(!active)}>
         {t("home.all")}
       </Link>
       {sections.map((x) => (
-        <Link key={x.id} to="/" search={{ s: x.id }} replace data-active={x.id === active} className={pill(x.id === active)}>
+        <Link key={x.id} to="/" search={{ tab, s: x.id }} replace data-active={x.id === active} className={pill(x.id === active)}>
           {name(x.id)}
         </Link>
       ))}
