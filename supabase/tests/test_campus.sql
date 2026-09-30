@@ -361,3 +361,5 @@ SELECT pg_temp.ok('13k admin overview lists every open campus with its students'
   (SELECT count(*) FROM public.admin_campuses()) = 10
   AND (SELECT students FROM public.admin_campuses() WHERE university_id = 'uoa') = 1);
 RESET ROLE;
+SELECT pg_temp.ok('13l campus news feeds for 7 more universities, into Ανακοινώσεις',
+  (SELECT count(DISTINCT university_id) FROM private.news_feeds WHERE university_id IN ('uoa','aueb','panteion','uniwa','hua','asfa','aspete') AND section_id = 'announcements' AND enabled) = 7);

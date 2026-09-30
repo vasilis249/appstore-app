@@ -332,7 +332,11 @@ User decisions:
   is dropped on save). Admin topics: `CampusPicker` chips for campus-only topics and for threshold / moderators.
   Tests `test_campus.sql` 77; browser `attica-flow.mjs` 13/13 (+ campus 15/15, campus-groups 7/7, growth 12/12 after
   copy updates). Seed note: `seed-campus.sh` is not idempotent → run `seed-speak.sh` (reset) first.
-  No RSS for the new universities yet (only ΕΜΠ has campus news feeds).
+  **N6 ✔ (campus news for the new universities)** migration `20261017100100_attica_feeds.sql`: 7 more
+  `private.news_feeds` → section `announcements` of each campus: ΕΚΠΑ `hub.uoa.gr/feed/` (uoa.gr's own feed has empty
+  <link>s, 3.6 MB), ΟΠΑ `aueb.gr/el/rss.xml` (quiet since June), Πάντειο / ΠΑΔΑ / Χαροκόπειο / ΑΣΚΤ / ΑΣΠΑΙΤΕ `/feed/`
+  (WordPress). ΓΠΑ (empty feed) and ΠΑΠΕΙ (site unreachable from the container, no feed found) have none. Parser checked
+  on the real files (ΕΚΠΑ items carry photos). Tests campus 78, speak 111 (11e: 17 feeds).
 - **Email (2026-09-30)**: Brevo (free, 300/day, sender `vasilis.har@gmail.com`). Worker secrets `BREVO_API_KEY` +
   `MAIL_FROM_EMAIL` set (student codes). Supabase Auth custom SMTP = `smtp-relay.brevo.com:587`, user
   `bbd8b8001@smtp-brevo.com`, the SMTP key, sender name Speak, 100 emails/h; `mailer_autoconfirm` still true
@@ -464,7 +468,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (77).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (78).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session
