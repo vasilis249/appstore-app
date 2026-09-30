@@ -96,3 +96,54 @@ SET ROLE anon;
 SELECT pg_temp.ok('03e anon: nothing', pg_temp.fails($$SELECT public.walkie_history('00000000-0000-0000-0000-00000000000a')$$)
   AND pg_temp.fails('SELECT * FROM public.walkie_messages'));
 RESET ROLE;
+
+-- 04 walkie list, open channels, unheard, notifications (Dora and Eva are friends; Chris follows Dora only)
+INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES
+  ('00000000-0000-0000-0000-00000000000d', 'dora@x', '{"full_name":"Dora"}'),
+  ('00000000-0000-0000-0000-00000000000e', 'eva@x', '{"full_name":"Eva"}');
+INSERT INTO public.follows (follower_id, followee_id) VALUES
+  ('00000000-0000-0000-0000-00000000000d', '00000000-0000-0000-0000-00000000000e'),
+  ('00000000-0000-0000-0000-00000000000e', '00000000-0000-0000-0000-00000000000d'),
+  ('00000000-0000-0000-0000-00000000000c', '00000000-0000-0000-0000-00000000000d');
+\set D '''00000000-0000-0000-0000-00000000000d'''
+\set E '''00000000-0000-0000-0000-00000000000e'''
+SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+SELECT pg_temp.ok('04a the list has friends only, channel closed, nothing unheard',
+  (SELECT count(*) FROM public.walkie_list()) = 1
+  AND (SELECT user_id = :E AND NOT channel_on AND last_at IS NULL AND unheard = 0 FROM public.walkie_list()));
+SELECT public.walkie_set_channel(:E, true);
+SELECT pg_temp.ok('04b open a friend''s channel; not a non-friend''s',
+  (SELECT channel_on FROM public.walkie_list() WHERE user_id = :E)
+  AND pg_temp.fails(format('SELECT public.walkie_set_channel(%L, true)', :C)));
+SELECT pg_temp.ok('04c no direct writes to walkie_contacts',
+  pg_temp.fails(format('INSERT INTO public.walkie_contacts (user_id, peer_id, channel_on) VALUES (%L, %L, true)', :D, :C))
+  AND pg_temp.fails(format('UPDATE public.walkie_contacts SET channel_on = true WHERE user_id = %L', :D)));
+RESET ROLE; SELECT pg_temp.as_user(:E); SET ROLE authenticated;
+SELECT public.send_walkie(:D, current_setting('app.b64'), 'audio/mp4', 1500);
+SELECT public.send_walkie(:D, current_setting('app.b64'), 'audio/mp4', 1800);
+SELECT pg_temp.ok('04d Eva doesn''t see Dora''s contacts row', NOT EXISTS (SELECT 1 FROM public.walkie_contacts));
+RESET ROLE; SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+SELECT pg_temp.ok('04e two unheard, one unread walkie notice from Eva',
+  (SELECT unheard = 2 AND last_at IS NOT NULL FROM public.walkie_list() WHERE user_id = :E)
+  AND (SELECT count(*) FROM public.notifications WHERE kind = 'walkie' AND actor_id = :E AND read_at IS NULL) = 1);
+SELECT public.walkie_seen(:E);
+SELECT pg_temp.ok('04f opening Eva''s walkie: heard, notice read, channel still on',
+  (SELECT unheard = 0 AND channel_on FROM public.walkie_list() WHERE user_id = :E)
+  AND NOT EXISTS (SELECT 1 FROM public.notifications WHERE kind = 'walkie' AND read_at IS NULL));
+RESET ROLE;
+DO $$ BEGIN FOR i IN 1..10 LOOP
+  INSERT INTO auth.users (id, email) VALUES (('00000000-0000-0000-0001-' || lpad(i::text, 12, '0'))::uuid, 'f' || i || '@x');
+  INSERT INTO public.follows VALUES ('00000000-0000-0000-0000-00000000000d', ('00000000-0000-0000-0001-' || lpad(i::text, 12, '0'))::uuid),
+    (('00000000-0000-0000-0001-' || lpad(i::text, 12, '0'))::uuid, '00000000-0000-0000-0000-00000000000d');
+END LOOP; END $$;
+SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+SELECT public.walkie_set_channel(('00000000-0000-0000-0001-' || lpad(i::text, 12, '0'))::uuid, true) FROM generate_series(1, 9) i;
+SELECT pg_temp.ok('04g at most 10 open channels; closing one frees a place',
+  pg_temp.fails($$SELECT public.walkie_set_channel('00000000-0000-0000-0001-000000000010', true)$$)
+  AND pg_temp.fails(format('SELECT public.walkie_set_channel(%L, false)', :E)) = false
+  AND pg_temp.fails($$SELECT public.walkie_set_channel('00000000-0000-0000-0001-000000000010', true)$$) = false);
+SELECT public.block_user(:E);
+SELECT pg_temp.ok('04h a blocked person leaves the list', NOT EXISTS (SELECT 1 FROM public.walkie_list() WHERE user_id = :E));
+RESET ROLE; SET ROLE anon;
+SELECT pg_temp.ok('04i anon: nothing', pg_temp.fails('SELECT * FROM public.walkie_list()') AND pg_temp.fails('SELECT * FROM public.walkie_contacts'));
+RESET ROLE;

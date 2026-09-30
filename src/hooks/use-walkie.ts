@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { WalkieSession, type WalkieSnapshot } from "@/lib/walkie/engine";
+import type { WalkieSession, WalkieSnapshot } from "@/lib/walkie/engine";
+import { walkieHub } from "@/lib/walkie/hub";
 
-/** A live walkie-talkie channel with one friend while the screen is open. */
+/** The live walkie-talkie channel with one friend (shared with the hub when their channel is on). */
 export function useWalkie(me: string | undefined, peer: string, events: { onSaved?: () => void; onYield?: () => void } = {}) {
   const [snap, setSnap] = useState<WalkieSnapshot | null>(null);
   const session = useRef<WalkieSession | null>(null);
@@ -10,15 +11,22 @@ export function useWalkie(me: string | undefined, peer: string, events: { onSave
 
   useEffect(() => {
     if (!me) return;
-    const s = new WalkieSession(me, peer, {
-      onChange: setSnap,
-      onSaved: () => handlers.current.onSaved?.(),
-      onYield: () => handlers.current.onYield?.(),
-    });
+    walkieHub.setUser(me); // no-op when the hub already runs for this user
+    const got = walkieHub.acquire(peer);
+    if (!got) return;
+    const s = got.session;
     session.current = s;
-    s.connect();
+    setSnap(s.snapshot);
+    const off = [
+      s.subscribe(setSnap),
+      s.on("saved", () => handlers.current.onSaved?.()),
+      s.on("yield", () => handlers.current.onYield?.()),
+    ];
     return () => {
-      s.dispose();
+      off.forEach((f) => f());
+      // Leaving the screen mid-transmission stops it (and saves what was said).
+      s.release();
+      got.release();
       session.current = null;
     };
   }, [me, peer]);

@@ -7,6 +7,7 @@ import { voiceKeys } from "@/lib/voice";
 import { dailyKeys, getToday } from "@/lib/daily";
 import { notificationKeys } from "@/lib/notifications";
 import { groupKeys } from "@/lib/groups";
+import { walkieKeys } from "@/lib/walkie/history";
 import { useRouter } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -60,6 +61,7 @@ export function RealtimeSync() {
       })
       .on("postgres_changes", { event: "*", schema: "public", table: "notifications" }, () => {
         void qc.invalidateQueries({ queryKey: notificationKeys.all });
+        void qc.invalidateQueries({ queryKey: walkieKeys.list }); // a saved walkie leaves a notice: unheard counts
         // invites, requests and approvals arrive as notifications
         void qc.invalidateQueries({ queryKey: groupKeys.all });
       })

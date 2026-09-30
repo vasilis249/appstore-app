@@ -247,6 +247,23 @@ User decisions:
   hand-made join); live policy check (rolled back): friends rw, outsider --, after unfollow --. NOT verified: the
   real Realtime server (the container's proxy can't do WebSockets) and a real iPhone (WKWebView ScriptProcessor,
   audio route/earpiece with play-and-record, background) → user test with two accounts.
+  **W2 ✔ (hear friends anywhere in the app)** migration `20261018100000_walkie_contacts.sql`: `walkie_contacts`
+  (user, peer, `channel_on`, `seen_at`; own rows readable, no client writes), `walkie_list()` (friends = mutual follows,
+  not blocked/disabled: channel_on, last_at 24 h, unheard since seen_at), `walkie_set_channel(peer, on)` (friends only,
+  ≤ 10 on → `too_many_channels`), `walkie_seen(peer)` (+ marks that friend's 'walkie' notices read); notification kind
+  `walkie` (trigger on walkie_messages insert via `private.notify`, one per friend moved to the top). Client:
+  `WalkieSession` is shareable (`subscribe`, `on('saved'|'yield'|'peerStart')`, audio session back to auto when the
+  last one closes); `lib/walkie/hub.ts` registry (one session per friend: pinned = channel on, `acquire(peer)` by the
+  talk screen, ref-counted, 1.5 s grace; peerStart → `silenceAll()`); `components/walkie/walkie-hub.tsx`
+  `WalkieHubSync` (root: user, pins from `walkie_list`, first tap unlocks Web Audio, local notice when a friend starts
+  while the app is hidden — native + permission only, route `/talk/<id>`) + `WalkieBanner` (coral "Νίκος σου μιλάει"
+  over every screen but that friend's walkie; tap → sound + /talk/$id). `/talk` list (RadioTower in the Messages
+  header): friends, green ring = here, "n νέες εκπομπές", Κανάλι switch (turning on asks notification permission in
+  the app), experimental "Και με κλειστή οθόνη" (`lib/walkie/keepalive.ts`: silent WAV loop played when the app goes
+  hidden with channels on; opt-in, app only, may stop music). `/talk/$id`: walkie_seen on open / each save, "Ανοιχτό
+  κανάλι" switch. Notifications: walkie → /talk/<actor>; RealtimeSync also refreshes the walkie list. Privacy (el/en)
+  mentions open channels. Tests `test_walkie.sql` 28; browser `walkie-hub-flow.mjs` 12/12 + `walkie-flow.mjs` 11/11.
+  NOT verified: background keep-alive + local notice on a real iPhone (can't in the container).
 - **Campus-first, NTUA first (user request 2026-09-30: target college students, start with ΕΜΠ)** — playbook: verified
   students only, each university its own world, one campus at a time. Plan (stop for "OK" after each): **N1** student
   identity ✔ → **N2** campus-first Home (Campus tab = your university's voices, student sections, badges on cards,
@@ -470,7 +487,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (78).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (78).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

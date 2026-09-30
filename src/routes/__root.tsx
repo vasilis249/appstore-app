@@ -18,6 +18,7 @@ import { BottomNav } from "../components/bottom-nav";
 import { RealtimeSync } from "../components/realtime-sync";
 import { DailyPromptScheduler } from "../components/daily-prompt-scheduler";
 import { InviteClaimer } from "../components/invite-claimer";
+import { WalkieBanner, WalkieHubSync } from "../components/walkie/walkie-hub";
 import { MiniPlayer } from "../components/posts/mini-player";
 import { AUTH_PATHS } from "../components/bottom-nav";
 import { useQueue } from "../lib/queue";
@@ -182,6 +183,8 @@ function RootComponent() {
         <RealtimeSync />
         <DailyPromptScheduler />
         <InviteClaimer />
+        <WalkieHubSync />
+        <WalkieBanner />
         <OfflineBanner />
         {/* Below the header (its buttons stay tappable), clear of the floating nav; dark like the app. */}
         <Toaster

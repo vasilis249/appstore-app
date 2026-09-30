@@ -11,6 +11,9 @@ import { CHUNK_SAMPLES, decodeChunk, Downsampler, encodeChunk, WALKIE_RATE } fro
  * Listening: pieces are scheduled on a Web Audio clock with a 0.3 s cushion (jitter buffer); a missing piece is
  * just a short gap. One speaker at a time: you can't press while the friend talks, and if both press at once the
  * later press gives way. Presence on the channel says whether the friend is there.
+ *
+ * A session may be shared (the walkie hub keeps "channel on" friends connected while you use the rest of the app,
+ * and their walkie screen borrows the same session): listeners subscribe to changes and events.
  */
 
 export const WALKIE_MAX_MS = 60_000;
@@ -78,6 +81,15 @@ export async function unlockWalkieAudio(): Promise<boolean> {
   return c.state === "running";
 }
 
+/** Sessions connected right now (the audio session goes back to "auto" when the last one closes). */
+const live = new Set<WalkieSession>();
+const openSessions = () => live.size;
+
+/** The shared AudioContext, when it can play (tests / UI hints). */
+export function walkieAudioRunning(): boolean {
+  return !!ctx && ctx.state === "running";
+}
+
 function beep(c: AudioContext, freq: number) {
   const osc = c.createOscillator();
   const gain = c.createGain();
@@ -109,6 +121,8 @@ interface Transmission {
   aborted: boolean;
 }
 
+export type WalkieEvent = "saved" | "yield" | "peerStart";
+
 interface Reception {
   sid: string;
   at: number;
@@ -123,6 +137,8 @@ export class WalkieSession {
   private rx: Reception | null = null;
   private watchdog: ReturnType<typeof setInterval> | null = null;
   private disposed = false;
+  private listeners = new Set<(s: WalkieSnapshot) => void>();
+  private handlers: Record<WalkieEvent, Set<() => void>> = { saved: new Set(), yield: new Set(), peerStart: new Set() };
   private snap: WalkieSnapshot = {
     connected: false,
     peerOnline: false,
@@ -135,27 +151,40 @@ export class WalkieSession {
   };
 
   constructor(
-    private readonly me: string,
-    private readonly peer: string,
-    private readonly events: {
-      onChange: (s: WalkieSnapshot) => void;
-      /** A transmission was saved (yours or the friend's): refresh the history. */
-      onSaved?: () => void;
-      /** Both pressed at once and the friend was first. */
-      onYield?: () => void;
-    },
+    readonly me: string,
+    readonly peer: string,
   ) {}
 
   get snapshot() {
     return this.snap;
   }
 
+  /** Changes of the snapshot. Returns the unsubscribe. */
+  subscribe(fn: (s: WalkieSnapshot) => void): () => void {
+    this.listeners.add(fn);
+    return () => void this.listeners.delete(fn);
+  }
+
+  /**
+   * saved: a transmission was saved (yours or the friend's) — refresh the history. yield: both pressed at once and
+   * the friend was first. peerStart: the friend started talking.
+   */
+  on(event: WalkieEvent, fn: () => void): () => void {
+    this.handlers[event].add(fn);
+    return () => void this.handlers[event].delete(fn);
+  }
+
+  private emit(event: WalkieEvent) {
+    this.handlers[event].forEach((fn) => fn());
+  }
+
   private set(patch: Partial<WalkieSnapshot>) {
     this.snap = { ...this.snap, ...patch };
-    if (!this.disposed) this.events.onChange(this.snap);
+    if (!this.disposed) this.listeners.forEach((fn) => fn(this.snap));
   }
 
   connect() {
+    live.add(this);
     setAudioSession("playback");
     this.set({ audioLocked: typeof window === "undefined" || audioContext().state !== "running" });
     const ch = supabase.channel(walkieTopic(this.me, this.peer), {
@@ -164,7 +193,7 @@ export class WalkieSession {
     ch.on("broadcast", { event: "start" }, ({ payload }) => this.onPeerStart(payload as { sid: string; at: number }))
       .on("broadcast", { event: "audio" }, ({ payload }) => this.onPeerAudio(payload as ArrayBuffer))
       .on("broadcast", { event: "end" }, ({ payload }) => this.onPeerEnd(payload as { sid: string }))
-      .on("broadcast", { event: "saved" }, () => this.events.onSaved?.())
+      .on("broadcast", { event: "saved" }, () => this.emit("saved"))
       .on("presence", { event: "sync" }, () => this.set({ peerOnline: (ch.presenceState()[this.peer]?.length ?? 0) > 0 }))
       .subscribe((status) => {
         if (this.disposed) return;
@@ -183,6 +212,7 @@ export class WalkieSession {
 
   dispose() {
     this.disposed = true;
+    live.delete(this);
     if (this.tx) this.finishTransmission(false);
     if (this.watchdog) clearInterval(this.watchdog);
     if (this.channel) {
@@ -190,7 +220,9 @@ export class WalkieSession {
       void supabase.removeChannel(this.channel);
     }
     this.channel = null;
-    setAudioSession("auto");
+    this.listeners.clear();
+    Object.values(this.handlers).forEach((h) => h.clear());
+    if (!openSessions()) setAudioSession("auto");
   }
 
   /** Tap handler: unlock playback on iOS. */
@@ -336,7 +368,7 @@ export class WalkieSession {
         p_duration_ms: Math.round(ms),
       });
       if (error) throw error;
-      this.events.onSaved?.();
+      this.emit("saved");
       void this.channel?.send({ type: "broadcast", event: "saved", payload: { sid: tx.sid } });
     } catch {
       /* live part already heard; the replay copy is best effort */
@@ -351,10 +383,11 @@ export class WalkieSession {
       if (!peerFirst) return;
       this.tx.aborted = true;
       this.finishTransmission(false);
-      this.events.onYield?.();
+      this.emit("yield");
     }
     this.rx = { sid: p.sid, at: p.at, lastAt: Date.now(), playhead: 0, ended: false };
     this.set({ peerTalking: true });
+    this.emit("peerStart");
   }
 
   private onPeerAudio(buf: ArrayBuffer) {
@@ -370,6 +403,7 @@ export class WalkieSession {
       this.set({ audioLocked: true });
       return;
     }
+    if (this.snap.audioLocked) this.set({ audioLocked: false }); // unlocked by a tap elsewhere
     const buffer = c.createBuffer(1, chunk.samples.length, WALKIE_RATE);
     buffer.copyToChannel(chunk.samples, 0);
     const src = c.createBufferSource();

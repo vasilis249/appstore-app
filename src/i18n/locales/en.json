@@ -228,7 +228,7 @@
             "Public voices: the recordings you post (up to 2 minutes), their title, section and topic, the time of posting, and your voice replies, reposts and quotes. Your voice is personal data because it can identify you and reveal information about you.",
             "Activity: who you follow and who follows you, likes, which voices you have played (for the listen counter, once per voice), blocks, reports you make or that are made about you, in-app notifications.",
             "Voice messages: the audio of each message is stored only until the recipient plays it, together with sender, recipient, time sent and whether it was played.",
-            "Walkie-talkie: when you hold the button and talk to a friend, your voice is streamed live only to them through Supabase Realtime (not stored there). Each transmission is also saved, with sender, recipient, length and time, so the two of you can replay it for 24 hours. Your friend can also see when you have the walkie screen with them open.",
+            "Walkie-talkie: when you hold the button and talk to a friend, your voice is streamed live only to them through Supabase Realtime (not stored there). Each transmission is also saved, with sender, recipient, length and time, so the two of you can replay it for 24 hours. Your friend can also see when you have the walkie screen with them open or their channel on (then you show as \"here\" while the app is open). A transmission you missed leaves a notification.",
             "Technical data: IP address, device/browser type, server logs and a log of actions for usage limits (rate limits), needed to run and secure the service.",
             "Microphone: used only while you record or hold the walkie-talkie button, after you grant permission. A recording stays on your device until you tap \"Post\" or \"Send\"; on the walkie-talkie your voice reaches your friend live while you talk.",
             "Reminders: the daily topic notifications are scheduled locally on your device; we do not use a push server.",
@@ -427,7 +427,8 @@
     "group_request": "asked to join «{{group}}»",
     "group_accepted": "accepted you into «{{group}}»",
     "group_joined": "joined «{{group}}»",
-    "invite_joined": "joined Speak with your invite — you're friends now"
+    "invite_joined": "joined Speak with your invite — you're friends now",
+    "walkie": "talked to you on walkie-talkie"
   },
   "rpcErrors": {
     "rateLimited": "Too many actions. Try again soon.",
@@ -722,7 +723,22 @@
     "last24h": "Last 24 hours",
     "noHistory": "Nothing yet. What you say stays here for 24 hours.",
     "you": "You",
-    "yielded": "{{name}} spoke first"
+    "yielded": "{{name}} spoke first",
+    "channelOn": "Channel on",
+    "channelShort": "Channel",
+    "channelOnHint": "Hear them live anywhere in the app.",
+    "listHint": "Turn a friend's channel on to hear them live wherever you are in the app (up to 10).",
+    "emptyTitle": "No friends yet",
+    "empty": "Walkie-talkie works with people you follow each other with.",
+    "unheard_one": "{{count}} new",
+    "unheard_other": "{{count}} new",
+    "here": "Here now",
+    "tooMany": "You can have up to 10 channels on.",
+    "bannerTalking": "{{name}} is talking to you",
+    "bannerTap": "Tap to listen",
+    "notifyBody": "is talking to you on walkie-talkie",
+    "background": "Also with the screen off (experimental)",
+    "backgroundHint": "Keeps the app active in the background while you have channels on. It may stop your music and uses battery."
   },
   "student": {
     "cta": "Confirm you are a student",

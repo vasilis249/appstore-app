@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Bell, Flag, Heart, MessageCircle, Repeat2, UserPlus, Users } from "lucide-react";
+import { Bell, Flag, Heart, MessageCircle, RadioTower, Repeat2, UserPlus, Users } from "lucide-react";
 import { AppHeader } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FollowButton } from "@/components/friends/follow-button";
@@ -16,8 +16,8 @@ export const Route = createFileRoute("/_authenticated/notifications")({
   component: NotificationsPage,
 });
 
-const ICON = { follow: UserPlus, like: Heart, reply: MessageCircle, repost: Repeat2, group_invite: Users, group_request: Users, group_accepted: Users, group_joined: Users, invite_joined: UserPlus } as const;
-const COLOR = { follow: "text-sky-400", like: "text-rose-500", reply: "text-foreground", repost: "text-emerald-400", group_invite: "text-coral", group_request: "text-coral", group_accepted: "text-coral", group_joined: "text-coral", invite_joined: "text-emerald-400" } as const;
+const ICON = { follow: UserPlus, like: Heart, reply: MessageCircle, repost: Repeat2, group_invite: Users, group_request: Users, group_accepted: Users, group_joined: Users, invite_joined: UserPlus, walkie: RadioTower } as const;
+const COLOR = { follow: "text-sky-400", like: "text-rose-500", reply: "text-foreground", repost: "text-emerald-400", group_invite: "text-coral", group_request: "text-coral", group_accepted: "text-coral", group_joined: "text-coral", invite_joined: "text-emerald-400", walkie: "text-coral" } as const;
 
 /** New followers, likes, replies and reposts (admins also: reports to review); opening the page marks everything read. */
 function NotificationsPage() {
@@ -40,7 +40,8 @@ function NotificationsPage() {
   }, [hasUnread, qc]);
 
   function open(n: AppNotification) {
-    if (n.group_id) void navigate({ to: "/g/$groupId", params: { groupId: n.group_id } });
+    if (n.kind === "walkie" && n.actor) void navigate({ to: "/talk/$userId", params: { userId: n.actor.id } });
+    else if (n.group_id) void navigate({ to: "/g/$groupId", params: { groupId: n.group_id } });
     else if (n.post_id) void navigate({ to: "/p/$postId", params: { postId: n.post_id } });
     else if (n.actor) void navigate({ to: "/u/$username", params: { username: n.actor.username } });
   }

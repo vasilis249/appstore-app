@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState, type PointerEvent } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Pause, Play, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AppHeader } from "@/components/app-header";
+import { Switch } from "@/components/ui/switch";
+import { useWalkieList } from "@/components/walkie/walkie-hub";
 import { UserAvatar } from "@/components/user-avatar";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 import { useAuth } from "@/hooks/use-auth";
@@ -14,7 +16,8 @@ import { base64ToBlob, formatClock, player } from "@/lib/audio";
 import { friendKeys, profileStats } from "@/lib/friends";
 import { timeAgoShort } from "@/lib/time-ago";
 import { WALKIE_MAX_MS } from "@/lib/walkie/engine";
-import { walkieAudio, walkieHistory, walkieKeys, type WalkieItem } from "@/lib/walkie/history";
+import { notificationKeys } from "@/lib/notifications";
+import { setWalkieChannel, walkieAudio, walkieHistory, walkieKeys, walkieSeen, type WalkieItem } from "@/lib/walkie/history";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/talk/$userId")({
@@ -43,9 +46,29 @@ function TalkPage() {
   const friends = !!stats.data?.i_follow && !!stats.data?.follows_me;
   const history = useQuery({ queryKey: walkieKeys.history(userId), queryFn: () => walkieHistory(userId), enabled: friends });
 
+  // Opening the screen (and every new transmission while it is open) counts as heard.
+  const seen = () =>
+    void walkieSeen(userId).then(() => {
+      void qc.invalidateQueries({ queryKey: walkieKeys.list });
+      void qc.invalidateQueries({ queryKey: notificationKeys.all });
+    });
+  useEffect(() => {
+    if (friends) seen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [friends, userId]);
   const w = useWalkie(friends ? user?.id : undefined, userId, {
-    onSaved: () => void qc.invalidateQueries({ queryKey: walkieKeys.history(userId) }),
+    onSaved: () => {
+      void qc.invalidateQueries({ queryKey: walkieKeys.history(userId) });
+      seen();
+    },
     onYield: () => toast(t("walkie.yielded", { name: first })),
+  });
+  const list = useWalkieList(friends);
+  const channelOn = !!list.data?.find((c) => c.user_id === userId)?.channel_on;
+  const channel = useMutation({
+    mutationFn: (on: boolean) => setWalkieChannel(userId, on),
+    onError: (e) => toast.error(e instanceof Error && e.message.includes("too_many") ? t("walkie.tooMany") : t("errors.generic")),
+    onSettled: () => void qc.invalidateQueries({ queryKey: walkieKeys.list }),
   });
   const s = w.snap;
   const name = other.data ? other.data.full_name || other.data.username : "";
@@ -161,7 +184,17 @@ function TalkPage() {
         </p>
 
         {friends && (
-          <section className="mt-8 w-full">
+          <label className="mt-8 flex w-full items-center justify-between gap-3 rounded-2xl bg-secondary px-4 py-3">
+            <span>
+              <span className="block text-[15px] font-semibold">{t("walkie.channelOn")}</span>
+              <span className="block text-sm text-muted-foreground">{t("walkie.channelOnHint")}</span>
+            </span>
+            <Switch checked={channelOn} disabled={channel.isPending} onCheckedChange={(on) => channel.mutate(on)} />
+          </label>
+        )}
+
+        {friends && (
+          <section className="mt-6 w-full">
             <h2 className="pb-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">{t("walkie.last24h")}</h2>
             {history.data && !history.data.length && <p className="py-4 text-sm text-muted-foreground">{t("walkie.noHistory")}</p>}
             <ul className="divide-y divide-border">

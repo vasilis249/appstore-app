@@ -1,7 +1,7 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Send, SquarePen } from "lucide-react";
+import { RadioTower, Send, SquarePen } from "lucide-react";
 import { AppHeader, HeaderPill } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { PersonRow } from "@/components/friends/person-row";
@@ -36,6 +36,9 @@ function MessagesPage() {
         title={t("tabs.messages")}
         right={
           <HeaderPill>
+            <Link to="/talk" aria-label={t("walkie.title")} className="grid h-9 w-10 place-items-center rounded-full">
+              <RadioTower className="h-5 w-5" />
+            </Link>
             <button
               type="button"
               onClick={() => setPickerOpen(true)}

@@ -838,6 +838,42 @@ export type Database = {
           },
         ]
       }
+      walkie_contacts: {
+        Row: {
+          channel_on: boolean
+          peer_id: string
+          seen_at: string | null
+          user_id: string
+        }
+        Insert: {
+          channel_on?: boolean
+          peer_id: string
+          seen_at?: string | null
+          user_id: string
+        }
+        Update: {
+          channel_on?: boolean
+          peer_id?: string
+          seen_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "walkie_contacts_peer_id_fkey"
+            columns: ["peer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "walkie_contacts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       walkie_messages: {
         Row: {
           created_at: string
@@ -1449,6 +1485,23 @@ export type Database = {
           id: string
           sender_id: string
         }[]
+      }
+      walkie_list: {
+        Args: never
+        Returns: {
+          avatar_path: string
+          channel_on: boolean
+          full_name: string
+          last_at: string
+          unheard: number
+          user_id: string
+          username: string
+        }[]
+      }
+      walkie_seen: { Args: { p_peer: string }; Returns: undefined }
+      walkie_set_channel: {
+        Args: { p_on: boolean; p_peer: string }
+        Returns: undefined
       }
     }
     Enums: {
