@@ -123,7 +123,7 @@ function ReportItem({ group }: { group: AdminReport[] }) {
             {t("adminReports.count", { count: group.length })}
           </span>
         )}
-        <span className="font-semibold text-coral">{t(`adminReports.kind.${r.kind}`)}</span> · {reasons.join(", ")} ·{" "}
+        <span className="font-semibold text-live">{t(`adminReports.kind.${r.kind}`)}</span> · {reasons.join(", ")} ·{" "}
         {timeAgo(r.created_at, i18n.language)}
         {!!reporters.length && ` · ${t("adminReports.by", { username: reporters.join(", @") })}`}
       </p>

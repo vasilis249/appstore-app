@@ -27,17 +27,17 @@ export function AppHeader({
   const router = useRouter();
   const { t } = useTranslation();
   return (
-    <header className="safe-top sticky top-0 z-30 bg-background/90 backdrop-blur">
-      <div className="relative flex h-16 items-center justify-center px-4">
-        <div className="absolute left-4 flex items-center">
+    <header className="glass safe-top sticky top-0 z-30 border-b border-border/60">
+      <div className="relative flex h-14 items-center justify-center px-4">
+        <div className="absolute left-2 flex items-center">
           {back ? (
             <button
               type="button"
               onClick={() => router.history.back()}
               aria-label={t("common.back", "Back")}
-              className="grid h-10 w-10 place-items-center rounded-full bg-secondary"
+              className="grid h-11 w-11 place-items-center rounded-full text-link"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-7 w-7" strokeWidth={2.2} />
             </button>
           ) : (
             left
@@ -45,19 +45,19 @@ export function AppHeader({
         </div>
         {center ??
           (title ? (
-            <h1 className="text-lg font-bold">{title}</h1>
+            <h1 className="max-w-[60%] truncate text-body font-semibold">{title}</h1>
           ) : (
             <Wordmark />
           ))}
-        <div className="absolute right-4 flex items-center">{right}</div>
+        <div className="absolute right-3 flex items-center">{right}</div>
       </div>
     </header>
   );
 }
 
-/** Rounded dark pill that groups a few icon buttons (e.g. messages + notifications). */
+/** Groups a few icon buttons (e.g. messages + notifications): plain 44 px icons in the ink colour. */
 export function HeaderPill({ children }: { children: ReactNode }) {
-  return <div className="flex items-center gap-1 rounded-full bg-secondary px-1.5 py-1">{children}</div>;
+  return <div className="flex items-center">{children}</div>;
 }
 
 export function HeaderIconLink({
@@ -72,10 +72,10 @@ export function HeaderIconLink({
   badge?: number;
 }) {
   return (
-    <Link to={to} aria-label={label} className="relative grid h-9 w-10 place-items-center rounded-full">
+    <Link to={to} aria-label={label} className="relative grid h-11 w-11 place-items-center rounded-full text-foreground">
       {children}
       {badge ? (
-        <span className="absolute -right-1 -top-1 min-w-5 rounded-full bg-badge px-1.5 text-center text-[11px] font-bold leading-5 text-white">
+        <span className="absolute right-0.5 top-0.5 min-w-5 rounded-full bg-live px-1.5 text-center text-[11px] font-semibold leading-5 text-white">
           {badge > 9 ? "9+" : badge}
         </span>
       ) : null}

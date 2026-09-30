@@ -89,6 +89,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      // Follows the iPhone's Light / Dark setting (DESIGN.md: Apple parchment / black).
+      { name: "theme-color", content: "#f5f5f7", media: "(prefers-color-scheme: light)" },
+      { name: "theme-color", content: "#000000", media: "(prefers-color-scheme: dark)" },
+      { name: "color-scheme", content: "light dark" },
       { title: "Speak — Πες τη γνώμη σου με φωνή" },
       {
         name: "description",
@@ -124,7 +128,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="el" className="dark" style={{ colorScheme: "dark" }}>
+    <html lang="el" style={{ colorScheme: "light dark" }}>
       <head>
         <HeadContent />
       </head>
@@ -188,9 +192,9 @@ function RootComponent() {
         <LocationSync />
         <WalkieBanner />
         <OfflineBanner />
-        {/* Below the header (its buttons stay tappable), clear of the floating nav; dark like the app. */}
+        {/* Below the header (its buttons stay tappable), clear of the floating nav; light / dark like the phone. */}
         <Toaster
-          theme="dark"
+          theme="system"
           position="top-center"
           offset={{ top: "calc(env(safe-area-inset-top, 0px) + 72px)" }}
           mobileOffset={{ top: "calc(env(safe-area-inset-top, 0px) + 72px)" }}

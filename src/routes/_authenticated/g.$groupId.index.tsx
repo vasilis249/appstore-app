@@ -62,7 +62,7 @@ function GroupPage() {
                 <h1 className="text-2xl font-extrabold leading-tight">{d.name}</h1>
                 <GroupMeta privacy={d.privacy} members={d.members_count} section={d.auto ? undefined : d.section_id} />
                 {d.auto && (
-                  <p className="mt-0.5 flex items-center gap-1 text-[13px] font-medium text-coral">
+                  <p className="mt-0.5 flex items-center gap-1 text-[13px] font-medium text-link">
                     <GraduationCap className="h-3.5 w-3.5" /> {t("groups.autoGroup")}
                   </p>
                 )}

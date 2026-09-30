@@ -15,7 +15,13 @@ import type { MapPerson } from "@/lib/location/api";
  * Optional radius circle (the "Κοντά μου" view). MapLibre is loaded on demand; markers are plain DOM elements.
  */
 
-const STYLE = "https://tiles.openfreemap.org/styles/liberty";
+/** Street map that follows the iPhone's Light / Dark setting (DESIGN.md: liberty by day, dark at night). */
+const STYLES = { light: "https://tiles.openfreemap.org/styles/liberty", dark: "https://tiles.openfreemap.org/styles/dark" };
+const darkMedia = () => (typeof window === "undefined" ? null : window.matchMedia("(prefers-color-scheme: dark)"));
+const styleUrl = () => (darkMedia()?.matches ? STYLES.dark : STYLES.light);
+/** A colour token from design-system.css (the map's own layers can't read CSS variables). */
+const token = (name: string, fallback: string) =>
+  (typeof document === "undefined" ? "" : getComputedStyle(document.documentElement).getPropertyValue(name).trim()) || fallback;
 const ATHENS: [number, number] = [23.7275, 37.9838];
 const ME_ZOOM = 16;
 
@@ -61,7 +67,7 @@ function circle(center: LivePosition, radiusM: number, steps = 72): [number, num
 
 function face(name: string, path: string | null, className: string): HTMLElement {
   const el = document.createElement("span");
-  el.className = `grid place-items-center overflow-hidden rounded-full bg-[#2c2c2e] font-bold text-white shadow-lg ${className}`;
+  el.className = `grid place-items-center overflow-hidden rounded-full bg-secondary font-semibold text-foreground ${className}`;
   const url = avatarUrl(path);
   if (url) {
     const img = document.createElement("img");
@@ -110,7 +116,7 @@ function personElement(p: MapPerson, talking: boolean, age: string | null, onSel
       name,
       p.avatar_path,
       `h-12 w-12 border-[3px] text-base ${
-        talking ? "animate-pulse border-coral ring-4 ring-coral/40" : age ? "border-[#8e8e93]" : p.is_friend ? "border-emerald-500" : "border-white"
+        talking ? "animate-pulse border-live ring-4 ring-live/40" : age ? "border-muted-foreground" : p.is_friend ? "border-success" : "border-white"
       }`,
     ),
   );
@@ -120,7 +126,7 @@ function personElement(p: MapPerson, talking: boolean, age: string | null, onSel
   });
   const label = document.createElement("span");
   label.className =
-    "pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/80 px-2 py-0.5 text-[11px] font-semibold text-white shadow";
+    "pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap glass rounded-full border border-border/60 px-2 py-0.5 text-[11px] font-semibold text-foreground";
   label.textContent = age ? `${name.split(" ")[0]} · ${age}` : name.split(" ")[0];
   wrap.append(btn, label);
   return wrap;
@@ -139,8 +145,8 @@ function meElement(name: string, path: string | null): { el: HTMLElement; beam: 
   beam.style.webkitMaskImage = beam.style.maskImage;
   beam.style.borderRadius = "9999px";
   const pulse = document.createElement("span");
-  pulse.className = "absolute inset-0 animate-ping rounded-full bg-[#0a84ff]/30";
-  wrap.append(beam, pulse, face(name, path, "relative h-11 w-11 border-[3px] border-[#0a84ff] text-base"));
+  pulse.className = "absolute inset-0 animate-ping rounded-full bg-primary/30";
+  wrap.append(beam, pulse, face(name, path, "relative h-11 w-11 border-[3px] border-primary text-base"));
   return { el: wrap, beam };
 }
 
@@ -182,6 +188,7 @@ export function LiveMap({
   // already moved the map yourself).
   const placed = useRef<"none" | "stored" | "live">("none");
   const userMoved = useRef(false);
+  const schemeOff = useRef<(() => void) | null>(null);
   const latest = useRef({ me, meFace, radius, people, onSelect, talking, ageOf, lang });
   latest.current = { me, meFace, radius, people, onSelect, talking, ageOf, lang };
 
@@ -196,7 +203,7 @@ export function LiveMap({
       const start = latest.current.me;
       const m = new ml.Map({
         container: box.current,
-        style: STYLE,
+        style: styleUrl(),
         center: start ? [start.lng, start.lat] : ATHENS,
         zoom: start ? ME_ZOOM : 11,
         attributionControl: { compact: true },
@@ -209,26 +216,36 @@ export function LiveMap({
       };
       m.on("dragstart", byUser);
       m.on("zoomstart", byUser);
-      m.on("load", () => {
+      // Our layers go on top of whichever style is loaded (the first one, and again after a Light / Dark switch).
+      m.on("style.load", () => {
         styleReady.current = true;
         localizeLabels(m, latest.current.lang);
+        const blue = token("--link", "#0066cc");
         const empty = { type: "FeatureCollection" as const, features: [] };
         m.addSource("radius", { type: "geojson", data: empty });
-        m.addLayer({ id: "radius-fill", type: "fill", source: "radius", paint: { "fill-color": "#e4571c", "fill-opacity": 0.08 } });
-        m.addLayer({ id: "radius-line", type: "line", source: "radius", paint: { "line-color": "#e4571c", "line-width": 1.5, "line-opacity": 0.8 } });
+        m.addLayer({ id: "radius-fill", type: "fill", source: "radius", paint: { "fill-color": blue, "fill-opacity": 0.08 } });
+        m.addLayer({ id: "radius-line", type: "line", source: "radius", paint: { "line-color": blue, "line-width": 1.5, "line-opacity": 0.8 } });
         m.addSource("people-acc", { type: "geojson", data: empty });
         m.addLayer({ id: "people-acc-fill", type: "fill", source: "people-acc", paint: { "fill-color": ["get", "color"], "fill-opacity": 0.12 } });
         m.addLayer({ id: "people-acc-line", type: "line", source: "people-acc", paint: { "line-color": ["get", "color"], "line-width": 1, "line-opacity": 0.35 } });
         m.addSource("me-acc", { type: "geojson", data: empty });
-        m.addLayer({ id: "me-acc-fill", type: "fill", source: "me-acc", paint: { "fill-color": "#0a84ff", "fill-opacity": 0.12 } });
-        m.addLayer({ id: "me-acc-line", type: "line", source: "me-acc", paint: { "line-color": "#0a84ff", "line-width": 1, "line-opacity": 0.4 } });
+        m.addLayer({ id: "me-acc-fill", type: "fill", source: "me-acc", paint: { "fill-color": blue, "fill-opacity": 0.12 } });
+        m.addLayer({ id: "me-acc-line", type: "line", source: "me-acc", paint: { "line-color": blue, "line-width": 1, "line-opacity": 0.4 } });
         drawAreas();
       });
+      const media = darkMedia();
+      const onScheme = () => {
+        styleReady.current = false;
+        m.setStyle(styleUrl());
+      };
+      media?.addEventListener("change", onScheme);
+      schemeOff.current = () => media?.removeEventListener("change", onScheme);
       map.current = m;
       sync();
     });
     return () => {
       cancelled = true;
+      schemeOff.current?.();
       map.current?.remove();
       map.current = null;
       all.clear();
@@ -258,7 +275,7 @@ export function LiveMap({
       "people-acc",
       list
         .filter((p) => p.accuracy_m != null && p.accuracy_m > 20)
-        .map((p) => poly(circle(p, Math.min(p.accuracy_m!, 5000), 36), { color: p.is_friend ? "#10b981" : "#8e8e93" })),
+        .map((p) => poly(circle(p, Math.min(p.accuracy_m!, 5000), 36), { color: p.is_friend ? token("--success", "#34c759") : token("--muted-foreground", "#6e6e73") })),
     );
   }
 

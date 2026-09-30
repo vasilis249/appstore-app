@@ -77,9 +77,9 @@ function LocationPage() {
         </ul>
 
         {confirmEveryone && (
-          <div className="space-y-3 rounded-2xl border border-coral/60 bg-coral/10 p-4">
+          <div className="space-y-3 rounded-2xl border border-live/60 bg-live/10 p-4">
             <p className="flex items-start gap-2 text-[15px] leading-snug">
-              <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-coral" />
+              <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-live" />
               {t("location.everyoneWarning")}
             </p>
             <div className="flex gap-2">
@@ -121,13 +121,13 @@ function LocationPage() {
             </section>
 
             <section className="flex items-start gap-3 rounded-2xl bg-secondary p-4">
-              <MapPin className={cn("mt-0.5 h-5 w-5 shrink-0", tracker === "denied" ? "text-destructive" : "text-emerald-500")} />
+              <MapPin className={cn("mt-0.5 h-5 w-5 shrink-0", tracker === "denied" ? "text-destructive" : "text-success")} />
               <div className="min-w-0 flex-1 text-[15px] leading-snug">
                 {tracker === "denied" ? (
                   <>
                     <p className="font-semibold">{t("location.denied")}</p>
                     {isNativeApp() ? (
-                      <button type="button" onClick={openLocationSettings} className="mt-1 font-semibold text-[#0a84ff]">
+                      <button type="button" onClick={openLocationSettings} className="mt-1 font-semibold text-link">
                         {t("location.openSettings")}
                       </button>
                     ) : (

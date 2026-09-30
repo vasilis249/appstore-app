@@ -17,7 +17,7 @@ export const Route = createFileRoute("/_authenticated/notifications")({
 });
 
 const ICON = { follow: UserPlus, like: Heart, reply: MessageCircle, repost: Repeat2, group_invite: Users, group_request: Users, group_accepted: Users, group_joined: Users, invite_joined: UserPlus, walkie: RadioTower, nearby: MapPin } as const;
-const COLOR = { follow: "text-sky-400", like: "text-rose-500", reply: "text-foreground", repost: "text-emerald-400", group_invite: "text-coral", group_request: "text-coral", group_accepted: "text-coral", group_joined: "text-coral", invite_joined: "text-emerald-400", walkie: "text-coral", nearby: "text-coral" } as const;
+const COLOR = { follow: "text-link", like: "text-live", reply: "text-foreground", repost: "text-success", group_invite: "text-live", group_request: "text-live", group_accepted: "text-live", group_joined: "text-live", invite_joined: "text-success", walkie: "text-live", nearby: "text-live" } as const;
 
 /** New followers, likes, replies and reposts (admins also: reports to review); opening the page marks everything read. */
 function NotificationsPage() {
@@ -58,7 +58,7 @@ function NotificationsPage() {
         {report && (
           <li className="border-b border-border">
             <Link to="/admin/reports" className="flex items-center gap-3 px-4 py-3">
-              <Flag className="h-5 w-5 shrink-0 text-coral" />
+              <Flag className="h-5 w-5 shrink-0 text-live" />
               <p className="min-w-0 flex-1 text-sm font-semibold">
                 {t("notificationsPage.report")}
                 <span className="font-normal text-muted-foreground"> · {timeAgo(report.created_at, i18n.language)}</span>

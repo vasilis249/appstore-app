@@ -16,7 +16,7 @@ export function TopicStrip({ section, variant = "cards" }: { section?: string; v
   if (variant === "pills")
     return (
       <nav aria-label={t("posts.trending")} className="no-scrollbar flex items-center gap-2 overflow-x-auto px-4 pt-3">
-        <Flame className="h-4 w-4 shrink-0 text-coral" aria-hidden />
+        <Flame className="h-4 w-4 shrink-0 text-link" aria-hidden />
         {q.data.map((tp) => (
           <Link
             key={tp.id}

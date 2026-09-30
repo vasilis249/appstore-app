@@ -62,7 +62,7 @@ export function VoiceRecorder({
           {(live || recorded) && (
             <circle
               cx="92" cy="92" r={R} fill="none" strokeWidth="4" strokeLinecap="round" stroke="currentColor"
-              className={live ? "text-coral" : "text-foreground/60"}
+              className={live ? "text-live" : "text-foreground/60"}
               strokeDasharray={C} strokeDashoffset={C * (1 - Math.min(1, ms / maxMs))}
             />
           )}
@@ -83,7 +83,7 @@ export function VoiceRecorder({
             aria-label={t("voice.holdToTalk")}
             className={cn(
               "grid h-32 w-32 place-items-center rounded-full transition-transform duration-150",
-              live || ptt.holding ? "scale-110 bg-coral text-white" : "bg-primary text-primary-foreground",
+              live || ptt.holding ? "scale-110 bg-live text-white" : "bg-primary text-primary-foreground",
             )}
           >
             <VoiceIcon className="h-14 w-14" strokeWidth={1.8} live={live} />

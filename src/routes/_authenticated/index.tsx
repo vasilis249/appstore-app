@@ -239,7 +239,7 @@ function CampusWaiting({ status }: { status: CampusStatus }) {
   return (
     <div className="px-4 pt-8">
       <div className="flex flex-col items-center text-center">
-        <span className="grid h-16 w-16 place-items-center rounded-full bg-secondary text-coral">
+        <span className="grid h-16 w-16 place-items-center rounded-full bg-secondary text-link">
           <GraduationCap className="h-8 w-8" />
         </span>
         <h2 className="mt-4 text-2xl font-extrabold">{t("campus.waitingTitle", { uni: campus.label({ university_id: status.university_id }) })}</h2>
@@ -249,7 +249,7 @@ function CampusWaiting({ status }: { status: CampusStatus }) {
           <span className="text-2xl text-muted-foreground"> / {status.min_students}</span>
         </p>
         <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-secondary" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
-          <div className="h-full rounded-full bg-coral transition-all" style={{ width: `${pct}%` }} />
+          <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${pct}%` }} />
         </div>
       </div>
       <InviteShare className="mt-8" text={t("campus.inviteClassmates")} />
@@ -280,7 +280,7 @@ function SchoolsBoard({ expanded = false }: { expanded?: boolean }) {
           const d = campus.dep(r.department_id);
           return (
             <li key={r.department_id} className={cn("flex items-center gap-3 rounded-xl px-2 py-1.5", r.department_id === mine && "bg-secondary")}>
-              <span className={cn("w-5 text-right text-sm font-bold tabular-nums", r.rank === 1 ? "text-coral" : "text-muted-foreground")}>{r.rank}</span>
+              <span className={cn("w-5 text-right text-sm font-bold tabular-nums", r.rank === 1 ? "text-link" : "text-muted-foreground")}>{r.rank}</span>
               <span className="min-w-0 flex-1 truncate text-[15px] font-semibold">{d ? (en ? d.short_en : d.short_el) : r.department_id}</span>
               <span className="text-sm tabular-nums text-muted-foreground">{t("campus.students", { count: r.students })}</span>
             </li>
@@ -288,7 +288,7 @@ function SchoolsBoard({ expanded = false }: { expanded?: boolean }) {
         })}
       </ol>
       {rows.length > shown.length && (
-        <button type="button" onClick={() => setAll(true)} className="mt-2 text-sm font-semibold text-[#0a84ff]">
+        <button type="button" onClick={() => setAll(true)} className="mt-2 text-sm font-semibold text-link">
           {t("campus.allSchools")}
         </button>
       )}

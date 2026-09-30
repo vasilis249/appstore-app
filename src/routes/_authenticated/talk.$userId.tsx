@@ -123,19 +123,19 @@ function TalkPage() {
           <span
             className={cn(
               "block rounded-full p-1 ring-4 transition-colors",
-              s?.peerTalking ? "animate-pulse ring-coral" : s?.peerOnline ? "ring-emerald-500/70" : "ring-transparent",
+              s?.peerTalking ? "animate-pulse ring-live" : s?.peerOnline ? "ring-success/70" : "ring-transparent",
             )}
           >
             <UserAvatar name={name} path={other.data?.avatar_path ?? null} size={96} />
           </span>
           {s?.peerTalking && (
-            <span className="absolute -bottom-2 left-1/2 grid h-8 w-8 -translate-x-1/2 place-items-center rounded-full bg-coral text-white">
+            <span className="absolute -bottom-2 left-1/2 grid h-8 w-8 -translate-x-1/2 place-items-center rounded-full bg-live text-white">
               <VoiceIcon className="h-4 w-4" live />
             </span>
           )}
         </div>
         <h1 className="mt-4 text-2xl font-bold">{name}</h1>
-        <p className={cn("mt-1 h-5 text-sm", s?.peerTalking || s?.talking ? "font-semibold text-coral" : "text-muted-foreground")}>{status}</p>
+        <p className={cn("mt-1 h-5 text-sm", s?.peerTalking || s?.talking ? "font-semibold text-live" : "text-muted-foreground")}>{status}</p>
 
         {friends && s?.audioLocked && (
           <button
@@ -151,7 +151,7 @@ function TalkPage() {
           {s?.talking && (
             <svg className="pointer-events-none absolute inset-0 -rotate-90" viewBox="0 0 208 208" aria-hidden>
               <circle
-                cx="104" cy="104" r="100" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" className="text-coral"
+                cx="104" cy="104" r="100" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" className="text-live"
                 strokeDasharray={2 * Math.PI * 100} strokeDashoffset={2 * Math.PI * 100 * (1 - Math.min(1, s.elapsedMs / WALKIE_MAX_MS))}
               />
             </svg>
@@ -169,7 +169,7 @@ function TalkPage() {
             className={cn(
               "grid h-44 w-44 place-items-center rounded-full shadow-lg transition-transform duration-150 disabled:opacity-40",
               s?.talking || s?.starting
-                ? "scale-105 bg-coral text-white"
+                ? "scale-105 bg-live text-white"
                 : s?.peerTalking
                   ? "bg-secondary text-muted-foreground"
                   : "bg-primary text-primary-foreground",

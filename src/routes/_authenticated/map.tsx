@@ -150,7 +150,7 @@ function MapPage() {
   }, [u, currentIsFriend]);
 
   return (
-    <div className="fixed inset-0 z-0 bg-black">
+    <div className="fixed inset-0 z-0 bg-background">
       <LiveMap
         me={me}
         meFace={{ name: profile.data?.full_name || profile.data?.username || "", path: profile.data?.avatar_path ?? null }}
@@ -166,7 +166,7 @@ function MapPage() {
 
       {/* top: friends | nearby (+ radius) */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex flex-col items-center gap-2 px-4 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
-        <div className="pointer-events-auto flex items-center gap-1 rounded-full bg-[#141415]/90 p-1 shadow-lg backdrop-blur" role="tablist">
+        <div className="pointer-events-auto flex items-center gap-1 rounded-full glass border border-border/60 shadow-float p-1 shadow-lg backdrop-blur" role="tablist">
           {(["friends", "nearby"] as const).map((v) => (
             <button
               key={v}
@@ -181,7 +181,7 @@ function MapPage() {
           ))}
         </div>
         {view === "nearby" && (
-          <div className="pointer-events-auto flex items-center gap-1 rounded-full bg-[#141415]/85 p-1 shadow-lg backdrop-blur">
+          <div className="pointer-events-auto flex items-center gap-1 rounded-full glass border border-border/60 shadow-float p-1 shadow-lg backdrop-blur">
             {RADII.map((r) => (
               <button
                 key={r}
@@ -191,7 +191,7 @@ function MapPage() {
                   setRadius(r);
                   move("radius");
                 }}
-                className={cn("h-8 rounded-full px-3.5 text-[13px] font-semibold", radius === r ? "bg-white/90 text-black" : "text-foreground/85")}
+                className={cn("h-8 rounded-full px-3.5 text-[13px] font-semibold", radius === r ? "bg-card text-foreground shadow-float" : "text-foreground/85")}
               >
                 {formatDistance(r, i18n.language)}
               </button>
@@ -210,20 +210,20 @@ function MapPage() {
               void enableCompass(); // inside the tap: iOS asks for motion access once
             }}
             aria-label={t("map.recenter")}
-            className="grid h-12 w-12 place-items-center self-end rounded-full bg-[#141415]/90 shadow-lg backdrop-blur"
+            className="grid h-12 w-12 place-items-center self-end rounded-full glass border border-border/60 shadow-float"
           >
-            <LocateFixed className="h-5 w-5 text-[#0a84ff]" />
+            <LocateFixed className="h-5 w-5 text-link" />
           </button>
         )}
 
         {on && view === "friends" && (
-          <div className="max-w-full self-start rounded-3xl bg-[#141415]/90 p-3 shadow-lg backdrop-blur">
+          <div className="max-w-full self-start rounded-3xl glass border border-border/60 shadow-float p-3 shadow-lg backdrop-blur">
             {friends.length ? (
               <ul className="flex gap-3 overflow-x-auto px-0.5 py-1" aria-label={t("map.friendsTab")}>
                 {friends.map((p) => (
                   <li key={p.user_id} className="shrink-0">
                     <button type="button" onClick={() => select(p)} className="flex w-16 flex-col items-center gap-1 text-center">
-                      <span className="rounded-full p-0.5 ring-2 ring-emerald-500">
+                      <span className="rounded-full p-0.5 ring-2 ring-success">
                         <UserAvatar name={p.full_name || p.username} path={p.avatar_path} size={48} />
                       </span>
                       <span className="w-full truncate text-xs font-semibold">{(p.full_name || p.username).split(" ")[0]}</span>
@@ -244,7 +244,7 @@ function MapPage() {
           <button
             type="button"
             onClick={() => setListOpen(true)}
-            className="flex h-12 items-center gap-2 self-start rounded-full bg-[#141415]/90 px-5 text-[15px] font-semibold shadow-lg backdrop-blur"
+            className="flex h-12 items-center gap-2 self-start rounded-full glass border border-border/60 shadow-float px-5 text-[15px] font-semibold shadow-lg backdrop-blur"
           >
             <Users className="h-5 w-5" /> {t("map.nearby", { count: nearby.length })}
           </button>
@@ -252,11 +252,11 @@ function MapPage() {
 
         {/* your position is only approximate (iOS "Precise Location" off, or no GPS) */}
         {approximate && (
-          <div className="rounded-3xl bg-[#141415]/95 p-4 shadow-xl backdrop-blur">
+          <div className="rounded-3xl glass border border-border/60 shadow-float p-4 shadow-xl backdrop-blur">
             <p className="text-[15px] font-semibold">{t("map.approxTitle", { accuracy: formatDistance(me!.accuracy!, i18n.language) })}</p>
             <p className="mt-1 text-sm leading-snug text-muted-foreground">{t(isNativeApp() ? "map.approxIos" : "map.approxWeb")}</p>
             {isNativeApp() && (
-              <button type="button" onClick={openLocationSettings} className="mt-2 text-sm font-semibold text-[#0a84ff]">
+              <button type="button" onClick={openLocationSettings} className="mt-2 text-sm font-semibold text-link">
                 {t("location.openSettings")}
               </button>
             )}
@@ -265,9 +265,9 @@ function MapPage() {
 
         {/* sharing off, or no position yet */}
         {s && !on && (
-          <div className="rounded-3xl bg-[#141415]/95 p-5 shadow-xl backdrop-blur">
+          <div className="rounded-3xl glass border border-border/60 shadow-float p-5 shadow-xl backdrop-blur">
             <p className="flex items-center gap-2 text-lg font-bold">
-              <MapPin className="h-5 w-5 text-coral" /> {t("map.offTitle")}
+              <MapPin className="h-5 w-5 text-link" /> {t("map.offTitle")}
             </p>
             <p className="mt-1 text-[15px] leading-snug text-muted-foreground">{t("map.off")}</p>
             <Link to="/location" className="mt-4 flex h-12 items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground">
@@ -276,9 +276,9 @@ function MapPage() {
           </div>
         )}
         {!local.fix && (local.problem || local.slow || (s && on && !me)) && (
-          <div className="rounded-3xl bg-[#141415]/95 p-4 shadow-xl backdrop-blur">
+          <div className="rounded-3xl glass border border-border/60 shadow-float p-4 shadow-xl backdrop-blur">
             <p className="flex items-center gap-2 text-[15px] font-semibold">
-              <LocateFixed className={cn("h-4 w-4 text-[#0a84ff]", !local.problem && !local.slow && "animate-pulse")} />
+              <LocateFixed className={cn("h-4 w-4 text-link", !local.problem && !local.slow && "animate-pulse")} />
               {t(local.problem === "denied" ? "map.deniedTitle" : local.problem || local.slow ? "map.notFoundTitle" : "map.waitingTitle")}
             </p>
             {(local.problem || local.slow) && (
@@ -320,7 +320,7 @@ function MapPage() {
                   }}
                   className="flex w-full items-center gap-3 py-2.5 text-left"
                 >
-                  <span className={cn("rounded-full p-0.5 ring-2", p.is_friend ? "ring-emerald-500" : "ring-transparent")}>
+                  <span className={cn("rounded-full p-0.5 ring-2", p.is_friend ? "ring-success" : "ring-transparent")}>
                     <UserAvatar name={p.full_name || p.username} path={p.avatar_path} size={44} />
                   </span>
                   <span className="min-w-0 flex-1">
@@ -342,13 +342,13 @@ function MapPage() {
           {current && (
             <div className="px-5 pb-8 pt-3">
               <div className="flex items-center gap-4">
-                <span className={cn("rounded-full p-1 ring-4", current.is_friend ? "ring-emerald-500" : "ring-white/80")}>
+                <span className={cn("rounded-full p-1 ring-4", current.is_friend ? "ring-success" : "ring-border")}>
                   <UserAvatar name={current.full_name || current.username} path={current.avatar_path} size={64} />
                 </span>
                 <div className="min-w-0">
                   <DrawerTitle className="truncate text-xl font-bold">{current.full_name || current.username}</DrawerTitle>
                   <DrawerDescription className="truncate text-sm text-muted-foreground">@{current.username}</DrawerDescription>
-                  <p className="mt-0.5 text-sm font-semibold text-coral">
+                  <p className="mt-0.5 text-sm font-semibold text-link">
                     {t("map.away", { distance: formatDistance(distOf(current), i18n.language) })} ·{" "}
                     {ageOf(current) ? t("map.lastSeen", { when: ageOf(current) }) : t("map.now")}
                   </p>
@@ -370,7 +370,7 @@ function MapPage() {
                     href={directionsUrl(current.lat, current.lng)}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex h-12 items-center justify-center gap-2 rounded-full bg-[#0a84ff] font-semibold text-white"
+                    className="flex h-12 items-center justify-center gap-2 rounded-full bg-primary font-semibold text-white"
                   >
                     <Navigation className="h-5 w-5" /> {t("map.directions")}
                   </a>

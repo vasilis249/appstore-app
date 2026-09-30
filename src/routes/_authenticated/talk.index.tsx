@@ -85,12 +85,12 @@ function WalkieListPage() {
                     onClick={() => void navigate({ to: "/talk/$userId", params: { userId: c.user_id } })}
                     className="flex min-w-0 flex-1 items-center gap-3 text-left"
                   >
-                    <span className={cn("rounded-full p-0.5 ring-2", online.has(c.user_id) ? "ring-emerald-500/80" : "ring-transparent")}>
+                    <span className={cn("rounded-full p-0.5 ring-2", online.has(c.user_id) ? "ring-success/80" : "ring-transparent")}>
                       <UserAvatar name={name} path={c.avatar_path} size={52} />
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-base font-semibold">{name}</span>
-                      {sub && <span className={cn("block truncate text-sm", c.unheard ? "font-semibold text-coral" : "text-muted-foreground")}>{sub}</span>}
+                      {sub && <span className={cn("block truncate text-sm", c.unheard ? "font-semibold text-live" : "text-muted-foreground")}>{sub}</span>}
                     </span>
                   </button>
                   <label className="flex shrink-0 flex-col items-center gap-1 text-[11px] text-muted-foreground">

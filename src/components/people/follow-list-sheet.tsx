@@ -38,7 +38,7 @@ export function FollowListSheet({
         <DrawerDescription className="sr-only">{t(tab === "following" ? "people.followingCount" : "people.followers")}</DrawerDescription>
         <div className="mx-4 mt-3 flex rounded-full bg-secondary p-1">
           {(["followers", "following"] as const).map((k) => (
-            <button key={k} type="button" onClick={() => onTab(k)} className={cn(seg, tab === k ? "bg-[#3a3a3c]" : "text-foreground/80")}>
+            <button key={k} type="button" onClick={() => onTab(k)} className={cn(seg, tab === k ? "bg-secondary" : "text-foreground/80")}>
               {t(k === "following" ? "people.followingCount" : "people.followers")}
             </button>
           ))}

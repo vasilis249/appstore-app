@@ -56,14 +56,14 @@ export function VoiceBubble({ msg, mine }: { msg: VoiceMessage; mine: boolean })
         <button
           type="button"
           onClick={() => void listen()}
-          className="relative w-60 overflow-hidden rounded-3xl bg-coral px-4 py-3 text-left text-white"
+          className="relative w-60 overflow-hidden rounded-3xl bg-primary px-4 py-3 text-left text-white"
         >
           <span
             className="absolute inset-y-0 left-0 bg-white/20 transition-[width] duration-100"
             style={{ width: `${progress * 100}%` }}
           />
           <span className="relative flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-coral">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-primary">
               {phase === "idle" ? <Play className="h-5 w-5" fill="currentColor" /> : <AudioLines className="h-5 w-5 animate-pulse" />}
             </span>
             <span className="min-w-0">

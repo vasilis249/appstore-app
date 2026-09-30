@@ -225,7 +225,7 @@ function StudentPage() {
           onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
         />
         {error && <FieldNote error>{error}</FieldNote>}
-        <button type="button" disabled={loading} onClick={() => void sendCode()} className="mt-5 text-[15px] font-semibold text-[#0a84ff]">
+        <button type="button" disabled={loading} onClick={() => void sendCode()} className="mt-5 text-[15px] font-semibold text-link">
           {t("student.resend")}
         </button>
       </StepShell>
@@ -280,7 +280,7 @@ function StudentPage() {
             setSchool(null);
             go("year");
           }}
-          className="mt-3 text-[15px] font-semibold text-[#0a84ff]"
+          className="mt-3 text-[15px] font-semibold text-link"
         >
           {t("student.noSchool")}
         </button>

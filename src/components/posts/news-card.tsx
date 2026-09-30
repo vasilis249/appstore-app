@@ -25,8 +25,8 @@ export function NewsCover({ src, section, className }: { src: string | null | un
       />
     );
   return (
-    <div className={cn("grid aspect-[16/9] w-full place-items-center rounded-2xl bg-gradient-to-br from-[#2c2c2e] to-[#161617]", className)}>
-      <Icon className="h-12 w-12 text-coral/80" strokeWidth={1.5} />
+    <div className={cn("grid aspect-[16/9] w-full place-items-center rounded-2xl bg-secondary", className)}>
+      <Icon className="h-12 w-12 text-muted-foreground" strokeWidth={1.5} />
     </div>
   );
 }
@@ -40,7 +40,7 @@ export function NewsCard({ topic, daily }: { topic: NewsTopic; daily?: boolean }
     <Link to="/t/$topicId" params={{ topicId: topic.id }} className="block px-4 pb-5 pt-2 active:opacity-80">
       <NewsCover src={topic.image_url} section={topic.section_id} />
       <p className="mt-2.5 flex items-center gap-1 text-[12px] text-muted-foreground">
-        {daily && <span className="font-bold uppercase tracking-wide text-coral">{t("daily.topicOfDay")} ·</span>}
+        {daily && <span className="font-bold uppercase tracking-wide text-link">{t("daily.topicOfDay")} ·</span>}
         <span className="font-medium text-foreground/80">{name(topic.section_id)}</span>
         {topic.source_name && <span className="truncate">· {topic.source_name}</span>}
         <span className="shrink-0">· {timeAgoShort(topic.created_at, i18n.language)}</span>
@@ -65,7 +65,7 @@ export function NewsCard({ topic, daily }: { topic: NewsTopic; daily?: boolean }
             </span>
           </>
         ) : (
-          <span className="font-medium text-coral">{t("news.beFirst")}</span>
+          <span className="font-medium text-link">{t("news.beFirst")}</span>
         )}
       </div>
     </Link>

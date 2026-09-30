@@ -312,13 +312,13 @@ function Topics() {
           <li key={tp.id} className={cn("flex items-start gap-2 px-4 py-3", tp.hidden && "opacity-50")}>
             <Link to="/t/$topicId" params={{ topicId: tp.id }} className="min-w-0 flex-1">
               <p className="text-xs text-muted-foreground">
-                <span className={cn("font-semibold", tp.kind === "daily" && "text-coral")}>{badge(tp)}</span> · {name(tp.section_id)}
+                <span className={cn("font-semibold", tp.kind === "daily" && "text-link")}>{badge(tp)}</span> · {name(tp.section_id)}
                 {tp.university_id && <span className="font-semibold text-foreground"> · {campus.label({ university_id: tp.university_id })}</span>}
                 {tp.source_name && ` · ${tp.source_name}`} · {timeAgo(tp.created_at, i18n.language)} · {t("posts.voicesCount", { count: tp.posts_count })}
               </p>
               <p className="mt-0.5 text-sm font-semibold leading-snug">{tp.title}</p>
             </Link>
-            <button type="button" aria-label={tp.pinned ? t("admin.unpin") : t("admin.pin")} onClick={() => upd.mutate({ id: tp.id, patch: { pinned: !tp.pinned } })} className={cn("grid h-9 w-9 place-items-center rounded-full", tp.pinned && "text-coral")}>
+            <button type="button" aria-label={tp.pinned ? t("admin.unpin") : t("admin.pin")} onClick={() => upd.mutate({ id: tp.id, patch: { pinned: !tp.pinned } })} className={cn("grid h-9 w-9 place-items-center rounded-full", tp.pinned && "text-link")}>
               {tp.pinned ? <PinOff className="h-4 w-4" /> : <Pin className="h-4 w-4" />}
             </button>
             <button type="button" aria-label={tp.hidden ? t("admin.show") : t("admin.hide")} onClick={() => upd.mutate({ id: tp.id, patch: { hidden: !tp.hidden } })} className="grid h-9 w-9 place-items-center rounded-full">

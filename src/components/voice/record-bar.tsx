@@ -93,7 +93,7 @@ export function RecordBar({
             <p className="flex flex-1 items-center gap-2 text-[15px] tabular-nums text-muted-foreground">
               {live ? (
                 <>
-                  <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-coral" />
+                  <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-live" />
                   <span className="font-semibold text-foreground">{formatClock(r.elapsedMs)}</span> / {formatClock(maxMs)}
                 </>
               ) : (
@@ -107,7 +107,7 @@ export function RecordBar({
               aria-label={t("voice.holdToTalk")}
               className={cn(
                 "grid h-16 w-16 place-items-center rounded-full transition-transform duration-150 disabled:opacity-40",
-                live || ptt.holding ? "scale-110 bg-coral text-white" : "bg-primary text-primary-foreground",
+                live || ptt.holding ? "scale-110 bg-live text-white" : "bg-primary text-primary-foreground",
               )}
             >
               <VoiceIcon className="h-8 w-8" strokeWidth={1.8} live={live} />

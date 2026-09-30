@@ -4,6 +4,11 @@ Persistent findings for Claude sessions. Reply to the user in Greek; code, comme
 Work in phases; after each phase STOP, summarize in ≤10 lines, update this file, wait for the user's "OK".
 Don't read `bun.lock`, `node_modules`, `src/assets`, `src/components/ui` (stock shadcn), `src/routeTree.gen.ts`,
 `src/integrations/supabase/types.ts` (generated). Use Glob/Grep, read only what's needed.
+**Design rule (user decision 2026-10-01): every UI change follows `/DESIGN.md`** (the Apple system from
+VoltAgent/awesome-design-md + its "Speak adaptation" section): tokens only (`bg-background/card/secondary/primary`,
+`text-foreground/muted-foreground/link`, `bg-live`, `text-success`, `glass`, `text-body/caption/…`), light + dark
+follow the iPhone, one blue accent, pills for actions, 18px cards, no shadows except `shadow-float` on floating chrome,
+press = scale(0.95). No raw hex / `text-white` on chrome / `bg-black` in screens.
 
 ## Product: **Speak** — "X/Twitter, but with voice" (decided 2026-09-29, replaces the BeReal-style plan)
 Voice is the main medium. Public posts = a voice clip (≤ 2 min) + optional short title (≤ 100 chars), filed in a
@@ -484,6 +489,22 @@ User decisions:
   app; now wrapped (`{ ln }`). Never return a Capacitor plugin proxy from an async function / promise. Browser
   `mylocation-flow.mjs` 5/5 (fake iOS bridge without the plugin via `window.webkit.messageHandlers.bridge` +
   `window.Capacitor.PluginHeaders`, denied → retry, stale stored spot vs live), map 11/11, precision 7/7, nearby 10/10.
+  **Design D1 ✔ (Apple foundation, user request 2026-10-01: "redo theme/spacing/design from awesome-design-md")** —
+  the repo is a collection of 73 DESIGN.md files; the user chose **Apple**, and **follow the iPhone** (light/dark).
+  `/DESIGN.md` = Apple file verbatim (MIT, VoltAgent commit f696123) + "Speak adaptation" (mode table, semantic
+  live/success, type/shape/elevation rules, app components). `design-system.css` rewritten (tokens above, Apple type
+  scale, radii, `glass`, flat shadows except `shadow-float`, press 0.95, 17px body, no shine). Shell: `__root` (no
+  forced dark, theme-color per scheme, Toaster system + glass), Info.plist / capacitor.config no forced Dark / black.
+  BottomNav, AppHeader, Wordmark, NavRecordButton restyled. Sweep: every hard-coded colour replaced (0 left:
+  `#0a84ff`→link/primary, `#141415` map bars→glass, emerald→success, rose→live, sky→link, `#3a3a3c`→secondary, news
+  cover gradient→flat secondary, OAuth button `bg-foreground text-background`); `coral` split: labels/links (section,
+  topic, group, «Θέμα της ημέρας», «Πες πρώτος», trending, campus labels) → `text-link`, recording/talking/unread →
+  `live`; unheard DM bubble = blue (iMessage). Map: `liberty` by day / `dark` at night (switches live via matchMedia →
+  `setStyle`, overlays re-added on `style.load`), overlay colours read from tokens (`--link`, `--success`). Screens
+  checked in both schemes (scratchpad `design-shots.mjs <port> <tag> [paths]` + `collage-grid.mjs`). Flows: map,
+  mylocation, nearby, walkie, ptt pass; `home3-flow.mjs` fails at an obsolete tap-to-record step (outdated since the
+  push-to-talk redesign, not this phase). NEXT: D2 = per-screen typography/spacing to the Apple scale (text-body/
+  caption, grouped lists, segmented controls), D3 = QA both modes + map + deploy.
   **L3 ✔ (push to talk on the map)** migration `20261023100000_nearby_talk.sql`: `private.nearby_knocks` (last knock per
   pair), `public.nearby_messages` + `private.nearby_audio` (24 h, like walkie), `private.may_talk_nearby(a, b)`
   (are_nearby + nobody disabled + b's talk_from), `knocked_recently(a, b)` (5 min), `may_send_nearby` (may talk, or
@@ -534,14 +555,20 @@ User decisions:
 - Security headers: `src/lib/security-headers.server.ts` (CSP incl. `media-src`, Permissions-Policy
   `microphone=(self)`, HSTS, X-Frame DENY, COOP, no-store on server fns). Summary: `docs/security.md`.
 
-## UI (BeReal-like, from the user's reference screenshots; dark only)
-- Theme in ONE file `src/design-system.css`: black bg, white text, `bg-primary` = white (black text),
-  `bg-secondary #2c2c2e` pills, grey text `#8e8e93`, `--coral #e4571c` small accent (recording), `--badge` red.
-  System font (SF Pro on iPhone). `<html class="dark">` always; no theme toggle. Buttons/inputs rounded pills.
-- `BottomNav`: floating pill with labels — Home `/`, Search `/search`, white mic circle `/record`,
-  Memories `/memories` (segmented pill Memories | Calendar, `?view=calendar`), Profile (avatar).
-- `AppHeader` (`src/components/app-header.tsx`): centered `Wordmark` ("Speak") or title, `back`, left/right
-  slots, `HeaderPill`; Home's right pill = paper-plane → `/messages` + bell → `/notifications`.
+## UI (Apple system — see /DESIGN.md; light + dark follow the iPhone)
+- Theme in ONE file `src/design-system.css` (tokens from DESIGN.md): light = parchment `#f5f5f7` canvas, white cards,
+  ink `#1d1d1f`, Action Blue `#0066cc` primary / link; dark = black canvas, `#1c1c1e` cards, `#0071e3` primary,
+  `#2997ff` link. `live` = iOS red (recording, talking, unread; `coral`/`badge` are aliases), `success` = iOS green
+  (friends, "here"). `@custom-variant dark` = `prefers-color-scheme`; `<html>` has `color-scheme: light dark` and no
+  class; theme-color metas per scheme; Toaster `theme="system"`; Info.plist has NO `UIUserInterfaceStyle` (native
+  rebuild needed for the app to leave forced Dark). Radii 8 / 11 / 18 (lg…3xl) / full. Type utilities `text-hero` 34,
+  `text-display` 28, `text-tagline` 21, `text-body` 17 (body default), `text-callout` 15, `text-caption` 14,
+  `text-fine` 12; headings 600. `glass` utility = frosted floating chrome.
+- `BottomNav`: frosted `glass` capsule with 10px labels, active tab `text-link` — Home `/`, Search `/search`, blue
+  voice circle (tap = /record, hold = push to talk), Map `/map`, Profile (avatar). Memories = calendar icon on Profile.
+- `AppHeader` (`src/components/app-header.tsx`): frosted bar with a hairline, centred `Wordmark` ("Speak.", 21/600) or
+  17/600 title, `back` = blue iOS chevron, left/right slots; Home's right = plain 44px paper-plane → `/messages` + bell →
+  `/notifications` (red `live` badges).
   Profile ⚙︎ → `SettingsSheet` (language, daily reminder, admin: Reports + Manage topics, blocked, contact/terms/
   privacy, sign out, delete account).
 - `EmptyState`: icon or bold title + one line + optional white pill button.

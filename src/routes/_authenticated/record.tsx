@@ -113,7 +113,7 @@ function ComposePage() {
         )}
         {campusMode && (
           <div className="flex items-center gap-3 rounded-2xl bg-card p-3 ring-1 ring-border">
-            <GraduationCap className="h-5 w-5 shrink-0 text-coral" />
+            <GraduationCap className="h-5 w-5 shrink-0 text-link" />
             <div className="min-w-0">
               <p className="font-semibold leading-snug">{t("campus.postingIn", { uni: campus.label({ university_id: me.data?.university_id }) || "…" })}</p>
               <p className="text-xs text-muted-foreground">{verified || !me.data ? t("campus.postingHint") : t("campus.locked")}</p>

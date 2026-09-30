@@ -34,10 +34,10 @@ function MemoriesPage() {
         back
         center={
           <div className="flex rounded-full bg-secondary p-1">
-            <Link to="/memories" search={{}} className={cn(seg, view === "list" ? "bg-[#3a3a3c]" : "text-foreground/80")}>
+            <Link to="/memories" search={{}} className={cn(seg, view === "list" ? "bg-secondary" : "text-foreground/80")}>
               {t("memories.list")}
             </Link>
-            <Link to="/memories" search={{ view: "calendar" }} className={cn(seg, view === "calendar" ? "bg-[#3a3a3c]" : "text-foreground/80")}>
+            <Link to="/memories" search={{ view: "calendar" }} className={cn(seg, view === "calendar" ? "bg-secondary" : "text-foreground/80")}>
               {t("memories.calendar")}
             </Link>
           </div>

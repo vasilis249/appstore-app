@@ -133,7 +133,7 @@ export function PostCard({
           {post.replyTo && post.replyToUsername && !hideReplyTo && (
             <p className="mt-0.5 text-xs text-muted-foreground">
               {t("posts.replyingToUser")}{" "}
-              <Link to="/u/$username" params={{ username: post.replyToUsername }} className="font-medium text-sky-400">
+              <Link to="/u/$username" params={{ username: post.replyToUsername }} className="font-medium text-link">
                 @{post.replyToUsername}
               </Link>
             </p>
@@ -145,7 +145,7 @@ export function PostCard({
                 <Link
                   to="/"
                   search={post.sectionId ? { tab: "campus", s: post.sectionId } : { tab: "campus" }}
-                  className="flex min-w-0 items-center gap-1 font-medium text-coral"
+                  className="flex min-w-0 items-center gap-1 font-medium text-link"
                 >
                   <GraduationCap className="h-3.5 w-3.5 shrink-0" />
                   <span className="truncate">
@@ -154,12 +154,12 @@ export function PostCard({
                   </span>
                 </Link>
               ) : post.groupId && post.groupName ? (
-                <Link to="/g/$groupId" params={{ groupId: post.groupId }} className="flex min-w-0 items-center gap-1 font-medium text-coral">
+                <Link to="/g/$groupId" params={{ groupId: post.groupId }} className="flex min-w-0 items-center gap-1 font-medium text-link">
                   <Users className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{post.groupName}</span>
                 </Link>
               ) : (
                 post.sectionId && (
-                  <Link to="/" search={{ s: post.sectionId }} className="shrink-0 font-medium text-coral">
+                  <Link to="/" search={{ s: post.sectionId }} className="shrink-0 font-medium text-link">
                     {sections.name(post.sectionId)}
                   </Link>
                 )
@@ -224,7 +224,7 @@ export function PostCard({
               <button
                 type="button"
                 onClick={() => setRepostOpen(true)}
-                className={cn(action, post.reposted && "text-emerald-400")}
+                className={cn(action, post.reposted && "text-success")}
                 aria-label={t("posts.repost")}
               >
                 <Repeat2 className="h-[18px] w-[18px]" /> {post.reposts > 0 && compact.format(post.reposts)}
@@ -234,7 +234,7 @@ export function PostCard({
               type="button"
               onClick={() => like.mutate()}
               disabled={like.isPending}
-              className={cn(action, post.liked && "text-rose-500")}
+              className={cn(action, post.liked && "text-live")}
               aria-label={post.liked ? t("posts.unlike") : t("posts.like")}
               aria-pressed={post.liked}
             >

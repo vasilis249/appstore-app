@@ -129,7 +129,7 @@ export function WalkieBanner() {
         if (nearby) void navigate({ to: "/map", search: { u: talking.peer } });
         else void navigate({ to: "/talk/$userId", params: { userId: talking.peer } });
       }}
-      className="fixed inset-x-4 top-[calc(env(safe-area-inset-top)+0.75rem)] z-50 mx-auto flex max-w-md items-center gap-3 rounded-full bg-coral px-3 py-2 text-left text-white shadow-lg"
+      className="fixed inset-x-4 top-[calc(env(safe-area-inset-top)+0.75rem)] z-50 mx-auto flex max-w-md items-center gap-3 rounded-full bg-live px-3 py-2 text-left text-white shadow-lg"
     >
       <UserAvatar name={name} path={c?.avatar_path ?? null} size={36} />
       <span className="min-w-0 flex-1">

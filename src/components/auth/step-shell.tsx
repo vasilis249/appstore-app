@@ -87,7 +87,7 @@ export const BigInput = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInp
           ref={ref}
           {...props}
           className={cn(
-            "w-full min-w-0 appearance-none rounded-none border-0 bg-transparent p-0 text-[30px] leading-tight shadow-none outline-none ring-0 caret-[#0a84ff] placeholder:text-[#4a4a4e] focus:outline-none focus:ring-0",
+            "w-full min-w-0 appearance-none rounded-none border-0 bg-transparent p-0 text-[30px] leading-tight shadow-none outline-none ring-0 caret-[#0a84ff] placeholder:text-muted-foreground focus:outline-none focus:ring-0",
             className,
           )}
         />

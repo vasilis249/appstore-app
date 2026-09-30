@@ -8,7 +8,8 @@ import { NavRecordButton } from "@/components/voice/nav-record-button";
 
 /**
  * Floating pill nav: Home, Search, the round voice button in the middle (tap = compose, hold = push to talk),
- * the live Map, Profile (avatar; Memories are reached from there). Labels under icons; active tab gets a pill.
+ * the live Map, Profile (avatar; Memories are reached from there). DESIGN.md: frosted capsule, grey icons with small
+ * labels, the active tab in the link blue.
  */
 /** Sign-in / sign-up / password pages (also shown right after sign-up, while already signed in). */
 export const AUTH_PATHS = /^\/(auth|forgot-password|reset-password|i)(\/|$)/;
@@ -24,21 +25,21 @@ export function BottomNav() {
 
   const name = me.data?.full_name || me.data?.username || (user.user_metadata?.full_name as string | undefined) || "?";
   const item =
-    "flex h-14 flex-col items-center justify-center gap-0.5 rounded-full text-[11px] font-medium text-foreground/90 transition-colors";
-  const active = { className: "bg-secondary text-foreground" };
+    "flex h-14 flex-col items-center justify-center gap-0.5 rounded-full text-[10px] leading-none tracking-normal text-muted-foreground transition-colors";
+  const active = { className: "!text-link" };
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(env(safe-area-inset-bottom,0px),0.75rem)]">
-      <ul className="mx-auto grid max-w-lg grid-cols-5 items-center rounded-full border border-border bg-[#141415]/95 p-1 shadow-lg backdrop-blur">
+      <ul className="glass mx-auto grid max-w-lg grid-cols-5 items-center rounded-full border border-border/60 p-1 shadow-float">
         <li>
           <Link to="/" className={item} activeProps={active} activeOptions={{ exact: true }}>
-            <Home className="h-6 w-6" fill="currentColor" strokeWidth={1.5} />
+            <Home className="h-6 w-6" strokeWidth={1.8} />
             <span>{t("tabs.feed")}</span>
           </Link>
         </li>
         <li>
           <Link to="/search" className={item} activeProps={active}>
-            <Search className="h-6 w-6" strokeWidth={2.2} />
+            <Search className="h-6 w-6" strokeWidth={1.8} />
             <span>{t("tabs.search")}</span>
           </Link>
         </li>
@@ -47,13 +48,13 @@ export function BottomNav() {
         </li>
         <li>
           <Link to="/map" className={item} activeProps={active}>
-            <MapPin className="h-6 w-6" strokeWidth={2} />
+            <MapPin className="h-6 w-6" strokeWidth={1.8} />
             <span>{t("tabs.map")}</span>
           </Link>
         </li>
         <li>
           <Link to="/profile" className={item} activeProps={active}>
-            <UserAvatar name={name} path={me.data?.avatar_path} size={24} className="bg-muted-foreground/40" />
+            <UserAvatar name={name} path={me.data?.avatar_path} size={24} className="bg-secondary text-foreground" />
             <span>{t("tabs.profile")}</span>
           </Link>
         </li>

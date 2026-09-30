@@ -135,7 +135,7 @@ function Welcome({ go }: { go: (s: Step) => void }) {
       </div>
       <div className="space-y-3">
         {social.map((p) => (
-          <button key={p} type="button" disabled={!!busy} onClick={() => void oauth(p)} className={cn(pill, "bg-white text-black")}>
+          <button key={p} type="button" disabled={!!busy} onClick={() => void oauth(p)} className={cn(pill, "bg-foreground text-background")}>
             {p === "google" ? <GoogleIcon /> : <AppleIcon />}
             {t(p === "google" ? "auth.google" : "auth.apple")}
           </button>

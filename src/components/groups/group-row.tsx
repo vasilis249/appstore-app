@@ -10,7 +10,7 @@ export function GroupTile({ section, size = 48 }: { section: string; size?: numb
   const { icon } = useSections();
   const Icon = icon(section);
   return (
-    <span className="grid shrink-0 place-items-center rounded-2xl bg-secondary text-coral" style={{ width: size, height: size }}>
+    <span className="grid shrink-0 place-items-center rounded-2xl bg-secondary text-link" style={{ width: size, height: size }}>
       <Icon style={{ width: size * 0.45, height: size * 0.45 }} />
     </span>
   );

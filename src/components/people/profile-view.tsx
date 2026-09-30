@@ -43,7 +43,7 @@ export function ProfileView({ person, isMe, ownAction }: { person: Person; isMe:
         ) : (
           isMe &&
           campus.loaded && (
-            <Link to="/student" className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-[#0a84ff]">
+            <Link to="/student" className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-link">
               <GraduationCap className="h-4 w-4" /> {t("student.cta")}
             </Link>
           )

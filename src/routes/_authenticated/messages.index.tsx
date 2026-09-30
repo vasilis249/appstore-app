@@ -76,7 +76,7 @@ function MessagesPage() {
               subtitle={subtitle(th)}
               onOpen={() => void navigate({ to: "/messages/$userId", params: { userId: th.other_id } })}
             >
-              {th.unheard > 0 && <span className="h-3 w-3 rounded-full bg-coral" aria-hidden />}
+              {th.unheard > 0 && <span className="h-3 w-3 rounded-full bg-live" aria-hidden />}
             </PersonRow>
           ))}
         </ul>
