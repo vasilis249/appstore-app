@@ -1,7 +1,8 @@
 // People: follows, search, lists, blocks, reports. (File name kept from the friends era.)
 import { supabase } from "@/integrations/supabase/client";
+import { STUDENT_COLUMNS, type StudentFields } from "@/lib/campus";
 
-export interface Person {
+export interface Person extends StudentFields {
   id: string;
   username: string;
   full_name: string;
@@ -59,7 +60,7 @@ export async function profileStats(user: string): Promise<ProfileStats | null> {
 export async function profileByUsername(username: string): Promise<Person | null> {
   const { data, error } = await supabase
     .from("profiles")
-    .select("id, username, full_name, avatar_path")
+    .select(`id, username, full_name, avatar_path, ${STUDENT_COLUMNS}`)
     .eq("username", username)
     .maybeSingle();
   if (error) throw new Error(error.message);
@@ -101,5 +102,9 @@ export function rpcErrorKey(err: unknown): string {
   if (msg.includes("profiles_username_check")) return "rpcErrors.usernameFormat";
   if (msg.includes("not_allowed") || msg.includes("not_friends")) return "rpcErrors.notAllowed";
   if (msg.includes("not_found") || msg.includes("not_available")) return "rpcErrors.notFound";
+  if (msg.includes("not_academic")) return "rpcErrors.notAcademic";
+  if (msg.includes("email_taken")) return "rpcErrors.emailTaken";
+  if (msg.includes("too_many")) return "rpcErrors.tooManyCodes";
+  if (msg.includes("daily_limit") || msg.includes("mail_not_configured") || msg.includes("mail_failed")) return "rpcErrors.mailUnavailable";
   return "errors.generic";
 }

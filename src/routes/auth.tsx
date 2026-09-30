@@ -453,7 +453,7 @@ function UsernameStep({ user }: { user: User }) {
     const { error: e } = await supabase.from("profiles").update({ username }).eq("id", user.id);
     setLoading(false);
     if (e) return setError(t(rpcErrorKey(new Error(`${e.message} ${e.details ?? ""}`))));
-    void navigate({ to: "/", replace: true });
+    void navigate({ to: "/student", search: { welcome: 1 }, replace: true });
   }
 
   return (
@@ -461,7 +461,7 @@ function UsernameStep({ user }: { user: User }) {
       title={t("auth.usernameTitle")}
       subtitle={t("auth.usernameHint")}
       right={
-        <button type="button" onClick={() => void navigate({ to: "/", replace: true })} className="text-[17px] font-medium">
+        <button type="button" onClick={() => void navigate({ to: "/student", search: { welcome: 1 }, replace: true })} className="text-[17px] font-medium">
           {t("auth.skip")}
         </button>
       }

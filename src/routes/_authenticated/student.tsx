@@ -1,0 +1,274 @@
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useTranslation } from "react-i18next";
+import { Check, GraduationCap } from "lucide-react";
+import { BigInput, FieldNote, StepShell } from "@/components/auth/step-shell";
+import { useMyProfile } from "@/hooks/use-my-profile";
+import { sendStudentCode } from "@/lib/api/student.functions";
+import { clearStudentIdentity, setStudentInfo, useCampus, verifyStudentCode } from "@/lib/campus";
+import { friendKeys, rpcErrorKey } from "@/lib/friends";
+import { cn } from "@/lib/utils";
+
+export const Route = createFileRoute("/_authenticated/student")({
+  validateSearch: (s: Record<string, unknown>): { welcome?: 1 } => ({ welcome: s.welcome ? 1 : undefined }),
+  component: StudentPage,
+});
+
+type Step = "manage" | "email" | "code" | "school" | "year";
+
+/**
+ * Student identity, one question per screen: academic email → 6-digit code → school → year.
+ * `?welcome=1` right after sign-up (with "Skip"); from Settings it opens on what you have, with change / remove.
+ */
+function StudentPage() {
+  const { t, i18n } = useTranslation();
+  const search = Route.useSearch();
+  const navigate = useNavigate();
+  const qc = useQueryClient();
+  const me = useMyProfile();
+  const campus = useCampus();
+  const send = useServerFn(sendStudentCode);
+  const verified = !!me.data?.university_id;
+
+  const [step, setStep] = useState<Step | null>(null);
+  const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
+  const [school, setSchool] = useState<string | null>(null);
+  const [year, setYear] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [confirmRemove, setConfirmRemove] = useState(false);
+
+  useEffect(() => {
+    if (step || !me.data) return;
+    setSchool(me.data.department_id ?? null);
+    setYear(me.data.study_year ?? null);
+    setStep(verified ? (me.data.department_id ? "manage" : "school") : "email");
+  }, [me.data, step, verified]);
+
+  const leave = () => void navigate({ to: search.welcome ? "/" : "/profile", replace: true });
+  const refresh = () => qc.invalidateQueries({ queryKey: ["profile"] }).then(() => qc.invalidateQueries({ queryKey: friendKeys.all }));
+  const go = (s: Step) => {
+    setError(null);
+    setStep(s);
+  };
+
+  async function sendCode() {
+    setError(null);
+    setLoading(true);
+    try {
+      await send({ data: { email, lang: i18n.language.startsWith("en") ? "en" : "el" } });
+      setCode("");
+      go("code");
+    } catch (e) {
+      setError(t(rpcErrorKey(e)));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function checkCode() {
+    setError(null);
+    setLoading(true);
+    try {
+      const r = await verifyStudentCode(code);
+      if (r === "ok") {
+        await refresh();
+        go("school");
+      } else setError(t(`student.codeErrors.${r}`));
+    } catch (e) {
+      setError(t(rpcErrorKey(e)));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function saveInfo() {
+    setLoading(true);
+    try {
+      await setStudentInfo(school, year);
+      await refresh();
+      leave();
+    } catch (e) {
+      setError(t(rpcErrorKey(e)));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function remove() {
+    if (!confirmRemove) return setConfirmRemove(true);
+    setLoading(true);
+    try {
+      await clearStudentIdentity();
+      await refresh();
+      leave();
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const skip = search.welcome ? (
+    <button type="button" onClick={leave} className="text-[17px] font-medium">
+      {t("auth.skip")}
+    </button>
+  ) : undefined;
+  const uniId = me.data?.university_id ?? "ntua";
+  const schools = campus.departments.filter((d) => d.university_id === uniId);
+  const maxYear = campus.dep(school)?.years ?? 5;
+
+  if (!step) return null;
+
+  if (step === "manage")
+    return (
+      <StepShell
+        onBack={leave}
+        title={t("student.manageTitle")}
+        subtitle={t("student.manageHint")}
+        action={t("student.change")}
+        onSubmit={() => go("school")}
+        above={
+          <button
+            type="button"
+            disabled={loading}
+            onClick={() => void remove()}
+            className={cn("mb-2 h-12 w-full rounded-full text-[15px] font-semibold", confirmRemove ? "bg-destructive text-white" : "text-destructive")}
+          >
+            {confirmRemove ? t("student.removeConfirm") : t("student.remove")}
+          </button>
+        }
+      >
+        <div className="flex items-center gap-4 rounded-2xl bg-secondary p-4">
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
+            <GraduationCap className="h-6 w-6" />
+          </span>
+          <div className="min-w-0">
+            <p className="font-semibold leading-snug">{campus.uniName(me.data?.university_id)}</p>
+            <p className="text-sm text-muted-foreground">
+              {[campus.depName(me.data?.department_id), me.data?.study_year ? t(`student.years.${me.data.study_year}`) : null]
+                .filter(Boolean)
+                .join(" · ")}
+            </p>
+          </div>
+        </div>
+      </StepShell>
+    );
+
+  if (step === "email")
+    return (
+      <StepShell
+        onBack={search.welcome ? undefined : leave}
+        right={skip}
+        title={t("student.emailTitle")}
+        subtitle={t("student.emailHint")}
+        action={t("student.sendCode")}
+        disabled={!/^\S+@\S+\.\S+$/.test(email)}
+        loading={loading}
+        onSubmit={() => void sendCode()}
+      >
+        <BigInput
+          type="email"
+          inputMode="email"
+          autoFocus
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
+          enterKeyHint="send"
+          placeholder="el19001@mail.ntua.gr"
+          value={email}
+          onChange={(e) => setEmail(e.target.value.trim())}
+        />
+        {error ? <FieldNote error>{error}</FieldNote> : <FieldNote>{t("student.emailPrivacy")}</FieldNote>}
+      </StepShell>
+    );
+
+  if (step === "code")
+    return (
+      <StepShell
+        onBack={() => go("email")}
+        right={skip}
+        title={t("student.codeTitle")}
+        subtitle={t("student.codeHint", { email })}
+        action={t("student.verify")}
+        disabled={!/^\d{6}$/.test(code)}
+        loading={loading}
+        onSubmit={() => void checkCode()}
+      >
+        <BigInput
+          inputMode="numeric"
+          autoComplete="one-time-code"
+          autoFocus
+          maxLength={6}
+          placeholder="000000"
+          className="tracking-[0.3em]"
+          value={code}
+          onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+        />
+        {error && <FieldNote error>{error}</FieldNote>}
+        <button type="button" disabled={loading} onClick={() => void sendCode()} className="mt-5 text-[15px] font-semibold text-[#0a84ff]">
+          {t("student.resend")}
+        </button>
+      </StepShell>
+    );
+
+  if (step === "school")
+    return (
+      <StepShell
+        onBack={verified && me.data?.department_id ? () => go("manage") : undefined}
+        right={skip}
+        title={t("student.schoolTitle")}
+        subtitle={campus.uniName(uniId)}
+        action={t("auth.continue")}
+        disabled={!school}
+        onSubmit={() => go("year")}
+      >
+        <ul className="-mx-1 space-y-1">
+          {schools.map((d) => (
+            <li key={d.id}>
+              <button
+                type="button"
+                onClick={() => setSchool(d.id)}
+                aria-pressed={school === d.id}
+                className={cn("flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left", school === d.id ? "bg-secondary" : "active:bg-secondary/60")}
+              >
+                <span className="min-w-0 flex-1">
+                  <span className="block font-semibold leading-snug">{i18n.language.startsWith("en") ? d.short_en : d.short_el}</span>
+                  <span className="block text-sm leading-snug text-muted-foreground">{i18n.language.startsWith("en") ? d.name_en : d.name_el}</span>
+                </span>
+                {school === d.id && <Check className="h-5 w-5 shrink-0" />}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </StepShell>
+    );
+
+  return (
+    <StepShell
+      onBack={() => go("school")}
+      right={skip}
+      title={t("student.yearTitle")}
+      subtitle={t("student.yearHint")}
+      action={t("student.done")}
+      loading={loading}
+      onSubmit={() => void saveInfo()}
+    >
+      <div className="flex flex-wrap gap-2">
+        {[...Array.from({ length: maxYear }, (_, i) => i + 1), 6, 7].map((y) => (
+          <button
+            key={y}
+            type="button"
+            onClick={() => setYear(year === y ? null : y)}
+            aria-pressed={year === y}
+            className={cn("h-11 rounded-full px-5 text-[15px] font-semibold", year === y ? "bg-primary text-primary-foreground" : "bg-secondary")}
+          >
+            {t(`student.years.${y}`)}
+          </button>
+        ))}
+      </div>
+      {error && <FieldNote error>{error}</FieldNote>}
+    </StepShell>
+  );
+}

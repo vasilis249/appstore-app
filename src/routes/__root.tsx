@@ -139,7 +139,7 @@ function RootComponent() {
   const queue = useQueue();
   const path = useRouterState({ select: (s) => s.location.pathname });
   // Screens with their own bottom controls hide the nav (conversation, sign-in steps) or the player (composer).
-  const navShown = !/^\/(messages|talk)\/./.test(path) && !AUTH_PATHS.test(path);
+  const navShown = !/^\/(messages|talk)\/./.test(path) && !AUTH_PATHS.test(path) && path !== "/student";
   const playerShown = queue.index >= 0 && navShown && path !== "/record";
 
   useEffect(() => {

@@ -20,7 +20,7 @@ export function BottomNav() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   // A conversation has its own composer at the bottom; sign-in steps have their own button.
   // The composer is a focused screen (its own push-to-talk button and Publish at the bottom).
-  if (!user || /^\/(messages|talk)\/./.test(path) || AUTH_PATHS.test(path) || path === "/record") return null;
+  if (!user || /^\/(messages|talk)\/./.test(path) || AUTH_PATHS.test(path) || path === "/record" || path === "/student") return null;
 
   const name = me.data?.full_name || me.data?.username || (user.user_metadata?.full_name as string | undefined) || "?";
   const item =

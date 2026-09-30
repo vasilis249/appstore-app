@@ -247,6 +247,30 @@ User decisions:
   hand-made join); live policy check (rolled back): friends rw, outsider --, after unfollow --. NOT verified: the
   real Realtime server (the container's proxy can't do WebSockets) and a real iPhone (WKWebView ScriptProcessor,
   audio route/earpiece with play-and-record, background) → user test with two accounts.
+- **Campus-first, NTUA first (user request 2026-09-30: target college students, start with ΕΜΠ)** — playbook: verified
+  students only, each university its own world, one campus at a time. Plan (stop for "OK" after each): **N1** student
+  identity ✔ → **N2** campus-first Home (Campus tab = your university's voices, student sections, badges on cards,
+  campus topic of the day, NTUA announcements RSS) → **N3** auto groups per school/year + classmates in suggestions →
+  **N4** growth (waitlist/unlock, invite links, ambassadors, campus moderators) + Terms. Blockers outside code: Apple
+  Developer Program (99 $/yr) for TestFlight — else students use the web app; Brevo (or other) for the code emails.
+  **N1 ✔** migration `20261016100000_campus_identity.sql`: `universities` (id, names/shorts el+en, `email_domains`
+  — an address @d or @<sub>.d, `open`) + `departments` (NTUA's 9 schools: ntua-ece ΗΜΜΥ, mech, civil, chem, arch, rsge
+  ΑΤΜ, naval, mining ΜΜΜ, semfe ΣΕΜΦΕ; 5 years), read-only for signed-in users. `profiles.university_id,
+  department_id, study_year (1–5, 6 master's, 7 PhD), student_verified_at` (not client-writable: the column grant
+  covers only username/full_name/avatar_path). `private.student_emails` (sha256 of the address, one account each),
+  `private.student_codes` (hash, 15 min, 5 tries, 5 sends/hour/user, 300/day overall). `public.student_code_issue`
+  (guard: service role only → `private.student_code_issue`), `verify_student_code(code)` → 'ok' | 'bad_code' |
+  'expired' | 'too_many' | 'no_code' | 'email_taken' (a status, so wrong tries count), `set_student_info(dept,
+  year)`, `clear_student_identity()`. Server fn `src/lib/api/student.functions.ts` `sendStudentCode({email, lang})`:
+  crypto 6-digit code → RPC → Brevo `POST /v3/smtp/email` (Worker secrets `BREVO_API_KEY`, `MAIL_FROM_EMAIL` =
+  a Brevo-verified sender; NOT SET YET → "mail unavailable"); `EMAIL_DEV_LOG=1` (local serve.sh only) logs the code.
+  `src/lib/campus.ts` (`useCampus()` names/`label()` "ΕΜΠ · ΗΜΜΥ", `StudentFields`, `STUDENT_COLUMNS`, RPC wrappers).
+  UI `/student` (StepShell steps: academic email → code (one-time-code, resend) → school list → year pills → back to
+  profile; from Settings: manage card + change / remove (tap twice); `?welcome=1` right after the sign-up username step
+  with Skip; nav hidden), ProfileView badge (GraduationCap pill) or, on your own profile, "Επιβεβαίωσε ότι σπουδάζεις στο
+  ΕΜΠ" link, Settings row "Φοιτητική ταυτότητα". i18n `student.*`, `rpcErrors.notAcademic/emailTaken/tooManyCodes/
+  mailUnavailable`; Privacy (el/en) + student identity. Tests `test_campus.sql` 23; browser `student-flow.mjs` 10/10
+  (code read from the wrangler log), `auth-shots.mjs` 15/15 (+ scratchpad `seed-auth.sh`).
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -374,7 +398,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (19) + `test_campus.sql` (23).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

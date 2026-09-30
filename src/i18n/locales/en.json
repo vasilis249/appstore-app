@@ -202,6 +202,7 @@
           "body": [
             "Account: email, full name and password, stored only in hashed form.",
             "Profile: username (@username), name and profile photo (optional).",
+            "Student identity (optional): university, school and year of study. To confirm it we send a code to your university email; the email is not stored — we keep only an irreversible fingerprint (hash) so that each university email matches one account. You can remove it at any time in Settings.",
             "Public voices: the recordings you post (up to 2 minutes), their title, section and topic, the time of posting, and your voice replies, reposts and quotes. Your voice is personal data because it can identify you and reveal information about you.",
             "Activity: who you follow and who follows you, likes, which voices you have played (for the listen counter, once per voice), blocks, reports you make or that are made about you, in-app notifications.",
             "Voice messages: the audio of each message is stored only until the recipient plays it, together with sender, recipient, time sent and whether it was played.",
@@ -226,6 +227,7 @@
           "heading": "Who can see your data",
           "body": [
             "Other users: your name, @username, photo, public voices (with title, time, likes, replies, reposts and listen count) and follower lists are visible to every signed-in user. Who played or liked a voice is not shown. Your email is never shown.",
+            "Your university, school and year (if you added them) are shown on your profile to every signed-in user.",
             "Audio files of public voices are stored under a random, unguessable link: anyone who obtains a file's link can play it. Voice messages are not stored under such a link and only the recipient can play them, once. Walkie-talkie transmissions are not stored under such a link; only you and your friend can play them.",
             "People you block cannot see your content or contact you.",
             "Speak administrators: have access only as needed for support and for reviewing reports (e.g. playing a public voice that was reported). Voice messages are not available in the admin tools. The same goes for the walkie-talkie."
@@ -409,7 +411,11 @@
     "usernameTaken": "That username is taken.",
     "usernameFormat": "3–20 characters: a–z, 0–9, . and _",
     "notAllowed": "Not allowed.",
-    "notFound": "Not found."
+    "notFound": "Not found.",
+    "notAcademic": "You need an NTUA university email (…@mail.ntua.gr).",
+    "emailTaken": "This email is already used by another account.",
+    "tooManyCodes": "You asked for many codes. Try again in a while.",
+    "mailUnavailable": "Couldn't send email right now. Try again later."
   },
   "voice": {
     "delete": "Delete",
@@ -686,5 +692,42 @@
     "noHistory": "Nothing yet. What you say stays here for 24 hours.",
     "you": "You",
     "yielded": "{{name}} spoke first"
+  },
+  "student": {
+    "cta": "Confirm you study at NTUA",
+    "settingsRow": "Student identity",
+    "emailTitle": "Do you study at NTUA?",
+    "emailHint": "Confirm it with your university email to join the campus.",
+    "emailPrivacy": "We'll send you a code. Your email isn't stored or shown anywhere.",
+    "sendCode": "Send code",
+    "codeTitle": "Enter the code",
+    "codeHint": "We sent it to {{email}}. It's valid for 15 minutes.",
+    "verify": "Verify",
+    "resend": "Send again",
+    "schoolTitle": "Which school?",
+    "yearTitle": "Which year?",
+    "yearHint": "Optional. It helps you find classmates.",
+    "done": "Done",
+    "manageTitle": "Student identity",
+    "manageHint": "Shown on your profile as \"NTUA · school\".",
+    "change": "Change school or year",
+    "remove": "Remove",
+    "removeConfirm": "Tap again to remove",
+    "years": {
+      "1": "1st",
+      "2": "2nd",
+      "3": "3rd",
+      "4": "4th",
+      "5": "5th",
+      "6": "Master's",
+      "7": "PhD"
+    },
+    "codeErrors": {
+      "bad_code": "Wrong code.",
+      "expired": "The code expired. Ask for a new one.",
+      "too_many": "Too many wrong tries. Ask for a new code.",
+      "no_code": "Ask for a code first.",
+      "email_taken": "This email is already used by another account."
+    }
   }
 }

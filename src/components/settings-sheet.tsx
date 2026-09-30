@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Ban, ChevronRight, FileText, Flag, LogOut, Mail, Megaphone, Shield } from "lucide-react";
+import { Ban, ChevronRight, FileText, Flag, GraduationCap, LogOut, Mail, Megaphone, Shield } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { adminKeys, amIAdmin, openReportsCount, reportKeys } from "@/lib/admin";
 import { useState } from "react";
@@ -82,7 +82,13 @@ export function SettingsSheet({
             </div>
           )}
 
-          <div className="rounded-2xl bg-secondary">
+          <div className="divide-y divide-border rounded-2xl bg-secondary">
+            <Link to="/student" onClick={() => onOpenChange(false)} className={row}>
+              <span className="inline-flex items-center gap-3">
+                <GraduationCap className="h-4 w-4 text-muted-foreground" /> {t("student.settingsRow")}
+              </span>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </Link>
             <button type="button" onClick={() => setBlockedOpen(true)} className={`${row} w-full`}>
               <span className="inline-flex items-center gap-3">
                 <Ban className="h-4 w-4 text-muted-foreground" /> {t("settings.blocked")}

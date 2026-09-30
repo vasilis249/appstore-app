@@ -47,6 +47,47 @@ export type Database = {
           },
         ]
       }
+      departments: {
+        Row: {
+          id: string
+          name_el: string
+          name_en: string
+          position: number
+          short_el: string
+          short_en: string
+          university_id: string
+          years: number
+        }
+        Insert: {
+          id: string
+          name_el: string
+          name_en: string
+          position?: number
+          short_el: string
+          short_en: string
+          university_id: string
+          years?: number
+        }
+        Update: {
+          id?: string
+          name_el?: string
+          name_en?: string
+          position?: number
+          short_el?: string
+          short_en?: string
+          university_id?: string
+          years?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "departments_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       follows: {
         Row: {
           created_at: string
@@ -444,28 +485,55 @@ export type Database = {
         Row: {
           avatar_path: string | null
           created_at: string
+          department_id: string | null
           disabled: boolean
           full_name: string
           id: string
+          student_verified_at: string | null
+          study_year: number | null
+          university_id: string | null
           username: string
         }
         Insert: {
           avatar_path?: string | null
           created_at?: string
+          department_id?: string | null
           disabled?: boolean
           full_name?: string
           id: string
+          student_verified_at?: string | null
+          study_year?: number | null
+          university_id?: string | null
           username: string
         }
         Update: {
           avatar_path?: string | null
           created_at?: string
+          department_id?: string | null
           disabled?: boolean
           full_name?: string
           id?: string
+          student_verified_at?: string | null
+          study_year?: number | null
+          university_id?: string | null
           username?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profiles_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       reports: {
         Row: {
@@ -623,6 +691,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      universities: {
+        Row: {
+          city: string | null
+          email_domains: string[]
+          id: string
+          name_el: string
+          name_en: string
+          open: boolean
+          position: number
+          short_el: string
+          short_en: string
+        }
+        Insert: {
+          city?: string | null
+          email_domains: string[]
+          id: string
+          name_el: string
+          name_en: string
+          open?: boolean
+          position?: number
+          short_el: string
+          short_en: string
+        }
+        Update: {
+          city?: string | null
+          email_domains?: string[]
+          id?: string
+          name_el?: string
+          name_en?: string
+          open?: boolean
+          position?: number
+          short_el?: string
+          short_en?: string
+        }
+        Relationships: []
       }
       voice_messages: {
         Row: {
@@ -804,6 +908,7 @@ export type Database = {
       }
       am_i_admin: { Args: never; Returns: boolean }
       block_user: { Args: { p_user: string }; Returns: undefined }
+      clear_student_identity: { Args: never; Returns: undefined }
       consume_voice_message: {
         Args: { p_id: string }
         Returns: {
@@ -1099,6 +1204,14 @@ export type Database = {
         Args: { p_group: string; p_role: string; p_user: string }
         Returns: undefined
       }
+      set_student_info: {
+        Args: { p_department: string; p_year: number }
+        Returns: undefined
+      }
+      student_code_issue: {
+        Args: { p_code: string; p_email: string; p_user: string }
+        Returns: string
+      }
       suggested_people: {
         Args: { p_limit?: number }
         Returns: {
@@ -1150,6 +1263,7 @@ export type Database = {
         }
         Returns: undefined
       }
+      verify_student_code: { Args: { p_code: string }; Returns: string }
       walkie_audio: {
         Args: { p_id: string }
         Returns: {

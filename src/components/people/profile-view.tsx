@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { RadioTower, Send } from "lucide-react";
+import { GraduationCap, RadioTower, Send } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { FollowButton } from "@/components/friends/follow-button";
 import { FeedList } from "@/components/posts/feed-list";
 import { FollowListSheet, type FollowTab } from "@/components/people/follow-list-sheet";
 import { UserAvatar } from "@/components/user-avatar";
 import { friendKeys, profileStats, type Person } from "@/lib/friends";
+import { useCampus } from "@/lib/campus";
 import { cn } from "@/lib/utils";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 
@@ -20,6 +21,8 @@ export function ProfileView({ person, isMe, ownAction }: { person: Person; isMe:
   const [tab, setTab] = useState<FollowTab | null>(null);
   const [view, setView] = useState<"voices" | "replies">("voices");
   const stats = useQuery({ queryKey: friendKeys.stats(person.id), queryFn: () => profileStats(person.id) });
+  const campus = useCampus();
+  const school = campus.label(person);
   const s = stats.data;
   const name = person.full_name || person.username;
   const count = "flex flex-col items-center";
@@ -33,6 +36,18 @@ export function ProfileView({ person, isMe, ownAction }: { person: Person; isMe:
           @{person.username}
           {!isMe && s?.follows_me && <span className="ml-2 rounded-md bg-secondary px-1.5 py-0.5 text-xs">{t("people.followsYou")}</span>}
         </p>
+        {school ? (
+          <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-sm font-semibold">
+            <GraduationCap className="h-4 w-4" /> {school}
+          </p>
+        ) : (
+          isMe &&
+          campus.loaded && (
+            <Link to="/student" className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-sm font-semibold text-[#0a84ff]">
+              <GraduationCap className="h-4 w-4" /> {t("student.cta")}
+            </Link>
+          )
+        )}
         <div className="mt-4 flex gap-8">
           <div className={count}>
             <span className="text-lg font-bold tabular-nums">{s ? compact.format(s.posts) : "–"}</span>

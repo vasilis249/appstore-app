@@ -22,6 +22,7 @@ import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authen
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedRecordRouteImport } from './routes/_authenticated/record'
 import { Route as AuthenticatedSearchRouteImport } from './routes/_authenticated/search'
+import { Route as AuthenticatedStudentRouteImport } from './routes/_authenticated/student'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin/reports'
 import { Route as AuthenticatedAdminTopicsRouteImport } from './routes/_authenticated/admin/topics'
 import { Route as AuthenticatedGroupsIndexRouteImport } from './routes/_authenticated/groups.index'
@@ -99,6 +100,11 @@ const AuthenticatedRecordRoute = AuthenticatedRecordRouteImport.update({
 const AuthenticatedSearchRoute = AuthenticatedSearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedStudentRoute = AuthenticatedStudentRouteImport.update({
+  id: '/student',
+  path: '/student',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAdminReportsRoute =
@@ -187,6 +193,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof AuthenticatedProfileRoute
   '/record': typeof AuthenticatedRecordRoute
   '/search': typeof AuthenticatedSearchRoute
+  '/student': typeof AuthenticatedStudentRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
   '/groups/new': typeof AuthenticatedGroupsNewRoute
@@ -213,6 +220,7 @@ export interface FileRoutesByTo {
   '/profile': typeof AuthenticatedProfileRoute
   '/record': typeof AuthenticatedRecordRoute
   '/search': typeof AuthenticatedSearchRoute
+  '/student': typeof AuthenticatedStudentRoute
   '/': typeof AuthenticatedIndexRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
@@ -242,6 +250,7 @@ export interface FileRoutesById {
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/record': typeof AuthenticatedRecordRoute
   '/_authenticated/search': typeof AuthenticatedSearchRoute
+  '/_authenticated/student': typeof AuthenticatedStudentRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/admin/topics': typeof AuthenticatedAdminTopicsRoute
@@ -272,6 +281,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/record'
     | '/search'
+    | '/student'
     | '/admin/reports'
     | '/admin/topics'
     | '/groups/new'
@@ -298,6 +308,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/record'
     | '/search'
+    | '/student'
     | '/'
     | '/admin/reports'
     | '/admin/topics'
@@ -326,6 +337,7 @@ export interface FileRouteTypes {
     | '/_authenticated/profile'
     | '/_authenticated/record'
     | '/_authenticated/search'
+    | '/_authenticated/student'
     | '/_authenticated/'
     | '/_authenticated/admin/reports'
     | '/_authenticated/admin/topics'
@@ -445,6 +457,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSearchRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/student': {
+      id: '/_authenticated/student'
+      path: '/student'
+      fullPath: '/student'
+      preLoaderRoute: typeof AuthenticatedStudentRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/reports': {
       id: '/_authenticated/admin/reports'
       path: '/admin/reports'
@@ -545,6 +564,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedRecordRoute: typeof AuthenticatedRecordRoute
   AuthenticatedSearchRoute: typeof AuthenticatedSearchRoute
+  AuthenticatedStudentRoute: typeof AuthenticatedStudentRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
   AuthenticatedAdminTopicsRoute: typeof AuthenticatedAdminTopicsRoute
@@ -567,6 +587,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedRecordRoute: AuthenticatedRecordRoute,
   AuthenticatedSearchRoute: AuthenticatedSearchRoute,
+  AuthenticatedStudentRoute: AuthenticatedStudentRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
   AuthenticatedAdminTopicsRoute: AuthenticatedAdminTopicsRoute,
