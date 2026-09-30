@@ -512,3 +512,9 @@ SELECT pg_temp.ok('19g Gazzetta motor racing counts as sport, car news does not'
   AND private.route_news((SELECT id FROM private.news_feeds WHERE url LIKE '%gazzetta%'), 'https://www.gazzetta.gr/gmotion/2573336/nea-metra-gia-ta-kaysima') IS NULL);
 SELECT pg_temp.ok('19f rules are private', NOT has_table_privilege('authenticated', 'private.news_routes', 'SELECT')
   AND NOT has_function_privilege('authenticated', 'private.route_news(int, text)', 'EXECUTE'));
+SELECT pg_temp.ok('19h sponsored / betting headlines left out of news feeds, not campus ones',
+  private.route_headline((SELECT id FROM private.news_feeds WHERE url LIKE '%gazzetta%'), 'https://www.gazzetta.gr/basketball/2573282/kae-panionios-x-novibet', 'ΚΑΕ Πανιώνιος x Novibet: Season 3. H Ανανέωση') IS NULL
+  AND private.route_headline((SELECT id FROM private.news_feeds WHERE url LIKE '%gazzetta%'), 'https://www.gazzetta.gr/plus/1/x', 'Gwomen Sports Summit 2026: Η bwin αγκαλιάζει') IS NULL
+  AND private.route_headline((SELECT id FROM private.news_feeds WHERE url LIKE '%gazzetta%'), 'https://www.gazzetta.gr/basketball/euroleague/1/x', 'Ζάλγκιρις - Ολυμπιακός 91-93') = 'sports'
+  AND private.route_headline((SELECT id FROM private.news_feeds WHERE university_id = 'ntua' LIMIT 1), 'https://www.ntua.gr/el/news/1', 'Υποτροφίες powered by ΕΜΠ') = 'announcements'
+  AND NOT private.news_is_sponsored('Ο Όπαπας στη Ρώμη') AND private.news_is_sponsored('Προσφορά ΟΠΑΠ'));

@@ -386,6 +386,11 @@ User decisions:
   with no voices were re-routed / removed. Live: 23 rules; before → after: Gazzetta 24 → 20, LiFO lifestyle 24 → 7
   (+15 news), ΕΡΤ 3 → sports, Καθημερινή split over 4 sections. Checked on the real feed files first. Tests speak 118
   (section 19). Add a rule: `INSERT INTO private.news_routes (feed_id, position, pattern, section_id)`.
+  Follow-up `20261020100100_news_routing_voiced.sql` (user's screenshot: "αλκοτέστ" + "Πανιώνιος x Novibet" still in
+  Αθλητικά): `private.news_is_sponsored(title)` (betting brands, ΟΠΑΠ, "powered by", sponsored…) →
+  `private.route_headline(feed, url, title)` drops those from non-campus feeds, used by `ingest_feed_xml`; the re-file
+  now also moves headlines WITH voices (their posts' section_id follows; a dropped route → Gazzetta lifestyle, else
+  news). Live: αλκοτέστ → Lifestyle, Flydubai → Επικαιρότητα, Novibet removed. Tests speak 119.
 - **Email (2026-09-30)**: Brevo (free, 300/day, sender `vasilis.har@gmail.com`). Worker secrets `BREVO_API_KEY` +
   `MAIL_FROM_EMAIL` set (student codes). Supabase Auth custom SMTP = `smtp-relay.brevo.com:587`, user
   `bbd8b8001@smtp-brevo.com`, the SMTP key, sender name Speak, 100 emails/h; `mailer_autoconfirm` still true
