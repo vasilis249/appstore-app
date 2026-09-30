@@ -98,6 +98,11 @@
 	<string>With "Always", people you chose can still see you on the Speak map when the app is closed. You can turn sharing off at any time in Speak.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>With "Always", people you chose can still see you on the Speak map when the app is closed. You can turn sharing off at any time in Speak.</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>SpeakMap</key>
+		<string>Speak needs your precise location so the map shows exactly where you are, to you and to the friends you share with.</string>
+	</dict>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Speak uses the microphone to record the voice posts, replies and messages you choose to share.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

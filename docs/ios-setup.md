@@ -40,7 +40,8 @@ Authentication → URL Configuration set Site URL = that URL, Redirect URLs = `<
 ```bash
 bun install         # after pulling: picks up new plugins (e.g. background location)
 bun run ios:sync    # after any change to capacitor.config.ts, .env CAP_* values or plugins
-                    # (also patches plugins whose Swift package pins an older Capacitor: scripts/patch-native-plugins.mjs)
+                    # (also patches plugins whose Swift package pins an older Capacitor, and makes the location plugin
+                    #  ask for temporary Precise Location when it is off: scripts/patch-native-plugins.mjs)
 bun run ios:open    # opens ios/App/App.xcodeproj in Xcode
 ```
 

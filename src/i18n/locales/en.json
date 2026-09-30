@@ -260,7 +260,7 @@
           "body": [
             "Only if you turn it on (Profile → ⚙︎ → “Location”), the app sends your exact position (latitude/longitude, accuracy, heading, speed), also with the app closed if you allow “Always”. Legal basis: your consent (Art. 6(1)(a) GDPR), which you withdraw at any time by turning it off.",
             "Who sees it: with “Friends only”, people you follow each other with; with “Everyone nearby”, also any user within 500 m of you who shares their location too, together with your name, @username and photo. The distance is measured from the other person's real position, not from a point they pick.",
-            "We keep only your latest position (no history). It is hidden if not updated for 15 minutes and deleted after 1 hour, immediately when you turn sharing off, and when you delete your account. People you have blocked don't see you."
+            "We keep only your latest position (no history), with its accuracy. Your friends see it with its time for up to 1 hour (like Find My); everyone else only if it is less than 15 minutes old. While you stand still the app re-sends it once a minute so it shows as current. It is deleted after 1 hour, immediately when you turn sharing off, and when you delete your account. People you have blocked don't see you."
           ]
         },
         {
@@ -853,8 +853,8 @@
     "deniedWeb": "Allow location for this page in your browser's settings.",
     "updated": "Your position was updated {{when}}",
     "waiting": "Waiting for your first position…",
-    "alwaysHint": "To be seen with the app closed, choose “Always” when your iPhone asks. Your position is hidden if it isn't updated for 15 minutes.",
-    "webHint": "On the web your position is sent only while the page is open. It's hidden if not updated for 15 minutes.",
+    "alwaysHint": "To be seen with the app closed, choose “Always” when your iPhone asks. Friends see your last position with its time for up to 1 hour; everyone else only if it is less than 15 minutes old.",
+    "webHint": "On the web your position is sent only while the page is open. Friends see your last position with its time for up to 1 hour.",
     "bgTitle": "Speak: sharing location",
     "bgMessage": "Your position shows on the map as you set it."
   },
@@ -875,7 +875,13 @@
     "nearbyTab": "Near me",
     "noFriends": "None of your friends is sharing their location right now.",
     "directions": "Directions",
-    "deniedTitle": "Location access is off"
+    "deniedTitle": "Location access is off",
+    "now": "Now",
+    "lastSeen": "last seen {{when}} ago",
+    "accuracy": "Accuracy ±{{distance}}",
+    "approxTitle": "Your position is approximate (±{{accuracy}})",
+    "approxIos": "On iPhone: Settings → Speak → Location → turn on “Precise Location” for an accuracy of a few metres, like Find My.",
+    "approxWeb": "This device only gives an approximate position. In the phone app, with GPS, it is accurate to a few metres."
   },
   "nearby": {
     "hold": "Hold and talk",

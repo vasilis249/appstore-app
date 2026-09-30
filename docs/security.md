@@ -54,7 +54,8 @@ schema change.
   role — anon can't call it; `claim_invite` works once, only for accounts younger than 7 days, and makes the two
   friends.
 - **Live map / push to talk nearby**: positions only in `private.user_locations` (latest only, no client access,
-  hidden after 15 min, deleted after 1 h); `map_people` measures the radius from your own stored position and needs
+  friends see a last known position with its age for up to 1 h, everyone else only < 15 min old, deleted after 1 h;
+  a phone standing still re-sends its last fix once a minute); `map_people` measures the radius from your own stored position and needs
   you to share too. Talking: every transmission starts with `nearby_knock`, which checks `private.may_send_nearby`
   (both sharing, ≤ 500 m, not blocked/disabled, the other's "who can talk to you" setting, or an answer within
   5 min) and signals only the recipient's inbox topic `nearby-in:<id>` via `realtime.send` (clients can't write

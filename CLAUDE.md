@@ -435,6 +435,29 @@ User decisions:
   card = NearbyTalk; recenter button; `?u=` of a non-friend opens «Κοντά μου» at 500 m. `LiveMap(me, meFace, radius |
   null, people, focus {key, target me|radius|point}, talking)`. Browser `map-flow.mjs` 11/11, nearby 10/10,
   location 6/6, walkie-hub 12/12. NOT verified: tiles in the container (black there) and the foreground watcher on iOS.
+  **Map precision like Find My ✔ (user request)** — the plugin already asks Core Location for `Best` accuracy
+  (`BestForNavigation` when charging) and never pauses; the losses were ours. Migration `20261024100000_map_last_seen.sql`:
+  `map_people` shows friends' LAST KNOWN position for up to 1 h (with `updated_at`, `accuracy_m`), strangers only
+  < 15 min (from both sides), can_talk only when both fresh; your own position may be up to 1 h old for friends.
+  `tracker.ts`: sends when moved > max(8 m, the fix's error ≤ 50 m), when a fix is clearly more precise (< 0.6× the
+  last sent error), every 30 s while drifting ≥ 3 m, plus a 60 s heartbeat re-sending the newest fix while standing
+  still (iOS gives no fixes then); ignores a much worse fix right after a good one (Wi-Fi/cell jump); native
+  distanceFilter 5 (was 10); web `maximumAge 0`; while sharing, the map's foreground fixes also feed the shared
+  position; `LocalFix.course` while moving; `APPROXIMATE_M` 500. `scripts/patch-native-plugins.mjs` also patches the
+  plugin's Swift: `requestTemporaryFullAccuracyAuthorization(withPurposeKey: "SpeakMap")` when
+  `accuracyAuthorization == .reducedAccuracy` (in addWatcher when authorized, and after the user allows), Info.plist
+  `NSLocationTemporaryUsageDescriptionDictionary` → SpeakMap (not compiled in the container: no swiftc; plain
+  CoreLocation API, deployment target 15). `lib/location/compass.ts` (`enableCompass` from the ◎ tap: iOS motion
+  permission, `webkitCompassHeading` / Android `deviceorientationabsolute`). `LiveMap`: me = photo + blue ring + ping
+  + accuracy halo + direction beam (compass, else course); markers glide (900 ms ease, big jumps snap); light halo
+  around people with accuracy > 20 m (green friends / grey others); old position = faded, grey ring, label
+  "Νίκος · 30λ". `/map`: refetch 5 s; distances from THIS phone's live fix (haversine), friends strip sorted by it and
+  showing the age when old; card "3 χλμ μακριά · Τώρα | τελευταία θέση πριν 30λ" + "Ακρίβεια ±10 μ"; card «Η θέση σου
+  είναι κατά προσέγγιση (±1,5 χλμ)» once rough for 8 s (iOS → Ρυθμίσεις button). Privacy (el/en) + location hints
+  updated (friends 1 h / others 15 min / heartbeat). Tests location 26; browser `precision-flow.mjs` 7/7, map 11/11,
+  nearby 10/10 (one earlier flaky run, three clean since), location 6/6. Live smoke (rolled back): friend 40 min shown
+  with accuracy, stranger 20 min hidden. NOT verified: iPhone (patch compile, precise prompt, compass, heartbeat in
+  the background).
   **L3 ✔ (push to talk on the map)** migration `20261023100000_nearby_talk.sql`: `private.nearby_knocks` (last knock per
   pair), `public.nearby_messages` + `private.nearby_audio` (24 h, like walkie), `private.may_talk_nearby(a, b)`
   (are_nearby + nobody disabled + b's talk_from), `knocked_recently(a, b)` (5 min), `may_send_nearby` (may talk, or
@@ -591,7 +614,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79) + `test_location.sql` (21) + `test_nearby.sql` (28).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79) + `test_location.sql` (26) + `test_nearby.sql` (28).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

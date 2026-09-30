@@ -12,7 +12,8 @@ import { useMyProfile } from "@/hooks/use-my-profile";
 import { locationKeys, mapPeople, mySharing, type MapPerson } from "@/lib/location/api";
 import { formatDistance } from "@/lib/location/format";
 import { nearbyPerson } from "@/lib/location/nearby";
-import { localFix, onLocalFix, openLocationSettings, watchLocal, type LocalFix } from "@/lib/location/tracker";
+import { compassHeading, enableCompass, onCompass } from "@/lib/location/compass";
+import { APPROXIMATE_M, localFix, metres, onLocalFix, openLocationSettings, watchLocal, type LocalFix } from "@/lib/location/tracker";
 import { isNativeApp } from "@/lib/native";
 import { timeAgoShort } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
@@ -35,25 +36,40 @@ function directionsUrl(lat: number, lng: number) {
 function useLocalFix() {
   const [fix, setFix] = useState<LocalFix | null>(localFix);
   const [denied, setDenied] = useState(false);
+  // The first fixes are often rough for a few seconds: only call it "approximate" once it stays so.
+  const [settled, setSettled] = useState(false);
   useEffect(() => {
     const off = onLocalFix((f) => {
       setFix(f);
       setDenied(false);
     });
     const stop = watchLocal(() => setDenied(true));
+    const timer = setTimeout(() => setSettled(true), 8_000);
     return () => {
       off();
       stop();
+      clearTimeout(timer);
     };
   }, []);
-  return { fix, denied };
+  return { fix, denied, settled };
 }
+
+/** Where the phone points (compass, once allowed from a tap). */
+function useCompass() {
+  const [h, setH] = useState<number | null>(compassHeading);
+  useEffect(() => onCompass(setH), []);
+  return h;
+}
+
+/** A position counts as "now" for 2 minutes (phones re-send once a minute while standing still). */
+const FRESH_MS = 2 * 60_000;
 
 /**
  * The map, like Snap Map / Find My. "Φίλοι": you (live, from this phone) and your friends who share, wherever they
  * are, with a strip of them at the bottom to fly to each one. "Κοντά μου": everyone sharing with everyone within
- * 100 / 250 / 500 m, whom you can talk to (push to talk). Refreshes every 10 s. ?u=<id> opens that person's card
- * (e.g. from the "… is talking to you" banner).
+ * 100 / 250 / 500 m, whom you can talk to (push to talk). Refreshes every 5 s; distances are measured from where
+ * you are right now; friends' last known positions (up to 1 h) show faded with their age, like Find My.
+ * ?u=<id> opens that person's card (e.g. from the "… is talking to you" banner).
  */
 function MapPage() {
   const { t, i18n } = useTranslation();
@@ -62,7 +78,7 @@ function MapPage() {
   const [view, setView] = useState<View>("friends");
   const [radius, setRadius] = useState<number>(500);
   const on = !!sharing.data && sharing.data.mode !== "off";
-  const people = useQuery({ queryKey: locationKeys.people(radius), queryFn: () => mapPeople(radius), enabled: on, refetchInterval: 10_000 });
+  const people = useQuery({ queryKey: locationKeys.people(radius), queryFn: () => mapPeople(radius), enabled: on, refetchInterval: 5_000 });
   const { u } = Route.useSearch();
   const navigate = useNavigate({ from: "/map" });
   const [listOpen, setListOpen] = useState(false);
@@ -72,6 +88,7 @@ function MapPage() {
     .filter((p) => p.kind === "nearby" && p.snap.peerTalking)
     .map((p) => p.peer);
   const local = useLocalFix();
+  const compass = useCompass();
 
   const s = sharing.data;
   // You: this phone's live position, else the last one you shared.
@@ -80,8 +97,13 @@ function MapPage() {
     : on && s?.lat != null && s?.lng != null
       ? { lat: s.lat, lng: s.lng, accuracy: s.accuracy_m }
       : null;
+  // Distances from where you are right now (this phone), else from your last shared position (server).
+  const distOf = (p: MapPerson) => (me && (p.lat || p.lng) ? Math.round(metres(me, p)) : p.distance_m);
+  const ageOf = (p: MapPerson) => (Date.now() - Date.parse(p.updated_at) > FRESH_MS ? timeAgoShort(p.updated_at, i18n.language) : null);
+  const heading = compass ?? local.fix?.course ?? null;
+  const approximate = local.settled && !!me?.accuracy && me.accuracy > APPROXIMATE_M;
   const list = people.data ?? [];
-  const friends = list.filter((p) => p.is_friend);
+  const friends = list.filter((p) => p.is_friend).sort((a, b) => distOf(a) - distOf(b));
   const nearby = list.filter((p) => p.distance_m <= radius);
   const shown = view === "friends" ? friends : nearby;
 
@@ -122,6 +144,8 @@ function MapPage() {
         onSelect={select}
         focus={focus}
         talking={talking}
+        heading={heading}
+        ageOf={ageOf}
       />
 
       {/* top: friends | nearby (+ radius) */}
@@ -165,7 +189,10 @@ function MapPage() {
         {me && (
           <button
             type="button"
-            onClick={() => move(view === "nearby" ? "radius" : "me")}
+            onClick={() => {
+              move(view === "nearby" ? "radius" : "me");
+              void enableCompass(); // inside the tap: iOS asks for motion access once
+            }}
             aria-label={t("map.recenter")}
             className="grid h-12 w-12 place-items-center self-end rounded-full bg-[#141415]/90 shadow-lg backdrop-blur"
           >
@@ -184,7 +211,9 @@ function MapPage() {
                         <UserAvatar name={p.full_name || p.username} path={p.avatar_path} size={48} />
                       </span>
                       <span className="w-full truncate text-xs font-semibold">{(p.full_name || p.username).split(" ")[0]}</span>
-                      <span className="w-full truncate text-[11px] text-muted-foreground">{formatDistance(p.distance_m, i18n.language)}</span>
+                      <span className="w-full truncate text-[11px] text-muted-foreground">
+                        {ageOf(p) ?? formatDistance(distOf(p), i18n.language)}
+                      </span>
                     </button>
                   </li>
                 ))}
@@ -203,6 +232,19 @@ function MapPage() {
           >
             <Users className="h-5 w-5" /> {t("map.nearby", { count: nearby.length })}
           </button>
+        )}
+
+        {/* your position is only approximate (iOS "Precise Location" off, or no GPS) */}
+        {approximate && (
+          <div className="rounded-3xl bg-[#141415]/95 p-4 shadow-xl backdrop-blur">
+            <p className="text-[15px] font-semibold">{t("map.approxTitle", { accuracy: formatDistance(me!.accuracy!, i18n.language) })}</p>
+            <p className="mt-1 text-sm leading-snug text-muted-foreground">{t(isNativeApp() ? "map.approxIos" : "map.approxWeb")}</p>
+            {isNativeApp() && (
+              <button type="button" onClick={openLocationSettings} className="mt-2 text-sm font-semibold text-[#0a84ff]">
+                {t("location.openSettings")}
+              </button>
+            )}
+          </div>
         )}
 
         {/* sharing off, or no position yet */}
@@ -258,7 +300,7 @@ function MapPage() {
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-semibold">{p.full_name || p.username}</span>
                     <span className="block truncate text-sm text-muted-foreground">
-                      {[formatDistance(p.distance_m, i18n.language), p.is_friend ? t("map.friend") : null].filter(Boolean).join(" · ")}
+                      {[formatDistance(distOf(p), i18n.language), p.is_friend ? t("map.friend") : null].filter(Boolean).join(" · ")}
                     </span>
                   </span>
                 </button>
@@ -281,8 +323,12 @@ function MapPage() {
                   <DrawerTitle className="truncate text-xl font-bold">{current.full_name || current.username}</DrawerTitle>
                   <DrawerDescription className="truncate text-sm text-muted-foreground">@{current.username}</DrawerDescription>
                   <p className="mt-0.5 text-sm font-semibold text-coral">
-                    {t("map.away", { distance: formatDistance(current.distance_m, i18n.language) })} · {timeAgoShort(current.updated_at, i18n.language)}
+                    {t("map.away", { distance: formatDistance(distOf(current), i18n.language) })} ·{" "}
+                    {ageOf(current) ? t("map.lastSeen", { when: ageOf(current) }) : t("map.now")}
                   </p>
+                  {current.accuracy_m != null && (
+                    <p className="text-xs text-muted-foreground">{t("map.accuracy", { distance: formatDistance(current.accuracy_m, i18n.language) })}</p>
+                  )}
                 </div>
               </div>
               {current.is_friend ? (

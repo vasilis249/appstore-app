@@ -6,9 +6,10 @@ import type { MapPerson } from "@/lib/location/api";
 
 /**
  * The live map, like Snap Map / Find My: a normal street map (OpenFreeMap "liberty", free, no key), you as your photo
- * with a blue ring and an accuracy halo, everyone else as a round photo with their first name (green ring = friend,
- * pulsing coral = talking to you). Optional radius circle (the "Κοντά μου" view). MapLibre is loaded on demand;
- * markers are plain DOM elements.
+ * with a blue ring, an accuracy halo and a direction beam (compass, or your course while moving), everyone else as a
+ * round photo with their first name (green ring = friend, pulsing coral = talking to you, faded + "20λ" = last known
+ * position) and a light halo when their fix is not sharp. Markers glide to new positions instead of jumping.
+ * Optional radius circle (the "Κοντά μου" view). MapLibre is loaded on demand; markers are plain DOM elements.
  */
 
 const STYLE = "https://tiles.openfreemap.org/styles/liberty";
@@ -54,10 +55,31 @@ function face(name: string, path: string | null, className: string): HTMLElement
   return el;
 }
 
-function personElement(p: MapPerson, talking: boolean, onSelect: (p: MapPerson) => void): HTMLElement {
+const GLIDE_MS = 900;
+
+/** Move a marker smoothly to its new position (a big jump — e.g. the first real fix — is not animated). */
+function glide(marker: Marker & { __anim?: number }, to: [number, number]) {
+  const from = marker.getLngLat();
+  if (marker.__anim) cancelAnimationFrame(marker.__anim);
+  const far = Math.abs(from.lng - to[0]) > 0.02 || Math.abs(from.lat - to[1]) > 0.02;
+  if (far || (from.lng === to[0] && from.lat === to[1])) {
+    marker.setLngLat(to);
+    return;
+  }
+  const start = performance.now();
+  const step = (now: number) => {
+    const k = Math.min(1, (now - start) / GLIDE_MS);
+    const e = 1 - (1 - k) ** 3;
+    marker.setLngLat([from.lng + (to[0] - from.lng) * e, from.lat + (to[1] - from.lat) * e]);
+    marker.__anim = k < 1 ? requestAnimationFrame(step) : undefined;
+  };
+  marker.__anim = requestAnimationFrame(step);
+}
+
+function personElement(p: MapPerson, talking: boolean, age: string | null, onSelect: (p: MapPerson) => void): HTMLElement {
   const name = p.full_name || p.username;
   const wrap = document.createElement("div");
-  wrap.className = "relative h-12 w-12";
+  wrap.className = `relative h-12 w-12 ${age && !talking ? "opacity-60" : ""}`;
   if (talking) wrap.dataset.talking = "1";
   const btn = document.createElement("button");
   btn.type = "button";
@@ -67,7 +89,9 @@ function personElement(p: MapPerson, talking: boolean, onSelect: (p: MapPerson) 
     face(
       name,
       p.avatar_path,
-      `h-12 w-12 border-[3px] text-base ${talking ? "animate-pulse border-coral ring-4 ring-coral/40" : p.is_friend ? "border-emerald-500" : "border-white"}`,
+      `h-12 w-12 border-[3px] text-base ${
+        talking ? "animate-pulse border-coral ring-4 ring-coral/40" : age ? "border-[#8e8e93]" : p.is_friend ? "border-emerald-500" : "border-white"
+      }`,
     ),
   );
   btn.addEventListener("click", (e) => {
@@ -77,19 +101,27 @@ function personElement(p: MapPerson, talking: boolean, onSelect: (p: MapPerson) 
   const label = document.createElement("span");
   label.className =
     "pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/80 px-2 py-0.5 text-[11px] font-semibold text-white shadow";
-  label.textContent = name.split(" ")[0];
+  label.textContent = age ? `${name.split(" ")[0]} · ${age}` : name.split(" ")[0];
   wrap.append(btn, label);
   return wrap;
 }
 
-function meElement(name: string, path: string | null): HTMLElement {
+/** You: photo in a blue ring with a soft ping, and a direction beam (hidden until a heading is known). */
+function meElement(name: string, path: string | null): { el: HTMLElement; beam: HTMLElement } {
   const wrap = document.createElement("div");
   wrap.setAttribute("aria-label", "me");
   wrap.className = "relative grid h-12 w-12 place-items-center";
+  const beam = document.createElement("span");
+  beam.dataset.beam = "1";
+  beam.className = "pointer-events-none absolute left-1/2 top-1/2 hidden h-28 w-28 -translate-x-1/2 -translate-y-1/2";
+  beam.style.background = "conic-gradient(from -28deg, rgba(10,132,255,0.45), rgba(10,132,255,0) 56deg, transparent 56deg)";
+  beam.style.maskImage = "radial-gradient(circle, #000 18%, transparent 70%)";
+  beam.style.webkitMaskImage = beam.style.maskImage;
+  beam.style.borderRadius = "9999px";
   const pulse = document.createElement("span");
   pulse.className = "absolute inset-0 animate-ping rounded-full bg-[#0a84ff]/30";
-  wrap.append(pulse, face(name, path, "relative h-11 w-11 border-[3px] border-[#0a84ff] text-base"));
-  return wrap;
+  wrap.append(beam, pulse, face(name, path, "relative h-11 w-11 border-[3px] border-[#0a84ff] text-base"));
+  return { el: wrap, beam };
 }
 
 export function LiveMap({
@@ -100,6 +132,8 @@ export function LiveMap({
   onSelect,
   focus,
   talking,
+  heading,
+  ageOf,
 }: {
   me: LivePosition | null;
   meFace: { name: string; path: string | null };
@@ -110,16 +144,20 @@ export function LiveMap({
   focus: MapFocus | null;
   /** People talking to you right now. */
   talking: string[];
+  /** Where you point (degrees from north), or null. */
+  heading: number | null;
+  /** "20λ" for a last known (old) position, null when it is current. */
+  ageOf: (p: MapPerson) => string | null;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<MlMap | null>(null);
   const lib = useRef<typeof import("maplibre-gl") | null>(null);
   const markers = useRef(new Map<string, { marker: Marker; sig: string }>());
-  const meMarker = useRef<{ marker: Marker; sig: string } | null>(null);
+  const meMarker = useRef<{ marker: Marker; sig: string; beam: HTMLElement } | null>(null);
   const styleReady = useRef(false);
   const placed = useRef(false);
-  const latest = useRef({ me, meFace, radius, people, onSelect, talking });
-  latest.current = { me, meFace, radius, people, onSelect, talking };
+  const latest = useRef({ me, meFace, radius, people, onSelect, talking, ageOf });
+  latest.current = { me, meFace, radius, people, onSelect, talking, ageOf };
 
   // Create the map once.
   useEffect(() => {
@@ -145,6 +183,9 @@ export function LiveMap({
         m.addSource("radius", { type: "geojson", data: empty });
         m.addLayer({ id: "radius-fill", type: "fill", source: "radius", paint: { "fill-color": "#e4571c", "fill-opacity": 0.08 } });
         m.addLayer({ id: "radius-line", type: "line", source: "radius", paint: { "line-color": "#e4571c", "line-width": 1.5, "line-opacity": 0.8 } });
+        m.addSource("people-acc", { type: "geojson", data: empty });
+        m.addLayer({ id: "people-acc-fill", type: "fill", source: "people-acc", paint: { "fill-color": ["get", "color"], "fill-opacity": 0.12 } });
+        m.addLayer({ id: "people-acc-line", type: "line", source: "people-acc", paint: { "line-color": ["get", "color"], "line-width": 1, "line-opacity": 0.35 } });
         m.addSource("me-acc", { type: "geojson", data: empty });
         m.addLayer({ id: "me-acc-fill", type: "fill", source: "me-acc", paint: { "fill-color": "#0a84ff", "fill-opacity": 0.12 } });
         m.addLayer({ id: "me-acc-line", type: "line", source: "me-acc", paint: { "line-color": "#0a84ff", "line-width": 1, "line-opacity": 0.4 } });
@@ -167,15 +208,24 @@ export function LiveMap({
 
   function drawAreas() {
     const m = map.current;
-    const { me: pos, radius: r } = latest.current;
+    const { me: pos, radius: r, people: list } = latest.current;
     if (!m || !styleReady.current) return;
-    const set = (id: string, ring: [number, number][] | null) =>
-      (m.getSource(id) as { setData: (d: unknown) => void } | undefined)?.setData({
-        type: "FeatureCollection",
-        features: ring ? [{ type: "Feature", properties: {}, geometry: { type: "Polygon", coordinates: [ring] } }] : [],
-      });
-    set("radius", pos && r ? circle(pos, r) : null);
-    set("me-acc", pos?.accuracy && pos.accuracy > 15 ? circle(pos, Math.min(pos.accuracy, 2000), 48) : null);
+    const poly = (ring: [number, number][], props: Record<string, string> = {}) => ({
+      type: "Feature",
+      properties: props,
+      geometry: { type: "Polygon", coordinates: [ring] },
+    });
+    const set = (id: string, features: unknown[]) =>
+      (m.getSource(id) as { setData: (d: unknown) => void } | undefined)?.setData({ type: "FeatureCollection", features });
+    set("radius", pos && r ? [poly(circle(pos, r))] : []);
+    set("me-acc", pos?.accuracy && pos.accuracy > 15 ? [poly(circle(pos, Math.min(pos.accuracy, 5000), 48))] : []);
+    // A light halo around people whose fix is not sharp (like Find My's grey circle).
+    set(
+      "people-acc",
+      list
+        .filter((p) => p.accuracy_m != null && p.accuracy_m > 20)
+        .map((p) => poly(circle(p, Math.min(p.accuracy_m!, 5000), 36), { color: p.is_friend ? "#10b981" : "#8e8e93" })),
+    );
   }
 
   function frameRadius(animate: boolean) {
@@ -196,14 +246,16 @@ export function LiveMap({
     const m = map.current;
     const ml = lib.current;
     if (!m || !ml) return;
-    const { me: pos, meFace: mf, radius: r, people: list, onSelect: select, talking: live } = latest.current;
+    const { me: pos, meFace: mf, radius: r, people: list, onSelect: select, talking: live, ageOf: age } = latest.current;
     // you
     if (pos) {
       const sig = `${mf.name}|${mf.path}`;
       if (!meMarker.current || meMarker.current.sig !== sig) {
         meMarker.current?.marker.remove();
-        meMarker.current = { marker: new ml.Marker({ element: meElement(mf.name, mf.path) }).setLngLat([pos.lng, pos.lat]).addTo(m), sig };
-      } else meMarker.current.marker.setLngLat([pos.lng, pos.lat]);
+        const { el, beam } = meElement(mf.name, mf.path);
+        meMarker.current = { marker: new ml.Marker({ element: el }).setLngLat([pos.lng, pos.lat]).addTo(m), sig, beam };
+        pointBeam();
+      } else glide(meMarker.current.marker, [pos.lng, pos.lat]);
       if (!placed.current) {
         placed.current = true;
         if (r) frameRadius(false);
@@ -215,14 +267,17 @@ export function LiveMap({
     for (const p of list) {
       seen.add(p.user_id);
       const talks = live.includes(p.user_id);
-      const sig = `${p.avatar_path}|${p.is_friend}|${p.full_name}|${talks}`;
+      const old = age(p);
+      const sig = `${p.avatar_path}|${p.is_friend}|${p.full_name}|${talks}|${old}`;
       const cur = markers.current.get(p.user_id);
       if (cur && cur.sig === sig) {
-        cur.marker.setLngLat([p.lng, p.lat]);
+        glide(cur.marker, [p.lng, p.lat]);
         continue;
       }
+      const at = cur ? cur.marker.getLngLat() : null;
       cur?.marker.remove();
-      const marker = new ml.Marker({ element: personElement(p, talks, select) }).setLngLat([p.lng, p.lat]).addTo(m);
+      const marker = new ml.Marker({ element: personElement(p, talks, old, select) }).setLngLat(at ? [at.lng, at.lat] : [p.lng, p.lat]).addTo(m);
+      if (at) glide(marker, [p.lng, p.lat]);
       markers.current.set(p.user_id, { marker, sig });
     }
     for (const [id, { marker }] of markers.current) {
@@ -236,6 +291,18 @@ export function LiveMap({
 
   const talkingKey = talking.join();
   useEffect(sync, [me?.lat, me?.lng, me?.accuracy, meFace.name, meFace.path, people, radius, talkingKey]);
+
+  // The beam on your marker follows the compass (or your course).
+  const headingRef = useRef(heading);
+  headingRef.current = heading;
+  function pointBeam() {
+    const b = meMarker.current?.beam;
+    if (!b) return;
+    const h = headingRef.current;
+    b.classList.toggle("hidden", h == null);
+    if (h != null) b.style.transform = `translate(-50%, -50%) rotate(${h}deg)`;
+  }
+  useEffect(pointBeam, [heading]);
 
   // Camera requests: back to you, your radius, or a friend.
   useEffect(() => {

@@ -131,3 +131,31 @@ SELECT pg_temp.as_user(:A); SET ROLE authenticated;
 SELECT pg_temp.ok('06a your own settings return your own position (for the map)',
   (SELECT mode = 'everyone' AND round(lat::numeric, 4) = 37.9755 AND round(lng::numeric, 4) = 23.7348 FROM public.my_location_sharing()));
 RESET ROLE;
+
+-- 07 last seen: friends keep their last position on your map for up to 1 h, everyone else only 15 min
+UPDATE private.user_locations SET updated_at = now() - interval '40 minutes' WHERE user_id = :D;
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('07a a friend whose last update is 40 min old still shows (with its time), not talkable',
+  (SELECT updated_at < now() - interval '39 minutes' AND NOT can_talk FROM public.map_people() WHERE user_id = :D));
+RESET ROLE;
+UPDATE private.user_locations SET updated_at = now() - interval '70 minutes' WHERE user_id = :D;
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('07b … but not after an hour', NOT EXISTS (SELECT 1 FROM public.map_people() WHERE user_id = :D));
+RESET ROLE;
+UPDATE private.user_locations SET updated_at = now() - interval '5 minutes' WHERE user_id = :D;
+UPDATE public.location_sharing SET mode = 'everyone' WHERE user_id = :E;
+INSERT INTO private.user_locations (user_id, lat, lng) VALUES (:E, 37.97560, 23.73480)
+  ON CONFLICT (user_id) DO UPDATE SET lat = excluded.lat, lng = excluded.lng, updated_at = now();
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('07c a stranger 10 m away with a fresh position shows', EXISTS (SELECT 1 FROM public.map_people() WHERE user_id = :E));
+RESET ROLE;
+UPDATE private.user_locations SET updated_at = now() - interval '20 minutes' WHERE user_id = :E;
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('07d … not once their position is 20 min old', NOT EXISTS (SELECT 1 FROM public.map_people() WHERE user_id = :E));
+RESET ROLE;
+UPDATE private.user_locations SET updated_at = now() WHERE user_id = :E;
+UPDATE private.user_locations SET updated_at = now() - interval '30 minutes' WHERE user_id = :A;
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('07e your own position 30 min old: your friend yes, strangers no',
+  EXISTS (SELECT 1 FROM public.map_people() WHERE user_id = :D) AND NOT EXISTS (SELECT 1 FROM public.map_people() WHERE user_id = :E));
+RESET ROLE;
