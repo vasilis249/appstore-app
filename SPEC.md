@@ -1,6 +1,6 @@
 # Spec: Speak for students only
 
-Status: **draft — waiting for the product owner's OK** (2026-10-01). Decisions taken in chat:
+Status: **approved** (2026-10-01). Decisions taken in chat:
 students only (verified academic email), all Greek public universities + Cyprus + licensed private
 universities/colleges, news = university announcements + student topics only, a new student-first design.
 
@@ -68,7 +68,6 @@ non-student blocked; news only student topics). Live: rolled-back smoke per migr
   walkie, map) and sees only the verify screen; tests prove it.
 - `student-design`: mockups approved; every screen rebuilt; flows green; less UI code than today.
 
-## Open questions
-- Should students of a **closed** campus (below its threshold) still use the rest of the app? (today: yes)
-- Alumni / staff (`@<uni>.gr` addresses of professors) — allowed, or students only? (assumed: anyone with an
-  academic address; staff can't be told apart by domain)
+## Decisions (answered)
+- Students of a **closed** campus (below its threshold) still use the rest of the app.
+- Staff / professors with an academic address are welcome (domains can't tell them apart anyway).
