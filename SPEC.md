@@ -33,7 +33,8 @@ Each module gets its own section below; each stops for "OK" before the next (CLA
 2. Existing accounts that are not verified (only test/admin ones on live) keep their data but see only the
    verification flow; admins and one App Review demo account are exempt.
 3. The 8 general sections (Επικαιρότητα, Tech, Αθλητικά…) are hidden, not deleted, so old voices keep working;
-   their RSS feeds are switched off. Their voices stay visible only to their authors.
+   their RSS feeds are switched off. Their voices became personal voices of their authors (profile + Following)
+   and their headlines were removed (built in student-news; simpler than author-only visibility, nothing lost).
 4. Student-topic sources = Greek education news sites (e.g. esos.gr, alfavita.gr, eduadvisor.gr, ΕΡΤ Παιδεία)
    filtered by keywords; each feed checked on the real file before it is added.
 5. App Review still needs a demo account → a verified demo student is created and documented.

@@ -156,6 +156,7 @@ export interface Section {
   name_en: string;
   icon: string;
   kind: "news" | "campus";
+  hidden: boolean;
 }
 
 export interface Topic {

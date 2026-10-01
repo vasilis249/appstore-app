@@ -715,6 +715,7 @@ export type Database = {
       }
       sections: {
         Row: {
+          hidden: boolean
           icon: string
           id: string
           kind: string
@@ -723,6 +724,7 @@ export type Database = {
           position: number
         }
         Insert: {
+          hidden?: boolean
           icon: string
           id: string
           kind?: string
@@ -731,6 +733,7 @@ export type Database = {
           position: number
         }
         Update: {
+          hidden?: boolean
           icon?: string
           id?: string
           kind?: string

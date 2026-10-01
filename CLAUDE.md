@@ -400,6 +400,19 @@ User decisions:
   an institution with no departments goes straight to the year; verified with a year but no department → manage card.
   Tests campus 80 (13n sub-domains); browser `network-flow.mjs` 9/9 (+ attica 13, acg 7, campus 15). Live applied
   (43 / 496), deploy 462f4cd2. Campus RSS for the new institutions → `student-news`.
+  **student-news ✔** migration `20261026100000_student_news.sql`: `sections.hidden` (the 8 general ones; `useSections().
+  sections` skips them, `name/icon` still know them) + 4 student news sections `unis` Πανεπιστήμια, `benefits` Παροχές,
+  `abroad` Erasmus, `career` Καριέρα. Old general voices → personal (section/topic NULL; group voices untouched), their
+  topics deleted; trigger `posts_section_open` refuses new non-group posts in hidden sections (`bad_section`). General
+  feeds disabled; `private.open_section` = nothing routes into a hidden section even if an admin re-enables one.
+  `news_routes.on_title` (pattern on `private.fold_el(title)`: lower case, no accents, ς→σ) → student sources esos.gr,
+  alfavita.gr, neolaia.gr (drop_unmatched; rules: school/teachers/Πανελλαδικές out → benefits → abroad → career → unis
+  incl. university acronyms; checked on the real feeds). Campus feeds for 15 more institutions (ΑΠΘ, ΕΛΜΕΠΑ, Πάτρα,
+  Κρήτη, ΔΠΘ, ΔΙΠΑΕ, ΠΔΜ, Πελοπόννησος, Αιγαίο, ΕΑΠ, EUC, UCLan, NYC, IST, Perrotis; none found for the rest).
+  `news_topics` («Όλα») also returns your own university's announcements. Copy: Terms/Privacy RSS sources, "Πες κάτι
+  για τα φοιτητικά…". Tests: suites using general sections unhide them first; speak 124 (20a–f), campus 80 (07f now
+  expects News). Scratchpad seeds/flows remapped (news→unis, tech→career …). Live: first ingest 27 (5 student topics +
+  22 announcements), types regenerated, deploy 35c5e5ec. NEXT: student-gate.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
@@ -738,7 +751,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (80) + `test_location.sql` (26) + `test_nearby.sql` (28).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (124) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (80) + `test_location.sql` (26) + `test_nearby.sql` (28).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

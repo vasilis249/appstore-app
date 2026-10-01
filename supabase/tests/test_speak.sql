@@ -1,6 +1,7 @@
 -- Speak: follows, sections/topics, posts (replies, reposts, quotes), likes, listens, feeds, admin, visibility.
 \set ON_ERROR_STOP 0
 \set QUIET on
+UPDATE public.sections SET hidden = false; -- these checks still post into the general sections (hidden since student-news)
 INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES
   ('00000000-0000-0000-0000-00000000000a', 'anna@x', '{"full_name":"Anna"}'),
   ('00000000-0000-0000-0000-00000000000b', 'bob@x', '{"full_name":"Bob"}'),
@@ -33,7 +34,7 @@ GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA pg_temp TO authenticated, anon;
 
 -- 01 sections
 SELECT pg_temp.as_user(:A); SET ROLE authenticated;
-SELECT pg_temp.ok('01a eight news sections + eight student ones', (SELECT count(*) FROM public.sections WHERE kind = 'news') = 8 AND (SELECT count(*) FROM public.sections WHERE kind = 'campus') = 8);
+SELECT pg_temp.ok('01a twelve news sections (8 general + 4 student) + eight campus ones', (SELECT count(*) FROM public.sections WHERE kind = 'news') = 12 AND (SELECT count(*) FROM public.sections WHERE kind = 'campus') = 8);
 SELECT pg_temp.ok('01b clients cannot add sections', pg_temp.fails($$INSERT INTO public.sections VALUES ('x', 9, 'x', 'x', 'x')$$));
 RESET ROLE; SET ROLE anon;
 SELECT pg_temp.ok('01c anon sees nothing', pg_temp.fails($$SELECT * FROM public.posts$$) AND pg_temp.fails($$SELECT public.feed_posts('all')$$));
@@ -245,9 +246,9 @@ RESET ROLE; SELECT pg_temp.as_user(:E); SET ROLE authenticated;
 SELECT public.admin_create_topic('humor', 'Ποιο είναι το χειρότερο αστείο που ξέρεις;', NULL, NULL, NULL, (SELECT moment FROM public.today())) AS dt \gset
 SELECT pg_temp.ok('11c admin daily topic wins', (SELECT topic_id = :'dt' AND topic_is_pick FROM public.today()));
 SELECT pg_temp.ok('11d one daily topic per day', pg_temp.fails($$SELECT public.admin_create_topic('news', 'Δεύτερο της ημέρας', NULL, NULL, NULL, (SELECT moment FROM public.today()))$$));
-SELECT pg_temp.ok('11e admin lists topics and feeds', (SELECT count(*) FROM public.admin_topics()) >= 4 AND (SELECT count(*) FROM public.admin_feeds()) = 18);
-SELECT public.admin_set_feed(1, false);
-SELECT pg_temp.ok('11f admin toggles a feed', NOT (SELECT enabled FROM public.admin_feeds() WHERE id = 1));
+SELECT pg_temp.ok('11e admin lists topics and feeds', (SELECT count(*) FROM public.admin_topics()) >= 4 AND (SELECT count(*) FROM public.admin_feeds()) = 36);
+SELECT public.admin_set_feed(1, true);
+SELECT pg_temp.ok('11f admin toggles a feed', (SELECT enabled FROM public.admin_feeds() WHERE id = 1));
 RESET ROLE;
 
 -- 12 ranking, threads, replies on profiles
@@ -518,3 +519,44 @@ SELECT pg_temp.ok('19h sponsored / betting headlines left out of news feeds, not
   AND private.route_headline((SELECT id FROM private.news_feeds WHERE url LIKE '%gazzetta%'), 'https://www.gazzetta.gr/basketball/euroleague/1/x', 'Ζάλγκιρις - Ολυμπιακός 91-93') = 'sports'
   AND private.route_headline((SELECT id FROM private.news_feeds WHERE university_id = 'ntua' LIMIT 1), 'https://www.ntua.gr/el/news/1', 'Υποτροφίες powered by ΕΜΠ') = 'announcements'
   AND NOT private.news_is_sponsored('Ο Όπαπας στη Ρώμη') AND private.news_is_sponsored('Προσφορά ΟΠΑΠ'));
+
+-- 20 student news: general sections hidden, student sources routed by title, your campus's announcements on News
+RESET ROLE;
+UPDATE public.sections SET hidden = true WHERE id IN ('news', 'tech', 'sports', 'economy', 'politics', 'entertainment', 'lifestyle', 'humor');
+SELECT pg_temp.ok('20a general sections hidden, four student news sections',
+  (SELECT count(*) FROM public.sections WHERE hidden) = 8
+  AND (SELECT array_agg(id ORDER BY position) FROM public.sections WHERE kind = 'news' AND NOT hidden) = ARRAY['unis','benefits','abroad','career']);
+SELECT pg_temp.ok('20b general feeds off (until an admin turns one on), three student-topic sources on',
+  NOT EXISTS (SELECT 1 FROM private.news_feeds WHERE university_id IS NULL AND enabled AND id <> 1 AND section_id <> 'unis')
+  AND (SELECT count(*) FROM private.news_feeds WHERE university_id IS NULL AND enabled AND section_id = 'unis') = 3);
+SELECT id AS esos FROM private.news_feeds WHERE url = 'https://www.esos.gr/rss.xml' \gset
+SELECT pg_temp.ok('20c title routing: student topics in, school / teachers / everything else out; hidden sections get nothing',
+  private.route_headline(:esos, 'https://www.esos.gr/a/1', 'Μετεγγραφές φοιτητών 2026: Μέχρι πότε οι αιτήσεις') = 'unis'
+  AND private.route_headline(:esos, 'https://www.esos.gr/a/2', 'Φοιτητικές Εστίες: ξεκίνησαν οι αιτήσεις') = 'benefits'
+  AND private.route_headline(:esos, 'https://www.esos.gr/a/3', 'Υποτροφίες ΙΚΥ για μεταπτυχιακά') = 'benefits'
+  AND private.route_headline(:esos, 'https://www.esos.gr/a/4', 'Erasmus+: νέες θέσεις για φοιτητές') = 'abroad'
+  AND private.route_headline(:esos, 'https://www.esos.gr/a/5', 'Πρακτική άσκηση φοιτητών: τι αλλάζει') = 'career'
+  AND private.route_headline(:esos, 'https://www.esos.gr/a/6', 'ΕΚΠΑ: Ιδρύεται «Εργαστήριο Εκπαιδευτικής Καινοτομίας»') = 'unis'
+  AND private.route_headline(:esos, 'https://www.esos.gr/a/7', 'Κλειστά σήμερα όλα τα σχολεία στα Χανιά') IS NULL
+  AND private.route_headline(:esos, 'https://www.esos.gr/a/8', 'Μετατάξεις εκπαιδευτικών σε κλάδους') IS NULL
+  AND private.route_headline(:esos, 'https://www.esos.gr/a/9', 'Ολυμπιακός: τρίτη σερί νίκη στη EuroLeague') IS NULL
+  AND private.fold_el('Φοιτητικές ΕΣΤΊΕΣ') = 'φοιτητικεσ εστιεσ'
+  AND private.route_headline((SELECT id FROM private.news_feeds WHERE url LIKE '%gazzetta%'), 'https://www.gazzetta.gr/basketball/euroleague/1/x', 'Ζάλγκιρις - Ολυμπιακός 91-93') IS NULL);
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('20d nobody posts into a hidden section',
+  pg_temp.fails($$SELECT public.create_post('sports', NULL, NULL, NULL, 'x', '00000000-0000-0000-0000-00000000000a/a1.m4a', 'audio/mp4', 3000)$$));
+RESET ROLE;
+UPDATE public.profiles SET university_id = 'ntua', student_verified_at = now() WHERE id = :A;
+INSERT INTO public.topics (section_id, kind, title, university_id) VALUES
+  ('announcements', 'news', 'ΕΜΠ: Έναρξη μαθημάτων χειμερινού εξαμήνου', 'ntua'),
+  ('unis', 'news', 'Μετεγγραφές φοιτητών: οι αιτήσεις', NULL);
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('20e News shows your university''s announcements next to student topics (only on «Όλα»)',
+  EXISTS (SELECT 1 FROM public.news_topics(NULL, 50) WHERE title LIKE 'ΕΜΠ: Έναρξη%')
+  AND EXISTS (SELECT 1 FROM public.news_topics(NULL, 50) WHERE title LIKE 'Μετεγγραφές φοιτητών: οι%')
+  AND NOT EXISTS (SELECT 1 FROM public.news_topics('unis', 50) WHERE title LIKE 'ΕΜΠ: Έναρξη%'));
+RESET ROLE; SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT pg_temp.ok('20f ... and never another university''s',
+  NOT EXISTS (SELECT 1 FROM public.news_topics(NULL, 50) WHERE title LIKE 'ΕΜΠ: Έναρξη%')
+  AND EXISTS (SELECT 1 FROM public.news_topics(NULL, 50) WHERE title LIKE 'Μετεγγραφές φοιτητών: οι%'));
+RESET ROLE;

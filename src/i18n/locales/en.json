@@ -163,7 +163,7 @@
         {
           "heading": "News and third-party links",
           "body": [
-            "Some topics are created automatically from public news feeds (RSS) of Greek media and contain only the headline and a link to the full article. Articles belong to their publishers.",
+            "Some topics are created automatically from public news feeds (RSS) of education news sites and of the universities themselves and contain only the headline and a link to the full article. Articles belong to their publishers.",
             "We do not control or endorse third-party websites, or the opinions users express in their voices."
           ]
         },
@@ -281,7 +281,7 @@
             "Cloudflare, Inc.: hosting and running the app, protection against attacks.",
             "Email delivery provider: sending sign-up confirmation and password reset emails.",
             "Apple: distributes the app through the App Store, but has no access to your Speak account data.",
-            "For news topics our server reads public RSS feeds of Greek media; we do not send them any user data. News photos are shown straight from the publisher's server, so when you see them or open an article link, the publisher receives your IP address under its own policy.",
+            "For news topics our server reads public RSS feeds of education news sites and universities; we do not send them any user data. News photos are shown straight from the publisher's server, so when you see them or open an article link, the publisher receives your IP address under its own policy.",
             "All providers process data only on our instructions and are bound by data processing agreements (Art. 28 GDPR). Data may also be disclosed to public authorities when required by law.",
             "OpenFreeMap: map images are loaded from its servers when you open the map (they see your device's IP address and the map area requested, not your account or your position)."
           ]
@@ -729,7 +729,7 @@
     "beFirst": "Be the first to speak",
     "more": "More news",
     "otherVoices": "Other voices",
-    "otherVoicesEmpty": "Say something about the news…",
+    "otherVoicesEmpty": "Say something about student life…",
     "emptyTitle": "No news yet",
     "empty": "News refresh every 3 hours.",
     "readAt": "Read on {{source}}",

@@ -1,6 +1,7 @@
 -- Campus identity: academic address → code → verified student of that university; school and year.
 \set ON_ERROR_STOP 0
 \set QUIET on
+UPDATE public.sections SET hidden = false; -- these checks still post into the general sections (hidden since student-news)
 INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES
   ('00000000-0000-0000-0000-00000000000a', 'anna@x', '{"full_name":"Anna"}'),
   ('00000000-0000-0000-0000-00000000000b', 'bob@x', '{"full_name":"Bob"}');
@@ -171,9 +172,9 @@ SELECT private.ingest_feed_xml((SELECT id FROM private.news_feeds WHERE universi
 SELECT pg_temp.ok('07e university RSS → a campus news topic with its photo',
   (SELECT university_id = 'ntua' AND section_id = 'announcements' AND image_url = 'https://www.ntua.gr/images/x.jpg' FROM public.topics WHERE external_id = 'ntua-5617'));
 SELECT pg_temp.as_user(:B); SET ROLE authenticated;
-SELECT pg_temp.ok('07f students see it in campus topics, not in News',
+SELECT pg_temp.ok('07f students see it in campus topics and on News (their own university)',
   EXISTS (SELECT 1 FROM public.campus_topics(p_limit := 50) t JOIN public.topics x ON x.id = t.id WHERE x.external_id = 'ntua-5617')
-  AND NOT EXISTS (SELECT 1 FROM public.news_topics(p_limit := 50) WHERE title LIKE 'Η Βραδιά%'));
+  AND EXISTS (SELECT 1 FROM public.news_topics(p_limit := 50) WHERE title LIKE 'Η Βραδιά%'));
 RESET ROLE;
 
 -- 08 school and school-year groups follow the profile

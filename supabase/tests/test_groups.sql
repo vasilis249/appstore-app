@@ -1,6 +1,7 @@
 -- Speak groups: public/private, join / request / invite, roles, owner hand-over, group-only voices, reports.
 \set ON_ERROR_STOP 0
 \set QUIET on
+UPDATE public.sections SET hidden = false; -- these checks still post into the general sections (hidden since student-news)
 INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES
   ('00000000-0000-0000-0000-00000000000a', 'anna@x', '{"full_name":"Anna"}'),
   ('00000000-0000-0000-0000-00000000000b', 'bob@x', '{"full_name":"Bob"}'),
