@@ -46,7 +46,7 @@ function StudentPage() {
     if (step || !me.data) return;
     setSchool(me.data.department_id ?? null);
     setYear(me.data.study_year ?? null);
-    setStep(verified ? (me.data.department_id ? "manage" : "school") : "email");
+    setStep(verified ? (me.data.department_id || me.data.study_year ? "manage" : "school") : "email");
   }, [me.data, step, verified]);
 
   const leave = () => void navigate({ to: search.welcome ? "/" : "/profile", replace: true });
@@ -120,6 +120,8 @@ function StudentPage() {
   const en = i18n.language.startsWith("en");
   const uniId = me.data?.university_id;
   const schools = campus.departments.filter((d) => d.university_id === uniId);
+  // Colleges / private universities have no department list: straight to the year.
+  const noSchools = !!uniId && campus.departments.length > 0 && !schools.length;
   // Big universities (ΕΚΠΑ has 42 departments) get a search box; accents and case don't matter.
   const fold = (x: string) => x.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
   const shown = query.trim()
@@ -231,10 +233,10 @@ function StudentPage() {
       </StepShell>
     );
 
-  if (step === "school")
+  if (step === "school" && !noSchools)
     return (
       <StepShell
-        onBack={verified && me.data?.department_id ? () => go("manage") : undefined}
+        onBack={verified && (me.data?.department_id || me.data?.study_year) ? () => go("manage") : undefined}
         right={skip}
         title={t("student.schoolTitle")}
         subtitle={campus.uniName(uniId)}
@@ -289,7 +291,7 @@ function StudentPage() {
 
   return (
     <StepShell
-      onBack={() => go("school")}
+      onBack={noSchools ? (me.data?.department_id || me.data?.study_year ? () => go("manage") : undefined) : () => go("school")}
       right={skip}
       title={t("student.yearTitle")}
       subtitle={t("student.yearHint")}

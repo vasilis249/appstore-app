@@ -388,6 +388,18 @@ User decisions:
   RSS `acg.edu/feed/` → announcements (parses: 10 items with photos; nothing < 36 h at first). Copy now says
   "πανεπιστήμιο" instead of "ΑΕΙ" (emailTitle, notAcademic with …@acg.edu, manageHint, campus.locked). Tests campus 79
   (13a/13k 11 institutions, 13m ACG), speak 11e = 18 feeds; browser `acg-flow.mjs` 7/7, attica-flow 13/13.
+- **Students only (user request 2026-10-01)** — spec-driven (agent-skills): `SPEC.md` (approved; capability map
+  `university-network` → `student-news` + `student-gate` → `student-design`), `tasks/plan.md`, `tasks/todo.md`.
+  Decisions: only verified students (closed campuses still use the app; staff/professors with an academic address OK).
+  **university-network ✔** `supabase/data/institutions.py` (edit there) → migration
+  `20261025100000_greek_cyprus_universities.sql`: 32 more institutions = 43 open: the 15 other public ΑΕΙ (ΑΠΘ, ΕΛΜΕΠΑ,
+  Πάτρα + upnet.gr, Κρήτη, Πολυτεχνείο Κρήτης, Ιωάννινα, ΔΠΘ, ΔΙΠΑΕ ihu.gr/ihu.edu.gr, Θεσσαλία, ΠΑΜΑΚ uom.edu.gr/uom.gr,
+  ΠΔΜ, Πελοπόννησος, Αιγαίο, Ιόνιο, ΕΑΠ) + UCY, ΤΕΠΑΚ with departments (496 in all; years: Ιατρική 6, Μηχανικ/
+  Οδοντιατρ/Φαρμακευτ/Αρχιτεκτ/Κτηνιατρ 5, else 4); without departments: ΑΠΚΥ, UNIC, EUC, Frederick, Νεάπολις, UCLan
+  Cyprus, CITY, Metropolitan, BCA, IST, NYC, Mediterranean, ACT, HAU, Perrotis (domains checked via MX). `/student`:
+  an institution with no departments goes straight to the year; verified with a year but no department → manage card.
+  Tests campus 80 (13n sub-domains); browser `network-flow.mjs` 9/9 (+ attica 13, acg 7, campus 15). Live applied
+  (43 / 496), deploy 462f4cd2. Campus RSS for the new institutions → `student-news`.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
@@ -726,7 +738,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (79) + `test_location.sql` (26) + `test_nearby.sql` (28).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (111) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (80) + `test_location.sql` (26) + `test_nearby.sql` (28).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

@@ -312,9 +312,11 @@ SELECT pg_temp.ok('12g removed moderator: no access', pg_temp.fails('SELECT * FR
 RESET ROLE;
 
 -- 13 Attica universities
-SELECT pg_temp.ok('13a eleven open institutions in Attica, every one with departments',
-  (SELECT count(*) FROM public.universities WHERE open) = 11
-  AND NOT EXISTS (SELECT 1 FROM public.universities u WHERE NOT EXISTS (SELECT 1 FROM public.departments d WHERE d.university_id = u.id)));
+SELECT pg_temp.ok('13a 43 open institutions; every Greek / Cypriot public one has departments',
+  (SELECT count(*) FROM public.universities WHERE open) = 43
+  AND NOT EXISTS (SELECT 1 FROM public.universities u WHERE u.id NOT IN ('ouc','unic','euc','frederick','nup','uclancy',
+    'city','mitropolitiko','bca','ist','nyc','medcollege','act','hau','perrotis')
+    AND NOT EXISTS (SELECT 1 FROM public.departments d WHERE d.university_id = u.id)));
 SELECT pg_temp.ok('13b each address to its university',
   private.university_for_email('sdi2000001@di.uoa.gr') = 'uoa' AND private.university_for_email('p3200001@aueb.gr') = 'aueb'
   AND private.university_for_email('mpsp1@unipi.gr') = 'unipi' AND private.university_for_email('a@panteion.gr') = 'panteion'
@@ -358,7 +360,7 @@ RESET ROLE;
 INSERT INTO private.admins (user_id) VALUES (:E);
 SELECT pg_temp.as_user(:E); SET ROLE authenticated;
 SELECT pg_temp.ok('13k admin overview lists every open campus with its students',
-  (SELECT count(*) FROM public.admin_campuses()) = 11
+  (SELECT count(*) FROM public.admin_campuses()) = 43
   AND (SELECT students FROM public.admin_campuses() WHERE university_id = 'uoa') = 1);
 RESET ROLE;
 SELECT pg_temp.ok('13l campus news feeds for 7 more universities, into Ανακοινώσεις',
@@ -368,3 +370,10 @@ SELECT pg_temp.ok('13m ACG / Deree: @acg.edu, 35 majors, 4 years, its news feed'
   AND (SELECT count(*) FROM public.departments WHERE university_id = 'acg') = 35
   AND NOT EXISTS (SELECT 1 FROM public.departments WHERE university_id = 'acg' AND years <> 4)
   AND EXISTS (SELECT 1 FROM private.news_feeds WHERE university_id = 'acg' AND section_id = 'announcements'));
+SELECT pg_temp.ok('13n Greece + Cyprus: sub-domains and second domains resolve, look-alikes do not',
+  private.university_for_email('a@ece.auth.gr') = 'auth' AND private.university_for_email('up1@upnet.gr') = 'upatras'
+  AND private.university_for_email('a@edu.hmu.gr') = 'hmu' AND private.university_for_email('a@stud.frederick.ac.cy') = 'frederick'
+  AND private.university_for_email('a@ucy.ac.cy') = 'ucy' AND private.university_for_email('a@uom.edu.gr') = 'uom'
+  AND private.university_for_email('a@ihu.edu.gr') = 'ihu' AND private.university_for_email('a@citycollege.eu') = 'city'
+  AND private.university_for_email('a@notauth.gr') IS NULL AND private.university_for_email('a@auth.gr.example.com') IS NULL
+  AND (SELECT years FROM public.departments WHERE id = 'auth-med') = 6);
