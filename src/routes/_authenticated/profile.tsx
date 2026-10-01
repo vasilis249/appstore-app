@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { CalendarDays, Settings } from "lucide-react";
+import { CalendarDays, Menu, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { AppHeader, HeaderPill } from "@/components/app-header";
 import { EditProfileSheet } from "@/components/edit-profile-sheet";
@@ -22,34 +22,31 @@ function MyProfilePage() {
   return (
     <>
       <AppHeader
-        title={t("tabs.profile")}
+        left={
+          <Link to="/record" aria-label={t("voice.navRecord")} className="grid h-11 w-11 place-items-center rounded-full">
+            <Plus className="h-[30px] w-[30px]" strokeWidth={1.7} />
+          </Link>
+        }
+        center={<h1 className="max-w-[55vw] truncate text-[20px] font-extrabold tracking-[-0.02em]">{p?.username ?? ""}</h1>}
         right={
           <HeaderPill>
-            <Link to="/memories" aria-label={t("tabs.memories")} className="grid h-9 w-10 place-items-center rounded-full">
-              <CalendarDays className="h-5 w-5" />
+            <Link to="/memories" aria-label={t("tabs.memories")} className="grid h-11 w-11 place-items-center rounded-full">
+              <CalendarDays className="h-[25px] w-[25px]" strokeWidth={1.9} />
             </Link>
             <button
               type="button"
               onClick={() => setSettingsOpen(true)}
               aria-label={t("settings.title")}
-              className="grid h-9 w-10 place-items-center rounded-full"
+              className="grid h-11 w-11 place-items-center rounded-full"
             >
-              <Settings className="h-5 w-5" />
+              <Menu className="h-[27px] w-[27px]" strokeWidth={1.9} />
             </button>
           </HeaderPill>
         }
       />
       {p && (
         <>
-          <ProfileView
-            person={p}
-            isMe
-            ownAction={
-              <button type="button" onClick={() => setEditOpen(true)} className="h-10 rounded-full bg-secondary px-6 text-caption font-semibold">
-                {t("profile.edit")}
-              </button>
-            }
-          />
+          <ProfileView person={p} isMe onEdit={() => setEditOpen(true)} />
           <EditProfileSheet profile={p} open={editOpen} onOpenChange={setEditOpen} />
         </>
       )}

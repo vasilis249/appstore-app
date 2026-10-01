@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { GraduationCap, Headphones, Heart, MessageCircle, MicOff, MoreHorizontal, Pause, Play, Repeat2, Share, Users } from "lucide-react";
+import { GraduationCap, Headphones, Heart, MessageCircle, MicOff, MoreHorizontal, Pause, Play, Repeat2, Send, Users } from "lucide-react";
 import { toast } from "sonner";
 import { UserAvatar } from "@/components/user-avatar";
 import { Waveform } from "@/components/voice/waveform";
@@ -20,8 +20,8 @@ import { cn } from "@/lib/utils";
 const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
 
 /**
- * A public voice post, kept light: name · time, section · topic (group; nothing for a personal voice), title,
- * player (duration · listens), actions.
+ * A public voice post, social-style: avatar · bold name · time · ⋯, section · topic (group; nothing for a personal
+ * voice), title, the voice tile (double-tap = like with a heart burst), then ♥ 💬 ⟲ ✈ with counts.
  * `onPlay` starts the list's queue at this post (continuous playback).
  */
 export function PostCard({
@@ -54,10 +54,30 @@ export function PostCard({
   const playing = isCurrent && q.playing;
 
   const like = useMutation({
-    mutationFn: () => setLiked(post.id, !post.liked),
+    mutationFn: (to: boolean) => setLiked(post.id, to),
     onSettled: () => qc.invalidateQueries({ queryKey: postKeys.all }),
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });
+  // Instagram-style: the heart pops on like; a double tap on the voice likes it with a big heart burst.
+  const [pop, setPop] = useState(0);
+  const [burst, setBurst] = useState(0);
+  const lastTap = useRef(0);
+  const toggleLike = () => {
+    if (!post.liked) setPop((n) => n + 1);
+    like.mutate(!post.liked);
+  };
+  const tapTile = (e: React.PointerEvent) => {
+    if ((e.target as HTMLElement).closest("button")) return;
+    const now = Date.now();
+    if (now - lastTap.current < 320) {
+      lastTap.current = 0;
+      setBurst((n) => n + 1);
+      if (!post.liked && !like.isPending) {
+        setPop((n) => n + 1);
+        like.mutate(true);
+      }
+    } else lastTap.current = now;
+  };
 
   async function share() {
     const url = `${window.location.origin}/p/${post.id}`;
@@ -73,7 +93,7 @@ export function PostCard({
   }
 
   const open = () => linkToPost && void navigate({ to: "/p/$postId", params: { postId: post.id } });
-  const action = "flex min-h-8 items-center gap-1.5 text-caption tabular-nums text-muted-foreground";
+  const action = "flex min-h-9 items-center gap-1.5 text-[14px] font-semibold tabular-nums text-foreground";
 
   // Deleted by its author after others answered: a placeholder that keeps the conversation readable.
   if (post.deleted)
@@ -114,8 +134,8 @@ export function PostCard({
           {threadLine && <span className="-mb-3 mt-1 w-0.5 flex-1 rounded-full bg-border" aria-hidden />}
         </div>
         <div className="min-w-0 flex-1">
-          <header className="flex items-center gap-1.5 text-callout leading-5">
-            <Link to="/u/$username" params={{ username: post.username }} className="min-w-0 truncate font-semibold">
+          <header className="flex items-center gap-1.5 text-[15px] leading-5">
+            <Link to="/u/$username" params={{ username: post.username }} className="min-w-0 truncate font-bold">
               {post.name}
             </Link>
             {school && <span className="min-w-0 shrink truncate text-caption text-muted-foreground">· {school}</span>}
@@ -124,7 +144,7 @@ export function PostCard({
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-label={t("friends.actions")}
-              className="-mr-2 ml-auto grid h-8 w-8 shrink-0 place-items-center rounded-full text-muted-foreground"
+              className="-mr-2 ml-auto grid h-8 w-8 shrink-0 place-items-center rounded-full text-foreground"
             >
               <MoreHorizontal className="h-5 w-5" />
             </button>
@@ -176,29 +196,37 @@ export function PostCard({
           )}
 
           {post.title && (
-            <button type="button" onClick={open} className="mt-1.5 block text-left text-body font-semibold leading-snug">
+            <button type="button" onClick={open} className="mt-1 block text-left text-[15px] leading-snug">
               {post.title}
             </button>
           )}
 
-          <div className="mt-2.5 flex items-center gap-3 rounded-full bg-secondary py-1.5 pl-1.5 pr-4">
+          <div
+            onPointerUp={tapTile}
+            className="relative mt-2.5 flex select-none items-center gap-3 overflow-hidden rounded-2xl bg-card py-3 pl-3 pr-4 ring-1 ring-border/60"
+          >
             <button
               type="button"
               onClick={() => (isCurrent ? toggle() : onPlay())}
               aria-label={playing ? t("daily.pause") : t("daily.play")}
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground active:scale-95"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-foreground text-background"
             >
-              {playing ? <Pause className="h-4 w-4" fill="currentColor" /> : <Play className="ml-0.5 h-4 w-4" fill="currentColor" />}
+              {playing ? <Pause className="h-[18px] w-[18px]" fill="currentColor" strokeWidth={0} /> : <Play className="ml-0.5 h-[18px] w-[18px]" fill="currentColor" strokeWidth={0} />}
             </button>
             <Waveform seed={post.id} progress={isCurrent ? q.progress : 0} />
-            <span className="shrink-0 text-right text-caption tabular-nums text-muted-foreground">
+            <span className="shrink-0 text-right text-caption font-semibold tabular-nums text-muted-foreground">
               {formatClock(post.durationMs)}
               {post.listens > 0 && (
-                <span aria-label={t("posts.listens", { count: post.listens })}>
-                  {" "}· <Headphones className="-mt-0.5 inline h-3.5 w-3.5" /> {compact.format(post.listens)}
+                <span className="block font-normal" aria-label={t("posts.listens", { count: post.listens })}>
+                  <Headphones className="-mt-0.5 inline h-3 w-3" /> {compact.format(post.listens)}
                 </span>
               )}
             </span>
+            {burst > 0 && (
+              <span key={burst} className="pointer-events-none absolute inset-0 grid place-items-center" aria-hidden>
+                <Heart className="h-16 w-16 animate-heart-burst text-live drop-shadow-lg" fill="currentColor" strokeWidth={0} />
+              </span>
+            )}
           </div>
 
           {post.quote?.deleted && (
@@ -216,32 +244,33 @@ export function PostCard({
             </Link>
           )}
 
-          <footer className="mt-2 flex items-center gap-7">
-            <button type="button" onClick={open} className={action} aria-label={t("posts.reply")}>
-              <MessageCircle className="h-[18px] w-[18px]" /> {post.replies > 0 && compact.format(post.replies)}
+          <footer className="-ml-1.5 mt-1.5 flex items-center gap-4">
+            <button
+              type="button"
+              onClick={toggleLike}
+              disabled={like.isPending}
+              className={cn(action, "px-1.5", post.liked && "text-live")}
+              aria-label={post.liked ? t("posts.unlike") : t("posts.like")}
+              aria-pressed={post.liked}
+            >
+              <Heart key={pop} className={cn("h-[23px] w-[23px]", pop > 0 && post.liked && "animate-like-pop")} strokeWidth={1.9} fill={post.liked ? "currentColor" : "none"} />
+              {post.likes > 0 && <span className="text-foreground">{compact.format(post.likes)}</span>}
+            </button>
+            <button type="button" onClick={open} className={cn(action, "px-1.5")} aria-label={t("posts.reply")}>
+              <MessageCircle className="h-[23px] w-[23px] -scale-x-100" strokeWidth={1.9} /> {post.replies > 0 && compact.format(post.replies)}
             </button>
             {!post.groupId && !post.campus && (
               <button
                 type="button"
                 onClick={() => setRepostOpen(true)}
-                className={cn(action, post.reposted && "text-success")}
+                className={cn(action, "px-1.5", post.reposted && "text-success")}
                 aria-label={t("posts.repost")}
               >
-                <Repeat2 className="h-[18px] w-[18px]" /> {post.reposts > 0 && compact.format(post.reposts)}
+                <Repeat2 className="h-[23px] w-[23px]" strokeWidth={1.9} /> {post.reposts > 0 && compact.format(post.reposts)}
               </button>
             )}
-            <button
-              type="button"
-              onClick={() => like.mutate()}
-              disabled={like.isPending}
-              className={cn(action, post.liked && "text-live")}
-              aria-label={post.liked ? t("posts.unlike") : t("posts.like")}
-              aria-pressed={post.liked}
-            >
-              <Heart className="h-[18px] w-[18px]" fill={post.liked ? "currentColor" : "none"} /> {post.likes > 0 && compact.format(post.likes)}
-            </button>
-            <button type="button" onClick={() => void share()} className={cn(action, "ml-auto")} aria-label={t("posts.share")}>
-              <Share className="h-[18px] w-[18px]" />
+            <button type="button" onClick={() => void share()} className={cn(action, "px-1.5")} aria-label={t("posts.share")}>
+              <Send className="h-[22px] w-[22px]" strokeWidth={1.9} />
             </button>
           </footer>
         </div>

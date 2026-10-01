@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { GraduationCap, Play, Search } from "lucide-react";
+import { GraduationCap, Play, Plus, Search } from "lucide-react";
 import { AppHeader, HomeHeaderActions } from "@/components/app-header";
+import { FeedSwitcher } from "@/components/home/feed-switcher";
+import { StoriesRow } from "@/components/home/stories-row";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
 import { NewsCard } from "@/components/posts/news-card";
@@ -24,6 +26,13 @@ import { VoiceIcon } from "@/components/voice/voice-icon";
 type Tab = "campus" | "following" | "groups" | "news";
 const TABS: Tab[] = ["campus", "following", "groups", "news"];
 
+/** Where "+" puts a new voice: the campus / news section you're looking at, else personal. */
+function recordTarget(tab: Tab | null, section?: string): { campus?: 1; news?: 1; section?: string } {
+  if (tab === "campus") return section ? { campus: 1, section } : { campus: 1 };
+  if (tab === "news") return section ? { section } : { news: 1 };
+  return {};
+}
+
 export const Route = createFileRoute("/_authenticated/")({
   // ?tab=campus|following|groups|news, ?s=<section> inside Campus or News. No tab: Campus for verified students, else
   // News (?s alone = News, as old links; old ?tab=<section> still lands in that News section).
@@ -39,9 +48,9 @@ export const Route = createFileRoute("/_authenticated/")({
 });
 
 /**
- * Home in four parts: your Campus first (ΕΜΠ: its topic of the day, news, student sections and classmates' voices —
- * students only), then Following (personal voices of the people you follow), Groups and News (every section, ranked).
- * A round ▶ plays the list you're looking at.
+ * Home in four feeds, picked from the big title (like "For you ⌄"): your Campus (ΕΜΠ: its topic of the day, news,
+ * student sections and classmates' voices — students only), Following, Groups and News. Above them the "stories" of
+ * people you follow who spoke today; "+" records, ▶ plays the list you're looking at.
  */
 function HomePage() {
   const { t } = useTranslation();
@@ -59,42 +68,35 @@ function HomePage() {
   const status = useQuery({ queryKey: campusStatusKeys.status, queryFn: campusStatus, enabled: tab === "campus" && verified });
   const campusOpen = status.data?.is_open !== false;
   const label = (x: Tab) => (x === "campus" ? campus.label({ university_id: me.data?.university_id }) || t("home.campus") : t(`home.${x}`));
+  const canPlay = !!tab && tab !== "news" && !(tab === "campus" && (!verified || !campusOpen));
   return (
     <>
-      <AppHeader right={<HomeHeaderActions />} />
-      <div className="sticky top-[calc(env(safe-area-inset-top,0px)+4rem)] z-20 border-b border-border bg-background/90 backdrop-blur">
-        <div className="flex items-center">
-          <nav className="flex flex-1">
-            {TABS.map((x) => {
-              const on = x === tab;
-              return (
-                <Link
-                  key={x}
-                  to="/"
-                  search={{ tab: x }}
-                  replace
-                  className={cn("relative flex-1 py-3 text-center text-callout font-semibold transition-colors", on ? "text-foreground" : "text-muted-foreground")}
-                >
-                  {label(x)}
-                  {on && <span className="absolute inset-x-1/4 bottom-0 h-[3px] rounded-full bg-primary" />}
-                </Link>
-              );
-            })}
-          </nav>
-          {tab && tab !== "news" && !(tab === "campus" && (!verified || !campusOpen)) && (
+      <AppHeader
+        left={
+          <Link to="/record" search={recordTarget(tab, section)} aria-label={t("voice.navRecord")} className="grid h-11 w-11 place-items-center rounded-full">
+            <Plus className="h-[30px] w-[30px]" strokeWidth={1.7} />
+          </Link>
+        }
+        center={<FeedSwitcher tab={tab} tabs={TABS} label={label} />}
+        right={<HomeHeaderActions />}
+      />
+      <StoriesRow />
+      {(canPlay || tab === "news" || (tab === "campus" && verified && campusOpen)) && (
+        <div className="no-scrollbar flex items-center gap-2 overflow-x-auto px-4 pb-2.5">
+          {canPlay && (
             <button
               type="button"
               onClick={() => playAll.current?.()}
               aria-label={t("posts.playAll")}
-              className="mx-3 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground active:scale-95"
+              className="flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-foreground px-3 text-caption font-semibold text-background"
             >
-              <Play className="ml-0.5 h-4 w-4" fill="currentColor" />
+              <Play className="h-3.5 w-3.5" fill="currentColor" strokeWidth={0} /> {t("posts.playAll")}
             </button>
           )}
+          {tab === "news" && <SectionPills tab="news" active={section} />}
+          {tab === "campus" && verified && campusOpen && <SectionPills tab="campus" active={section} />}
         </div>
-        {tab === "news" && <SectionPills tab="news" active={section} />}
-        {tab === "campus" && verified && campusOpen && <SectionPills tab="campus" active={section} />}
-      </div>
+      )}
 
       {tab === null ? null : tab === "campus" ? (
         verified ? (
@@ -343,7 +345,7 @@ function CampusTopicRow({ topic }: { topic: NewsTopic }) {
   );
 }
 
-/** News or Campus → Όλα · <sections> (small pills, the chosen one white). */
+/** News or Campus → Όλα · <sections> (small chips, the chosen one inverted). */
 function SectionPills({ tab, active }: { tab: "news" | "campus"; active?: string }) {
   const { t } = useTranslation();
   const all = useSections();
@@ -354,9 +356,9 @@ function SectionPills({ tab, active }: { tab: "news" | "campus"; active?: string
     bar.current?.querySelector<HTMLElement>("[data-active=true]")?.scrollIntoView({ inline: "center", block: "nearest" });
   }, [active, sections.length]);
   const pill = (on: boolean) =>
-    cn("h-8 shrink-0 rounded-full px-3.5 text-caption font-semibold leading-8 transition-colors", on ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground");
+    cn("h-8 shrink-0 rounded-lg px-3 text-caption font-semibold leading-8 transition-colors", on ? "bg-foreground text-background" : "bg-secondary text-foreground");
   return (
-    <nav ref={bar} className="no-scrollbar flex gap-2 overflow-x-auto px-4 pb-2.5">
+    <nav ref={bar} className="flex gap-2">
       <Link to="/" search={{ tab }} replace data-active={!active} className={pill(!active)}>
         {t("home.all")}
       </Link>

@@ -39,7 +39,9 @@
     "username": "Username",
     "usernameHint": "3–20 characters: a–z, 0–9, . and _",
     "photo": "Change photo",
-    "photoSaved": "Photo saved"
+    "photoSaved": "Photo saved",
+    "share": "Share profile",
+    "newGroup": "New"
   },
   "admin": {
     "title": "Manage topics",
@@ -394,7 +396,8 @@
     "personalHint": "Your followers hear it under “Following”.",
     "newsHint": "In News · {{section}}.",
     "deletedVoice": "This voice was deleted by its author.",
-    "quoteDeleted": "The original voice is no longer available."
+    "quoteDeleted": "The original voice is no longer available.",
+    "untitled": "Untitled"
   },
   "feed": {
     "recordCta": "Record your day"
@@ -431,7 +434,10 @@
     "count_other": "{{count}} voices"
   },
   "messages": {
-    "empty": "No voice messages yet."
+    "empty": "No voice messages yet.",
+    "search": "Search",
+    "noteLive": "● Talking now",
+    "noteTalk": "Walkie"
   },
   "notificationsPage": {
     "empty": "No notifications.",
@@ -713,7 +719,8 @@
     "emptyFollowingTitle": "Nothing here yet",
     "emptyFollowing": "Hear what the people you follow say, outside the news.",
     "findPeople": "Find people",
-    "campus": "Campus"
+    "campus": "Campus",
+    "pickFeed": "Feed: {{feed}}"
   },
   "news": {
     "spokeOne": "{{name}} spoke",
@@ -908,5 +915,13 @@
     "bannerFrom": "From the map · {{distance}}",
     "bannerMap": "From the map",
     "notifyBody": "is talking to you from the map"
+  },
+  "stories": {
+    "title": "Today's voices",
+    "mine": "Your voices today",
+    "add": "Say something",
+    "yours": "Your voice",
+    "play_one": "{{name}}: {{count}} voice",
+    "play_other": "{{name}}: {{count}} voices"
   }
 }

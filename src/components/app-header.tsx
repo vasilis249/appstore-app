@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link, useRouter } from "@tanstack/react-router";
-import { Bell, ChevronLeft, Send } from "lucide-react";
+import { ChevronLeft, Heart, Send } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Wordmark } from "@/components/wordmark";
 import { useUnheardCount } from "@/hooks/use-threads";
@@ -27,7 +27,7 @@ export function AppHeader({
   const router = useRouter();
   const { t } = useTranslation();
   return (
-    <header className="glass safe-top sticky top-0 z-30 border-b border-border/60">
+    <header className="safe-top sticky top-0 z-30 bg-background/90 backdrop-blur-xl">
       <div className="relative flex h-14 items-center justify-center px-4">
         <div className="absolute left-2 flex items-center">
           {back ? (
@@ -35,7 +35,7 @@ export function AppHeader({
               type="button"
               onClick={() => router.history.back()}
               aria-label={t("common.back", "Back")}
-              className="grid h-11 w-11 place-items-center rounded-full text-link"
+              className="grid h-11 w-11 place-items-center rounded-full text-foreground"
             >
               <ChevronLeft className="h-7 w-7" strokeWidth={2.2} />
             </button>
@@ -45,7 +45,7 @@ export function AppHeader({
         </div>
         {center ??
           (title ? (
-            <h1 className="max-w-[60%] truncate text-body font-semibold">{title}</h1>
+            <h1 className="max-w-[60%] truncate text-[17px] font-bold">{title}</h1>
           ) : (
             <Wordmark />
           ))}
@@ -55,7 +55,7 @@ export function AppHeader({
   );
 }
 
-/** Groups a few icon buttons (e.g. messages + notifications): plain 44 px icons in the ink colour. */
+/** Groups a few icon buttons (e.g. notifications + messages): plain 44 px icons in the ink colour. */
 export function HeaderPill({ children }: { children: ReactNode }) {
   return <div className="flex items-center">{children}</div>;
 }
@@ -75,7 +75,7 @@ export function HeaderIconLink({
     <Link to={to} aria-label={label} className="relative grid h-11 w-11 place-items-center rounded-full text-foreground">
       {children}
       {badge ? (
-        <span className="absolute right-0.5 top-0.5 min-w-5 rounded-full bg-live px-1.5 text-center text-[11px] font-semibold leading-5 text-destructive-foreground">
+        <span className="absolute right-0 top-0 min-w-5 rounded-full border-2 border-background bg-live px-1 text-center text-[11px] font-bold leading-4 text-destructive-foreground animate-scale-in">
           {badge > 9 ? "9+" : badge}
         </span>
       ) : null}
@@ -83,18 +83,18 @@ export function HeaderIconLink({
   );
 }
 
-/** Messages + notifications, top right of the Home screen. */
+/** Notifications (heart) + messages (paper plane), top right of the Home screen. */
 export function HomeHeaderActions() {
   const { t } = useTranslation();
   const unheard = useUnheardCount();
   const unread = useQuery({ queryKey: notificationKeys.unread, queryFn: unreadCount });
   return (
     <HeaderPill>
-      <HeaderIconLink to="/messages" label={t("tabs.messages")} badge={unheard}>
-        <Send className="h-5 w-5" />
-      </HeaderIconLink>
       <HeaderIconLink to="/notifications" label={t("tabs.notifications")} badge={unread.data}>
-        <Bell className="h-5 w-5" />
+        <Heart className="h-[26px] w-[26px]" strokeWidth={1.9} />
+      </HeaderIconLink>
+      <HeaderIconLink to="/messages" label={t("tabs.messages")} badge={unheard}>
+        <Send className="h-[25px] w-[25px]" strokeWidth={1.9} />
       </HeaderIconLink>
     </HeaderPill>
   );

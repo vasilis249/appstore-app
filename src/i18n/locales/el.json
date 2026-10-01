@@ -39,7 +39,9 @@
     "username": "Username",
     "usernameHint": "3–20 χαρακτήρες: a–z, 0–9, . και _",
     "photo": "Αλλαγή φωτογραφίας",
-    "photoSaved": "Η φωτογραφία αποθηκεύτηκε"
+    "photoSaved": "Η φωτογραφία αποθηκεύτηκε",
+    "share": "Κοινοποίηση προφίλ",
+    "newGroup": "Νέα"
   },
   "admin": {
     "title": "Διαχείριση θεμάτων",
@@ -394,7 +396,8 @@
     "personalHint": "Θα την ακούσουν όσοι σε ακολουθούν, στο «Ακολουθείς».",
     "newsHint": "Στις Ειδήσεις · {{section}}.",
     "deletedVoice": "Αυτή η φωνή διαγράφηκε από τον δημιουργό της.",
-    "quoteDeleted": "Η αρχική φωνή δεν είναι πλέον διαθέσιμη."
+    "quoteDeleted": "Η αρχική φωνή δεν είναι πλέον διαθέσιμη.",
+    "untitled": "Χωρίς τίτλο"
   },
   "feed": {
     "recordCta": "Πες τη μέρα σου"
@@ -431,7 +434,10 @@
     "count_other": "{{count}} φωνές"
   },
   "messages": {
-    "empty": "Δεν έχεις φωνητικά μηνύματα."
+    "empty": "Δεν έχεις φωνητικά μηνύματα.",
+    "search": "Αναζήτηση",
+    "noteLive": "● Μιλάει τώρα",
+    "noteTalk": "Walkie"
   },
   "notificationsPage": {
     "empty": "Καμία ειδοποίηση.",
@@ -713,7 +719,8 @@
     "emptyFollowingTitle": "Τίποτα ακόμα εδώ",
     "emptyFollowing": "Εδώ ακούς ό,τι λένε όσοι ακολουθείς, εκτός ειδήσεων.",
     "findPeople": "Βρες άτομα",
-    "campus": "Campus"
+    "campus": "Campus",
+    "pickFeed": "Ροή: {{feed}}"
   },
   "news": {
     "spokeOne": "{{name}} μίλησε",
@@ -908,5 +915,13 @@
     "bannerFrom": "Από τον χάρτη · {{distance}}",
     "bannerMap": "Από τον χάρτη",
     "notifyBody": "Σου μιλάει από τον χάρτη"
+  },
+  "stories": {
+    "title": "Φωνές της ημέρας",
+    "mine": "Οι φωνές σου σήμερα",
+    "add": "Πες κάτι",
+    "yours": "Η φωνή σου",
+    "play_one": "{{name}}: {{count}} φωνή",
+    "play_other": "{{name}}: {{count}} φωνές"
   }
 }

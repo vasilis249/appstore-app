@@ -28,12 +28,12 @@ function UserPage() {
     <>
       <AppHeader
         back
-        title={`@${username}`}
+        center={<h1 className="max-w-[55vw] truncate text-[18px] font-extrabold tracking-[-0.02em]">{username}</h1>}
         right={
           p && (
             <HeaderPill>
-              <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className="grid h-9 w-10 place-items-center rounded-full">
-                <MoreHorizontal className="h-5 w-5" />
+              <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className="grid h-11 w-11 place-items-center rounded-full">
+                <MoreHorizontal className="h-6 w-6" />
               </button>
             </HeaderPill>
           )

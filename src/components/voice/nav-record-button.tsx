@@ -35,7 +35,7 @@ function targetFor(pathname: string, search: Record<string, unknown>, student: b
 }
 
 /**
- * The round button in the nav. Tap → the composer. Hold → records right away (from any screen), let go →
+ * The voice item in the middle of the tab bar. Tap → the composer. Hold → records right away (from any screen), let go →
  * the composer opens with the voice ready, placed where you were (group, topic, news section or personal).
  */
 export function NavRecordButton() {
@@ -60,20 +60,23 @@ export function NavRecordButton() {
     void navigate({ to: "/record", search: target });
   }, [r.state, r.clip]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const base = "grid h-14 w-14 place-items-center rounded-full transition-transform duration-150";
+  // A tab-bar item like the others (the voice mark); while held it turns red and breathes.
   return (
     <>
       <button
         type="button"
         {...ptt.bind}
         aria-label={t("voice.navRecord")}
-        className={cn(base, live ? "scale-110 bg-live text-primary-foreground" : "bg-primary text-primary-foreground")}
+        className={cn(
+          "relative z-10 grid h-12 w-full place-items-center rounded-full transition-[transform,background-color,color] duration-200",
+          live ? "scale-110 bg-live text-destructive-foreground" : "text-foreground",
+        )}
       >
-        <VoiceIcon className="h-7 w-7" strokeWidth={1.8} live={live} />
+        <VoiceIcon className="h-7 w-7" strokeWidth={2} live={live} />
       </button>
       {live && (
         <div className="pointer-events-none fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom,0px)+6.5rem)] z-50 flex justify-center px-4">
-          <div className="glass flex items-center gap-3 rounded-full border border-border/60 py-2.5 pl-4 pr-5 shadow-float animate-scale-in">
+          <div className="flex items-center gap-3 rounded-full bg-popover py-2.5 pl-4 pr-5 shadow-float animate-scale-in">
             <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-live" />
             <span className="text-callout font-semibold tabular-nums">
               {formatClock(r.elapsedMs)} <span className="font-normal text-muted-foreground">/ {formatClock(POST_MAX_MS)}</span>

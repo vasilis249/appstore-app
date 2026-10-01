@@ -4,11 +4,13 @@ Persistent findings for Claude sessions. Reply to the user in Greek; code, comme
 Work in phases; after each phase STOP, summarize in ≤10 lines, update this file, wait for the user's "OK".
 Don't read `bun.lock`, `node_modules`, `src/assets`, `src/components/ui` (stock shadcn), `src/routeTree.gen.ts`,
 `src/integrations/supabase/types.ts` (generated). Use Glob/Grep, read only what's needed.
-**Design rule (user decision 2026-10-01): every UI change follows `/DESIGN.md`** (the Apple system from
-VoltAgent/awesome-design-md + its "Speak adaptation" section): tokens only (`bg-background/card/secondary/primary`,
-`text-foreground/muted-foreground/link`, `bg-live`, `text-success`, `glass`, `text-body/caption/…`), light + dark
-follow the iPhone, one blue accent, pills for actions, 18px cards, no shadows except `shadow-float` on floating chrome,
-press = scale(0.95). No raw hex / `text-white` on chrome / `bg-black` in screens.
+**Design rule (user decision 2026-10-01, replaces the Apple system and the C «Πρωτοσέλιδο» pick): every UI change
+follows `/DESIGN.md` = Speak's social system, "like today's Instagram"** (user's screenshots: profile, For you,
+messages): white / black canvas, system font, grey fills, one blue `#0095f6` for actions, story rings, floating tab
+capsule with a gliding pill, Instagram-like motion (pop, heart burst, slide push/pop page transitions, stagger,
+skeletons). Tokens only (`bg-background/card/secondary/primary/nav`, `text-foreground/muted-foreground/link`,
+`bg-live`, `text-success`, `.story-ring`, `.animate-like-pop`, `.stagger`, `.skeleton`); light + dark follow the
+iPhone; never copy Instagram's logo/glyphs/wording.
 
 **Design skills (user request 2026-10-01, installed in `.claude/skills/`, MIT):** from nextlevelbuilder/ui-ux-pro-max-skill —
 `ui-ux-pro-max` (search.py: `--design-system`, `--domain ux|style|color|typography`, `--stack`), `design-system`, `design`;
@@ -540,6 +542,27 @@ User decisions:
   (pre-N5 copy; attica/acg cover it). Flaky runs were `reset-local.sh` failing to drop the DB while PostgREST
   reconnected → migrations re-ran on the old DB and `nearby_talk` failed (policy exists) → map functions missing; it
   now uses `DROP DATABASE … WITH (FORCE)` and stops on failure.
+  **I1 ✔ (Instagram-style redesign, part 1 — user screenshots 2026-10-01: profile, For you, messages)** — tokens
+  (`design-system.css`): white/black canvas, system font, `#efefef`/`#262626` fills, `#0095f6` actions, `#ff3040`
+  likes/live, type scale 28/24/20/16/15/13/12 bold headings, radii 6/8/12/16; motion utilities `.story-ring`
+  (+`.seen`, `.spin` = conic spin via `@property --ring-angle`), `.animate-like-pop`, `.animate-heart-burst`,
+  `.stagger`, `.skeleton`, `.nav-pill`; page transitions via View Transitions types from `router.tsx`
+  (`transitionTypes`: tab roots / → cross-fade "tab", deeper → "push"/"pop" slides; tabbar has
+  `view-transition-name: tabbar`). `BottomNav` = floating capsule, 5 icons no labels (Home with own filled/outline
+  `HomeIcon`, Map, voice item = `NavRecordButton` (hold = PTT anywhere), Search, Profile avatar) + gliding pill.
+  Messages moved to Home's header (♥ notifications + ✈ messages, red badges). Home: `+` (record, placed by feed) ·
+  `FeedSwitcher` (title ⌄ dropdown: Campus/Ακολουθείς/Ομάδες/Ειδήσεις, aria "Ροή: …") · `StoriesRow`
+  (`components/home/stories-row.tsx`: followed people who spoke in 24 h, ring until heard — localStorage
+  `courtsie:storiesSeen` — tap plays their voices, ring spins while playing; you first with +) · ▶ Παίξε όλα chip +
+  section chips (selected = inverted). `PostCard`: bold name, voice tile (`bg-card`, black ▶), double-tap = like +
+  heart burst, ♥ 💬 ⟲ ✈ with counts. `ProfileView`: Instagram layout (photo 86 +, name, counts, school, Edit · Share ·
+  find people / Follow · Message · walkie), groups as round highlights, icon tabs voices (3-col grid tiles) |
+  replies. Profile header: + · username · calendar · ☰. Messages: username + compose, search field (filters
+  threads), walkie friends with note bubbles + green here-dots, «Μηνύματα» + «Walkie-talkie» (unheard badge),
+  IG rows (bold + blue dot when unheard). `DESIGN.md` rewritten (social system). Flows updated (feed picker in
+  campus-flow, `.first()` where auto-group names repeat the school, walkie badge text) → all 17 green. NEXT: I2 —
+  the remaining screens (search/explore, notifications, post/topic/group pages, composer + walkie/PTT buttons,
+  auth, settings, map chrome, memories) in the same style.
   **L3 ✔ (push to talk on the map)** migration `20261023100000_nearby_talk.sql`: `private.nearby_knocks` (last knock per
   pair), `public.nearby_messages` + `private.nearby_audio` (24 h, like walkie), `private.may_talk_nearby(a, b)`
   (are_nearby + nobody disabled + b's talk_from), `knocked_recently(a, b)` (5 min), `may_send_nearby` (may talk, or
