@@ -114,11 +114,11 @@ export function PersonActionsSheet({
                   type="button"
                   disabled={busy}
                   onClick={() => act.mutate()}
-                  className="h-12 w-full rounded-full bg-destructive font-semibold text-destructive-foreground disabled:opacity-50"
+                  className="h-12 w-full rounded-xl bg-destructive font-semibold text-destructive-foreground disabled:opacity-50"
                 >
                   {t("report.alsoBlock")}
                 </button>
-                <button type="button" onClick={() => onOpenChange(false)} className="h-12 w-full rounded-full bg-secondary font-semibold">
+                <button type="button" onClick={() => onOpenChange(false)} className="h-12 w-full rounded-xl bg-secondary font-semibold">
                   {t("report.done")}
                 </button>
               </div>
@@ -131,11 +131,11 @@ export function PersonActionsSheet({
                   type="button"
                   disabled={busy}
                   onClick={() => act.mutate()}
-                  className="h-12 w-full rounded-full bg-destructive font-semibold text-destructive-foreground disabled:opacity-50"
+                  className="h-12 w-full rounded-xl bg-destructive font-semibold text-destructive-foreground disabled:opacity-50"
                 >
                   {t("friends.block")}
                 </button>
-                <button type="button" onClick={() => setStep("menu")} className="h-12 w-full rounded-full bg-secondary font-semibold">
+                <button type="button" onClick={() => setStep("menu")} className="h-12 w-full rounded-xl bg-secondary font-semibold">
                   {t("common.cancel")}
                 </button>
               </div>

@@ -33,9 +33,10 @@ export function FollowButton({
       disabled={m.isPending}
       onClick={() => m.mutate()}
       className={cn(
-        "shrink-0 rounded-full font-semibold disabled:opacity-50",
+        "shrink-0 rounded-[10px] font-semibold transition-colors duration-300 disabled:opacity-50",
         size === "lg" ? "h-11 px-6 text-callout" : "h-8 px-3.5 text-caption",
-        following ? "bg-secondary text-foreground" : "bg-primary text-primary-foreground",
+        // Follow is the one indigo button (DESIGN.md, Quiet); Following goes grey.
+        following ? "bg-secondary text-foreground" : "bg-link text-primary-foreground",
       )}
     >
       {following ? t("people.following") : followsMe ? t("people.followBack") : t("people.follow")}

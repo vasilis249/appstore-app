@@ -40,7 +40,7 @@ export function TopicStrip({ section, variant = "cards" }: { section?: string; v
             key={tp.id}
             to="/t/$topicId"
             params={{ topicId: tp.id }}
-            className="flex w-60 shrink-0 flex-col justify-between rounded-2xl bg-card p-3 ring-1 ring-border"
+            className="flex w-60 shrink-0 flex-col justify-between rounded-2xl bg-card p-3"
           >
             <span className="flex items-center gap-1 text-fine text-muted-foreground">
               {tp.kind === "news" && <Newspaper className="h-3.5 w-3.5" />}

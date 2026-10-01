@@ -45,15 +45,18 @@ function PostPage() {
           {above.map((a, i) => (
             <PostCard key={a.row.post_id} post={a} threadLine hideReplyTo={i > 0} onPlay={() => playFrom(a)} />
           ))}
-          <PostCard post={view} linkToPost={false} hideReplyTo={above.length > 0} onPlay={() => playFrom(view)} />
+          <PostCard post={view} focus linkToPost={false} hideReplyTo={above.length > 0} onPlay={() => playFrom(view)} />
           {!view.deleted && (
           <div className="border-b border-border px-4 py-3">
             <Link
               to="/record"
               search={{ reply: view.id }}
-              className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-secondary font-semibold"
+              className="flex h-12 items-center justify-between gap-2 rounded-xl bg-secondary pl-4 pr-1.5 text-callout text-muted-foreground"
             >
-              <VoiceIcon className="h-5 w-5" /> {t("posts.replyWithVoice")}
+              {t("posts.replyWithVoice")}
+              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-primary text-primary-foreground">
+                <VoiceIcon className="h-[18px] w-[18px]" />
+              </span>
             </Link>
           </div>
           )}

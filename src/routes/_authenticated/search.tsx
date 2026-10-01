@@ -37,7 +37,7 @@ function SearchPage() {
 
   return (
     <>
-      <AppHeader />
+      <AppHeader large={t("tabs.search")} kicker={t("home.forStudents")} />
       <div className="px-4 pt-2">
         <label className="flex h-12 items-center gap-2 rounded-2xl bg-secondary px-4">
           <Search className="h-5 w-5 shrink-0 text-muted-foreground" />

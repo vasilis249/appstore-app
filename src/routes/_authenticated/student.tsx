@@ -245,7 +245,7 @@ function StudentPage() {
         onSubmit={() => go("year")}
       >
         {schools.length > 12 && (
-          <label className="mb-3 flex h-11 items-center gap-2 rounded-full bg-secondary px-4">
+          <label className="mb-3 flex h-11 items-center gap-2 rounded-xl bg-secondary px-4">
             <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
             <input
               value={query}

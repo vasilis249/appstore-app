@@ -141,7 +141,7 @@ function TalkPage() {
           <button
             type="button"
             onClick={w.unlockAudio}
-            className="mt-4 flex h-10 items-center gap-2 rounded-full bg-secondary px-4 text-caption font-semibold"
+            className="mt-4 flex h-10 items-center gap-2 rounded-xl bg-secondary px-4 text-caption font-semibold"
           >
             <Volume2 className="h-4 w-4" /> {t("walkie.enableSound")}
           </button>

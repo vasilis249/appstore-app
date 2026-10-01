@@ -141,7 +141,7 @@ function NewTopic() {
         type="button"
         disabled={!valid || create.isPending}
         onClick={() => create.mutate()}
-        className="h-12 w-full rounded-full bg-primary font-semibold text-primary-foreground disabled:opacity-40"
+        className="h-12 w-full rounded-xl bg-primary font-semibold text-primary-foreground disabled:opacity-40"
       >
         {t("admin.create")}
       </button>
@@ -216,7 +216,7 @@ function CampusAdmin() {
       </p>
       <div className="flex gap-2">
         <input value={min} onChange={(e) => setMin(e.target.value.replace(/\D/g, ""))} inputMode="numeric" placeholder={t("admin.minStudents")} className={input} />
-        <button type="button" disabled={!min || saveMin.isPending} onClick={() => saveMin.mutate()} className="h-12 shrink-0 rounded-full bg-primary px-5 font-semibold text-primary-foreground disabled:opacity-40">
+        <button type="button" disabled={!min || saveMin.isPending} onClick={() => saveMin.mutate()} className="h-12 shrink-0 rounded-xl bg-primary px-5 font-semibold text-primary-foreground disabled:opacity-40">
           {t("admin.save")}
         </button>
       </div>
@@ -235,7 +235,7 @@ function CampusAdmin() {
       </ul>
       <div className="flex gap-2">
         <input value={username} onChange={(e) => setUsername(e.target.value.trim())} placeholder="@username" autoCapitalize="none" className={input} />
-        <button type="button" disabled={username.length < 3 || mod.isPending} onClick={() => mod.mutate({ name: username, on: true })} className="h-12 shrink-0 rounded-full bg-primary px-5 font-semibold text-primary-foreground disabled:opacity-40">
+        <button type="button" disabled={username.length < 3 || mod.isPending} onClick={() => mod.mutate({ name: username, on: true })} className="h-12 shrink-0 rounded-xl bg-primary px-5 font-semibold text-primary-foreground disabled:opacity-40">
           {t("admin.add")}
         </button>
       </div>

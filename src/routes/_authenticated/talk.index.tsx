@@ -60,7 +60,7 @@ function WalkieListPage() {
           title={t("walkie.emptyTitle")}
           text={t("walkie.empty")}
           action={
-            <Link to="/search" className="inline-flex h-12 items-center rounded-full bg-primary px-8 font-semibold text-primary-foreground">
+            <Link to="/search" className="inline-flex h-12 items-center rounded-xl bg-primary px-8 font-semibold text-primary-foreground">
               {t("home.findPeople")}
             </Link>
           }

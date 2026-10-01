@@ -6,12 +6,14 @@ import { VoiceIcon } from "@/components/voice/voice-icon";
 import { useRecorder } from "@/hooks/use-recorder";
 import { usePushToTalk } from "@/hooks/use-push-to-talk";
 import { formatClock, player } from "@/lib/audio";
+import { haptic } from "@/lib/haptics";
 import { cn } from "@/lib/utils";
 
 export type Clip = { blob: Blob; mime: string; durationMs: number };
 
 /**
- * Push to talk: hold the round button and speak, let go to stop (a coral ring fills up to the limit).
+ * Push to talk (Quiet): the clock on top, a red button inside a thin ring — hold and speak: it morphs into a rounded
+ * square, breathes out a pulse and the ring fills up to the limit; let go to stop.
  * Then the same button plays it back; "Again" starts over. `initialClip` = already recorded (from the nav button).
  */
 export function VoiceRecorder({
@@ -33,11 +35,15 @@ export function VoiceRecorder({
   }, [r.error, t]);
   useEffect(() => onChange(r.state === "recorded" ? r.clip : null), [r.state, r.clip, onChange]);
   useEffect(() => () => player.stop(), []);
+  // a firm tap when the mic opens and when it stops
+  useEffect(() => {
+    if (r.state === "recording" || r.state === "recorded") haptic("medium");
+  }, [r.state]);
 
   const recorded = r.state === "recorded" && !!r.clip;
   const live = r.state === "recording";
   const ms = recorded ? r.clip!.durationMs : r.elapsedMs;
-  const R = 80;
+  const R = 57;
   const C = 2 * Math.PI * R;
 
   function playBack() {
@@ -55,14 +61,19 @@ export function VoiceRecorder({
   }
 
   return (
-    <div className="flex select-none flex-col items-center gap-4 py-2">
-      <div className="relative grid h-[184px] w-[184px] place-items-center">
-        <svg className="pointer-events-none absolute inset-0 -rotate-90" viewBox="0 0 184 184" aria-hidden>
-          <circle cx="92" cy="92" r={R} fill="none" stroke="currentColor" strokeWidth="4" className="text-secondary" />
+    <div className="flex select-none flex-col items-center gap-5 py-2">
+      <p className="text-[44px] font-light leading-none tracking-[-0.02em] tabular-nums">
+        {formatClock(ms)}
+        <span className="text-tagline font-normal text-muted-foreground"> / {formatClock(maxMs)}</span>
+      </p>
+
+      <div className="relative grid h-[120px] w-[120px] place-items-center">
+        <svg className="pointer-events-none absolute inset-0 -rotate-90" viewBox="0 0 120 120" aria-hidden>
+          <circle cx="60" cy="60" r={R} fill="none" stroke="currentColor" strokeWidth="3" className="text-border" />
           {(live || recorded) && (
             <circle
-              cx="92" cy="92" r={R} fill="none" strokeWidth="4" strokeLinecap="round" stroke="currentColor"
-              className={live ? "text-live" : "text-foreground/60"}
+              cx="60" cy="60" r={R} fill="none" strokeWidth="3" strokeLinecap="round" stroke="currentColor"
+              className={cn("transition-[stroke-dashoffset] duration-300 ease-linear", live ? "text-live" : "text-foreground")}
               strokeDasharray={C} strokeDashoffset={C * (1 - Math.min(1, ms / maxMs))}
             />
           )}
@@ -72,26 +83,28 @@ export function VoiceRecorder({
             type="button"
             onClick={playBack}
             aria-label={previewing ? t("daily.pause") : t("daily.play")}
-            className="grid h-32 w-32 place-items-center rounded-full bg-primary text-primary-foreground active:scale-95"
+            className="grid h-24 w-24 place-items-center rounded-full bg-primary text-primary-foreground animate-scale-in"
           >
-            {previewing ? <Pause className="h-11 w-11" fill="currentColor" /> : <Play className="ml-1 h-11 w-11" fill="currentColor" />}
+            {previewing ? <Pause className="h-9 w-9" fill="currentColor" strokeWidth={0} /> : <Play className="ml-1 h-9 w-9" fill="currentColor" strokeWidth={0} />}
           </button>
         ) : (
           <button
             type="button"
             {...ptt.bind}
             aria-label={t("voice.holdToTalk")}
-            className={cn(
-              "grid h-32 w-32 place-items-center rounded-full transition-transform duration-150",
-              live || ptt.holding ? "scale-110 bg-live text-primary-foreground" : "bg-primary text-primary-foreground",
-            )}
+            className={cn("grid h-24 w-24 place-items-center rounded-full", live && "animate-rec-pulse")}
           >
-            <VoiceIcon className="h-14 w-14" strokeWidth={1.8} live={live} />
+            <span
+              className={cn(
+                "ease-spring grid place-items-center bg-live text-destructive-foreground",
+                live || ptt.holding ? "h-9 w-9 rounded-[10px]" : "h-[76px] w-[76px] rounded-full",
+              )}
+            >
+              {!live && !ptt.holding && <VoiceIcon className="h-8 w-8" strokeWidth={1.8} />}
+            </span>
           </button>
         )}
       </div>
-
-      <p className={cn("text-hero font-semibold tabular-nums", !live && !recorded && "text-muted-foreground")}>{formatClock(ms)}</p>
 
       {recorded ? (
         <button

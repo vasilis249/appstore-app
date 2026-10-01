@@ -20,7 +20,7 @@ function ContactPage() {
         {items.map(({ href, icon: Icon, label, value }) => (
           <li key={href}>
             <a href={href} className="flex min-h-14 items-center gap-3 px-4 py-3">
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-link/10 text-link">
                 <Icon className="h-5 w-5" />
               </span>
               <span className="min-w-0">

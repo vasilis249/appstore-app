@@ -106,13 +106,13 @@ function ComposePage() {
       <AppHeader back title={heading} />
       <div className="flex flex-1 flex-col gap-5 px-4 pt-2">
         {topic.data && (
-          <div className="rounded-2xl bg-card p-3 ring-1 ring-border">
+          <div className="rounded-2xl bg-card p-3">
             <p className="text-fine text-muted-foreground">{name(topic.data.section_id)}</p>
             <p className="font-semibold leading-snug">{topic.data.title}</p>
           </div>
         )}
         {campusMode && (
-          <div className="flex items-center gap-3 rounded-2xl bg-card p-3 ring-1 ring-border">
+          <div className="flex items-center gap-3 rounded-2xl bg-card p-3">
             <GraduationCap className="h-5 w-5 shrink-0 text-link" />
             <div className="min-w-0">
               <p className="font-semibold leading-snug">{t("campus.postingIn", { uni: campus.label({ university_id: me.data?.university_id }) || "…" })}</p>
@@ -121,13 +121,13 @@ function ComposePage() {
           </div>
         )}
         {group.data && (
-          <div className="rounded-2xl bg-card p-3 ring-1 ring-border">
+          <div className="rounded-2xl bg-card p-3">
             <p className="text-fine text-muted-foreground">{t("groups.postingIn")}</p>
             <p className="font-semibold leading-snug">{group.data.name}</p>
           </div>
         )}
         {p && (
-          <div className="rounded-2xl bg-card p-3 ring-1 ring-border">
+          <div className="rounded-2xl bg-card p-3">
             <p className="text-fine text-muted-foreground">
               {search.reply ? t("posts.replyingTo") : t("posts.quoting")} @{p.author_username} · {formatClock(p.duration_ms ?? 0)}
             </p>
@@ -210,7 +210,7 @@ function ComposePage() {
             type="button"
             disabled={!ready}
             onClick={() => post.mutate()}
-            className="h-12 w-full rounded-full bg-primary font-semibold text-primary-foreground disabled:opacity-40"
+            className="h-12 w-full rounded-xl bg-primary font-semibold text-primary-foreground disabled:opacity-40"
           >
             {post.isPending ? t("common.saving") : t("posts.publish")}
           </button>

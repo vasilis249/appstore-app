@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { AudioLines, GraduationCap, Headphones, MessageCircle, Play, Plus, RadioTower, UserPlus } from "lucide-react";
+import { GraduationCap, MessageCircle, Play, Plus, RadioTower, UserPlus } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { FollowButton } from "@/components/friends/follow-button";
 import { FeedList } from "@/components/posts/feed-list";
@@ -16,14 +16,16 @@ import { groupKeys, myGroups } from "@/lib/groups";
 import { useCampus } from "@/lib/campus";
 import { formatClock } from "@/lib/audio";
 import { fetchFeed, nextCursor, postKeys, toView, type FeedParams } from "@/lib/posts";
+import { timeAgoShort } from "@/lib/time-ago";
+import { haptic } from "@/lib/haptics";
 import { cn } from "@/lib/utils";
 
 const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
 
 /**
- * A profile laid out like Instagram: photo + name + counts (tap → lists), school, the action buttons (yours: Edit ·
- * Share · find people; theirs: Follow · Message · walkie-talkie), your groups as round "highlights", then two icon
- * tabs: voices (a 3-column grid of voice tiles) and replies (a list).
+ * A profile (DESIGN.md, Quiet): photo + counts (tap → lists), name, the school as an indigo badge, the action buttons
+ * (yours: Edit · Share · find people; theirs: Follow · Message · walkie-talkie), your groups as rounded tiles, then
+ * text tabs Φωνές | Απαντήσεις with a gliding line: voices as compact rows, replies as the feed.
  */
 export function ProfileView({ person, isMe, onEdit }: { person: Person; isMe: boolean; onEdit?: () => void }) {
   const { t } = useTranslation();
@@ -34,8 +36,8 @@ export function ProfileView({ person, isMe, onEdit }: { person: Person; isMe: bo
   const school = campus.label(person);
   const s = stats.data;
   const name = person.full_name || person.username;
-  const button = "flex h-9 min-w-0 flex-1 items-center justify-center gap-1.5 truncate whitespace-nowrap rounded-lg bg-secondary px-2 text-[13.5px] font-semibold";
-  const square = "grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-secondary";
+  const button = "flex h-9 min-w-0 flex-1 items-center justify-center gap-1.5 truncate whitespace-nowrap rounded-lg bg-secondary px-2 text-caption font-semibold";
+  const square = "grid h-9 w-11 shrink-0 place-items-center rounded-lg bg-secondary";
 
   async function shareProfile() {
     const url = `${window.location.origin}/u/${person.username}`;
@@ -52,48 +54,46 @@ export function ProfileView({ person, isMe, onEdit }: { person: Person; isMe: bo
 
   return (
     <>
-      <section className="px-4 pt-2 animate-fade-in-up">
-        <div className="flex items-center gap-6">
+      <section className="px-4 pt-3 animate-fade-in-up">
+        <div className="flex items-center gap-5">
           <div className="relative shrink-0">
-            <UserAvatar name={name} path={person.avatar_path} size={86} />
+            <UserAvatar name={name} path={person.avatar_path} size={80} />
             {isMe && (
               <Link
                 to="/record"
                 aria-label={t("stories.add")}
-                className="absolute -bottom-0.5 -right-0.5 grid h-7 w-7 place-items-center rounded-full border-[3px] border-background bg-foreground text-background"
+                className="absolute -bottom-0.5 -right-0.5 grid h-6 w-6 place-items-center rounded-full border-2 border-background bg-foreground text-background"
               >
-                <Plus className="h-4 w-4" strokeWidth={3} />
+                <Plus className="h-3.5 w-3.5" strokeWidth={3} />
               </Link>
             )}
           </div>
-          <div className="min-w-0 flex-1">
-            <h1 className="truncate text-[15px] font-semibold tracking-normal">{name}</h1>
-            <div className="mt-1.5 grid grid-cols-3 gap-2">
-              <div className="flex flex-col">
-                <span className="text-[17px] font-bold tabular-nums leading-tight">{s ? compact.format(s.posts) : "–"}</span>
-                <span className="text-[14px] leading-tight">{t("people.voices").toLowerCase()}</span>
-              </div>
-              <button type="button" className="flex flex-col text-left" onClick={() => setTab("followers")}>
-                <span className="text-[17px] font-bold tabular-nums leading-tight">{s ? compact.format(s.followers) : "–"}</span>
-                <span className="text-[14px] leading-tight">{t("people.followers").toLowerCase()}</span>
-              </button>
-              <button type="button" className="flex flex-col text-left" onClick={() => setTab("following")}>
-                <span className="text-[17px] font-bold tabular-nums leading-tight">{s ? compact.format(s.following) : "–"}</span>
-                <span className="text-[14px] leading-tight">{t("people.followingCount").toLowerCase()}</span>
-              </button>
+          <div className="grid min-w-0 flex-1 grid-cols-3 text-center">
+            <div className="py-1.5">
+              <span className="block text-[19px] font-bold tabular-nums leading-tight tracking-[-0.02em]">{s ? compact.format(s.posts) : "–"}</span>
+              <span className="block text-fine text-muted-foreground">{t("people.voices")}</span>
             </div>
+            <button type="button" className="py-1.5" onClick={() => setTab("followers")}>
+              <span className="block text-[19px] font-bold tabular-nums leading-tight tracking-[-0.02em]">{s ? compact.format(s.followers) : "–"}</span>
+              <span className="block text-fine text-muted-foreground">{t("people.followers")}</span>
+            </button>
+            <button type="button" className="py-1.5" onClick={() => setTab("following")}>
+              <span className="block text-[19px] font-bold tabular-nums leading-tight tracking-[-0.02em]">{s ? compact.format(s.following) : "–"}</span>
+              <span className="block text-fine text-muted-foreground">{t("people.followingCount")}</span>
+            </button>
           </div>
         </div>
 
-        <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[14px]">
+        <h1 className="mt-3.5 truncate text-[17px] font-[650] tracking-[-0.015em]">{name}</h1>
+        <div className="mt-1.5 flex flex-wrap items-center gap-2">
           {school ? (
-            <span className="inline-flex items-center gap-1.5 font-semibold">
-              <GraduationCap className="h-4 w-4" /> {school}
+            <span className="inline-flex h-[26px] items-center gap-1.5 rounded-full bg-link/10 px-2.5 text-caption font-semibold text-link">
+              <GraduationCap className="h-3.5 w-3.5" /> {school}
             </span>
           ) : (
             isMe &&
             campus.loaded && (
-              <Link to="/student" className="inline-flex items-center gap-1.5 font-semibold text-link">
+              <Link to="/student" className="inline-flex items-center gap-1.5 text-caption font-semibold text-link">
                 <GraduationCap className="h-4 w-4" /> {t("student.cta")}
               </Link>
             )
@@ -101,7 +101,7 @@ export function ProfileView({ person, isMe, onEdit }: { person: Person; isMe: bo
           {!isMe && s?.follows_me && <span className="rounded-md bg-secondary px-1.5 py-0.5 text-fine font-semibold">{t("people.followsYou")}</span>}
         </div>
 
-        <div className="mt-3 flex gap-1.5">
+        <div className="mt-4 flex gap-2">
           {isMe ? (
             <>
               <button type="button" onClick={onEdit} className={button}>
@@ -138,9 +138,8 @@ export function ProfileView({ person, isMe, onEdit }: { person: Person; isMe: bo
 
       {isMe && <GroupHighlights />}
 
-      <div role="tablist" className="mt-3 grid grid-cols-2 border-b border-border">
+      <div role="tablist" className="relative mt-4 grid grid-cols-2 border-b border-border">
         {(["voices", "replies"] as const).map((k) => {
-          const Icon = k === "voices" ? AudioLines : MessageCircle;
           const on = view === k;
           return (
             <button
@@ -148,15 +147,23 @@ export function ProfileView({ person, isMe, onEdit }: { person: Person; isMe: bo
               type="button"
               role="tab"
               aria-selected={on}
-              aria-label={t(k === "voices" ? "people.voices" : "people.replies")}
-              onClick={() => setView(k)}
-              className={cn("relative grid h-12 place-items-center", on ? "text-foreground" : "text-muted-foreground")}
+              onClick={() => {
+                if (!on) haptic("light");
+                setView(k);
+              }}
+              className={cn("h-11 text-callout", on ? "font-semibold text-foreground" : "font-medium text-muted-foreground")}
             >
-              <Icon className="h-6 w-6" strokeWidth={on ? 2.2 : 1.8} />
-              <span className={cn("absolute inset-x-6 bottom-0 h-[1.5px] bg-foreground transition-transform duration-300", on ? "scale-x-100" : "scale-x-0")} />
+              {t(k === "voices" ? "people.voices" : "people.replies")}
             </button>
           );
         })}
+        <span
+          aria-hidden
+          className="nav-pill pointer-events-none absolute -bottom-px left-0 flex h-0.5 w-1/2 justify-center"
+          style={{ transform: `translateX(${view === "voices" ? 0 : 100}%)` }}
+        >
+          <span className="h-0.5 w-10 rounded-full bg-foreground" />
+        </span>
       </div>
       {view === "voices" ? (
         <VoiceGrid key={person.id} params={{ scope: "author", author: person.id }} isMe={isMe} />
@@ -176,32 +183,30 @@ export function ProfileView({ person, isMe, onEdit }: { person: Person; isMe: bo
 function GroupHighlights() {
   const { t } = useTranslation();
   const mine = useQuery({ queryKey: groupKeys.mine, queryFn: myGroups });
-  const item = "flex w-[72px] shrink-0 flex-col items-center gap-1.5";
+  const item = "flex w-[62px] shrink-0 flex-col items-center gap-1.5";
   return (
-    <div className="no-scrollbar mt-4 flex gap-3 overflow-x-auto px-4 stagger">
+    <div className="no-scrollbar mt-5 flex gap-4 overflow-x-auto px-4 stagger">
       <Link to="/groups/new" className={item}>
-        <span className="grid h-16 w-16 place-items-center rounded-full ring-1 ring-border">
-          <Plus className="h-7 w-7" strokeWidth={1.6} />
+        <span className="grid h-[58px] w-[58px] place-items-center rounded-[18px] border border-dashed border-border text-muted-foreground">
+          <Plus className="h-6 w-6" strokeWidth={1.6} />
         </span>
-        <span className="w-full truncate text-center text-fine">{t("profile.newGroup")}</span>
+        <span className="w-full truncate text-center text-fine text-muted-foreground">{t("profile.newGroup")}</span>
       </Link>
       {(mine.data ?? []).map((g) => (
         <Link key={g.id} to="/g/$groupId" params={{ groupId: g.id }} className={item}>
-          <span className="grid h-16 w-16 place-items-center rounded-full p-[3px] ring-1 ring-border">
-            <span className="grid h-full w-full place-items-center overflow-hidden rounded-full [&>span]:rounded-full">
-              <GroupTile section={g.section_id} size={58} />
-            </span>
+          <span className="grid h-[58px] w-[58px] place-items-center overflow-hidden rounded-[18px] [&>span]:rounded-[18px]">
+            <GroupTile section={g.section_id} size={58} />
           </span>
-          <span className="w-full truncate text-center text-fine">{g.name}</span>
+          <span className="w-full truncate text-center text-fine text-muted-foreground">{g.name}</span>
         </Link>
       ))}
     </div>
   );
 }
 
-/** Voices as a 3-column grid of tiles (title, length, listens); a tap opens the voice. */
+/** Voices as compact rows (play mark, title, when, length); a tap opens the voice. */
 function VoiceGrid({ params, isMe }: { params: FeedParams; isMe: boolean }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const q = useInfiniteQuery({
     queryKey: postKeys.feed(params),
     queryFn: ({ pageParam }) => fetchFeed(params, pageParam),
@@ -211,9 +216,9 @@ function VoiceGrid({ params, isMe }: { params: FeedParams; isMe: boolean }) {
   const views = (q.data?.pages.flat() ?? []).map(toView).filter((v): v is NonNullable<typeof v> => !!v && !v.deleted && !v.repostedBy);
   if (q.isLoading)
     return (
-      <div className="grid grid-cols-3 gap-[2px]">
-        {Array.from({ length: 6 }, (_, i) => (
-          <span key={i} className="skeleton aspect-[3/4]" />
+      <div className="space-y-3 px-4 py-4">
+        {Array.from({ length: 4 }, (_, i) => (
+          <span key={i} className="skeleton block h-12 rounded-xl" />
         ))}
       </div>
     );
@@ -224,7 +229,7 @@ function VoiceGrid({ params, isMe }: { params: FeedParams; isMe: boolean }) {
         text={isMe ? t("people.noVoicesMine") : t("people.noVoices")}
         action={
           isMe ? (
-            <Link to="/record" className="inline-flex h-11 items-center rounded-lg bg-primary px-6 text-[15px] font-semibold text-primary-foreground">
+            <Link to="/record" className="inline-flex h-11 items-center rounded-xl bg-primary px-6 text-callout font-semibold text-primary-foreground">
               {t("posts.speak")}
             </Link>
           ) : undefined
@@ -233,29 +238,26 @@ function VoiceGrid({ params, isMe }: { params: FeedParams; isMe: boolean }) {
     );
   return (
     <>
-      <div className="grid grid-cols-3 gap-[2px] stagger">
+      <ul className="stagger">
         {views.map((v) => (
-          <Link
-            key={v.id}
-            to="/p/$postId"
-            params={{ postId: v.id }}
-            className="relative flex aspect-[3/4] flex-col justify-between overflow-hidden bg-secondary p-2.5 active:opacity-80"
-          >
-            <VoiceIcon className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} />
-            <span className="line-clamp-4 text-[13px] font-semibold leading-snug">{v.title || t("posts.untitled")}</span>
-            <span className="flex items-center justify-between text-fine font-semibold text-muted-foreground">
-              <span className="flex items-center gap-1">
-                <Play className="h-3 w-3" fill="currentColor" strokeWidth={0} /> {formatClock(v.durationMs)}
+          <li key={v.id}>
+            <Link to="/p/$postId" params={{ postId: v.id }} className="flex items-center gap-3 border-b border-border px-4 py-3 active:bg-secondary/60">
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-secondary">
+                <Play className="ml-0.5 h-3.5 w-3.5" fill="currentColor" strokeWidth={0} />
               </span>
-              {v.listens > 0 && (
-                <span className="flex items-center gap-0.5">
-                  <Headphones className="h-3 w-3" /> {compact.format(v.listens)}
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-callout font-medium">{v.title || t("posts.untitled")}</span>
+                <span className="block truncate text-caption tabular-nums text-muted-foreground">
+                  {[timeAgoShort(v.createdAt, i18n.language), v.likes > 0 ? `${compact.format(v.likes)} ♥` : null, v.listens > 0 ? t("posts.listens", { count: v.listens }) : null]
+                    .filter(Boolean)
+                    .join(" · ")}
                 </span>
-              )}
-            </span>
-          </Link>
+              </span>
+              <span className="shrink-0 text-caption tabular-nums text-muted-foreground">{formatClock(v.durationMs)}</span>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
       {q.hasNextPage && (
         <button type="button" onClick={() => void q.fetchNextPage()} className="mx-auto my-4 block text-caption font-semibold text-link">
           {t("news.more")}

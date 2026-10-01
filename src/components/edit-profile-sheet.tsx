@@ -120,7 +120,7 @@ export function EditProfileSheet({
           <button
             type="submit"
             disabled={!valid || save.isPending}
-            className="h-12 w-full rounded-full bg-primary font-semibold text-primary-foreground disabled:opacity-50"
+            className="h-12 w-full rounded-xl bg-primary font-semibold text-primary-foreground disabled:opacity-50"
           >
             {t("common.save")}
           </button>

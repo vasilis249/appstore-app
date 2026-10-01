@@ -15,13 +15,15 @@ import { postKeys, setLiked, type PostView } from "@/lib/posts";
 import { currentId, toggle, useQueue } from "@/lib/queue";
 import { timeAgoShort } from "@/lib/time-ago";
 import { rpcErrorKey } from "@/lib/friends";
+import { haptic } from "@/lib/haptics";
 import { cn } from "@/lib/utils";
 
 const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
 
 /**
- * A public voice post, social-style: avatar · bold name · time · ⋯, section · topic (group; nothing for a personal
- * voice), title, the voice tile (double-tap = like with a heart burst), then ♥ 💬 ⟲ ✈ with counts.
+ * A public voice post (DESIGN.md, Quiet): avatar · name over "school · time" · ⋯, the indigo place line (campus /
+ * group / section · topic; nothing for a personal voice), title, the voice tile (ink play, waveform that fills and
+ * breathes while playing; double-tap = like with a heart burst), then 💬 ⟲ ♥ ✈ with counts and 🎧 listens.
  * `onPlay` starts the list's queue at this post (continuous playback).
  */
 export function PostCard({
@@ -30,6 +32,7 @@ export function PostCard({
   linkToPost = true,
   hideReplyTo = false,
   threadLine = false,
+  focus = false,
 }: {
   post: PostView;
   onPlay: () => void;
@@ -37,6 +40,8 @@ export function PostCard({
   hideReplyTo?: boolean;
   /** Draw the thread line down to the next post (ancestors on a post page). */
   threadLine?: boolean;
+  /** The voice a post page is about: bigger title and player. */
+  focus?: boolean;
 }) {
   const { t, i18n } = useTranslation();
   const qc = useQueryClient();
@@ -63,6 +68,7 @@ export function PostCard({
   const [burst, setBurst] = useState(0);
   const lastTap = useRef(0);
   const toggleLike = () => {
+    haptic("light");
     if (!post.liked) setPop((n) => n + 1);
     like.mutate(!post.liked);
   };
@@ -72,6 +78,7 @@ export function PostCard({
     if (now - lastTap.current < 320) {
       lastTap.current = 0;
       setBurst((n) => n + 1);
+      haptic("light");
       if (!post.liked && !like.isPending) {
         setPop((n) => n + 1);
         like.mutate(true);
@@ -93,7 +100,7 @@ export function PostCard({
   }
 
   const open = () => linkToPost && void navigate({ to: "/p/$postId", params: { postId: post.id } });
-  const action = "flex min-h-9 items-center gap-1.5 text-[14px] font-semibold tabular-nums text-foreground";
+  const action = "flex min-h-11 items-center gap-1.5 text-caption tabular-nums text-muted-foreground";
 
   // Deleted by its author after others answered: a placeholder that keeps the conversation readable.
   if (post.deleted)
@@ -101,7 +108,7 @@ export function PostCard({
       <article className={cn("px-4 py-3", !threadLine && "border-b border-border")}>
         <div className="flex gap-3">
           <div className="flex shrink-0 flex-col items-center">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-secondary text-muted-foreground" aria-hidden>
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-secondary text-muted-foreground" aria-hidden>
               <MicOff className="h-4 w-4" />
             </span>
             {threadLine && <span className="-mb-3 mt-1 w-0.5 flex-1 rounded-full bg-border" aria-hidden />}
@@ -110,7 +117,7 @@ export function PostCard({
             type="button"
             onClick={open}
             disabled={!linkToPost}
-            className="min-w-0 flex-1 rounded-2xl bg-secondary/60 px-4 py-3 text-left text-callout text-muted-foreground"
+            className="min-w-0 flex-1 rounded-xl bg-secondary px-4 py-3 text-left text-callout text-muted-foreground"
           >
             {t("posts.deletedVoice")}
           </button>
@@ -119,32 +126,35 @@ export function PostCard({
     );
 
   return (
-    <article className={cn("px-4 py-3", !threadLine && "border-b border-border")}>
+    <article className={cn("px-4 pb-1 pt-3.5", !threadLine && "border-b border-border")}>
       {post.repostedBy && (
-        <p className="mb-1 ml-12 flex items-center gap-1.5 text-fine font-semibold text-muted-foreground">
+        <p className="mb-1 ml-[46px] flex items-center gap-1.5 text-fine font-medium text-muted-foreground">
           <Repeat2 className="h-3.5 w-3.5" />
           {post.repostedBy.mine ? t("posts.youReposted") : t("posts.reposted", { name: post.repostedBy.name })}
         </p>
       )}
-      <div className="flex gap-3">
+      <div className="flex gap-2.5">
         <div className="flex shrink-0 flex-col items-center">
           <Link to="/u/$username" params={{ username: post.username }} aria-label={post.name}>
-            <UserAvatar name={post.name} path={post.avatar} size={40} />
+            <UserAvatar name={post.name} path={post.avatar} size={36} />
           </Link>
           {threadLine && <span className="-mb-3 mt-1 w-0.5 flex-1 rounded-full bg-border" aria-hidden />}
         </div>
         <div className="min-w-0 flex-1">
-          <header className="flex items-center gap-1.5 text-[15px] leading-5">
-            <Link to="/u/$username" params={{ username: post.username }} className="min-w-0 truncate font-bold">
-              {post.name}
-            </Link>
-            {school && <span className="min-w-0 shrink truncate text-caption text-muted-foreground">· {school}</span>}
-            <span className="shrink-0 text-caption text-muted-foreground">· {timeAgoShort(post.createdAt, i18n.language)}</span>
+          <header className="flex items-center gap-2">
+            <div className="min-w-0 flex-1">
+              <Link to="/u/$username" params={{ username: post.username }} className="block truncate text-callout font-semibold leading-5">
+                {post.name}
+              </Link>
+              <p className="truncate text-caption text-muted-foreground">
+                {[school, timeAgoShort(post.createdAt, i18n.language)].filter(Boolean).join(" · ")}
+              </p>
+            </div>
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-label={t("friends.actions")}
-              className="-mr-2 ml-auto grid h-8 w-8 shrink-0 place-items-center rounded-full text-foreground"
+              className="-mr-3 grid h-11 w-11 shrink-0 place-items-center rounded-full text-muted-foreground"
             >
               <MoreHorizontal className="h-5 w-5" />
             </button>
@@ -160,12 +170,12 @@ export function PostCard({
           )}
 
           {(post.groupId || post.sectionId || post.campus) && (
-            <p className="mt-0.5 flex min-w-0 items-center gap-1 text-caption text-muted-foreground">
+            <p className="mt-1.5 flex min-w-0 items-center gap-1 text-fine font-semibold text-muted-foreground">
               {post.campus ? (
                 <Link
                   to="/"
                   search={post.sectionId ? { tab: "campus", s: post.sectionId } : { tab: "campus" }}
-                  className="flex min-w-0 items-center gap-1 font-normal text-link"
+                  className="flex min-w-0 items-center gap-1 text-link"
                 >
                   <GraduationCap className="h-3.5 w-3.5 shrink-0" />
                   <span className="truncate">
@@ -174,12 +184,12 @@ export function PostCard({
                   </span>
                 </Link>
               ) : post.groupId && post.groupName ? (
-                <Link to="/g/$groupId" params={{ groupId: post.groupId }} className="flex min-w-0 items-center gap-1 font-normal text-link">
+                <Link to="/g/$groupId" params={{ groupId: post.groupId }} className="flex min-w-0 items-center gap-1 text-link">
                   <Users className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{post.groupName}</span>
                 </Link>
               ) : (
                 post.sectionId && (
-                  <Link to="/" search={{ s: post.sectionId }} className="shrink-0 font-normal text-link">
+                  <Link to="/" search={{ s: post.sectionId }} className="shrink-0 text-link">
                     {sections.name(post.sectionId)}
                   </Link>
                 )
@@ -187,7 +197,7 @@ export function PostCard({
               {post.topicId && post.topicTitle && (
                 <>
                   <span aria-hidden>·</span>
-                  <Link to="/t/$topicId" params={{ topicId: post.topicId }} className="truncate">
+                  <Link to="/t/$topicId" params={{ topicId: post.topicId }} className="truncate font-medium">
                     {post.topicTitle}
                   </Link>
                 </>
@@ -196,32 +206,33 @@ export function PostCard({
           )}
 
           {post.title && (
-            <button type="button" onClick={open} className="mt-1 block text-left text-[15px] leading-snug">
+            <button
+              type="button"
+              onClick={open}
+              className={cn("mt-0.5 block text-left", focus ? "text-[22px] font-[650] leading-[1.27] tracking-[-0.022em]" : "text-body font-medium leading-[1.38] tracking-[-0.012em]")}
+            >
               {post.title}
             </button>
           )}
 
           <div
             onPointerUp={tapTile}
-            className="relative mt-2.5 flex select-none items-center gap-3 overflow-hidden rounded-2xl bg-card py-3 pl-3 pr-4 ring-1 ring-border/60"
+            className={cn("relative mt-2.5 flex select-none items-center gap-3 overflow-hidden bg-card", focus ? "rounded-3xl py-4 pl-4 pr-4" : "rounded-xl py-2 pl-2 pr-3")}
           >
             <button
               type="button"
               onClick={() => (isCurrent ? toggle() : onPlay())}
               aria-label={playing ? t("daily.pause") : t("daily.play")}
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-foreground text-background"
+              className={cn("grid shrink-0 place-items-center rounded-full bg-primary text-primary-foreground", focus ? "h-14 w-14" : "h-9 w-9")}
             >
-              {playing ? <Pause className="h-[18px] w-[18px]" fill="currentColor" strokeWidth={0} /> : <Play className="ml-0.5 h-[18px] w-[18px]" fill="currentColor" strokeWidth={0} />}
-            </button>
-            <Waveform seed={post.id} progress={isCurrent ? q.progress : 0} />
-            <span className="shrink-0 text-right text-caption font-semibold tabular-nums text-muted-foreground">
-              {formatClock(post.durationMs)}
-              {post.listens > 0 && (
-                <span className="block font-normal" aria-label={t("posts.listens", { count: post.listens })}>
-                  <Headphones className="-mt-0.5 inline h-3 w-3" /> {compact.format(post.listens)}
-                </span>
+              {playing ? (
+                <Pause className={focus ? "h-6 w-6" : "h-4 w-4"} fill="currentColor" strokeWidth={0} />
+              ) : (
+                <Play className={cn("ml-0.5", focus ? "h-6 w-6" : "h-4 w-4")} fill="currentColor" strokeWidth={0} />
               )}
-            </span>
+            </button>
+            <Waveform seed={post.id} progress={isCurrent ? q.progress : 0} live={playing} bars={focus ? 48 : 36} className={focus ? "h-12" : undefined} />
+            <span className="shrink-0 text-caption tabular-nums text-muted-foreground">{formatClock(post.durationMs)}</span>
             {burst > 0 && (
               <span key={burst} className="pointer-events-none absolute inset-0 grid place-items-center" aria-hidden>
                 <Heart className="h-16 w-16 animate-heart-burst text-live drop-shadow-lg" fill="currentColor" strokeWidth={0} />
@@ -230,13 +241,13 @@ export function PostCard({
           </div>
 
           {post.quote?.deleted && (
-            <p className="mt-2 rounded-2xl border border-border px-3 py-2 text-caption text-muted-foreground">{t("posts.quoteDeleted")}</p>
+            <p className="mt-2 rounded-xl border border-border px-3 py-2 text-caption text-muted-foreground">{t("posts.quoteDeleted")}</p>
           )}
           {post.quote && !post.quote.deleted && (
             <Link
               to="/p/$postId"
               params={{ postId: post.quote.id }}
-              className="mt-2 block rounded-2xl border border-border px-3 py-2 text-caption"
+              className="mt-2 block rounded-xl border border-border px-3 py-2 text-caption"
             >
               <span className="font-semibold">{post.quote.name}</span>{" "}
               <span className="text-muted-foreground">@{post.quote.username} · {formatClock(post.quote.durationMs)}</span>
@@ -244,34 +255,39 @@ export function PostCard({
             </Link>
           )}
 
-          <footer className="-ml-1.5 mt-1.5 flex items-center gap-4">
-            <button
-              type="button"
-              onClick={toggleLike}
-              disabled={like.isPending}
-              className={cn(action, "px-1.5", post.liked && "text-live")}
-              aria-label={post.liked ? t("posts.unlike") : t("posts.like")}
-              aria-pressed={post.liked}
-            >
-              <Heart key={pop} className={cn("h-[23px] w-[23px]", pop > 0 && post.liked && "animate-like-pop")} strokeWidth={1.9} fill={post.liked ? "currentColor" : "none"} />
-              {post.likes > 0 && <span className="text-foreground">{compact.format(post.likes)}</span>}
-            </button>
-            <button type="button" onClick={open} className={cn(action, "px-1.5")} aria-label={t("posts.reply")}>
-              <MessageCircle className="h-[23px] w-[23px] -scale-x-100" strokeWidth={1.9} /> {post.replies > 0 && compact.format(post.replies)}
+          <footer className="-ml-2 mt-0.5 flex items-center gap-1">
+            <button type="button" onClick={open} className={cn(action, "px-2")} aria-label={t("posts.reply")}>
+              <MessageCircle className="h-[18px] w-[18px] -scale-x-100" strokeWidth={1.7} /> {post.replies > 0 && compact.format(post.replies)}
             </button>
             {!post.groupId && !post.campus && (
               <button
                 type="button"
                 onClick={() => setRepostOpen(true)}
-                className={cn(action, "px-1.5", post.reposted && "text-success")}
+                className={cn(action, "px-2", post.reposted && "text-success")}
                 aria-label={t("posts.repost")}
               >
-                <Repeat2 className="h-[23px] w-[23px]" strokeWidth={1.9} /> {post.reposts > 0 && compact.format(post.reposts)}
+                <Repeat2 className="h-[18px] w-[18px]" strokeWidth={1.7} /> {post.reposts > 0 && compact.format(post.reposts)}
               </button>
             )}
-            <button type="button" onClick={() => void share()} className={cn(action, "px-1.5")} aria-label={t("posts.share")}>
-              <Send className="h-[22px] w-[22px]" strokeWidth={1.9} />
+            <button
+              type="button"
+              onClick={toggleLike}
+              disabled={like.isPending}
+              className={cn(action, "px-2", post.liked && "text-live")}
+              aria-label={post.liked ? t("posts.unlike") : t("posts.like")}
+              aria-pressed={post.liked}
+            >
+              <Heart key={pop} className={cn("h-[18px] w-[18px]", pop > 0 && post.liked && "animate-like-pop")} strokeWidth={1.7} fill={post.liked ? "currentColor" : "none"} />
+              {post.likes > 0 && <span key={post.likes} className="animate-tick">{compact.format(post.likes)}</span>}
             </button>
+            <button type="button" onClick={() => void share()} className={cn(action, "px-2")} aria-label={t("posts.share")}>
+              <Send className="h-[17px] w-[17px]" strokeWidth={1.7} />
+            </button>
+            {post.listens > 0 && (
+              <span className="ml-auto flex items-center gap-1 text-caption tabular-nums text-muted-foreground" aria-label={t("posts.listens", { count: post.listens })}>
+                <Headphones className="h-3.5 w-3.5" strokeWidth={1.7} /> {compact.format(post.listens)}
+              </span>
+            )}
           </footer>
         </div>
       </div>

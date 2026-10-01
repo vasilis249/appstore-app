@@ -126,7 +126,7 @@ function Welcome({ go }: { go: (s: Step) => void }) {
     }
   }
 
-  const pill = "flex h-14 w-full items-center justify-center gap-3 rounded-full text-body font-semibold active:opacity-80 disabled:opacity-60";
+  const pill = "flex h-[52px] w-full items-center justify-center gap-3 rounded-xl text-body font-semibold active:opacity-80 disabled:opacity-60";
   return (
     <div className="safe-top safe-bottom mx-auto flex min-h-dvh max-w-md flex-col px-6 pb-6">
       <div className="flex flex-1 flex-col justify-center">

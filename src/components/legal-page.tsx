@@ -77,7 +77,7 @@ export function LegalPage({
           {t("legal.contactLine", "Ερωτήσεις;")}{" "}
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className="font-normal text-primary hover:underline"
+            className="font-normal text-link hover:underline"
           >
             {CONTACT_EMAIL}
           </a>

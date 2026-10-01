@@ -58,12 +58,12 @@ function InvitePage() {
         ) : null}
       </div>
       {user ? (
-        <button type="button" onClick={() => void goOn()} className="h-14 w-full rounded-full bg-primary text-body font-semibold text-primary-foreground">
+        <button type="button" onClick={() => void goOn()} className="h-14 w-full rounded-xl bg-primary text-body font-semibold text-primary-foreground">
           {t("auth.continue")}
         </button>
       ) : (
         <>
-          <Link to="/auth" search={{ mode: "signup" }} className="grid h-14 w-full place-items-center rounded-full bg-primary text-body font-semibold text-primary-foreground">
+          <Link to="/auth" search={{ mode: "signup" }} className="grid h-14 w-full place-items-center rounded-xl bg-primary text-body font-semibold text-primary-foreground">
             {t("invite.join")}
           </Link>
           <Link to="/auth" search={{ mode: "signin" }} className="mt-4 text-callout font-semibold text-muted-foreground">

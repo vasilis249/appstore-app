@@ -56,10 +56,10 @@ export function GroupMenuSheet({ group, open, onOpenChange }: { group: GroupDeta
   const confirm = (text: string, label: string, run: () => void, busy: boolean) => (
     <div className="space-y-3 text-center">
       <p className="px-4 text-caption text-muted-foreground">{text}</p>
-      <button type="button" disabled={busy} onClick={run} className="h-12 w-full rounded-full bg-destructive font-semibold text-destructive-foreground disabled:opacity-50">
+      <button type="button" disabled={busy} onClick={run} className="h-12 w-full rounded-xl bg-destructive font-semibold text-destructive-foreground disabled:opacity-50">
         {label}
       </button>
-      <button type="button" onClick={() => setStep("menu")} className="h-12 w-full rounded-full bg-secondary font-semibold">
+      <button type="button" onClick={() => setStep("menu")} className="h-12 w-full rounded-xl bg-secondary font-semibold">
         {t("common.cancel")}
       </button>
     </div>
@@ -122,7 +122,7 @@ export function GroupMenuSheet({ group, open, onOpenChange }: { group: GroupDeta
             <div className="space-y-3 text-center">
               <p className="text-body font-semibold">{t("report.thanks")}</p>
               <p className="px-4 text-caption text-muted-foreground">{t("groups.reportReview")}</p>
-              <button type="button" onClick={() => onOpenChange(false)} className="h-12 w-full rounded-full bg-secondary font-semibold">
+              <button type="button" onClick={() => onOpenChange(false)} className="h-12 w-full rounded-xl bg-secondary font-semibold">
                 {t("report.done")}
               </button>
             </div>

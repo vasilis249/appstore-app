@@ -7,6 +7,7 @@ import { useRecorder } from "@/hooks/use-recorder";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { usePushToTalk } from "@/hooks/use-push-to-talk";
 import { formatClock } from "@/lib/audio";
+import { haptic } from "@/lib/haptics";
 import { setPendingClip } from "@/lib/pending-clip";
 import { POST_MAX_MS } from "@/lib/posts";
 import { cn } from "@/lib/utils";
@@ -48,6 +49,11 @@ export function NavRecordButton() {
   const ptt = usePushToTalk(r, { minMs: 700, tapMs: 700, onTap: () => void navigate({ to: "/record", search: target }) });
   const live = r.state === "recording";
 
+  // a firm tap in the hand when the mic opens and when it stops
+  useEffect(() => {
+    if (live) haptic("medium");
+  }, [live]);
+
   useEffect(() => {
     if (r.error) toast.error(t(r.error === "denied" ? "voice.micDenied" : "voice.unsupported"));
   }, [r.error, t]);
@@ -60,23 +66,27 @@ export function NavRecordButton() {
     void navigate({ to: "/record", search: target });
   }, [r.state, r.clip]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // A tab-bar item like the others (the voice mark); while held it turns red and breathes.
+  // An ink key in the middle of the tab bar; while held it turns red, grows a little and breathes out a ring.
   return (
     <>
       <button
         type="button"
         {...ptt.bind}
         aria-label={t("voice.navRecord")}
-        className={cn(
-          "relative z-10 grid h-12 w-full place-items-center rounded-full transition-[transform,background-color,color] duration-200",
-          live ? "scale-110 bg-live text-destructive-foreground" : "text-foreground",
-        )}
+        className="grid h-12 w-full place-items-center"
       >
-        <VoiceIcon className="h-7 w-7" strokeWidth={2} live={live} />
+        <span
+          className={cn(
+            "ease-spring grid h-10 w-[3.25rem] place-items-center rounded-xl",
+            live ? "scale-110 bg-live text-destructive-foreground animate-rec-pulse" : "bg-primary text-primary-foreground",
+          )}
+        >
+          <VoiceIcon className="h-6 w-6" strokeWidth={2} live={live} />
+        </span>
       </button>
       {live && (
         <div className="pointer-events-none fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom,0px)+6.5rem)] z-50 flex justify-center px-4">
-          <div className="flex items-center gap-3 rounded-full bg-popover py-2.5 pl-4 pr-5 shadow-float animate-scale-in">
+          <div className="flex items-center gap-3 rounded-2xl border border-border bg-popover py-2.5 pl-4 pr-5 shadow-float animate-slide-up">
             <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-live" />
             <span className="text-callout font-semibold tabular-nums">
               {formatClock(r.elapsedMs)} <span className="font-normal text-muted-foreground">/ {formatClock(POST_MAX_MS)}</span>

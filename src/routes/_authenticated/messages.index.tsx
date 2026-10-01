@@ -148,7 +148,7 @@ function MessagesPage() {
                     <span className={cn("block truncate text-[15px]", unread ? "font-bold" : "font-normal")}>{name}</span>
                     <span className={cn("block truncate text-[14px]", unread ? "font-semibold text-foreground" : "text-muted-foreground")}>{subtitle(th)}</span>
                   </span>
-                  {unread && <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-primary" aria-hidden />}
+                  {unread && <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-link" aria-hidden />}
                 </button>
               </li>
             );

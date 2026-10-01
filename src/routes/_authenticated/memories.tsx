@@ -87,7 +87,7 @@ function MemoryList({ memories, onOpen }: { memories: Memory[]; onOpen: (m: Memo
                   <button
                     type="button"
                     onClick={() => onOpen([m])}
-                    className="flex aspect-[3/4] w-full flex-col justify-between rounded-2xl bg-card p-2.5 text-left ring-1 ring-border"
+                    className="flex aspect-[3/4] w-full flex-col justify-between rounded-2xl bg-card p-2.5 text-left"
                   >
                     <span className="text-hero font-semibold leading-none">{momentDate(m.day).getDate()}</span>
                     {m.title ? (

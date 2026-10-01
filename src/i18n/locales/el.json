@@ -720,7 +720,10 @@
     "emptyFollowing": "Εδώ ακούς ό,τι λένε όσοι ακολουθείς, εκτός ειδήσεων.",
     "findPeople": "Βρες άτομα",
     "campus": "Campus",
-    "pickFeed": "Ροή: {{feed}}"
+    "feeds": "Ροές",
+    "forStudents": "Για φοιτητές",
+    "campusKicker_one": "{{uni}} · {{n}} φοιτητής",
+    "campusKicker_other": "{{uni}} · {{n}} φοιτητές"
   },
   "news": {
     "spokeOne": "{{name}} μίλησε",
@@ -920,7 +923,7 @@
     "title": "Φωνές της ημέρας",
     "mine": "Οι φωνές σου σήμερα",
     "add": "Πες κάτι",
-    "yours": "Η φωνή σου",
+    "yours": "Εσύ",
     "play_one": "{{name}}: {{count}} φωνή",
     "play_other": "{{name}}: {{count}} φωνές"
   }

@@ -65,7 +65,7 @@ export function StepShell({
           type="submit"
           disabled={disabled || loading}
           className={cn(
-            "h-14 w-full rounded-full text-body font-semibold transition",
+            "h-[52px] w-full rounded-xl text-body font-semibold transition",
             disabled ? "bg-secondary text-muted-foreground" : "bg-primary text-primary-foreground active:opacity-80",
             loading && "opacity-60",
           )}

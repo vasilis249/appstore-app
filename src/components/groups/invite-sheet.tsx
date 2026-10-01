@@ -40,7 +40,7 @@ export function InviteSheet({ groupId, open, onOpenChange }: { groupId: string; 
                 type="button"
                 disabled={sent.has(p.id) || invite.isPending}
                 onClick={() => invite.mutate(p.id)}
-                className="h-9 rounded-full bg-primary px-4 text-caption font-semibold text-primary-foreground disabled:bg-secondary disabled:text-muted-foreground"
+                className="h-9 rounded-[10px] bg-primary px-4 text-caption font-semibold text-primary-foreground disabled:bg-secondary disabled:text-muted-foreground"
               >
                 {t(sent.has(p.id) ? "groups.invited" : "groups.invite")}
               </button>

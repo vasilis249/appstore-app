@@ -7,4 +7,4 @@
 - [x] university-network: verify UI (no department step for colleges) + flows
   - Verify: attica/acg flows + new flow for a non-Attica student
 - [x] university-network: apply live, smoke, deploy, report
-- [x] student-news · [ ] student-gate · [ ] student-design
+- [x] student-news · [ ] student-gate · [x] student-design

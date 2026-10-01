@@ -30,7 +30,7 @@ export function RequestsSheet({ groupId, open, onOpenChange }: { groupId: string
                 type="button"
                 disabled={respond.isPending}
                 onClick={() => respond.mutate({ id: p.user_id, accept: true })}
-                className="h-9 rounded-full bg-primary px-4 text-caption font-semibold text-primary-foreground disabled:opacity-50"
+                className="h-9 rounded-[10px] bg-primary px-4 text-caption font-semibold text-primary-foreground disabled:opacity-50"
               >
                 {t("groups.accept")}
               </button>

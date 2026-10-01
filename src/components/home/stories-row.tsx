@@ -37,7 +37,7 @@ interface Story {
 
 /**
  * "Stories" for a voice app: everyone you follow who spoke in the last 24 hours, one circle each (newest first),
- * with a coloured ring until you've heard them. Tap = their voices back to back (the ring spins while they play).
+ * with a thin indigo ring until you've heard them. Tap = their voices back to back (the ring spins while they play).
  * First circle = you: + records, a ring means you spoke today (tap to hear yourself).
  */
 export function StoriesRow() {
@@ -81,32 +81,32 @@ export function StoriesRow() {
 
   const name = me.data?.full_name || me.data?.username || "";
   return (
-    <div className="no-scrollbar flex gap-4 overflow-x-auto px-4 pb-3 pt-1 stagger" role="list" aria-label={t("stories.title")}>
-      <div role="listitem" className="flex w-[76px] shrink-0 flex-col items-center gap-1.5">
+    <div className="no-scrollbar flex gap-3 overflow-x-auto px-4 pb-2 pt-3.5 stagger" role="list" aria-label={t("stories.title")}>
+      <div role="listitem" className="flex w-[62px] shrink-0 flex-col items-center gap-1.5">
         <div className="relative">
           {mine ? (
             <button type="button" onClick={() => play(mine)} aria-label={t("stories.mine")} className={cn("story-ring block", isPlaying(mine, playingId) && "spin", mine.voices.every((v) => seen.has(v.id)) && !isPlaying(mine, playingId) && "seen")}>
-              <UserAvatar name={name} path={me.data?.avatar_path ?? null} size={66} />
+              <UserAvatar name={name} path={me.data?.avatar_path ?? null} size={51} />
             </button>
           ) : (
-            <Link to="/record" aria-label={t("stories.add")} className="block p-[5px]">
-              <UserAvatar name={name} path={me.data?.avatar_path ?? null} size={66} />
+            <Link to="/record" aria-label={t("stories.add")} className="block p-[3.5px]">
+              <UserAvatar name={name} path={me.data?.avatar_path ?? null} size={51} />
             </Link>
           )}
           <Link
             to="/record"
             aria-label={t("stories.add")}
-            className="absolute -bottom-0.5 -right-0.5 grid h-6 w-6 place-items-center rounded-full border-[3px] border-background bg-foreground text-background"
+            className="absolute -bottom-0.5 -right-0.5 grid h-5 w-5 place-items-center rounded-full border-2 border-background bg-foreground text-background"
           >
-            <Plus className="h-3.5 w-3.5" strokeWidth={3.2} />
+            <Plus className="h-3 w-3" strokeWidth={3} />
           </Link>
         </div>
         <span className="w-full truncate text-center text-fine text-muted-foreground">{t("stories.yours")}</span>
       </div>
       {q.isLoading &&
         [0, 1, 2, 3].map((i) => (
-          <div key={i} className="flex w-[76px] shrink-0 flex-col items-center gap-1.5">
-            <span className="skeleton h-[76px] w-[76px] rounded-full" />
+          <div key={i} className="flex w-[62px] shrink-0 flex-col items-center gap-1.5">
+            <span className="skeleton h-[76px] w-[62px] rounded-full" />
             <span className="skeleton h-3 w-12 rounded-full" />
           </div>
         ))}
@@ -114,16 +114,16 @@ export function StoriesRow() {
         const unheard = s.voices.some((v) => !seen.has(v.id));
         const spinning = isPlaying(s, playingId);
         return (
-          <div key={s.authorId} role="listitem" className="flex w-[76px] shrink-0 flex-col items-center gap-1.5">
+          <div key={s.authorId} role="listitem" className="flex w-[62px] shrink-0 flex-col items-center gap-1.5">
             <button
               type="button"
               onClick={() => play(s)}
               aria-label={t("stories.play", { name: s.name, count: s.voices.length })}
               className={cn("story-ring block", spinning && "spin", !unheard && !spinning && "seen")}
             >
-              <UserAvatar name={s.name} path={s.avatar} size={66} />
+              <UserAvatar name={s.name} path={s.avatar} size={51} />
             </button>
-            <span className={cn("w-full truncate text-center text-fine", unheard ? "text-foreground" : "text-muted-foreground")}>{s.username}</span>
+            <span className={cn("w-full truncate text-center text-fine", unheard ? "text-foreground" : "text-muted-foreground")}>{s.name.split(" ")[0]}</span>
           </div>
         );
       })}

@@ -61,7 +61,7 @@ function TopicPage() {
                 <button
                   type="button"
                   onClick={() => playAll.current?.()}
-                  className="flex h-12 items-center gap-2 rounded-full bg-secondary px-5 font-semibold"
+                  className="flex h-12 items-center gap-2 rounded-xl bg-secondary px-5 font-semibold"
                 >
                   <Play className="h-4 w-4" fill="currentColor" /> {t("news.listenAll")}
                 </button>

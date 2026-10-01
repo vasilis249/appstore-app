@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { GraduationCap, Play, Plus, Search } from "lucide-react";
+import { GraduationCap, Play, Search } from "lucide-react";
 import { AppHeader, HomeHeaderActions } from "@/components/app-header";
-import { FeedSwitcher } from "@/components/home/feed-switcher";
+import { FeedTabs } from "@/components/home/feed-switcher";
 import { StoriesRow } from "@/components/home/stories-row";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
@@ -26,13 +26,6 @@ import { VoiceIcon } from "@/components/voice/voice-icon";
 type Tab = "campus" | "following" | "groups" | "news";
 const TABS: Tab[] = ["campus", "following", "groups", "news"];
 
-/** Where "+" puts a new voice: the campus / news section you're looking at, else personal. */
-function recordTarget(tab: Tab | null, section?: string): { campus?: 1; news?: 1; section?: string } {
-  if (tab === "campus") return section ? { campus: 1, section } : { campus: 1 };
-  if (tab === "news") return section ? { section } : { news: 1 };
-  return {};
-}
-
 export const Route = createFileRoute("/_authenticated/")({
   // ?tab=campus|following|groups|news, ?s=<section> inside Campus or News. No tab: Campus for verified students, else
   // News (?s alone = News, as old links; old ?tab=<section> still lands in that News section).
@@ -48,12 +41,13 @@ export const Route = createFileRoute("/_authenticated/")({
 });
 
 /**
- * Home in four feeds, picked from the big title (like "For you ⌄"): your Campus (ΕΜΠ: its topic of the day, news,
- * student sections and classmates' voices — students only), Following, Groups and News. Above them the "stories" of
- * people you follow who spoke today; "+" records, ▶ plays the list you're looking at.
+ * Home in four feeds under an iOS large title: your Campus (ΕΜΠ: its topic of the day, news, student sections and
+ * classmates' voices — students only), Following, Groups and News, as text tabs with a gliding line. Then the
+ * "stories" of people you follow who spoke today; ▶ plays the list you're looking at. (Recording: the voice key in
+ * the tab bar, placed by the feed you're on.)
  */
 function HomePage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const search = Route.useSearch();
   const me = useMyProfile();
   const campus = useCampus();
@@ -67,28 +61,28 @@ function HomePage() {
   // A campus still waiting for students has no sections or feed to play yet.
   const status = useQuery({ queryKey: campusStatusKeys.status, queryFn: campusStatus, enabled: tab === "campus" && verified });
   const campusOpen = status.data?.is_open !== false;
-  const label = (x: Tab) => (x === "campus" ? campus.label({ university_id: me.data?.university_id }) || t("home.campus") : t(`home.${x}`));
+  const uni = campus.label({ university_id: me.data?.university_id });
+  const label = (x: Tab) => (x === "campus" ? uni || t("home.campus") : t(`home.${x}`));
+  const kicker =
+    tab === "campus" && uni
+      ? status.data
+        ? t("home.campusKicker", { uni, count: status.data.students, n: status.data.students.toLocaleString(i18n.language) })
+        : uni
+      : t("home.forStudents");
   const canPlay = !!tab && tab !== "news" && !(tab === "campus" && (!verified || !campusOpen));
   return (
     <>
-      <AppHeader
-        left={
-          <Link to="/record" search={recordTarget(tab, section)} aria-label={t("voice.navRecord")} className="grid h-11 w-11 place-items-center rounded-full">
-            <Plus className="h-[30px] w-[30px]" strokeWidth={1.7} />
-          </Link>
-        }
-        center={<FeedSwitcher tab={tab} tabs={TABS} label={label} />}
-        right={<HomeHeaderActions />}
-      />
-      <StoriesRow />
+      <AppHeader large={tab ? (tab === "campus" ? t("home.campus") : t(`home.${tab}`)) : " "} kicker={kicker} right={<HomeHeaderActions />} />
+      <FeedTabs tab={tab} tabs={TABS} label={label} />
+      {tab !== "news" && <StoriesRow />}
       {(canPlay || tab === "news" || (tab === "campus" && verified && campusOpen)) && (
-        <div className="no-scrollbar flex items-center gap-2 overflow-x-auto px-4 pb-2.5">
+        <div className={cn("no-scrollbar flex items-center gap-2 overflow-x-auto px-4 pb-2.5", tab === "news" && "pt-3")}>
           {canPlay && (
             <button
               type="button"
               onClick={() => playAll.current?.()}
               aria-label={t("posts.playAll")}
-              className="flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-foreground px-3 text-caption font-semibold text-background"
+              className="flex h-8 shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3.5 text-caption font-semibold text-foreground"
             >
               <Play className="h-3.5 w-3.5" fill="currentColor" strokeWidth={0} /> {t("posts.playAll")}
             </button>
@@ -107,7 +101,7 @@ function HomePage() {
             title={t("campus.lockedTitle")}
             text={t("campus.locked")}
             action={
-              <Link to="/student" className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-8 font-semibold text-primary-foreground">
+              <Link to="/student" className="inline-flex h-12 items-center gap-2 rounded-xl bg-primary px-8 font-semibold text-primary-foreground">
                 {t("campus.verify")}
               </Link>
             }
@@ -162,7 +156,7 @@ function NewsList({ section }: { section?: string }) {
             type="button"
             disabled={q.isFetchingNextPage}
             onClick={() => void q.fetchNextPage()}
-            className="h-11 w-full rounded-full bg-secondary text-callout font-semibold disabled:opacity-50"
+            className="h-11 w-full rounded-xl bg-secondary text-callout font-semibold disabled:opacity-50"
           >
             {t("news.more")}
           </button>
@@ -181,11 +175,9 @@ function NewsList({ section }: { section?: string }) {
 function OtherVoicesEmpty({ section }: { section?: string }) {
   const { t } = useTranslation();
   return (
-    <Link to="/record" search={section ? { section } : { news: 1 }} className="mx-4 my-3 flex items-center gap-3 rounded-full bg-secondary py-1.5 pl-4 pr-2 text-callout text-muted-foreground">
+    <Link to="/record" search={section ? { section } : { news: 1 }} className="mx-4 my-3 flex h-11 items-center gap-3 rounded-xl bg-secondary pl-3.5 pr-3 text-callout text-muted-foreground">
       <span className="flex-1">{t("news.otherVoicesEmpty")}</span>
-      <span className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground">
-        <VoiceIcon className="h-5 w-5" />
-      </span>
+      <VoiceIcon className="h-5 w-5 text-link" />
     </Link>
   );
 }
@@ -205,7 +197,7 @@ function CampusView({ section, playAllRef }: { section?: string; playAllRef: Rea
     <div className="pt-2">
       {daily && <NewsCard topic={daily} daily />}
       {rest.length > 0 && (
-        <ul className="mx-4 mb-3 divide-y divide-border rounded-2xl bg-card">
+        <ul className="mx-4 mb-3 divide-y divide-border border-y border-border">
           {rest.map((tp) => (
             <CampusTopicRow key={tp.id} topic={tp} />
           ))}
@@ -216,12 +208,10 @@ function CampusView({ section, playAllRef }: { section?: string; playAllRef: Rea
       <Link
         to="/record"
         search={section ? { campus: 1, section } : { campus: 1 }}
-        className="mx-4 mb-2 flex items-center gap-3 rounded-full bg-secondary py-1.5 pl-4 pr-2 text-callout text-muted-foreground"
+        className="mx-4 mb-3 flex h-11 items-center gap-3 rounded-xl bg-secondary pl-3.5 pr-3 text-callout text-muted-foreground"
       >
         <span className="flex-1">{t("campus.say")}</span>
-        <span className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground">
-          <VoiceIcon className="h-4 w-4" />
-        </span>
+        <VoiceIcon className="h-5 w-5 text-link" />
       </Link>
       <FeedList
         key={`campus-${section ?? ""}`}
@@ -333,7 +323,7 @@ function CampusTopicRow({ topic }: { topic: NewsTopic }) {
   const { t, i18n } = useTranslation();
   return (
     <li>
-      <Link to="/t/$topicId" params={{ topicId: topic.id }} className="block px-4 py-3 active:opacity-70">
+      <Link to="/t/$topicId" params={{ topicId: topic.id }} className="block py-3 active:opacity-70">
         <p className="line-clamp-2 text-callout font-semibold leading-snug">{topic.title}</p>
         <p className="mt-0.5 text-fine text-muted-foreground">
           {[topic.source_name, timeAgoShort(topic.created_at, i18n.language), topic.posts_count > 0 ? t("posts.voicesCount", { count: topic.posts_count }) : t("news.beFirst")]
@@ -356,7 +346,7 @@ function SectionPills({ tab, active }: { tab: "news" | "campus"; active?: string
     bar.current?.querySelector<HTMLElement>("[data-active=true]")?.scrollIntoView({ inline: "center", block: "nearest" });
   }, [active, sections.length]);
   const pill = (on: boolean) =>
-    cn("h-8 shrink-0 rounded-lg px-3 text-caption font-semibold leading-8 transition-colors", on ? "bg-foreground text-background" : "bg-secondary text-foreground");
+    cn("h-8 shrink-0 rounded-full px-3.5 text-caption font-semibold leading-8 transition-colors duration-300", on ? "bg-foreground text-background" : "bg-secondary text-foreground/80");
   return (
     <nav ref={bar} className="flex gap-2">
       <Link to="/" search={{ tab }} replace data-active={!active} className={pill(!active)}>
@@ -377,19 +367,17 @@ function SayYourOwn() {
   const me = useMyProfile();
   const name = me.data?.full_name || me.data?.username || "";
   return (
-    <Link to="/record" className="mx-4 mt-3 flex items-center gap-3 rounded-full bg-secondary py-1.5 pl-1.5 pr-2">
-      <UserAvatar name={name} path={me.data?.avatar_path ?? null} size={36} />
+    <Link to="/record" className="mx-4 mt-1 flex h-11 items-center gap-3 rounded-xl bg-secondary pl-1.5 pr-3">
+      <UserAvatar name={name} path={me.data?.avatar_path ?? null} size={32} />
       <span className="flex-1 text-callout text-muted-foreground">{t("home.sayYourOwn")}</span>
-      <span className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground">
-        <VoiceIcon className="h-4 w-4" />
-      </span>
+      <VoiceIcon className="h-5 w-5 text-link" />
     </Link>
   );
 }
 
 function Empty({ tab }: { tab: Tab }) {
   const { t } = useTranslation();
-  const pill = "inline-flex h-12 items-center gap-2 rounded-full bg-primary px-8 font-semibold text-primary-foreground";
+  const pill = "inline-flex h-12 items-center gap-2 rounded-xl bg-primary px-8 font-semibold text-primary-foreground";
   if (tab === "groups")
     return (
       <EmptyState

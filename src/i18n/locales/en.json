@@ -720,7 +720,10 @@
     "emptyFollowing": "Hear what the people you follow say, outside the news.",
     "findPeople": "Find people",
     "campus": "Campus",
-    "pickFeed": "Feed: {{feed}}"
+    "feeds": "Feeds",
+    "forStudents": "For students",
+    "campusKicker_one": "{{uni}} · {{n}} student",
+    "campusKicker_other": "{{uni}} · {{n}} students"
   },
   "news": {
     "spokeOne": "{{name}} spoke",
@@ -920,7 +923,7 @@
     "title": "Today's voices",
     "mine": "Your voices today",
     "add": "Say something",
-    "yours": "Your voice",
+    "yours": "You",
     "play_one": "{{name}}: {{count}} voice",
     "play_other": "{{name}}: {{count}} voices"
   }

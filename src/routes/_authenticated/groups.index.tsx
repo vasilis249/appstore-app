@@ -39,7 +39,7 @@ function GroupsPage() {
         }
       />
       <div className="px-4 pt-1">
-        <label className="flex h-11 items-center gap-2 rounded-full bg-secondary px-4">
+        <label className="flex h-11 items-center gap-2 rounded-xl bg-secondary px-4">
           <Search className="h-4 w-4 text-muted-foreground" />
           <input
             value={q}
@@ -106,7 +106,7 @@ function GroupsPage() {
 function CreateCta() {
   const { t } = useTranslation();
   return (
-    <Link to="/groups/new" className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-6 font-semibold text-primary-foreground">
+    <Link to="/groups/new" className="inline-flex h-11 items-center gap-2 rounded-xl bg-primary px-6 font-semibold text-primary-foreground">
       <Plus className="h-4 w-4" /> {t("groups.new")}
     </Link>
   );
@@ -134,7 +134,7 @@ function InviteRow({ group, by }: { group: { id: string; name: string; section_i
           type="button"
           disabled={act.isPending}
           onClick={() => act.mutate(true)}
-          className="h-9 rounded-full bg-primary px-4 text-caption font-semibold text-primary-foreground disabled:opacity-50"
+          className="h-9 rounded-[10px] bg-primary px-4 text-caption font-semibold text-primary-foreground disabled:opacity-50"
         >
           {t("groups.accept")}
         </button>

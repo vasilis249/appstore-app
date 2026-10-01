@@ -93,7 +93,7 @@ export function GroupForm({
           ))}
         </div>
       </div>
-      <button type="submit" disabled={!valid || busy} className="mt-auto h-12 w-full rounded-full bg-primary font-semibold text-primary-foreground disabled:opacity-40">
+      <button type="submit" disabled={!valid || busy} className="mt-auto h-12 w-full rounded-xl bg-primary font-semibold text-primary-foreground disabled:opacity-40">
         {busy ? t("common.saving") : submitLabel}
       </button>
     </form>

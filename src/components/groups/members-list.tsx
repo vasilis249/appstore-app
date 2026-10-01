@@ -75,11 +75,11 @@ function MemberSheet({ groupId, member, myRole, onClose }: { groupId: string; me
                 type="button"
                 disabled={run.isPending}
                 onClick={() => run.mutate(confirm)}
-                className="h-12 w-full rounded-full bg-destructive font-semibold text-destructive-foreground disabled:opacity-50"
+                className="h-12 w-full rounded-xl bg-destructive font-semibold text-destructive-foreground disabled:opacity-50"
               >
                 {t(confirm === "owner" ? "groups.makeOwner" : "groups.remove")}
               </button>
-              <button type="button" onClick={() => setConfirm(null)} className="h-12 w-full rounded-full bg-secondary font-semibold">
+              <button type="button" onClick={() => setConfirm(null)} className="h-12 w-full rounded-xl bg-secondary font-semibold">
                 {t("common.cancel")}
               </button>
             </div>
