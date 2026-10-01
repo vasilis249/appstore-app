@@ -19,6 +19,15 @@ from bencium/bencium-marketplace — `bencium-controlled-ux-designer` (ask befor
 Inter / generic blue), `design-audit`, `typography` (correct quotes/dashes). Fonts must have a **Greek** subset
 (ui-ux-pro-max `data/google-fonts.csv` → Subsets). Full redesign R1+ follows the direction the user picks.
 
+**Agent plugins (user request 2026-10-01), vendored in `.claude/` so every session has them:** `ponytail` (lazy-senior
+"minimal code" mode, on by default via SessionStart/SubagentStart/UserPromptSubmit hooks in `.claude/settings.json` →
+`.claude/ponytail/hooks/*.js`; "stop ponytail" / "normal mode" turns it off; skills ponytail-audit/-review/-debt/-gain/
+-help), addyosmani `agent-skills` (25 skills spec → plan → build → test → review → ship, commands `/spec /plan
+/build /test /review /ship /code-simplify /constraints /webperf`, agents code-reviewer / security-auditor /
+test-engineer / web-performance-auditor), `graphify` (skill; CLI `pip install graphifyy` — not persistent in cloud
+containers → environment setup script; `graphify update <path>` builds `graphify-out/`, git-ignored). NOT installed:
+OmniRoute (a self-hosted LLM gateway server, not an agent plugin). These never override CLAUDE.md / DESIGN.md rules.
+
 ## Product: **Speak** — "X/Twitter, but with voice" (decided 2026-09-29, replaces the BeReal-style plan)
 Voice is the main medium. Public posts = a voice clip (≤ 2 min) + optional short title (≤ 100 chars), filed in a
 **section** (News/Επικαιρότητα, Tech, Sports, Economy, Politics, Entertainment, Lifestyle, Humor …) and optionally
