@@ -10,6 +10,13 @@ VoltAgent/awesome-design-md + its "Speak adaptation" section): tokens only (`bg-
 follow the iPhone, one blue accent, pills for actions, 18px cards, no shadows except `shadow-float` on floating chrome,
 press = scale(0.95). No raw hex / `text-white` on chrome / `bg-black` in screens.
 
+**Design skills (user request 2026-10-01, installed in `.claude/skills/`, MIT):** from nextlevelbuilder/ui-ux-pro-max-skill —
+`ui-ux-pro-max` (search.py: `--design-system`, `--domain ux|style|color|typography`, `--stack`), `design-system`, `design`;
+from bencium/bencium-marketplace — `bencium-controlled-ux-designer` (ask before design decisions, WCAG AA),
+`bencium-impact-designer` / `bencium-innovative-ux-designer` (commit to one bold direction, no Apple mimicry / glass /
+Inter / generic blue), `design-audit`, `typography` (correct quotes/dashes). Fonts must have a **Greek** subset
+(ui-ux-pro-max `data/google-fonts.csv` → Subsets). Full redesign R1+ follows the direction the user picks.
+
 ## Product: **Speak** — "X/Twitter, but with voice" (decided 2026-09-29, replaces the BeReal-style plan)
 Voice is the main medium. Public posts = a voice clip (≤ 2 min) + optional short title (≤ 100 chars), filed in a
 **section** (News/Επικαιρότητα, Tech, Sports, Economy, Politics, Entertainment, Lifestyle, Humor …) and optionally
