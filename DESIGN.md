@@ -5,10 +5,9 @@
 capsule, and quick springy motion. It is *our* app: own wordmark and mark (the 11-bar voice icon), own ring
 gradient, no Instagram logo, glyphs or names. Light / dark follow the iPhone.
 
-Built with the installed design skills (`.claude/skills/`): `ui-ux-pro-max` (UX rules: 44px targets, 4.5:1 contrast,
-reduced motion, no emoji icons), `design-system` (token layers), `typography` (correct quotes « » / “ ”, dashes,
-ellipsis), `design-audit` (phased reviews). Tokens live in ONE file: `src/design-system.css`. Screens use the
-Tailwind names below — never raw hex, never `text-white` / `bg-black` for chrome.
+**Status: reference, not a rule** (user decision 2026-10-01) — it documents the current look so new screens stay
+consistent; the agent plugins in CLAUDE.md (Ponytail, agent-skills, Graphify) take priority. Tokens live in ONE file:
+`src/design-system.css`; screens use the Tailwind names below.
 
 ## 1. Colour
 

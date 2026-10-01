@@ -4,29 +4,21 @@ Persistent findings for Claude sessions. Reply to the user in Greek; code, comme
 Work in phases; after each phase STOP, summarize in ≤10 lines, update this file, wait for the user's "OK".
 Don't read `bun.lock`, `node_modules`, `src/assets`, `src/components/ui` (stock shadcn), `src/routeTree.gen.ts`,
 `src/integrations/supabase/types.ts` (generated). Use Glob/Grep, read only what's needed.
-**Design rule (user decision 2026-10-01, replaces the Apple system and the C «Πρωτοσέλιδο» pick): every UI change
-follows `/DESIGN.md` = Speak's social system, "like today's Instagram"** (user's screenshots: profile, For you,
-messages): white / black canvas, system font, grey fills, one blue `#0095f6` for actions, story rings, floating tab
-capsule with a gliding pill, Instagram-like motion (pop, heart burst, slide push/pop page transitions, stagger,
-skeletons). Tokens only (`bg-background/card/secondary/primary/nav`, `text-foreground/muted-foreground/link`,
-`bg-live`, `text-success`, `.story-ring`, `.animate-like-pop`, `.stagger`, `.skeleton`); light + dark follow the
-iPhone; never copy Instagram's logo/glyphs/wording.
+**Design reference (user decision 2026-10-01: no longer a binding rule):** `/DESIGN.md` describes the current
+Instagram-like look (tokens in `src/design-system.css`, motion utilities, components) — use it as a reference for
+consistency, not as a rule that outranks the agent plugins below.
 
-**Design skills (user request 2026-10-01, installed in `.claude/skills/`, MIT):** from nextlevelbuilder/ui-ux-pro-max-skill —
-`ui-ux-pro-max` (search.py: `--design-system`, `--domain ux|style|color|typography`, `--stack`), `design-system`, `design`;
-from bencium/bencium-marketplace — `bencium-controlled-ux-designer` (ask before design decisions, WCAG AA),
-`bencium-impact-designer` / `bencium-innovative-ux-designer` (commit to one bold direction, no Apple mimicry / glass /
-Inter / generic blue), `design-audit`, `typography` (correct quotes/dashes). Fonts must have a **Greek** subset
-(ui-ux-pro-max `data/google-fonts.csv` → Subsets). Full redesign R1+ follows the direction the user picks.
-
-**Agent plugins (user request 2026-10-01), vendored in `.claude/` so every session has them:** `ponytail` (lazy-senior
+**Agent plugins — PRIORITY (user decision 2026-10-01: they take precedence over older conventions and the old
+design skills, which were uninstalled), vendored in `.claude/` so every session has them:** `ponytail` (lazy-senior
 "minimal code" mode, on by default via SessionStart/SubagentStart/UserPromptSubmit hooks in `.claude/settings.json` →
 `.claude/ponytail/hooks/*.js`; "stop ponytail" / "normal mode" turns it off; skills ponytail-audit/-review/-debt/-gain/
 -help), addyosmani `agent-skills` (25 skills spec → plan → build → test → review → ship, commands `/spec /plan
 /build /test /review /ship /code-simplify /constraints /webperf`, agents code-reviewer / security-auditor /
 test-engineer / web-performance-auditor), `graphify` (skill; CLI `pip install graphifyy` — not persistent in cloud
 containers → environment setup script; `graphify update <path>` builds `graphify-out/`, git-ignored). NOT installed:
-OmniRoute (a self-hosted LLM gateway server, not an agent plugin). These never override CLAUDE.md / DESIGN.md rules.
+OmniRoute (a self-hosted LLM gateway server, not an agent plugin). Work with them first: Ponytail's minimal-code
+mode, agent-skills' spec → plan → build → test → review → ship flow, Graphify for codebase questions. Still kept:
+Greek replies, phases with a stop for "OK", secrets/security and deploy rules below.
 
 ## Product: **Speak** — "X/Twitter, but with voice" (decided 2026-09-29, replaces the BeReal-style plan)
 Voice is the main medium. Public posts = a voice clip (≤ 2 min) + optional short title (≤ 100 chars), filed in a
