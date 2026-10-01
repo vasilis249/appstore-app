@@ -451,8 +451,9 @@ User decisions:
   position; `LocalFix.course` while moving; `APPROXIMATE_M` 500. `scripts/patch-native-plugins.mjs` also patches the
   plugin's Swift: `requestTemporaryFullAccuracyAuthorization(withPurposeKey: "SpeakMap")` when
   `accuracyAuthorization == .reducedAccuracy` (in addWatcher when authorized, and after the user allows), Info.plist
-  `NSLocationTemporaryUsageDescriptionDictionary` → SpeakMap (not compiled in the container: no swiftc; plain
-  CoreLocation API, deployment target 15). `lib/location/compass.ts` (`enableCompass` from the ◎ tap: iOS motion
+  `NSLocationTemporaryUsageDescriptionDictionary` → SpeakMap (not compiled in the container: no swiftc). The plugin
+  target is iOS 13 → the calls need `if #available(iOS 14.0, *), …` (Xcode error reported by the user 2026-10-01; the
+  script also upgrades files patched by its first version). `lib/location/compass.ts` (`enableCompass` from the ◎ tap: iOS motion
   permission, `webkitCompassHeading` / Android `deviceorientationabsolute`). `LiveMap`: me = photo + blue ring + ping
   + accuracy halo + direction beam (compass, else course); markers glide (900 ms ease, big jumps snap); light halo
   around people with accuracy > 20 m (green friends / grey others); old position = faded, grey ring, label
