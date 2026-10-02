@@ -75,8 +75,9 @@ export function usePushToTalk(
         release();
       }
     },
-    // no long-press menu / text selection / double-tap zoom on iOS
-    style: { WebkitTouchCallout: "none", touchAction: "none" } as const,
+    // No long-press menu, text selection or double-tap zoom on iOS: WebKit's long-press (selection / loupe) would
+    // cancel the pointer after ~0.5 s and the voice would be thrown away as "too short".
+    style: { WebkitTouchCallout: "none", WebkitUserSelect: "none", userSelect: "none", touchAction: "none" } as const,
   };
   return { bind, holding };
 }

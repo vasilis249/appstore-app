@@ -442,6 +442,11 @@ User decisions:
   `test_gate.sql` 11; scratchpad `seed-speak.sh` turns it off, `seed-gate.sh` on + `gate-flow.mjs` 7/7 → 19 flows
   green. Live: applied (8 users, 3 students, 1 admin), smoke (rolled back) unverified `not_student` / student ok,
   types regenerated, deploy d8bb9710. Docs: security.md, release-checklist demo account = a verified student (SQL).
+  **DM + mic fixes (user report 2026-10-02)** — Messages: the walkie friends "notes" row (circles on top) removed; the
+  Walkie-talkie link stays. Mic on iPhone: WebKit's long-press (text selection / loupe) could cancel the pointer at
+  ~0.5 s → the voice was thrown away as "too short"; `usePushToTalk` style now also `user-select: none` (every PTT
+  button: composer, nav key, DMs, walkie, map) + `.native-app button { user-select: none }`. Couldn't reproduce in
+  Chromium (mouse + CDP touch both fine: scratchpad `ptt-flow.mjs` 10/10, `touch-flow.mjs`) → confirm on the phone.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,

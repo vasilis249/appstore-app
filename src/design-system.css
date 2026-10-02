@@ -265,6 +265,11 @@
 .native-app {
   -webkit-tap-highlight-color: transparent;
 }
+/* Buttons never start an iOS text selection on a long press (it would steal the press). */
+.native-app button {
+  -webkit-user-select: none;
+  user-select: none;
+}
 
 /* Motion */
 @keyframes fade-in-up {

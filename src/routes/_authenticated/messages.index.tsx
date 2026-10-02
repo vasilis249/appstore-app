@@ -19,9 +19,8 @@ export const Route = createFileRoute("/_authenticated/messages/")({
 });
 
 /**
- * Messages, Instagram-style: your username + compose on top, a search field, a row of walkie-talkie friends with a
- * little "note" bubble (live / new transmissions / channel open, green dot = here), then the voice conversations —
- * unread ones in bold with a blue dot.
+ * Messages: your username + compose on top, a search field, «Μηνύματα» + the Walkie-talkie link (unheard badge),
+ * then the voice conversations — unread ones in bold with a dot, green dot = here.
  */
 function MessagesPage() {
   const { t, i18n } = useTranslation();
@@ -34,7 +33,6 @@ function MessagesPage() {
   useSyncExternalStore(walkieHub.subscribe, walkieHub.version, walkieHub.version);
   const peers = walkieHub.peers().filter((p) => p.kind === "walkie");
   const online = new Set(peers.filter((p) => p.snap.peerOnline).map((p) => p.peer));
-  const talking = new Set(peers.filter((p) => p.snap.peerTalking).map((p) => p.peer));
 
   const list = useMemo(() => {
     const q = query.trim().toLocaleLowerCase();
@@ -52,12 +50,6 @@ function MessagesPage() {
   }
 
   const walkieUnheard = (walkie.data ?? []).reduce((n, c) => n + c.unheard, 0);
-  const friends = [...(walkie.data ?? [])].sort(
-    (a, b) => Number(talking.has(b.user_id)) - Number(talking.has(a.user_id)) || b.unheard - a.unheard || Number(online.has(b.user_id)) - Number(online.has(a.user_id)),
-  );
-  const note = (id: string, unheard: number, channel: boolean) =>
-    talking.has(id) ? t("messages.noteLive") : unheard ? t("walkie.unheard", { count: unheard }) : channel ? t("walkie.channelShort") : t("messages.noteTalk");
-
   return (
     <>
       <AppHeader
@@ -80,31 +72,6 @@ function MessagesPage() {
           />
         </label>
       </div>
-
-      {friends.length > 0 && !query && (
-        <div className="no-scrollbar flex gap-4 overflow-x-auto px-4 pb-2 pt-12 stagger" aria-label={t("walkie.title")}>
-          {friends.map((c) => {
-            const name = c.full_name || c.username;
-            return (
-              <Link key={c.user_id} to="/talk/$userId" params={{ userId: c.user_id }} className="relative flex w-[84px] shrink-0 flex-col items-center gap-1.5">
-                <span
-                  className={cn(
-                    "absolute -top-10 left-1/2 z-10 max-w-[96px] -translate-x-1/2 truncate rounded-2xl bg-popover px-3 py-1.5 text-fine font-semibold shadow-float",
-                    talking.has(c.user_id) && "text-live",
-                  )}
-                >
-                  {note(c.user_id, c.unheard, c.channel_on)}
-                </span>
-                <span className="relative">
-                  <UserAvatar name={name} path={c.avatar_path} size={76} />
-                  {online.has(c.user_id) && <span className="absolute bottom-1 right-1 h-4 w-4 rounded-full border-[3px] border-background bg-success" />}
-                </span>
-                <span className="w-full truncate text-center text-fine">{name.split(" ")[0]}</span>
-              </Link>
-            );
-          })}
-        </div>
-      )}
 
       <div className="flex items-center justify-between px-4 pb-1 pt-3">
         <h2 className="text-[17px] font-bold tracking-normal">{t("tabs.messages")}</h2>
