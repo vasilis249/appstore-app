@@ -1,6 +1,6 @@
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
-import { blobToBase64, pickRecorderMime, silenceAll } from "@/lib/audio";
+import { blobToBase64, pickRecorderMime, setAudioSession, silenceAll } from "@/lib/audio";
 import { CHUNK_SAMPLES, decodeChunk, Downsampler, encodeChunk, WALKIE_RATE } from "./codec";
 
 /**
@@ -57,19 +57,6 @@ function audioContext(): AudioContext {
     ctx = new AC();
   }
   return ctx;
-}
-
-type AudioSessionType = "auto" | "playback" | "play-and-record" | "ambient";
-/** Safari 16.4+: 'playback' plays through the silent switch; 'play-and-record' while the mic is on. */
-function setAudioSession(type: AudioSessionType) {
-  const s = (navigator as unknown as { audioSession?: { type: AudioSessionType } }).audioSession;
-  if (s) {
-    try {
-      s.type = type;
-    } catch {
-      /* not supported */
-    }
-  }
 }
 
 /** Back from the background: iOS may have suspended / interrupted the context. Best effort (no gesture). */

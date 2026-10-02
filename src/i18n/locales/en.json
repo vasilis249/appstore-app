@@ -471,6 +471,7 @@
     "delete": "Delete",
     "send": "Send",
     "micDenied": "Allow microphone access in iPhone Settings.",
+    "micBusy": "The microphone is in use (a call or another app). Try again.",
     "unsupported": "Recording is not supported here.",
     "tapToListen": "Tap to listen",
     "playing": "Playing…",

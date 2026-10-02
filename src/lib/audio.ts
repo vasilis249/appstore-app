@@ -15,6 +15,24 @@ export function pickRecorderMime(): string | undefined {
   return candidates.find((m) => MediaRecorder.isTypeSupported(m));
 }
 
+export type AudioSessionType = "auto" | "playback" | "play-and-record" | "ambient";
+/**
+ * Safari 16.4+ `navigator.audioSession`: 'playback' plays through the silent switch, 'play-and-record' is needed
+ * while the mic is on — WebKit refuses getUserMedia under 'playback' (looks like "permission denied").
+ * Returns the previous type (undefined where unsupported).
+ */
+export function setAudioSession(type: AudioSessionType): AudioSessionType | undefined {
+  const s = (navigator as unknown as { audioSession?: { type: AudioSessionType } }).audioSession;
+  if (!s) return undefined;
+  const prev = s.type;
+  try {
+    s.type = type;
+  } catch {
+    /* not supported */
+  }
+  return prev;
+}
+
 export function blobToBase64(blob: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

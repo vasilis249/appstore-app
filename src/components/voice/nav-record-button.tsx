@@ -3,7 +3,7 @@ import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { VoiceIcon } from "@/components/voice/voice-icon";
-import { useRecorder } from "@/hooks/use-recorder";
+import { MIC_ERROR_KEY, useRecorder } from "@/hooks/use-recorder";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { usePushToTalk } from "@/hooks/use-push-to-talk";
 import { formatClock } from "@/lib/audio";
@@ -55,7 +55,7 @@ export function NavRecordButton() {
   }, [live]);
 
   useEffect(() => {
-    if (r.error) toast.error(t(r.error === "denied" ? "voice.micDenied" : "voice.unsupported"));
+    if (r.error) toast.error(t(MIC_ERROR_KEY[r.error]));
   }, [r.error, t]);
 
   // Recorded → hand it to the composer.

@@ -447,6 +447,13 @@ User decisions:
   ~0.5 s → the voice was thrown away as "too short"; `usePushToTalk` style now also `user-select: none` (every PTT
   button: composer, nav key, DMs, walkie, map) + `.native-app button { user-select: none }`. Couldn't reproduce in
   Chromium (mouse + CDP touch both fine: scratchpad `ptt-flow.mjs` 10/10, `touch-flow.mjs`) → confirm on the phone.
+  **"Give mic access" although granted (user report 2026-10-02)** — ROOT CAUSE: any open walkie session (pinned
+  channels via `WalkieHubSync`, map talk) sets `navigator.audioSession.type = "playback"` app-wide, and WebKit refuses
+  `getUserMedia` under playback; `useRecorder` didn't switch (only the walkie engine did) and mapped every error to
+  "denied". Now `setAudioSession` lives in `lib/audio.ts` (returns the previous type); `useRecorder` sets
+  play-and-record before the mic and restores the previous type in `cleanup`; `micError(e)`: NotAllowed/Security →
+  "denied", anything else → "busy" (`voice.micBusy`); toasts via `MIC_ERROR_KEY`. Scratchpad `micsession-flow.mjs` 5/5
+  (fake audioSession + gUM refusing under playback), ptt 10, walkie 11, walkie-hub 12, nearby 10. Deploy 25ca312b.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,

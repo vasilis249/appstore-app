@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Pause, Play, Send, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { VoiceIcon } from "@/components/voice/voice-icon";
-import { useRecorder } from "@/hooks/use-recorder";
+import { MIC_ERROR_KEY, useRecorder } from "@/hooks/use-recorder";
 import { usePushToTalk } from "@/hooks/use-push-to-talk";
 import { formatClock, player } from "@/lib/audio";
 import { cn } from "@/lib/utils";
@@ -28,7 +28,7 @@ export function RecordBar({
   const ptt = usePushToTalk(r, { onTooShort: () => toast(t("voice.holdToTalk")) });
 
   useEffect(() => {
-    if (r.error) toast.error(t(r.error === "denied" ? "voice.micDenied" : "voice.unsupported"));
+    if (r.error) toast.error(t(MIC_ERROR_KEY[r.error]));
   }, [r.error, t]);
 
   async function send() {
