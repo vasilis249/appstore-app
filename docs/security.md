@@ -14,6 +14,11 @@ schema change.
   their own `profiles.username/full_name/avatar_path` and `notifications.read_at`, and delete their
   own posts. Every other write goes through a `SECURITY DEFINER` RPC (`SET search_path = ''`) that checks
   `auth.uid()` and that the caller is not disabled (`private.me()`).
+- **Students only**: `private.me()` also requires `private.is_student()` (verified university email, or admin;
+  `private.app_flags.student_gate` switches it) → every content RPC answers `not_student` to anyone else, and the
+  policies that show other people's rows (profiles, posts, topics, follows, groups, members) and the walkie /
+  map-talk Realtime channels check it too. An unverified account can only verify (`private.me_any()`), claim an
+  invite, read its own rows, sign out and delete itself. The app asks `am_i_student()`.
 - `anon` has no table or function access at all.
 - Helpers used by policies live in the `private` schema, which the Data API does not expose.
 - **Follows**: only via RPCs; voice DMs require mutual follows. Notifications (follow, like, reply, repost)

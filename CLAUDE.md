@@ -427,7 +427,21 @@ User decisions:
   with small photos; `ProfileView` (counts, indigo school badge, rounded group tiles, text tabs, voice rows); composer
   clock + red circle → rounded square; Search large title; codemod (scratchpad `quiet-codemod.py`): big CTAs rounded-xl,
   no rings on cards. `DESIGN.md` rewritten. Flows updated (campus tabs helper, school text, news rows, classmates
-  strip) → 18 flows green. Deploy 6878d772. NEXT: student-gate.
+  strip) → 18 flows green. Deploy 6878d772.
+  **student-gate ✔** migration `20261027100000_student_gate.sql`: `private.app_flags` (`student_gate` on),
+  `private.is_student(uid)` (flag off, admin, or verified + not disabled), `private.me_any()` = the old `me()`;
+  `private.me()` now raises `not_student` for non-students → every content RPC is gated at once; `verify_student_code`
+  + `claim_invite` rewritten (pg_get_functiondef replace) to use `me_any()`. Policies with `is_student`: profiles
+  (others), posts, topics, follows, groups, group_members, Realtime walkie_* / nearby_*. `public.am_i_student()` for
+  the app. Client: `hooks/use-is-student.ts` (verified profile, else `am_i_student`); `_authenticated/route.tsx`
+  `StudentGate` → `/student?welcome=1` for non-students (nothing rendered until known); root `StudentSyncs`
+  (Realtime, reminders, walkie, location only for students; `InviteClaimer` always); `/student` without Skip while
+  gated, ⚙ → `SettingsSheet` (sign out, language, delete account), hint `student.gateHint`. Also fixed in
+  `tracker.ts`: `startTracking` sends the map's latest local fix (< 60 s) at once (if the map's watch started first,
+  nothing was sent until you moved). Tests: older suites switch the gate off (`UPDATE private.app_flags …`),
+  `test_gate.sql` 11; scratchpad `seed-speak.sh` turns it off, `seed-gate.sh` on + `gate-flow.mjs` 7/7 → 19 flows
+  green. Live: applied (8 users, 3 students, 1 admin), smoke (rolled back) unverified `not_student` / student ok,
+  types regenerated, deploy d8bb9710. Docs: security.md, release-checklist demo account = a verified student (SQL).
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
@@ -766,7 +780,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (124) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (80) + `test_location.sql` (26) + `test_nearby.sql` (28).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (124) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (80) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

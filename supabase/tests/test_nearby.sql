@@ -1,6 +1,7 @@
 -- Live map, push to talk: who may knock whom, the pair channel, answers, saved transmissions, limits, blocks.
 \set ON_ERROR_STOP 0
 \set QUIET on
+UPDATE private.app_flags SET enabled = false WHERE key = 'student_gate'; -- these checks predate the student gate (test_gate.sql covers it)
 INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES
   ('00000000-0000-0000-0000-00000000000a', 'anna@x', '{"full_name":"Anna"}'),
   ('00000000-0000-0000-0000-00000000000b', 'bob@x', '{"full_name":"Bob"}'),

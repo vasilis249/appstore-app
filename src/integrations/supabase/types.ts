@@ -1108,6 +1108,7 @@ export type Database = {
         Returns: undefined
       }
       am_i_admin: { Args: never; Returns: boolean }
+      am_i_student: { Args: never; Returns: boolean }
       block_user: { Args: { p_user: string }; Returns: undefined }
       campus_leaderboard: {
         Args: never

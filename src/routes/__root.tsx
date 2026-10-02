@@ -20,6 +20,7 @@ import { DailyPromptScheduler } from "../components/daily-prompt-scheduler";
 import { InviteClaimer } from "../components/invite-claimer";
 import { WalkieBanner, WalkieHubSync } from "../components/walkie/walkie-hub";
 import { LocationSync } from "../components/location/location-sync";
+import { useIsStudent } from "../hooks/use-is-student";
 import { MiniPlayer } from "../components/posts/mini-player";
 import { AUTH_PATHS } from "../components/bottom-nav";
 import { useQueue } from "../lib/queue";
@@ -185,12 +186,8 @@ function RootComponent() {
         </main>
         <BottomNav />
         {playerShown && <MiniPlayer lifted />}
-        <RealtimeSync />
-        <DailyPromptScheduler />
         <InviteClaimer />
-        <WalkieHubSync />
-        <LocationSync />
-        <WalkieBanner />
+        <StudentSyncs />
         <OfflineBanner />
         {/* Below the header (its buttons stay tappable), clear of the floating nav; light / dark like the phone. */}
         <Toaster
@@ -201,5 +198,20 @@ function RootComponent() {
         />
       </div>
     </QueryClientProvider>
+  );
+}
+
+/** Live updates, reminders, walkie and location run only for students (the server refuses everyone else anyway). */
+function StudentSyncs() {
+  const student = useIsStudent();
+  if (!student) return null;
+  return (
+    <>
+      <RealtimeSync />
+      <DailyPromptScheduler />
+      <WalkieHubSync />
+      <LocationSync />
+      <WalkieBanner />
+    </>
   );
 }

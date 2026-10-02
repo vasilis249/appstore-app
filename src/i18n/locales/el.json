@@ -810,7 +810,8 @@
     "supported": "Δεκτά email από: {{list}}",
     "detected": "✓ {{uni}}",
     "searchSchool": "Αναζήτηση τμήματος",
-    "noSchool": "Δεν βρίσκω το τμήμα μου"
+    "noSchool": "Δεν βρίσκω το τμήμα μου",
+    "gateHint": "Το Speak είναι μόνο για φοιτητές. Επιβεβαίωσε το πανεπιστημιακό σου email για να μπεις."
   },
   "campus": {
     "lockedTitle": "Το campus σου",

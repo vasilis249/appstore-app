@@ -810,7 +810,8 @@
     "supported": "Accepted emails from: {{list}}",
     "detected": "✓ {{uni}}",
     "searchSchool": "Search departments",
-    "noSchool": "My department isn't listed"
+    "noSchool": "My department isn't listed",
+    "gateHint": "Speak is for students only. Confirm your university email to get in."
   },
   "campus": {
     "lockedTitle": "Your campus",

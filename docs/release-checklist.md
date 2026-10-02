@@ -109,8 +109,12 @@ If something fails, note the step number and what you saw (a screenshot helps).
   used only when you tap record or hold the walkie-talkie button; background audio plays the queue when the
   screen is locked and lets you hear a friend's walkie-talkie. Location is used only if you turn on the live map
   (Profile → ⚙︎ → Location): friends see you, and optionally people within 500 m who share too; nothing is kept
-  but your latest position (deleted after 1 h). Student features need a university email: use the demo account,
-  already verified."
+  but your latest position (deleted after 1 h). Speak is only for verified university students: use the demo
+  account, already verified."
+  Make the demo account a verified student (Speak is students-only, so an unverified account sees only the
+  verification screen): create it in the app, then in the SQL editor
+  `UPDATE public.profiles SET university_id = 'ntua', department_id = 'ntua-ece', study_year = 3,
+  student_verified_at = now() WHERE username = '<demo username>';`
 - [ ] **Age rating**: user-generated content with unrestricted communication → answer the questionnaire
   honestly (expect 16+/18+ with the new ratings); the Terms say 15+ for GDPR, the store rating may be higher.
 - [ ] **Privacy policy URL**: `https://<your-domain>/privacy`; **Support URL**: `https://<your-domain>/contact`.

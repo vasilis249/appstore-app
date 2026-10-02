@@ -1,6 +1,7 @@
 -- Profiles, listen-once voice DMs (mutual follows only), blocks, reports, anon/disabled, rate limits, deletion.
 \set ON_ERROR_STOP 0
 \set QUIET on
+UPDATE private.app_flags SET enabled = false WHERE key = 'student_gate'; -- these checks predate the student gate (test_gate.sql covers it)
 -- A, B, C players; D will be blocked by A; E is disabled.
 INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES
   ('00000000-0000-0000-0000-00000000000a', 'anna@x', '{"full_name":"Άννα Παπά"}'),

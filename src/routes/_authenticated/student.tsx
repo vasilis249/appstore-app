@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useTranslation } from "react-i18next";
-import { Check, GraduationCap, Search } from "lucide-react";
+import { Check, GraduationCap, Search, Settings } from "lucide-react";
 import { BigInput, FieldNote, StepShell } from "@/components/auth/step-shell";
 import { useMyProfile } from "@/hooks/use-my-profile";
+import { useIsStudent } from "@/hooks/use-is-student";
+import { SettingsSheet } from "@/components/settings-sheet";
 import { sendStudentCode } from "@/lib/api/student.functions";
 import { clearStudentIdentity, setStudentInfo, useCampus, verifyStudentCode, yearOptions } from "@/lib/campus";
 import { friendKeys, rpcErrorKey } from "@/lib/friends";
@@ -20,7 +22,9 @@ type Step = "manage" | "email" | "code" | "school" | "year";
 
 /**
  * Student identity, one question per screen: academic email (any open university) → 6-digit code → department → year.
- * `?welcome=1` right after sign-up (with "Skip"); from Settings it opens on what you have, with change / remove.
+ * `?welcome=1` right after sign-up (with "Skip" once you're in); from Settings it opens on what you have, with change /
+ * remove. Speak is students-only: an unverified account lands here (route gate) with no Skip, only ⚙ (sign out,
+ * language, delete account).
  */
 function StudentPage() {
   const { t, i18n } = useTranslation();
@@ -28,6 +32,8 @@ function StudentPage() {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const me = useMyProfile();
+  const student = useIsStudent();
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const campus = useCampus();
   const send = useServerFn(sendStudentCode);
   const verified = !!me.data?.university_id;
@@ -112,11 +118,19 @@ function StudentPage() {
     }
   }
 
-  const skip = search.welcome ? (
-    <button type="button" onClick={leave} className="text-body font-normal">
-      {t("auth.skip")}
-    </button>
-  ) : undefined;
+  const skip =
+    student === false ? (
+      <>
+        <button type="button" onClick={() => setSettingsOpen(true)} aria-label={t("settings.title")} className="grid h-11 w-11 place-items-center">
+          <Settings className="h-[22px] w-[22px]" strokeWidth={1.7} />
+        </button>
+        <SettingsSheet open={settingsOpen} onOpenChange={setSettingsOpen} />
+      </>
+    ) : search.welcome ? (
+      <button type="button" onClick={leave} className="text-body font-normal">
+        {t("auth.skip")}
+      </button>
+    ) : undefined;
   const en = i18n.language.startsWith("en");
   const uniId = me.data?.university_id;
   const schools = campus.departments.filter((d) => d.university_id === uniId);
@@ -173,7 +187,7 @@ function StudentPage() {
         onBack={search.welcome ? undefined : leave}
         right={skip}
         title={t("student.emailTitle")}
-        subtitle={t("student.emailHint")}
+        subtitle={student === false ? t("student.gateHint") : t("student.emailHint")}
         action={t("student.sendCode")}
         disabled={!/^\S+@\S+\.\S+$/.test(email)}
         loading={loading}

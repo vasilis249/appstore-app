@@ -148,6 +148,9 @@ export function onTrackerStatus(fn: (s: TrackerStatus) => void): () => void {
 /** Start sending your position (asks for permission the first time). */
 export async function startTracking(texts: { title: string; message: string }) {
   if (status === "running") return;
+  // The map may already know where you are (its own watch started first): share that at once instead of waiting
+  // for the next fix, which a phone standing still may not send for a while.
+  if (fix && Date.now() - fix.at < 60_000) report({ lat: fix.lat, lng: fix.lng, accuracy: fix.accuracy });
   if (hasNativeLocation()) {
     try {
       nativeWatcher = await BackgroundGeolocation.addWatcher(
