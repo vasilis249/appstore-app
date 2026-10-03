@@ -55,8 +55,27 @@ function audioContext(): AudioContext {
   if (!ctx) {
     const AC = window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     ctx = new AC();
+    // iOS pauses Web Audio whenever the audio session changes (after you talk, a recording elsewhere in the app, a
+    // call): nothing would play or be captured until something resumes it. Resume it ourselves.
+    ctx.onstatechange = () => {
+      if (ctx && ctx.state !== "running" && live.size) setTimeout(() => void wakeAudio(), 150);
+    };
   }
   return ctx;
+}
+
+/** Resume the context without a gesture (works once it was unlocked by a tap). True when it runs. */
+function wakeAudio(): Promise<boolean> {
+  const c = ctx;
+  if (!c) return Promise.resolve(false);
+  if (c.state === "running") return Promise.resolve(true);
+  return Promise.race([
+    c.resume().then(
+      () => c.state === "running",
+      () => false,
+    ),
+    new Promise<boolean>((r) => setTimeout(() => r(false), 1000)),
+  ]);
 }
 
 /** Back from the background: iOS may have suspended / interrupted the context. Best effort (no gesture). */
@@ -303,6 +322,9 @@ export class WalkieSession {
       this.set({ starting: false, error: "denied" });
       return false;
     }
+    // The switch to play-and-record paused the context on iOS: without this the mic is never read (no live voice,
+    // only the saved copy).
+    await wakeAudio();
     if (this.disposed || this.snap.peerTalking) {
       stream.getTracks().forEach((t) => t.stop());
       setAudioSession("playback");
@@ -456,6 +478,7 @@ export class WalkieSession {
       tx.recorder.stop();
     } else stopTracks();
     setAudioSession("playback");
+    void wakeAudio();
     if (ctx) beep(ctx, 660);
     this.set({ talking: false, starting: false, elapsedMs: 0 });
   }
@@ -502,14 +525,32 @@ export class WalkieSession {
     const rx = this.rx;
     rx.lastAt = Date.now();
     if (!this.snap.peerTalking) this.set({ peerTalking: true });
-    const c = audioContext();
-    if (c.state !== "running") {
-      this.set({ audioLocked: true });
+    if (audioContext().state !== "running") {
+      // Paused (iOS audio session change) or never unlocked: keep the last ~2 s and play them once it runs.
+      this.held.push(chunk.samples);
+      if (this.held.length > 8) this.held.shift();
+      void wakeAudio().then((ok) => (ok ? this.playHeld() : this.set({ audioLocked: true })));
       return;
     }
+    this.playHeld();
+    this.play(chunk.samples);
+  }
+
+  private held: Float32Array<ArrayBuffer>[] = [];
+
+  private playHeld() {
     if (this.snap.audioLocked) this.set({ audioLocked: false }); // unlocked by a tap elsewhere
-    const buffer = c.createBuffer(1, chunk.samples.length, WALKIE_RATE);
-    buffer.copyToChannel(chunk.samples, 0);
+    const held = this.held;
+    this.held = [];
+    held.forEach((s) => this.play(s));
+  }
+
+  private play(samples: Float32Array<ArrayBuffer>) {
+    const rx = this.rx;
+    const c = ctx;
+    if (!rx || !c || c.state !== "running") return;
+    const buffer = c.createBuffer(1, samples.length, WALKIE_RATE);
+    buffer.copyToChannel(samples, 0);
     const src = c.createBufferSource();
     src.buffer = buffer;
     src.connect(c.destination);

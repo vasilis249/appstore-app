@@ -454,6 +454,15 @@ User decisions:
   play-and-record before the mic and restores the previous type in `cleanup`; `micError(e)`: NotAllowed/Security →
   "denied", anything else → "busy" (`voice.micBusy`); toasts via `MIC_ERROR_KEY`. Scratchpad `micsession-flow.mjs` 5/5
   (fake audioSession + gUM refusing under playback), ptt 10, walkie 11, walkie-hub 12, nearby 10. Deploy 25ca312b.
+  **Walkie not live on iPhone (user report 2026-10-03; saves arrived, live audio didn't)** — server is fine (binary
+  broadcast supported since supabase-js 2.91; ours 2.117). ROOT CAUSE: every `navigator.audioSession.type` change
+  (press → play-and-record, release → playback, and since 25ca312b every recording elsewhere) pauses iOS Web Audio and
+  nothing resumed it → the sender's ScriptProcessor never ran (only the MediaRecorder copy was saved) and the receiver
+  dropped every piece. `engine.ts`: `wakeAudio()` (resume without gesture, 1 s cap) after getUserMedia in `press`,
+  after release, and from `ctx.onstatechange` while sessions are open; `onPeerAudio` keeps the last ~2 s (`held`)
+  while paused and plays them once it runs. Scratchpad `walkie-ios-flow.mjs` (iOS model: a session-type switch
+  suspends every AudioContext) failed 0 pieces on 4 turns before, 7/7 after; walkie 11, hub 12, reconnect 4, nearby
+  10, micsession 5, ptt 10. Deploy f63485cf. NOT verified on a real iPhone (no WebSockets from the container).
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
