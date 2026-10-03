@@ -463,6 +463,11 @@ User decisions:
   while paused and plays them once it runs. Scratchpad `walkie-ios-flow.mjs` (iOS model: a session-type switch
   suspends every AudioContext) failed 0 pieces on 4 turns before, 7/7 after; walkie 11, hub 12, reconnect 4, nearby
   10, micsession 5, ptt 10. Deploy f63485cf. NOT verified on a real iPhone (no WebSockets from the container).
+  **USC ✔ (user request 2026-10-03)** migration `20261028100000_usc.sql` (like ACG, hand-written): `usc` University of
+  Southern California, domain `usc.edu` (+ sub-domains; MX checked), 22 schools as departments (Dornsife, Viterbi,
+  Marshall … Bovard; English names, 4 years), RSS `today.usc.edu/feed/` → announcements. 44 open institutions. Tests
+  campus 81 (13a/13k counts, 13o USC), speak 11e 37 feeds; flows network 9, acg 7, attica 13, gate 7. Live applied;
+  first ingest 2 USC headlines with photos. No frontend change.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
