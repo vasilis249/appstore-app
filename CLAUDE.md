@@ -471,6 +471,14 @@ User decisions:
   Follow-up `20261028100100_daily_trojan.sql`: Daily Trojan RSS (student paper, 100 items, photos) → USC campus section
   `campuslife`; title rule drops "Classifieds" (URLs carry no section). Tests campus 82 (13p), speak 11e 38 feeds.
   Live: first ingest 2 headlines with photos.
+  **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
+  deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
+  the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
+  the loss is on the iPhone (capture or playback). Migration `20261029100000_walkie_diag.sql`: `private.walkie_diag`
+  (counters only, 3 days, cron `expire-walkie-diag`) + `public.walkie_diag(jsonb)` (students, ≤ 4 KB, ≤ 200/h);
+  `engine.ts` `diag()` reports `tx` (onaudioprocess calls, pieces sent, input peak, ctx at press / after wake, gUM
+  time), `tx-fail`, `rx` (pieces, played, held, output peak, audioLocked) + ctx state, sample rate, audioSession, UA.
+  Read live: `select at, user_id, data from private.walkie_diag order by id desc`. REMOVE once fixed.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,

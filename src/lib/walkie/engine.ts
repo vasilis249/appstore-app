@@ -99,6 +99,19 @@ export async function unlockWalkieAudio(): Promise<boolean> {
   return c.state === "running";
 }
 
+/**
+ * Temporary diagnostics (live audio on iPhone): technical counters only, never audio. Fire and forget.
+ * ponytail: remove with the walkie_diag table once the walkie is confirmed live on iPhone.
+ */
+function diag(kind: string, data: Record<string, unknown>) {
+  const session = (navigator as unknown as { audioSession?: { type: string } }).audioSession?.type ?? null;
+  void supabase
+    .rpc("walkie_diag", {
+      p_data: { kind, ctx: ctx?.state ?? null, rate: ctx?.sampleRate ?? null, session, ua: navigator.userAgent.slice(0, 160), ...data },
+    })
+    .then(() => {}, () => {});
+}
+
 /** Sessions connected right now (the audio session goes back to "auto" when the last one closes). */
 const live = new Set<WalkieSession>();
 const openSessions = () => live.size;
@@ -140,6 +153,8 @@ interface Transmission {
   /** Approval of this transmission (nearby knock); nothing leaves the phone before it. */
   gate: Promise<unknown> | null;
   gateOk: boolean;
+  /** Diagnostics: onaudioprocess calls, pieces sent, input peak, context state at press / after waking it. */
+  d: { calls: number; sent: number; peak: number; ctxPress: string; ctxWoken: string; gumMs: number };
 }
 
 export type WalkieEvent = "saved" | "yield" | "peerStart";
@@ -150,6 +165,8 @@ interface Reception {
   lastAt: number;
   playhead: number;
   ended: boolean;
+  /** Diagnostics: pieces received / played / held while paused, output peak. */
+  d: { pieces: number; played: number; held: number; peak: number; start: boolean };
 }
 
 export class WalkieSession {
@@ -310,6 +327,8 @@ export class WalkieSession {
       return false;
     }
     silenceAll();
+    const ctxPress = c.state;
+    const t0 = Date.now();
     setAudioSession("play-and-record");
     this.set({ starting: true });
     let stream: MediaStream;
@@ -317,14 +336,17 @@ export class WalkieSession {
       stream = await navigator.mediaDevices.getUserMedia({
         audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 },
       });
-    } catch {
+    } catch (e) {
+      diag("tx-fail", { error: (e as { name?: string })?.name ?? String(e), ctxPress });
       setAudioSession("playback");
       this.set({ starting: false, error: "denied" });
       return false;
     }
     // The switch to play-and-record paused the context on iOS: without this the mic is never read (no live voice,
     // only the saved copy).
+    const gumMs = Date.now() - t0;
     await wakeAudio();
+    const ctxWoken = c.state;
     if (this.disposed || this.snap.peerTalking) {
       stream.getTracks().forEach((t) => t.stop());
       setAudioSession("playback");
@@ -369,14 +391,18 @@ export class WalkieSession {
       aborted: false,
       gate: gate ?? null,
       gateOk: !gate,
+      d: { calls: 0, sent: 0, peak: 0, ctxPress, ctxWoken, gumMs },
     };
     if (recorder) {
       recorder.ondataavailable = (e) => e.data.size && tx.recorded.push(e.data);
       recorder.start(500);
     }
     proc.onaudioprocess = (e) => {
+      const input = e.inputBuffer.getChannelData(0);
+      tx.d.calls++;
+      for (let i = 0; i < input.length; i += 32) tx.d.peak = Math.max(tx.d.peak, Math.abs(input[i]));
       if (this.tx !== tx || c.currentTime < tx.sendFrom) return;
-      const s16 = tx.down.process(e.inputBuffer.getChannelData(0));
+      const s16 = tx.down.process(input);
       const all = new Float32Array(tx.pending.length + s16.length);
       all.set(tx.pending);
       all.set(s16, tx.pending.length);
@@ -447,6 +473,7 @@ export class WalkieSession {
   }
 
   private sendAudio(tx: Transmission, samples: Float32Array) {
+    tx.d.sent++;
     this.out("audio", encodeChunk(tx.seq++, samples));
   }
 
@@ -466,6 +493,7 @@ export class WalkieSession {
     }
     const ms = Date.now() - tx.startedAt;
     this.out("end", { sid: tx.sid, ms });
+    diag("tx", { ...tx.d, peak: Math.round(tx.d.peak * 1000) / 1000, ms, walkie: this.kind, connected: this.snap.connected, peerOnline: this.snap.peerOnline, ctxEnd: ctx?.state });
     // Still held back: give the other one a little longer to join, then drop it (the saved copy remains).
     if (this.backlog) this.backlogDrop = setTimeout(() => this.dropBacklog(), BACKLOG_KEEP_MS);
     const stopTracks = () => tx.stream.getTracks().forEach((t) => t.stop());
@@ -512,7 +540,7 @@ export class WalkieSession {
       this.finishTransmission(false);
       this.emit("yield");
     }
-    this.rx = { sid: p.sid, at: p.at, lastAt: Date.now(), playhead: 0, ended: false };
+    this.rx = { sid: p.sid, at: p.at, lastAt: Date.now(), playhead: 0, ended: false, d: { pieces: 0, played: 0, held: 0, peak: 0, start: true } };
     this.set({ peerTalking: true });
     this.emit("peerStart");
   }
@@ -521,13 +549,16 @@ export class WalkieSession {
     if (this.tx) return; // half duplex
     const chunk = decodeChunk(buf);
     if (!chunk) return;
-    if (!this.rx || this.rx.ended) this.rx = { sid: "", at: Date.now(), lastAt: Date.now(), playhead: 0, ended: false };
+    if (!this.rx || this.rx.ended)
+      this.rx = { sid: "", at: Date.now(), lastAt: Date.now(), playhead: 0, ended: false, d: { pieces: 0, played: 0, held: 0, peak: 0, start: false } };
     const rx = this.rx;
     rx.lastAt = Date.now();
+    rx.d.pieces++;
     if (!this.snap.peerTalking) this.set({ peerTalking: true });
     if (audioContext().state !== "running") {
       // Paused (iOS audio session change) or never unlocked: keep the last ~2 s and play them once it runs.
       this.held.push(chunk.samples);
+      rx.d.held++;
       if (this.held.length > 8) this.held.shift();
       void wakeAudio().then((ok) => (ok ? this.playHeld() : this.set({ audioLocked: true })));
       return;
@@ -551,6 +582,8 @@ export class WalkieSession {
     if (!rx || !c || c.state !== "running") return;
     const buffer = c.createBuffer(1, samples.length, WALKIE_RATE);
     buffer.copyToChannel(samples, 0);
+    rx.d.played++;
+    for (let i = 0; i < samples.length; i += 16) rx.d.peak = Math.max(rx.d.peak, Math.abs(samples[i]));
     const src = c.createBufferSource();
     src.buffer = buffer;
     src.connect(c.destination);
@@ -578,6 +611,7 @@ export class WalkieSession {
     const left = ctx && ctx.state === "running" ? Math.max(0, rx.playhead - ctx.currentTime) : 0;
     setTimeout(() => {
       if (this.rx === rx && rx.ended) {
+        diag("rx", { ...rx.d, peak: Math.round(rx.d.peak * 1000) / 1000, ms: Date.now() - rx.at, walkie: this.kind, audioLocked: this.snap.audioLocked });
         this.rx = null;
         this.set({ peerTalking: false });
       }

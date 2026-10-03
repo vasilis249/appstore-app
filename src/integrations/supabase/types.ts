@@ -1618,6 +1618,7 @@ export type Database = {
           mime: string
         }[]
       }
+      walkie_diag: { Args: { p_data: Json }; Returns: undefined }
       walkie_history: {
         Args: { p_limit?: number; p_other: string }
         Returns: {
