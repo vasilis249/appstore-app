@@ -73,6 +73,7 @@ export function NearbyTalk({ person }: { person: MapPerson }) {
     const ok = await w.press(gate);
     if (!ok) {
       refuse(new Error("not_started"));
+      if (!held.current) toast(t("walkie.holdForBeep")); // let go before the mic was ready
       return;
     }
     holdNearby(peer); // keep the conversation open for their answer

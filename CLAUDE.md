@@ -478,7 +478,24 @@ User decisions:
   (counters only, 3 days, cron `expire-walkie-diag`) + `public.walkie_diag(jsonb)` (students, ≤ 4 KB, ≤ 200/h);
   `engine.ts` `diag()` reports `tx` (onaudioprocess calls, pieces sent, input peak, ctx at press / after wake, gUM
   time), `tx-fail`, `rx` (pieces, played, held, output peak, audioLocked) + ctx state, sample rate, audioSession, UA.
-  Read live: `select at, user_id, data from private.walkie_diag order by id desc`. REMOVE once fixed.
+  Read live: `select at, user_id, data from private.walkie_diag order by id desc`.
+  **Walkie LIVE on iPhone ✔ (user confirmed 2026-10-03) + hardening** — diag of the working test (app ↔ Safari): 13/13,
+  20/20, 24/24, 27/27 pieces played; two real faults found: (1) iOS getUserMedia takes 0.8–1.4 s → presses shorter
+  than that sent an empty start/end; (2) right after your own transmission the friend's answer arrived as 1 piece of
+  12–14. realtime-js `send()` on a channel that is not joined falls back to its REST endpoint, which JSON-encodes the
+  payload → a binary piece arrives as `{}` and is dropped. `engine.ts` now: `out()` never sends unless `canPush()`
+  (channel joined + socket connected) — else pieces wait in the backlog and flush on SUBSCRIBED; `release()` during
+  mic start cancels the press (nothing goes out, toast `walkie.holdForBeep`); a reception that was incomplete (no start,
+  or < 80 % of `end.ms/250` pieces played) replays the SAVED copy through Web Audio (`replayMissed(since)`: on the
+  "saved" broadcast and 2.5 s / 8 s after the end; only transmissions after the missed one, each once); diag is now
+  anomaly-only (tx with nothing sent / silent mic / failed sends, incomplete rx, replay, replay-fail) + channel status
+  log, `chanState`, socket. RULE: before deploying any change to `src/lib/walkie/*`, `src/lib/audio.ts`,
+  `use-recorder.ts`, `use-push-to-talk.ts` or the talk screens run `bun run test:e2e` (all must pass).
+  **E2E harness now in the repo** `tests/e2e/` (was only in the ephemeral scratchpad): `setup.sh` (initdb :54329,
+  PostgREST 12.2.3 download, tone), `run.sh [port]` (`FLOWS=` to pick; walkie, walkie-ios, walkie-robust (socket cut
+  on either side, short press), walkie-hub, walkie-reconnect, nearby, micsession, ptt → 65/65), local proxy +
+  realtime mock + seeds. `bun run test:db` / `test:e2e`. `scripts/rt-probe/` = Worker probe of the REAL Realtime path
+  (deploy temporarily, two temporary student users, delete both after).
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,

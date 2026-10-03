@@ -89,6 +89,7 @@ function TalkPage() {
     }
     const ok = await w.press();
     if (ok && !held.current) w.release();
+    else if (!ok && !held.current) toast(t("walkie.holdForBeep")); // let go before the mic was ready
   }
   function up() {
     if (!held.current) return;

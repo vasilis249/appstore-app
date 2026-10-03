@@ -1,7 +1,8 @@
 -- Walkie diagnostics (2026-10-03): live audio reaches the server and the other phone's Realtime client (checked with
 -- a probe), but users still hear nothing live on iPhone. Each transmission / reception now reports technical counters
 -- only (pieces sent / received / played, audio context state, sample rate, levels, device) — never audio. Read with
--- the service role; kept 3 days. Remove once the walkie is confirmed live on iPhone.
+-- the service role; kept 3 days. Since 2026-10-03 (walkie confirmed live) the app reports only anomalies (nothing sent,
+-- pieces lost, failed sends, replays of missed transmissions) — the alarm if it ever breaks again.
 CREATE TABLE private.walkie_diag (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   user_id uuid NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,

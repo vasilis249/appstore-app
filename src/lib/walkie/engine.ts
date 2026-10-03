@@ -100,8 +100,8 @@ export async function unlockWalkieAudio(): Promise<boolean> {
 }
 
 /**
- * Temporary diagnostics (live audio on iPhone): technical counters only, never audio. Fire and forget.
- * ponytail: remove with the walkie_diag table once the walkie is confirmed live on iPhone.
+ * Diagnostics of live audio (technical counters only, never audio), sent only when something went wrong: the alarm
+ * if the walkie breaks again. Read: `select at, user_id, data from private.walkie_diag order by id desc`.
  */
 function diag(kind: string, data: Record<string, unknown>) {
   const session = (navigator as unknown as { audioSession?: { type: string } }).audioSession?.type ?? null;
@@ -166,7 +166,7 @@ interface Reception {
   playhead: number;
   ended: boolean;
   /** Diagnostics: pieces received / played / held while paused, output peak. */
-  d: { pieces: number; played: number; held: number; peak: number; start: boolean };
+  d: { pieces: number; played: number; held: number; peak: number; start: boolean; expected?: number };
 }
 
 export class WalkieSession {
@@ -179,6 +179,14 @@ export class WalkieSession {
   private disposed = false;
   /** Messages held back until the gate is open and the other one is on the channel. */
   private backlog: { event: string; payload: unknown }[] | null = null;
+  /** A release that came while the mic was still opening: cancel the press (nothing goes out). */
+  private cancelStart = false;
+  /** Diagnostics: recent channel statuses, sends the client reported as not ok. */
+  private statusLog: string[] = [];
+  private sendFails = 0;
+  /** Transmissions heard completely live (by sid), and saved copies already replayed (by id). */
+  private heard = new Set<string>();
+  private replayed = new Set<string>();
   private backlogDrop: ReturnType<typeof setTimeout> | null = null;
   private listeners = new Set<(s: WalkieSnapshot) => void>();
   private handlers: Record<WalkieEvent, Set<() => void>> = { saved: new Set(), yield: new Set(), peerStart: new Set() };
@@ -268,17 +276,24 @@ export class WalkieSession {
     ch.on("broadcast", { event: "start" }, ({ payload }) => this.onPeerStart(payload as { sid: string; at: number }))
       .on("broadcast", { event: "audio" }, ({ payload }) => this.onPeerAudio(payload as ArrayBuffer))
       .on("broadcast", { event: "end" }, ({ payload }) => this.onPeerEnd(payload as { sid: string }))
-      .on("broadcast", { event: "saved" }, () => this.emit("saved"))
+      .on("broadcast", { event: "saved" }, ({ payload }) => {
+        this.emit("saved");
+        // Saved copy of a transmission we did not hear completely live: play it now.
+        const sid = (payload as { sid?: string } | null)?.sid;
+        if (sid && !this.heard.has(sid) && this.rx?.sid !== sid) void this.replayMissed(Date.now() - 20_000); // playing: decided at its end
+      })
       .on("presence", { event: "sync" }, () => {
         this.set({ peerOnline: (ch.presenceState()[this.peer]?.length ?? 0) > 0 });
         this.tryFlush();
       })
       .subscribe((status) => {
         if (this.disposed || this.channel !== ch) return; // a replaced channel's late status
+        this.statusLog = [...this.statusLog.slice(-5), `${status}@${new Date().toISOString().slice(14, 23)}`];
         if (status === "SUBSCRIBED") {
           this.failures = 0;
           this.set({ connected: true, error: null });
           void ch.track({ at: Date.now() });
+          this.tryFlush();
         } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
           this.set({ connected: false, error: "channel" });
           this.scheduleRetry();
@@ -327,6 +342,7 @@ export class WalkieSession {
       return false;
     }
     silenceAll();
+    this.cancelStart = false;
     const ctxPress = c.state;
     const t0 = Date.now();
     setAudioSession("play-and-record");
@@ -347,9 +363,11 @@ export class WalkieSession {
     const gumMs = Date.now() - t0;
     await wakeAudio();
     const ctxWoken = c.state;
-    if (this.disposed || this.snap.peerTalking) {
+    if (this.disposed || this.snap.peerTalking || this.cancelStart) {
+      // Let go before the mic was ready (iOS takes ~1 s): nothing was said, nothing goes out.
       stream.getTracks().forEach((t) => t.stop());
       setAudioSession("playback");
+      void wakeAudio();
       this.set({ starting: false });
       return false;
     }
@@ -452,24 +470,42 @@ export class WalkieSession {
     if (this.snap.waiting) this.set({ waiting: false });
   }
 
-  /** Send what was held back once it is approved and the other one is here. */
+  /** The channel can take a broadcast over the WebSocket right now. */
+  private canPush(): boolean {
+    return !!this.channel && this.channel.state === "joined" && supabase.realtime.isConnected();
+  }
+
+  private push(m: { event: string; payload: unknown }) {
+    void this.channel!.send({ type: "broadcast", event: m.event, payload: m.payload }).then((r) => {
+      if (r !== "ok") this.sendFails++;
+    });
+  }
+
+  /** Send what was held back once the channel is joined, the approval came and (nearby) the other one is here. */
   private tryFlush() {
-    if (!this.backlog || !this.channel || !this.snap.peerOnline) return;
+    if (!this.backlog || !this.canPush()) return;
+    if (this.kind === "nearby" && !this.snap.peerOnline) return;
     if (this.tx && !this.tx.gateOk) return;
     const items = this.backlog;
     this.dropBacklog();
-    for (const m of items) void this.channel.send({ type: "broadcast", event: m.event, payload: m.payload });
+    items.forEach((m) => this.push(m));
   }
 
-  /** Broadcast now, or hold it back while the transmission waits. */
+  /**
+   * Broadcast now, or hold it back (waiting for an approval, or the channel is rejoining). Never while the channel
+   * is not joined: realtime-js would fall back to its REST endpoint, which JSON-encodes the payload — a binary audio
+   * piece arrives as {} and is lost. Held pieces go out in order once the channel is back.
+   */
   private out(event: string, payload: unknown) {
     if (this.backlog) this.backlog.push({ event, payload });
-    else void this.channel?.send({ type: "broadcast", event, payload });
+    else if (this.canPush()) this.push({ event, payload });
+    else this.backlog = [{ event, payload }];
   }
 
   /** Stop talking (release). The voice is saved for 24 h replay. */
   release() {
     if (this.tx) this.finishTransmission(true);
+    else if (this.snap.starting) this.cancelStart = true;
   }
 
   private sendAudio(tx: Transmission, samples: Float32Array) {
@@ -493,7 +529,9 @@ export class WalkieSession {
     }
     const ms = Date.now() - tx.startedAt;
     this.out("end", { sid: tx.sid, ms });
-    diag("tx", { ...tx.d, peak: Math.round(tx.d.peak * 1000) / 1000, ms, walkie: this.kind, connected: this.snap.connected, peerOnline: this.snap.peerOnline, ctxEnd: ctx?.state });
+    if ((tx.d.sent === 0 && ms > 400) || this.sendFails > 0 || tx.d.peak === 0)
+      diag("tx", { ...tx.d, peak: Math.round(tx.d.peak * 1000) / 1000, ms, ctxEnd: ctx?.state, ...this.chanDiag() });
+    this.sendFails = 0;
     // Still held back: give the other one a little longer to join, then drop it (the saved copy remains).
     if (this.backlog) this.backlogDrop = setTimeout(() => this.dropBacklog(), BACKLOG_KEEP_MS);
     const stopTracks = () => tx.stream.getTracks().forEach((t) => t.stop());
@@ -527,6 +565,55 @@ export class WalkieSession {
       this.out("saved", { sid: tx.sid });
     } catch {
       /* live part already heard; the replay copy is best effort */
+    }
+  }
+
+  /** Channel facts for the diagnostics. */
+  private chanDiag() {
+    return {
+      walkie: this.kind,
+      chan: this.statusLog.join(" "),
+      chanState: this.channel?.state ?? null,
+      socket: supabase.realtime.isConnected(),
+      sendFails: this.sendFails,
+      peerOnline: this.snap.peerOnline,
+    };
+  }
+
+  private replaying = false;
+
+  /**
+   * Play the friend's newest saved transmission since `since` (the one not heard completely live) unless replayed
+   * already — so nothing is ever lost, live or right after. Through Web Audio: it is unlocked already (no tap needed).
+   */
+  private async replayMissed(since: number) {
+    if (this.replaying || this.disposed) return;
+    this.replaying = true;
+    try {
+      const rpc = this.kind === "nearby" ? { history: "nearby_history", audio: "nearby_audio" } : { history: "walkie_history", audio: "walkie_audio" };
+      const { data } = await supabase.rpc(rpc.history as "walkie_history", { p_other: this.peer, p_limit: 5 });
+      const item = ((data ?? []) as { id: string; sender_id: string; created_at: string }[])
+        .filter((i) => i.sender_id === this.peer && !this.replayed.has(i.id) && Date.parse(i.created_at) >= since)
+        .sort((a, b) => b.created_at.localeCompare(a.created_at))[0];
+      if (!item) return;
+      this.replayed.add(item.id);
+      const { data: rows } = await supabase.rpc(rpc.audio as "walkie_audio", { p_id: item.id });
+      const row = (rows ?? [])[0] as { audio_b64: string } | undefined;
+      if (!row || !(await wakeAudio()) || !ctx) return;
+      const bytes = Uint8Array.from(atob(row.audio_b64), (ch) => ch.charCodeAt(0));
+      const buffer = await ctx.decodeAudioData(bytes.buffer);
+      if (this.tx || this.rx || this.disposed) return; // someone is talking now: it stays in the history
+      const src = ctx.createBufferSource();
+      src.buffer = buffer;
+      src.connect(ctx.destination);
+      src.onended = () => this.set({ peerTalking: false });
+      this.set({ peerTalking: true });
+      src.start();
+      diag("replay", { id: item.id, ms: Math.round(buffer.duration * 1000), ...this.chanDiag() });
+    } catch (e) {
+      diag("replay-fail", { error: String(e).slice(0, 120), ...this.chanDiag() });
+    } finally {
+      this.replaying = false;
     }
   }
 
@@ -592,8 +679,11 @@ export class WalkieSession {
     rx.playhead += buffer.duration;
   }
 
-  private onPeerEnd(_p: { sid: string }) {
-    if (this.rx) this.rx.ended = true;
+  private onPeerEnd(p: { sid: string; ms?: number }) {
+    if (this.rx) {
+      this.rx.ended = true;
+      this.rx.d.expected = Math.round((p.ms ?? 0) / 250);
+    }
     this.finishReceptionSoon();
   }
 
@@ -611,9 +701,22 @@ export class WalkieSession {
     const left = ctx && ctx.state === "running" ? Math.max(0, rx.playhead - ctx.currentTime) : 0;
     setTimeout(() => {
       if (this.rx === rx && rx.ended) {
-        diag("rx", { ...rx.d, peak: Math.round(rx.d.peak * 1000) / 1000, ms: Date.now() - rx.at, walkie: this.kind, audioLocked: this.snap.audioLocked });
         this.rx = null;
         this.set({ peerTalking: false });
+        const expected = rx.d.expected ?? 0;
+        const complete = rx.d.start && expected > 0 && rx.d.played >= expected * 0.8;
+        if (complete) {
+          this.heard.add(rx.sid);
+          if (this.heard.size > 50) this.heard.delete(this.heard.values().next().value!);
+        } else {
+          // Part of it was lost live: play the saved copy as soon as it is there (the "saved" broadcast also
+          // triggers this; these two tries cover a lost "saved").
+          const since = rx.at - 3000;
+          setTimeout(() => void this.replayMissed(since), 2500);
+          setTimeout(() => void this.replayMissed(since), 8000);
+        }
+        if (!complete || this.snap.audioLocked)
+          diag("rx", { ...rx.d, peak: Math.round(rx.d.peak * 1000) / 1000, ms: Date.now() - rx.at, ...this.chanDiag() });
       }
     }, left * 1000 + 50);
   }
