@@ -385,3 +385,7 @@ SELECT pg_temp.ok('13o USC: @usc.edu (also sub-domains), 22 schools, 4 years, US
   AND (SELECT count(*) FROM public.departments WHERE university_id = 'usc') = 22
   AND NOT EXISTS (SELECT 1 FROM public.departments WHERE university_id = 'usc' AND years <> 4)
   AND EXISTS (SELECT 1 FROM private.news_feeds WHERE university_id = 'usc' AND section_id = 'announcements' AND enabled));
+SELECT pg_temp.ok('13p Daily Trojan → USC Φοιτητική ζωή; its Classifieds are left out',
+  (SELECT private.route_headline(id, 'https://dailytrojan.com/2026/10/02/usg-allocates/', 'USG allocates $2,041 for Period Pantry') = 'campuslife'
+     AND private.route_headline(id, 'https://dailytrojan.com/2026/10/02/classifieds-october-2-2026/', 'Classifieds – October 2, 2026') IS NULL
+   FROM private.news_feeds WHERE url = 'https://dailytrojan.com/feed/' AND university_id = 'usc'));

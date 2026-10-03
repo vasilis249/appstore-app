@@ -468,6 +468,9 @@ User decisions:
   Marshall … Bovard; English names, 4 years), RSS `today.usc.edu/feed/` → announcements. 44 open institutions. Tests
   campus 81 (13a/13k counts, 13o USC), speak 11e 37 feeds; flows network 9, acg 7, attica 13, gate 7. Live applied;
   first ingest 2 USC headlines with photos. No frontend change.
+  Follow-up `20261028100100_daily_trojan.sql`: Daily Trojan RSS (student paper, 100 items, photos) → USC campus section
+  `campuslife`; title rule drops "Classifieds" (URLs carry no section). Tests campus 82 (13p), speak 11e 38 feeds.
+  Live: first ingest 2 headlines with photos.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
