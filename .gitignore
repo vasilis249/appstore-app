@@ -46,3 +46,4 @@ capacitor/www/server-url.js
 
 # graphify knowledge graph (local, rebuilt on demand)
 graphify-out/
+__pycache__/
