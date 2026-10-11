@@ -418,3 +418,14 @@ SELECT pg_temp.ok('13t UK + Ireland departments: 691, every one of the 26 has 10
   AND (SELECT years FROM public.departments WHERE id = 'oxford-medicine') = 6
   AND (SELECT years FROM public.departments WHERE id = 'edinburgh-informatics') = 5
   AND (SELECT years FROM public.departments WHERE id = 'kcl-law') = 3);
+SELECT pg_temp.ok('13u CH / DE / AT / NL / BE / LU departments: 557 over 51 universities, years by degree',
+  (SELECT count(*) FROM public.departments d JOIN public.universities u ON u.id = d.university_id
+     WHERE u.id IN ('ethz','epfl','uzh','unige','unibe','unil','unibas','unisg','tum','lmu','heidelberg','fuberlin','huberlin',
+       'tuberlin','rwth','kit','freiburg','tuebingen','bonn','hamburg','goettingen','tudresden','goethe','koeln','mannheim',
+       'tudarmstadt','stuttgart','charite','tudelft','uva','leiden','utrecht','eur','rug','wur','tue','vuamsterdam','maastricht',
+       'utwente','tilburg','radboud','kuleuven','ugent','uclouvain','ulb','vub','uantwerpen','unilu','univie','tuwien','wu')) = 557
+  AND (SELECT count(DISTINCT university_id) FROM public.departments WHERE university_id IN ('ethz','charite','wu','unilu','kuleuven')) = 5
+  AND (SELECT years FROM public.departments WHERE id = 'lmu-law') = 5
+  AND (SELECT years FROM public.departments WHERE id = 'univie-law') = 4
+  AND (SELECT years FROM public.departments WHERE id = 'ugent-vet') = 6
+  AND (SELECT years FROM public.departments WHERE id = 'tum-informatics') = 3);

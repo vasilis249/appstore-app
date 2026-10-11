@@ -759,7 +759,671 @@ UK_IE = {
     """),
 }
 
-BATCHES = {"uk_ie": UK_IE}
+# Switzerland, Germany, Austria, Netherlands, Belgium, Luxembourg: bachelor 3 years; medicine 6, dentistry / veterinary
+# 5 (Netherlands / Belgium veterinary 6), German law (state exam) 5, Austrian law (Diplom) 4, German pharmacy 4.
+CENTRAL = {
+    "ethz": (3, """
+        arch | Architecture | |
+        baug | Civil, Environmental and Geomatic Engineering | Civil Engineering
+        mavt | Mechanical and Process Engineering | Mechanical Engineering
+        itet | Information Technology and Electrical Engineering | Electrical Engineering
+        infk | Computer Science | |
+        matl | Materials | |
+        bsse | Biosystems Science and Engineering | Biosystems
+        math | Mathematics | |
+        phys | Physics | |
+        chab | Chemistry and Applied Biosciences | Chemistry
+        biol | Biology | |
+        erdw | Earth and Planetary Sciences | Earth Sciences
+        usys | Environmental Systems Science | Environmental Sciences
+        hest | Health Sciences and Technology | Health Sciences
+        mtec | Management, Technology and Economics | Management
+        gess | Humanities, Social and Political Sciences | Humanities & Politics
+        medicine | Human Medicine | Medicine | 3
+    """),
+    "epfl": (3, """
+        architecture | Architecture | |
+        civil | Civil Engineering | |
+        environmental | Environmental Sciences and Engineering | Environmental Engineering
+        cs | Computer Science | |
+        sc | Communication Systems | |
+        maths | Mathematics | |
+        physics | Physics | |
+        chemistry | Chemistry and Chemical Engineering | Chemistry
+        mech | Mechanical Engineering | |
+        ee | Electrical and Electronic Engineering | Electrical Engineering
+        materials | Materials Science and Engineering | Materials
+        micro | Microengineering | |
+        life | Life Sciences Engineering | Life Sciences
+        cdm | Management of Technology | Management
+    """),
+    "uzh": (3, """
+        theology | Theology and the Study of Religion | Theology
+        law | Law | |
+        business | Business, Economics and Informatics | Business & Economics
+        informatics | Informatics | |
+        medicine | Medicine | | 6
+        vetsuisse | Vetsuisse (Veterinary Medicine) | Veterinary | 5
+        arts | Arts and Social Sciences | Arts & Social Sciences
+        psychology | Psychology | |
+        science | Science | |
+    """),
+    "unige": (3, """
+        science | Science | |
+        medicine | Medicine | | 6
+        humanities | Humanities | |
+        gsem | Geneva School of Economics and Management | Economics & Management
+        sds | Social Sciences | |
+        law | Law | |
+        theology | Theology | |
+        fapse | Psychology and Educational Sciences | Psychology & Education
+        fti | Translation and Interpreting | Translation
+        gsi | Global Studies Institute | Global Studies
+    """),
+    "unibe": (3, """
+        theology | Theology | |
+        law | Law | |
+        wiso | Business, Economics and Social Sciences | Business & Economics
+        medicine | Medicine | | 6
+        vetsuisse | Vetsuisse (Veterinary Medicine) | Veterinary | 5
+        humanities | Humanities | |
+        human | Human Sciences (Psychology, Education, Sport) | Human Sciences
+        science | Science | |
+    """),
+    "unil": (3, """
+        theology | Theology and Religious Studies | Theology
+        law | Law, Criminal Justice and Public Administration | Law
+        lettres | Arts | |
+        ssp | Social and Political Sciences | Social & Political Sciences
+        hec | HEC Lausanne (Business and Economics) | Business & Economics
+        gse | Geosciences and Environment | Geosciences
+        biology | Biology | |
+        medicine | Medicine | | 6
+    """),
+    "unibas": (3, """
+        theology | Theology | |
+        law | Law | |
+        medicine | Medicine | | 6
+        humanities | Humanities and Social Sciences | Humanities
+        science | Science | |
+        business | Business and Economics | Business & Economics
+        psychology | Psychology | |
+    """),
+    "unisg": (3, """
+        bwl | Business Administration | |
+        economics | Economics | |
+        ia | International Affairs | |
+        law | Law | |
+        lawecon | Law and Economics | |
+        cs | Computer Science | |
+    """),
+    "tum": (3, """
+        informatics | Informatics | |
+        maths | Mathematics | |
+        ece | Electrical and Computer Engineering | Electrical Engineering
+        mech | Mechanical Engineering | |
+        aero | Aerospace and Geodesy | Aerospace
+        civil | Civil and Environmental Engineering | Civil Engineering
+        architecture | Architecture | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        biosciences | Biosciences | |
+        life | Life Sciences (Weihenstephan) | Life Sciences
+        medicine | Medicine | | 6
+        sport | Sport and Health Sciences | Sport
+        management | TUM School of Management | Management
+        education | Educational Sciences | Education
+        hfp | Political Science (Hochschule für Politik) | Political Science
+        straubing | Campus Straubing | Straubing
+    """),
+    "lmu": (3, """
+        cath | Catholic Theology | |
+        prot | Protestant Theology | |
+        law | Law | | 5
+        business | Munich School of Management | Management
+        economics | Economics | |
+        medicine | Medicine | | 6
+        vet | Veterinary Medicine | | 5
+        history | History and the Arts | History & Arts
+        philosophy | Philosophy, Philosophy of Science and Study of Religion | Philosophy
+        psychology | Psychology and Educational Sciences | Psychology & Education
+        cultural | Cultural Studies | |
+        languages | Languages and Literatures | Languages
+        social | Social Sciences | |
+        mathinf | Mathematics, Informatics and Statistics | Maths & Informatics
+        physics | Physics | |
+        chemistry | Chemistry | |
+        pharmacy | Pharmacy | | 4
+        biology | Biology | |
+        geosciences | Geosciences | |
+    """),
+    "heidelberg": (3, """
+        theology | Theology | |
+        law | Law | | 5
+        medicine | Medicine (Heidelberg) | Medicine | 6
+        medma | Medicine (Mannheim) | Medicine Mannheim | 6
+        philosophy | Philosophy (History, Philosophy, Arts) | Philosophy & History
+        languages | Modern Languages | |
+        economics | Economics and Social Sciences | Economics & Social Sciences
+        behavioural | Behavioural and Cultural Studies | Psychology & Cultural Studies
+        mathinf | Mathematics and Computer Science | Maths & Computer Science
+        chemistry | Chemistry and Earth Sciences | Chemistry
+        biosciences | Biosciences | |
+        physics | Physics and Astronomy | Physics
+        engineering | Engineering Sciences | Engineering
+    """),
+    "fuberlin": (3, """
+        biology | Biology | |
+        chemistry | Chemistry | |
+        pharmacy | Pharmacy | | 4
+        earth | Earth Sciences | |
+        history | History and Cultural Studies | History
+        mathinf | Mathematics and Computer Science | Maths & Computer Science
+        philosophy | Philosophy and Humanities | Philosophy & Humanities
+        physics | Physics | |
+        polsoz | Political and Social Sciences | Political Science
+        education | Education and Psychology | Education & Psychology
+        law | Law | | 5
+        business | School of Business and Economics | Business & Economics
+        vet | Veterinary Medicine | | 5
+        medicine | Medicine (Charité) | Medicine | 6
+    """),
+    "huberlin": (3, """
+        law | Law | | 5
+        life | Life Sciences | |
+        maths | Mathematics | |
+        cs | Computer Science | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        geography | Geography | |
+        psychology | Psychology | |
+        philfak | Humanities (History, Philosophy, Classics) | Humanities
+        language | Language, Literature and Humanities | Languages & Literature
+        ksb | Humanities and Social Sciences | Social Sciences
+        theology | Theology | |
+        business | School of Business and Economics | Business & Economics
+        medicine | Medicine (Charité) | Medicine | 6
+    """),
+    "tuberlin": (3, """
+        humanities | Humanities | |
+        science | Mathematics and Natural Sciences | Maths & Sciences
+        process | Process Sciences | |
+        eecs | Electrical Engineering and Computer Science | EE & Computer Science
+        mech | Mechanical Engineering and Transport Systems | Mechanical Engineering
+        planning | Planning, Building, Environment | Architecture & Planning
+        economics | Economics and Management | Economics & Management
+    """),
+    "rwth": (3, """
+        maths | Mathematics | |
+        cs | Computer Science | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        biology | Biology | |
+        architecture | Architecture | |
+        civil | Civil Engineering | |
+        mech | Mechanical Engineering | |
+        georesources | Georesources and Materials Engineering | Materials & Georesources
+        eei | Electrical Engineering and Information Technology | Electrical Engineering
+        arts | Arts and Humanities | |
+        business | School of Business and Economics | Business & Economics
+        medicine | Medicine | | 6
+    """),
+    "kit": (3, """
+        maths | Mathematics | |
+        physics | Physics | |
+        chembio | Chemistry and Biosciences | Chemistry & Biosciences
+        architecture | Architecture | |
+        civil | Civil Engineering, Geo and Environmental Sciences | Civil Engineering
+        mech | Mechanical Engineering | |
+        ciw | Chemical and Process Engineering | Chemical Engineering
+        etit | Electrical Engineering and Information Technology | Electrical Engineering
+        informatics | Informatics | |
+        economics | Economics and Management | Economics & Management
+        humanities | Humanities and Social Sciences | Humanities
+    """),
+    "freiburg": (3, """
+        theology | Theology | |
+        law | Law | | 5
+        economics | Economics and Behavioral Sciences | Economics & Psychology
+        medicine | Medicine | | 6
+        philology | Philology | Languages & Literature
+        philosophy | Humanities (Philosophy, History) | Humanities
+        mathphys | Mathematics and Physics | Maths & Physics
+        chempharm | Chemistry and Pharmacy | Chemistry & Pharmacy
+        biology | Biology | |
+        environment | Environment and Natural Resources | Environment
+        engineering | Engineering (Computer Science, Microsystems) | Engineering
+    """),
+    "tuebingen": (3, """
+        prot | Protestant Theology | |
+        cath | Catholic Theology | |
+        law | Law | | 5
+        medicine | Medicine | | 6
+        humanities | Humanities | |
+        economics | Economics and Social Sciences | Economics & Social Sciences
+        cs | Computer Science | |
+        maths | Mathematics | |
+        physics | Physics | |
+        chemistry | Chemistry and Pharmacy | Chemistry & Pharmacy
+        biology | Biology | |
+        geosciences | Geosciences | |
+        psychology | Psychology | |
+    """),
+    "bonn": (3, """
+        prot | Protestant Theology | |
+        cath | Catholic Theology | |
+        law | Law | | 5
+        economics | Economics | |
+        medicine | Medicine | | 6
+        arts | Arts and Humanities | |
+        maths | Mathematics | |
+        cs | Computer Science | |
+        physics | Physics and Astronomy | Physics
+        chemistry | Chemistry | |
+        pharmacy | Pharmacy | | 4
+        biology | Biology | |
+        geography | Geosciences and Geography | Geography
+        psychology | Psychology | |
+        agriculture | Agricultural, Nutritional and Engineering Sciences | Agriculture & Nutrition
+    """),
+    "hamburg": (3, """
+        law | Law | | 5
+        wiso | Business, Economics and Social Sciences | Economics & Social Sciences
+        business | Hamburg Business School | Business
+        medicine | Medicine | | 6
+        education | Education | |
+        humanities | Humanities | |
+        maths | Mathematics | |
+        informatics | Informatics | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        biology | Biology | |
+        earth | Earth System Sciences | Earth Sciences
+        psychology | Psychology and Human Movement Science | Psychology & Sport
+    """),
+    "goettingen": (3, """
+        agriculture | Agricultural Sciences | Agriculture
+        biology | Biology and Psychology | Biology & Psychology
+        chemistry | Chemistry | |
+        forest | Forest Sciences and Forest Ecology | Forestry
+        geosciences | Geosciences and Geography | Geosciences
+        mathinf | Mathematics and Computer Science | Maths & Computer Science
+        physics | Physics | |
+        law | Law | | 5
+        social | Social Sciences | |
+        economics | Business and Economics | Economics
+        humanities | Humanities | |
+        theology | Theology | |
+        medicine | Medicine | | 6
+    """),
+    "tudresden": (3, """
+        cs | Computer Science | |
+        maths | Mathematics | |
+        physics | Physics | |
+        chemistry | Chemistry and Food Chemistry | Chemistry
+        biology | Biology | |
+        psychology | Psychology | |
+        ee | Electrical and Computer Engineering | Electrical Engineering
+        mech | Mechanical Science and Engineering | Mechanical Engineering
+        civil | Civil Engineering | |
+        architecture | Architecture | |
+        environment | Environmental Sciences | |
+        transport | Transport and Traffic Sciences | Transport
+        business | Business and Economics | Business & Economics
+        languages | Linguistics, Literature and Culture | Languages
+        philosophy | Arts, Humanities and Social Sciences | Humanities
+        education | Education | |
+        medicine | Medicine | | 6
+    """),
+    "goethe": (3, """
+        law | Law | | 5
+        economics | Economics and Business | Economics & Business
+        social | Social Sciences | |
+        education | Educational Sciences | Education
+        psychology | Psychology and Sports Sciences | Psychology & Sport
+        prot | Protestant Theology | |
+        cath | Catholic Theology | |
+        philhist | Philosophy and History | Philosophy & History
+        linguistics | Linguistics, Cultures and Arts | Cultures & Arts
+        languages | Modern Languages | |
+        geosciences | Geosciences and Geography | Geography
+        csmath | Computer Science and Mathematics | CS & Maths
+        physics | Physics | |
+        chempharm | Biochemistry, Chemistry and Pharmacy | Chemistry & Pharmacy
+        biosciences | Biosciences | |
+        medicine | Medicine | | 6
+    """),
+    "koeln": (3, """
+        wiso | Management, Economics and Social Sciences | Management & Economics
+        law | Law | | 5
+        medicine | Medicine | | 6
+        arts | Arts and Humanities | |
+        mathcs | Mathematics and Computer Science | Maths & CS
+        physics | Physics | |
+        chemistry | Chemistry | |
+        biology | Biology | |
+        geosciences | Geosciences and Geography | Geography
+        human | Human Sciences (Education, Psychology) | Education & Psychology
+    """),
+    "mannheim": (3, """
+        business | Business School | Business
+        law | Law | | 5
+        economics | Economics | |
+        social | Social Sciences | |
+        humanities | Humanities | |
+        wim | Business Informatics and Mathematics | Business Informatics
+    """),
+    "tudarmstadt": (3, """
+        lawecon | Law and Economics | Law & Economics
+        history | History and Social Sciences | History & Social Sciences
+        human | Human Sciences | |
+        linguistics | Linguistics and Literary Studies | Linguistics
+        maths | Mathematics | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        biology | Biology | |
+        materials | Materials and Earth Sciences | Materials
+        civil | Civil and Environmental Engineering | Civil Engineering
+        architecture | Architecture | |
+        etit | Electrical Engineering and Information Technology | Electrical Engineering
+        mech | Mechanical Engineering | |
+        cs | Computer Science | |
+    """),
+    "stuttgart": (3, """
+        architecture | Architecture and Urban Planning | Architecture
+        civil | Civil and Environmental Engineering | Civil Engineering
+        chemistry | Chemistry | |
+        energy | Energy, Process and Bio-Engineering | Energy & Process Eng.
+        cs | Computer Science | |
+        ee | Electrical Engineering and Information Technology | Electrical Engineering
+        design | Engineering Design, Production Engineering and Automotive Engineering | Automotive & Production
+        aero | Aerospace Engineering and Geodesy | Aerospace
+        mathphys | Mathematics and Physics | Maths & Physics
+        humanities | Humanities | |
+        economics | Management, Economics and Social Sciences | Economics & Social Sciences
+    """),
+    "charite": (6, """
+        medicine | Medicine | |
+        dentistry | Dentistry | | 5
+        health | Health Sciences (Nursing, Midwifery) | Health Sciences | 4
+    """),
+    "tudelft": (3, """
+        architecture | Architecture and the Built Environment | Architecture
+        civil | Civil Engineering and Geosciences | Civil Engineering
+        cs | Computer Science and Engineering | Computer Science
+        ee | Electrical Engineering | |
+        maths | Applied Mathematics | Mathematics
+        ide | Industrial Design Engineering | Industrial Design
+        aero | Aerospace Engineering | Aerospace
+        tpm | Technology, Policy and Management | TPM
+        applied | Applied Sciences (Physics, Nanobiology, Life Science) | Applied Sciences
+        mech | Mechanical Engineering | |
+        maritime | Maritime and Materials Engineering | Maritime & Materials
+    """),
+    "uva": (3, """
+        humanities | Humanities | |
+        psychology | Psychology | |
+        communication | Communication Science | |
+        politics | Political Science | |
+        sociology | Sociology and Anthropology | Sociology & Anthropology
+        education | Child Development and Education | Education
+        economics | Economics and Business | Economics & Business
+        law | Law | |
+        cs | Computer Science | |
+        ai | Artificial Intelligence | AI
+        maths | Mathematics | |
+        physics | Physics and Astronomy | Physics
+        chemistry | Chemistry | |
+        biology | Biology and Biomedical Sciences | Biology
+        fps | Future Planet Studies | |
+        auc | Amsterdam University College | AUC
+        medicine | Medicine | | 6
+        dentistry | Dentistry (ACTA) | Dentistry | 6
+    """),
+    "leiden": (3, """
+        archaeology | Archaeology | |
+        governance | Governance and Global Affairs | Governance
+        humanities | Humanities | |
+        law | Law | |
+        medicine | Medicine (LUMC) | Medicine | 6
+        science | Science | |
+        social | Social and Behavioural Sciences | Social Sciences & Psychology
+        luc | Leiden University College The Hague | LUC
+    """),
+    "utrecht": (3, """
+        geosciences | Geosciences | |
+        humanities | Humanities | |
+        reb | Law, Economics and Governance | Law & Economics
+        medicine | Medicine | | 6
+        science | Science | |
+        social | Social and Behavioural Sciences | Social Sciences & Psychology
+        vet | Veterinary Medicine | | 6
+        ucu | University College Utrecht | UCU
+    """),
+    "eur": (3, """
+        ese | Erasmus School of Economics | Economics
+        rsm | Rotterdam School of Management | Business
+        law | Erasmus School of Law | Law
+        medicine | Erasmus MC (Medicine) | Medicine | 6
+        essb | Social and Behavioural Sciences | Social Sciences & Psychology
+        eshcc | History, Culture and Communication | History & Communication
+        philosophy | Erasmus School of Philosophy | Philosophy
+        eshpm | Health Policy and Management | Health Policy
+        euc | Erasmus University College | EUC
+    """),
+    "rug": (3, """
+        arts | Arts | |
+        bss | Behavioural and Social Sciences | Psychology & Social Sciences
+        fryslan | Campus Fryslân | |
+        feb | Economics and Business | Economics & Business
+        law | Law | |
+        medicine | Medical Sciences | Medicine | 6
+        philosophy | Philosophy | |
+        religion | Religion, Culture and Society | Religion & Culture
+        fse | Science and Engineering | Science & Engineering
+        spatial | Spatial Sciences | |
+        ucg | University College Groningen | UCG
+    """),
+    "wur": (3, """
+        agrotech | Agrotechnology and Food Sciences | Food & Agrotechnology
+        animal | Animal Sciences | |
+        environment | Environmental Sciences | |
+        plant | Plant Sciences | |
+        social | Social Sciences | |
+    """),
+    "tue": (3, """
+        physics | Applied Physics and Science Education | Applied Physics
+        bme | Biomedical Engineering | |
+        built | Built Environment | |
+        chemistry | Chemical Engineering and Chemistry | Chemical Engineering
+        ee | Electrical Engineering | |
+        id | Industrial Design | |
+        ieis | Industrial Engineering and Innovation Sciences | Industrial Engineering
+        mathcs | Mathematics and Computer Science | Maths & CS
+        mech | Mechanical Engineering | |
+    """),
+    "vuamsterdam": (3, """
+        fgb | Behavioural and Movement Sciences | Psychology & Movement
+        humanities | Humanities | |
+        law | Law | |
+        medicine | Medicine | | 6
+        theology | Religion and Theology | Theology
+        sbe | School of Business and Economics | Business & Economics
+        science | Science | |
+        social | Social Sciences | |
+        dentistry | Dentistry (ACTA) | Dentistry | 6
+    """),
+    "maastricht": (3, """
+        fasos | Arts and Social Sciences | Arts & Social Sciences
+        medicine | Medicine | | 6
+        health | Health, Medicine and Life Sciences | Health Sciences
+        law | Law | |
+        psychology | Psychology and Neuroscience | Psychology
+        sbe | School of Business and Economics | Business & Economics
+        fse | Science and Engineering | Science & Engineering
+        ucm | University College Maastricht | UCM
+    """),
+    "utwente": (3, """
+        bms | Behavioural, Management and Social Sciences | Management & Social Sciences
+        et | Engineering Technology | Engineering
+        cs | Computer Science | |
+        ee | Electrical Engineering | |
+        maths | Applied Mathematics | Mathematics
+        tnw | Science and Technology | Science & Technology
+        atlas | University College Twente (ATLAS) | ATLAS
+    """),
+    "tilburg": (3, """
+        tisem | Economics and Management | Economics & Management
+        law | Tilburg Law School | Law
+        tsb | Social and Behavioral Sciences | Social Sciences & Psychology
+        tshd | Humanities and Digital Sciences | Humanities & Digital
+        theology | Catholic Theology | Theology
+    """),
+    "radboud": (3, """
+        arts | Arts | |
+        law | Law | |
+        medicine | Medical Sciences | Medicine | 6
+        management | Nijmegen School of Management | Management
+        ftr | Philosophy, Theology and Religious Studies | Philosophy & Theology
+        science | Science | |
+        social | Social Sciences | |
+    """),
+    "kuleuven": (3, """
+        theology | Theology and Religious Studies | Theology
+        canonlaw | Canon Law | |
+        law | Law and Criminology | Law
+        feb | Economics and Business | Economics & Business
+        philosophy | Philosophy | |
+        arts | Arts | |
+        social | Social Sciences | |
+        ppw | Psychology and Educational Sciences | Psychology & Education
+        science | Science | |
+        engineering | Engineering Science | Engineering
+        bioeng | Bioscience Engineering | |
+        tech | Engineering Technology | |
+        architecture | Architecture | |
+        medicine | Medicine | | 6
+        pharmacy | Pharmaceutical Sciences | Pharmacy
+        movement | Movement and Rehabilitation Sciences | Movement Sciences
+    """),
+    "ugent": (3, """
+        arts | Arts and Philosophy | Arts & Philosophy
+        law | Law and Criminology | Law
+        sciences | Sciences | |
+        medicine | Medicine and Health Sciences | Medicine | 6
+        engineering | Engineering and Architecture | Engineering
+        economics | Economics and Business Administration | Economics & Business
+        vet | Veterinary Medicine | | 6
+        ppw | Psychology and Educational Sciences | Psychology & Education
+        bioeng | Bioscience Engineering | |
+        pharmacy | Pharmaceutical Sciences | Pharmacy
+        political | Political and Social Sciences | Political Science
+    """),
+    "uclouvain": (3, """
+        theology | Theology | |
+        law | Law and Criminology | Law
+        fial | Philosophy, Arts and Letters | Arts & Letters
+        espo | Economic, Social and Political Sciences and Communication | Economics & Politics
+        psychology | Psychology and Educational Sciences | Psychology
+        lsm | Louvain School of Management | Management
+        loci | Architecture, Civil Engineering and Urban Planning | Architecture
+        science | Science | |
+        agro | Bioscience Engineering | |
+        epl | Louvain School of Engineering | Engineering
+        medicine | Medicine and Dentistry | Medicine | 6
+        pharmacy | Pharmacy and Biomedical Sciences | Pharmacy
+        fsp | Public Health | |
+        motor | Motor Sciences | |
+    """),
+    "ulb": (3, """
+        architecture | Architecture (La Cambre Horta) | Architecture
+        philosophy | Philosophy and Social Sciences | Philosophy & Social Sciences
+        letters | Letters, Translation and Communication | Letters & Communication
+        law | Law and Criminology | Law
+        solvay | Solvay Brussels School of Economics and Management | Solvay
+        psychology | Psychology, Education and Speech Therapy | Psychology
+        medicine | Medicine | | 6
+        pharmacy | Pharmacy | |
+        motor | Motor Sciences | |
+        public-health | Public Health | |
+        sciences | Sciences | |
+        engineering | Brussels School of Engineering | Engineering
+    """),
+    "vub": (3, """
+        law | Law and Criminology | Law
+        es | Social Sciences and Solvay Business School | Social Sciences & Business
+        psychology | Psychology and Educational Sciences | Psychology
+        medicine | Medicine | | 6
+        pharmacy | Pharmacy | |
+        engineering | Engineering | |
+        sciences | Sciences and Bioengineering Sciences | Sciences
+        arts | Arts and Philosophy | |
+        lk | Physical Education and Physiotherapy | Physical Education
+    """),
+    "uantwerpen": (3, """
+        arts | Arts | |
+        business | Business and Economics | Business & Economics
+        design | Design Sciences | |
+        law | Law | |
+        medicine | Medicine and Health Sciences | Medicine | 6
+        pharmacy | Pharmaceutical, Biomedical and Veterinary Sciences | Pharmacy & Biomedical
+        science | Science | |
+        social | Social Sciences | |
+        engineering | Applied Engineering | Engineering
+    """),
+    "unilu": (3, """
+        cs | Computer Science | |
+        engineering | Engineering | |
+        maths | Mathematics | |
+        physics | Physics | |
+        life | Life Sciences and Medicine | Life Sciences & Medicine
+        law | Law | |
+        economics | Economics, Finance and Management | Economics & Finance
+        humanities | Humanities, Education and Social Sciences | Humanities & Social Sciences
+    """),
+    "univie": (3, """
+        cath | Catholic Theology | |
+        prot | Protestant Theology | |
+        law | Law | | 4
+        business | Business, Economics and Statistics | Business & Economics
+        cs | Computer Science | |
+        history | Historical and Cultural Studies | History
+        philology | Philological and Cultural Studies | Languages
+        philosophy | Philosophy and Education | Philosophy & Education
+        psychology | Psychology | |
+        social | Social Sciences | |
+        maths | Mathematics | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        earth | Earth Sciences, Geography and Astronomy | Earth Sciences & Geography
+        life | Life Sciences | |
+        pharmacy | Pharmacy | | 4
+        sport | Sport Science | |
+        translation | Translation Studies | Translation
+    """),
+    "tuwien": (3, """
+        architecture | Architecture and Planning | Architecture
+        civil | Civil and Environmental Engineering | Civil Engineering
+        mech | Mechanical and Industrial Engineering | Mechanical Engineering
+        ee | Electrical Engineering and Information Technology | Electrical Engineering
+        informatics | Informatics | |
+        maths | Mathematics and Geoinformation | Mathematics
+        physics | Physics | |
+        chemistry | Technical Chemistry | Chemistry
+    """),
+    "wu": (3, """
+        bwl | Business Administration | |
+        economics | Economics | |
+        socioeconomics | Socioeconomics | |
+        law | Business and Economic Law | Business Law
+        iba | International Business Administration | IBA
+        informatics | Business Informatics | |
+        finance | Finance and Accounting | Finance
+        marketing | Marketing | |
+    """),
+}
+
+BATCHES = {"uk_ie": UK_IE, "central": CENTRAL}
 
 
 def q(s: str) -> str:
