@@ -454,3 +454,7 @@ SELECT pg_temp.ok('13x UK / Irish campus feeds: 22 over 18 universities, student
     'warwick','glasgow','standrews','southampton','leeds','birmingham','nottingham','exeter','york','strathclyde','tcd','ucd')) = 22
   AND (SELECT section_id FROM private.news_feeds WHERE url = 'https://cherwell.org/feed/') = 'campuslife'
   AND (SELECT section_id FROM private.news_feeds WHERE url = 'https://www.cam.ac.uk/news/feed') = 'announcements');
+SELECT pg_temp.ok('13y CH / DE / AT / NL / BE campus feeds: 20 over 19 universities',
+  (SELECT count(*) FROM private.news_feeds WHERE university_id IN ('ethz','epfl','unige','fuberlin','bonn','charite','heidelberg',
+    'wu','tudelft','uva','utrecht','rug','wur','vuamsterdam','utwente','radboud','ugent','ulb','vub')) = 20
+  AND (SELECT count(DISTINCT university_id) FROM private.news_feeds WHERE url LIKE 'https://%ugent.be/%') = 1);
