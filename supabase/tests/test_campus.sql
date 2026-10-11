@@ -465,3 +465,9 @@ SELECT pg_temp.ok('13z FR / IT / ES / PT campus feeds: 16, one per university, a
 SELECT pg_temp.ok('13za Nordic / central-eastern campus feeds: 13 over 12 universities',
   (SELECT count(*) FROM private.news_feeds WHERE university_id IN ('ucph','lund','helsinki','aalto','hi','uw','pw','bme','unibuc',
     'bgacrs','unilj','tartu')) = 13);
+SELECT pg_temp.ok('13zb E2 short names: none cut with an ellipsis, ≤ 26 chars, rules applied',
+  NOT EXISTS (SELECT 1 FROM public.universities WHERE position >= 1000 AND (short_en LIKE '%…' OR length(short_en) > 26))
+  AND (SELECT short_en FROM public.universities WHERE id = 'oth-aw') = 'OTH Amberg-Weiden'
+  AND (SELECT short_en FROM public.universities WHERE id = 'fh-wels') = 'FH Wels'
+  AND (SELECT short_en FROM public.universities WHERE id = 'absparis') = 'ABS Paris'
+  AND (SELECT short_el FROM public.universities WHERE id = 'fs-students') = 'Frankfurt School');
