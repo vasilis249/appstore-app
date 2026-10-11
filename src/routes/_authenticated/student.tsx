@@ -142,7 +142,7 @@ function StudentPage() {
     ? schools.filter((d) => [d.short_el, d.name_el, d.short_en, d.name_en].some((x) => fold(x).includes(fold(query.trim()))))
     : schools;
   const detected = campus.uniForEmail(email);
-  const accepted = campus.universities.filter((u) => u.open).map((u) => (en ? u.short_en : u.short_el)).join(" · ");
+  const accepted = campus.universities.filter((u) => u.open).length; // 200+: a count, not a wall of names
 
   if (!step) return null;
 
@@ -214,7 +214,7 @@ function StudentPage() {
         ) : (
           <FieldNote>{t("student.emailPrivacy")}</FieldNote>
         )}
-        {accepted && <p className="mt-4 text-caption leading-snug text-muted-foreground">{t("student.supported", { list: accepted })}</p>}
+        {accepted > 0 && <p className="mt-4 text-caption leading-snug text-muted-foreground">{t("student.supported", { count: accepted })}</p>}
       </StepShell>
     );
 

@@ -476,6 +476,18 @@ User decisions:
   everywhere), campus news = The Beaver (LSE SU paper) `thebeaverlse.co.uk/feed/` → `campuslife` (NOT
   beaveronline.co.uk: a recipe site now; LSE has no public news RSS). 45 open institutions. Tests campus 83 (13q),
   speak 11e 39 feeds. Live applied; no Beaver item < 36 h yet (last issue 10-07) → comes with its next issue.
+  **Europe E1 ✔ (user request 2026-10-11: "all universities of Europe, best known first")** — `supabase/data/europe.py`
+  (edit there) → migration `20261031100000_europe_top.sql`: 157 best-known European universities (UK 24, IE 2, CH 8,
+  DE 20, FR 16, NL 13, BE 6, LU, DK 4, SE 8, FI/NO/IS 7, IT 13, ES 12, PT 4, AT 3, central/eastern 15, MT), positions
+  100+, NO departments (straight to the year), English names + Greek city; domains = official + separate student domain
+  (mytum.de, studbocconi.it, ucdconnect.ie, student-cs.fr, uvt.nl …; sub-domains match by themselves), all 172 MX-checked,
+  no overlaps (check script: scratchpad `eu/check.py <europe.py> <existing.json>`). Ids avoid clashes (`unipisa` ≠
+  Piraeus `unipi`, `manchester` ≠ `uom`). 202 open institutions. `/student`: "Δεκτά email από N πανεπιστήμια σε Ελλάδα,
+  Κύπρο, Ευρώπη και ΗΠΑ" (count, was a list of every short name). Tests campus 84 (13a counts + only positions < 100
+  must have departments, 13r Europe domains); flows attica 13 (count text), acg 7, network 9, gate 4. Live applied,
+  deploy 140f61e7. NEXT E2: the rest of Europe from the Hipo university-domains-list (2,104 European entries, scratchpad
+  `eu/dl/world.json`), MX-checked, deduped against these; BEFORE that `useCampus` must page its `universities` /
+  `departments` reads (Supabase API max-rows 1000 would silently truncate) or move to an RPC / lazy lookup by domain.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
