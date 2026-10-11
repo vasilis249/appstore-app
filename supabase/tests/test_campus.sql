@@ -449,3 +449,8 @@ SELECT pg_temp.ok('13w Nordic / central-eastern departments: 504; every E1 unive
   AND (SELECT years FROM public.departments WHERE id = 'uio-psychology') = 6
   AND (SELECT years FROM public.departments WHERE id = 'uw-law') = 5
   AND (SELECT years FROM public.departments WHERE id = 'unisofia-physics') = 4);
+SELECT pg_temp.ok('13x UK / Irish campus feeds: 22 over 18 universities, student papers → campus life',
+  (SELECT count(*) FROM private.news_feeds WHERE university_id IN ('oxford','cambridge','imperial','kcl','manchester','bristol',
+    'warwick','glasgow','standrews','southampton','leeds','birmingham','nottingham','exeter','york','strathclyde','tcd','ucd')) = 22
+  AND (SELECT section_id FROM private.news_feeds WHERE url = 'https://cherwell.org/feed/') = 'campuslife'
+  AND (SELECT section_id FROM private.news_feeds WHERE url = 'https://www.cam.ac.uk/news/feed') = 'announcements');
