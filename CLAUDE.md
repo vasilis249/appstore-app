@@ -485,9 +485,16 @@ User decisions:
   Piraeus `unipi`, `manchester` ≠ `uom`). 202 open institutions. `/student`: "Δεκτά email από N πανεπιστήμια σε Ελλάδα,
   Κύπρο, Ευρώπη και ΗΠΑ" (count, was a list of every short name). Tests campus 84 (13a counts + only positions < 100
   must have departments, 13r Europe domains); flows attica 13 (count text), acg 7, network 9, gate 4. Live applied,
-  deploy 140f61e7. NEXT E2: the rest of Europe from the Hipo university-domains-list (2,104 European entries, scratchpad
-  `eu/dl/world.json`), MX-checked, deduped against these; BEFORE that `useCampus` must page its `universities` /
-  `departments` reads (Supabase API max-rows 1000 would silently truncate) or move to an RPC / lazy lookup by domain.
+  deploy 140f61e7.
+  **Europe E2 ✔ (the rest of Europe)** — `supabase/data/europe_all.json` (Hipo university-domains-list, European
+  entries minus GR/CY, minus domains we have, minus generic suffixes / overlapping entries, MX-filtered → 1,571) +
+  `supabase/data/europe_all.py` (edit there: `RESERVED` ids, `ALIASES` old domain → existing id e.g. hut.fi → aalto,
+  sgul.ac.uk → cityuol; `DROP_SUFFIXES`; short = name ≤ 26 chars, else before comma/bracket, else domain label) →
+  migration `20261031100100_europe_all.sql`: 1,535 institutions (positions 1000+, city = Greek country name, no
+  departments, ON CONFLICT DO NOTHING) + 23 alias UPDATEs onto curated rows. 1,737 open institutions. `useCampus`
+  pages its reads (`all()`, 1000 per request — the API's max rows); admin `CampusPicker` has a search (folded names /
+  shorts / domains, first 60 + the picked one). Tests campus 85 (13a/13k 1737, 13r positions 100–999, 13s E2).
+  Live applied (aliases resolve).
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
@@ -851,7 +858,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (124) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (80) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (124) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (85) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

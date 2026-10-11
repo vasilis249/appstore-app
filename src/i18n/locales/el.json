@@ -70,6 +70,7 @@
       "daily": "Ημέρας"
     },
     "campusOnly": "Μόνο για ένα campus",
+    "searchCampus": "Αναζήτηση πανεπιστημίου…",
     "campusTitle": "Campus · {{uni}}",
     "campusNow": "Τώρα: {{students}} επιβεβαιωμένοι φοιτητές · ανοίγει στους {{min}} (0 = ανοιχτό).",
     "campusNotStudent": "Όριο φοιτητών για να ανοίξει το campus (0 = ανοιχτό).",

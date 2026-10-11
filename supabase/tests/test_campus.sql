@@ -314,8 +314,8 @@ SELECT pg_temp.ok('12g removed moderator: no access', pg_temp.fails('SELECT * FR
 RESET ROLE;
 
 -- 13 Attica universities
-SELECT pg_temp.ok('13a 202 open institutions; every Greek / Cypriot public one has departments',
-  (SELECT count(*) FROM public.universities WHERE open) = 202
+SELECT pg_temp.ok('13a 1737 open institutions; every Greek / Cypriot public one has departments',
+  (SELECT count(*) FROM public.universities WHERE open) = 1737
   AND NOT EXISTS (SELECT 1 FROM public.universities u WHERE u.position < 100 AND u.id NOT IN ('ouc','unic','euc','frederick','nup','uclancy',
     'city','mitropolitiko','bca','ist','nyc','medcollege','act','hau','perrotis')
     AND NOT EXISTS (SELECT 1 FROM public.departments d WHERE d.university_id = u.id)));
@@ -362,7 +362,7 @@ RESET ROLE;
 INSERT INTO private.admins (user_id) VALUES (:E);
 SELECT pg_temp.as_user(:E); SET ROLE authenticated;
 SELECT pg_temp.ok('13k admin overview lists every open campus with its students',
-  (SELECT count(*) FROM public.admin_campuses()) = 202
+  (SELECT count(*) FROM public.admin_campuses()) = 1737
   AND (SELECT students FROM public.admin_campuses() WHERE university_id = 'uoa') = 1);
 RESET ROLE;
 SELECT pg_temp.ok('13l campus news feeds for 7 more universities, into Ανακοινώσεις',
@@ -395,9 +395,15 @@ SELECT pg_temp.ok('13q LSE: @lse.ac.uk, 25 departments, 3 years (+ master''s / P
   AND NOT EXISTS (SELECT 1 FROM public.departments WHERE university_id = 'lse' AND years <> 3)
   AND EXISTS (SELECT 1 FROM private.news_feeds WHERE university_id = 'lse' AND url LIKE 'https://thebeaverlse.co.uk/%' AND enabled));
 SELECT pg_temp.ok('13r Europe E1: 157 institutions without departments; student domains and sub-domains resolve',
-  (SELECT count(*) FROM public.universities WHERE position >= 100) = 157
+  (SELECT count(*) FROM public.universities WHERE position BETWEEN 100 AND 999) = 157
   AND NOT EXISTS (SELECT 1 FROM public.departments d JOIN public.universities u ON u.id = d.university_id WHERE u.position >= 100)
   AND private.university_for_email('ge12abc@mytum.de') = 'tum' AND private.university_for_email('a.b@student.uva.nl') = 'uva'
   AND private.university_for_email('mario.rossi@studbocconi.it') = 'bocconi' AND private.university_for_email('a@ucdconnect.ie') = 'ucd'
   AND private.university_for_email('a.b@chch.ox.ac.uk') = 'oxford' AND private.university_for_email('a@studenti.unipi.it') = 'unipisa'
   AND private.university_for_email('a@unipi.gr') = 'unipi' AND private.university_for_email('a@ethz.ch.evil.com') IS NULL);
+SELECT pg_temp.ok('13s Europe E2: 1535 more from the domain list; old domains join the curated row, curated rows win',
+  (SELECT count(*) FROM public.universities WHERE position >= 1000) = 1535
+  AND private.university_for_email('a@unirsm.sm') = 'unirsm' AND private.university_for_email('a@stud.puv.fi') = 'puv'
+  AND private.university_for_email('a@hut.fi') = 'aalto' AND private.university_for_email('a@sgul.ac.uk') = 'cityuol'
+  AND private.university_for_email('a@tum.de') = 'tum'
+  AND (SELECT count(*) FROM public.universities WHERE id = 'aalto' AND 'hut.fi' = ANY (email_domains)) = 1);

@@ -70,6 +70,7 @@
       "daily": "Daily"
     },
     "campusOnly": "Only for one campus",
+    "searchCampus": "Search universities…",
     "campusTitle": "Campus · {{uni}}",
     "campusNow": "Now: {{students}} verified students · opens at {{min}} (0 = open).",
     "campusNotStudent": "Students needed before the campus opens (0 = open).",

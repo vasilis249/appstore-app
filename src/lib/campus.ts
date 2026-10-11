@@ -36,6 +36,17 @@ export function yearOptions(years = 6): number[] {
   return [...Array.from({ length: years }, (_, i) => i + 1), 8, 9];
 }
 
+/** Every row of a table in pages: the API returns at most 1000 rows per request (2,000+ universities). */
+async function all<T>(table: "universities" | "departments", cols: string): Promise<T[]> {
+  const out: T[] = [];
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await supabase.from(table).select(cols).order("position").order("id").range(from, from + 999);
+    if (error) throw new Error(error.message);
+    out.push(...(data as unknown as T[]));
+    if (data.length < 1000) return out;
+  }
+}
+
 /** Universities and schools (static data, loaded once). */
 export function useCampus() {
   const { i18n } = useTranslation();
@@ -43,13 +54,11 @@ export function useCampus() {
     queryKey: campusKeys.all,
     staleTime: Infinity,
     queryFn: async () => {
-      const [u, d] = await Promise.all([
-        supabase.from("universities").select("id, name_el, name_en, short_el, short_en, email_domains, open").order("position"),
-        supabase.from("departments").select("id, university_id, name_el, name_en, short_el, short_en, years").order("position"),
+      const [universities, departments] = await Promise.all([
+        all<University>("universities", "id, name_el, name_en, short_el, short_en, email_domains, open"),
+        all<Department>("departments", "id, university_id, name_el, name_en, short_el, short_en, years"),
       ]);
-      if (u.error) throw new Error(u.error.message);
-      if (d.error) throw new Error(d.error.message);
-      return { universities: u.data as University[], departments: d.data as Department[] };
+      return { universities, departments };
     },
   });
   const en = i18n.language.startsWith("en");

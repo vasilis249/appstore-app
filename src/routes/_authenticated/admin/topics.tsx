@@ -149,16 +149,30 @@ function NewTopic() {
   );
 }
 
-/** One row of campus chips (every open university, in the database's order). */
+const fold = (x: string) => x.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+
+/** A search + one row of campus chips (the first 60 matches in the database's order, plus the picked one). */
 function CampusPicker({ value, onChange }: { value?: string; onChange: (id: string) => void }) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const campus = useCampus();
   const en = i18n.language.startsWith("en");
+  const [q, setQ] = useState("");
+  const f = fold(q.trim());
+  const hits = campus.universities
+    .filter((u) => u.open && (!f || [u.short_el, u.short_en, u.name_el, u.name_en, ...u.email_domains].some((x) => fold(x).includes(f))))
+    .slice(0, 60);
+  const picked = campus.uni(value);
+  if (picked && !hits.includes(picked)) hits.unshift(picked);
   return (
-    <div className="-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]">
-      {campus.universities
-        .filter((u) => u.open)
-        .map((u) => (
+    <>
+      <input
+        value={q}
+        onChange={(e) => setQ(e.target.value)}
+        placeholder={t("admin.searchCampus")}
+        className="h-10 w-full rounded-xl bg-secondary px-4 text-callout outline-none placeholder:text-muted-foreground"
+      />
+      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]">
+        {hits.map((u) => (
           <button
             key={u.id}
             type="button"
@@ -169,7 +183,8 @@ function CampusPicker({ value, onChange }: { value?: string; onChange: (id: stri
             {en ? u.short_en : u.short_el}
           </button>
         ))}
-    </div>
+      </div>
+    </>
   );
 }
 
