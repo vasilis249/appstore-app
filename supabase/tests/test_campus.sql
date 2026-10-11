@@ -439,3 +439,13 @@ SELECT pg_temp.ok('13v FR / IT / ES / PT / MT departments: 605 over 46 universit
   AND (SELECT years FROM public.departments WHERE id = 'ulisboa-law') = 4
   AND (SELECT years FROM public.departments WHERE id = 'sorbonne-medicine') = 6
   AND (SELECT years FROM public.departments WHERE id = 'enslyon-maths') = 4);
+SELECT pg_temp.ok('13w Nordic / central-eastern departments: 504; every E1 university now has departments',
+  (SELECT count(*) FROM public.departments WHERE university_id IN ('ucph','dtu','aarhus','cbs','karolinska','kth','lund','uppsala',
+    'stockholm','chalmers','gu','hhs','helsinki','aalto','uio','ntnu','uib','bi','hi','uw','uj','pw','cuni','cvut','elte','bme',
+    'unibuc','unisofia','bgacrs','unizg','unilj','tartu','vilnius','rtu')) = 504
+  AND NOT EXISTS (SELECT 1 FROM public.universities u WHERE u.position BETWEEN 100 AND 999
+    AND NOT EXISTS (SELECT 1 FROM public.departments d WHERE d.university_id = u.id))
+  AND (SELECT years FROM public.departments WHERE id = 'kth-cs') = 5
+  AND (SELECT years FROM public.departments WHERE id = 'uio-psychology') = 6
+  AND (SELECT years FROM public.departments WHERE id = 'uw-law') = 5
+  AND (SELECT years FROM public.departments WHERE id = 'unisofia-physics') = 4);

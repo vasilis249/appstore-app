@@ -2127,7 +2127,585 @@ SOUTH_WEST = {
     """),
 }
 
-BATCHES = {"uk_ie": UK_IE, "central": CENTRAL, "south_west": SOUTH_WEST}
+# Nordics (bachelor 3; Swedish / Norwegian integrated engineering degrees 5, law 5, professional psychology 5–6,
+# medicine 6, dentistry 5, veterinary 6) and central / eastern Europe (bachelor 3 — 4 in BG, RS, LT, LV and for
+# Polish / Hungarian / Czech engineers; integrated law 5, medicine 6, pharmacy 5, dentistry / veterinary 6).
+NORTH_EAST = {
+    "ucph": (3, """
+        medicine | Medicine | | 6
+        dentistry | Dentistry | | 5
+        pharmacy | Pharmacy | | 5
+        vet | Veterinary Medicine | | 6
+        humanities | Humanities | |
+        law | Law | | 5
+        cs | Computer Science (DIKU) | Computer Science
+        maths | Mathematical Sciences | Mathematics
+        physics | Physics (Niels Bohr Institute) | Physics
+        chemistry | Chemistry | |
+        biology | Biology | |
+        geosciences | Geosciences and Natural Resource Management | Geosciences
+        food | Food and Resource Economics | Food & Resource Economics
+        economics | Economics | |
+        political | Political Science | |
+        psychology | Psychology | |
+        sociology | Sociology | |
+        anthropology | Anthropology | |
+        theology | Theology | |
+    """),
+    "dtu": (3, """
+        compute | Compute (Applied Mathematics and Computer Science) | DTU Compute
+        electro | Electrical and Photonics Engineering | Electrical Engineering
+        construct | Civil and Mechanical Engineering (Construct) | Civil & Mechanical Eng.
+        chemeng | Chemical and Biochemical Engineering | Chemical Engineering
+        chemistry | Chemistry | |
+        physics | Physics | |
+        energy | Energy Conversion and Storage | Energy
+        wind | Wind and Energy Systems | Wind Energy
+        environment | Environmental and Resource Engineering | Environmental Engineering
+        bioengineering | Biotechnology and Biomedicine | Biotechnology
+        health | Health Technology | |
+        food | Food | |
+        aqua | Aquatic Resources | Aqua
+        space | Space | |
+        engtech | Engineering Technology (BEng) | Engineering Technology | 4
+        management | Technology, Management and Economics | Management
+    """),
+    "aarhus": (3, """
+        arts | Arts | |
+        cs | Computer Science | |
+        maths | Mathematics | |
+        physics | Physics and Astronomy | Physics
+        chemistry | Chemistry | |
+        biology | Biology | |
+        mbg | Molecular Biology and Genetics | Molecular Biology
+        geoscience | Geoscience | |
+        engineering | Engineering | |
+        medicine | Medicine | | 6
+        dentistry | Dentistry | | 5
+        public-health | Public Health | |
+        economics | Economics and Business Economics | Economics & Business
+        law | Law | | 5
+        political | Political Science | |
+        psychology | Psychology and Behavioural Sciences | Psychology
+        management | Management | |
+    """),
+    "cbs": (3, """
+        ha | Business Administration and Economics (HA) | HA
+        ib | International Business | |
+        ibp | International Business and Politics | IBP
+        philosophy | Business Administration and Philosophy | Business & Philosophy
+        blc | Business, Language and Culture | BLC
+        digital | Business Administration and Digital Management | Digital Management
+        service | Service Management | |
+        law | Business Administration and Commercial Law | Business Law
+        msc | MSc Programmes | MSc | 2
+        mba | MBA | | 1
+    """),
+    "karolinska": (3, """
+        medicine | Medicine | | 6
+        dentistry | Dentistry | | 5
+        nursing | Nursing | |
+        physio | Physiotherapy | |
+        ot | Occupational Therapy | |
+        biomedicine | Biomedicine | |
+        public-health | Public Health | |
+        psychology | Psychology | | 5
+        optometry | Optometry | |
+        logopedics | Speech and Language Pathology | Speech Therapy | 4
+        radiography | Radiography | |
+        dentalhygiene | Dental Hygiene | | 2
+        audiology | Audiology | |
+    """),
+    "kth": (5, """
+        architecture | Architecture | |
+        civil | Civil and Architectural Engineering | Civil Engineering
+        ee | Electrical Engineering | |
+        cs | Computer Science and Engineering | Computer Science
+        ict | Information and Communication Technology | ICT
+        physics | Engineering Physics | |
+        vehicle | Vehicle Engineering | |
+        mech | Mechanical Engineering | |
+        industrial | Industrial Engineering and Management | Industrial Management
+        chemistry | Chemical Science and Engineering | Chemical Engineering
+        biotech | Biotechnology | |
+        medtech | Medical Engineering | |
+        energy | Energy and Environment | |
+        materials | Materials Design and Engineering | Materials
+        maths | Engineering Mathematics | Mathematics
+        bachelor | Bachelor of Engineering programmes | BEng | 3
+    """),
+    "lund": (3, """
+        lth | Engineering (LTH) | LTH | 5
+        arts | Fine and Performing Arts | Arts
+        humanities | Humanities and Theology | Humanities
+        law | Law | | 5
+        medicine | Medicine | | 6
+        science | Science | |
+        social | Social Sciences | |
+        psychology | Psychology | | 5
+        lusem | School of Economics and Management | Economics & Management
+    """),
+    "uppsala": (3, """
+        theology | Theology | |
+        law | Law | | 5
+        arts | Arts | |
+        languages | Languages | |
+        social | Social Sciences | |
+        economics | Economics | |
+        psychology | Psychology | | 5
+        education | Educational Sciences | Education
+        medicine | Medicine | | 6
+        pharmacy | Pharmacy | | 5
+        engineering | Engineering | | 5
+        it | Information Technology | |
+        maths | Mathematics | |
+        physics | Physics and Astronomy | Physics
+        chemistry | Chemistry | |
+        biology | Biology | |
+        earth | Earth Sciences | |
+    """),
+    "stockholm": (3, """
+        humanities | Humanities | |
+        law | Law | | 5
+        economics | Economics | |
+        business | Stockholm Business School | Business
+        psychology | Psychology | | 5
+        political | Political Science | |
+        sociology | Sociology | |
+        media | Media Studies and Journalism | Media
+        maths | Mathematics | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        biology | Biology | |
+        dsv | Computer and Systems Sciences | Computer Science
+        geography | Geography and Geology | Geography
+    """),
+    "chalmers": (5, """
+        architecture | Architecture | |
+        mechatronics | Automation and Mechatronics | Mechatronics | 3
+        biotech | Biotechnology | |
+        chemeng | Chemical Engineering | |
+        civil | Civil Engineering | |
+        cs | Computer Science and Engineering | Computer Science
+        ee | Electrical Engineering | |
+        physics | Engineering Physics | |
+        design | Industrial Design Engineering | Industrial Design
+        industrial | Industrial Engineering and Management | Industrial Management
+        it | Information Technology | |
+        maths | Engineering Mathematics | Mathematics
+        mech | Mechanical Engineering | |
+        shipping | Shipping and Marine Engineering | Shipping | 3
+        software | Software Engineering | | 3
+    """),
+    "gu": (3, """
+        arts | Fine, Applied and Performing Arts | Arts
+        humanities | Humanities | |
+        education | Education | |
+        it | Computer Science and Engineering | Computer Science
+        biology | Biology and Environmental Sciences | Biology
+        chemistry | Chemistry and Molecular Biology | Chemistry
+        marine | Marine Sciences | |
+        earth | Earth Sciences | |
+        physics | Physics | |
+        psychology | Psychology | | 5
+        political | Political Science | |
+        journalism | Journalism, Media and Communication | Journalism
+        medicine | Medicine (Sahlgrenska) | Medicine | 6
+        dentistry | Dentistry | | 5
+        nursing | Nursing | |
+        pharmacy | Pharmacy | | 5
+        business | Business Administration | Business
+        economics | Economics | |
+        law | Law | | 5
+    """),
+    "hhs": (3, """
+        bsc | Business and Economics | |
+        retail | Retail Management | |
+        msc | MSc Programmes | MSc | 2
+        mba | MBA | | 2
+    """),
+    "helsinki": (3, """
+        agriculture | Agriculture and Forestry | Agriculture
+        arts | Arts | |
+        bio | Biological and Environmental Sciences | Biology
+        education | Educational Sciences | Education
+        law | Law | | 5
+        medicine | Medicine | | 6
+        dentistry | Dentistry | | 5
+        pharmacy | Pharmacy | |
+        cs | Computer Science | |
+        maths | Mathematics and Statistics | Mathematics
+        physics | Physics | |
+        chemistry | Chemistry | |
+        geosciences | Geosciences and Geography | Geosciences
+        economics | Economics | |
+        political | Political Science | |
+        psychology | Psychology | |
+        social | Social Sciences | |
+        theology | Theology | |
+        vet | Veterinary Medicine | | 6
+    """),
+    "aalto": (3, """
+        arts | Arts, Design and Architecture | Arts & Design
+        business | School of Business | Business
+        chemeng | Chemical Engineering | |
+        ee | Electrical Engineering | |
+        eng | Engineering (Mechanical, Civil, Energy) | Engineering
+        cs | Computer Science | |
+        maths | Mathematics and Systems Analysis | Mathematics
+        physics | Applied Physics | Physics
+        industrial | Industrial Engineering and Management | Industrial Management
+    """),
+    "uio": (3, """
+        theology | Theology | |
+        law | Law | | 5
+        medicine | Medicine | | 6
+        dentistry | Dentistry | | 5
+        humanities | Humanities | |
+        informatics | Informatics | |
+        maths | Mathematics | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        biosciences | Biosciences | |
+        geosciences | Geosciences | |
+        pharmacy | Pharmacy | | 5
+        economics | Economics | |
+        political | Political Science | |
+        psychology | Psychology | | 6
+        sociology | Sociology and Human Geography | Sociology
+        media | Media and Communication | Media
+        education | Educational Sciences | Education
+    """),
+    "ntnu": (3, """
+        architecture | Architecture and Design | Architecture | 5
+        humanities | Humanities | |
+        ie | Information Technology and Electrical Engineering | IT & Electrical Eng. | 5
+        engineering | Engineering | | 5
+        medicine | Medicine and Health Sciences | Medicine | 6
+        science | Natural Sciences | |
+        social | Social and Educational Sciences | Social Sciences
+        psychology | Psychology | | 6
+        economics | Economics and Management | Economics & Management
+    """),
+    "uib": (3, """
+        humanities | Humanities | |
+        law | Law | | 5
+        science | Mathematics and Natural Sciences | Sciences
+        medicine | Medicine | | 6
+        dentistry | Dentistry | | 5
+        psychology | Psychology | | 6
+        social | Social Sciences | |
+        arts | Fine Art, Music and Design | Art & Design
+    """),
+    "bi": (3, """
+        business | Business Administration | |
+        analytics | Business Analytics | |
+        marketing | Marketing | |
+        finance | Finance | |
+        law | Business Law | |
+        msc | MSc Programmes | MSc | 2
+        emba | Executive MBA | EMBA | 2
+    """),
+    "hi": (3, """
+        social | Social Sciences | |
+        business | Business Administration | Business
+        economics | Economics | |
+        law | Law | | 5
+        medicine | Medicine | | 6
+        health | Health Sciences | |
+        humanities | Humanities | |
+        education | Education | |
+        engineering | Engineering | |
+        science | Natural Sciences | |
+    """),
+    "uw": (3, """
+        linguistics | Applied Linguistics | |
+        archaeology | Archaeology | |
+        biology | Biology | |
+        chemistry | Chemistry | |
+        economics | Economic Sciences | Economics
+        education | Education | |
+        geography | Geography and Regional Studies | Geography
+        geology | Geology | |
+        history | History | |
+        journalism | Journalism, Information and Book Studies | Journalism
+        law | Law and Administration | Law | 5
+        management | Management | |
+        mim | Mathematics, Informatics and Mechanics | Maths & CS
+        languages | Modern Languages | |
+        oriental | Oriental Studies | |
+        philosophy | Philosophy | |
+        physics | Physics | |
+        polish | Polish Studies | |
+        political | Political Science and International Studies | Political Science
+        psychology | Psychology | | 5
+        sociology | Sociology | |
+        culture | Culture and Arts | |
+        artes | Artes Liberales | |
+    """),
+    "uj": (3, """
+        law | Law and Administration | Law | 5
+        medicine | Medicine | | 6
+        pharmacy | Pharmacy | | 5
+        health | Health Sciences | |
+        philosophy | Philosophy | |
+        psychology | Psychology | | 5
+        history | History | |
+        philology | Philology | |
+        polish | Polish Studies | |
+        physics | Physics, Astronomy and Applied Computer Science | Physics
+        mathcs | Mathematics and Computer Science | Maths & CS
+        chemistry | Chemistry | |
+        biology | Biology | |
+        biotech | Biochemistry, Biophysics and Biotechnology | Biochemistry
+        geography | Geography and Geology | Geography
+        international | International and Political Studies | Political Studies
+        management | Management and Social Communication | Management
+    """),
+    "pw": (4, """
+        architecture | Architecture | |
+        automotive | Automotive and Construction Machinery Engineering | Automotive
+        chemproc | Chemical and Process Engineering | Process Engineering
+        chemistry | Chemistry | |
+        civil | Civil Engineering | |
+        ee | Electrical Engineering | |
+        eiti | Electronics and Information Technology | Electronics & IT
+        geodesy | Geodesy and Cartography | Geodesy
+        environment | Building Services, Hydro and Environmental Engineering | Environmental Engineering
+        materials | Materials Science and Engineering | Materials
+        mini | Mathematics and Information Science | Maths & CS
+        mechatronics | Mechatronics | |
+        mech | Mechanical and Industrial Engineering | Mechanical Engineering
+        physics | Physics | |
+        meil | Power and Aeronautical Engineering | Power & Aeronautics
+        transport | Transport | |
+        management | Management | | 3
+        social | Administration and Social Sciences | Social Sciences | 3
+    """),
+    "cuni": (3, """
+        cath | Catholic Theology | |
+        prot | Protestant Theology | |
+        hussite | Hussite Theology | |
+        law | Law | | 5
+        med1 | First Faculty of Medicine | Medicine 1 | 6
+        med2 | Second Faculty of Medicine | Medicine 2 | 6
+        med3 | Third Faculty of Medicine | Medicine 3 | 6
+        plzen | Medicine in Pilsen | Medicine Pilsen | 6
+        hk | Medicine in Hradec Králové | Medicine Hradec Králové | 6
+        pharmacy | Pharmacy in Hradec Králové | Pharmacy | 5
+        arts | Arts | |
+        science | Science | |
+        mff | Mathematics and Physics | Maths & Physics
+        education | Education | |
+        social | Social Sciences | |
+        sport | Physical Education and Sport | Sport
+        humanities | Humanities | |
+    """),
+    "cvut": (3, """
+        civil | Civil Engineering | | 4
+        mech | Mechanical Engineering | | 4
+        fel | Electrical Engineering | |
+        fjfi | Nuclear Sciences and Physical Engineering | Nuclear & Physical Eng.
+        architecture | Architecture | | 4
+        transport | Transportation Sciences | Transport
+        bme | Biomedical Engineering | |
+        fit | Information Technology | |
+    """),
+    "elte": (3, """
+        law | Law | | 5
+        humanities | Humanities | |
+        informatics | Informatics | |
+        science | Science | |
+        social | Social Sciences | |
+        ppk | Education and Psychology | Education & Psychology
+        tok | Primary and Pre-School Education | Primary Education
+        bggyk | Special Needs Education | Special Education
+        economics | Economics | |
+    """),
+    "bme": (4, """
+        civil | Civil Engineering | |
+        mech | Mechanical Engineering | |
+        architecture | Architecture | | 5
+        chem | Chemical Technology and Biotechnology | Chemical Engineering
+        vik | Electrical Engineering and Informatics | Electrical Eng. & Informatics
+        transport | Transportation Engineering and Vehicle Engineering | Transport & Vehicles
+        science | Natural Sciences | | 3
+        gtk | Economic and Social Sciences | Economics | 3
+    """),
+    "unibuc": (3, """
+        administration | Administration and Business | Business
+        biology | Biology | |
+        chemistry | Chemistry | |
+        law | Law | | 4
+        philosophy | Philosophy | |
+        physics | Physics | |
+        geography | Geography | |
+        geology | Geology and Geophysics | Geology
+        journalism | Journalism and Communication Studies | Journalism
+        history | History | |
+        letters | Letters | |
+        languages | Foreign Languages and Literatures | Languages
+        mathcs | Mathematics and Computer Science | Maths & CS
+        psychology | Psychology and Educational Sciences | Psychology
+        political | Political Science | |
+        sociology | Sociology and Social Work | Sociology
+        orthodox | Orthodox Theology | |
+    """),
+    "unisofia": (4, """
+        biology | Biology | |
+        chemistry | Chemistry and Pharmacy | Chemistry & Pharmacy
+        philology | Classical and Modern Philology | Philology
+        economics | Economics and Business Administration | Economics
+        education | Education | |
+        arts | Educational Studies and the Arts | Education & Arts
+        geology | Geology and Geography | Geography
+        history | History | |
+        journalism | Journalism and Mass Communication | Journalism
+        law | Law | | 5
+        fmi | Mathematics and Informatics | Maths & CS
+        medicine | Medicine | | 6
+        philosophy | Philosophy | |
+        physics | Physics | |
+        slavic | Slavic Studies | |
+        theology | Theology | |
+    """),
+    "bgacrs": (4, """
+        agriculture | Agriculture | |
+        architecture | Architecture | | 5
+        biology | Biology | |
+        chemistry | Chemistry | |
+        civil | Civil Engineering | |
+        dentistry | Dental Medicine | Dentistry | 6
+        economics | Economics and Business | Economics
+        etf | Electrical Engineering | |
+        forestry | Forestry | |
+        geography | Geography | |
+        law | Law | |
+        maths | Mathematics | |
+        mech | Mechanical Engineering | |
+        medicine | Medicine | | 6
+        mining | Mining and Geology | |
+        fon | Organizational Sciences | |
+        pharmacy | Pharmacy | | 5
+        philology | Philology | |
+        philosophy | Philosophy | |
+        physics | Physics | |
+        political | Political Sciences | |
+        security | Security Studies | |
+        special | Special Education and Rehabilitation | Special Education
+        sport | Sport and Physical Education | Sport
+        teacher | Teacher Education | |
+        tmf | Technology and Metallurgy | |
+        transport | Transport and Traffic Engineering | Transport
+        vet | Veterinary Medicine | | 6
+        theology | Orthodox Theology | |
+    """),
+    "unizg": (3, """
+        agriculture | Agriculture | |
+        architecture | Architecture | |
+        theology | Catholic Theology | |
+        chemeng | Chemical Engineering and Technology | Chemical Engineering
+        civil | Civil Engineering | |
+        croatian | Croatian Studies | |
+        dentistry | Dental Medicine | Dentistry | 6
+        economics | Economics and Business | Economics
+        erf | Education and Rehabilitation Sciences | Rehabilitation
+        fer | Electrical Engineering and Computing (FER) | FER
+        food | Food Technology and Biotechnology | Food Technology
+        forestry | Forestry and Wood Technology | Forestry
+        geodesy | Geodesy | |
+        graphic | Graphic Arts | |
+        ffzg | Humanities and Social Sciences | Humanities
+        kinesiology | Kinesiology | |
+        law | Law | | 5
+        fsb | Mechanical Engineering and Naval Architecture | Mechanical Engineering
+        medicine | Medicine | | 6
+        mining | Mining, Geology and Petroleum Engineering | Mining & Geology
+        foi | Organization and Informatics (Varaždin) | FOI
+        pharmacy | Pharmacy and Biochemistry | Pharmacy | 5
+        political | Political Science | |
+        pmf | Science | |
+        teacher | Teacher Education | |
+        textile | Textile Technology | |
+        transport | Transport and Traffic Sciences | Transport
+        vet | Veterinary Medicine | | 6
+        alu | Academy of Fine Arts | Fine Arts
+        music | Academy of Music | Music
+        adu | Academy of Dramatic Art | Drama
+    """),
+    "unilj": (3, """
+        arts | Arts | |
+        economics | School of Economics and Business | Economics
+        law | Law | | 4
+        social | Social Sciences | |
+        education | Education | |
+        sport | Sport | |
+        theology | Theology | |
+        administration | Public Administration | Administration
+        socialwork | Social Work | |
+        fri | Computer and Information Science | Computer Science
+        fe | Electrical Engineering | |
+        fs | Mechanical Engineering | |
+        fgg | Civil and Geodetic Engineering | Civil Engineering
+        architecture | Architecture | | 5
+        fkkt | Chemistry and Chemical Technology | Chemistry
+        fmf | Mathematics and Physics | Maths & Physics
+        ntf | Natural Sciences and Engineering | Natural Sciences
+        maritime | Maritime Studies and Transport | Maritime
+        bf | Biotechnical Faculty | Biotechnology
+        medicine | Medicine | | 6
+        pharmacy | Pharmacy | | 5
+        health | Health Sciences | |
+        vet | Veterinary Medicine | | 6
+        aluo | Academy of Fine Arts and Design | Fine Arts
+        music | Academy of Music | Music
+        agrft | Academy of Theatre, Radio, Film and Television | Theatre & Film
+    """),
+    "tartu": (3, """
+        humanities | Arts and Humanities | Humanities
+        law | Law | |
+        economics | School of Economics and Business | Economics
+        psychology | Psychology | |
+        education | Education | |
+        social | Social Sciences | |
+        medicine | Medicine | | 6
+        dentistry | Dentistry | | 5
+        pharmacy | Pharmacy | | 5
+        cs | Computer Science | |
+        maths | Mathematics and Statistics | Mathematics
+        physics | Physics | |
+        chemistry | Chemistry | |
+        ecology | Ecology and Earth Sciences | Ecology & Earth Sciences
+    """),
+    "vilnius": (4, """
+        chgf | Chemistry and Geosciences | Chemistry & Geosciences
+        communication | Communication | |
+        economics | Economics and Business Administration | Economics
+        history | History | |
+        law | Law | | 5
+        mif | Mathematics and Informatics | Maths & CS
+        medicine | Medicine | | 6
+        philology | Philology | |
+        philosophy | Philosophy | |
+        physics | Physics | |
+        life | Life Sciences Centre | Life Sciences
+        tspmi | International Relations and Political Science | Politics & IR
+        business | Business School | Business
+        kaunas | Kaunas Faculty | Kaunas
+        siauliai | Šiauliai Academy | Šiauliai
+    """),
+    "rtu": (4, """
+        architecture | Architecture | |
+        civil | Civil and Mechanical Engineering | Civil & Mechanical Eng.
+        cs | Computer Science, Information Technology and Energy | Computer Science & IT
+        etf | Electronics and Telecommunications | Electronics
+        economics | Engineering Economics and Management | Engineering Economics
+        science | Natural Sciences and Technology | Natural Sciences
+        aero | Aeronautics | |
+    """),
+}
+
+BATCHES = {"uk_ie": UK_IE, "central": CENTRAL, "south_west": SOUTH_WEST, "north_east": NORTH_EAST}
 
 
 def q(s: str) -> str:
