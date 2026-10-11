@@ -494,7 +494,7 @@ User decisions:
   departments, ON CONFLICT DO NOTHING) + 23 alias UPDATEs onto curated rows. 1,737 open institutions. `useCampus`
   pages its reads (`all()`, 1000 per request — the API's max rows); admin `CampusPicker` has a search (folded names /
   shorts / domains, first 60 + the picked one). Tests campus 85 (13a/13k 1737, 13r positions 100–999, 13s E2).
-  Live applied (aliases resolve).
+  Live applied (aliases resolve), deploy e3c4db42.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
