@@ -458,3 +458,7 @@ SELECT pg_temp.ok('13y CH / DE / AT / NL / BE campus feeds: 20 over 19 universit
   (SELECT count(*) FROM private.news_feeds WHERE university_id IN ('ethz','epfl','unige','fuberlin','bonn','charite','heidelberg',
     'wu','tudelft','uva','utrecht','rug','wur','vuamsterdam','utwente','radboud','ugent','ulb','vub')) = 20
   AND (SELECT count(DISTINCT university_id) FROM private.news_feeds WHERE url LIKE 'https://%ugent.be/%') = 1);
+SELECT pg_temp.ok('13z FR / IT / ES / PT campus feeds: 16, one per university, announcements',
+  (SELECT count(*) FROM private.news_feeds WHERE university_id IN ('sciencespo','psl','sorbonne','parissaclay','upcite',
+    'centralesupelec','uga','sapienza','polito','sns','unimi','unipisa','unipd','upc','ulisboa','uporto')
+    AND section_id = 'announcements') = 16);

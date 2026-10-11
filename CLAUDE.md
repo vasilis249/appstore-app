@@ -527,7 +527,13 @@ User decisions:
   U-Today, Vox, Schamper; official → announcements: EPFL, UNIGE, FU Berlin, Bonn, Charité, WU, Ghent, ULB, VUB). Most
   German / Swiss / Austrian universities, Mare, Erasmus Magazine, Cursor, Observant, Veto, Luxembourg: none. All 20
   parsed by Postgres xpath on the real files; live run: no errors, 2 headlines (Sunday: the rest older than 36 h).
-  Tests campus 91 (13y), speak 11e 81 feeds. NEXT: EN3 FR/IT/ES/PT/MT, EN4 Nordics + central/eastern.
+  Tests campus 91 (13y), speak 11e 81 feeds.
+  **EN3 ✔ (FR / IT / ES / PT)** — `20261102100200_campus_feeds_south_west.sql`: 16 official feeds → announcements (English
+  edition when active): Sciences Po, PSL, Sorbonne, Paris-Saclay, Paris Cité, CentraleSupélec, Grenoble, Sapienza,
+  Polito, SNS, La Statale, Pisa, Il Bo Live (Padua), UPC, ULisboa, U.Porto. Found by trying the CMS paths (`/rss.xml`,
+  `/en/rss.xml`, `/feed/`) on every site. Florence dropped (HTTP 403 to Supabase); none for most business schools,
+  Spanish universities, Polimi, Bocconi, Bologna, Malta. Live run: no errors, 8 headlines. Tests campus 92 (13z),
+  speak 11e 97 feeds. NEXT: EN4 Nordics + central/eastern.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
@@ -891,7 +897,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (124) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (91) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (124) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (92) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session
