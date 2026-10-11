@@ -545,7 +545,7 @@ User decisions:
   Paris, not before a field of study) → part before "of" (Frankfurt School) → initials + last word (OTH Amberg-Weiden)
   → `SHORT_BY_HAND` (21). `python3 supabase/data/europe_all.py shorts` → `20261103100000_europe_short_names.sql`
   (998 idempotent UPDATEs of long-named E2 rows). Live: 0 shorts with "…", none > 26 chars. Tests campus 94 (13zb).
-  **Live trial with 10 test students ✔ (user request 2026-10-11)** — LIVE accounts `speak.test01…10` ("Test …" names,
+  **Live trial with 10 test students ✔ (user request 2026-10-11)** — accounts `speak.test01…10` ("Test …" names,
   `speaktestNN@example.com`, password `SpeakTrial2026`), verified at ΑΠΘ (no real students there; departments
   Πληροφορική 3ο ×3, Ιατρική 2ο ×2, Νομική, ΗΜΜΥ, Ψυχολογία, Αρχιτέκτονες, Οικονομικό). Done through the real screens
   (Playwright, every request replayed with curl because Chromium can't trust the agent proxy CA; scratchpad
@@ -553,7 +553,8 @@ User decisions:
   listen-once, a public group (invite → accept → voice), notifications, search, Home, profile, a saved walkie 01 → 02,
   friends map (sharing switched off after). Student codes were issued in the DB (`private.student_code_issue`) and
   checked with the real `verify_student_code` — no mail sent to the made-up @auth.gr addresses. NOT covered: live
-  walkie / Realtime (no WebSockets through the proxy). To remove them: delete the 10 auth users (admin API) → cascades.
+  walkie / Realtime (no WebSockets through the proxy). DELETED after the trial (user request): 12 files from `voices/`,
+  the 10 auth users (cascade), and the 14 empty ΑΠΘ auto groups made on first use → live is as before (0 left).
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
