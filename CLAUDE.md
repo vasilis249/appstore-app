@@ -495,6 +495,13 @@ User decisions:
   pages its reads (`all()`, 1000 per request — the API's max rows); admin `CampusPicker` has a search (folded names /
   shorts / domains, first 60 + the picked one). Tests campus 85 (13a/13k 1737, 13r positions 100–999, 13s E2).
   Live applied (aliases resolve), deploy e3c4db42.
+  **Europe departments ED1 ✔ (UK + Ireland, user request 2026-10-11)** — `supabase/data/europe_departments.py` (edit
+  there; batch per argument: `uk_ie`) → `20261101100000_europe_departments_uk_ie.sql`: 691 departments for the 26 UK /
+  Irish E1 universities (the unit students name: department / school as the university calls it; English names;
+  years: England 3, integrated masters / year-abroad languages 4, Scotland +1, Ireland 4, medicine 5–6, dentistry / vet
+  5). Departments now 1,234 (> the API's 1000 rows → `useCampus` paging is required). Tests campus 86 (13r: no
+  departments only for positions 1000+, 13t UK/IE). Live applied (no client change, no deploy). NEXT: ED2 CH/DE/AT/
+  NL/BE/LU, ED3 FR/IT/ES/PT/MT, ED4 Nordics + central/eastern.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
@@ -858,7 +865,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (124) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (85) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (124) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (86) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

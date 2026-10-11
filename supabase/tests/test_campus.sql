@@ -394,9 +394,9 @@ SELECT pg_temp.ok('13q LSE: @lse.ac.uk, 25 departments, 3 years (+ master''s / P
   AND (SELECT count(*) FROM public.departments WHERE university_id = 'lse') = 25
   AND NOT EXISTS (SELECT 1 FROM public.departments WHERE university_id = 'lse' AND years <> 3)
   AND EXISTS (SELECT 1 FROM private.news_feeds WHERE university_id = 'lse' AND url LIKE 'https://thebeaverlse.co.uk/%' AND enabled));
-SELECT pg_temp.ok('13r Europe E1: 157 institutions without departments; student domains and sub-domains resolve',
+SELECT pg_temp.ok('13r Europe E1: 157 institutions, E2 ones without departments; student domains and sub-domains resolve',
   (SELECT count(*) FROM public.universities WHERE position BETWEEN 100 AND 999) = 157
-  AND NOT EXISTS (SELECT 1 FROM public.departments d JOIN public.universities u ON u.id = d.university_id WHERE u.position >= 100)
+  AND NOT EXISTS (SELECT 1 FROM public.departments d JOIN public.universities u ON u.id = d.university_id WHERE u.position >= 1000)
   AND private.university_for_email('ge12abc@mytum.de') = 'tum' AND private.university_for_email('a.b@student.uva.nl') = 'uva'
   AND private.university_for_email('mario.rossi@studbocconi.it') = 'bocconi' AND private.university_for_email('a@ucdconnect.ie') = 'ucd'
   AND private.university_for_email('a.b@chch.ox.ac.uk') = 'oxford' AND private.university_for_email('a@studenti.unipi.it') = 'unipisa'
@@ -407,3 +407,14 @@ SELECT pg_temp.ok('13s Europe E2: 1535 more from the domain list; old domains jo
   AND private.university_for_email('a@hut.fi') = 'aalto' AND private.university_for_email('a@sgul.ac.uk') = 'cityuol'
   AND private.university_for_email('a@tum.de') = 'tum'
   AND (SELECT count(*) FROM public.universities WHERE id = 'aalto' AND 'hut.fi' = ANY (email_domains)) = 1);
+SELECT pg_temp.ok('13t UK + Ireland departments: 691, every one of the 26 has 10+, years by degree',
+  (SELECT count(*) FROM public.departments d WHERE d.university_id IN ('oxford','cambridge','imperial','ucl','kcl','edinburgh',
+    'manchester','bristol','warwick','glasgow','durham','standrews','southampton','leeds','birmingham','sheffield','nottingham',
+    'qmul','bath','exeter','york','lancaster','cityuol','strathclyde','tcd','ucd')) = 691
+  AND (SELECT count(*) FROM (SELECT university_id FROM public.departments WHERE university_id IN ('oxford','cambridge','imperial',
+    'ucl','kcl','edinburgh','manchester','bristol','warwick','glasgow','durham','standrews','southampton','leeds','birmingham',
+    'sheffield','nottingham','qmul','bath','exeter','york','lancaster','cityuol','strathclyde','tcd','ucd')
+    GROUP BY university_id HAVING count(*) >= 10) x) = 26
+  AND (SELECT years FROM public.departments WHERE id = 'oxford-medicine') = 6
+  AND (SELECT years FROM public.departments WHERE id = 'edinburgh-informatics') = 5
+  AND (SELECT years FROM public.departments WHERE id = 'kcl-law') = 3);
