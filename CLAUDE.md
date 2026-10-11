@@ -537,7 +537,7 @@ User decisions:
   **EN4 ✔ (Nordics + central / eastern)** — `20261102100300_campus_feeds_north_east.sql`: 13 feeds for 12 universities
   (campuslife: Uniavisen EN, Lundagård, Ylioppilaslehti; announcements: Helsinki, Aalto, Iceland, Warsaw, Warsaw Tech,
   BME, Bucharest, Belgrade, Ljubljana, Tartu). Every feed parsed with the real Postgres helpers (items + dates); live
-  run: no errors, 0 new (newest items Friday, > 36 h). Campus news EN1–EN4: 71 feeds over 66 European universities;
+  run: no errors, 0 new (newest items Friday, > 36 h). Campus news EN1–EN4: 71 feeds over 65 European universities;
   total `private.news_feeds` 110. Tests campus 93 (13za), speak 11e 110 feeds.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
