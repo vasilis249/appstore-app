@@ -429,3 +429,13 @@ SELECT pg_temp.ok('13u CH / DE / AT / NL / BE / LU departments: 557 over 51 univ
   AND (SELECT years FROM public.departments WHERE id = 'univie-law') = 4
   AND (SELECT years FROM public.departments WHERE id = 'ugent-vet') = 6
   AND (SELECT years FROM public.departments WHERE id = 'tum-informatics') = 3);
+SELECT pg_temp.ok('13v FR / IT / ES / PT / MT departments: 605 over 46 universities, years by country',
+  (SELECT count(*) FROM public.departments WHERE university_id IN ('psl','polytechnique','sorbonne','parissaclay','sciencespo','hec',
+    'paris1','upcite','centralesupelec','essec','insead','uga','unistra','enssaclay','enslyon','aixmarseille','polimi','bocconi',
+    'sapienza','unibo','unipd','unimi','polito','sns','unipisa','unifi','unina','unito','luiss','ub','uab','ucm','uam','upf','upm',
+    'upc','uc3m','uv','unav','ieu','esade','ulisboa','uporto','ucoimbra','unl','um')) = 605
+  AND (SELECT years FROM public.departments WHERE id = 'bocconi-law') = 5
+  AND (SELECT years FROM public.departments WHERE id = 'ucm-law') = 4
+  AND (SELECT years FROM public.departments WHERE id = 'ulisboa-law') = 4
+  AND (SELECT years FROM public.departments WHERE id = 'sorbonne-medicine') = 6
+  AND (SELECT years FROM public.departments WHERE id = 'enslyon-maths') = 4);

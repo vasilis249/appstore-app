@@ -1423,7 +1423,711 @@ CENTRAL = {
     """),
 }
 
-BATCHES = {"uk_ie": UK_IE, "central": CENTRAL}
+# France (licence / bachelor 3, engineering cycle 3, ENS 4, IEP 5, medicine / pharmacy / dentistry 6), Italy (laurea 3,
+# ciclo unico 5: law, pharmacy, building engineering-architecture; medicine 6, veterinary 5), Spain (grado 4; medicine
+# 6, architecture / pharmacy / dentistry / veterinary 5), Portugal (licenciatura 3, law 4, medicine 6, architecture /
+# pharmacy / dentistry 5), Malta (3; medicine 5, dentistry 5, engineering 4). Business schools: their programmes.
+SOUTH_WEST = {
+    "psl": (3, """
+        ens | École normale supérieure | ENS | 4
+        dauphine | Université Paris Dauphine | Dauphine
+        mines | Mines Paris | Mines
+        espci | ESPCI Paris | ESPCI
+        chimie | Chimie ParisTech | Chimie ParisTech
+        observatoire | Paris Observatory | Observatoire
+        ephe | École pratique des hautes études | EPHE
+        chartes | École nationale des chartes | Chartes
+        beauxarts | Beaux-Arts de Paris | Beaux-Arts | 5
+        cnsad | Conservatoire national supérieur d'art dramatique | CNSAD
+        femis | La Fémis | Fémis | 4
+        cpes | PSL Bachelor (CPES) | CPES
+    """),
+    "polytechnique": (3, """
+        x | École polytechnique | Polytechnique
+        bachelor | Bachelor of Science | Bachelor
+        ensta | ENSTA Paris | ENSTA
+        ensae | ENSAE Paris | ENSAE
+        telecomparis | Télécom Paris | Télécom Paris
+        sudparis | Télécom SudParis | Télécom SudParis
+    """),
+    "sorbonne": (3, """
+        french | French and Comparative Literature | Literature
+        history | History | |
+        philosophy | Philosophy | |
+        languages | Foreign Languages and Literatures | Languages
+        art-history | Art History and Archaeology | Art History
+        geography | Geography | |
+        music | Musicology | |
+        sociology | Sociology | |
+        celsa | CELSA (Information and Communication) | CELSA
+        maths | Mathematics | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        biology | Life Sciences | Biology
+        earth | Earth, Environment and Biodiversity | Earth Sciences
+        cs | Computer Science | |
+        polytech | Polytech Sorbonne (Engineering) | Engineering
+        medicine | Medicine | | 6
+        dentistry | Dentistry | | 6
+    """),
+    "parissaclay": (3, """
+        science | Science (Orsay) | Science
+        medicine | Medicine | | 6
+        pharmacy | Pharmacy | | 6
+        law | Law, Economics and Management (Jean Monnet) | Law & Economics
+        sport | Sport Sciences | Sport
+        polytech | Polytech Paris-Saclay | Polytech
+        agro | AgroParisTech | AgroParisTech
+        optique | Institut d'Optique | Optique
+        iut | IUT (Orsay, Cachan, Sceaux) | IUT
+    """),
+    "sciencespo": (3, """
+        paris | College — Paris campus | Paris
+        reims | College — Reims campus | Reims
+        lehavre | College — Le Havre campus | Le Havre
+        menton | College — Menton campus | Menton
+        nancy | College — Nancy campus | Nancy
+        poitiers | College — Poitiers campus | Poitiers
+        dijon | College — Dijon campus | Dijon
+        psia | Paris School of International Affairs | PSIA | 2
+        publicaffairs | School of Public Affairs | Public Affairs | 2
+        management | School of Management and Impact | Management | 2
+        law | Law School | Law | 2
+        journalism | Journalism School | Journalism | 2
+        urban | Urban School | Urban | 2
+    """),
+    "hec": (3, """
+        mim | Grande École (Master in Management) | MiM
+        bachelor | Bachelor | |
+        msc | MSc and Specialised Masters | MSc | 2
+        mba | MBA | | 2
+        emba | Executive MBA | EMBA | 2
+    """),
+    "paris1": (3, """
+        law | Law | |
+        political | Political Science | |
+        economics | Economics | |
+        management | Management (IAE Paris-Sorbonne) | Management
+        maths | Applied Mathematics and Social Sciences | Maths & Social Sciences
+        history | History | |
+        art-history | Art History and Archaeology | Art History
+        philosophy | Philosophy | |
+        geography | Geography | |
+        arts | Plastic Arts and Art Sciences | Arts
+        cinema | Cinema | |
+        demography | Demography and Social Sciences | Demography
+        tourism | Tourism (IREST) | Tourism
+    """),
+    "upcite": (3, """
+        medicine | Medicine | | 6
+        pharmacy | Pharmacy | | 6
+        dentistry | Dentistry | | 6
+        science | Science (Mathematics, Physics, Chemistry, Biology, Computer Science) | Science
+        earth | Earth Sciences (IPGP) | Earth Sciences
+        psychology | Psychology | |
+        languages | Languages and Linguistics | Languages
+        letters | Letters, Arts and Cinema | Letters & Cinema
+        history | History, Geography and Social Sciences | History & Social Sciences
+        law | Law, Economics and Management | Law & Economics
+        humanities | Humanities and Social Sciences | Humanities
+        iut | IUT Paris | IUT
+    """),
+    "centralesupelec": (3, """
+        engineering | Engineering Programme | Engineering
+        bachelor | Bachelor in Global Engineering | Bachelor
+        masters | Master's Programmes | Masters | 2
+    """),
+    "essec": (3, """
+        bba | Global BBA | BBA | 4
+        mim | Grande École (Master in Management) | MiM
+        msc | MSc Programmes | MSc | 2
+        mba | MBA | | 2
+    """),
+    "insead": (1, """
+        mba | MBA | |
+        emba | Executive MBA | EMBA | 2
+        mim | Master in Management | MiM
+    """),
+    "uga": (3, """
+        science | Science (Mathematics, Physics, Chemistry, Biology) | Science
+        cs | Computer Science (IM2AG) | Computer Science
+        earth | Earth Sciences (OSUG) | Earth Sciences
+        inp | Grenoble INP (Engineering) | Grenoble INP
+        sciencespo | Sciences Po Grenoble | Sciences Po | 5
+        law | Law | |
+        economics | Grenoble School of Economics | Economics
+        iae | Grenoble IAE (Management) | Management
+        medicine | Medicine | | 6
+        pharmacy | Pharmacy | | 6
+        languages | Languages (LLASIC) | Languages
+        arts | Arts and Humanities | |
+        psychology | Psychology | |
+        staps | Sport Sciences | Sport
+        iut | IUT | |
+    """),
+    "unistra": (3, """
+        law | Law, Political Science and Management | Law
+        em | EM Strasbourg Business School | Business
+        economics | Economics and Management | Economics
+        sciencespo | Sciences Po Strasbourg | Sciences Po | 5
+        medicine | Medicine | | 6
+        dentistry | Dentistry | | 6
+        pharmacy | Pharmacy | | 6
+        mathcs | Mathematics and Computer Science | Maths & CS
+        physics | Physics and Engineering | Physics
+        chemistry | Chemistry | |
+        life | Life Sciences | |
+        eost | Earth Sciences (EOST) | Earth Sciences
+        languages | Languages | |
+        letters | Letters | |
+        history | History | |
+        philosophy | Philosophy | |
+        psychology | Psychology | |
+        social | Social Sciences | |
+        arts | Arts | |
+        staps | Sport Sciences | Sport
+        theology | Theology (Protestant and Catholic) | Theology
+        telecom | Télécom Physique Strasbourg | Télécom Physique
+        ecpm | ECPM (Chemistry and Polymers Engineering) | ECPM
+        iut | IUT | |
+    """),
+    "enssaclay": (4, """
+        maths | Mathematics | |
+        cs | Computer Science | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        biology | Biology | |
+        eea | Electronics, Electrical Energy and Automation | Electrical Engineering
+        mech | Mechanical Engineering | |
+        civil | Civil Engineering | |
+        economics | Economics and Management | Economics
+        social | Social Sciences | |
+        english | English | |
+        design | Design | |
+    """),
+    "enslyon": (4, """
+        maths | Mathematics | |
+        cs | Computer Science | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        biology | Biology | |
+        earth | Earth Sciences | |
+        letters | Letters and Arts | Letters
+        languages | Languages | |
+        history | History | |
+        philosophy | Philosophy | |
+        social | Social Sciences | |
+        education | Education | |
+    """),
+    "aixmarseille": (3, """
+        law | Law and Political Science | Law
+        economics | Economics (AMSE) | Economics
+        iae | IAE Aix-Marseille (Management) | Management
+        allsh | Arts, Letters, Languages and Human Sciences | Humanities
+        science | Sciences | |
+        medicine | Medicine | | 6
+        pharmacy | Pharmacy | | 6
+        dentistry | Dentistry | | 6
+        staps | Sport Sciences | Sport
+        polytech | Polytech Marseille | Polytech
+        iut | IUT | |
+        sciencespo | Sciences Po Aix | Sciences Po | 5
+        inspe | Education (INSPÉ) | Education
+        journalism | Journalism (EJCM) | Journalism
+    """),
+    "polimi": (3, """
+        architecture | Architecture | |
+        building | Building Engineering-Architecture | Building Engineering | 5
+        planning | Urban Planning | |
+        design | Design (Product, Fashion, Interior, Communication) | Design
+        aero | Aerospace Engineering | |
+        bme | Biomedical Engineering | |
+        chemeng | Chemical Engineering | |
+        civil | Civil Engineering | |
+        ee | Electrical Engineering | |
+        electronics | Electronic Engineering | |
+        energy | Energy Engineering | |
+        environmental | Environmental and Land Planning Engineering | Environmental Engineering
+        cs | Computer Science and Engineering | Computer Engineering
+        management | Management Engineering | |
+        materials | Materials Engineering | |
+        maths | Mathematical Engineering | |
+        mech | Mechanical Engineering | |
+        physics | Engineering Physics | |
+        automation | Automation and Control Engineering | Automation Engineering
+    """),
+    "bocconi": (3, """
+        cleam | Economics and Management (CLEAM) | CLEAM
+        biem | International Economics and Management (BIEM) | BIEM
+        bemacs | Economics, Management and Computer Science (BEMACS) | BEMACS
+        bess | Economic and Social Sciences (BESS) | BESS
+        bief | International Economics and Finance (BIEF) | BIEF
+        big | International Politics and Government (BIG) | BIG
+        bai | Mathematical and Computing Sciences for AI (BAI) | BAI
+        wbb | World Bachelor in Business | WBB | 4
+        law | Law | | 5
+        sda | SDA Bocconi (MBA) | SDA | 2
+    """),
+    "sapienza": (3, """
+        architecture | Architecture | |
+        economics | Economics | |
+        pharmmed | Pharmacy and Medicine | Pharmacy & Medicine | 6
+        law | Law | | 5
+        civil | Civil and Industrial Engineering | Civil & Industrial Eng.
+        diag | Information Engineering, Computer Science and Statistics | Computer Engineering & Stats
+        letters | Letters and Philosophy | |
+        medicine | Medicine and Dentistry | Medicine | 6
+        psychology | Medicine and Psychology | Psychology
+        science | Mathematical, Physical and Natural Sciences | Sciences
+        political | Political Science, Sociology and Communication | Politics & Communication
+    """),
+    "unibo": (3, """
+        agriculture | Agricultural and Food Sciences | Agriculture
+        architecture | Architecture | | 5
+        arts | Arts (Music, Theatre, Visual Arts) | Arts
+        chemistry | Chemistry | |
+        cs | Computer Science and Engineering | Computer Science
+        economics | Economics | |
+        management | Management | |
+        stats | Statistical Sciences | Statistics
+        law | Law | | 5
+        political | Political and Social Sciences | Political Science
+        philosophy | Philosophy and Communication | Philosophy & Communication
+        history | History and Cultures | History
+        classics | Classical Philology and Italian Studies | Classics & Italian
+        lilec | Modern Languages, Literatures and Cultures | Languages
+        interpreting | Interpreting and Translation (Forlì) | Translation
+        education | Education | |
+        psychology | Psychology | |
+        maths | Mathematics | |
+        physics | Physics and Astronomy | Physics
+        bigea | Biological, Geological and Environmental Sciences | Biology & Geology
+        pharmacy | Pharmacy and Biotechnology | Pharmacy | 5
+        medicine | Medicine | | 6
+        vet | Veterinary Medicine | | 5
+        dicam | Civil, Chemical, Environmental and Materials Engineering | Civil & Chemical Eng.
+        dei | Electrical, Electronic and Information Engineering | Electronic Engineering
+        din | Industrial Engineering | |
+        sociology | Sociology and Business Law | Sociology
+    """),
+    "unipd": (3, """
+        agriculture | Agriculture | |
+        biology | Biology | |
+        chemistry | Chemical Sciences | Chemistry
+        icea | Civil, Environmental and Architectural Engineering | Civil Engineering
+        dei | Information Engineering | |
+        industrial | Industrial Engineering | |
+        management | Management Engineering | |
+        economics | Economics and Management | Economics
+        stats | Statistical Sciences | Statistics
+        law | Law | | 5
+        political | Political Science, Law and International Studies | Political Science
+        fisppa | Philosophy, Sociology, Education and Applied Psychology | Philosophy & Education
+        psychology | Psychology | |
+        history | Historical and Geographic Sciences | History & Geography
+        heritage | Cultural Heritage | |
+        languages | Linguistic and Literary Studies | Languages
+        maths | Mathematics | |
+        physics | Physics and Astronomy | Physics
+        geosciences | Geosciences | |
+        pharmacy | Pharmaceutical Sciences | Pharmacy | 5
+        medicine | Medicine | | 6
+        vet | Veterinary Medicine | | 5
+    """),
+    "unimi": (3, """
+        agriculture | Agricultural and Food Sciences | Agriculture
+        law | Law | | 5
+        humanities | Humanities | |
+        medicine | Medicine and Surgery | Medicine | 6
+        vet | Veterinary Medicine | | 5
+        pharmacy | Pharmacy | | 5
+        political | Political, Economic and Social Sciences | Politics & Economics
+        languages | Linguistic Mediation and Cultural Studies | Languages
+        maths | Mathematics | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        biology | Biosciences | Biology
+        cs | Computer Science | |
+        earth | Earth Sciences | |
+        sport | Exercise and Sport Sciences | Sport
+    """),
+    "polito": (3, """
+        architecture | Architecture | |
+        design | Design | |
+        aero | Aerospace Engineering | |
+        automotive | Automotive Engineering | |
+        bme | Biomedical Engineering | |
+        chemeng | Chemical Engineering | |
+        civil | Civil Engineering | |
+        computer | Computer Engineering | |
+        ee | Electrical Engineering | |
+        electronics | Electronic Engineering | |
+        energy | Energy Engineering | |
+        environmental | Environmental Engineering | |
+        management | Management Engineering | |
+        materials | Materials Engineering | |
+        maths | Mathematical Engineering | |
+        mech | Mechanical Engineering | |
+        physics | Engineering Physics | |
+        cinema | Cinema and Media Engineering | Cinema Engineering
+        planning | Territorial, Urban and Landscape Planning | Planning
+    """),
+    "sns": (5, """
+        sciences | Faculty of Sciences | Sciences
+        humanities | Faculty of Humanities | Humanities
+        political | Faculty of Political and Social Sciences | Political & Social Sciences
+    """),
+    "unipisa": (3, """
+        agriculture | Agriculture, Food and Environment | Agriculture
+        biology | Biology | |
+        chemistry | Chemistry and Industrial Chemistry | Chemistry
+        civil | Civil and Industrial Engineering | Civil & Industrial Eng.
+        information | Information Engineering | |
+        energy | Energy, Systems, Territory and Construction Engineering | Energy & Construction Eng.
+        cs | Computer Science | |
+        maths | Mathematics | |
+        physics | Physics | |
+        earth | Earth Sciences | |
+        economics | Economics and Management | Economics
+        law | Law | | 5
+        political | Political Science | |
+        civilisations | Civilisations and Forms of Knowledge | History & Philosophy
+        philology | Philology, Literature and Linguistics | Literature & Linguistics
+        pharmacy | Pharmacy | | 5
+        medicine | Medicine | | 6
+        vet | Veterinary Sciences | Veterinary | 5
+    """),
+    "unifi": (3, """
+        agriculture | Agriculture | |
+        architecture | Architecture | | 5
+        economics | Economics and Management | Economics
+        law | Law | | 5
+        engineering | Engineering | |
+        humanities | Humanities and Education | Humanities
+        science | Mathematical, Physical and Natural Sciences | Sciences
+        medicine | Medicine | | 6
+        pharmacy | Pharmacy | | 5
+        psychology | Psychology | |
+        political | Political Science "Cesare Alfieri" | Political Science
+    """),
+    "unina": (3, """
+        agriculture | Agricultural Sciences | Agriculture
+        architecture | Architecture | | 5
+        biology | Biology | |
+        chemistry | Chemical Sciences | Chemistry
+        economics | Economics and Statistics | Economics
+        dieti | Electrical Engineering and Information Technology | Electrical & Computer Eng.
+        industrial | Industrial Engineering | |
+        civil | Civil, Architectural and Environmental Engineering | Civil Engineering
+        chemeng | Chemical, Materials and Production Engineering | Chemical Engineering
+        law | Law | | 5
+        humanities | Humanities | |
+        social | Social Sciences | |
+        political | Political Science | |
+        maths | Mathematics and Applications | Mathematics
+        physics | Physics | |
+        earth | Earth, Environmental and Resources Sciences | Earth Sciences
+        pharmacy | Pharmacy | | 5
+        medicine | Medicine | | 6
+        vet | Veterinary Medicine | | 5
+    """),
+    "unito": (3, """
+        management | Management | |
+        economics | Economics and Statistics | Economics
+        law | Law | | 5
+        political | Cultures, Politics and Society | Politics & Society
+        philosophy | Philosophy and Education | Philosophy & Education
+        humanities | Humanities | |
+        languages | Foreign Languages, Literatures and Modern Cultures | Languages
+        history | Historical Studies | History
+        psychology | Psychology | |
+        cs | Computer Science | |
+        maths | Mathematics | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        life | Life Sciences and Systems Biology | Life Sciences
+        earth | Earth Sciences | |
+        pharmacy | Drug Science and Technology | Pharmacy | 5
+        medicine | Medicine | | 6
+        vet | Veterinary Sciences | Veterinary | 5
+        agriculture | Agricultural, Forest and Food Sciences | Agriculture
+    """),
+    "luiss": (3, """
+        business | Business and Management | Business
+        economics | Economics and Finance | Economics
+        law | Law | | 5
+        political | Political Science | |
+        lbs | LUISS Business School | LBS | 2
+    """),
+    "ub": (4, """
+        finearts | Fine Arts | |
+        biology | Biology | |
+        earth | Earth Sciences | |
+        economics | Economics and Business | Economics & Business
+        education | Education | |
+        pharmacy | Pharmacy and Food Sciences | Pharmacy | 5
+        philology | Philology and Communication | Philology
+        philosophy | Philosophy | |
+        physics | Physics | |
+        history | Geography and History | History
+        information | Information and Audiovisual Media | Information & Media
+        law | Law | |
+        mathcs | Mathematics and Computer Science | Maths & CS
+        medicine | Medicine | | 6
+        nursing | Nursing | |
+        dentistry | Dentistry | | 5
+        psychology | Psychology | |
+        chemistry | Chemistry | |
+    """),
+    "uab": (4, """
+        biosciences | Biosciences | |
+        communication | Communication Sciences | Communication
+        political | Political Science and Sociology | Politics & Sociology
+        education | Education | |
+        economics | Economics and Business | Economics & Business
+        law | Law | |
+        arts | Philosophy and Arts | Philosophy & Arts
+        translation | Translation and Interpreting | Translation
+        medicine | Medicine | | 6
+        psychology | Psychology | |
+        sciences | Sciences | |
+        vet | Veterinary Medicine | | 5
+        engineering | School of Engineering | Engineering
+    """),
+    "ucm": (4, """
+        finearts | Fine Arts | |
+        biology | Biological Sciences | Biology
+        chemistry | Chemical Sciences | Chemistry
+        maths | Mathematical Sciences | Mathematics
+        physics | Physical Sciences | Physics
+        geology | Geological Sciences | Geology
+        cs | Computer Science | |
+        economics | Economics and Business | Economics & Business
+        law | Law | |
+        political | Political Science and Sociology | Politics & Sociology
+        information | Information Sciences (Journalism, Audiovisual, Advertising) | Journalism & Media
+        education | Education | |
+        philology | Philology | |
+        philosophy | Philosophy | |
+        history | Geography and History | History
+        medicine | Medicine | | 6
+        dentistry | Dentistry | | 5
+        pharmacy | Pharmacy | | 5
+        vet | Veterinary Medicine | | 5
+        nursing | Nursing, Physiotherapy and Podiatry | Nursing
+        optics | Optics and Optometry | Optics
+        psychology | Psychology | |
+        socialwork | Social Work | |
+        documentation | Documentation Sciences | Documentation
+        tourism | Commerce and Tourism | Commerce & Tourism
+        stats | Statistical Studies | Statistics
+    """),
+    "uam": (4, """
+        biology | Biology | |
+        chemistry | Chemistry | |
+        physics | Physics | |
+        maths | Mathematics | |
+        economics | Economics and Business | Economics & Business
+        law | Law | |
+        letters | Philosophy and Letters | Philosophy & Letters
+        medicine | Medicine | | 6
+        psychology | Psychology | |
+        education | Teacher Training and Education | Education
+        eps | Polytechnic School (Computer Science, Telecommunications) | Engineering
+    """),
+    "upf": (4, """
+        biology | Health and Life Sciences | Biology
+        medicine | Medicine | | 6
+        economics | Economics and Business | Economics & Business
+        humanities | Humanities | |
+        law | Law | |
+        communication | Communication | |
+        political | Political and Social Sciences | Political Science
+        translation | Translation and Language Sciences | Translation
+        engineering | Engineering (ICT) | Engineering
+        bsm | Barcelona School of Management | BSM | 2
+    """),
+    "upm": (4, """
+        aero | Aeronautical and Space Engineering | Aerospace
+        agronomy | Agronomic, Food and Biosystems Engineering | Agronomy
+        civil | Civil Engineering (Caminos) | Civil Engineering
+        industrial | Industrial Engineering | |
+        informatics | Computer Science (Informáticos) | Computer Science
+        mines | Mining and Energy Engineering | Mining & Energy
+        forestry | Forestry and Natural Environment | Forestry
+        naval | Naval and Ocean Engineering | Naval
+        telecom | Telecommunications Engineering | Telecommunications
+        architecture | Architecture (ETSAM) | Architecture | 5
+        building | Building Engineering | Building
+        design | Design and Industrial Engineering | Industrial Design
+        topography | Surveying, Geodesy and Cartography | Surveying
+        systems | Computer Systems Engineering | Computer Systems
+        inef | Physical Activity and Sport Sciences (INEF) | Sport
+    """),
+    "upc": (4, """
+        etseib | Industrial Engineering of Barcelona (ETSEIB) | ETSEIB
+        etsetb | Telecommunications Engineering (ETSETB) | Telecom ETSETB
+        fib | Informatics (FIB) | FIB
+        camins | Civil Engineering (Camins) | Civil Engineering
+        etsab | Architecture of Barcelona (ETSAB) | ETSAB | 5
+        fme | Mathematics and Statistics (FME) | FME
+        eebe | Barcelona East Engineering (EEBE) | EEBE
+        etsav | Architecture of the Vallès (ETSAV) | ETSAV | 5
+        eetac | Telecommunications and Aerospace (Castelldefels) | EETAC
+        fnb | Nautical Studies (FNB) | Nautical
+        eseiaat | Industrial, Aerospace and Audiovisual Engineering (Terrassa) | ESEIAAT
+        epsevg | Vilanova i la Geltrú Engineering (EPSEVG) | EPSEVG
+        epsem | Manresa Engineering (EPSEM) | EPSEM
+        esab | Agri-Food and Biosystems (ESAB) | ESAB
+        foot | Optics and Optometry (Terrassa) | Optics
+    """),
+    "uc3m": (4, """
+        law | Law | |
+        economics | Economics | |
+        business | Business Administration | Business
+        political | Political Science | |
+        communication | Communication and Media (Journalism, Audiovisual) | Communication
+        humanities | Humanities | |
+        aero | Aerospace Engineering | |
+        cs | Computer Science and Engineering | Computer Science
+        industrial | Industrial Engineering | |
+        telecom | Telecommunications Engineering | Telecommunications
+        bme | Biomedical Engineering | |
+        data | Data Science and Engineering | Data Science
+    """),
+    "uv": (4, """
+        law | Law | |
+        economics | Economics | |
+        social | Social Sciences | |
+        philosophy | Philosophy and Education | Philosophy & Education
+        philology | Philology, Translation and Communication | Philology & Communication
+        history | Geography and History | History
+        psychology | Psychology and Speech Therapy | Psychology
+        medicine | Medicine and Dentistry | Medicine | 6
+        pharmacy | Pharmacy and Food Sciences | Pharmacy | 5
+        nursing | Nursing and Podiatry | Nursing
+        physio | Physiotherapy | |
+        biology | Biological Sciences | Biology
+        chemistry | Chemistry | |
+        physics | Physics | |
+        maths | Mathematics | |
+        etse | Engineering (ETSE) | Engineering
+        teacher | Teacher Training | Teacher Training
+        sport | Physical Activity and Sport Sciences | Sport
+    """),
+    "unav": (4, """
+        communication | Communication | |
+        law | Law | |
+        economics | Economics and Business | Economics & Business
+        letters | Philosophy and Letters | Philosophy & Letters
+        medicine | Medicine | | 6
+        nursing | Nursing | |
+        pharmacy | Pharmacy and Nutrition | Pharmacy | 5
+        sciences | Sciences | |
+        architecture | Architecture | | 5
+        tecnun | Engineering (Tecnun) | Engineering
+        education | Education and Psychology | Education & Psychology
+        theology | Theology | |
+        iese | IESE Business School | IESE | 2
+    """),
+    "ieu": (4, """
+        business | School of Business | Business
+        law | School of Law and Governance | Law & Governance
+        science | School of Science and Technology | Science & Technology
+        architecture | School of Architecture and Design | Architecture & Design | 5
+        humanities | School of Humanities | Humanities
+        mba | IE Business School (MBA, Masters) | IE Business School | 2
+    """),
+    "esade": (4, """
+        bba | Business Administration (BBA) | BBA
+        law | Law | |
+        masters | Master's Programmes | Masters | 1
+        mba | MBA | | 2
+    """),
+    "ulisboa": (3, """
+        architecture | Architecture | | 5
+        finearts | Fine Arts | |
+        sciences | Sciences | |
+        law | Law | | 4
+        pharmacy | Pharmacy | | 5
+        letters | Arts and Humanities | |
+        medicine | Medicine | | 6
+        dentistry | Dental Medicine | Dentistry | 5
+        vet | Veterinary Medicine | | 6
+        psychology | Psychology | |
+        education | Institute of Education | Education
+        fmh | Human Kinetics | Sport
+        isa | Agronomy (ISA) | Agronomy
+        iscsp | Social and Political Sciences (ISCSP) | ISCSP
+        iseg | Economics and Management (ISEG) | ISEG
+        tecnico | Instituto Superior Técnico (Engineering) | Técnico
+        igot | Geography and Spatial Planning | Geography
+    """),
+    "uporto": (3, """
+        architecture | Architecture | | 5
+        finearts | Fine Arts | |
+        sciences | Sciences | |
+        sport | Sport | |
+        law | Law | | 4
+        economics | Economics (FEP) | Economics
+        feup | Engineering (FEUP) | Engineering
+        pharmacy | Pharmacy | | 5
+        letters | Arts and Humanities | |
+        medicine | Medicine | | 6
+        dentistry | Dental Medicine | Dentistry | 5
+        psychology | Psychology and Education Sciences | Psychology
+        nutrition | Nutrition and Food Sciences | Nutrition
+        icbas | Biomedical Sciences (ICBAS) | ICBAS | 6
+    """),
+    "ucoimbra": (3, """
+        letters | Letters | |
+        law | Law | | 4
+        medicine | Medicine | | 6
+        pharmacy | Pharmacy | | 5
+        economics | Economics | |
+        psychology | Psychology and Education Sciences | Psychology
+        sport | Sport Sciences and Physical Education | Sport
+        informatics | Informatics Engineering | |
+        electrical | Electrical and Computer Engineering | Electrical Engineering
+        civil | Civil Engineering | |
+        mech | Mechanical Engineering | |
+        chemeng | Chemical Engineering | |
+        maths | Mathematics | |
+        physics | Physics | |
+        chemistry | Chemistry | |
+        life | Life Sciences | |
+        earth | Earth Sciences | |
+        architecture | Architecture | | 5
+    """),
+    "unl": (3, """
+        sbe | NOVA School of Business and Economics | NOVA SBE
+        law | NOVA School of Law | Law | 4
+        fcsh | Social Sciences and Humanities | FCSH
+        fct | Science and Technology | FCT
+        medicine | NOVA Medical School | Medicine | 6
+        ims | Information Management (NOVA IMS) | NOVA IMS
+        ensp | National School of Public Health | Public Health
+        ihmt | Hygiene and Tropical Medicine | Tropical Medicine
+    """),
+    "um": (3, """
+        arts | Arts | |
+        built | Built Environment | Architecture
+        dental | Dental Surgery | Dentistry | 5
+        emaa | Economics, Management and Accountancy | Economics & Management
+        education | Education | |
+        engineering | Engineering | | 4
+        health | Health Sciences | |
+        ict | Information and Communication Technology | ICT
+        laws | Laws | Law
+        media | Media and Knowledge Sciences | Media
+        medicine | Medicine and Surgery | Medicine | 5
+        science | Science | |
+        social | Social Wellbeing | |
+        theology | Theology | |
+    """),
+}
+
+BATCHES = {"uk_ie": UK_IE, "central": CENTRAL, "south_west": SOUTH_WEST}
 
 
 def q(s: str) -> str:
