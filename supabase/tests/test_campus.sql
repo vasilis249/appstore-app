@@ -462,3 +462,6 @@ SELECT pg_temp.ok('13z FR / IT / ES / PT campus feeds: 16, one per university, a
   (SELECT count(*) FROM private.news_feeds WHERE university_id IN ('sciencespo','psl','sorbonne','parissaclay','upcite',
     'centralesupelec','uga','sapienza','polito','sns','unimi','unipisa','unipd','upc','ulisboa','uporto')
     AND section_id = 'announcements') = 16);
+SELECT pg_temp.ok('13za Nordic / central-eastern campus feeds: 13 over 12 universities',
+  (SELECT count(*) FROM private.news_feeds WHERE university_id IN ('ucph','lund','helsinki','aalto','hi','uw','pw','bme','unibuc',
+    'bgacrs','unilj','tartu')) = 13);
