@@ -471,6 +471,11 @@ User decisions:
   Follow-up `20261028100100_daily_trojan.sql`: Daily Trojan RSS (student paper, 100 items, photos) → USC campus section
   `campuslife`; title rule drops "Classifieds" (URLs carry no section). Tests campus 82 (13p), speak 11e 38 feeds.
   Live: first ingest 2 headlines with photos.
+  **LSE ✔ (user request 2026-10-11)** migration `20261030100000_lse.sql`: `lse` London School of Economics, domain
+  `lse.ac.uk` (MX checked), 25 academic departments (English names, 3 years: UK undergraduate; master's/PhD as
+  everywhere), campus news = The Beaver (LSE SU paper) `thebeaverlse.co.uk/feed/` → `campuslife` (NOT
+  beaveronline.co.uk: a recipe site now; LSE has no public news RSS). 45 open institutions. Tests campus 83 (13q),
+  speak 11e 39 feeds. Live applied; no Beaver item < 36 h yet (last issue 10-07) → comes with its next issue.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,

@@ -314,8 +314,8 @@ SELECT pg_temp.ok('12g removed moderator: no access', pg_temp.fails('SELECT * FR
 RESET ROLE;
 
 -- 13 Attica universities
-SELECT pg_temp.ok('13a 44 open institutions; every Greek / Cypriot public one has departments',
-  (SELECT count(*) FROM public.universities WHERE open) = 44
+SELECT pg_temp.ok('13a 45 open institutions; every Greek / Cypriot public one has departments',
+  (SELECT count(*) FROM public.universities WHERE open) = 45
   AND NOT EXISTS (SELECT 1 FROM public.universities u WHERE u.id NOT IN ('ouc','unic','euc','frederick','nup','uclancy',
     'city','mitropolitiko','bca','ist','nyc','medcollege','act','hau','perrotis')
     AND NOT EXISTS (SELECT 1 FROM public.departments d WHERE d.university_id = u.id)));
@@ -362,7 +362,7 @@ RESET ROLE;
 INSERT INTO private.admins (user_id) VALUES (:E);
 SELECT pg_temp.as_user(:E); SET ROLE authenticated;
 SELECT pg_temp.ok('13k admin overview lists every open campus with its students',
-  (SELECT count(*) FROM public.admin_campuses()) = 44
+  (SELECT count(*) FROM public.admin_campuses()) = 45
   AND (SELECT students FROM public.admin_campuses() WHERE university_id = 'uoa') = 1);
 RESET ROLE;
 SELECT pg_temp.ok('13l campus news feeds for 7 more universities, into Ανακοινώσεις',
@@ -389,3 +389,8 @@ SELECT pg_temp.ok('13p Daily Trojan → USC Φοιτητική ζωή; its Class
   (SELECT private.route_headline(id, 'https://dailytrojan.com/2026/10/02/usg-allocates/', 'USG allocates $2,041 for Period Pantry') = 'campuslife'
      AND private.route_headline(id, 'https://dailytrojan.com/2026/10/02/classifieds-october-2-2026/', 'Classifieds – October 2, 2026') IS NULL
    FROM private.news_feeds WHERE url = 'https://dailytrojan.com/feed/' AND university_id = 'usc'));
+SELECT pg_temp.ok('13q LSE: @lse.ac.uk, 25 departments, 3 years (+ master''s / PhD), The Beaver feed',
+  private.university_for_email('j.doe@lse.ac.uk') = 'lse' AND private.university_for_email('a@lse.ac.uk.evil.com') IS NULL
+  AND (SELECT count(*) FROM public.departments WHERE university_id = 'lse') = 25
+  AND NOT EXISTS (SELECT 1 FROM public.departments WHERE university_id = 'lse' AND years <> 3)
+  AND EXISTS (SELECT 1 FROM private.news_feeds WHERE university_id = 'lse' AND url LIKE 'https://thebeaverlse.co.uk/%' AND enabled));
