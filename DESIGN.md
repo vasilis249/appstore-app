@@ -62,6 +62,9 @@ ring while held (`.animate-rec-pulse`) · push / pop slides with parallax, tabs 
   the messages button · chips · feed.
 - **Post** (`PostCard`, like X): avatar · "name school · time" · ⋯; blue place line; text (≤ 280, full); 1–4 photos
   (one wide, two side by side, three = tall + two, 2×2); a slim white voice pill when it has a voice; 💬 ⟲ ♥ ✈ + 🎧.
+- **Post page**: photos + a voice → the first photo is a hero with the player on it as liquid glass (the photo bends
+  through it: SVG displacement, the only refracting element); a photo tap opens `PhotoViewer` (black, swipe, glass ✕).
+- **Map**: glass controls; the person card is a floating glass sheet.
 - **Composer** (`/record`): back + ink Publish pill; avatar + big text field; photo previews (remove on glass); "Πού
   ανήκει" chips; bottom = glass toolbar (photos, camera, 280 ring) + voice drop → red capsule while recording → voice
   chip (play, "Ξανά").

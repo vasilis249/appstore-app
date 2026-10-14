@@ -626,9 +626,16 @@ User decisions:
   Flows: new scratchpad `photo-flow.mjs` 8/8 (+ `seed-photos.sh` for screenshots); groups-flow uses the new placeholder;
   e2e 65/65; map 11, location 6, mylocation 5, precision 7, mapblock 7, growth 12, attica 13, acg 7, network 9, gate 7,
   groups 15, campus 15, campus-groups 7, news 10, delete 5. Deploy 5d7fb24f. DESIGN.md rewritten (Glass).
-  NEXT GL2: post page with the liquid-glass player over a photo (SVG refraction, one element), full-screen photo viewer,
-  map person card as a glass sheet, remaining screens (profile, messages, search, notifications, groups, settings
-  sheets) in the glass language, light/dark QA.
+  **GL2 ✔ (user OK 2026-10-14)** — `PostCard` `focus` + photos + a voice: the first photo is a 420px hero with the player
+  on it as LIQUID GLASS (a copy of the photo under `.liquid-lens` = SVG `#liquid-lens` feTurbulence + feDisplacementMap,
+  static (no SMIL animation, battery), + `.liquid-tint` glass; reduced transparency → solid), other photos in a row
+  below. `components/posts/photo-viewer.tsx` `PhotoViewer` (Radix Dialog primitives: full screen on black, scroll-snap
+  swipe, glass ✕ + "n από N", Escape) opens on a photo tap on the post page (feed taps open the post). Map person card
+  = floating glass Drawer (`glass !bg-[var(--glass)]`, inset 8px, radius 34). Post page reply row = white pill. Other
+  screens (profile, messages, notifications, search, groups, map) checked light + dark: they inherit tokens, glass
+  headers / nav; no further changes needed. Scratchpad `seed-photos.sh` adds a voice + photo post
+  (`eeeeeeee-…-0001`); `photo-flow.mjs` 10/10 (+ viewer open on the tapped photo, Escape). Flows map 11, mapblock 7,
+  campus 15, groups 15, delete 5. Deploy 8e00ace4.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,

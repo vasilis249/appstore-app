@@ -284,6 +284,18 @@
   -webkit-mask-image: linear-gradient(#000 55%, transparent);
   mask-image: linear-gradient(#000 55%, transparent);
 }
+/* Liquid glass (one per screen: the post page's player on a photo): a copy of the photo bent by #liquid-lens, under a
+   glass tint with a lit rim. */
+.liquid-lens { filter: url(#liquid-lens) saturate(1.6) blur(2px); }
+.liquid-tint {
+  background: var(--glass);
+  border: 1px solid var(--glass-rim);
+  box-shadow: inset 0 1px 0 var(--glass-hi), inset 0 -10px 24px var(--glass-lo);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .liquid-lens { display: none; }
+  .liquid-tint { background: var(--glass-solid); }
+}
 @media (prefers-reduced-transparency: reduce) {
   .glass { background-color: var(--glass-solid); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }

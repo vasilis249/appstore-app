@@ -51,10 +51,10 @@ function PostPage() {
             <Link
               to="/record"
               search={{ reply: view.id }}
-              className="flex h-12 items-center justify-between gap-2 rounded-xl bg-secondary pl-4 pr-1.5 text-callout text-muted-foreground"
+              className="flex h-12 items-center justify-between gap-2 rounded-full bg-card pl-5 pr-1.5 text-callout text-muted-foreground"
             >
               {t("posts.replyWithVoice")}
-              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-primary text-primary-foreground">
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground">
                 <VoiceIcon className="h-[18px] w-[18px]" />
               </span>
             </Link>

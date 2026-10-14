@@ -342,7 +342,8 @@ function MapPage() {
 
       {/* one person */}
       <Drawer open={!!current} onOpenChange={(o) => !o && select(null)}>
-        <DrawerContent>
+        {/* a floating glass sheet over the map */}
+        <DrawerContent className="glass !bg-[var(--glass)] inset-x-2 bottom-[calc(env(safe-area-inset-bottom,0px)+8px)] rounded-[34px]">
           {current && (
             <div className="px-5 pb-8 pt-3">
               <div className="flex items-center gap-4">

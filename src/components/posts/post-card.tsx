@@ -8,6 +8,7 @@ import { UserAvatar } from "@/components/user-avatar";
 import { Waveform } from "@/components/voice/waveform";
 import { RepostSheet } from "@/components/posts/repost-sheet";
 import { PostMenu } from "@/components/posts/post-menu";
+import { PhotoViewer } from "@/components/posts/photo-viewer";
 import { useSections } from "@/hooks/use-sections";
 import { useCampus } from "@/lib/campus";
 import { formatClock } from "@/lib/audio";
@@ -56,6 +57,7 @@ export function PostCard({
     : campus.label({ university_id: post.authorSchool.university, department_id: post.authorSchool.department });
   const [repostOpen, setRepostOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [viewing, setViewing] = useState<number | null>(null);
   const isCurrent = currentId(q) === post.id;
   const playing = isCurrent && q.playing;
 
@@ -101,6 +103,31 @@ export function PostCard({
   }
 
   const open = () => linkToPost && void navigate({ to: "/p/$postId", params: { postId: post.id } });
+  // Post page with photos and a voice: the player floats on the first photo as liquid glass (the photo bends through it).
+  const hero = focus && post.images.length > 0 && !!post.path;
+  const playerBody = (
+    <>
+      <button
+        type="button"
+        onClick={() => (isCurrent ? toggle() : onPlay())}
+        aria-label={playing ? t("daily.pause") : t("daily.play")}
+        className={cn("grid shrink-0 place-items-center rounded-full bg-primary text-primary-foreground", focus ? "h-14 w-14" : "h-7 w-7")}
+      >
+        {playing ? (
+          <Pause className={focus ? "h-6 w-6" : "h-3.5 w-3.5"} fill="currentColor" strokeWidth={0} />
+        ) : (
+          <Play className={cn("ml-0.5", focus ? "h-6 w-6" : "h-3.5 w-3.5")} fill="currentColor" strokeWidth={0} />
+        )}
+      </button>
+      <Waveform seed={post.id} progress={isCurrent ? q.progress : 0} live={playing} bars={focus ? 48 : 36} className={focus ? "h-12" : "h-5"} />
+      <span className="shrink-0 text-caption tabular-nums text-muted-foreground">{formatClock(post.durationMs)}</span>
+      {burst > 0 && (
+        <span key={burst} className="pointer-events-none absolute inset-0 grid place-items-center" aria-hidden>
+          <Heart className={cn("animate-heart-burst text-live drop-shadow-lg", focus ? "h-16 w-16" : "h-9 w-9")} fill="currentColor" strokeWidth={0} />
+        </span>
+      )}
+    </>
+  );
   const action = "flex min-h-9 items-center gap-1.5 text-caption tabular-nums text-muted-foreground";
 
   // Deleted by its author after others answered: a placeholder that keeps the conversation readable.
@@ -214,34 +241,26 @@ export function PostCard({
             </button>
           )}
 
-          {post.images.length > 0 && <Photos paths={post.images} alt={t("posts.photoAlt", { name: post.name })} onOpen={linkToPost ? open : undefined} focus={focus} />}
+          {post.images.length > 0 && (
+            <Photos
+              paths={post.images}
+              alt={t("posts.photoAlt", { name: post.name })}
+              onOpen={linkToPost ? open : undefined}
+              onView={focus ? setViewing : undefined}
+              focus={focus}
+              player={hero ? <div onPointerUp={tapTile} className="relative flex h-full select-none items-center gap-3 pl-2.5 pr-5">{playerBody}</div> : undefined}
+            />
+          )}
 
-          {post.path && (
+          {post.path && !hero && (
           <div
             onPointerUp={tapTile}
             className={cn("relative flex select-none items-center overflow-hidden bg-card", focus ? "mt-2.5 gap-3 rounded-3xl p-4" : "mt-1.5 gap-2.5 rounded-full py-1 pl-1 pr-3")}
           >
-            <button
-              type="button"
-              onClick={() => (isCurrent ? toggle() : onPlay())}
-              aria-label={playing ? t("daily.pause") : t("daily.play")}
-              className={cn("grid shrink-0 place-items-center rounded-full bg-primary text-primary-foreground", focus ? "h-14 w-14" : "h-7 w-7")}
-            >
-              {playing ? (
-                <Pause className={focus ? "h-6 w-6" : "h-3.5 w-3.5"} fill="currentColor" strokeWidth={0} />
-              ) : (
-                <Play className={cn("ml-0.5", focus ? "h-6 w-6" : "h-3.5 w-3.5")} fill="currentColor" strokeWidth={0} />
-              )}
-            </button>
-            <Waveform seed={post.id} progress={isCurrent ? q.progress : 0} live={playing} bars={focus ? 48 : 36} className={focus ? "h-12" : "h-5"} />
-            <span className="shrink-0 text-caption tabular-nums text-muted-foreground">{formatClock(post.durationMs)}</span>
-            {burst > 0 && (
-              <span key={burst} className="pointer-events-none absolute inset-0 grid place-items-center" aria-hidden>
-                <Heart className={cn("animate-heart-burst text-live drop-shadow-lg", focus ? "h-16 w-16" : "h-9 w-9")} fill="currentColor" strokeWidth={0} />
-              </span>
-            )}
+            {playerBody}
           </div>
           )}
+          {focus && <PhotoViewer paths={post.images} start={viewing} alt={t("posts.photoAlt", { name: post.name })} onClose={() => setViewing(null)} />}
 
           {post.quote?.deleted && (
             <p className="mt-2 rounded-xl border border-border px-3 py-2 text-caption text-muted-foreground">{t("posts.quoteDeleted")}</p>
@@ -308,22 +327,73 @@ export function PostCard({
   );
 }
 
-/** 1–4 photos like X: one wide, two side by side, three = one tall + two, four = a 2×2 grid. */
-function Photos({ paths, alt, onOpen, focus }: { paths: string[]; alt: string; onOpen?: () => void; focus: boolean }) {
+/**
+ * 1–4 photos like X: one wide, two side by side, three = one tall + two, four = a 2×2 grid. Feed: a tap opens the post;
+ * post page: a tap opens the photo full screen. `player` (post page with a voice): the first photo becomes a hero with
+ * the player on it as liquid glass — a copy of the photo, bent by an SVG displacement filter, under a glass tint — and
+ * the other photos sit in a row below.
+ */
+function Photos({
+  paths,
+  alt,
+  onOpen,
+  onView,
+  focus,
+  player,
+}: {
+  paths: string[];
+  alt: string;
+  onOpen?: () => void;
+  onView?: (i: number) => void;
+  focus: boolean;
+  player?: React.ReactNode;
+}) {
   const n = paths.length;
+  const tap = (i: number) => (onView ? () => onView(i) : onOpen);
   const img = (path: string, i: number, cls: string) => (
-    <img key={path} src={voiceUrl(path)} alt={`${alt} (${i + 1}/${n})`} loading="lazy" className={cn("h-full w-full bg-secondary object-cover", cls)} />
+    <img
+      key={path}
+      src={voiceUrl(path)}
+      alt={`${alt} (${i + 1}/${n})`}
+      loading="lazy"
+      onClick={tap(i)}
+      className={cn("h-full w-full bg-secondary object-cover", (onOpen || onView) && "cursor-pointer", cls)}
+    />
   );
-  const box = cn("mt-2 overflow-hidden rounded-2xl", onOpen && "cursor-pointer");
-  const H = focus ? "h-[420px]" : "h-64";
-  if (n === 1)
+  if (player)
     return (
-      <div className={box} onClick={onOpen}>
-        {img(paths[0], 0, focus ? "max-h-[520px] h-auto" : H)}
-      </div>
+      <>
+        <div className="relative mt-2 h-[420px] overflow-hidden rounded-2xl">
+          {img(paths[0], 0, "")}
+          <svg width="0" height="0" className="absolute" aria-hidden>
+            <filter id="liquid-lens" x="-10%" y="-10%" width="120%" height="120%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="n" />
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+          </svg>
+          <div className="absolute inset-x-3 bottom-3 h-[76px] overflow-hidden rounded-full shadow-float">
+            <img
+              src={voiceUrl(paths[0])}
+              alt=""
+              aria-hidden
+              className="liquid-lens pointer-events-none absolute -bottom-3 -left-3 h-[420px] w-[calc(100%+1.5rem)] max-w-none object-cover"
+            />
+            <div className="liquid-tint absolute inset-0 rounded-full" />
+            {player}
+          </div>
+        </div>
+        {n > 1 && (
+          <div className={cn("mt-0.5 grid h-28 gap-0.5 overflow-hidden rounded-2xl", n === 2 ? "grid-cols-1" : n === 3 ? "grid-cols-2" : "grid-cols-3")}>
+            {paths.slice(1).map((p, i) => img(p, i + 1, ""))}
+          </div>
+        )}
+      </>
     );
+  const box = "mt-2 overflow-hidden rounded-2xl";
+  const H = focus ? "h-[420px]" : "h-64";
+  if (n === 1) return <div className={box}>{img(paths[0], 0, focus ? "max-h-[520px] h-auto" : H)}</div>;
   return (
-    <div className={cn(box, "grid grid-cols-2 gap-0.5", H, n > 2 && "grid-rows-2")} onClick={onOpen}>
+    <div className={cn(box, "grid grid-cols-2 gap-0.5", H, n > 2 && "grid-rows-2")}>
       {paths.map((p, i) => img(p, i, n === 3 && i === 0 ? "row-span-2" : ""))}
     </div>
   );
