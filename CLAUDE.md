@@ -698,7 +698,7 @@ User decisions:
   Send (same rule as the DB), `rpcErrors.notAcademic` no longer says "Attica"; offline banner says actions are sent
   when back (TanStack mutations pause offline), network errors → `errors.offline`; composer hint `posts.pickPlace`.
   Flow `tests/e2e/ux-flow.mjs` 12/12 (local stack: `node tests/e2e/ux-flow.mjs <port>`); scratchpad flows that tap
-  "Πάτα ξανά" now pause 700 ms; 18 app flows green. Next (sev 2, one at a time): one term for posts, hold-to-talk hint,
+  "Πάτα ξανά" now pause 700 ms; 18 app flows green. Deploy 7c30eb66. Next (sev 2, one at a time): one term for posts, hold-to-talk hint,
   tab labels, one PTT style, hide Play all on empty feeds, actionable generic errors.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
