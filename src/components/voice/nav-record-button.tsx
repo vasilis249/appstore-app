@@ -66,32 +66,29 @@ export function NavRecordButton() {
     void navigate({ to: "/record", search: target });
   }, [r.state, r.clip]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // An ink key in the middle of the tab bar; while held it turns red, grows a little and breathes out a ring.
+  // The voice drop beside the tab bar; while held it turns red, swells a little and breathes out a ring, and a red
+  // glass capsule above shows the time.
   return (
     <>
       <button
         type="button"
         {...ptt.bind}
         aria-label={t("voice.navRecord")}
-        className="grid h-12 w-full place-items-center"
+        className={cn(
+          "ease-spring grid h-[62px] w-[62px] shrink-0 place-items-center rounded-full",
+          live ? "scale-110 bg-live text-destructive-foreground animate-rec-pulse" : "glass text-link",
+        )}
       >
-        <span
-          className={cn(
-            "ease-spring grid h-10 w-[3.25rem] place-items-center rounded-xl",
-            live ? "scale-110 bg-live text-destructive-foreground animate-rec-pulse" : "bg-primary text-primary-foreground",
-          )}
-        >
-          <VoiceIcon className="h-6 w-6" strokeWidth={2} live={live} />
-        </span>
+        <VoiceIcon className="h-7 w-7" strokeWidth={2} live={live} />
       </button>
       {live && (
-        <div className="pointer-events-none fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom,0px)+6.5rem)] z-50 flex justify-center px-4">
-          <div className="flex items-center gap-3 rounded-2xl border border-border bg-popover py-2.5 pl-4 pr-5 shadow-float animate-slide-up">
+        <div className="pointer-events-none fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom,0px)+5.5rem)] z-50 flex justify-center px-4">
+          <div className="glass flex items-center gap-3 rounded-full py-3 pl-5 pr-6 animate-slide-up">
             <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-live" />
-            <span className="text-callout font-semibold tabular-nums">
+            <span className="text-body font-semibold tabular-nums">
               {formatClock(r.elapsedMs)} <span className="font-normal text-muted-foreground">/ {formatClock(POST_MAX_MS)}</span>
             </span>
-            <span className="text-caption text-muted-foreground">· {t("voice.releaseToContinue")}</span>
+            <span className="text-caption text-muted-foreground">{t("voice.releaseToContinue")}</span>
           </div>
         </div>
       )}

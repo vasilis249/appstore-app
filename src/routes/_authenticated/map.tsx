@@ -170,7 +170,7 @@ function MapPage() {
 
       {/* top: friends | nearby (+ radius) */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex flex-col items-center gap-2 px-4 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
-        <div className="pointer-events-auto flex items-center gap-1 rounded-full glass border border-border/60 shadow-float p-1" role="tablist">
+        <div className="pointer-events-auto flex items-center gap-1 rounded-full glass p-1" role="tablist">
           {(["friends", "nearby"] as const).map((v) => (
             <button
               key={v}
@@ -185,7 +185,7 @@ function MapPage() {
           ))}
         </div>
         {view === "nearby" && (
-          <div className="pointer-events-auto flex items-center gap-1 rounded-full glass border border-border/60 shadow-float p-1">
+          <div className="pointer-events-auto flex items-center gap-1 rounded-full glass p-1">
             {RADII.map((r) => (
               <button
                 key={r}
@@ -214,14 +214,14 @@ function MapPage() {
               void enableCompass(); // inside the tap: iOS asks for motion access once
             }}
             aria-label={t("map.recenter")}
-            className="grid h-12 w-12 place-items-center self-end rounded-full glass border border-border/60 shadow-float"
+            className="grid h-12 w-12 place-items-center self-end rounded-full glass"
           >
             <LocateFixed className="h-5 w-5 text-link" />
           </button>
         )}
 
         {on && view === "friends" && (
-          <div className="max-w-full self-start rounded-3xl glass border border-border/60 shadow-float p-3">
+          <div className="max-w-full self-start rounded-3xl glass p-3">
             {friends.length ? (
               <ul className="flex gap-3 overflow-x-auto px-0.5 py-1" aria-label={t("map.friendsTab")}>
                 {friends.map((p) => (
@@ -248,7 +248,7 @@ function MapPage() {
           <button
             type="button"
             onClick={() => setListOpen(true)}
-            className="flex h-12 items-center gap-2 self-start rounded-full glass border border-border/60 shadow-float px-5 text-callout font-semibold"
+            className="flex h-12 items-center gap-2 self-start rounded-full glass px-5 text-callout font-semibold"
           >
             <Users className="h-5 w-5" /> {t("map.nearby", { count: nearby.length })}
           </button>
@@ -256,7 +256,7 @@ function MapPage() {
 
         {/* your position is only approximate (iOS "Precise Location" off, or no GPS) */}
         {approximate && (
-          <div className="rounded-3xl glass border border-border/60 shadow-float p-4">
+          <div className="rounded-3xl glass p-4">
             <p className="text-callout font-semibold">{t("map.approxTitle", { accuracy: formatDistance(me!.accuracy!, i18n.language) })}</p>
             <p className="mt-1 text-caption leading-snug text-muted-foreground">{t(isNativeApp() ? "map.approxIos" : "map.approxWeb")}</p>
             {isNativeApp() && (
@@ -269,7 +269,7 @@ function MapPage() {
 
         {/* sharing off, or no position yet */}
         {s && !on && (
-          <div className="rounded-3xl glass border border-border/60 shadow-float p-5">
+          <div className="rounded-3xl glass p-5">
             <p className="flex items-center gap-2 text-body font-semibold">
               <MapPin className="h-5 w-5 text-link" /> {t("map.offTitle")}
             </p>
@@ -280,7 +280,7 @@ function MapPage() {
           </div>
         )}
         {!local.fix && (local.problem || local.slow || (s && on && !me)) && (
-          <div className="rounded-3xl glass border border-border/60 shadow-float p-4">
+          <div className="rounded-3xl glass p-4">
             <p className="flex items-center gap-2 text-callout font-semibold">
               <LocateFixed className={cn("h-4 w-4 text-link", !local.problem && !local.slow && "animate-pulse")} />
               {t(local.problem === "denied" ? "map.deniedTitle" : local.problem || local.slow ? "map.notFoundTitle" : "map.waitingTitle")}

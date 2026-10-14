@@ -2,13 +2,16 @@ import { supabase } from "@/integrations/supabase/client";
 import { sweepVoiceFilesLater } from "@/lib/api/voice-files.functions";
 
 export const POST_MAX_MS = 120_000;
-export const TITLE_MAX = 100;
+/** Like X: a post's text, with or without a voice / photos. */
+export const TEXT_MAX = 280;
+export const PHOTOS_MAX = 4;
 
 export type FeedScope =
   | "foryou" | "all" | "following" | "section" | "topic" | "author" | "author_replies" | "replies" | "one" | "ids"
   | "group" | "groups" | "news" | "personal" | "loose" | "campus";
 
-/** One row of feed_posts(). Plain reposts have no audio; the original is in orig_*. */
+/** One row of feed_posts(). A post = any mix of text (`title`), photos and a voice; a plain repost has none of them
+ * (the original is in orig_*). */
 export interface FeedRow {
   post_id: string;
   created_at: string;
@@ -55,6 +58,9 @@ export interface FeedRow {
   university_id: string | null;
   author_university_id: string | null;
   author_department_id: string | null;
+  /** Up to 4 photo paths in the `voices` bucket. */
+  images: string[] | null;
+  orig_images: string[] | null;
 }
 
 /** What a card shows: the post itself, or — for a plain repost — the original, credited to the reposter. */
@@ -73,9 +79,12 @@ export interface PostView {
   /** Voices inside a group show the group instead of the section. */
   groupId: string | null;
   groupName: string | null;
+  /** The post's text. */
   title: string | null;
-  path: string;
+  /** The voice, if any (null = a text / photo post). */
+  path: string | null;
   durationMs: number;
+  images: string[];
   likes: number;
   replies: number;
   reposts: number;
@@ -83,7 +92,7 @@ export interface PostView {
   liked: boolean;
   reposted: boolean;
   repostedBy: { name: string; mine: boolean } | null;
-  quote: { id: string; name: string; username: string; title: string | null; durationMs: number; deleted: boolean } | null;
+  quote: { id: string; name: string; username: string; title: string | null; durationMs: number; image: string | null; deleted: boolean } | null;
   /** "This voice was deleted" (only inside a conversation). */
   deleted: boolean;
   /** Campus voice: the university it belongs to. */
@@ -99,24 +108,25 @@ export function toView(row: FeedRow): PostView | null {
     return {
       id: row.post_id, authorId: "", username: "", name: "", avatar: null, createdAt: row.created_at,
       sectionId: row.section_id, topicId: null, topicTitle: null, replyTo: row.reply_to, replyToUsername: null,
-      groupId: row.group_id, groupName: row.group_name, title: null, path: "", durationMs: 0, likes: 0,
+      groupId: row.group_id, groupName: row.group_name, title: null, path: null, durationMs: 0, images: [], likes: 0,
       replies: row.replies_count, reposts: 0, listens: 0, liked: false, reposted: false, repostedBy: null, quote: null,
       deleted: true, campus: row.university_id, authorSchool: { university: null, department: null }, row,
     };
   }
-  if (row.audio_path && row.duration_ms) {
+  if (row.audio_path || row.title || row.images?.length) {
     return {
       id: row.post_id, authorId: row.author_id, username: row.author_username, name: row.author_name || row.author_username,
       avatar: row.author_avatar, createdAt: row.created_at, sectionId: row.section_id, topicId: row.topic_id,
       topicTitle: row.topic_title, replyTo: row.reply_to, replyToUsername: row.reply_to_username,
-      groupId: row.group_id, groupName: row.group_name, title: row.title, path: row.audio_path, durationMs: row.duration_ms,
+      groupId: row.group_id, groupName: row.group_name, title: row.title, path: row.audio_path, durationMs: row.duration_ms ?? 0,
+      images: row.images ?? [],
       likes: row.likes_count, replies: row.replies_count, reposts: row.reposts_count, listens: row.listens_count,
       liked: row.liked, reposted: row.reposted, repostedBy: null,
       quote: row.repost_of && row.orig_deleted
-        ? { id: row.repost_of, name: "", username: "", title: null, durationMs: 0, deleted: true }
+        ? { id: row.repost_of, name: "", username: "", title: null, durationMs: 0, image: null, deleted: true }
         : row.repost_of && row.orig_author_username
           ? { id: row.repost_of, name: row.orig_author_name || row.orig_author_username, username: row.orig_author_username,
-              title: row.orig_title, durationMs: row.orig_duration_ms ?? 0, deleted: false }
+              title: row.orig_title, durationMs: row.orig_duration_ms ?? 0, image: row.orig_images?.[0] ?? null, deleted: false }
           : null,
       deleted: false,
       campus: row.university_id,
@@ -124,12 +134,13 @@ export function toView(row: FeedRow): PostView | null {
       row,
     };
   }
-  if (row.repost_of && row.orig_audio_path && row.orig_duration_ms && row.orig_author_id && row.orig_author_username) {
+  if (row.repost_of && (row.orig_audio_path || row.orig_title || row.orig_images?.length) && row.orig_author_id && row.orig_author_username) {
     return {
       id: row.repost_of, authorId: row.orig_author_id, username: row.orig_author_username,
       name: row.orig_author_name || row.orig_author_username, avatar: row.orig_author_avatar,
       createdAt: row.orig_created_at ?? row.created_at, sectionId: row.section_id, topicId: null, topicTitle: null,
-      replyTo: null, replyToUsername: null, groupId: null, groupName: null, title: row.orig_title, path: row.orig_audio_path, durationMs: row.orig_duration_ms,
+      replyTo: null, replyToUsername: null, groupId: null, groupName: null, title: row.orig_title, path: row.orig_audio_path,
+      durationMs: row.orig_duration_ms ?? 0, images: row.orig_images ?? [],
       likes: row.orig_likes_count ?? 0, replies: row.orig_replies_count ?? 0, reposts: row.orig_reposts_count ?? 0,
       listens: row.orig_listens_count ?? 0, liked: row.liked, reposted: row.reposted,
       repostedBy: { name: row.author_name || row.author_username, mine: row.is_mine }, quote: null, deleted: false,
@@ -268,39 +279,54 @@ export async function getTopic(id: string): Promise<Topic | null> {
   return data as Topic | null;
 }
 
+/** Public URL of a voice or a photo (both live in the `voices` bucket, under the author's folder). */
 export function voiceUrl(path: string): string {
   return supabase.storage.from("voices").getPublicUrl(path).data.publicUrl;
 }
 
 const EXT: Record<string, string> = { "audio/mp4": "m4a", "audio/x-m4a": "m4a", "audio/aac": "aac", "audio/mpeg": "mp3", "audio/webm": "webm", "audio/ogg": "ogg" };
 
-/** Upload to voices/<uid>/… then create the post; the file is removed if that fails. */
+/**
+ * Upload the voice and photos (already resized, see compressImage) to voices/<uid>/…, then create the post; the files
+ * are removed if anything fails. Any mix of text, photos and a voice (a reply or quote too).
+ */
 export async function createPost(
   uid: string,
-  clip: { blob: Blob; mime: string; durationMs: number },
-  opts: { section?: string; topic?: string; replyTo?: string; quoteOf?: string; title?: string; group?: string; campus?: boolean },
+  content: { clip?: { blob: Blob; mime: string; durationMs: number } | null; text?: string; photos?: Blob[] },
+  opts: { section?: string; topic?: string; replyTo?: string; quoteOf?: string; group?: string; campus?: boolean },
 ): Promise<string> {
-  const path = `${uid}/${crypto.randomUUID()}.${EXT[clip.mime] ?? "m4a"}`;
   const bucket = supabase.storage.from("voices");
-  const up = await bucket.upload(path, clip.blob, { contentType: clip.mime, upsert: false });
-  fail(up.error);
-  const { data, error } = await supabase.rpc("create_post", {
-    p_section: opts.section,
-    p_topic: opts.topic,
-    p_reply_to: opts.replyTo,
-    p_repost_of: opts.quoteOf,
-    p_group: opts.group,
-    p_campus: opts.campus || undefined,
-    p_title: opts.title?.trim() || undefined,
-    p_path: path,
-    p_mime: clip.mime,
-    p_duration_ms: Math.min(POST_MAX_MS, Math.max(1000, Math.round(clip.durationMs))),
-  });
-  if (error) {
-    await bucket.remove([path]);
-    throw new Error(error.message);
+  const uploaded: string[] = [];
+  const put = async (blob: Blob, type: string, ext: string) => {
+    const path = `${uid}/${crypto.randomUUID()}.${ext}`;
+    fail((await bucket.upload(path, blob, { contentType: type, upsert: false })).error);
+    uploaded.push(path);
+    return path;
+  };
+  try {
+    const { clip, photos = [] } = content;
+    const audio = clip ? await put(clip.blob, clip.mime, EXT[clip.mime] ?? "m4a") : undefined;
+    const images: string[] = [];
+    for (const p of photos.slice(0, PHOTOS_MAX)) images.push(await put(p, p.type || "image/jpeg", p.type === "image/png" ? "png" : "jpg"));
+    const { data, error } = await supabase.rpc("create_post", {
+      p_section: opts.section,
+      p_topic: opts.topic,
+      p_reply_to: opts.replyTo,
+      p_repost_of: opts.quoteOf,
+      p_group: opts.group,
+      p_campus: opts.campus || undefined,
+      p_title: content.text?.trim() || undefined,
+      p_path: audio,
+      p_mime: clip?.mime,
+      p_duration_ms: clip ? Math.min(POST_MAX_MS, Math.max(1000, Math.round(clip.durationMs))) : undefined,
+      p_images: images.length ? images : undefined,
+    });
+    fail(error);
+    return data as string;
+  } catch (e) {
+    if (uploaded.length) await bucket.remove(uploaded);
+    throw e;
   }
-  return data as string;
 }
 
 export async function repost(postId: string) {
@@ -316,11 +342,12 @@ export async function recordListen(postId: string) {
   await supabase.rpc("record_listen", { p_post: postId });
 }
 /**
- * Delete your voice. One that others answered or quoted stays as "deleted" so their voices keep their place;
- * the audio goes either way.
+ * Delete your post. One that others answered or quoted stays as "deleted" so their posts keep their place; the voice
+ * and photos go either way.
  */
-export async function deletePost(row: Pick<FeedRow, "post_id" | "audio_path">) {
+export async function deletePost(row: { post_id: string; audio_path: string | null; images?: string[] | null }) {
   fail((await supabase.rpc("delete_post", { p_post: row.post_id })).error);
-  if (row.audio_path) await supabase.storage.from("voices").remove([row.audio_path]);
+  const files = [row.audio_path, ...(row.images ?? [])].filter((f): f is string => !!f);
+  if (files.length) await supabase.storage.from("voices").remove(files);
   sweepVoiceFilesLater(); // and anything else left behind (e.g. a deleted group's voices)
 }

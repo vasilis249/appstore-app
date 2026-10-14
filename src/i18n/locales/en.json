@@ -384,10 +384,9 @@
     "post": "Post",
     "replyWithVoice": "Reply with your voice",
     "noReplies": "No replies yet.",
-    "newPost": "New voice",
+    "newPost": "New post",
     "replyingTo": "Replying to",
     "quoting": "Quoting",
-    "titlePlaceholder": "Title (optional)",
     "publish": "Post",
     "published": "Posted!",
     "replyingToUser": "Replying to",
@@ -398,7 +397,17 @@
     "newsHint": "In News · {{section}}.",
     "deletedVoice": "This voice was deleted by its author.",
     "quoteDeleted": "The original voice is no longer available.",
-    "untitled": "Untitled"
+    "untitled": "Untitled",
+    "textPlaceholder": "What's happening?",
+    "replyPlaceholder": "Post your reply",
+    "photos": "Photos",
+    "camera": "Camera",
+    "addPhoto": "Add a photo",
+    "removePhoto": "Remove photo",
+    "charsLeft": "{{count}} characters left",
+    "photoAlt": "Photo by {{name}}",
+    "photoFailed": "That photo couldn't be opened.",
+    "photoCount": "{{n}} of {{max}}"
   },
   "feed": {
     "recordCta": "Record your day"
@@ -466,7 +475,9 @@
     "notAcademic": "You need an email from a university in Attica (e.g. …@uoa.gr, …@mail.ntua.gr, …@acg.edu).",
     "emailTaken": "This email is already used by another account.",
     "tooManyCodes": "You asked for many codes. Try again in a while.",
-    "mailUnavailable": "Couldn't send email right now. Try again later."
+    "mailUnavailable": "Couldn't send email right now. Try again later.",
+    "emptyPost": "Write something, add a photo or a voice.",
+    "tooLong": "Up to 280 characters."
   },
   "voice": {
     "delete": "Delete",

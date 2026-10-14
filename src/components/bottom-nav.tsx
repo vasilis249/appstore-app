@@ -11,12 +11,12 @@ import { cn } from "@/lib/utils";
 /** Sign-in / sign-up / password pages (also shown right after sign-up, while already signed in). */
 export const AUTH_PATHS = /^\/(auth|forgot-password|reset-password|i)(\/|$)/;
 
-const TABS = ["/", "/map", "voice", "/search", "/profile"] as const;
+const TABS = ["/", "/map", "/search", "/profile"] as const;
 
 /**
- * Tab bar (DESIGN.md, Quiet): a flat frosted bar with a hairline on top, five icons without labels — Home, Map, the
- * voice key (tap = compose, hold = push to talk from any screen), Search, Profile. The active icon is ink and
- * heavier, a small dot glides under it; a light haptic on every tab.
+ * Tab bar (DESIGN.md, Glass): a floating glass capsule with four icons — Home, Map, Search, Profile; a soft pill glides
+ * to the active one — and beside it the voice drop (tap = compose, hold = push to talk from any screen). A light
+ * haptic on every tab.
  */
 export function BottomNav() {
   const { user } = useAuth();
@@ -28,51 +28,56 @@ export function BottomNav() {
   if (!user || /^\/(messages|talk)\/./.test(path) || AUTH_PATHS.test(path) || path === "/record" || path === "/student") return null;
 
   const name = me.data?.full_name || me.data?.username || (user.user_metadata?.full_name as string | undefined) || "?";
-  const active = TABS.findIndex((to) => to !== "voice" && (to === "/" ? path === "/" : path === to || path.startsWith(`${to}/`)));
-  const item = (i: number) => cn("grid h-12 w-full place-items-center", i === active ? "text-foreground" : "text-muted-foreground");
-  const stroke = (i: number) => (i === active ? 2.2 : 1.7);
+  const active = TABS.findIndex((to) => (to === "/" ? path === "/" : path === to || path.startsWith(`${to}/`)));
+  const item = (i: number) => cn("relative z-10 grid h-[50px] w-full place-items-center", i === active ? "text-foreground" : "text-muted-foreground");
+  const stroke = (i: number) => (i === active ? 2.2 : 1.8);
   const tap = () => haptic("light");
 
   return (
     <nav
-      className="glass fixed inset-x-0 bottom-0 z-40 border-t border-border pb-[env(safe-area-inset-bottom,0px)]"
+      className="fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(env(safe-area-inset-bottom,0px)+10px)]"
       style={{ viewTransitionName: "tabbar" }}
     >
-      <div className="relative mx-auto grid h-[3.25rem] max-w-md grid-cols-5 items-center px-2">
-        {/* the gliding dot under the active tab */}
-        <span
-          aria-hidden
-          className={cn("nav-pill pointer-events-none absolute bottom-1 left-2 flex justify-center", active < 0 && "opacity-0")}
-          style={{ width: "calc((100% - 1rem) / 5)", transform: `translateX(${Math.max(active, 0) * 100}%)` }}
-        >
-          <span className="h-1 w-1 rounded-full bg-foreground" />
-        </span>
-        <Link to="/" aria-label={t("tabs.feed")} className={item(0)} onClick={tap}>
-          <HomeIcon filled={active === 0} />
-        </Link>
-        <Link to="/map" aria-label={t("tabs.map")} className={item(1)} onClick={tap}>
-          <MapPin className="h-6 w-6" strokeWidth={stroke(1)} />
-        </Link>
-        <NavRecordButton />
-        <Link to="/search" aria-label={t("tabs.search")} className={item(3)} onClick={tap}>
-          <Search className="h-6 w-6" strokeWidth={stroke(3)} />
-        </Link>
-        <Link to="/profile" aria-label={t("tabs.profile")} className={item(4)} onClick={tap}>
-          <span className={cn("rounded-full p-[2px] ring-[1.5px]", active === 4 ? "ring-foreground" : "ring-transparent")}>
-            <UserAvatar name={name} path={me.data?.avatar_path} size={24} className="bg-secondary text-fine text-foreground" />
+      <div className="mx-auto flex max-w-md items-center gap-2.5">
+        <div className="glass relative grid h-[62px] flex-1 grid-cols-4 items-center rounded-full px-1.5">
+          {/* the pill gliding to the active tab */}
+          <span
+            aria-hidden
+            className={cn("nav-pill pointer-events-none absolute inset-y-[6px] left-1.5 flex justify-center", active < 0 && "opacity-0")}
+            style={{ width: "calc((100% - 0.75rem) / 4)", transform: `translateX(${Math.max(active, 0) * 100}%)` }}
+          >
+            <span className="h-full w-16 rounded-full bg-[var(--nav-active)]" />
           </span>
-        </Link>
+          <Link to="/" aria-label={t("tabs.feed")} aria-current={active === 0 ? "page" : undefined} className={item(0)} onClick={tap}>
+            <HomeIcon filled={active === 0} />
+          </Link>
+          <Link to="/map" aria-label={t("tabs.map")} aria-current={active === 1 ? "page" : undefined} className={item(1)} onClick={tap}>
+            <MapPin className="h-6 w-6" strokeWidth={stroke(1)} />
+          </Link>
+          <Link to="/search" aria-label={t("tabs.search")} aria-current={active === 2 ? "page" : undefined} className={item(2)} onClick={tap}>
+            <Search className="h-6 w-6" strokeWidth={stroke(2)} />
+          </Link>
+          <Link to="/profile" aria-label={t("tabs.profile")} aria-current={active === 3 ? "page" : undefined} className={item(3)} onClick={tap}>
+            <span className={cn("rounded-full p-[2px] ring-[1.5px]", active === 3 ? "ring-foreground" : "ring-transparent")}>
+              <UserAvatar name={name} path={me.data?.avatar_path} size={26} className="bg-primary text-fine text-primary-foreground" />
+            </span>
+          </Link>
+        </div>
+        <NavRecordButton />
       </div>
     </nav>
   );
 }
 
-/** The house: outline, heavier stroke when active (Quiet keeps icons as lines). */
+/** The house: filled when active, a line otherwise. */
 function HomeIcon({ filled }: { filled: boolean }) {
-  return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={filled ? 2.2 : 1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-      <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+  return filled ? (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor" aria-hidden>
+      <path d="M3.5 10.3 12 3.5l8.5 6.8V19a1.5 1.5 0 0 1-1.5 1.5h-4.2v-6h-5.6v6H5A1.5 1.5 0 0 1 3.5 19z" />
+    </svg>
+  ) : (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M3.5 10.3 12 3.5l8.5 6.8V19a1.5 1.5 0 0 1-1.5 1.5h-4.2v-6h-5.6v6H5A1.5 1.5 0 0 1 3.5 19z" />
     </svg>
   );
 }

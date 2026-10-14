@@ -61,6 +61,24 @@ if (process.argv[1].endsWith("local-supabase.mjs")) {
           if (body) r.write(JSON.stringify(body));
           r.end();
         });
+      // supabase-js sends a Blob as multipart/form-data (a cacheControl field + the file part): keep only the file part,
+      // like the real Storage API does.
+      const uploadBody = (buf, ct = "application/octet-stream") => {
+        const b = /multipart\/form-data;\s*boundary=(.+)$/i.exec(ct);
+        if (!b) return { bytes: buf, type: ct };
+        const sep = Buffer.from("--" + b[1]);
+        let at = buf.indexOf(sep);
+        while (at >= 0) {
+          const next = buf.indexOf(sep, at + sep.length);
+          if (next < 0) break;
+          const part = buf.subarray(at + sep.length + 2, next - 2); // skip CRLF after the boundary and before the next
+          const split = part.indexOf("\r\n\r\n");
+          const head = part.subarray(0, split).toString();
+          if (/filename=/i.test(head)) return { bytes: part.subarray(split + 4), type: /content-type:\s*([^\r\n]+)/i.exec(head)?.[1] ?? "application/octet-stream" };
+          at = next;
+        }
+        return { bytes: buf, type: ct };
+      };
       const json = (code, obj) => { res.statusCode = code; res.setHeader("content-type", "application/json"); res.end(JSON.stringify(obj)); };
       const m = url.pathname.match(/^\/storage\/v1\/object\/(sign\/|file\/|public\/)?([^/]+)\/?(.*)$/);
       if (m && m[1] === "sign/" && m[2] !== "img") {
@@ -88,8 +106,9 @@ if (process.argv[1].endsWith("local-supabase.mjs")) {
             if (r.status >= 300) return json(400, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
             const f = `${FILES}/${bucket}/${name}`;
             fs.mkdirSync(f.slice(0, f.lastIndexOf("/")), { recursive: true });
-            fs.writeFileSync(f, Buffer.concat(chunks));
-            fs.writeFileSync(f + ".type", req.headers["content-type"] || "application/octet-stream");
+            const { bytes, type } = uploadBody(Buffer.concat(chunks), req.headers["content-type"]);
+            fs.writeFileSync(f, bytes);
+            fs.writeFileSync(f + ".type", type);
             json(200, { Key: `${bucket}/${name}` });
           });
         });

@@ -6,12 +6,12 @@ import { PostCard } from "@/components/posts/post-card";
 import { fetchFeed, nextCursor, postKeys, toView, voiceUrl, type FeedParams, type PostView } from "@/lib/posts";
 import { playQueue, type QueueItem } from "@/lib/queue";
 
-/** Queue from the list, without playing the same voice twice (a repost next to its original). */
+/** Queue from the list (posts with a voice), without playing the same voice twice (a repost next to its original). */
 function toQueue(views: PostView[], from: PostView): { items: QueueItem[]; index: number } {
   const seen = new Set<string>();
   const items: QueueItem[] = [];
   for (const v of views) {
-    if (v.deleted || seen.has(v.id)) continue;
+    if (v.deleted || !v.path || seen.has(v.id)) continue; // text / photo posts have nothing to play
     seen.add(v.id);
     items.push({ id: v.id, url: voiceUrl(v.path), durationMs: v.durationMs, title: v.title ?? v.name, author: v.name });
   }

@@ -4,8 +4,8 @@ import { UserAvatar } from "@/components/user-avatar";
 import { next, stop, toggle, useQueue } from "@/lib/queue";
 
 /**
- * Now playing, floating above the tab bar (the queue keeps going across screens): it springs up from below, a thin
- * ink line shows the progress.
+ * Now playing, a glass card floating above the tab bar (the queue keeps going across screens): it springs up from
+ * below, a thin blue line shows the progress.
  */
 export function MiniPlayer({ lifted }: { lifted: boolean }) {
   const { t } = useTranslation();
@@ -14,12 +14,12 @@ export function MiniPlayer({ lifted }: { lifted: boolean }) {
   if (!item) return null;
   return (
     <div
-      className="fixed inset-x-0 z-40 px-2"
-      style={{ bottom: lifted ? "calc(env(safe-area-inset-bottom, 0px) + 3.75rem)" : "calc(env(safe-area-inset-bottom, 0px) + 0.75rem)", viewTransitionName: "miniplayer" }}
+      className="fixed inset-x-0 z-40 px-4"
+      style={{ bottom: lifted ? "calc(env(safe-area-inset-bottom, 0px) + 5.25rem)" : "calc(env(safe-area-inset-bottom, 0px) + 0.75rem)", viewTransitionName: "miniplayer" }}
     >
-      <div className="animate-slide-up relative mx-auto flex h-[58px] max-w-lg items-center gap-2.5 overflow-hidden rounded-2xl border border-border bg-popover pl-2.5 pr-1 shadow-float">
+      <div className="glass animate-slide-up relative mx-auto flex h-[58px] max-w-md items-center gap-2.5 overflow-hidden rounded-[22px] pl-2.5 pr-1">
         <span className="absolute inset-x-0 bottom-0 h-0.5">
-          <span className="block h-full bg-foreground transition-[width] duration-150 ease-linear" style={{ width: `${q.progress * 100}%` }} />
+          <span className="block h-full bg-link transition-[width] duration-150 ease-linear" style={{ width: `${q.progress * 100}%` }} />
         </span>
         <UserAvatar name={item.author ?? "?"} path={null} size={34} />
         <div className="min-w-0 flex-1">

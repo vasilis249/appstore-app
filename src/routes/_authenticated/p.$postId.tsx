@@ -15,7 +15,7 @@ export const Route = createFileRoute("/_authenticated/p/$postId")({
   component: PostPage,
 });
 
-const item = (v: PostView): QueueItem => ({ id: v.id, url: voiceUrl(v.path), durationMs: v.durationMs, title: v.title ?? v.name, author: v.name });
+const item = (v: PostView): QueueItem => ({ id: v.id, url: voiceUrl(v.path!), durationMs: v.durationMs, title: v.title ?? v.name, author: v.name });
 
 /** A post with the conversation above it (root first, joined by a thread line), then its voice replies. */
 function PostPage() {
@@ -32,7 +32,7 @@ function PostPage() {
   // Playing anything in the thread plays the conversation from there down to this post.
   const thread = useMemo(() => (view ? [...above, view] : above), [above, view]);
   const playFrom = (v: PostView) => {
-    const voices = thread.filter((x) => !x.deleted); // a deleted voice in the chain has nothing to play
+    const voices = thread.filter((x) => !x.deleted && x.path); // deleted posts and text / photo posts have nothing to play
     playQueue(voices.map(item), Math.max(0, voices.indexOf(v)));
   };
 

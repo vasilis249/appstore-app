@@ -138,14 +138,23 @@ function ReportItem({ group }: { group: AdminReport[] }) {
       </Link>
 
       {r.kind === "post" &&
-        (r.post_exists && r.post_audio_path ? (
+        (r.post_exists ? (
           <div className="space-y-2 rounded-2xl bg-card p-3">
-            {r.post_title && <p className="text-caption font-semibold leading-snug">{r.post_title}</p>}
-            <ClipPlayer
-              id={`report-${r.id}`}
-              durationMs={r.post_duration_ms ?? 0}
-              load={() => fetch(voiceUrl(r.post_audio_path!)).then((res) => res.blob())}
-            />
+            {r.post_title && <p className="whitespace-pre-line text-caption font-semibold leading-snug">{r.post_title}</p>}
+            {!!r.post_images?.length && (
+              <div className="grid grid-cols-2 gap-1">
+                {r.post_images.map((img) => (
+                  <img key={img} src={voiceUrl(img)} alt="" className="aspect-square w-full rounded-lg object-cover" />
+                ))}
+              </div>
+            )}
+            {r.post_audio_path && (
+              <ClipPlayer
+                id={`report-${r.id}`}
+                durationMs={r.post_duration_ms ?? 0}
+                load={() => fetch(voiceUrl(r.post_audio_path!)).then((res) => res.blob())}
+              />
+            )}
             {r.post_hidden && <p className="text-fine font-semibold text-muted-foreground">{t("adminReports.hidden")}</p>}
           </div>
         ) : (

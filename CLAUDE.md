@@ -604,7 +604,31 @@ User decisions:
   into a red recording capsule; scroll-edge blur at the top; ONE refracting liquid element (SVG feDisplacementMap) on a
   photo. Tokens: Mist #EEF0F4 / #07080B, ink #0E1116 / #F1F2F5, grey #5B6170 / #9CA2AE, Signal #2E4BFF / #8D9BFF, live
   #FF3B30; font Commissioner (Greek designer, full Greek). Assets were rendered in the scratchpad (`glass/`: map shots
-  via the local /map + curl-routed tiles, notes / poster HTML → JPEG). Waiting for the user's pick before code.
+  via the local /map + curl-routed tiles, notes / poster HTML → JPEG). User: "μ' αρέσει πολύ. ok" (2026-10-14).
+  **Glass GL1 ✔ (foundation + shell) + X2 ✔ (text / photo / voice posts)** — `design-system.css`: Mist/ink/Signal tokens
+  (light + dark), `glass` utility (frost + rim + top highlight + float; solid with prefers-reduced-transparency),
+  `scroll-edge`; Commissioner self-hosted (`src/assets/fonts/*.woff2` greek / latin-ext / latin + OFL.txt, no Google
+  request). `BottomNav` = glass capsule (Home, Map, Search, Profile; gliding pill) + separate glass voice drop
+  (`NavRecordButton`, red while held, red glass capsule with the time). `AppHeader`: large title scrolls away (Home: bell
+  on the right); normal header sticky over a scroll edge with a round glass back button; `HeaderIconLink` = glass circles.
+  Home: `FeedTabs` = sticky glass capsule (ink active pill, 13px) under the status bar + messages button. Mini player =
+  glass card. Map controls use plain `glass`. Posts: `lib/posts.ts` `TEXT_MAX` 280, `PHOTOS_MAX` 4, `PostView.path` may
+  be null + `images`, `toView` accepts text / photo posts and plain reposts of them, `createPost(uid, {clip, text,
+  photos}, opts)` uploads voice + photos (rolls all back on error), `deletePost` removes photos too; queues skip posts
+  without a voice. `PostCard`: full text (pre-line), `Photos` grid (1 wide / 2 / 3 = tall + 2 / 2×2; focus bigger),
+  voice pill only with a voice, quote shows text + first photo. Composer `/record`: Publish pill in the header, avatar +
+  textarea ("Τι γίνεται;", replies too), photo previews (`compressImage`, remove on glass, dashed "add" tile), place
+  chips, bottom = `VoiceRecorder` (glass toolbar: photos, camera (`capture`), 280 ring + the voice drop → red capsule →
+  voice chip with play + "Ξανά"). Profile list: photo thumb / text icon, duration only with a voice. Admin reports show
+  photos. i18n `posts.textPlaceholder/replyPlaceholder/photos/camera/addPhoto/removePhoto/charsLeft/photoAlt/photoFailed/
+  photoCount`, `rpcErrors.emptyPost/tooLong` (`titlePlaceholder` removed). Local Storage emulator (scratchpad + `tests/e2e/
+  local-supabase.mjs`) now unwraps supabase-js multipart uploads (it stored the raw form before; the real API was fine).
+  Flows: new scratchpad `photo-flow.mjs` 8/8 (+ `seed-photos.sh` for screenshots); groups-flow uses the new placeholder;
+  e2e 65/65; map 11, location 6, mylocation 5, precision 7, mapblock 7, growth 12, attica 13, acg 7, network 9, gate 7,
+  groups 15, campus 15, campus-groups 7, news 10, delete 5. Deploy 5d7fb24f. DESIGN.md rewritten (Glass).
+  NEXT GL2: post page with the liquid-glass player over a photo (SVG refraction, one element), full-screen photo viewer,
+  map person card as a glass sheet, remaining screens (profile, messages, search, notifications, groups, settings
+  sheets) in the glass language, light/dark QA.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
@@ -857,9 +881,8 @@ User decisions:
   `microphone=(self)`, HSTS, X-Frame DENY, COOP, no-store on server fns). Summary: `docs/security.md`.
 
 ## UI (Apple system — see /DESIGN.md; light + dark follow the iPhone)
-- Theme in ONE file `src/design-system.css` (tokens from DESIGN.md): light = parchment `#f5f5f7` canvas, white cards,
-  ink `#1d1d1f`, Action Blue `#0066cc` primary / link; dark = black canvas, `#1c1c1e` cards, `#0071e3` primary,
-  `#2997ff` link. `live` = iOS red (recording, talking, unread; `coral`/`badge` are aliases), `success` = iOS green
+- Theme in ONE file `src/design-system.css` (Glass, DESIGN.md): light = Mist `#eef0f4` ground, white cards, ink
+  `#0e1116`, Signal `#2e4bff` link; dark = `#07080b` ground, `#16181f` cards, `#8d9bff` link; Commissioner font. `live` = iOS red (recording, talking, unread; `coral`/`badge` are aliases), `success` = iOS green
   (friends, "here"). `@custom-variant dark` = `prefers-color-scheme`; `<html>` has `color-scheme: light dark` and no
   class; theme-color metas per scheme; Toaster `theme="system"`; Info.plist has NO `UIUserInterfaceStyle` (native
   rebuild needed for the app to leave forced Dark). Radii 8 / 11 / 18 (lg…3xl) / full. Type utilities `text-hero` 34,

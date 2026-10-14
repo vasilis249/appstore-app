@@ -1,8 +1,9 @@
-# Speak — "Quiet" design system
+# Speak — "Glass" design system
 
-**Decision (product owner, 2026-10-01):** approved from the mockups (artifact "Speak — νέο design για φοιτητές").
-Quiet, professional, student-first: ink on white (or black), a grey scale, ONE indigo accent, the voice always at the
-centre, iOS large titles, hairlines instead of boxes, and motion that explains what happened. Light / dark follow
+**Decision (product owner, 2026-10-14):** approved from the mockups (canvas artifact "Speak — Glass design",
+https://claude.ai/artifact/GqSaC9Rha6s3j3LRpSDC8U). Glass over the campus: content (text, photos, voices, the map)
+stays opaque and calm on a cool mist ground; only the navigation layer floating over it is glass, like iOS 26. One
+memorable element: the voice drop beside the tab bar, which turns into a red recording capsule. Light / dark follow
 the iPhone.
 
 **Status: reference, not a rule** (user decision 2026-10-01) — it documents the current look so new screens stay
@@ -12,71 +13,59 @@ consistent; the agent plugins in CLAUDE.md take priority. Tokens live in ONE fil
 
 | Role | Light | Dark | Tailwind |
 |---|---|---|---|
-| Canvas | `#ffffff` | `#0a0a0b` | `bg-background` |
-| Ink (text, play buttons, primary action) | `#0b0b0c` | `#ededef` | `text-foreground`, `bg-primary` |
-| Secondary text | `#6b6b75` | `#9b9ba5` | `text-muted-foreground` |
-| Surface (voice tile, inputs, chips, secondary buttons, cards) | `#f4f4f5` | `#17171a` | `bg-card`, `bg-secondary` |
-| Popover / sheet / mini player | `#ffffff` | `#1d1d21` | `bg-popover`, `bg-sheet` |
-| Hairline | `#eaeaec` | `#242428` | `border-border` |
-| Unplayed waveform bars | `#cdcdd3` | `#3a3a41` | `bg-wave` |
-| Accent — labels, links, Follow, unread dots, unheard ring | `#3346d3` | `#8f9bff` | `text-link`, `bg-link` |
-| Live — recording, talking, likes, badges | `#e5484d` | `#ff6b70` | `bg-live`, `text-live` |
-| Here / online | `#2f9e57` | `#4cc27a` | `bg-success` |
+| Ground (Mist) | `#eef0f4` | `#07080b` | `bg-background` |
+| Ink (text, play buttons, primary action, active feed pill) | `#0e1116` | `#f1f2f5` | `text-foreground`, `bg-primary` |
+| Secondary text | `#5b6170` | `#9ca2ae` | `text-muted-foreground` |
+| Cards (voice tile, news cards, rows) | `#ffffff` | `#16181f` | `bg-card` |
+| Fields, chips, secondary buttons | `#e3e6ec` | `#16181f` | `bg-secondary` |
+| Hairline | `#dce0e7` | `#1e2129` | `border-border` |
+| Unplayed waveform bars | `#c3c8d2` | `#3a3e4a` | `bg-wave` |
+| Signal — labels, links, Follow, unread, the voice drop | `#2e4bff` | `#8d9bff` | `text-link`, `bg-link` |
+| Live — recording, talking, likes, badges | `#ff3b30` | `#ff5a50` | `bg-live`, `text-live` |
+| Here / online | `#1f9d57` | `#4cd98a` | `bg-success` |
 
-Rules: ink carries the UI; indigo only for labels, links, Follow and "new"; red only for live audio, likes and
-counts. No gradients (the rotating "playing" arc is the one exception), no coloured rings, no shadows except on
-floating things (mini player, sheets, toasts).
+## 2. Glass (`glass` utility)
+Frost `blur(22px) saturate(180%)` + translucent fill (`--glass`: white 58 % / `#1e212a` 50 %) + a rim brighter than
+the fill + an inner top highlight + a soft float shadow. `scroll-edge` = the blur that fades content as it passes under
+floating top controls. With "Reduce transparency" glass becomes solid (`--glass-solid`).
+**Where:** tab-bar capsule, voice drop, Home's feed switch, round header buttons (back, bell, messages), mini player,
+recording capsule, map controls and sheets, photo remove buttons. **Never** on cards / posts (content stays opaque) and
+never more than a handful per screen (each one re-blurs what's behind it).
 
-## 2. Type (SF Pro on iPhone, Greek included; numbers tabular)
+## 3. Type — Commissioner (Kostas Bartsokas, SIL OFL; self-hosted woff2, Greek + Latin, 400–700)
 
 | Token | Size / weight | Use |
 |---|---|---|
-| `text-hero` | 30 / 700, −0.03em | large titles of tab roots (Campus, Ειδήσεις, Αναζήτηση) |
+| `text-hero` | 30 / 700, −0.03em | large titles of tab roots (Campus, Αναζήτηση) |
 | `text-display` | 24 / 650 | big titles in content |
-| 22 / 650 | | lead headline, focused voice title |
-| `text-tagline` | 20 / 650 | sheet titles |
-| `text-body` | 16 / 400–500 | voice titles (500), reading |
-| `text-callout` | 15 | names (600), rows, tabs |
-| `text-caption` | 13 | meta (school · time), counts |
-| `text-fine` | 12 / 600 | indigo place labels (ΕΜΠ · Εξεταστική) |
+| `text-tagline` | 20 | composer text, focused post text, sheet titles |
+| `text-body` | 16 / 400 | post text, reading |
+| `text-callout` | 15 | names (600), rows |
+| `text-caption` | 13 | meta (school · time), counts, feed switch |
+| `text-fine` | 12 / 600 | blue place labels (🎓 Εξεταστική) |
 
-## 3. Shape & spacing
-Radii 10 (buttons, chips-as-rects), 14 (voice tile, inputs, CTAs), 20 (cards, lead news card, sheets), full
-(avatars, chips, play buttons). Gutter 16. Rows ≥ 44 pt. Content sits on the canvas separated by hairlines; boxes
-only for the voice tile and lead cards.
+## 4. Shape & spacing
+Radii 10 / 14 / 16–20 (cards, photos 16, sheets) / full (glass controls, chips, avatars, play buttons). Gutter 16.
+Touch targets ≥ 44 pt (post actions 36 pt high, full width of their label).
 
-## 4. Motion (iOS springs `cubic-bezier(.32,.72,0,1)`; everything off with Reduce Motion)
-| What | How | Where |
-|---|---|---|
-| Tabs | 450 ms spring line under the active tab; light haptic | Home feeds, profile tabs, tab-bar dot |
-| Press | scale .96, 220 ms | every button / link |
-| Like | heart pops (420 ms), number rolls in (`.animate-tick`); light haptic | PostCard |
-| Voice playing | played bars turn ink, all bars breathe (`.wave-live`) | PostCard, post page |
-| Lists | rise in, +40 ms per row (`.stagger`) | feeds, rows, profile |
-| Mini player | springs up from below (`.animate-slide-up`), thin ink progress line | above the tab bar |
-| Recording | red circle → rounded square (`.ease-spring`), pulse ring (`.animate-rec-pulse`), ring fills to 2:00; medium haptic | composer, tab-bar voice key |
-| Navigation | push / pop slide with 30 % parallax, tabs cross-fade (View Transitions) | router |
-| Loading | shimmer skeletons | everywhere |
+## 5. Motion (iOS springs `cubic-bezier(.32,.72,0,1)`; everything off with Reduce Motion)
+Tab pill glides to the active tab · press scale .96 · like pop + rolling number · playing bars breathe · lists rise in
+(`.stagger`) · mini player / recording capsule spring up (`.animate-slide-up`) · the voice drop swells red with a pulse
+ring while held (`.animate-rec-pulse`) · push / pop slides with parallax, tabs cross-fade. Haptics: `src/lib/haptics.ts`.
 
-Haptics: `src/lib/haptics.ts` (`@capacitor/haptics`; needs a native rebuild, older builds skip it).
+## 6. Components
+- **Tab bar** (`BottomNav`): floating glass capsule (Home, Map, Search, Profile avatar; a soft pill glides to the
+  active one) + the separate glass **voice drop** (`NavRecordButton`: tap = compose, hold = push to talk anywhere).
+- **Header** (`AppHeader`): `large` = large title with a grey kicker (scrolls away; Home: bell on the right);
+  otherwise a sticky centred title over a scroll edge with a round glass back button.
+- **Home**: large title · sticky glass **feed switch** (Campus · Ακολουθείς · Ομάδες · Ειδήσεις, active = ink pill) with
+  the messages button · chips · feed.
+- **Post** (`PostCard`, like X): avatar · "name school · time" · ⋯; blue place line; text (≤ 280, full); 1–4 photos
+  (one wide, two side by side, three = tall + two, 2×2); a slim white voice pill when it has a voice; 💬 ⟲ ♥ ✈ + 🎧.
+- **Composer** (`/record`): back + ink Publish pill; avatar + big text field; photo previews (remove on glass); "Πού
+  ανήκει" chips; bottom = glass toolbar (photos, camera, 280 ring) + voice drop → red capsule while recording → voice
+  chip (play, "Ξανά").
 
-## 5. Components
-- **Tab bar** (`BottomNav`): flat frosted bar with a hairline, five line icons (Home, Map, the ink voice key — tap =
-  compose, hold = push to talk —, Search, Profile avatar); active = ink + heavier stroke + a gliding dot.
-- **Header** (`AppHeader`): `large` = iOS large title on the left with a small grey `kicker` above (Home: "ΕΜΠ ·
-  1.204 φοιτητές"); otherwise a centred 17/600 title with a thin back chevron. Home's right: bell + messages.
-- **Home**: large title · `FeedTabs` (ΕΜΠ · Ακολουθείς · Ομάδες · Ειδήσεις) · recent voices (avatars with a thin indigo
-  ring until heard) · chips · feed. "Πες κάτι…" rows are grey fields with an indigo voice mark.
-- **Voice post** (`PostCard`): avatar 36 · name over "school · time" · ⋯; indigo place line; title 16/500; the voice
-  tile (surface, ink round play, waveform, duration); 💬 ⟲ ♥ ✈ in grey with counts, 🎧 listens on the right.
-  `focus` (post page): 22 px title, big player.
-- **News** (`NewsCard`): topic of the day = lead card (photo if any, indigo label, 22 px headline, who spoke, ink
-  "Πες τη γνώμη σου"); other headlines = typographic rows with an optional small photo.
-- **Profile**: photo 80 + counts, name, indigo school badge, grey buttons, groups as rounded tiles, text tabs,
-  voices as compact rows.
-- **Buttons**: primary = ink rounded rect (`bg-primary rounded-xl`), Follow = indigo (`bg-link`), secondary = grey
-  surface; chips = pills (`rounded-full`, selected = ink).
-
-## 6. Don't
-Emoji as icons · gradients / coloured rings · more than one ink button per screen · indigo for anything but labels,
-links, Follow and "new" · shadows on content · uppercase labels.
+## 7. Don't
+Glass on content · gradient washes / colour blobs behind glass · emoji as icons · more than one ink button per screen ·
+blue for anything but labels, links, Follow, "new" and the voice drop · uppercase labels.

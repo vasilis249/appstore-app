@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { GraduationCap, MessageCircle, Play, Plus, RadioTower, UserPlus } from "lucide-react";
+import { AlignLeft, GraduationCap, MessageCircle, Play, Plus, RadioTower, UserPlus } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { FollowButton } from "@/components/friends/follow-button";
 import { FeedList } from "@/components/posts/feed-list";
@@ -15,7 +15,7 @@ import { friendKeys, profileStats, type Person } from "@/lib/friends";
 import { groupKeys, myGroups } from "@/lib/groups";
 import { useCampus } from "@/lib/campus";
 import { formatClock } from "@/lib/audio";
-import { fetchFeed, nextCursor, postKeys, toView, type FeedParams } from "@/lib/posts";
+import { fetchFeed, nextCursor, postKeys, toView, voiceUrl, type FeedParams } from "@/lib/posts";
 import { timeAgoShort } from "@/lib/time-ago";
 import { haptic } from "@/lib/haptics";
 import { cn } from "@/lib/utils";
@@ -242,9 +242,13 @@ function VoiceGrid({ params, isMe }: { params: FeedParams; isMe: boolean }) {
         {views.map((v) => (
           <li key={v.id}>
             <Link to="/p/$postId" params={{ postId: v.id }} className="flex items-center gap-3 border-b border-border px-4 py-3 active:bg-secondary/60">
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-secondary">
-                <Play className="ml-0.5 h-3.5 w-3.5" fill="currentColor" strokeWidth={0} />
-              </span>
+              {v.images[0] ? (
+                <img src={voiceUrl(v.images[0])} alt="" loading="lazy" className="h-9 w-9 shrink-0 rounded-lg object-cover" />
+              ) : (
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-secondary">
+                  {v.path ? <Play className="ml-0.5 h-3.5 w-3.5" fill="currentColor" strokeWidth={0} /> : <AlignLeft className="h-4 w-4" />}
+                </span>
+              )}
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-callout font-medium">{v.title || t("posts.untitled")}</span>
                 <span className="block truncate text-caption tabular-nums text-muted-foreground">
@@ -253,7 +257,7 @@ function VoiceGrid({ params, isMe }: { params: FeedParams; isMe: boolean }) {
                     .join(" · ")}
                 </span>
               </span>
-              <span className="shrink-0 text-caption tabular-nums text-muted-foreground">{formatClock(v.durationMs)}</span>
+              {v.path && <span className="shrink-0 text-caption tabular-nums text-muted-foreground">{formatClock(v.durationMs)}</span>}
             </Link>
           </li>
         ))}

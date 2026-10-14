@@ -8,9 +8,9 @@ import { useQuery } from "@tanstack/react-query";
 import { notificationKeys, unreadCount } from "@/lib/notifications";
 
 /**
- * Screen header: centered wordmark (or a title / custom center) with optional left and right slots. `back` shows a
- * chevron that goes back in history. `large` = an iOS large title on the left (tab roots: Campus, Ειδήσεις…) with an
- * optional small `kicker` line above it.
+ * Screen header (Glass): centered wordmark (or a title / custom center) with optional left and right slots over a
+ * scroll edge (content softens as it passes under); `back` = a round glass chevron. `large` = an iOS large title on
+ * the left (tab roots: Campus, Αναζήτηση…) with an optional small `kicker` line above it; it scrolls away with the page.
  */
 export function AppHeader({
   title,
@@ -33,7 +33,7 @@ export function AppHeader({
   const { t } = useTranslation();
   if (large)
     return (
-      <header className="safe-top sticky top-0 z-30 bg-background/90 backdrop-blur-xl">
+      <header className="safe-top relative z-30">
         <div className="flex items-end justify-between gap-3 px-4 pb-1 pt-3">
           <div className="min-w-0">
             {kicker && <div className="line-clamp-2 text-caption font-medium text-muted-foreground">{kicker}</div>}
@@ -44,7 +44,8 @@ export function AppHeader({
       </header>
     );
   return (
-    <header className="safe-top sticky top-0 z-30 bg-background/90 backdrop-blur-xl">
+    <header className="safe-top sticky top-0 z-30">
+      <div aria-hidden className="scroll-edge pointer-events-none absolute inset-x-0 top-0 -bottom-6" />
       <div className="relative flex h-14 items-center justify-center px-4">
         <div className="absolute left-2 flex items-center">
           {back ? (
@@ -52,9 +53,9 @@ export function AppHeader({
               type="button"
               onClick={() => router.history.back()}
               aria-label={t("common.back", "Back")}
-              className="grid h-11 w-11 place-items-center rounded-full text-foreground"
+              className="glass grid h-11 w-11 place-items-center rounded-full text-foreground"
             >
-              <ChevronLeft className="h-7 w-7" strokeWidth={1.9} />
+              <ChevronLeft className="h-6 w-6" strokeWidth={2.1} />
             </button>
           ) : (
             left
@@ -72,9 +73,9 @@ export function AppHeader({
   );
 }
 
-/** Groups a few icon buttons (e.g. notifications + messages): plain 44 px icons in the ink colour. */
+/** Groups a few icon buttons (e.g. notifications + messages). */
 export function HeaderPill({ children }: { children: ReactNode }) {
-  return <div className="flex items-center">{children}</div>;
+  return <div className="flex items-center gap-2">{children}</div>;
 }
 
 export function HeaderIconLink({
@@ -89,10 +90,10 @@ export function HeaderIconLink({
   badge?: number;
 }) {
   return (
-    <Link to={to} aria-label={label} className="relative grid h-11 w-11 place-items-center rounded-full text-foreground">
+    <Link to={to} aria-label={label} className="glass relative grid h-11 w-11 shrink-0 place-items-center rounded-full text-foreground">
       {children}
       {badge ? (
-        <span className="absolute right-0.5 top-1 min-w-[18px] rounded-full border-2 border-background bg-live px-1 text-center text-[10px] font-semibold leading-[14px] text-destructive-foreground tabular-nums animate-scale-in">
+        <span className="absolute -right-1 -top-1 min-w-[18px] rounded-full border-2 border-background bg-live px-1 text-center text-[10px] font-semibold leading-[14px] text-destructive-foreground tabular-nums animate-scale-in">
           {badge > 9 ? "9+" : badge}
         </span>
       ) : null}
@@ -100,19 +101,24 @@ export function HeaderIconLink({
   );
 }
 
-/** Notifications (bell) + messages (paper plane), top right of the Home screen. */
-export function HomeHeaderActions() {
+/** Notifications (bell): top right of Home's large title. */
+export function HomeBell() {
   const { t } = useTranslation();
-  const unheard = useUnheardCount();
   const unread = useQuery({ queryKey: notificationKeys.unread, queryFn: unreadCount });
   return (
-    <HeaderPill>
-      <HeaderIconLink to="/notifications" label={t("tabs.notifications")} badge={unread.data}>
-        <Bell className="h-[23px] w-[23px]" strokeWidth={1.7} />
-      </HeaderIconLink>
-      <HeaderIconLink to="/messages" label={t("tabs.messages")} badge={unheard}>
-        <Send className="h-[22px] w-[22px]" strokeWidth={1.7} />
-      </HeaderIconLink>
-    </HeaderPill>
+    <HeaderIconLink to="/notifications" label={t("tabs.notifications")} badge={unread.data}>
+      <Bell className="h-5 w-5" strokeWidth={1.8} />
+    </HeaderIconLink>
+  );
+}
+
+/** Messages (paper plane): beside Home's feed switch, so it stays in reach while scrolling. */
+export function HomeMessages() {
+  const { t } = useTranslation();
+  const unheard = useUnheardCount();
+  return (
+    <HeaderIconLink to="/messages" label={t("tabs.messages")} badge={unheard}>
+      <Send className="h-5 w-5" strokeWidth={1.8} />
+    </HeaderIconLink>
   );
 }

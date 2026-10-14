@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GraduationCap, Play, Search } from "lucide-react";
-import { AppHeader, HomeHeaderActions } from "@/components/app-header";
+import { AppHeader, HomeBell, HomeMessages } from "@/components/app-header";
 import { FeedTabs } from "@/components/home/feed-switcher";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
@@ -40,10 +40,10 @@ export const Route = createFileRoute("/_authenticated/")({
 });
 
 /**
- * Home in four feeds under an iOS large title: your Campus (ΕΜΠ: its topic of the day, news, student sections and
- * classmates' voices — students only), Following, Groups and News, as text tabs with a gliding line. ▶ plays the list you're
- * looking at. (Recording: the voice key in
- * the tab bar, placed by the feed you're on.)
+ * Home in four feeds under an iOS large title: your Campus (its topic of the day, news, student sections and
+ * classmates' voices — students only), Following, Groups and News, switched by the floating glass capsule that stays on
+ * top with messages beside it (notifications: by the title). ▶ plays the list you're looking at. (Recording: the voice drop beside the tab
+ * bar, placed by the feed you're on.)
  */
 function HomePage() {
   const { t, i18n } = useTranslation();
@@ -72,8 +72,8 @@ function HomePage() {
   const canPlay = !!tab && tab !== "news" && !(tab === "campus" && (!verified || !campusOpen));
   return (
     <>
-      <AppHeader large={tab ? (tab === "campus" ? t("home.campus") : t(`home.${tab}`)) : " "} kicker={kicker} right={<HomeHeaderActions />} />
-      <FeedTabs tab={tab} tabs={TABS} label={label} />
+      <AppHeader large={tab ? (tab === "campus" ? t("home.campus") : t(`home.${tab}`)) : " "} kicker={kicker} right={<HomeBell />} />
+      <FeedTabs tab={tab} tabs={TABS} label={label} right={<HomeMessages />} />
       {(canPlay || tab === "news" || (tab === "campus" && verified && campusOpen)) && (
         <div className="no-scrollbar flex items-center gap-2 overflow-x-auto px-4 pb-2.5 pt-3">
           {canPlay && (

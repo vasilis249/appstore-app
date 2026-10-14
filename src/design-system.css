@@ -1,8 +1,10 @@
 /* ============================================================
  * Design system — the single source of the app's look.
- * "Quiet" system in /DESIGN.md (user decision 2026-10-01): ink on white (or black), a grey scale, ONE indigo accent
- * for labels / links / follow, black play buttons and primary actions, hairlines instead of boxes, iOS large titles,
- * motion that explains (springs, staggered lists, filling waveforms, haptics). Light + dark follow the iPhone. Screens use tokens only (bg-background, bg-card, bg-secondary, text-foreground,
+ * "Glass" system in /DESIGN.md (user decision 2026-10-14, canvas "Speak — Glass design"): content stays opaque and calm
+ * on a cool mist ground; only the navigation layer floating over it is glass (iOS 26): the feed switch, round buttons,
+ * the tab-bar capsule + the voice drop, the mini player, sheets on the map. Ink play buttons / main actions, ONE blue
+ * (Signal) for labels / links / follow, red only for recording / live / likes. Commissioner (Greek type designer, full
+ * Greek, self-hosted). Light + dark follow the iPhone. Screens use tokens only (bg-background, bg-card, bg-secondary, text-foreground,
  * text-muted-foreground, bg-primary, text-link, bg-live, text-success, rounded-*, text-body …) — never raw hex.
  * ============================================================ */
 
@@ -17,9 +19,9 @@
   --radius-2xl: 16px;
   --radius-3xl: 20px;
 
-  /* The system font (SF Pro on iPhone, Greek included), like the big social apps; no download. */
-  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Commissioner (self-hosted below; Greek + Latin), the system font as fallback. */
+  --font-display: Commissioner, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  --font-sans: Commissioner, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
 
   /* Quiet type scale: iOS large titles, tight display tracking, 15–16px reading text. */
   --text-hero: 30px;
@@ -97,81 +99,104 @@
   --shadow-float: var(--float-shadow);
 }
 
-/* Light: white canvas, ink, one indigo. */
+/* Commissioner by Kostas Bartsokas (SIL OFL 1.1, assets/fonts/OFL.txt), variable 400–700, served with the app (no
+   third-party font requests). */
+@font-face { font-family: Commissioner; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("./assets/fonts/commissioner-greek.woff2") format("woff2");
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF; }
+@font-face { font-family: Commissioner; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("./assets/fonts/commissioner-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: Commissioner; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("./assets/fonts/commissioner-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+/* Light: mist ground, white cards, ink, Signal blue. */
 :root {
   --radius: 10px;
   color-scheme: light dark;
 
-  --background: #ffffff;
-  --foreground: #0b0b0c;
+  --background: #eef0f4;
+  --foreground: #0e1116;
   --surface: #ffffff;
   --surface-elevated: #ffffff;
-  --sheet: #ffffff;
-  --group: #f4f4f5;
+  --sheet: #f6f7fa;
+  --group: #ffffff;
   --segment: #ffffff;
-  --card: #f4f4f5;
-  --card-foreground: #0b0b0c;
+  --card: #ffffff;
+  --card-foreground: #0e1116;
   --popover: #ffffff;
-  --popover-foreground: #0b0b0c;
-  /* primary = ink: play buttons, Publish, the one main action. Indigo lives in link (labels, follow, unread). */
-  --primary: #0b0b0c;
+  --popover-foreground: #0e1116;
+  /* primary = ink: play buttons, Publish, the one main action. Blue lives in link (labels, follow, unread). */
+  --primary: #0e1116;
   --primary-foreground: #ffffff;
-  --secondary: #f4f4f5;
-  --secondary-foreground: #0b0b0c;
-  --muted: #f4f4f5;
-  --muted-foreground: #6b6b75;
-  --accent: #f4f4f5;
-  --accent-foreground: #0b0b0c;
-  --destructive: #e5484d;
+  --secondary: #e3e6ec;
+  --secondary-foreground: #0e1116;
+  --muted: #e3e6ec;
+  --muted-foreground: #5b6170;
+  --accent: #e3e6ec;
+  --accent-foreground: #0e1116;
+  --destructive: #e5352b;
   --destructive-foreground: #ffffff;
-  --border: #eaeaec;
-  --input: #e4e4e7;
-  --ring: #3346d3;
-  --link: #3346d3;
-  --live: #e5484d;
-  --success: #2f9e57;
-  --wave: #cdcdd3;
-  --nav: rgb(255 255 255 / 0.88);
-  --nav-active: rgb(11 11 12 / 0.06);
-  --glass: rgb(255 255 255 / 0.88);
-  --float-shadow: 0 10px 30px rgb(0 0 0 / 0.1);
+  --border: #dce0e7;
+  --input: #d5dae2;
+  --ring: #2e4bff;
+  --link: #2e4bff;
+  --live: #ff3b30;
+  --success: #1f9d57;
+  --wave: #c3c8d2;
+  --nav: rgb(255 255 255 / 0.58);
+  --nav-active: rgb(14 17 22 / 0.08);
+  /* Glass: frost + a lit rim + an inner top highlight; a solid fill when transparency is reduced. */
+  --glass: rgb(255 255 255 / 0.58);
+  --glass-rim: rgb(255 255 255 / 0.8);
+  --glass-hi: rgb(255 255 255 / 0.95);
+  --glass-lo: rgb(10 14 30 / 0.06);
+  --glass-shadow: 0 12px 32px rgb(18 24 48 / 0.14);
+  --glass-solid: #ffffff;
+  --float-shadow: 0 12px 32px rgb(18 24 48 / 0.14);
 }
 
-/* Dark: near-black canvas, soft white ink, lighter indigo. */
+/* Dark: near-black ground, soft white ink, lighter Signal. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0b;
-    --foreground: #ededef;
-    --surface: #17171a;
-    --surface-elevated: #1d1d21;
-    --sheet: #1d1d21;
-    --group: #26262b;
-    --segment: #3a3a41;
-    --card: #17171a;
-    --card-foreground: #ededef;
-    --popover: #1d1d21;
-    --popover-foreground: #ededef;
-    --primary: #ededef;
-    --primary-foreground: #0a0a0b;
-    --secondary: #17171a;
-    --secondary-foreground: #ededef;
-    --muted: #17171a;
-    --muted-foreground: #9b9ba5;
-    --accent: #17171a;
-    --accent-foreground: #ededef;
-    --destructive: #ff6b70;
-    --destructive-foreground: #0a0a0b;
-    --border: #242428;
-    --input: #2a2a2f;
-    --ring: #8f9bff;
-    --link: #8f9bff;
-    --live: #ff6b70;
-    --success: #4cc27a;
-    --wave: #3a3a41;
-    --nav: rgb(10 10 11 / 0.86);
-    --nav-active: rgb(255 255 255 / 0.08);
-    --glass: rgb(10 10 11 / 0.84);
-    --float-shadow: 0 10px 30px rgb(0 0 0 / 0.5);
+    --background: #07080b;
+    --foreground: #f1f2f5;
+    --surface: #111319;
+    --surface-elevated: #16181f;
+    --sheet: #111319;
+    --group: #1a1d25;
+    --segment: #2a2e39;
+    --card: #16181f;
+    --card-foreground: #f1f2f5;
+    --popover: #16181f;
+    --popover-foreground: #f1f2f5;
+    --primary: #f1f2f5;
+    --primary-foreground: #07080b;
+    --secondary: #16181f;
+    --secondary-foreground: #f1f2f5;
+    --muted: #16181f;
+    --muted-foreground: #9ca2ae;
+    --accent: #16181f;
+    --accent-foreground: #f1f2f5;
+    --destructive: #ff5a50;
+    --destructive-foreground: #07080b;
+    --border: #1e2129;
+    --input: #262a34;
+    --ring: #8d9bff;
+    --link: #8d9bff;
+    --live: #ff5a50;
+    --success: #4cd98a;
+    --wave: #3a3e4a;
+    --nav: rgb(30 33 42 / 0.5);
+    --nav-active: rgb(255 255 255 / 0.12);
+    --glass: rgb(30 33 42 / 0.5);
+    --glass-rim: rgb(255 255 255 / 0.13);
+    --glass-hi: rgb(255 255 255 / 0.16);
+    --glass-lo: rgb(0 0 0 / 0.3);
+    --glass-shadow: 0 14px 36px rgb(0 0 0 / 0.5);
+    --glass-solid: #1c1f27;
+    --float-shadow: 0 14px 36px rgb(0 0 0 / 0.5);
   }
 }
 
@@ -242,11 +267,25 @@
   }
 }
 
-/* Frosted glass for things floating over content (nav, header, mini player, map controls). */
+/* Glass for things floating over content (tab bar, voice drop, feed switch, round buttons, mini player, map sheets):
+   frost, a rim brighter than the fill, a top highlight, a soft float. Few per screen: each one re-blurs what's behind. */
 @utility glass {
   background-color: var(--glass);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid var(--glass-rim);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi), inset 0 -1px 0 var(--glass-lo);
+}
+/* Under floating top controls: content softens and fades as it scrolls beneath (iOS scroll edge). */
+@utility scroll-edge {
+  background: linear-gradient(var(--background) 30%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  -webkit-mask-image: linear-gradient(#000 55%, transparent);
+  mask-image: linear-gradient(#000 55%, transparent);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass { background-color: var(--glass-solid); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
 /* iOS app (Capacitor): safe areas for notch / home indicator (viewport-fit=cover). */

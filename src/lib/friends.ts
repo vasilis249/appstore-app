@@ -100,6 +100,8 @@ export async function listBlocked(): Promise<Person[]> {
 export function rpcErrorKey(err: unknown): string {
   const msg = err instanceof Error ? err.message : String(err);
   if (msg.includes("rate_limited")) return "rpcErrors.rateLimited";
+  if (msg.includes("empty_post")) return "rpcErrors.emptyPost";
+  if (msg.includes("too_long")) return "rpcErrors.tooLong";
   if (msg.includes("profiles_username_key") || msg.includes("duplicate key")) return "rpcErrors.usernameTaken";
   if (msg.includes("profiles_username_check")) return "rpcErrors.usernameFormat";
   if (msg.includes("not_allowed") || msg.includes("not_friends")) return "rpcErrors.notAllowed";

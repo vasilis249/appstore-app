@@ -147,6 +147,7 @@ export interface AdminReport {
   target_id: string | null;
   post_title: string | null;
   post_audio_path: string | null;
+  post_images: string[] | null;
   post_duration_ms: number | null;
   post_hidden: boolean | null;
   post_exists: boolean;

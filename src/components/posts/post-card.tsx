@@ -11,7 +11,7 @@ import { PostMenu } from "@/components/posts/post-menu";
 import { useSections } from "@/hooks/use-sections";
 import { useCampus } from "@/lib/campus";
 import { formatClock } from "@/lib/audio";
-import { postKeys, setLiked, type PostView } from "@/lib/posts";
+import { postKeys, setLiked, voiceUrl, type PostView } from "@/lib/posts";
 import { currentId, toggle, useQueue } from "@/lib/queue";
 import { timeAgoShort } from "@/lib/time-ago";
 import { rpcErrorKey } from "@/lib/friends";
@@ -21,10 +21,10 @@ import { cn } from "@/lib/utils";
 const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
 
 /**
- * A public voice post, compact so a screen holds several (user request 2026-10-14): avatar · one line "name school ·
- * time" · ⋯, the place line (campus / group / section · topic; nothing for a personal voice), title, a slim voice row
- * (play, waveform that fills and breathes while playing; double-tap = like with a heart burst), then 💬 ⟲ ♥ ✈ with
- * counts and 🎧 listens. `focus` (the post page) keeps the big title and player.
+ * A post like X (compact so a screen holds several): avatar · one line "name school · time" · ⋯, the place line
+ * (campus section / group / section · topic; nothing for a personal post), its text, up to 4 photos, a slim voice row
+ * when it has a voice (play, waveform that fills and breathes while playing; double-tap = like with a heart burst),
+ * then 💬 ⟲ ♥ ✈ with counts and 🎧 listens. `focus` (the post page) shows bigger text, photos and player.
  * `onPlay` starts the list's queue at this post (continuous playback).
  */
 export function PostCard({
@@ -205,12 +205,18 @@ export function PostCard({
             <button
               type="button"
               onClick={open}
-              className={cn("mt-0.5 block text-left", focus ? "text-[22px] font-[650] leading-[1.27] tracking-[-0.022em]" : "line-clamp-2 text-callout font-medium leading-snug")}
+              className={cn(
+                "mt-0.5 block whitespace-pre-line text-left [overflow-wrap:anywhere]",
+                focus ? "text-[20px] font-medium leading-[1.35] tracking-[-0.01em]" : "text-body leading-[1.4]",
+              )}
             >
               {post.title}
             </button>
           )}
 
+          {post.images.length > 0 && <Photos paths={post.images} alt={t("posts.photoAlt", { name: post.name })} onOpen={linkToPost ? open : undefined} focus={focus} />}
+
+          {post.path && (
           <div
             onPointerUp={tapTile}
             className={cn("relative flex select-none items-center overflow-hidden bg-card", focus ? "mt-2.5 gap-3 rounded-3xl p-4" : "mt-1.5 gap-2.5 rounded-full py-1 pl-1 pr-3")}
@@ -235,6 +241,7 @@ export function PostCard({
               </span>
             )}
           </div>
+          )}
 
           {post.quote?.deleted && (
             <p className="mt-2 rounded-xl border border-border px-3 py-2 text-caption text-muted-foreground">{t("posts.quoteDeleted")}</p>
@@ -245,9 +252,17 @@ export function PostCard({
               params={{ postId: post.quote.id }}
               className="mt-2 block rounded-xl border border-border px-3 py-2 text-caption"
             >
-              <span className="font-semibold">{post.quote.name}</span>{" "}
-              <span className="text-muted-foreground">@{post.quote.username} · {formatClock(post.quote.durationMs)}</span>
-              {post.quote.title && <span className="mt-0.5 block truncate">{post.quote.title}</span>}
+              <span className="flex gap-3">
+                <span className="min-w-0 flex-1">
+                  <span className="font-semibold">{post.quote.name}</span>{" "}
+                  <span className="text-muted-foreground">
+                    @{post.quote.username}
+                    {post.quote.durationMs > 0 && ` · ${formatClock(post.quote.durationMs)}`}
+                  </span>
+                  {post.quote.title && <span className="mt-0.5 line-clamp-2 block">{post.quote.title}</span>}
+                </span>
+                {post.quote.image && <img src={voiceUrl(post.quote.image)} alt="" loading="lazy" className="h-12 w-12 shrink-0 rounded-lg object-cover" />}
+              </span>
             </Link>
           )}
 
@@ -290,5 +305,26 @@ export function PostCard({
       <RepostSheet post={repostOpen ? post : null} onOpenChange={setRepostOpen} />
       <PostMenu post={menuOpen ? post : null} onOpenChange={setMenuOpen} />
     </article>
+  );
+}
+
+/** 1–4 photos like X: one wide, two side by side, three = one tall + two, four = a 2×2 grid. */
+function Photos({ paths, alt, onOpen, focus }: { paths: string[]; alt: string; onOpen?: () => void; focus: boolean }) {
+  const n = paths.length;
+  const img = (path: string, i: number, cls: string) => (
+    <img key={path} src={voiceUrl(path)} alt={`${alt} (${i + 1}/${n})`} loading="lazy" className={cn("h-full w-full bg-secondary object-cover", cls)} />
+  );
+  const box = cn("mt-2 overflow-hidden rounded-2xl", onOpen && "cursor-pointer");
+  const H = focus ? "h-[420px]" : "h-64";
+  if (n === 1)
+    return (
+      <div className={box} onClick={onOpen}>
+        {img(paths[0], 0, focus ? "max-h-[520px] h-auto" : H)}
+      </div>
+    );
+  return (
+    <div className={cn(box, "grid grid-cols-2 gap-0.5", H, n > 2 && "grid-rows-2")} onClick={onOpen}>
+      {paths.map((p, i) => img(p, i, n === 3 && i === 0 ? "row-span-2" : ""))}
+    </div>
   );
 }

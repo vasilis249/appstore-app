@@ -18,7 +18,7 @@ export function PostMenu({ post, onOpenChange }: { post: PostView | null; onOpen
   const mine = !!post && post.authorId === user?.id;
 
   const del = useMutation({
-    mutationFn: () => deletePost({ post_id: post!.id, audio_path: post!.path }),
+    mutationFn: () => deletePost({ post_id: post!.id, audio_path: post!.path, images: post!.images }),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: postKeys.all });
       onOpenChange(false);
