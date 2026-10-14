@@ -21,6 +21,8 @@ containers → environment setup script; `graphify update <path>` builds `graphi
 OmniRoute (a self-hosted LLM gateway server, not an agent plugin). Work with them first: Ponytail's minimal-code
 mode, agent-skills' spec → plan → build → test → review → ship flow, Graphify for codebase questions. Still kept:
 Greek replies, phases with a stop for "OK", secrets/security and deploy rules below.
+**User rule (2026-10-14): for EVERY task use `find-skills` first (look for a skill that fits the task; install / use it
+if it helps) and work in `ponytail` mode (smallest change that fully solves it) — "για να υπάρχει optimization".**
 
 ## Product: **Speak** — "X/Twitter, but with voice" (decided 2026-09-29, replaces the BeReal-style plan)
 Voice is the main medium. Public posts = a voice clip (≤ 2 min) + optional short title (≤ 100 chars), filed in a
