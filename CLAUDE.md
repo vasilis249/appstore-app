@@ -9,7 +9,9 @@ Don't read `bun.lock`, `node_modules`, `src/assets`, `src/components/ui` (stock 
 consistency, not as a rule that outranks the agent plugins below.
 
 **Agent plugins — PRIORITY (user decision 2026-10-01: they take precedence over older conventions and the old
-design skills, which were uninstalled), vendored in `.claude/` so every session has them:** `ponytail` (lazy-senior
+design skills, which were uninstalled), vendored in `.claude/` so every session has them:** `ponytail` (from
+github.com/dietrichgebert/ponytail, v5.2.0 since 2026-10-14 — to update: clone it, copy `hooks/*` → `.claude/ponytail/hooks/`
+and `skills/ponytail*` → `.claude/skills/`; its SessionStart hook now also injects a short codebase map; lazy-senior
 "minimal code" mode, on by default via SessionStart/SubagentStart/UserPromptSubmit hooks in `.claude/settings.json` →
 `.claude/ponytail/hooks/*.js`; "stop ponytail" / "normal mode" turns it off; skills ponytail-audit/-review/-debt/-gain/
 -help), addyosmani `agent-skills` (25 skills spec → plan → build → test → review → ship, commands `/spec /plan
