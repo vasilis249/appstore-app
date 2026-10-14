@@ -21,9 +21,10 @@ import { cn } from "@/lib/utils";
 const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
 
 /**
- * A public voice post (DESIGN.md, Quiet): avatar · name over "school · time" · ⋯, the indigo place line (campus /
- * group / section · topic; nothing for a personal voice), title, the voice tile (ink play, waveform that fills and
- * breathes while playing; double-tap = like with a heart burst), then 💬 ⟲ ♥ ✈ with counts and 🎧 listens.
+ * A public voice post, compact so a screen holds several (user request 2026-10-14): avatar · one line "name school ·
+ * time" · ⋯, the place line (campus / group / section · topic; nothing for a personal voice), title, a slim voice row
+ * (play, waveform that fills and breathes while playing; double-tap = like with a heart burst), then 💬 ⟲ ♥ ✈ with
+ * counts and 🎧 listens. `focus` (the post page) keeps the big title and player.
  * `onPlay` starts the list's queue at this post (continuous playback).
  */
 export function PostCard({
@@ -100,15 +101,15 @@ export function PostCard({
   }
 
   const open = () => linkToPost && void navigate({ to: "/p/$postId", params: { postId: post.id } });
-  const action = "flex min-h-11 items-center gap-1.5 text-caption tabular-nums text-muted-foreground";
+  const action = "flex min-h-9 items-center gap-1.5 text-caption tabular-nums text-muted-foreground";
 
   // Deleted by its author after others answered: a placeholder that keeps the conversation readable.
   if (post.deleted)
     return (
-      <article className={cn("px-4 py-3", !threadLine && "border-b border-border")}>
-        <div className="flex gap-3">
+      <article className={cn("px-4 py-2.5", !threadLine && "border-b border-border")}>
+        <div className="flex gap-2.5">
           <div className="flex shrink-0 flex-col items-center">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-secondary text-muted-foreground" aria-hidden>
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-secondary text-muted-foreground" aria-hidden>
               <MicOff className="h-4 w-4" />
             </span>
             {threadLine && <span className="-mb-3 mt-1 w-0.5 flex-1 rounded-full bg-border" aria-hidden />}
@@ -117,7 +118,7 @@ export function PostCard({
             type="button"
             onClick={open}
             disabled={!linkToPost}
-            className="min-w-0 flex-1 rounded-xl bg-secondary px-4 py-3 text-left text-callout text-muted-foreground"
+            className="min-w-0 flex-1 rounded-xl bg-secondary px-3 py-2 text-left text-caption text-muted-foreground"
           >
             {t("posts.deletedVoice")}
           </button>
@@ -126,9 +127,9 @@ export function PostCard({
     );
 
   return (
-    <article className={cn("px-4 pb-1 pt-3.5", !threadLine && "border-b border-border")}>
+    <article className={cn("px-4 pt-2.5", !threadLine && "border-b border-border")}>
       {post.repostedBy && (
-        <p className="mb-1 ml-[46px] flex items-center gap-1.5 text-fine font-medium text-muted-foreground">
+        <p className="mb-0.5 ml-[42px] flex items-center gap-1.5 text-fine font-medium text-muted-foreground">
           <Repeat2 className="h-3.5 w-3.5" />
           {post.repostedBy.mine ? t("posts.youReposted") : t("posts.reposted", { name: post.repostedBy.name })}
         </p>
@@ -136,25 +137,24 @@ export function PostCard({
       <div className="flex gap-2.5">
         <div className="flex shrink-0 flex-col items-center">
           <Link to="/u/$username" params={{ username: post.username }} aria-label={post.name}>
-            <UserAvatar name={post.name} path={post.avatar} size={36} />
+            <UserAvatar name={post.name} path={post.avatar} size={32} />
           </Link>
           {threadLine && <span className="-mb-3 mt-1 w-0.5 flex-1 rounded-full bg-border" aria-hidden />}
         </div>
         <div className="min-w-0 flex-1">
           <header className="flex items-center gap-2">
-            <div className="min-w-0 flex-1">
-              <Link to="/u/$username" params={{ username: post.username }} className="block truncate text-callout font-semibold leading-5">
+            <p className="flex min-w-0 flex-1 items-baseline gap-1 whitespace-nowrap text-caption leading-5 text-muted-foreground">
+              <Link to="/u/$username" params={{ username: post.username }} className="min-w-0 max-w-[65%] truncate text-callout font-semibold text-foreground">
                 {post.name}
               </Link>
-              <p className="truncate text-caption text-muted-foreground">
-                {[school, timeAgoShort(post.createdAt, i18n.language)].filter(Boolean).join(" · ")}
-              </p>
-            </div>
+              {school && <span className="min-w-0 truncate">{school}</span>}
+              <span className="shrink-0">· {timeAgoShort(post.createdAt, i18n.language)}</span>
+            </p>
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-label={t("friends.actions")}
-              className="-mr-3 grid h-11 w-11 shrink-0 place-items-center rounded-full text-muted-foreground"
+              className="-my-2 -mr-3 grid h-9 w-11 shrink-0 place-items-center rounded-full text-muted-foreground"
             >
               <MoreHorizontal className="h-5 w-5" />
             </button>
@@ -170,7 +170,7 @@ export function PostCard({
           )}
 
           {(post.groupId || post.sectionId || post.campus) && (
-            <p className="mt-1.5 flex min-w-0 items-center gap-1 text-fine font-semibold text-muted-foreground">
+            <p className="flex min-w-0 items-center gap-1 text-fine font-semibold text-muted-foreground">
               {post.campus ? (
                 <Link
                   to="/"
@@ -209,7 +209,7 @@ export function PostCard({
             <button
               type="button"
               onClick={open}
-              className={cn("mt-0.5 block text-left", focus ? "text-[22px] font-[650] leading-[1.27] tracking-[-0.022em]" : "text-body font-medium leading-[1.38] tracking-[-0.012em]")}
+              className={cn("mt-0.5 block text-left", focus ? "text-[22px] font-[650] leading-[1.27] tracking-[-0.022em]" : "line-clamp-2 text-callout font-medium leading-snug")}
             >
               {post.title}
             </button>
@@ -217,25 +217,25 @@ export function PostCard({
 
           <div
             onPointerUp={tapTile}
-            className={cn("relative mt-2.5 flex select-none items-center gap-3 overflow-hidden bg-card", focus ? "rounded-3xl py-4 pl-4 pr-4" : "rounded-xl py-2 pl-2 pr-3")}
+            className={cn("relative flex select-none items-center overflow-hidden bg-card", focus ? "mt-2.5 gap-3 rounded-3xl p-4" : "mt-1.5 gap-2.5 rounded-full py-1 pl-1 pr-3")}
           >
             <button
               type="button"
               onClick={() => (isCurrent ? toggle() : onPlay())}
               aria-label={playing ? t("daily.pause") : t("daily.play")}
-              className={cn("grid shrink-0 place-items-center rounded-full bg-primary text-primary-foreground", focus ? "h-14 w-14" : "h-9 w-9")}
+              className={cn("grid shrink-0 place-items-center rounded-full bg-primary text-primary-foreground", focus ? "h-14 w-14" : "h-7 w-7")}
             >
               {playing ? (
-                <Pause className={focus ? "h-6 w-6" : "h-4 w-4"} fill="currentColor" strokeWidth={0} />
+                <Pause className={focus ? "h-6 w-6" : "h-3.5 w-3.5"} fill="currentColor" strokeWidth={0} />
               ) : (
-                <Play className={cn("ml-0.5", focus ? "h-6 w-6" : "h-4 w-4")} fill="currentColor" strokeWidth={0} />
+                <Play className={cn("ml-0.5", focus ? "h-6 w-6" : "h-3.5 w-3.5")} fill="currentColor" strokeWidth={0} />
               )}
             </button>
-            <Waveform seed={post.id} progress={isCurrent ? q.progress : 0} live={playing} bars={focus ? 48 : 36} className={focus ? "h-12" : undefined} />
+            <Waveform seed={post.id} progress={isCurrent ? q.progress : 0} live={playing} bars={focus ? 48 : 36} className={focus ? "h-12" : "h-5"} />
             <span className="shrink-0 text-caption tabular-nums text-muted-foreground">{formatClock(post.durationMs)}</span>
             {burst > 0 && (
               <span key={burst} className="pointer-events-none absolute inset-0 grid place-items-center" aria-hidden>
-                <Heart className="h-16 w-16 animate-heart-burst text-live drop-shadow-lg" fill="currentColor" strokeWidth={0} />
+                <Heart className={cn("animate-heart-burst text-live drop-shadow-lg", focus ? "h-16 w-16" : "h-9 w-9")} fill="currentColor" strokeWidth={0} />
               </span>
             )}
           </div>
@@ -255,7 +255,7 @@ export function PostCard({
             </Link>
           )}
 
-          <footer className="-ml-2 mt-0.5 flex items-center gap-1">
+          <footer className="-ml-2 flex items-center gap-1">
             <button type="button" onClick={open} className={cn(action, "px-2")} aria-label={t("posts.reply")}>
               <MessageCircle className="h-[18px] w-[18px] -scale-x-100" strokeWidth={1.7} /> {post.replies > 0 && compact.format(post.replies)}
             </button>

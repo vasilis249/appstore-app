@@ -570,6 +570,11 @@ User decisions:
   (`rounded-2xl`, `min-h`). `europe_all.py` short-name rules deleted (short = name). NEW universities: set the short
   names to the full names. Tests campus 94 (08a/08f/13g/13zb); flows campus 15, campus-groups 7, growth 12, attica 13,
   acg 7, network 9, gate 7, groups 15 (scratchpad flows updated to full names). Live applied, deploy b37ba41d.
+  **Compact post cards ✔ (user request 2026-10-14: "more posts per screen, minimal")** — `PostCard` only (feed cards;
+  `focus` on the post page unchanged): one header line "name school · time" (school truncates, time never), 32px avatar,
+  place line right under it, title 15px max 2 lines, slim pill player (28px play, 20px waveform), actions 36px tall,
+  tighter padding → a card ~150px instead of ~210px (≈ 4 per screen instead of 3). Flows: campus asserts the school as
+  exact text "ΗΜΜΥ" (was `/^ΗΜΜΥ · /`); campus 15, campus-groups 7, groups 15, news 10, delete 5, gate 7. Deploy d43c7b51.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
