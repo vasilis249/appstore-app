@@ -62,7 +62,8 @@ function HomePage() {
   const status = useQuery({ queryKey: campusStatusKeys.status, queryFn: campusStatus, enabled: tab === "campus" && verified });
   const campusOpen = status.data?.is_open !== false;
   const uni = campus.label({ university_id: me.data?.university_id });
-  const label = (x: Tab) => (x === "campus" ? uni || t("home.campus") : t(`home.${x}`));
+  // The university's full name is too long for a tab: it shows in the header kicker instead.
+  const label = (x: Tab) => t(`home.${x}`);
   const kicker =
     tab === "campus" && uni
       ? status.data

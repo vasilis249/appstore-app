@@ -36,7 +36,7 @@ export function AppHeader({
       <header className="safe-top sticky top-0 z-30 bg-background/90 backdrop-blur-xl">
         <div className="flex items-end justify-between gap-3 px-4 pb-1 pt-3">
           <div className="min-w-0">
-            {kicker && <div className="truncate text-caption font-medium text-muted-foreground">{kicker}</div>}
+            {kicker && <div className="line-clamp-2 text-caption font-medium text-muted-foreground">{kicker}</div>}
             <h1 className="truncate text-hero">{large}</h1>
           </div>
           <div className="-mb-1.5 -mr-2.5 flex shrink-0 items-center">{right}</div>

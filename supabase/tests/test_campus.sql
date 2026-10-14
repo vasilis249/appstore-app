@@ -188,9 +188,9 @@ UPDATE public.profiles SET university_id = 'ntua', student_verified_at = now() W
 SELECT pg_temp.as_user(:D); SET ROLE authenticated;
 SELECT public.set_student_info('ntua-civil', 2);
 RESET ROLE;
-SELECT pg_temp.ok('08a choosing school + year puts you in "ΕΜΠ · Πολιτικοί" and "ΕΜΠ · Πολιτικοί · 2ο έτος"',
+SELECT pg_temp.ok('08a choosing school + year puts you in "Πολιτικοί" and "Πολιτικοί · 2ο έτος"',
   (SELECT array_agg(g.name ORDER BY g.name) FROM public.group_members m JOIN public.groups g ON g.id = m.group_id WHERE m.user_id = :D AND g.auto)
-    = ARRAY['ΕΜΠ · Πολιτικοί', 'ΕΜΠ · Πολιτικοί · 2ο έτος']
+    = ARRAY['Πολιτικοί', 'Πολιτικοί · 2ο έτος']
   AND NOT EXISTS (SELECT 1 FROM public.group_members m JOIN public.groups g ON g.id = m.group_id WHERE g.auto AND m.role <> 'member'));
 SELECT pg_temp.as_user(:E); SET ROLE authenticated;
 SELECT public.set_student_info('ntua-civil', 4);
@@ -199,7 +199,7 @@ SELECT pg_temp.ok('08b a classmate joins the same school group (made once), thei
   AND (SELECT members_count FROM public.groups WHERE auto AND department_id = 'ntua-civil' AND study_year IS NULL) = 2);
 SELECT pg_temp.ok('08c auto groups are private, not in discover, no invites',
   (SELECT privacy FROM public.groups WHERE auto LIMIT 1) = 'private'
-  AND NOT EXISTS (SELECT 1 FROM public.discover_groups() WHERE name LIKE 'ΕΜΠ ·%')
+  AND NOT EXISTS (SELECT 1 FROM public.discover_groups() x JOIN public.groups g ON g.id = x.id WHERE g.auto)
   AND pg_temp.fails(format('SELECT public.invite_to_group(%L, %L)', (SELECT id FROM public.groups WHERE auto AND department_id = 'ntua-civil' AND study_year IS NULL), :D)));
 SELECT public.leave_group((SELECT id FROM public.groups WHERE auto AND department_id = 'ntua-civil' AND study_year IS NULL));
 SELECT pg_temp.ok('08d you can leave and come back (you still fit)',
@@ -211,7 +211,7 @@ SELECT public.set_student_info('ntua-arch', 4);
 RESET ROLE;
 SELECT pg_temp.ok('08f changing school moves you (out of Πολιτικοί, into Αρχιτέκτονες)',
   (SELECT array_agg(g.name ORDER BY g.name) FROM public.group_members m JOIN public.groups g ON g.id = m.group_id WHERE m.user_id = :E AND g.auto)
-    = ARRAY['ΕΜΠ · Αρχιτέκτονες', 'ΕΜΠ · Αρχιτέκτονες · 4ο έτος']);
+    = ARRAY['Αρχιτέκτονες', 'Αρχιτέκτονες · 4ο έτος']);
 SELECT pg_temp.as_user(:E); SET ROLE authenticated;
 SELECT public.clear_student_identity();
 RESET ROLE;
@@ -349,7 +349,7 @@ SELECT pg_temp.ok('13f Medicine has a 6th year; master''s is 8, PhD 9; law has n
 SELECT public.set_student_info('uoa-med', 6);
 RESET ROLE;
 SELECT pg_temp.ok('13g ΕΚΠΑ school-year group, labelled for everyone',
-  (SELECT name = 'ΕΚΠΑ · Ιατρική · 6ο έτος' AND description = '6ο έτος · Ιατρικής · ΕΚΠΑ.' AND university_id = 'uoa'
+  (SELECT name = 'Ιατρική · 6ο έτος' AND description = '6ο έτος · Ιατρικής · Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών.' AND university_id = 'uoa'
    FROM public.groups WHERE auto AND department_id = 'uoa-med' AND study_year = 6)
   AND EXISTS (SELECT 1 FROM public.group_members m JOIN public.groups g ON g.id = m.group_id
               WHERE g.auto AND g.department_id = 'uoa-med' AND g.study_year IS NULL AND m.user_id = :E));
@@ -465,9 +465,9 @@ SELECT pg_temp.ok('13z FR / IT / ES / PT campus feeds: 16, one per university, a
 SELECT pg_temp.ok('13za Nordic / central-eastern campus feeds: 13 over 12 universities',
   (SELECT count(*) FROM private.news_feeds WHERE university_id IN ('ucph','lund','helsinki','aalto','hi','uw','pw','bme','unibuc',
     'bgacrs','unilj','tartu')) = 13);
-SELECT pg_temp.ok('13zb E2 short names: none cut with an ellipsis, ≤ 26 chars, rules applied',
-  NOT EXISTS (SELECT 1 FROM public.universities WHERE position >= 1000 AND (short_en LIKE '%…' OR length(short_en) > 26))
-  AND (SELECT short_en FROM public.universities WHERE id = 'oth-aw') = 'OTH Amberg-Weiden'
-  AND (SELECT short_en FROM public.universities WHERE id = 'fh-wels') = 'FH Wels'
-  AND (SELECT short_en FROM public.universities WHERE id = 'absparis') = 'ABS Paris'
-  AND (SELECT short_el FROM public.universities WHERE id = 'fs-students') = 'Frankfurt School');
+SELECT pg_temp.ok('13zb no abbreviations: every university short name is its full name; auto groups are named by department',
+  NOT EXISTS (SELECT 1 FROM public.universities WHERE short_el <> name_el OR short_en <> name_en)
+  AND (SELECT short_el FROM public.universities WHERE id = 'ntua') = (SELECT name_el FROM public.universities WHERE id = 'ntua')
+  AND private.auto_group_name('acg-it', NULL) = (SELECT name_el FROM public.departments WHERE id = 'acg-it')
+  AND private.auto_group_name('ntua-ece', 3) = 'ΗΜΜΥ · 3ο έτος'
+  AND private.auto_group_description('ntua-ece', 3) LIKE '%Εθνικό Μετσόβιο Πολυτεχνείο.');

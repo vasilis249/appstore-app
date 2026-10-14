@@ -561,6 +561,15 @@ User decisions:
   checked with the real `verify_student_code` — no mail sent to the made-up @auth.gr addresses. NOT covered: live
   walkie / Realtime (no WebSockets through the proxy). DELETED after the trial (user request): 12 files from `voices/`,
   the 10 auth users (cascade), and the 14 empty ΑΠΘ auto groups made on first use → live is as before (0 left).
+  **No university abbreviations ✔ (user request 2026-10-13: "δεν μ' αρέσουν οι συντομεύσεις")** —
+  `20261104100000_full_university_names.sql`: `short_el/short_en` = the full names for every university (so every
+  `campus.label()` place — post cards, profile badge, Home kicker, search, invite page, admin chips — shows the full
+  name; department shorts unchanged). Auto groups are named by department only (`private.auto_group_name`: "ΗΜΜΥ · 3ο
+  έτος"; 2-letter shorts IT/AI/HA → the department's full name), the description carries the full university name
+  (60-char limit). UI: Home campus tab always "Campus"; header kicker `line-clamp-2` (was truncate); profile badge grows
+  (`rounded-2xl`, `min-h`). `europe_all.py` short-name rules deleted (short = name). NEW universities: set the short
+  names to the full names. Tests campus 94 (08a/08f/13g/13zb); flows campus 15, campus-groups 7, growth 12, attica 13,
+  acg 7, network 9, gate 7, groups 15 (scratchpad flows updated to full names). Live applied, deploy b37ba41d.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,

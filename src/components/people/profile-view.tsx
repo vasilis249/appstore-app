@@ -87,8 +87,8 @@ export function ProfileView({ person, isMe, onEdit }: { person: Person; isMe: bo
         <h1 className="mt-3.5 truncate text-[17px] font-[650] tracking-[-0.015em]">{name}</h1>
         <div className="mt-1.5 flex flex-wrap items-center gap-2">
           {school ? (
-            <span className="inline-flex h-[26px] items-center gap-1.5 rounded-full bg-link/10 px-2.5 text-caption font-semibold text-link">
-              <GraduationCap className="h-3.5 w-3.5" /> {school}
+            <span className="inline-flex min-h-[26px] items-center gap-1.5 rounded-2xl bg-link/10 px-2.5 py-1 text-caption font-semibold leading-snug text-link">
+              <GraduationCap className="h-3.5 w-3.5 shrink-0" /> {school}
             </span>
           ) : (
             isMe &&
