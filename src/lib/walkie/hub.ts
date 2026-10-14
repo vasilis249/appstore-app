@@ -2,7 +2,7 @@ import { silenceAll } from "@/lib/audio";
 import { WalkieSession, walkieAudioRunning, type WalkieKind, type WalkieSnapshot } from "./engine";
 
 /**
- * Every live walkie session of this device, one per person and kind. "Channel on" friends are kept connected while
+ * Every live walkie session of this device, one per person and kind. Friends are always kept connected while
  * you use the rest of the app (you hear them anywhere, they see you as here); a friend's walkie screen borrows the
  * same session, so there is never a second join of the same channel. Nearby (map) sessions are held by
  * lib/location/nearby.ts for a few minutes after a knock.
@@ -77,7 +77,7 @@ export const walkieHub = {
     changed();
   },
 
-  /** Friends whose channel stays open (walkie_list → channel_on). */
+  /** Friends whose channel stays open (walkie_list, most recent first). */
   setPinned(peers: string[]) {
     if (!me) return;
     const want = new Set(peers.map((p) => keyOf(p, "walkie")));

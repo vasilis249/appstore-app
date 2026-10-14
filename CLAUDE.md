@@ -676,6 +676,16 @@ User decisions:
   on either side, short press), walkie-hub, walkie-reconnect, nearby, micsession, ptt → 65/65), local proxy +
   realtime mock + seeds. `bun run test:db` / `test:e2e`. `scripts/rt-probe/` = Worker probe of the REAL Realtime path
   (deploy temporarily, two temporary student users, delete both after).
+  **Walkie always open + iOS 26 live capture ✔ (user request 2026-10-14)** — no channel switch any more: `WalkieHubSync`
+  pins every friend from `walkie_list()` (most recent 30, `OPEN_MAX`; Realtime ~100 channels per socket); the switches on
+  `/talk` and `/talk/$id` and `setWalkieChannel` are gone (server `channel_on` / `walkie_set_channel` left unused); the
+  background keep-alive switch shows when you have friends and asks notice permission. Live bug: diag showed iOS 26
+  Safari (`Version/26.4`, `26.5.2`) sending 0 live pieces (`onaudioprocess` 0 calls, context "running") → only the saved
+  copy was heard. `engine.ts`: the mic now runs on its own AudioContext made AFTER getUserMedia (`captureContext`,
+  `captureGraph`, closed at the end); no processor call within 0.8 s → moves to the shared context (`d.cap` own |
+  own→shared | shared-kick, logged in diag when not "own"). `walkie-ios-flow` models it (contexts made before the first
+  getUserMedia never run their ScriptProcessor): old engine 0 pieces on every turn, new 7/7. e2e 64/64 (hub 11,
+  reconnect 4: no switch steps). NOT verified on a real iPhone → user test, then read `private.walkie_diag`.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,

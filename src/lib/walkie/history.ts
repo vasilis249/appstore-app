@@ -31,12 +31,6 @@ export async function walkieList(): Promise<WalkieContact[]> {
   return (data ?? []) as WalkieContact[];
 }
 
-/** Keep a friend's channel open while you use the app (max 10: error `too_many_channels`). */
-export async function setWalkieChannel(peer: string, on: boolean) {
-  const { error } = await supabase.rpc("walkie_set_channel", { p_peer: peer, p_on: on });
-  if (error) throw new Error(error.message);
-}
-
 /** You looked at a friend's walkie: nothing unheard, their walkie notice read. */
 export async function walkieSeen(peer: string) {
   await supabase.rpc("walkie_seen", { p_peer: peer });

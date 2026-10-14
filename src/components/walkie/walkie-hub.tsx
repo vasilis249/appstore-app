@@ -25,10 +25,13 @@ export function useHubPeers() {
   return walkieHub.peers();
 }
 
+/** Friends kept connected at once (most recent first); Realtime allows ~100 channels per connection. */
+const OPEN_MAX = 30;
+
 /**
- * Keeps "channel on" friends connected while you use the app, unlocks sound with your first tap (iOS), plays the
- * silent keep-alive in the background when you turned it on, and shows a local notice when a friend starts talking
- * while the app is in the background (app only; permission from the daily reminder).
+ * Keeps your friends' channels always open (the most recent OPEN_MAX) while you use the app, unlocks sound with your
+ * first tap (iOS), plays the silent keep-alive in the background when you turned it on, and shows a local notice
+ * when a friend starts talking while the app is in the background (app only; permission from the daily reminder).
  */
 export function WalkieHubSync() {
   const { user } = useAuth();
@@ -41,7 +44,7 @@ export function WalkieHubSync() {
 
   useEffect(() => {
     if (!user || !list.data) return;
-    walkieHub.setPinned(list.data.filter((c) => c.channel_on).map((c) => c.user_id));
+    walkieHub.setPinned(list.data.slice(0, OPEN_MAX).map((c) => c.user_id));
   }, [user, list.data]);
 
   useEffect(() => {

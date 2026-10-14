@@ -1,13 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Volume2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AppHeader } from "@/components/app-header";
-import { Switch } from "@/components/ui/switch";
-import { useWalkieList } from "@/components/walkie/walkie-hub";
 import { UserAvatar } from "@/components/user-avatar";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 import { HistoryRow } from "@/components/walkie/history-row";
@@ -17,7 +15,7 @@ import { formatClock } from "@/lib/audio";
 import { friendKeys, profileStats } from "@/lib/friends";
 import { WALKIE_MAX_MS } from "@/lib/walkie/engine";
 import { notificationKeys } from "@/lib/notifications";
-import { setWalkieChannel, walkieAudio, walkieHistory, walkieKeys, walkieSeen } from "@/lib/walkie/history";
+import { walkieAudio, walkieHistory, walkieKeys, walkieSeen } from "@/lib/walkie/history";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/talk/$userId")({
@@ -62,13 +60,6 @@ function TalkPage() {
       seen();
     },
     onYield: () => toast(t("walkie.yielded", { name: first })),
-  });
-  const list = useWalkieList(friends);
-  const channelOn = !!list.data?.find((c) => c.user_id === userId)?.channel_on;
-  const channel = useMutation({
-    mutationFn: (on: boolean) => setWalkieChannel(userId, on),
-    onError: (e) => toast.error(e instanceof Error && e.message.includes("too_many") ? t("walkie.tooMany") : t("errors.generic")),
-    onSettled: () => void qc.invalidateQueries({ queryKey: walkieKeys.list }),
   });
   const s = w.snap;
   const name = other.data ? other.data.full_name || other.data.username : "";
@@ -185,17 +176,7 @@ function TalkPage() {
         </p>
 
         {friends && (
-          <label className="mt-8 flex w-full items-center justify-between gap-3 rounded-2xl bg-card px-4 py-3">
-            <span>
-              <span className="block text-callout font-semibold">{t("walkie.channelOn")}</span>
-              <span className="block text-caption text-muted-foreground">{t("walkie.channelOnHint")}</span>
-            </span>
-            <Switch checked={channelOn} disabled={channel.isPending} onCheckedChange={(on) => channel.mutate(on)} />
-          </label>
-        )}
-
-        {friends && (
-          <section className="mt-6 w-full">
+          <section className="mt-8 w-full">
             <h2 className="pb-2 text-callout font-semibold text-muted-foreground">{t("walkie.last24h")}</h2>
             {history.data && !history.data.length && <p className="py-4 text-caption text-muted-foreground">{t("walkie.noHistory")}</p>}
             <ul className="divide-y divide-border">

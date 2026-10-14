@@ -54,10 +54,7 @@ async function hold(p, ms, during) {
 
 
 const me = await open(ME, "/talk", "me");
-await me.waitForTimeout(1200);
-const row = me.locator("li", { hasText: "Νίκος" }).first();
-await row.getByRole("switch").click();
-await me.waitForTimeout(1200);
+await me.waitForTimeout(1200); // friends' channels are always open
 await me.goto(base + "/", { waitUntil: "networkidle" });
 await me.waitForTimeout(1500);
 await me.mouse.click(200, 300);

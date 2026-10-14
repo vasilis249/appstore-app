@@ -51,10 +51,13 @@ const BACKLOG_KEEP_MS = 20_000; // a held-back transmission nobody joined for is
 // ---------------------------------------------------------------------------------------------------------------
 // One AudioContext for the app (iOS allows few), unlocked by a tap.
 let ctx: AudioContext | null = null;
+function newContext(): AudioContext {
+  const AC = window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+  return new AC();
+}
 function audioContext(): AudioContext {
   if (!ctx) {
-    const AC = window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    ctx = new AC();
+    ctx = newContext();
     // iOS pauses Web Audio whenever the audio session changes (after you talk, a recording elsewhere in the app, a
     // call): nothing would play or be captured until something resumes it. Resume it ourselves.
     ctx.onstatechange = () => {
@@ -81,6 +84,45 @@ function wakeAudio(): Promise<boolean> {
 /** Back from the background: iOS may have suspended / interrupted the context. Best effort (no gesture). */
 export function resumeWalkieAudio() {
   if (ctx && ctx.state !== "running") void ctx.resume().catch(() => {});
+}
+
+/**
+ * A context of its own for the microphone, made AFTER getUserMedia (WebKit lets it run while the page captures).
+ * iOS 26 Safari never ran the ScriptProcessor on the shared context made before the mic opened (live diag:
+ * onaudioprocess 0 calls, context "running") → no live voice, only the saved copy. Null if it won't run.
+ */
+async function captureContext(): Promise<AudioContext | null> {
+  try {
+    const c = newContext();
+    if (c.state !== "running") await Promise.race([c.resume().catch(() => {}), new Promise((r) => setTimeout(r, 800))]);
+    if (c.state === "running") return c;
+    void c.close().catch(() => {});
+  } catch {
+    /* no second context */
+  }
+  return null;
+}
+
+/** Mic → ScriptProcessor on `c`, its output muted (the processor only runs when connected to the destination). */
+function captureGraph(c: AudioContext, stream: MediaStream) {
+  const source = c.createMediaStreamSource(stream);
+  const proc = c.createScriptProcessor(4096, 1, 1);
+  const sink = c.createGain();
+  sink.gain.value = 0;
+  source.connect(proc);
+  proc.connect(sink).connect(c.destination);
+  return { source, proc, sink };
+}
+
+function detachGraph(g: { source: AudioNode; proc: ScriptProcessorNode; sink: AudioNode }) {
+  g.proc.onaudioprocess = null;
+  try {
+    g.source.disconnect();
+    g.proc.disconnect();
+    g.sink.disconnect();
+  } catch {
+    /* already */
+  }
 }
 
 /** Call inside a tap: lets Web Audio play (iOS) and plays nothing audible. */
@@ -144,7 +186,11 @@ interface Transmission {
   sink: GainNode;
   down: Downsampler;
   pending: Float32Array;
-  sendFrom: number; // AudioContext time: skip the beep
+  sendFrom: number; // Date.now(): skip the beep
+  /** The mic's own context (closed at the end); null = the shared one. */
+  own: AudioContext | null;
+  /** No mic audio after a while: try the other context. */
+  check: ReturnType<typeof setTimeout> | null;
   recorder: MediaRecorder | null;
   recorded: Blob[];
   mime: string;
@@ -154,7 +200,7 @@ interface Transmission {
   gate: Promise<unknown> | null;
   gateOk: boolean;
   /** Diagnostics: onaudioprocess calls, pieces sent, input peak, context state at press / after waking it. */
-  d: { calls: number; sent: number; peak: number; ctxPress: string; ctxWoken: string; gumMs: number };
+  d: { calls: number; sent: number; peak: number; ctxPress: string; ctxWoken: string; gumMs: number; cap: string };
 }
 
 export type WalkieEvent = "saved" | "yield" | "peerStart";
@@ -363,22 +409,18 @@ export class WalkieSession {
     const gumMs = Date.now() - t0;
     await wakeAudio();
     const ctxWoken = c.state;
+    const own = await captureContext();
     if (this.disposed || this.snap.peerTalking || this.cancelStart) {
       // Let go before the mic was ready (iOS takes ~1 s): nothing was said, nothing goes out.
       stream.getTracks().forEach((t) => t.stop());
+      void own?.close().catch(() => {});
       setAudioSession("playback");
       void wakeAudio();
       this.set({ starting: false });
       return false;
     }
 
-    const source = c.createMediaStreamSource(stream);
-    const proc = c.createScriptProcessor(4096, 1, 1);
-    const sink = c.createGain();
-    sink.gain.value = 0;
-    source.connect(proc);
-    proc.connect(sink).connect(c.destination);
-
+    const capture = own ?? c;
     const mime = pickRecorderMime();
     let recorder: MediaRecorder | null = null;
     try {
@@ -392,12 +434,12 @@ export class WalkieSession {
       seq: 0,
       startedAt: Date.now(),
       stream,
-      source,
-      proc,
-      sink,
-      down: new Downsampler(c.sampleRate),
+      ...captureGraph(capture, stream),
+      down: new Downsampler(capture.sampleRate),
       pending: new Float32Array(0),
-      sendFrom: c.currentTime + BEEP_S,
+      sendFrom: Date.now() + BEEP_S * 1000,
+      own,
+      check: null,
       recorder,
       recorded: [],
       mime: (recorder?.mimeType || mime || "audio/mp4").split(";")[0],
@@ -409,17 +451,17 @@ export class WalkieSession {
       aborted: false,
       gate: gate ?? null,
       gateOk: !gate,
-      d: { calls: 0, sent: 0, peak: 0, ctxPress, ctxWoken, gumMs },
+      d: { calls: 0, sent: 0, peak: 0, ctxPress, ctxWoken, gumMs, cap: own ? "own" : "shared" },
     };
     if (recorder) {
       recorder.ondataavailable = (e) => e.data.size && tx.recorded.push(e.data);
       recorder.start(500);
     }
-    proc.onaudioprocess = (e) => {
+    const onAudio = (e: AudioProcessingEvent) => {
       const input = e.inputBuffer.getChannelData(0);
       tx.d.calls++;
       for (let i = 0; i < input.length; i += 32) tx.d.peak = Math.max(tx.d.peak, Math.abs(input[i]));
-      if (this.tx !== tx || c.currentTime < tx.sendFrom) return;
+      if (this.tx !== tx || Date.now() < tx.sendFrom) return;
       const s16 = tx.down.process(input);
       const all = new Float32Array(tx.pending.length + s16.length);
       all.set(tx.pending);
@@ -428,6 +470,25 @@ export class WalkieSession {
       for (; off + CHUNK_SAMPLES <= all.length; off += CHUNK_SAMPLES) this.sendAudio(tx, all.subarray(off, off + CHUNK_SAMPLES));
       tx.pending = all.slice(off);
     };
+    tx.proc.onaudioprocess = onAudio;
+    // A 4096 buffer fires ~12×/s: none after 0.8 s = this context doesn't read the mic. Move to the other one.
+    tx.check = setTimeout(() => {
+      if (this.tx !== tx || tx.d.calls) return;
+      detachGraph(tx);
+      const alt = tx.own ? c : null;
+      if (alt) {
+        void tx.own!.close().catch(() => {});
+        tx.own = null;
+        Object.assign(tx, captureGraph(alt, stream), { down: new Downsampler(alt.sampleRate), pending: new Float32Array(0) });
+        tx.d.cap = "own→shared";
+      } else {
+        // shortcut: only the shared context left — restart it once; if iOS still won't run it, the saved copy remains
+        Object.assign(tx, captureGraph(c, stream));
+        void c.suspend().then(() => c.resume()).catch(() => {});
+        tx.d.cap = "shared-kick";
+      }
+      tx.proc.onaudioprocess = onAudio;
+    }, 800);
     this.tx = tx;
     beep(c, 880);
     if (gate || (this.kind === "nearby" && !this.snap.peerOnline)) this.holdBack();
@@ -518,18 +579,13 @@ export class WalkieSession {
     if (!tx) return;
     this.tx = null;
     clearInterval(tx.timer);
+    if (tx.check) clearTimeout(tx.check);
     if (tx.pending.length && !tx.aborted) this.sendAudio(tx, tx.pending);
-    tx.proc.onaudioprocess = null;
-    try {
-      tx.source.disconnect();
-      tx.proc.disconnect();
-      tx.sink.disconnect();
-    } catch {
-      /* already */
-    }
+    detachGraph(tx);
+    void tx.own?.close().catch(() => {});
     const ms = Date.now() - tx.startedAt;
     this.out("end", { sid: tx.sid, ms });
-    if ((tx.d.sent === 0 && ms > 400) || this.sendFails > 0 || tx.d.peak === 0)
+    if ((tx.d.sent === 0 && ms > 400) || this.sendFails > 0 || tx.d.peak === 0 || tx.d.cap !== "own")
       diag("tx", { ...tx.d, peak: Math.round(tx.d.peak * 1000) / 1000, ms, ctxEnd: ctx?.state, ...this.chanDiag() });
     this.sendFails = 0;
     // Still held back: give the other one a little longer to join, then drop it (the saved copy remains).

@@ -38,7 +38,18 @@ async function open(uid, path, tag) {
   await ctx.addInitScript(() => {
     const ctxs = [];
     const AC = window.AudioContext;
-    window.AudioContext = class extends AC { constructor(...a) { super(...a); ctxs.push(this); } };
+    // iOS 26 Safari (live diag 2026-10-14): a context made before the mic opened never runs its ScriptProcessor.
+    let gum = false;
+    const getUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+    navigator.mediaDevices.getUserMedia = (...a) => getUserMedia(...a).then((s) => ((gum = true), s));
+    window.AudioContext = class extends AC {
+      constructor(...a) { super(...a); this.early = !gum; ctxs.push(this); }
+      createScriptProcessor(...a) {
+        const n = super.createScriptProcessor(...a);
+        if (this.early) Object.defineProperty(n, "onaudioprocess", { set() {}, get() { return null; } });
+        return n;
+      }
+    };
     let type = "auto";
     Object.defineProperty(navigator, "audioSession", { configurable: true, value: {
       get type() { return type; },
