@@ -596,6 +596,15 @@ User decisions:
   back) ok, types regenerated, deploy 0885a91b. NEXT X2: composer (text field, photo picker via `compressImage`, voice
   optional), PostCard text/photo grid, queue skips posts without audio, admin reports show photos, i18n `rpcErrors.
   emptyPost/tooLong`.
+  **Glass design G0 — mockups (user request 2026-10-14: "redo the design from the start, liquid glass / glassmorphism")**
+  — canvas artifact "Speak — Glass design" (https://claude.ai/artifact/GqSaC9Rha6s3j3LRpSDC8U), 5 phone screens:
+  Home Campus light, Home dark + now-playing, Composer (text + photo + voice, recording capsule), Map (real OSM tiles
+  of Zografou), Post page dark (photo + liquid-glass player). Direction: content stays opaque; only the navigation layer
+  is glass (iOS 26): floating feed switch, round buttons, tab-bar capsule + a separate glass "voice drop" that stretches
+  into a red recording capsule; scroll-edge blur at the top; ONE refracting liquid element (SVG feDisplacementMap) on a
+  photo. Tokens: Mist #EEF0F4 / #07080B, ink #0E1116 / #F1F2F5, grey #5B6170 / #9CA2AE, Signal #2E4BFF / #8D9BFF, live
+  #FF3B30; font Commissioner (Greek designer, full Greek). Assets were rendered in the scratchpad (`glass/`: map shots
+  via the local /map + curl-routed tiles, notes / poster HTML → JPEG). Waiting for the user's pick before code.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
