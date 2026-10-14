@@ -12,6 +12,8 @@ import { sendStudentCode } from "@/lib/api/student.functions";
 import { clearStudentIdentity, setStudentInfo, useCampus, verifyStudentCode, yearOptions } from "@/lib/campus";
 import { friendKeys, rpcErrorKey } from "@/lib/friends";
 import { cn } from "@/lib/utils";
+import { useTapConfirm } from "@/hooks/use-tap-confirm";
+import { useDebounced } from "@/hooks/use-debounced";
 
 export const Route = createFileRoute("/_authenticated/student")({
   validateSearch: (s: Record<string, unknown>): { welcome?: 1 } => ({ welcome: s.welcome ? 1 : undefined }),
@@ -46,7 +48,7 @@ function StudentPage() {
   const [year, setYear] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [confirmRemove, setConfirmRemove] = useState(false);
+  const confirmRemove = useTapConfirm();
 
   useEffect(() => {
     if (step || !me.data) return;
@@ -107,7 +109,6 @@ function StudentPage() {
   }
 
   async function remove() {
-    if (!confirmRemove) return setConfirmRemove(true);
     setLoading(true);
     try {
       await clearStudentIdentity();
@@ -142,6 +143,10 @@ function StudentPage() {
     ? schools.filter((d) => [d.short_el, d.name_el, d.short_en, d.name_en].some((x) => fold(x).includes(fold(query.trim()))))
     : schools;
   const detected = campus.uniForEmail(email);
+  // A full address no university of ours uses: say so before sending (the server would refuse it anyway).
+  // (after a pause in typing: "…@mail.nt" on the way to "…@mail.ntua.gr" is no mistake yet)
+  const settled = useDebounced(email, 900) === email;
+  const unknownDomain = settled && campus.loaded && /^\S+@\S+\.[a-z]{2,}$/i.test(email) && !detected;
   const accepted = campus.universities.filter((u) => u.open).length; // 200+: a count, not a wall of names
 
   if (!step) return null;
@@ -158,10 +163,10 @@ function StudentPage() {
           <button
             type="button"
             disabled={loading}
-            onClick={() => void remove()}
-            className={cn("mb-2 h-12 w-full rounded-full text-callout font-semibold", confirmRemove ? "bg-destructive text-destructive-foreground" : "text-destructive")}
+            onClick={() => confirmRemove.tap(() => void remove())}
+            className={cn("mb-2 h-12 w-full rounded-full text-callout font-semibold", confirmRemove.isArmed() ? "bg-destructive text-destructive-foreground" : "text-destructive")}
           >
-            {confirmRemove ? t("student.removeConfirm") : t("student.remove")}
+            {confirmRemove.isArmed() ? t("student.removeConfirm") : t("student.remove")}
           </button>
         }
       >
@@ -189,7 +194,7 @@ function StudentPage() {
         title={t("student.emailTitle")}
         subtitle={student === false ? t("student.gateHint") : t("student.emailHint")}
         action={t("student.sendCode")}
-        disabled={!/^\S+@\S+\.\S+$/.test(email)}
+        disabled={!/^\S+@\S+\.\S+$/.test(email) || unknownDomain}
         loading={loading}
         onSubmit={() => void sendCode()}
       >
@@ -205,8 +210,8 @@ function StudentPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value.trim())}
         />
-        {error ? (
-          <FieldNote error>{error}</FieldNote>
+        {error || unknownDomain ? (
+          <FieldNote error>{error || t("rpcErrors.notAcademic")}</FieldNote>
         ) : detected ? (
           <FieldNote>
             <span className="font-semibold text-foreground">{t("student.detected", { uni: en ? detected.name_en : detected.name_el })}</span>

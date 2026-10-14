@@ -1,10 +1,11 @@
 import { Camera, GraduationCap, ImagePlus, User, X } from "lucide-react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useBlocker, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { AppHeader } from "@/components/app-header";
+import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { VoiceRecorder, type Clip } from "@/components/voice/voice-recorder";
 import { useAuth } from "@/hooks/use-auth";
 import { useSections } from "@/hooks/use-sections";
@@ -112,6 +113,7 @@ function ComposePage() {
     onSuccess: async (id) => {
       await qc.invalidateQueries({ queryKey: postKeys.all });
       void qc.invalidateQueries({ queryKey: groupKeys.all });
+      published.current = true;
       toast.success(t("posts.published"));
       if (search.reply) void navigate({ to: "/p/$postId", params: { postId: search.reply }, replace: true });
       else if (search.topic) void navigate({ to: "/t/$topicId", params: { topicId: search.topic }, replace: true });
@@ -128,6 +130,12 @@ function ComposePage() {
   const hasContent = !!clip || !!text.trim() || photos.length > 0;
   const ready = hasContent && left >= 0 && (!needsPlace || !!place) && (!campusMode || verified) && !post.isPending;
   const myName = me.data?.full_name || me.data?.username || "";
+  // Leaving with text, photos or a voice asks first: back (or a tab) used to throw the draft away without a word.
+  const published = useRef(false);
+  const dirty = useRef(false);
+  dirty.current = hasContent;
+  const blocks = () => dirty.current && !published.current;
+  const leave = useBlocker({ shouldBlockFn: blocks, enableBeforeUnload: blocks, withResolver: true });
 
   return (
     <>
@@ -267,10 +275,12 @@ function ComposePage() {
                 );
               })}
             </div>
-            {place && (
+            {place ? (
               <p className="mt-2 text-fine text-muted-foreground">
                 {place === "personal" ? t("posts.personalHint") : t("posts.newsHint", { section: name(place) })}
               </p>
+            ) : (
+              hasContent && <p className="mt-2 text-fine font-semibold text-link">{t("posts.pickPlace")}</p>
             )}
           </div>
         )}
@@ -299,6 +309,20 @@ function ComposePage() {
           <input ref={shoot} type="file" accept="image/*" capture="environment" hidden onChange={(e) => { void addPhotos(e.target.files); e.target.value = ""; }} />
         </div>
       </div>
+      <Drawer open={leave.status === "blocked"} onOpenChange={(o) => !o && leave.reset?.()}>
+        <DrawerContent className="mx-auto max-w-lg">
+          <DrawerTitle className="px-4 pt-2 text-center text-tagline font-semibold">{t("posts.discardTitle")}</DrawerTitle>
+          <DrawerDescription className="px-6 pt-1 text-center text-caption text-muted-foreground">{t("posts.discardText")}</DrawerDescription>
+          <div className="safe-bottom flex flex-col gap-2 p-4">
+            <button type="button" onClick={() => leave.proceed?.()} className="h-12 w-full rounded-2xl bg-group text-body font-semibold text-destructive">
+              {t("posts.discard")}
+            </button>
+            <button type="button" onClick={() => leave.reset?.()} className="h-12 w-full rounded-2xl bg-secondary text-body font-semibold">
+              {t("posts.keepEditing")}
+            </button>
+          </div>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 }

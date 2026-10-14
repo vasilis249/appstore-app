@@ -32,7 +32,7 @@ export function FeedTabs({ tab, tabs, label, right }: { tab: HomeTab | null; tab
                 void navigate({ to: "/", search: { tab: x }, replace: true });
               }}
               className={cn(
-                "h-9 flex-auto shrink-0 whitespace-nowrap rounded-full px-2 text-[13px]",
+                "hit h-9 flex-auto shrink-0 whitespace-nowrap rounded-full px-2 text-[13px]",
                 x === tab ? "bg-primary font-semibold text-primary-foreground" : "font-medium text-foreground",
               )}
             >

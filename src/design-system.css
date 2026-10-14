@@ -301,6 +301,20 @@
 }
 
 /* iOS app (Capacitor): safe areas for notch / home indicator (viewport-fit=cover). */
+/* Touch target of at least 44 pt without growing the look (compact cards): an invisible hit area around the control. */
+@utility hit {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}
+
 @utility safe-top {
   padding-top: env(safe-area-inset-top, 0px);
 }

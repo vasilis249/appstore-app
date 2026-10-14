@@ -89,7 +89,8 @@
     "goHome": "Home",
     "notFoundTitle": "Page not found",
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
-    "tryAgainOrHome": "Try again or go back home."
+    "tryAgainOrHome": "Try again or go back home.",
+    "offline": "No connection. Try again once you have signal."
   },
   "legal": {
     "contactLine": "Questions about this document?",
@@ -347,7 +348,7 @@
     }
   },
   "network": {
-    "offline": "You are offline. Changes will not be saved until the connection is back."
+    "offline": "No connection. What you do will be sent once it's back."
   },
   "settings": {
     "title": "Settings",
@@ -407,7 +408,12 @@
     "charsLeft": "{{count}} characters left",
     "photoAlt": "Photo by {{name}}",
     "photoFailed": "That photo couldn't be opened.",
-    "photoCount": "{{n}} of {{max}}"
+    "photoCount": "{{n}} of {{max}}",
+    "discardTitle": "Discard this draft?",
+    "discardText": "Your text, photos and voice will be lost.",
+    "discard": "Discard",
+    "keepEditing": "Keep editing",
+    "pickPlace": "Pick where it belongs to publish."
   },
   "feed": {
     "recordCta": "Record your day"
@@ -472,7 +478,7 @@
     "usernameFormat": "3–20 characters: a–z, 0–9, . and _",
     "notAllowed": "Not allowed.",
     "notFound": "Not found.",
-    "notAcademic": "You need an email from a university in Attica (e.g. …@uoa.gr, …@mail.ntua.gr, …@acg.edu).",
+    "notAcademic": "That isn't an email of a university we support. Use your university email (e.g. …@uoa.gr, …@auth.gr, …@lse.ac.uk).",
     "emailTaken": "This email is already used by another account.",
     "tooManyCodes": "You asked for many codes. Try again in a while.",
     "mailUnavailable": "Couldn't send email right now. Try again later.",

@@ -81,7 +81,7 @@ function HomePage() {
               type="button"
               onClick={() => playAll.current?.()}
               aria-label={t("posts.playAll")}
-              className="flex h-8 shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3.5 text-caption font-semibold text-foreground"
+              className="hit flex h-8 shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3.5 text-caption font-semibold text-foreground"
             >
               <Play className="h-3.5 w-3.5" fill="currentColor" strokeWidth={0} /> {t("posts.playAll")}
             </button>
@@ -345,7 +345,7 @@ function SectionPills({ tab, active }: { tab: "news" | "campus"; active?: string
     bar.current?.querySelector<HTMLElement>("[data-active=true]")?.scrollIntoView({ inline: "center", block: "nearest" });
   }, [active, sections.length]);
   const pill = (on: boolean) =>
-    cn("h-8 shrink-0 rounded-full px-3.5 text-caption font-semibold leading-8 transition-colors duration-300", on ? "bg-foreground text-background" : "bg-secondary text-foreground/80");
+    cn("hit h-8 shrink-0 rounded-full px-3.5 text-caption font-semibold leading-8 transition-colors duration-300", on ? "bg-foreground text-background" : "bg-secondary text-foreground/80");
   return (
     <nav ref={bar} className="flex gap-2">
       <Link to="/" search={{ tab }} replace data-active={!active} className={pill(!active)}>

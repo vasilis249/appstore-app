@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { PersonActionsSheet } from "@/components/friends/person-actions-sheet";
 import { useAuth } from "@/hooks/use-auth";
+import { useTapConfirm } from "@/hooks/use-tap-confirm";
 import { deletePost, postKeys, type PostView } from "@/lib/posts";
 import { rpcErrorKey } from "@/lib/friends";
+import { cn } from "@/lib/utils";
 
 /** ⋯ on a post: delete your own (confirmed), or report / block for others' posts. */
 export function PostMenu({ post, onOpenChange }: { post: PostView | null; onOpenChange: (o: boolean) => void }) {
   const { t } = useTranslation();
   const { user } = useAuth();
   const qc = useQueryClient();
-  const [confirm, setConfirm] = useState(false);
-  useEffect(() => setConfirm(false), [post?.id]);
+  const confirm = useTapConfirm();
+  useEffect(() => confirm.disarm(), [post?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   const mine = !!post && post.authorId === user?.id;
 
   const del = useMutation({
@@ -45,10 +47,10 @@ export function PostMenu({ post, onOpenChange }: { post: PostView | null; onOpen
           <button
             type="button"
             disabled={del.isPending}
-            onClick={() => (confirm ? del.mutate() : setConfirm(true))}
-            className="h-12 w-full rounded-2xl bg-group text-body text-destructive disabled:opacity-50"
+            onClick={() => confirm.tap(() => del.mutate())}
+            className={cn("h-12 w-full rounded-2xl text-body disabled:opacity-50", confirm.isArmed() ? "bg-destructive font-semibold text-destructive-foreground" : "bg-group text-destructive")}
           >
-            {confirm ? t("daily.deleteConfirm") : t("posts.delete")}
+            {confirm.isArmed() ? t("daily.deleteConfirm") : t("posts.delete")}
           </button>
         </div>
       </DrawerContent>

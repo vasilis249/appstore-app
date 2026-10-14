@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -8,6 +7,7 @@ import { groupKeys, joinGroup, leaveGroup, type GroupDetail } from "@/lib/groups
 import { rpcErrorKey } from "@/lib/friends";
 import { postKeys } from "@/lib/posts";
 import { cn } from "@/lib/utils";
+import { useTapConfirm } from "@/hooks/use-tap-confirm";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 
 const pill = "flex h-11 flex-1 items-center justify-center gap-2 rounded-full text-callout font-semibold active:opacity-80 disabled:opacity-50";
@@ -19,7 +19,7 @@ const pill = "flex h-11 flex-1 items-center justify-center gap-2 rounded-full te
 export function GroupActions({ group, onInvite }: { group: GroupDetail; onInvite: () => void }) {
   const { t } = useTranslation();
   const qc = useQueryClient();
-  const [confirmCancel, setConfirmCancel] = useState(false);
+  const confirmCancel = useTapConfirm();
   const refresh = () => {
     void qc.invalidateQueries({ queryKey: groupKeys.all });
     void qc.invalidateQueries({ queryKey: postKeys.all });
@@ -35,7 +35,6 @@ export function GroupActions({ group, onInvite }: { group: GroupDetail; onInvite
   const leave = useMutation({
     mutationFn: () => leaveGroup(group.id),
     onSuccess: () => {
-      setConfirmCancel(false);
       refresh();
     },
     onError: (e) => toast.error(t(rpcErrorKey(e))),
@@ -84,10 +83,10 @@ export function GroupActions({ group, onInvite }: { group: GroupDetail; onInvite
       <button
         type="button"
         disabled={busy}
-        onClick={() => (confirmCancel ? leave.mutate() : setConfirmCancel(true))}
-        className={cn(pill, "w-full", confirmCancel ? "bg-destructive text-destructive-foreground" : "bg-secondary")}
+        onClick={() => confirmCancel.tap(() => leave.mutate())}
+        className={cn(pill, "w-full", confirmCancel.isArmed() ? "bg-destructive text-destructive-foreground" : "bg-secondary")}
       >
-        {t(confirmCancel ? "groups.cancelRequest" : "groups.requestSent")}
+        {t(confirmCancel.isArmed() ? "groups.cancelRequest" : "groups.requestSent")}
       </button>
     );
 

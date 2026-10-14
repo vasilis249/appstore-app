@@ -25,6 +25,7 @@ import { postKeys, voiceUrl } from "@/lib/posts";
 import { timeAgo } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
 import { Segmented } from "@/components/segmented";
+import { useTapConfirm } from "@/hooks/use-tap-confirm";
 
 export const Route = createFileRoute("/_authenticated/admin/reports")({
   component: AdminReportsPage,
@@ -95,7 +96,7 @@ function ReportItem({ group }: { group: AdminReport[] }) {
   const reasons = [...new Set(group.map((x) => t(`report.reasons.${x.reason}`, { defaultValue: x.reason || t("report.reasons.other") })))];
   const reporters = [...new Set(group.map((x) => x.reporter_username).filter(Boolean))];
   const refresh = useRefresh();
-  const [confirmBan, setConfirmBan] = useState(false);
+  const confirmBan = useTapConfirm();
   const resolve = useMutation({
     mutationFn: (action: ReportAction) => resolveReport(r.id, action),
     onSuccess: (n) => {
@@ -202,10 +203,10 @@ function ReportItem({ group }: { group: AdminReport[] }) {
             <button
               type="button"
               disabled={busy}
-              onClick={() => (confirmBan ? resolve.mutate("disable_user") : setConfirmBan(true))}
-              className={cn(pill, confirmBan ? "bg-destructive text-destructive-foreground" : "bg-secondary text-destructive")}
+              onClick={() => confirmBan.tap(() => resolve.mutate("disable_user"))}
+              className={cn(pill, confirmBan.isArmed() ? "bg-destructive text-destructive-foreground" : "bg-secondary text-destructive")}
             >
-              {t(confirmBan ? "adminReports.confirmDisable" : "adminReports.disableUser")}
+              {t(confirmBan.isArmed() ? "adminReports.confirmDisable" : "adminReports.disableUser")}
             </button>
           )}
           <button type="button" disabled={busy} onClick={() => resolve.mutate("dismiss")} className={cn(pill, "bg-secondary")}>

@@ -111,7 +111,7 @@ export function PostCard({
         type="button"
         onClick={() => (isCurrent ? toggle() : onPlay())}
         aria-label={playing ? t("daily.pause") : t("daily.play")}
-        className={cn("grid shrink-0 place-items-center rounded-full bg-primary text-primary-foreground", focus ? "h-14 w-14" : "h-7 w-7")}
+        className={cn("hit grid shrink-0 place-items-center rounded-full bg-primary text-primary-foreground", focus ? "h-14 w-14" : "h-7 w-7")}
       >
         {playing ? (
           <Pause className={focus ? "h-6 w-6" : "h-3.5 w-3.5"} fill="currentColor" strokeWidth={0} />
@@ -128,7 +128,8 @@ export function PostCard({
       )}
     </>
   );
-  const action = "flex min-h-9 items-center gap-1.5 text-caption tabular-nums text-muted-foreground";
+  // Compact look, 44 pt to the finger (`hit`).
+  const action = "hit flex min-h-9 items-center gap-1.5 text-caption tabular-nums text-muted-foreground";
 
   // Deleted by its author after others answered: a placeholder that keeps the conversation readable.
   if (post.deleted)
@@ -181,7 +182,7 @@ export function PostCard({
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-label={t("friends.actions")}
-              className="-my-2 -mr-3 grid h-9 w-11 shrink-0 place-items-center rounded-full text-muted-foreground"
+              className="hit -my-2 -mr-3 grid h-9 w-11 shrink-0 place-items-center rounded-full text-muted-foreground"
             >
               <MoreHorizontal className="h-5 w-5" />
             </button>
@@ -255,7 +256,7 @@ export function PostCard({
           {post.path && !hero && (
           <div
             onPointerUp={tapTile}
-            className={cn("relative flex select-none items-center overflow-hidden bg-card", focus ? "mt-2.5 gap-3 rounded-3xl p-4" : "mt-1.5 gap-2.5 rounded-full py-1 pl-1 pr-3")}
+            className={cn("relative flex select-none items-center bg-card", focus ? "mt-2.5 gap-3 overflow-hidden rounded-3xl p-4" : "mt-1.5 gap-2.5 rounded-full py-1 pl-1 pr-3")}
           >
             {playerBody}
           </div>

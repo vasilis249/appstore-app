@@ -688,6 +688,18 @@ User decisions:
   own→shared | shared-kick, logged in diag when not "own"). `walkie-ios-flow` models it (contexts made before the first
   getUserMedia never run their ScriptProcessor): old engine 0 pieces on every turn, new 7/7. e2e 64/64 (hub 11,
   reconnect 4: no switch steps). Deploy 4d9bb8b4. NOT verified on a real iPhone → user test, then read `private.walkie_diag`.
+- **UX audit U1 ✔ (user request 2026-10-14: Nielsen / Norman / ISO 9241-11 rubric)** — `AUDIT.md` (roles R0–R7, key tasks
+  K1–K10 baseline, 23 findings 0–4, Norman table, trade-offs) + `METRICS.md` (targets; no user test yet). Fixed 4 + 3:
+  composer draft guard (`useBlocker` → "Απόρριψη του πρόχειρου;" sheet only with content, `beforeunload`, Publish never
+  blocked via `published` ref); `hooks/use-tap-confirm.ts` (2nd tap counts after 0.6 s, disarms after 4 s) for post /
+  memory delete, cancel group request, admin ban, remove student identity; `hit` utility in design-system.css (invisible
+  ≥ 44 pt hit area, same look) on the feed card's ▶ / actions / ⋯, section pills, Play all, feed tabs (the compact voice
+  tile no longer has overflow-hidden); `/student` flags an unknown email domain after a 0.9 s typing pause and disables
+  Send (same rule as the DB), `rpcErrors.notAcademic` no longer says "Attica"; offline banner says actions are sent
+  when back (TanStack mutations pause offline), network errors → `errors.offline`; composer hint `posts.pickPlace`.
+  Flow `tests/e2e/ux-flow.mjs` 12/12 (local stack: `node tests/e2e/ux-flow.mjs <port>`); scratchpad flows that tap
+  "Πάτα ξανά" now pause 700 ms; 18 app flows green. Next (sev 2, one at a time): one term for posts, hold-to-talk hint,
+  tab labels, one PTT style, hide Play all on empty feeds, actionable generic errors.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
@@ -922,8 +934,8 @@ User decisions:
   rebuild needed for the app to leave forced Dark). Radii 8 / 11 / 18 (lg…3xl) / full. Type utilities `text-hero` 34,
   `text-display` 28, `text-tagline` 21, `text-body` 17 (body default), `text-callout` 15, `text-caption` 14,
   `text-fine` 12; headings 600. `glass` utility = frosted floating chrome.
-- `BottomNav`: frosted `glass` capsule with 10px labels, active tab `text-link` — Home `/`, Search `/search`, blue
-  voice circle (tap = /record, hold = push to talk), Map `/map`, Profile (avatar). Memories = calendar icon on Profile.
+- `BottomNav`: glass capsule, icons only (no labels — AUDIT #9), gliding pill on the active tab — Home `/`, Map, Search,
+  Profile (avatar) + separate glass voice drop (tap = /record, hold = push to talk). Memories = calendar icon on Profile.
 - `AppHeader` (`src/components/app-header.tsx`): frosted bar with a hairline, centred `Wordmark` ("Speak.", 21/600) or
   17/600 title, `back` = blue iOS chevron, left/right slots; Home's right = plain 44px paper-plane → `/messages` + bell →
   `/notifications` (red `live` badges).
