@@ -17,7 +17,9 @@ and `skills/ponytail*` → `.claude/skills/`; its SessionStart hook now also inj
 -help), addyosmani `agent-skills` (25 skills spec → plan → build → test → review → ship, commands `/spec /plan
 /build /test /review /ship /code-simplify /constraints /webperf`, agents code-reviewer / security-auditor /
 test-engineer / web-performance-auditor), `graphify` (skill; CLI `pip install graphifyy` — not persistent in cloud
-containers → environment setup script; `graphify update <path>` builds `graphify-out/`, git-ignored). NOT installed:
+containers → environment setup script; `pip install "graphifyy[sql]"` so the 66 migrations are parsed too;
+`graphify update .` builds `graphify-out/` in ~20 s, code only, no LLM (2026-10-14: 3,368 nodes, 6,933 edges, 255
+communities); use `graphify explain "<symbol>"` / `graphify path "A" "B"` for codebase questions; git-ignored). NOT installed:
 OmniRoute (a self-hosted LLM gateway server, not an agent plugin). Work with them first: Ponytail's minimal-code
 mode, agent-skills' spec → plan → build → test → review → ship flow, Graphify for codebase questions. Still kept:
 Greek replies, phases with a stop for "OK", secrets/security and deploy rules below.
