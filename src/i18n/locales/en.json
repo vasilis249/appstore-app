@@ -922,13 +922,5 @@
     "bannerFrom": "From the map · {{distance}}",
     "bannerMap": "From the map",
     "notifyBody": "is talking to you from the map"
-  },
-  "stories": {
-    "title": "Today's voices",
-    "mine": "Your voices today",
-    "add": "Say something",
-    "yours": "You",
-    "play_one": "{{name}}: {{count}} voice",
-    "play_other": "{{name}}: {{count}} voices"
   }
 }

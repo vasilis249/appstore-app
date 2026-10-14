@@ -24,7 +24,11 @@ Greek replies, phases with a stop for "OK", secrets/security and deploy rules be
 **User rule (2026-10-14): for EVERY task use `find-skills` first (look for a skill that fits the task; install / use it
 if it helps) and work in `ponytail` mode (smallest change that fully solves it) — "για να υπάρχει optimization".**
 Installed via find-skills (`npx skills add …`, project-level, `skills-lock.json`): official `supabase` and
-`supabase-postgres-best-practices` (supabase/agent-skills) in `.claude/skills/`.
+`supabase-postgres-best-practices` (supabase/agent-skills) in `.claude/skills/`; for the glass redesign (2026-10-14,
+reviewed: Markdown only) `glassmorphism` (iart-ai/web-animation-skills: frosted + SVG liquid-glass refraction for the
+web, reduced-transparency fallbacks) and `frontend-design` (anthropics/skills). `npx skills add` installs into
+`.agents/skills` + symlinks → move the folder into `.claude/skills/` (real folders, committed). SwiftUI-only glass skills
+(affaan-m liquid-glass-design, dimillian swiftui-liquid-glass, prisma-labs ios-liquid-glass) don't fit our web UI.
 
 ## Product: **Speak** — "X/Twitter, but with voice" (decided 2026-09-29, replaces the BeReal-style plan)
 Voice is the main medium. Public posts = a voice clip (≤ 2 min) + optional short title (≤ 100 chars), filed in a
@@ -575,6 +579,23 @@ User decisions:
   place line right under it, title 15px max 2 lines, slim pill player (28px play, 20px waveform), actions 36px tall,
   tighter padding → a card ~150px instead of ~210px (≈ 4 per screen instead of 3). Flows: campus asserts the school as
   exact text "ΗΜΜΥ" (was `/^ΗΜΜΥ · /`); campus 15, campus-groups 7, groups 15, news 10, delete 5, gate 7. Deploy d43c7b51.
+  **Stories removed + no university on campus cards ✔ (user request 2026-10-14)** — `StoriesRow`, `.story-ring` CSS and
+  i18n `stories.*` deleted; campus cards show only "🎓 <section>" (+ topic), no line without one. Flows: campus clicks the
+  section pill with `.first()` (cards link the section too).
+  **Posts like X — X1 data model ✔ (user request 2026-10-14: text + photo + voice)** — migration
+  `20261105100000_text_photo_posts.sql`: text = the `title` column (now 1–280), `posts.images text[]` (1–4 paths in the
+  `voices` bucket, own folder; bucket now also allows image/jpeg|png|webp, so the same policies, sweeper and account
+  deletion cover photos), audio optional; `posts.plain_repost` (generated: repost_of and no audio/text/photos, not
+  deleted) replaces every "audio_path IS NULL = plain repost" test (feed_posts liked/reposted/foryou/news, remove_post,
+  unrepost, profile_deleting, unique index `posts_one_plain_repost`); `posts_kind_check` = audio fields all-or-none and
+  some content unless a plain repost / tombstone; `create_post(+ p_images)` → `empty_post` | `too_long` | `file_missing`
+  (foreign / missing / repeated photo, > 4); a quote may be text only; `feed_posts` + `images, orig_images`;
+  `admin_reports` + `post_images`; `orphan_voice_files` keeps photos in use (GIN `posts_images_idx`). Tests speak 132
+  (21a–f; also revived 12a — its column alias list broke when feed_posts grew — and 20e, which ran as the deleted Anna:
+  both had been silently skipped; a statement error inside a test = no PASS/FAIL line). Live applied, smoke (rolled
+  back) ok, types regenerated, deploy 0885a91b. NEXT X2: composer (text field, photo picker via `compressImage`, voice
+  optional), PostCard text/photo grid, queue skips posts without audio, admin reports show photos, i18n `rpcErrors.
+  emptyPost/tooLong`.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
@@ -938,7 +959,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (124) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (94) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (132) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (94) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

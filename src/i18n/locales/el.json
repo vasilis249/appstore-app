@@ -922,13 +922,5 @@
     "bannerFrom": "Από τον χάρτη · {{distance}}",
     "bannerMap": "Από τον χάρτη",
     "notifyBody": "Σου μιλάει από τον χάρτη"
-  },
-  "stories": {
-    "title": "Φωνές της ημέρας",
-    "mine": "Οι φωνές σου σήμερα",
-    "add": "Πες κάτι",
-    "yours": "Εσύ",
-    "play_one": "{{name}}: {{count}} φωνή",
-    "play_other": "{{name}}: {{count}} φωνές"
   }
 }

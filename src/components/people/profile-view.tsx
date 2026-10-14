@@ -61,7 +61,7 @@ export function ProfileView({ person, isMe, onEdit }: { person: Person; isMe: bo
             {isMe && (
               <Link
                 to="/record"
-                aria-label={t("stories.add")}
+                aria-label={t("groups.speak")}
                 className="absolute -bottom-0.5 -right-0.5 grid h-6 w-6 place-items-center rounded-full border-2 border-background bg-foreground text-background"
               >
                 <Plus className="h-3.5 w-3.5" strokeWidth={3} />

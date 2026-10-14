@@ -271,11 +271,7 @@ SELECT public.create_post(NULL, NULL, :'r1', NULL, NULL, '00000000-0000-0000-000
 RESET ROLE; SELECT pg_temp.as_user(:A); SET ROLE authenticated;
 SELECT pg_temp.ok('12a for you: engagement beats recency',
   (SELECT min(n) FILTER (WHERE post_id = :'pold') < min(n) FILTER (WHERE post_id = :'pnew')
-   FROM public.feed_posts('foryou', p_limit := 50) WITH ORDINALITY AS f(post_id, created_at, author_id, author_username, author_name,
-     author_avatar, section_id, topic_id, topic_title, reply_to, repost_of, title, audio_path, duration_ms, likes_count, replies_count,
-     reposts_count, listens_count, liked, reposted, is_mine, orig_author_username, orig_author_name, orig_author_avatar, orig_title,
-     orig_audio_path, orig_duration_ms, orig_created_at, orig_author_id, orig_likes_count, orig_replies_count, orig_reposts_count,
-     orig_listens_count, reply_to_username, group_id, group_name, n)));
+   FROM (SELECT post_id, row_number() OVER () AS n FROM public.feed_posts('foryou', p_limit := 50)) f));
 SELECT pg_temp.ok('12b for you: no plain reposts, no replies',
   NOT EXISTS (SELECT 1 FROM public.feed_posts('foryou', p_limit := 50) WHERE audio_path IS NULL OR reply_to IS NOT NULL));
 SELECT pg_temp.ok('12c for you pages with offset', (SELECT count(*) FROM public.feed_posts('foryou', p_limit := 1, p_offset := 1)) = 1
@@ -547,11 +543,11 @@ SELECT pg_temp.as_user(:A); SET ROLE authenticated;
 SELECT pg_temp.ok('20d nobody posts into a hidden section',
   pg_temp.fails($$SELECT public.create_post('sports', NULL, NULL, NULL, 'x', '00000000-0000-0000-0000-00000000000a/a1.m4a', 'audio/mp4', 3000)$$));
 RESET ROLE;
-UPDATE public.profiles SET university_id = 'ntua', student_verified_at = now() WHERE id = :A;
+UPDATE public.profiles SET university_id = 'ntua', student_verified_at = now() WHERE id = :C;
 INSERT INTO public.topics (section_id, kind, title, university_id) VALUES
   ('announcements', 'news', 'ΕΜΠ: Έναρξη μαθημάτων χειμερινού εξαμήνου', 'ntua'),
   ('unis', 'news', 'Μετεγγραφές φοιτητών: οι αιτήσεις', NULL);
-SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.as_user(:C); SET ROLE authenticated;
 SELECT pg_temp.ok('20e News shows your university''s announcements next to student topics (only on «Όλα»)',
   EXISTS (SELECT 1 FROM public.news_topics(NULL, 50) WHERE title LIKE 'ΕΜΠ: Έναρξη%')
   AND EXISTS (SELECT 1 FROM public.news_topics(NULL, 50) WHERE title LIKE 'Μετεγγραφές φοιτητών: οι%')
@@ -561,3 +557,46 @@ SELECT pg_temp.ok('20f ... and never another university''s',
   NOT EXISTS (SELECT 1 FROM public.news_topics(NULL, 50) WHERE title LIKE 'ΕΜΠ: Έναρξη%')
   AND EXISTS (SELECT 1 FROM public.news_topics(NULL, 50) WHERE title LIKE 'Μετεγγραφές φοιτητών: οι%'));
 RESET ROLE;
+
+-- 21 posts like X: text (≤ 280), up to 4 photos and / or a voice; a plain repost = repost_of and nothing else
+\set D '''00000000-0000-0000-0000-00000000000d'''
+INSERT INTO storage.objects (bucket_id, name, created_at) VALUES
+  ('voices', '00000000-0000-0000-0000-00000000000d/p1.jpg', now() - interval '2 hours'),
+  ('voices', '00000000-0000-0000-0000-00000000000d/p2.jpg', now() - interval '2 hours'),
+  ('voices', '00000000-0000-0000-0000-00000000000d/p3.jpg', now()), ('voices', '00000000-0000-0000-0000-00000000000d/p4.jpg', now()),
+  ('voices', '00000000-0000-0000-0000-00000000000d/p5.jpg', now()),
+  ('voices', '00000000-0000-0000-0000-00000000000d/orphan.jpg', now() - interval '2 hours');
+SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+SELECT public.create_post(p_title => 'Μόνο κείμενο, χωρίς φωνή') AS text_post \gset
+SELECT public.create_post(p_section => 'unis', p_title => 'Δύο φωτογραφίες', p_images => ARRAY['00000000-0000-0000-0000-00000000000d/p1.jpg', '00000000-0000-0000-0000-00000000000d/p2.jpg']) AS photo_post \gset
+SELECT pg_temp.ok('21a a text-only and a photo post (personal / section), returned with their photos',
+  (SELECT title IS NOT NULL AND audio_path IS NULL AND images IS NULL AND NOT plain_repost FROM public.posts WHERE id = :'text_post')
+  AND (SELECT images FROM public.feed_posts('one', p_parent => :'photo_post')) = ARRAY['00000000-0000-0000-0000-00000000000d/p1.jpg', '00000000-0000-0000-0000-00000000000d/p2.jpg']
+  AND EXISTS (SELECT 1 FROM public.feed_posts('personal') WHERE post_id = :'text_post')
+  AND EXISTS (SELECT 1 FROM public.feed_posts('news', p_limit => 50) WHERE post_id = :'photo_post'));
+SELECT pg_temp.ok('21b refused: empty, > 280 characters, > 4 photos, a repeated photo, someone else''s file, a missing file',
+  pg_temp.fails($$SELECT public.create_post(p_title => '   ')$$)
+  AND pg_temp.fails($$SELECT public.create_post(p_title => repeat('α', 281))$$)
+  AND NOT pg_temp.fails($$SELECT public.create_post(p_title => repeat('α', 280))$$)
+  AND pg_temp.fails($$SELECT public.create_post(p_images => ARRAY['00000000-0000-0000-0000-00000000000d/p1.jpg', '00000000-0000-0000-0000-00000000000d/p2.jpg', '00000000-0000-0000-0000-00000000000d/p3.jpg', '00000000-0000-0000-0000-00000000000d/p4.jpg', '00000000-0000-0000-0000-00000000000d/p5.jpg'])$$)
+  AND pg_temp.fails($$SELECT public.create_post(p_images => ARRAY['00000000-0000-0000-0000-00000000000d/p3.jpg', '00000000-0000-0000-0000-00000000000d/p3.jpg'])$$)
+  AND pg_temp.fails($$SELECT public.create_post(p_images => ARRAY['00000000-0000-0000-0000-00000000000a/a1.m4a'])$$)
+  AND pg_temp.fails($$SELECT public.create_post(p_images => ARRAY['00000000-0000-0000-0000-00000000000d/nope.jpg'])$$));
+RESET ROLE; SELECT pg_temp.as_user(:B); SET ROLE authenticated;  -- Anna's account is gone by now
+SELECT public.create_post(p_repost_of => :'photo_post', p_title => 'Γράφω κάτι από πάνω') AS quote_post \gset
+SELECT public.create_post(p_repost_of => :'photo_post') AS plain_post \gset
+SELECT pg_temp.ok('21c a text quote is not a plain repost; liked / reposted follow the plain one; unrepost keeps the quote',
+  (SELECT NOT plain_repost FROM public.posts WHERE id = :'quote_post') AND (SELECT plain_repost FROM public.posts WHERE id = :'plain_post')
+  AND (SELECT reposted FROM public.feed_posts('one', p_parent => :'photo_post'))
+  AND (SELECT orig_images[1] FROM public.feed_posts('one', p_parent => :'quote_post')) = '00000000-0000-0000-0000-00000000000d/p1.jpg'
+  AND pg_temp.fails($$SELECT public.create_post(p_repost_of => '$$ || :'plain_post' || $$')$$));
+SELECT public.unrepost(:'photo_post');
+SELECT pg_temp.ok('21d ... unrepost', NOT EXISTS (SELECT 1 FROM public.posts WHERE id = :'plain_post') AND EXISTS (SELECT 1 FROM public.posts WHERE id = :'quote_post'));
+RESET ROLE;
+SELECT pg_temp.ok('21e the sweeper keeps photos in use, finds the orphan',
+  (SELECT array_agg(n) FROM private.orphan_voice_files(1000) n WHERE n LIKE '00000000-0000-0000-0000-00000000000d/%') = ARRAY['00000000-0000-0000-0000-00000000000d/orphan.jpg']);
+SELECT pg_temp.as_user(:D); SET ROLE authenticated;
+SELECT public.delete_post(:'photo_post');
+RESET ROLE;
+SELECT pg_temp.ok('21f a quoted photo post becomes a tombstone without its photos',
+  (SELECT deleted_at IS NOT NULL AND images IS NULL AND title IS NULL FROM public.posts WHERE id = :'photo_post'));

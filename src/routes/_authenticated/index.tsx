@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { GraduationCap, Play, Search } from "lucide-react";
 import { AppHeader, HomeHeaderActions } from "@/components/app-header";
 import { FeedTabs } from "@/components/home/feed-switcher";
-import { StoriesRow } from "@/components/home/stories-row";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
 import { NewsCard } from "@/components/posts/news-card";
@@ -42,8 +41,8 @@ export const Route = createFileRoute("/_authenticated/")({
 
 /**
  * Home in four feeds under an iOS large title: your Campus (ΕΜΠ: its topic of the day, news, student sections and
- * classmates' voices — students only), Following, Groups and News, as text tabs with a gliding line. Then the
- * "stories" of people you follow who spoke today; ▶ plays the list you're looking at. (Recording: the voice key in
+ * classmates' voices — students only), Following, Groups and News, as text tabs with a gliding line. ▶ plays the list you're
+ * looking at. (Recording: the voice key in
  * the tab bar, placed by the feed you're on.)
  */
 function HomePage() {
@@ -75,9 +74,8 @@ function HomePage() {
     <>
       <AppHeader large={tab ? (tab === "campus" ? t("home.campus") : t(`home.${tab}`)) : " "} kicker={kicker} right={<HomeHeaderActions />} />
       <FeedTabs tab={tab} tabs={TABS} label={label} />
-      {tab !== "news" && <StoriesRow />}
       {(canPlay || tab === "news" || (tab === "campus" && verified && campusOpen)) && (
-        <div className={cn("no-scrollbar flex items-center gap-2 overflow-x-auto px-4 pb-2.5", tab === "news" && "pt-3")}>
+        <div className="no-scrollbar flex items-center gap-2 overflow-x-auto px-4 pb-2.5 pt-3">
           {canPlay && (
             <button
               type="button"

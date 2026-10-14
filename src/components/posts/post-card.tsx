@@ -169,20 +169,16 @@ export function PostCard({
             </p>
           )}
 
-          {(post.groupId || post.sectionId || post.campus) && (
+          {(post.groupId || post.sectionId || post.topicId) && (
             <p className="flex min-w-0 items-center gap-1 text-fine font-semibold text-muted-foreground">
               {post.campus ? (
-                <Link
-                  to="/"
-                  search={post.sectionId ? { tab: "campus", s: post.sectionId } : { tab: "campus" }}
-                  className="flex min-w-0 items-center gap-1 text-link"
-                >
-                  <GraduationCap className="h-3.5 w-3.5 shrink-0" />
-                  <span className="truncate">
-                    {campus.label({ university_id: post.campus })}
-                    {post.sectionId && ` · ${sections.name(post.sectionId)}`}
-                  </span>
-                </Link>
+                // Campus voices are only for that university's students: its name would repeat on every card.
+                post.sectionId && (
+                  <Link to="/" search={{ tab: "campus", s: post.sectionId }} className="flex shrink-0 items-center gap-1 text-link">
+                    <GraduationCap className="h-3.5 w-3.5 shrink-0" />
+                    {sections.name(post.sectionId)}
+                  </Link>
+                )
               ) : post.groupId && post.groupName ? (
                 <Link to="/g/$groupId" params={{ groupId: post.groupId }} className="flex min-w-0 items-center gap-1 text-link">
                   <Users className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{post.groupName}</span>
@@ -196,7 +192,7 @@ export function PostCard({
               )}
               {post.topicId && post.topicTitle && (
                 <>
-                  <span aria-hidden>·</span>
+                  {(post.sectionId || post.groupId) && <span aria-hidden>·</span>}
                   <Link to="/t/$topicId" params={{ topicId: post.topicId }} className="truncate font-medium">
                     {post.topicTitle}
                   </Link>

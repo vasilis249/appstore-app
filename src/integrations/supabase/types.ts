@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.5"
+    PostgrestVersion: "14.17"
   }
   public: {
     Tables: {
@@ -479,9 +479,11 @@ export type Database = {
           group_id: string | null
           hidden: boolean
           id: string
+          images: string[] | null
           likes_count: number
           listens_count: number
           mime: string | null
+          plain_repost: boolean | null
           replies_count: number
           reply_to: string | null
           repost_of: string | null
@@ -500,9 +502,11 @@ export type Database = {
           group_id?: string | null
           hidden?: boolean
           id?: string
+          images?: string[] | null
           likes_count?: number
           listens_count?: number
           mime?: string | null
+          plain_repost?: boolean | null
           replies_count?: number
           reply_to?: string | null
           repost_of?: string | null
@@ -521,9 +525,11 @@ export type Database = {
           group_id?: string | null
           hidden?: boolean
           id?: string
+          images?: string[] | null
           likes_count?: number
           listens_count?: number
           mime?: string | null
+          plain_repost?: boolean | null
           replies_count?: number
           reply_to?: string | null
           repost_of?: string | null
@@ -1048,6 +1054,7 @@ export type Database = {
           post_duration_ms: number
           post_exists: boolean
           post_hidden: boolean
+          post_images: string[]
           post_title: string
           reason: string
           reporter_username: string
@@ -1175,6 +1182,7 @@ export type Database = {
           p_campus?: boolean
           p_duration_ms?: number
           p_group?: string
+          p_images?: string[]
           p_mime?: string
           p_path?: string
           p_reply_to?: string
@@ -1227,6 +1235,7 @@ export type Database = {
           duration_ms: number
           group_id: string
           group_name: string
+          images: string[]
           is_mine: boolean
           liked: boolean
           likes_count: number
@@ -1239,6 +1248,7 @@ export type Database = {
           orig_created_at: string
           orig_deleted: boolean
           orig_duration_ms: number
+          orig_images: string[]
           orig_likes_count: number
           orig_listens_count: number
           orig_replies_count: number
