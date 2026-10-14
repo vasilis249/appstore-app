@@ -685,7 +685,7 @@ User decisions:
   `captureGraph`, closed at the end); no processor call within 0.8 s → moves to the shared context (`d.cap` own |
   own→shared | shared-kick, logged in diag when not "own"). `walkie-ios-flow` models it (contexts made before the first
   getUserMedia never run their ScriptProcessor): old engine 0 pieces on every turn, new 7/7. e2e 64/64 (hub 11,
-  reconnect 4: no switch steps). NOT verified on a real iPhone → user test, then read `private.walkie_diag`.
+  reconnect 4: no switch steps). Deploy 4d9bb8b4. NOT verified on a real iPhone → user test, then read `private.walkie_diag`.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
