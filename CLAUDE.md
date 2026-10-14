@@ -636,6 +636,21 @@ User decisions:
   headers / nav; no further changes needed. Scratchpad `seed-photos.sh` adds a voice + photo post
   (`eeeeeeee-…-0001`); `photo-flow.mjs` 10/10 (+ viewer open on the tapped photo, Escape). Flows map 11, mapblock 7,
   campus 15, groups 15, delete 5. Deploy 8e00ace4.
+  **DMs with text + photos ✔ (user request 2026-10-14)** — migration `20261106100000_dm_text_photos.sql`: `voice_messages`
+  + `body` (1–1000) + `image_path` (PRIVATE bucket `dm-photos`, 5 MB, jpeg/png/webp, `<sender>/<uuid>.jpg`; policies: upload
+  / delete own folder, read own or a photo of a conversation you're in, not across a block), `duration_ms` nullable
+  (+ content check). Voices stay listen-once; texts / photos stay in the thread (90-day clean-up) and are "read" when the
+  recipient opens it (`read_dm_thread(other)`); only voices expire after 10 days (`expire_voice_messages` patched);
+  `consume_voice_message` ignores non-voices. `send_dm(to, body, image)` (friends only, same rate limits, own / existing
+  / unused photo). `my_threads` + `last_kind` (voice|text|photo), `last_body`. `orphan_dm_photos` (service role) →
+  `sweepVoiceFiles` removes unused DM photos too; account deletion empties `dm-photos/<uid>/`. Client: `lib/voice.ts`
+  (`listThread` signs photo URLs, `sendDm` uploads then sends, removes the file on failure, `readThread`), `RecordBar`
+  (glass photo button, glass text field with ↑ Send that replaces the voice drop while typing, Enter sends),
+  `VoiceBubble` (text bubble ink / white, photo → `PhotoViewer` (now takes `urls`), "Διαβάστηκε"), inbox preview
+  (text / "📷 Φωτογραφία" / "Εσύ: …"), copy "νέα μηνύματα", Privacy el/en (texts + photos 90 days, photos private).
+  Local emulator (scratchpad + `tests/e2e/local-supabase.mjs`): batch `createSignedUrls` signs real files through RLS
+  (the single-file sign route no longer swallows the batch call). Tests voice 46 (07b–g); scratchpad `dm-flow.mjs`
+  11/11; e2e 65/65. Live applied (6 old messages intact), types regenerated, deploy 084a02ef.
   **Walkie still not live (user report 2026-10-03 evening)** — PROBE: a temporary Cloudflare Worker (`speak-rtprobe`,
   deleted after) with two temporary student users (deleted after) joined the live private `walkie:` channel through
   the real Supabase Realtime: start + 6 binary 4005-byte pieces + end + presence all arrived → the server path is fine,
@@ -998,7 +1013,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (40) + `test_speak.sql` (132) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (94) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (46) + `test_speak.sql` (132) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (94) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

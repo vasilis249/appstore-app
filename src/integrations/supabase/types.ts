@@ -872,28 +872,34 @@ export type Database = {
       }
       voice_messages: {
         Row: {
+          body: string | null
           created_at: string
-          duration_ms: number
+          duration_ms: number | null
           expired_at: string | null
           id: string
+          image_path: string | null
           opened_at: string | null
           recipient_id: string
           sender_id: string
         }
         Insert: {
+          body?: string | null
           created_at?: string
-          duration_ms: number
+          duration_ms?: number | null
           expired_at?: string | null
           id?: string
+          image_path?: string | null
           opened_at?: string | null
           recipient_id: string
           sender_id: string
         }
         Update: {
+          body?: string | null
           created_at?: string
-          duration_ms?: number
+          duration_ms?: number | null
           expired_at?: string | null
           id?: string
+          image_path?: string | null
           opened_at?: string | null
           recipient_id?: string
           sender_id?: string
@@ -1427,7 +1433,9 @@ export type Database = {
           avatar_path: string
           full_name: string
           last_at: string
+          last_body: string
           last_from_me: boolean
+          last_kind: string
           last_state: string
           other_id: string
           unheard: number
@@ -1468,6 +1476,7 @@ export type Database = {
           title: string
         }[]
       }
+      orphan_dm_photos: { Args: { p_limit?: number }; Returns: string[] }
       orphan_voice_files: { Args: { p_limit?: number }; Returns: string[] }
       post_ancestors: { Args: { p_post: string }; Returns: string[] }
       profile_stats: {
@@ -1487,6 +1496,7 @@ export type Database = {
           prompt_at: string
         }[]
       }
+      read_dm_thread: { Args: { p_other: string }; Returns: undefined }
       record_listen: { Args: { p_post: string }; Returns: undefined }
       remove_follower: { Args: { p_user: string }; Returns: undefined }
       remove_group_member: {
@@ -1511,6 +1521,10 @@ export type Database = {
           id: string
           username: string
         }[]
+      }
+      send_dm: {
+        Args: { p_body?: string; p_image?: string; p_to: string }
+        Returns: string
       }
       send_nearby: {
         Args: {

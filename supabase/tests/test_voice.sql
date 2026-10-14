@@ -135,6 +135,46 @@ SET ROLE authenticated;
 SELECT pg_temp.ok('07a follow rate limited', pg_temp.fails($$SELECT public.follow_user('00000000-0000-0000-0000-00000000000b')$$));
 RESET ROLE;
 
+-- 07b DMs with text and photos (stay in the thread, read when opened; photos private to the two)
+INSERT INTO storage.objects (bucket_id, name, created_at) VALUES
+  ('dm-photos', '00000000-0000-0000-0000-00000000000a/p1.jpg', now()),
+  ('dm-photos', '00000000-0000-0000-0000-00000000000a/old.jpg', now() - interval '2 hours');
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('07b uploads only into your own dm-photos folder',
+  pg_temp.fails($$INSERT INTO storage.objects (bucket_id, name) VALUES ('dm-photos', '00000000-0000-0000-0000-00000000000b/x.jpg')$$)
+  AND NOT pg_temp.fails($$INSERT INTO storage.objects (bucket_id, name) VALUES ('dm-photos', '00000000-0000-0000-0000-00000000000a/x.jpg')$$));
+SELECT public.send_dm(:B, '  Γεια! Πάμε για καφέ;  ') AS t1 \gset
+SELECT public.send_dm(:B, NULL, '00000000-0000-0000-0000-00000000000a/p1.jpg') AS p1 \gset
+SELECT pg_temp.ok('07c a text and a photo to a friend; refused: empty, > 1000, someone else''s / missing / reused photo, a non-friend',
+  (SELECT body = 'Γεια! Πάμε για καφέ;' AND duration_ms IS NULL FROM public.voice_messages WHERE id = :'t1')
+  AND pg_temp.fails($$SELECT public.send_dm('00000000-0000-0000-0000-00000000000b', '   ')$$)
+  AND pg_temp.fails($$SELECT public.send_dm('00000000-0000-0000-0000-00000000000b', repeat('α', 1001))$$)
+  AND pg_temp.fails($$SELECT public.send_dm('00000000-0000-0000-0000-00000000000b', NULL, '00000000-0000-0000-0000-00000000000b/x.jpg')$$)
+  AND pg_temp.fails($$SELECT public.send_dm('00000000-0000-0000-0000-00000000000b', NULL, '00000000-0000-0000-0000-00000000000a/none.jpg')$$)
+  AND pg_temp.fails($$SELECT public.send_dm('00000000-0000-0000-0000-00000000000b', NULL, '00000000-0000-0000-0000-00000000000a/p1.jpg')$$)
+  AND pg_temp.fails($$SELECT public.send_dm('00000000-0000-0000-0000-00000000000e', 'hi')$$));
+RESET ROLE; SELECT pg_temp.as_user(:B); SET ROLE authenticated;
+SELECT unheard AS before FROM public.my_threads() WHERE other_id = :A \gset
+SELECT pg_temp.ok('07d the recipient sees them: last = photo, unread, the photo readable, no audio to consume',
+  (SELECT last_kind = 'photo' FROM public.my_threads() WHERE other_id = :A)
+  AND :before >= 2
+  AND EXISTS (SELECT 1 FROM storage.objects WHERE bucket_id = 'dm-photos' AND name = '00000000-0000-0000-0000-00000000000a/p1.jpg')
+  AND pg_temp.fails($$SELECT public.consume_voice_message('$$ || :'t1' || $$')$$));
+SELECT public.read_dm_thread(:A);
+SELECT pg_temp.ok('07e opening the thread reads texts and photos (voices stay unheard)',
+  (SELECT unheard FROM public.my_threads() WHERE other_id = :A) = :before - 2
+  AND (SELECT opened_at IS NOT NULL FROM public.voice_messages WHERE id = :'p1'));
+RESET ROLE; SELECT pg_temp.as_user(:C); SET ROLE authenticated;
+SELECT pg_temp.ok('07f a third person can''t read the photo',
+  NOT EXISTS (SELECT 1 FROM storage.objects WHERE bucket_id = 'dm-photos' AND name = '00000000-0000-0000-0000-00000000000a/p1.jpg')
+  AND pg_temp.fails($$SELECT * FROM public.orphan_dm_photos()$$));
+RESET ROLE;
+UPDATE public.voice_messages SET created_at = now() - interval '20 days', opened_at = NULL WHERE id = :'t1';
+SELECT private.expire_voice_messages();
+SELECT pg_temp.ok('07g texts don''t expire after 10 days; the sweeper finds only the unused old photo',
+  (SELECT expired_at IS NULL FROM public.voice_messages WHERE id = :'t1')
+  AND (SELECT array_agg(n) FROM private.orphan_dm_photos(100) n) = ARRAY['00000000-0000-0000-0000-00000000000a/old.jpg']);
+
 -- 08 account deletion cascades
 DELETE FROM auth.users WHERE id = :B;
 SELECT pg_temp.ok('08a deleting the account removes everything',

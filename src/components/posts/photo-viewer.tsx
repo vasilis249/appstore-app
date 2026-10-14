@@ -2,13 +2,12 @@ import { useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useTranslation } from "react-i18next";
 import { X } from "lucide-react";
-import { voiceUrl } from "@/lib/posts";
 
 /**
- * A post's photos full screen on black: swipe between them (native scroll snap), a glass ✕ and "1 από 3" on top.
+ * Photos (a post's, a DM's) full screen on black: swipe between them (native scroll snap), a glass ✕ and "1 από 3" on top.
  * Radix Dialog gives the focus trap, Escape and the screen-reader title.
  */
-export function PhotoViewer({ paths, start, alt, onClose }: { paths: string[]; start: number | null; alt: string; onClose: () => void }) {
+export function PhotoViewer({ urls, start, alt, onClose }: { urls: string[]; start: number | null; alt: string; onClose: () => void }) {
   const { t } = useTranslation();
   const [at, setAt] = useState(0);
   return (
@@ -29,9 +28,9 @@ export function PhotoViewer({ paths, start, alt, onClose }: { paths: string[]; s
             onScroll={(e) => setAt(Math.round(e.currentTarget.scrollLeft / Math.max(1, e.currentTarget.clientWidth)))}
             className="no-scrollbar flex h-full w-full snap-x snap-mandatory overflow-x-auto"
           >
-            {paths.map((p, i) => (
-              <div key={p} className="grid h-full w-full shrink-0 snap-center place-items-center">
-                <img src={voiceUrl(p)} alt={`${alt} (${i + 1}/${paths.length})`} className="max-h-full max-w-full object-contain" />
+            {urls.map((u, i) => (
+              <div key={u} className="grid h-full w-full shrink-0 snap-center place-items-center">
+                <img src={u} alt={`${alt} (${i + 1}/${urls.length})`} className="max-h-full max-w-full object-contain" />
               </div>
             ))}
           </div>
@@ -39,9 +38,9 @@ export function PhotoViewer({ paths, start, alt, onClose }: { paths: string[]; s
             <DialogPrimitive.Close aria-label={t("common.close")} className="glass pointer-events-auto grid h-11 w-11 place-items-center rounded-full text-foreground">
               <X className="h-5 w-5" strokeWidth={2.2} />
             </DialogPrimitive.Close>
-            {paths.length > 1 && (
+            {urls.length > 1 && (
               <span className="glass rounded-full px-3 py-1.5 text-caption font-semibold tabular-nums text-foreground">
-                {t("posts.photoCount", { n: at + 1, max: paths.length })}
+                {t("posts.photoCount", { n: at + 1, max: urls.length })}
               </span>
             )}
             <span className="w-11" />

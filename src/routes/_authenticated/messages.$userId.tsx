@@ -13,7 +13,7 @@ import { RecordBar } from "@/components/voice/record-bar";
 import { VoiceBubble } from "@/components/voice/voice-bubble";
 import { useAuth } from "@/hooks/use-auth";
 import { friendKeys, profileStats, rpcErrorKey } from "@/lib/friends";
-import { DM_MAX_MS, listThread, sendVoice, voiceKeys } from "@/lib/voice";
+import { DM_MAX_MS, DM_TEXT_MAX, listThread, readThread, sendDm, sendVoice, voiceKeys } from "@/lib/voice";
 
 export const Route = createFileRoute("/_authenticated/messages/$userId")({
   component: ThreadPage,
@@ -52,6 +52,20 @@ function ThreadPage() {
   useEffect(() => {
     bottom.current?.scrollIntoView({ block: "end" });
   }, [count]);
+  // open = read: their unread texts and photos (voices only by listening)
+  const unread = (messages.data ?? []).some((m) => m.sender_id === userId && m.duration_ms === null && !m.opened_at);
+  useEffect(() => {
+    if (unread) void readThread(userId).then(() => qc.invalidateQueries({ queryKey: voiceKeys.all }));
+  }, [unread, userId, qc]);
+  const send = async (fn: () => Promise<void>) => {
+    try {
+      await fn();
+      void qc.invalidateQueries({ queryKey: voiceKeys.all });
+    } catch (e) {
+      toast.error(t(rpcErrorKey(e)));
+      throw e;
+    }
+  };
 
   const name = other.data ? other.data.full_name || other.data.username : "";
   // "Report" in a conversation points at their latest voice message (the audio itself may be gone).
@@ -107,15 +121,10 @@ function ThreadPage() {
         <RecordBar
           maxMs={DM_MAX_MS}
           disabled={!friends.data}
-          onSend={async (clip) => {
-            try {
-              await sendVoice(userId, clip);
-              void qc.invalidateQueries({ queryKey: voiceKeys.all });
-            } catch (e) {
-              toast.error(t(rpcErrorKey(e)));
-              throw e;
-            }
-          }}
+          onSend={(clip) => send(() => sendVoice(userId, clip))}
+          onSendText={(text) => send(() => sendDm(user!.id, userId, { text }))}
+          onSendPhoto={(photo) => send(() => sendDm(user!.id, userId, { photo }))}
+          textMax={DM_TEXT_MAX}
         />
       )}
     </>

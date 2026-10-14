@@ -297,7 +297,7 @@
           "heading": "How long we keep data",
           "body": [
             "Your account, profile and public voices are kept while your account is active or until you delete them. When you delete a voice, its audio file, title, likes, listens and plain reposts are deleted. If others had replied to it or quoted it, their voices stay and \"This voice was deleted\" is shown in its place, without a name or audio.",
-            "Voice messages: the audio is deleted as soon as it is played, or after 10 days if it is never played. Conversation records (who sent to whom and when) are deleted after 90 days.",
+            "Voice messages: the audio is deleted as soon as it is played, or after 10 days if it is never played. Conversation records (who sent to whom and when), and the texts and photos you send in direct messages, are deleted after 90 days. Message photos are stored privately: only you and the recipient can see them.",
             "Walkie-talkie: each transmission (audio and details) is deleted automatically after 24 hours, or at once if you block the other person.",
             "Content reports are kept as long as needed for community safety and dealing with repeated violations. Server logs are kept for a limited time by the hosting providers."
           ]
@@ -495,10 +495,10 @@
     "playFailed": "Could not play it.",
     "newMessage": "New message",
     "noFriends": "You can message people who follow you back.",
-    "unheardCount_one": "New voice message",
-    "unheardCount_other": "{{count}} new voice messages",
-    "threadEmpty": "Send the first voice message. It can be heard only once.",
-    "friendsOnly": "Voice messages only between people who follow each other.",
+    "unheardCount_one": "New message",
+    "unheardCount_other": "{{count}} new messages",
+    "threadEmpty": "Send a message, a photo or a voice. Voices play only once.",
+    "friendsOnly": "Messages only if you follow each other.",
     "holdToTalk": "Hold and speak",
     "releaseToStop": "Let go to stop",
     "holdToTalkLimit": "Hold and speak · up to {{max}}",
@@ -933,5 +933,16 @@
     "bannerFrom": "From the map · {{distance}}",
     "bannerMap": "From the map",
     "notifyBody": "is talking to you from the map"
+  },
+  "dm": {
+    "placeholder": "Message…",
+    "sendPhoto": "Send a photo",
+    "openPhoto": "Open photo",
+    "photo": "Photo",
+    "photoGone": "This photo is no longer available",
+    "read": "Read",
+    "lastPhoto": "📷 Photo",
+    "lastVoice": "Voice",
+    "you": "You: {{text}}"
   }
 }

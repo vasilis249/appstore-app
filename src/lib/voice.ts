@@ -13,13 +13,20 @@ export interface Thread {
   last_from_me: boolean;
   last_state: "delivered" | "opened" | "expired";
   unheard: number;
+  last_kind: "voice" | "text" | "photo";
+  last_body: string | null;
 }
 
+/** A DM: a voice (listen once; `duration_ms`), a text (`body`) or a photo (`image_path`, private `dm-photos`). */
 export interface VoiceMessage {
   id: string;
   sender_id: string;
   recipient_id: string;
-  duration_ms: number;
+  duration_ms: number | null;
+  body: string | null;
+  image_path: string | null;
+  /** Signed URL of the photo (1 h). */
+  image_url?: string | null;
   created_at: string;
   opened_at: string | null;
   expired_at: string | null;
@@ -43,12 +50,41 @@ export async function listThread(me: string, other: string): Promise<VoiceMessag
   if (!UUID.test(other)) return [];
   const { data, error } = await supabase
     .from("voice_messages")
-    .select("id, sender_id, recipient_id, duration_ms, created_at, opened_at, expired_at")
+    .select("id, sender_id, recipient_id, duration_ms, body, image_path, created_at, opened_at, expired_at")
     .or(`and(sender_id.eq.${me},recipient_id.eq.${other}),and(sender_id.eq.${other},recipient_id.eq.${me})`)
     .order("created_at", { ascending: false })
     .limit(50);
   if (error) throw new Error(error.message);
-  return (data ?? []).reverse();
+  const rows: VoiceMessage[] = (data ?? []).reverse();
+  const paths = rows.map((m) => m.image_path).filter((p): p is string => !!p);
+  if (paths.length) {
+    const signed = await supabase.storage.from("dm-photos").createSignedUrls(paths, 3600);
+    const url = new Map((signed.data ?? []).map((x) => [x.path, x.signedUrl]));
+    for (const m of rows) if (m.image_path) m.image_url = url.get(m.image_path) ?? null;
+  }
+  return rows;
+}
+
+export const DM_TEXT_MAX = 1000;
+
+/** A text and / or a photo (already resized): the photo goes to dm-photos/<me>/…, removed again if sending fails. */
+export async function sendDm(me: string, to: string, msg: { text?: string; photo?: Blob }) {
+  const bucket = supabase.storage.from("dm-photos");
+  const path = msg.photo ? `${me}/${crypto.randomUUID()}.${msg.photo.type === "image/png" ? "png" : "jpg"}` : undefined;
+  if (path) {
+    const up = await bucket.upload(path, msg.photo!, { contentType: msg.photo!.type || "image/jpeg", upsert: false });
+    if (up.error) throw new Error(up.error.message);
+  }
+  const { error } = await supabase.rpc("send_dm", { p_to: to, p_body: msg.text?.trim() || undefined, p_image: path });
+  if (error) {
+    if (path) await bucket.remove([path]);
+    throw new Error(error.message);
+  }
+}
+
+/** Opening a conversation marks its texts and photos read. */
+export async function readThread(other: string) {
+  await supabase.rpc("read_dm_thread", { p_other: other });
 }
 
 export async function sendVoice(to: string, clip: { blob: Blob; mime: string; durationMs: number }) {

@@ -43,6 +43,11 @@ function MessagesPage() {
   function subtitle(th: Thread) {
     const when = timeAgoShort(th.last_at, i18n.language);
     if (th.unheard > 0) return `${t("voice.unheardCount", { count: th.unheard })} · ${when}`;
+    // a text shows itself; a photo says so; voices keep their listen-once state below
+    if (th.last_kind !== "voice") {
+      const what = th.last_kind === "photo" ? t("dm.lastPhoto") : (th.last_body ?? "");
+      return `${th.last_from_me ? t("dm.you", { text: what }) : what} · ${when}`;
+    }
     const state = th.last_from_me
       ? { delivered: t("voice.delivered"), opened: t("voice.opened"), expired: t("voice.expired") }[th.last_state]
       : th.last_state === "expired" ? t("voice.expired") : t("voice.heard");

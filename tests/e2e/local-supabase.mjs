@@ -81,7 +81,7 @@ if (process.argv[1].endsWith("local-supabase.mjs")) {
       };
       const json = (code, obj) => { res.statusCode = code; res.setHeader("content-type", "application/json"); res.end(JSON.stringify(obj)); };
       const m = url.pathname.match(/^\/storage\/v1\/object\/(sign\/|file\/|public\/)?([^/]+)\/?(.*)$/);
-      if (m && m[1] === "sign/" && m[2] !== "img") {
+      if (m && m[1] === "sign/" && m[2] !== "img" && m[3]) { // one file; several (no name) → the batch branch below
         const bucket = m[2], name = decodeURIComponent(m[3]);
         req.resume();
         rest("GET", `/objects?select=name&bucket_id=eq.${bucket}&name=eq.${encodeURIComponent(name)}`).then((r) => {
@@ -134,10 +134,20 @@ if (process.argv[1].endsWith("local-supabase.mjs")) {
       if (url.pathname.startsWith("/storage/v1/object/sign/")) {
         let body = "";
         req.on("data", (d) => (body += d));
-        req.on("end", () => {
+        req.on("end", async () => {
           const paths = body ? JSON.parse(body).paths ?? [JSON.parse(body).path] : [];
           res.setHeader("content-type", "application/json");
-          const out = paths.map((p, i) => ({ path: p, signedURL: `/object/img/${i}/${encodeURIComponent(p)}`, error: null }));
+          // /object/sign/<bucket> with stored files: a link only where the user's RLS lets them read the object (like
+          // the real API); anything else keeps the old bundled stand-in images.
+          const bucket = url.pathname.split("/")[5];
+          const out = await Promise.all(paths.map(async (p, i) => {
+            if (bucket && fs.existsSync(`${FILES}/${bucket}/${p}`)) {
+              const r = await rest("GET", `/objects?select=name&bucket_id=eq.${bucket}&name=eq.${encodeURIComponent(p)}`);
+              const ok = r.status === 200 && JSON.parse(r.body).length > 0;
+              return ok ? { path: p, signedURL: `/object/file/${bucket}/${p}?token=local`, error: null } : { path: p, signedURL: null, error: "not_found" };
+            }
+            return { path: p, signedURL: `/object/img/${i}/${encodeURIComponent(p)}`, error: null };
+          }));
           res.end(JSON.stringify(body && JSON.parse(body).paths ? out : { signedURL: out[0]?.signedURL }));
         });
         return;

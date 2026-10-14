@@ -260,7 +260,7 @@ export function PostCard({
             {playerBody}
           </div>
           )}
-          {focus && <PhotoViewer paths={post.images} start={viewing} alt={t("posts.photoAlt", { name: post.name })} onClose={() => setViewing(null)} />}
+          {focus && <PhotoViewer urls={post.images.map(voiceUrl)} start={viewing} alt={t("posts.photoAlt", { name: post.name })} onClose={() => setViewing(null)} />}
 
           {post.quote?.deleted && (
             <p className="mt-2 rounded-xl border border-border px-3 py-2 text-caption text-muted-foreground">{t("posts.quoteDeleted")}</p>
