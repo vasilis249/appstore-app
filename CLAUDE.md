@@ -754,7 +754,10 @@ User decisions:
   picker (not campus / topic / group / reply → personal); nav drop: Home tabs → campus for students; old news-section
   labels on cards are plain text. Migration `20261107100000_launch_ntua_only.sql`: `min_students` 0 for ntua, 100 for
   every other university (existing `CampusWaiting`), non-campus feeds disabled. i18n −12 unused keys. Tests speak 132
-  (20b launch state); scratchpad map-flow expects walkie / memories hidden.
+  (20b launch state); scratchpad map-flow expects walkie / memories hidden. e2e: `ptt-flow` step 2 = Campus · Μαθήματα
+  (makes me a verified ΕΜΠ student), `run.sh` counts a crashed flow as a failure (before, a crash after 4 PASS lines
+  read as green). e2e 64/64, 14 app flows, ux 15, DB all green. Live: migration applied (ntua 0, others 100, general
+  feeds off; 5 verified students outside ΕΜΠ now see their campus waiting), deploy 32523eb9.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
