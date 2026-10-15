@@ -709,6 +709,9 @@ User decisions:
   φωνή ↓» above the drop until the first recording (localStorage `courtsie:holdLearned`). Topic lead card: «Κανείς δεν
   μίλησε ακόμα» (no duplicate CTA). Kept the «Για φοιτητές» kicker (else the feed tabs jump between tabs). ux-flow
   15/15; flows groups/delete/campus/news updated to the new copy; 14 app flows green. Deploy d0f57361.
+- **UX audit U3 ✔ (user OK 2026-10-15; #9 tab labels)** — `BottomNav`: 10px label under each icon (tabs.feed/map/search/
+  profile; visible text replaces aria-label), same 62px capsule, same positions; profile avatar 20px. ux-flow 15/15,
+  flows map 11, mapblock 7, groups 15, campus 15, delete 5, news 10, gate 7, dm 11, photo 10. Next: #10 one PTT style.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
@@ -943,7 +946,7 @@ User decisions:
   rebuild needed for the app to leave forced Dark). Radii 8 / 11 / 18 (lg…3xl) / full. Type utilities `text-hero` 34,
   `text-display` 28, `text-tagline` 21, `text-body` 17 (body default), `text-callout` 15, `text-caption` 14,
   `text-fine` 12; headings 600. `glass` utility = frosted floating chrome.
-- `BottomNav`: glass capsule, icons only (no labels — AUDIT #9), gliding pill on the active tab — Home `/`, Map, Search,
+- `BottomNav`: glass capsule, icons with 10px labels (AUDIT #9, U3; height still 62px), gliding pill on the active tab — Home `/`, Map, Search,
   Profile (avatar) + separate glass voice drop (tap = /record, hold = push to talk). Memories = calendar icon on Profile.
 - `AppHeader` (`src/components/app-header.tsx`): frosted bar with a hairline, centred `Wordmark` ("Speak.", 21/600) or
   17/600 title, `back` = blue iOS chevron, left/right slots; Home's right = plain 44px paper-plane → `/messages` + bell →

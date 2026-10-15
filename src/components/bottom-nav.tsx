@@ -14,7 +14,7 @@ export const AUTH_PATHS = /^\/(auth|forgot-password|reset-password|i)(\/|$)/;
 const TABS = ["/", "/map", "/search", "/profile"] as const;
 
 /**
- * Tab bar (DESIGN.md, Glass): a floating glass capsule with four icons — Home, Map, Search, Profile; a soft pill glides
+ * Tab bar (DESIGN.md, Glass): a floating glass capsule with four labelled icons — Home, Map, Search, Profile; a soft pill glides
  * to the active one — and beside it the voice drop (tap = compose, hold = push to talk from any screen). A light
  * haptic on every tab.
  */
@@ -29,7 +29,9 @@ export function BottomNav() {
 
   const name = me.data?.full_name || me.data?.username || (user.user_metadata?.full_name as string | undefined) || "?";
   const active = TABS.findIndex((to) => (to === "/" ? path === "/" : path === to || path.startsWith(`${to}/`)));
-  const item = (i: number) => cn("relative z-10 grid h-[50px] w-full place-items-center", i === active ? "text-foreground" : "text-muted-foreground");
+  // iOS-style label under each icon (AUDIT #9): the bar keeps its 62px height.
+  const item = (i: number) => cn("relative z-10 flex h-[50px] w-full flex-col items-center justify-center gap-0.5", i === active ? "text-foreground" : "text-muted-foreground");
+  const label = (key: string) => <span className="text-[10px] font-medium leading-3">{t(key)}</span>;
   const stroke = (i: number) => (i === active ? 2.2 : 1.8);
   const tap = () => haptic("light");
 
@@ -48,19 +50,23 @@ export function BottomNav() {
           >
             <span className="h-full w-16 rounded-full bg-[var(--nav-active)]" />
           </span>
-          <Link to="/" aria-label={t("tabs.feed")} aria-current={active === 0 ? "page" : undefined} className={item(0)} onClick={tap}>
+          <Link to="/" aria-current={active === 0 ? "page" : undefined} className={item(0)} onClick={tap}>
             <HomeIcon filled={active === 0} />
+            {label("tabs.feed")}
           </Link>
-          <Link to="/map" aria-label={t("tabs.map")} aria-current={active === 1 ? "page" : undefined} className={item(1)} onClick={tap}>
+          <Link to="/map" aria-current={active === 1 ? "page" : undefined} className={item(1)} onClick={tap}>
             <MapPin className="h-6 w-6" strokeWidth={stroke(1)} />
+            {label("tabs.map")}
           </Link>
-          <Link to="/search" aria-label={t("tabs.search")} aria-current={active === 2 ? "page" : undefined} className={item(2)} onClick={tap}>
+          <Link to="/search" aria-current={active === 2 ? "page" : undefined} className={item(2)} onClick={tap}>
             <Search className="h-6 w-6" strokeWidth={stroke(2)} />
+            {label("tabs.search")}
           </Link>
-          <Link to="/profile" aria-label={t("tabs.profile")} aria-current={active === 3 ? "page" : undefined} className={item(3)} onClick={tap}>
+          <Link to="/profile" aria-current={active === 3 ? "page" : undefined} className={item(3)} onClick={tap}>
             <span className={cn("rounded-full p-[2px] ring-[1.5px]", active === 3 ? "ring-foreground" : "ring-transparent")}>
-              <UserAvatar name={name} path={me.data?.avatar_path} size={26} className="bg-primary text-fine text-primary-foreground" />
+              <UserAvatar name={name} path={me.data?.avatar_path} size={20} className="bg-primary text-fine text-primary-foreground" />
             </span>
+            {label("tabs.profile")}
           </Link>
         </div>
         <NavRecordButton />
