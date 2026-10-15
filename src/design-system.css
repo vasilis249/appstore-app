@@ -153,6 +153,7 @@
   --glass-hi: rgb(255 255 255 / 0.95);
   --glass-lo: rgb(10 14 30 / 0.06);
   --glass-side: rgb(255 255 255 / 0.5);
+  --glass-thick: rgb(246 247 250 / 0.86);
   --glass-shadow: 0 12px 32px rgb(18 24 48 / 0.14);
   /* micro-grain (≈4 % noise) so the frost doesn't band; one inline SVG tile, no request */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -198,6 +199,7 @@
     --glass-hi: rgb(255 255 255 / 0.16);
     --glass-lo: rgb(0 0 0 / 0.3);
     --glass-side: rgb(255 255 255 / 0.07);
+    --glass-thick: rgb(17 19 25 / 0.84);
     --glass-shadow: 0 14px 36px rgb(0 0 0 / 0.5);
     --glass-solid: #1c1f27;
     --float-shadow: 0 14px 36px rgb(0 0 0 / 0.5);
@@ -241,7 +243,8 @@
       background-color 250ms ease,
       border-color 250ms ease,
       transform 220ms cubic-bezier(0.3, 0.7, 0.4, 1),
-      opacity 250ms ease;
+      opacity 250ms ease,
+      filter 160ms ease;
   }
   input,
   textarea,
@@ -256,6 +259,10 @@
   a:active {
     transform: scale(0.96);
     transition-duration: 90ms;
+  }
+  /* Glass controls also catch more light while pressed (the surface leans into the light). */
+  :is(button, a).glass:not(:disabled):active {
+    filter: brightness(1.07);
   }
   :focus-visible {
     outline: 2px solid var(--ring);
@@ -287,6 +294,14 @@
     inset 0 -1px 0 var(--glass-lo),
     inset -1px 0 0 var(--glass-lo);
 }
+/* Thick material (iOS sheets): bottom sheets frost the dimmed screen behind them more heavily and stay readable. */
+@utility glass-thick {
+  background-color: var(--glass-thick);
+  background-image: var(--grain);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(180%);
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+}
 /* Under floating top controls: content softens and fades as it scrolls beneath (iOS scroll edge). */
 @utility scroll-edge {
   background: linear-gradient(var(--background) 30%, transparent);
@@ -297,7 +312,7 @@
 }
 /* Liquid glass (one per screen: the post page's player on a photo): a copy of the photo bent by #liquid-lens, under a
    glass tint with a lit rim. */
-.liquid-lens { filter: url(#liquid-lens) saturate(1.6) blur(2px); }
+.liquid-lens { filter: url(#liquid-lens) saturate(1.15) blur(5px); }
 .liquid-tint {
   background: var(--glass);
   border: 1px solid var(--glass-rim);
@@ -309,9 +324,11 @@
 }
 @media (prefers-reduced-transparency: reduce) {
   .glass { background-color: var(--glass-solid); background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .glass-thick { background-color: var(--sheet); background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .glass { background-color: var(--glass-solid); }
+  .glass-thick { background-color: var(--sheet); }
 }
 
 /* iOS app (Capacitor): safe areas for notch / home indicator (viewport-fit=cover). */

@@ -8,7 +8,7 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, type CSSProperties, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 import appCss from "../styles.css?url";
@@ -195,6 +195,9 @@ function RootComponent() {
           position="top-center"
           offset={{ top: "calc(env(safe-area-inset-top, 0px) + 72px)" }}
           mobileOffset={{ top: "calc(env(safe-area-inset-top, 0px) + 72px)" }}
+          // toasts float over content → glass (Sonner paints its own background from these variables)
+          toastOptions={{ className: "glass" }}
+          style={{ "--normal-bg": "var(--glass)", "--normal-border": "var(--glass-rim)", "--normal-text": "var(--foreground)" } as CSSProperties}
         />
       </div>
     </QueryClientProvider>

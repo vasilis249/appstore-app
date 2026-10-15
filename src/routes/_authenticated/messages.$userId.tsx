@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { MoreHorizontal, RadioTower } from "lucide-react";
-import { HeaderPill } from "@/components/app-header";
+import { HEADER_ICON, HeaderPill } from "@/components/app-header";
 import { PersonActionsSheet } from "@/components/friends/person-actions-sheet";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -79,12 +79,12 @@ function ThreadPage() {
           other.data && (
             <HeaderPill>
               {isFriend && (
-                <Link to="/talk/$userId" params={{ userId }} aria-label={t("walkie.title")} className="grid h-9 w-10 place-items-center rounded-full">
-                  <RadioTower className="h-5 w-5" />
+                <Link to="/talk/$userId" params={{ userId }} aria-label={t("walkie.title")} className={HEADER_ICON}>
+                  <RadioTower className="h-[22px] w-[22px]" strokeWidth={1.9} />
                 </Link>
               )}
-              <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className="grid h-9 w-10 place-items-center rounded-full">
-                <MoreHorizontal className="h-5 w-5" />
+              <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className={HEADER_ICON}>
+                <MoreHorizontal className="h-[22px] w-[22px]" />
               </button>
             </HeaderPill>
           )

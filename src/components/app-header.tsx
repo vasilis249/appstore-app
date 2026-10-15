@@ -53,7 +53,7 @@ export function AppHeader({
               type="button"
               onClick={() => router.history.back()}
               aria-label={t("common.back", "Back")}
-              className="glass grid h-11 w-11 place-items-center rounded-full text-foreground"
+              className={HEADER_BTN}
             >
               <ChevronLeft className="h-6 w-6" strokeWidth={2.1} />
             </button>
@@ -73,9 +73,15 @@ export function AppHeader({
   );
 }
 
-/** Groups a few icon buttons (e.g. notifications + messages). */
+/**
+ * Header controls (iOS 26): one action = a glass circle (`HEADER_BTN`); two or more side by side share one glass
+ * capsule (`HeaderPill`) whose buttons are plain (`HEADER_ICON`). Icons 22px.
+ */
+export const HEADER_BTN = "glass relative grid h-11 w-11 shrink-0 place-items-center rounded-full text-foreground";
+export const HEADER_ICON = "grid h-11 w-10 place-items-center rounded-full text-foreground";
+
 export function HeaderPill({ children }: { children: ReactNode }) {
-  return <div className="flex items-center gap-2">{children}</div>;
+  return <div className="glass flex h-11 items-center rounded-full px-1">{children}</div>;
 }
 
 export function HeaderIconLink({
@@ -90,7 +96,7 @@ export function HeaderIconLink({
   badge?: number;
 }) {
   return (
-    <Link to={to} aria-label={label} className="glass relative grid h-11 w-11 shrink-0 place-items-center rounded-full text-foreground">
+    <Link to={to} aria-label={label} className={HEADER_BTN}>
       {children}
       {badge ? (
         <span className="absolute -right-1 -top-1 min-w-[18px] rounded-full border-2 border-background bg-live px-1 text-center text-[10px] font-semibold leading-[14px] text-destructive-foreground tabular-nums animate-scale-in">

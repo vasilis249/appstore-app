@@ -21,7 +21,7 @@ for (const path of paths) {
   await p.goto(`http://127.0.0.1:${port}${path}`, { waitUntil: "networkidle" });
   await p.waitForTimeout(1200);
   const r = await p.evaluate(() => {
-    const out = []; const all = [...document.querySelectorAll(".glass, .liquid-tint")];
+    const out = []; const all = [...document.querySelectorAll(".glass, .glass-thick, .liquid-tint")];
     for (const g of all) for (let e = g.parentElement; e && e !== document.documentElement; e = e.parentElement) {
       const c = getComputedStyle(e);
       const why = [c.filter !== "none" && "filter", +c.opacity < 1 && "opacity", c.mixBlendMode !== "normal" && "blend", c.clipPath !== "none" && "clip-path", c.maskImage !== "none" && "mask", c.backdropFilter !== "none" && "backdrop-filter", c.viewTransitionName !== "none" && "vt-name", /filter|opacity|mask|clip/.test(c.willChange) && "will-change"].filter(Boolean);

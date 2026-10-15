@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { ChevronRight, GraduationCap, Lock, MoreHorizontal } from "lucide-react";
-import { AppHeader } from "@/components/app-header";
+import { AppHeader, HEADER_BTN } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
 import { GroupActions } from "@/components/groups/join-button";
@@ -48,8 +48,8 @@ function GroupPage() {
         title=" "
         right={
           d && (
-            <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className="grid h-10 w-10 place-items-center rounded-full bg-secondary">
-              <MoreHorizontal className="h-5 w-5" />
+            <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className={HEADER_BTN}>
+              <MoreHorizontal className="h-[22px] w-[22px]" />
             </button>
           )
         }

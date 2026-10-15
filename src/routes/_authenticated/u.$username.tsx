@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { MoreHorizontal } from "lucide-react";
-import { AppHeader, HeaderPill } from "@/components/app-header";
+import { AppHeader, HEADER_BTN } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { PersonActionsSheet } from "@/components/friends/person-actions-sheet";
 import { ProfileView } from "@/components/people/profile-view";
@@ -28,14 +28,12 @@ function UserPage() {
     <>
       <AppHeader
         back
-        center={<h1 className="max-w-[55vw] truncate text-[18px] font-extrabold tracking-[-0.02em]">{username}</h1>}
+        title={username}
         right={
           p && (
-            <HeaderPill>
-              <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className="grid h-11 w-11 place-items-center rounded-full">
-                <MoreHorizontal className="h-6 w-6" />
-              </button>
-            </HeaderPill>
+            <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className={HEADER_BTN}>
+              <MoreHorizontal className="h-[22px] w-[22px]" />
+            </button>
           )
         }
       />

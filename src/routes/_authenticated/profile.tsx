@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { CalendarDays, Menu, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { AppHeader, HeaderPill } from "@/components/app-header";
+import { AppHeader, HEADER_BTN, HEADER_ICON, HeaderPill } from "@/components/app-header";
 import { EditProfileSheet } from "@/components/edit-profile-sheet";
 import { ProfileView } from "@/components/people/profile-view";
 import { SettingsSheet } from "@/components/settings-sheet";
@@ -23,23 +23,23 @@ function MyProfilePage() {
     <>
       <AppHeader
         left={
-          <Link to="/record" aria-label={t("voice.navRecord")} className="grid h-11 w-11 place-items-center rounded-full">
-            <Plus className="h-[30px] w-[30px]" strokeWidth={1.7} />
+          <Link to="/record" aria-label={t("voice.navRecord")} className={HEADER_BTN}>
+            <Plus className="h-[22px] w-[22px]" strokeWidth={1.9} />
           </Link>
         }
-        center={<h1 className="max-w-[55vw] truncate text-[20px] font-extrabold tracking-[-0.02em]">{p?.username ?? ""}</h1>}
+        title={p?.username ?? " "}
         right={
           <HeaderPill>
-            <Link to="/memories" aria-label={t("tabs.memories")} className="grid h-11 w-11 place-items-center rounded-full">
-              <CalendarDays className="h-[25px] w-[25px]" strokeWidth={1.9} />
+            <Link to="/memories" aria-label={t("tabs.memories")} className={HEADER_ICON}>
+              <CalendarDays className="h-[22px] w-[22px]" strokeWidth={1.9} />
             </Link>
             <button
               type="button"
               onClick={() => setSettingsOpen(true)}
               aria-label={t("settings.title")}
-              className="grid h-11 w-11 place-items-center rounded-full"
+              className={HEADER_ICON}
             >
-              <Menu className="h-[27px] w-[27px]" strokeWidth={1.9} />
+              <Menu className="h-[22px] w-[22px]" strokeWidth={1.9} />
             </button>
           </HeaderPill>
         }

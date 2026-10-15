@@ -33,8 +33,12 @@ top controls. With "Reduce transparency" (or no `backdrop-filter` support) glass
 `opacity < 1`, `mask`, `clip-path`, `backdrop-filter`, a blend mode or a **`view-transition-name`** — under such an
 ancestor it frosts nothing and the page shows through crisp. Put view-transition names on the glass element itself
 (`tabbar`, `voicedrop`, `miniplayer`), never on a wrapper. `tests/e2e/glass-check.mjs` fails on any glass inside one.
-**Where:** tab-bar capsule, voice drop, Home's feed switch, round header buttons (back, bell, messages), mini player,
-recording capsule, map controls and sheets, photo remove buttons. **Never** on cards / posts (content stays opaque) and
+**Thick material** (`glass-thick`, iOS sheets): every bottom sheet (`DrawerContent`) — 86 % / 84 % fill, blur 40px;
+solid `--sheet` with Reduce transparency. Glass controls brighten a touch while pressed.
+**Where:** tab-bar capsule, voice drop, Home's feed switch, header buttons, mini player, recording capsule, toasts,
+map controls and sheets, photo remove buttons.
+**Header controls:** one action = a glass circle (`HEADER_BTN`, 44pt, 22px icon); two or more side by side = one glass
+capsule (`HeaderPill` + `HEADER_ICON`), as iOS 26 groups toolbar items. Titles always 17/600 (`AppHeader title`). **Never** on cards / posts (content stays opaque) and
 never more than a handful per screen (each one re-blurs what's behind it).
 
 ## 3. Type — Commissioner (Kostas Bartsokas, SIL OFL; self-hosted woff2, Greek + Latin, 400–700)

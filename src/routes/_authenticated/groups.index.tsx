@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Plus, Search, Users, X } from "lucide-react";
 import { toast } from "sonner";
-import { AppHeader } from "@/components/app-header";
+import { AppHeader, HEADER_BTN } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { GroupRow } from "@/components/groups/group-row";
 import { useDebounced } from "@/hooks/use-debounced";
@@ -33,8 +33,8 @@ function GroupsPage() {
         back
         title={t("groups.title")}
         right={
-          <Link to="/groups/new" aria-label={t("groups.new")} className="grid h-10 w-10 place-items-center rounded-full bg-primary text-primary-foreground">
-            <Plus className="h-5 w-5" />
+          <Link to="/groups/new" aria-label={t("groups.new")} className={HEADER_BTN}>
+            <Plus className="h-[22px] w-[22px]" strokeWidth={1.9} />
           </Link>
         }
       />

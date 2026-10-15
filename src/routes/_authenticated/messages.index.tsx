@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { useTranslation } from "react-i18next";
 import { Search, Send, SquarePen } from "lucide-react";
-import { AppHeader } from "@/components/app-header";
+import { AppHeader, HEADER_BTN } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { UserAvatar } from "@/components/user-avatar";
 import { FriendPickerSheet } from "@/components/voice/friend-picker-sheet";
@@ -59,10 +59,10 @@ function MessagesPage() {
     <>
       <AppHeader
         back
-        center={<h1 className="max-w-[55vw] truncate text-[20px] font-extrabold tracking-[-0.02em]">{me.data?.username ?? t("tabs.messages")}</h1>}
+        title={me.data?.username ?? t("tabs.messages")}
         right={
-          <button type="button" onClick={() => setPickerOpen(true)} aria-label={t("voice.newMessage")} className="grid h-11 w-11 place-items-center rounded-full">
-            <SquarePen className="h-[25px] w-[25px]" strokeWidth={1.9} />
+          <button type="button" onClick={() => setPickerOpen(true)} aria-label={t("voice.newMessage")} className={HEADER_BTN}>
+            <SquarePen className="h-[22px] w-[22px]" strokeWidth={1.9} />
           </button>
         }
       />
