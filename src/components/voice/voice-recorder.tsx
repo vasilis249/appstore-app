@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Pause, Play, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
-import { VoiceIcon } from "@/components/voice/voice-icon";
+import { PTT_IDLE, PTT_LIVE, VoiceIcon } from "@/components/voice/voice-icon";
 import { MIC_ERROR_KEY, useRecorder } from "@/hooks/use-recorder";
 import { usePushToTalk } from "@/hooks/use-push-to-talk";
 import { formatClock, player } from "@/lib/audio";
@@ -138,7 +138,7 @@ export function VoiceRecorder({
             aria-label={t("voice.holdToTalk")}
             className={cn(
               "ease-spring grid h-14 w-14 shrink-0 place-items-center rounded-full",
-              live || ptt.holding ? "scale-110 bg-live text-destructive-foreground animate-rec-pulse" : "glass text-link",
+              live || ptt.holding ? `scale-110 ${PTT_LIVE}` : PTT_IDLE,
             )}
           >
             <VoiceIcon className="h-7 w-7" strokeWidth={2} live={live} />

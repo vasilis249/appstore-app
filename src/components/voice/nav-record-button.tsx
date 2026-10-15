@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { VoiceIcon } from "@/components/voice/voice-icon";
+import { PTT_IDLE, PTT_LIVE, VoiceIcon } from "@/components/voice/voice-icon";
 import { MIC_ERROR_KEY, useRecorder } from "@/hooks/use-recorder";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { usePushToTalk } from "@/hooks/use-push-to-talk";
@@ -76,7 +76,7 @@ export function NavRecordButton() {
         aria-label={t("voice.navRecord")}
         className={cn(
           "ease-spring grid h-[62px] w-[62px] shrink-0 place-items-center rounded-full",
-          live ? "scale-110 bg-live text-destructive-foreground animate-rec-pulse" : "glass text-link",
+          live ? `scale-110 ${PTT_LIVE}` : PTT_IDLE,
         )}
       >
         <VoiceIcon className="h-7 w-7" strokeWidth={2} live={live} />

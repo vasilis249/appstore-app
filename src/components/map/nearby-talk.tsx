@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Volume2 } from "lucide-react";
 import { toast } from "sonner";
-import { VoiceIcon } from "@/components/voice/voice-icon";
+import { PTT_IDLE, PTT_LIVE, VoiceIcon } from "@/components/voice/voice-icon";
 import { HistoryRow } from "@/components/walkie/history-row";
 import { useAuth } from "@/hooks/use-auth";
 import { useWalkie } from "@/hooks/use-walkie";
@@ -146,10 +146,10 @@ export function NearbyTalk({ person }: { person: MapPerson }) {
           className={cn(
             "grid h-28 w-28 place-items-center rounded-full transition-transform duration-150 disabled:opacity-40",
             s?.talking || s?.starting
-              ? "scale-105 bg-live text-destructive-foreground"
+              ? `scale-105 ${PTT_LIVE}`
               : s?.peerTalking
                 ? "bg-secondary text-muted-foreground"
-                : "bg-primary text-primary-foreground",
+                : PTT_IDLE,
             denied && "animate-shake",
           )}
         >

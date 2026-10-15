@@ -711,7 +711,12 @@ User decisions:
   15/15; flows groups/delete/campus/news updated to the new copy; 14 app flows green. Deploy d0f57361.
 - **UX audit U3 ✔ (user OK 2026-10-15; #9 tab labels)** — `BottomNav`: 10px label under each icon (tabs.feed/map/search/
   profile; visible text replaces aria-label), same 62px capsule, same positions; profile avatar 20px. ux-flow 15/15,
-  flows map 11, mapblock 7, groups 15, campus 15, delete 5, news 10, gate 7, dm 11, photo 10. Deploy 71ade423. Next: #10 one PTT style.
+  flows map 11, mapblock 7, groups 15, campus 15, delete 5, news 10, gate 7, dm 11, photo 10. Deploy 71ade423.
+- **UX audit U4 ✔ (user OK 2026-10-15; #10 one push-to-talk look)** — `voice-icon.tsx` `PTT_IDLE` ("glass text-link") /
+  `PTT_LIVE` (bg-live + rec-pulse) used by the nav drop, composer, DM `RecordBar` (was ink), walkie (was ink) and map
+  nearby talk; sizes unchanged, "friend is talking" stays grey. e2e 64/64, dm 11, photo 10, map 11, mapblock 7, campus
+  15, groups 15, ux 15. Note: `tests/e2e/run.sh` rebuilds `dist` → restart any other `wrangler dev` (stale = failing
+  flows). Next: #13 visible labels for abstract icons.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,

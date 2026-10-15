@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowUp, ImagePlus, Pause, Play, Send, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import { VoiceIcon } from "@/components/voice/voice-icon";
+import { PTT_IDLE, PTT_LIVE, VoiceIcon } from "@/components/voice/voice-icon";
 import { MIC_ERROR_KEY, useRecorder } from "@/hooks/use-recorder";
 import { usePushToTalk } from "@/hooks/use-push-to-talk";
 import { formatClock, player } from "@/lib/audio";
@@ -104,10 +104,10 @@ export function RecordBar({
       aria-label={t("voice.holdToTalk")}
       className={cn(
         "grid h-14 w-14 shrink-0 place-items-center rounded-full transition-transform duration-150 disabled:opacity-40",
-        live || ptt.holding ? "scale-110 bg-live text-primary-foreground" : "bg-primary text-primary-foreground",
+        live || ptt.holding ? `scale-110 ${PTT_LIVE}` : PTT_IDLE,
       )}
     >
-      <VoiceIcon className="h-7 w-7" strokeWidth={1.8} live={live} />
+      <VoiceIcon className="h-7 w-7" strokeWidth={2} live={live} />
     </button>
   );
 

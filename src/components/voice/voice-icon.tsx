@@ -26,3 +26,7 @@ export function VoiceIcon({ className, strokeWidth = 1.6, live = false }: { clas
     </svg>
   );
 }
+
+/** One push-to-talk look everywhere (AUDIT #10): glass with the blue mark at rest, red and pulsing while you talk. */
+export const PTT_IDLE = "glass text-link";
+export const PTT_LIVE = "bg-live text-destructive-foreground animate-rec-pulse";
