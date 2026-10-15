@@ -700,6 +700,15 @@ User decisions:
   Flow `tests/e2e/ux-flow.mjs` 12/12 (local stack: `node tests/e2e/ux-flow.mjs <port>`); scratchpad flows that tap
   "Πάτα ξανά" now pause 700 ms; 18 app flows green. Deploy 7c30eb66. Next (sev 2, one at a time): one term for posts, hold-to-talk hint,
   tab labels, one PTT style, hide Play all on empty feeds, actionable generic errors.
+- **UX audit U2 ✔ (user OK 2026-10-15; sev 2 copy + meaningless states, no control moved)** — find-skills → official
+  `ux-copy` (anthropics/knowledge-work-plugins, Markdown only) in `.claude/skills/ux-copy` + skills-lock. One term: the
+  unit is «ανάρτηση» / "post" (profile count + tab, notifications, groups, memories, admin, «Νέα ανάρτηση», «Παράθεση»,
+  topic counts); «φωνή» only for audio. Errors: `rpcErrorKey` fallback → `errors.tryLater` (`errors.generic` stays the
+  error page title), `not_friends` → `rpcErrors.notFriends`, `notFound` = «Δεν υπάρχει πια — μπορεί να διαγράφηκε.».
+  `FeedList onPlayable` → Home's «Παίξε όλα» only when the list has a post with a voice. Composer: «Κράτα πατημένο για
+  φωνή ↓» above the drop until the first recording (localStorage `courtsie:holdLearned`). Topic lead card: «Κανείς δεν
+  μίλησε ακόμα» (no duplicate CTA). Kept the «Για φοιτητές» kicker (else the feed tabs jump between tabs). ux-flow
+  15/15; flows groups/delete/campus/news updated to the new copy; 14 app flows green.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,

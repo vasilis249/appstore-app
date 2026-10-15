@@ -22,6 +22,15 @@ page.on("pageerror", (e) => errors.push(e.message));
 const go = async (p) => { await page.goto(base + p, { waitUntil: "networkidle" }); await page.waitForTimeout(900); };
 const text = "Ποιος έχει τις σημειώσεις της Ανάλυσης; " + Date.now();
 
+// 0. U2: nothing to play → no "Παίξε όλα"; a newcomer sees that the voice drop wants a hold.
+await go("/?tab=following");
+ok("empty feed: no 'Play all'", (await page.getByText("Τίποτα ακόμα εδώ").isVisible()) && !(await page.getByRole("button", { name: "Παίξε όλα" }).isVisible().catch(() => false)));
+await go("/record");
+ok("composer: 'hold for voice' hint for a newcomer", await page.getByText("Κράτα πατημένο για φωνή").isVisible());
+await page.evaluate(() => localStorage.setItem("courtsie:holdLearned", "1"));
+await go("/record");
+ok("hint gone once learned", !(await page.getByText("Κράτα πατημένο για φωνή").isVisible().catch(() => false)));
+
 // 1. Draft guard: back with text asks; "keep editing" keeps it; "discard" leaves.
 await go("/?tab=following");
 await page.getByText("Πες κάτι δικό σου…").click();

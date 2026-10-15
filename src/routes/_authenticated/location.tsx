@@ -34,7 +34,7 @@ function LocationPage() {
   const save = useMutation({
     mutationFn: ({ mode, talk }: { mode: ShareMode; talk?: TalkFrom }) => setSharing(mode, talk),
     onSuccess: () => void qc.invalidateQueries({ queryKey: ["location"] }),
-    onError: () => toast.error(t("errors.generic")),
+    onError: () => toast.error(t("errors.tryLater")),
   });
 
   const s = sharing.data;

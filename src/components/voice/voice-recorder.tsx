@@ -11,6 +11,9 @@ import { cn } from "@/lib/utils";
 
 export type Clip = { blob: Blob; mime: string; durationMs: number };
 
+// Set once a voice was recorded: from then on the "hold" hint stays away.
+const HOLD_LEARNED = "courtsie:holdLearned";
+
 const LIVE_BARS = [8, 14, 22, 28, 18, 10, 24, 30, 20, 12, 16, 26, 30, 22, 14, 8, 18, 26, 20, 12];
 
 /**
@@ -46,6 +49,23 @@ export function VoiceRecorder({
 
   const recorded = r.state === "recorded" && !!r.clip;
   const live = r.state === "recording";
+  // Newcomers tap the drop and only get a toast: say it wants a hold, until their first voice.
+  const [learned, setLearned] = useState(() => {
+    try {
+      return localStorage.getItem(HOLD_LEARNED) === "1";
+    } catch {
+      return true;
+    }
+  });
+  useEffect(() => {
+    if (!recorded || learned) return;
+    try {
+      localStorage.setItem(HOLD_LEARNED, "1");
+    } catch {
+      /* private mode: the hint just stays */
+    }
+    setLearned(true);
+  }, [recorded, learned]);
 
   function playBack() {
     if (!r.clip) return;
@@ -106,6 +126,9 @@ export function VoiceRecorder({
         </div>
       )}
 
+      {!learned && !live && !recorded && (
+        <p className="-mb-1 pr-2 text-right text-fine font-semibold text-link">{t("voice.holdHint")} ↓</p>
+      )}
       <div className="flex items-center gap-2.5">
         <div className="glass flex h-14 min-w-0 flex-1 items-center gap-1 rounded-full px-2">{children}</div>
         {!recorded && (

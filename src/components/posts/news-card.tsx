@@ -70,7 +70,7 @@ export function NewsCard({ topic, daily }: { topic: NewsTopic; daily?: boolean }
                   ))}
                 </span>
               )}
-              <span className="truncate">{spoke ?? t("news.beFirst")}</span>
+              <span className="truncate">{spoke ?? t("news.nobodyYet")}</span>
             </div>
             <span className="flex h-9 shrink-0 items-center gap-1.5 rounded-[11px] bg-primary px-3.5 text-caption font-semibold text-primary-foreground">
               <VoiceIcon className="h-4 w-4" /> {t("posts.giveYourTake")}

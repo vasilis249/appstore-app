@@ -104,7 +104,8 @@ export function rpcErrorKey(err: unknown): string {
   if (msg.includes("too_long")) return "rpcErrors.tooLong";
   if (msg.includes("profiles_username_key") || msg.includes("duplicate key")) return "rpcErrors.usernameTaken";
   if (msg.includes("profiles_username_check")) return "rpcErrors.usernameFormat";
-  if (msg.includes("not_allowed") || msg.includes("not_friends")) return "rpcErrors.notAllowed";
+  if (msg.includes("not_friends")) return "rpcErrors.notFriends";
+  if (msg.includes("not_allowed")) return "rpcErrors.notAllowed";
   if (msg.includes("not_found") || msg.includes("not_available")) return "rpcErrors.notFound";
   if (msg.includes("not_academic")) return "rpcErrors.notAcademic";
   if (msg.includes("email_taken")) return "rpcErrors.emailTaken";
@@ -112,5 +113,5 @@ export function rpcErrorKey(err: unknown): string {
   if (msg.includes("daily_limit") || msg.includes("mail_not_configured") || msg.includes("mail_failed")) return "rpcErrors.mailUnavailable";
   // On the metro / without signal: say what's wrong and what to do, not "something went wrong".
   if ((typeof navigator !== "undefined" && !navigator.onLine) || /Failed to fetch|NetworkError|Load failed/i.test(msg)) return "errors.offline";
-  return "errors.generic";
+  return "errors.tryLater";
 }

@@ -18,7 +18,7 @@ function knockError(e: unknown): string {
   if (m.includes("too_many_people")) return "nearby.tooManyPeople";
   if (m.includes("rate_limited")) return "rpcErrors.rateLimited";
   if (m.includes("not_nearby")) return "nearby.notNearby";
-  return "errors.generic";
+  return "errors.tryLater";
 }
 
 /**

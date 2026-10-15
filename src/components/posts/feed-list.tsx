@@ -33,6 +33,7 @@ export function FeedList({
   playAll = true,
   hideReplyTo = false,
   playAllRef,
+  onPlayable,
 }: {
   params: FeedParams;
   empty: ReactNode;
@@ -41,6 +42,8 @@ export function FeedList({
   hideReplyTo?: boolean;
   /** The page shows its own "play all" button (Home's tab bar); the list only fills in what it plays. */
   playAllRef?: MutableRefObject<(() => void) | null>;
+  /** Whether the list has a voice to play (the page hides its "play all" on a list without one). */
+  onPlayable?: (on: boolean) => void;
 }) {
   const { t } = useTranslation();
   const q = useInfiniteQuery({
@@ -59,11 +62,14 @@ export function FeedList({
 
   useEffect(() => {
     if (!playAllRef) return;
-    playAllRef.current = views.some((v) => !v.deleted) ? () => play(views, views.find((v) => !v.deleted)!) : null;
+    const first = views.find((v) => !v.deleted && v.path);
+    playAllRef.current = first ? () => play(views, first) : null;
+    onPlayable?.(!!first);
     return () => {
       playAllRef.current = null;
+      onPlayable?.(false);
     };
-  }, [playAllRef, views]);
+  }, [playAllRef, views, onPlayable]);
 
   const sentinel = useRef<HTMLDivElement>(null);
   useEffect(() => {

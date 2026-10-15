@@ -55,6 +55,8 @@ function HomePage() {
   const tab: Tab | null = search.tab ?? (me.data ? (verified ? "campus" : "news") : null);
   const section = tab === "news" || tab === "campus" ? search.s : undefined;
   const playAll = useRef<(() => void) | null>(null);
+  // "Play all" only when the list on screen has a voice (an empty feed or a text-only one has nothing to play).
+  const [playable, setPlayable] = useState(false);
 
   const params: FeedParams = tab === "following" ? { scope: "personal" } : { scope: "groups" };
   // A campus still waiting for students has no sections or feed to play yet.
@@ -68,8 +70,8 @@ function HomePage() {
       ? status.data
         ? t("home.campusKicker", { uni, count: status.data.students, n: status.data.students.toLocaleString(i18n.language) })
         : uni
-      : t("home.forStudents");
-  const canPlay = !!tab && tab !== "news" && !(tab === "campus" && (!verified || !campusOpen));
+      : t("home.forStudents"); // keeps the feed tabs at the same height on every tab
+  const canPlay = playable && !!tab && tab !== "news" && !(tab === "campus" && (!verified || !campusOpen));
   return (
     <>
       <AppHeader large={tab ? (tab === "campus" ? t("home.campus") : t(`home.${tab}`)) : " "} kicker={kicker} right={<HomeBell />} />
@@ -93,7 +95,7 @@ function HomePage() {
 
       {tab === null ? null : tab === "campus" ? (
         verified ? (
-          <CampusView key={section ?? "all"} section={section} playAllRef={playAll} />
+          <CampusView key={section ?? "all"} section={section} playAllRef={playAll} onPlayable={setPlayable} />
         ) : (
           <EmptyState
             icon={GraduationCap}
@@ -113,7 +115,7 @@ function HomePage() {
           {tab === "following" && <SayYourOwn />}
           {tab === "groups" && <MyGroupsStrip />}
           <div className="pt-2">
-            <FeedList key={tab} playAllRef={playAll} params={params} empty={<Empty tab={tab} />} />
+            <FeedList key={tab} playAllRef={playAll} onPlayable={setPlayable} params={params} empty={<Empty tab={tab} />} />
           </div>
         </>
       )}
@@ -185,7 +187,15 @@ function OtherVoicesEmpty({ section }: { section?: string }) {
  * Your campus: its topic of the day (big card), a few campus headlines (announcements, events), "Say something on
  * campus" and classmates' voices, newest first. Only students of the university see any of it.
  */
-function CampusView({ section, playAllRef }: { section?: string; playAllRef: React.MutableRefObject<(() => void) | null> }) {
+function CampusView({
+  section,
+  playAllRef,
+  onPlayable,
+}: {
+  section?: string;
+  playAllRef: React.MutableRefObject<(() => void) | null>;
+  onPlayable: (on: boolean) => void;
+}) {
   const { t } = useTranslation();
   const status = useQuery({ queryKey: campusStatusKeys.status, queryFn: campusStatus });
   const topics = useQuery({ queryKey: postKeys.campusTopics(section), queryFn: () => campusTopics(section, 4), enabled: !!status.data?.is_open });
@@ -216,6 +226,7 @@ function CampusView({ section, playAllRef }: { section?: string; playAllRef: Rea
         key={`campus-${section ?? ""}`}
         params={{ scope: "campus", section }}
         playAllRef={playAllRef}
+        onPlayable={onPlayable}
         empty={<EmptyState title={t("campus.emptyTitle")} text={t("campus.empty")} />}
       />
     </div>
