@@ -740,7 +740,7 @@ User decisions:
   **GR3 ✔** liquid lens: displacement 26 → 12, saturate 1.6 → 1.15, blur 2 → 5px (the red smear on bright photo
   edges is gone); glass buttons / links brighten (`filter: brightness(1.07)`) while pressed.
   **GR4 ✔** scratchpad `gr-shots.mjs <port> <tag>` (light / dark / reduced transparency via CDP; home scrolled, profile,
-  settings sheet, thread, post, groups): all checked; glass-check 29/0.
+  settings sheet, thread, post, groups): all checked; glass-check 29/0. Flows 13 + ux 15 + e2e 64/64. Deploy 0c98cfe4.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
