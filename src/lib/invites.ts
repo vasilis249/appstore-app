@@ -37,3 +37,6 @@ export async function claimRememberedInvite(): Promise<{ status: string; inviter
   if (error) return null;
   return ((data ?? [])[0] as { status: string; inviter_username: string | null }) ?? null;
 }
+
+/** Where to go once the visitor has signed up / in (a shared post's page sets it, Home reads it once). */
+export const NEXT_KEY = "courtsie:next";

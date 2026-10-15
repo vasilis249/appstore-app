@@ -126,7 +126,7 @@ function StudentEmail({ email, setEmail, go }: { email: string; setEmail: (v: st
           </span>
         </FieldNote>
       ) : (
-        <FieldNote>{t("student.emailPrivacy")}</FieldNote>
+        <FieldNote>{t("auth.studentEmailPrivacy")}</FieldNote>
       )}
       {accepted > 0 && <p className="mt-4 text-caption leading-snug text-muted-foreground">{t("student.supported", { count: accepted })}</p>}
     </StepShell>

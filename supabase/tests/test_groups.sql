@@ -50,6 +50,11 @@ SELECT pg_temp.ok('01b bad privacy / short name refused',
 SELECT pg_temp.ok('01c no direct writes', pg_temp.fails(format($$INSERT INTO public.group_members (group_id, user_id) VALUES (%L, %L)$$, :'g', :B)));
 SELECT public.create_post(p_group := :'g', p_title := 'Private voice', p_path := '00000000-0000-0000-0000-00000000000a/g1.m4a', p_mime := 'audio/mp4', p_duration_ms := 3000) AS gp \gset
 SELECT public.create_post(p_group := :'pg', p_title := 'Public group voice', p_path := '00000000-0000-0000-0000-00000000000a/p1.m4a', p_mime := 'audio/mp4', p_duration_ms := 3000) AS pp \gset
+-- the public share page never shows a group post (private or public group)
+RESET ROLE; SET ROLE service_role;
+SELECT pg_temp.ok('01c2 post_preview of group posts gives nothing',
+  NOT EXISTS (SELECT 1 FROM public.post_preview(:'gp')) AND NOT EXISTS (SELECT 1 FROM public.post_preview(:'pp')));
+RESET ROLE; SET ROLE authenticated;
 SELECT pg_temp.ok('01d group voice takes the group''s section', (SELECT section_id FROM public.posts WHERE id = :'gp') = 'tech'
   AND (SELECT posts_count FROM public.groups WHERE id = :'g') = 1);
 RESET ROLE;
@@ -194,3 +199,4 @@ SELECT public.leave_group(:'cg');
 RESET ROLE;
 SELECT pg_temp.ok('12a cancelled request: no notification left for the admins',
   NOT EXISTS (SELECT 1 FROM public.notifications WHERE group_id = :'cg' AND kind = 'group_request'));
+

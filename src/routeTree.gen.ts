@@ -26,6 +26,7 @@ import { Route as AuthenticatedRecordRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedSearchRouteImport } from './routes/_authenticated/search'
 import { Route as AuthenticatedStudentRouteImport } from './routes/_authenticated/student'
 import { Route as ICodeRouteImport } from './routes/i.$code'
+import { Route as VPostIdRouteImport } from './routes/v.$postId'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin/reports'
 import { Route as AuthenticatedAdminTopicsRouteImport } from './routes/_authenticated/admin/topics'
 import { Route as AuthenticatedGroupsIndexRouteImport } from './routes/_authenticated/groups.index'
@@ -125,6 +126,11 @@ const ICodeRoute = ICodeRouteImport.update({
   path: '/i/$code',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VPostIdRoute = VPostIdRouteImport.update({
+  id: '/v/$postId',
+  path: '/v/$postId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminReportsRoute =
   AuthenticatedAdminReportsRouteImport.update({
     id: '/admin/reports',
@@ -215,6 +221,7 @@ export interface FileRoutesByFullPath {
   '/search': typeof AuthenticatedSearchRoute
   '/student': typeof AuthenticatedStudentRoute
   '/i/$code': typeof ICodeRoute
+  '/v/$postId': typeof VPostIdRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
   '/groups/new': typeof AuthenticatedGroupsNewRoute
@@ -245,6 +252,7 @@ export interface FileRoutesByTo {
   '/search': typeof AuthenticatedSearchRoute
   '/student': typeof AuthenticatedStudentRoute
   '/i/$code': typeof ICodeRoute
+  '/v/$postId': typeof VPostIdRoute
   '/': typeof AuthenticatedIndexRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
@@ -278,6 +286,7 @@ export interface FileRoutesById {
   '/_authenticated/search': typeof AuthenticatedSearchRoute
   '/_authenticated/student': typeof AuthenticatedStudentRoute
   '/i/$code': typeof ICodeRoute
+  '/v/$postId': typeof VPostIdRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/admin/topics': typeof AuthenticatedAdminTopicsRoute
@@ -312,6 +321,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/student'
     | '/i/$code'
+    | '/v/$postId'
     | '/admin/reports'
     | '/admin/topics'
     | '/groups/new'
@@ -342,6 +352,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/student'
     | '/i/$code'
+    | '/v/$postId'
     | '/'
     | '/admin/reports'
     | '/admin/topics'
@@ -374,6 +385,7 @@ export interface FileRouteTypes {
     | '/_authenticated/search'
     | '/_authenticated/student'
     | '/i/$code'
+    | '/v/$postId'
     | '/_authenticated/'
     | '/_authenticated/admin/reports'
     | '/_authenticated/admin/topics'
@@ -399,6 +411,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   TermsRoute: typeof TermsRoute
   ICodeRoute: typeof ICodeRoute
+  VPostIdRoute: typeof VPostIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -520,6 +533,13 @@ declare module '@tanstack/react-router' {
       path: '/i/$code'
       fullPath: '/i/$code'
       preLoaderRoute: typeof ICodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/v/$postId': {
+      id: '/v/$postId'
+      path: '/v/$postId'
+      fullPath: '/v/$postId'
+      preLoaderRoute: typeof VPostIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/reports': {
@@ -678,6 +698,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   TermsRoute: TermsRoute,
   ICodeRoute: ICodeRoute,
+  VPostIdRoute: VPostIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

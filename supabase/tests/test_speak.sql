@@ -602,3 +602,24 @@ SELECT public.delete_post(:'photo_post');
 RESET ROLE;
 SELECT pg_temp.ok('21f a quoted photo post becomes a tombstone without its photos',
   (SELECT deleted_at IS NOT NULL AND images IS NULL AND title IS NULL FROM public.posts WHERE id = :'photo_post'));
+
+-- 22 public share page: a teaser of a shared post for anyone, through the Worker only
+SELECT id AS open_post FROM public.posts WHERE group_id IS NULL AND deleted_at IS NULL AND NOT hidden AND NOT plain_repost
+  AND title IS NOT NULL ORDER BY created_at LIMIT 1 \gset
+SET ROLE service_role;
+SELECT pg_temp.ok('22a the Worker gets first name, text and counts — no surname, voice path or photos',
+  (SELECT first_name !~ ' ' AND text IS NOT NULL AND likes >= 0 FROM public.post_preview(:'open_post'))
+  AND pg_get_function_result('public.post_preview(uuid)'::regprocedure) !~ '(audio_path|images|full_name|avatar_path|username)');
+SELECT pg_temp.ok('22b tombstones and unknown ids give nothing (group posts: test_groups)',
+  NOT EXISTS (SELECT 1 FROM public.post_preview(:'photo_post'))
+  AND NOT EXISTS (SELECT 1 FROM public.post_preview(gen_random_uuid())));
+RESET ROLE;
+UPDATE public.posts SET hidden = true WHERE id = :'open_post';
+SET ROLE service_role;
+SELECT pg_temp.ok('22c a post hidden by moderation gives nothing', NOT EXISTS (SELECT 1 FROM public.post_preview(:'open_post')));
+RESET ROLE;
+UPDATE public.posts SET hidden = false WHERE id = :'open_post';
+SELECT pg_temp.as_user(:A); SET ROLE authenticated;
+SELECT pg_temp.ok('22d students and visitors cannot call it directly', pg_temp.fails(format($$SELECT * FROM public.post_preview(%L)$$, :'open_post'))
+  AND pg_temp.fails(format($$SELECT * FROM private.post_preview(%L)$$, :'open_post')));
+RESET ROLE;

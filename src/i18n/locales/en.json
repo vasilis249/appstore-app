@@ -222,7 +222,7 @@
     },
     "privacy": {
       "title": "Privacy Policy",
-      "updated": "Last updated: September 2026",
+      "updated": "Last updated: October 2026",
       "intro": "This policy explains what personal data Speak processes when you use the iOS app or the website, why, on what legal basis, how long we keep it and what rights you have under the General Data Protection Regulation (GDPR). Speak is a voice social network, so your voice is the main data you share.",
       "sections": [
         {
@@ -245,7 +245,8 @@
             "Technical data: IP address, device/browser type, server logs and a log of actions for usage limits (rate limits), needed to run and secure the service.",
             "Microphone: used only while you record or hold the walkie-talkie button, after you grant permission. A recording stays on your device until you tap \"Post\" or \"Send\"; on the walkie-talkie your voice reaches your friend live while you talk.",
             "Reminders: the daily topic notifications are scheduled locally on your device; we do not use a push server.",
-            "We do not collect location, contacts, payment or health data. We do not transcribe your voice, use it for biometric identification or use it to train artificial intelligence systems."
+            "We do not collect location, contacts, payment or health data. We do not transcribe your voice, use it for biometric identification or use it to train artificial intelligence systems.",
+            "When you sign up with your student email, your university address is also your account email: you sign in with a one-time code we send you, no password."
           ]
         },
         {
@@ -265,7 +266,8 @@
             "Your university, school and year (if you added them) are shown on your profile to every signed-in user.",
             "Audio files of public voices are stored under a random, unguessable link: anyone who obtains a file's link can play it. Voice messages are not stored under such a link and only the recipient can play them, once. Walkie-talkie transmissions are not stored under such a link; only you and your friend can play them.",
             "People you block cannot see your content or contact you.",
-            "Speak administrators: have access only as needed for support and for reviewing reports (e.g. playing a public voice that was reported). Voice messages are not available in the admin tools. The same goes for the walkie-talkie."
+            "Speak administrators: have access only as needed for support and for reviewing reports (e.g. playing a public voice that was reported). Voice messages are not available in the admin tools. The same goes for the walkie-talkie.",
+            "Post links: when someone shares a post's link, anyone who opens it (even without an account) sees only your first name, your university and department, the post's text and its numbers of likes and replies — not the voice, the photos, your surname or your profile photo. Group posts are never shown this way."
           ]
         },
         {
@@ -646,7 +648,8 @@
     "studentEmailTitle": "Your student email",
     "studentEmailHint": "We'll send you a 6-digit code. It works for both signing up and signing in.",
     "codeHint": "We sent it to {{email}}. It's valid for 10 minutes.",
-    "passwordSignin": "I have a password account"
+    "passwordSignin": "I have a password account",
+    "studentEmailPrivacy": "Your university email is your account. Nobody sees it."
   },
   "groups": {
     "title": "Groups",
@@ -857,7 +860,7 @@
     "shareText": "Come to Speak — we talk with our voices!",
     "copied": "Link copied",
     "genericTitle": "You're invited to Speak",
-    "pageText": "The social network of voices: say what you think, hear your friends, talk like on a walkie-talkie.",
+    "pageText": "The voice social network, students only: say what you think, hear your campus, find your classmates.",
     "join": "Sign up",
     "haveAccount": "I already have an account",
     "claimed": "You and @{{username}} now follow each other.",
@@ -946,5 +949,12 @@
     "read": "Read",
     "lastPhoto": "📷 Photo",
     "you": "You: {{text}}"
+  },
+  "share": {
+    "voice": "Voice {{clock}}",
+    "photos_one": "1 photo",
+    "photos_other": "{{count}} photos",
+    "studentsOnly": "Listen to the voice and reply on Speak — students only.",
+    "unavailable": "This post isn't available"
   }
 }

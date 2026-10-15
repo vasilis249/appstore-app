@@ -773,6 +773,17 @@ User decisions:
   takes `OTP_CODE` 246810 and returns a session with amr otp (wrong code → 403 `error_code: otp_expired`).
   `tests/e2e/signup-flow.mjs` 9/9; tests campus 101 (14a–g; 05d now: anon sees no student data). NOT verified: a real
   code email (no real academic inbox to send to) → user test with an ΕΜΠ address.
+  **P3 ✔ (public share page)** — the post-card share link is now `/v/<post>` (public, SSR): `loader` →
+  `lib/api/post.functions.ts` `postPreview` (Worker, service role) → `public.post_preview(uuid)` (service role only;
+  migration `20261107100200_post_preview.sql`): FIRST name, university / department, text, voice duration, photo
+  count, likes, replies — never the voice, photos, surname, profile photo; nothing for group posts, tombstones, hidden
+  posts, disabled authors, plain reposts. `head()` writes og:title / og:description (link previews), robots noindex.
+  Page: teaser card + «μόνο για φοιτητές» + «Ξεκίνα με το φοιτητικό σου email» (→ 3-step sign-up); stores
+  `NEXT_KEY` (`lib/invites.ts`, `courtsie:next`) so Home opens that post once signed up / in; signed-in students jump
+  straight to `/p/<post>`. Privacy (el / en, updated October 2026): account = academic address with one-time codes;
+  what a shared link shows. `invite.pageText` no longer mentions the walkie. Tests speak 136 (22a–d), groups 35 (01c2);
+  `tests/e2e/share-flow.mjs` 7/7 (server HTML og tags, no media paths, no <audio>/<img>, group post hidden, sign up
+  from the page → the post, signed-in → the post). Helpers use `psql -q` (INSERT … RETURNING printed "INSERT 0 1").
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,

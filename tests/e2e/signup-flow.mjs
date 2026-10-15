@@ -5,7 +5,7 @@ import { execSync } from "node:child_process";
 const { chromium, devices } = createRequire("/opt/node22/lib/node_modules/")("playwright");
 const base = "http://127.0.0.1:" + process.argv[2];
 const ok = (l, c) => console.log(c ? "PASS" : "FAIL", l);
-const sql = (q) => execSync(`psql -h /tmp -p 54329 -U postgres -d courtsie -Atc "${q.replace(/"/g, '\\"')}"`).toString().trim();
+const sql = (q) => execSync(`psql -h /tmp -p 54329 -U postgres -d courtsie -qAtc "${q.replace(/"/g, '\\"')}"`).toString().trim();
 const browser = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" });
 const ctx = await browser.newContext({ ...devices["iPhone 13"], locale: "el-GR", timezoneId: "Europe/Athens" });
 const page = await ctx.newPage();

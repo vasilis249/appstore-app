@@ -90,7 +90,8 @@ export function PostCard({
   };
 
   async function share() {
-    const url = `${window.location.origin}/p/${post.id}`;
+    // The public page (a teaser + sign-up for anyone; signed-in students jump to the post).
+    const url = `${window.location.origin}/v/${post.id}`;
     try {
       if (navigator.share) await navigator.share({ url, title: post.title ?? "Speak" });
       else {

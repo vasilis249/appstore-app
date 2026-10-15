@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { NEXT_KEY } from "@/lib/invites";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GraduationCap, Play, Search } from "lucide-react";
@@ -45,6 +46,19 @@ export const Route = createFileRoute("/_authenticated/")({
 function HomePage() {
   const { t, i18n } = useTranslation();
   const search = Route.useSearch();
+  const navigate = useNavigate();
+  // Came in through a shared post (/v/…) and just signed up / in: open that post.
+  useEffect(() => {
+    let next: string | null = null;
+    try {
+      next = localStorage.getItem(NEXT_KEY);
+      localStorage.removeItem(NEXT_KEY);
+    } catch {
+      /* storage blocked */
+    }
+    const id = next?.match(/^\/p\/([0-9a-f-]{36})$/)?.[1];
+    if (id) void navigate({ to: "/p/$postId", params: { postId: id } });
+  }, [navigate]);
   const me = useMyProfile();
   const campus = useCampus();
   const verified = !!me.data?.university_id;

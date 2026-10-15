@@ -1480,6 +1480,21 @@ export type Database = {
       orphan_dm_photos: { Args: { p_limit?: number }; Returns: string[] }
       orphan_voice_files: { Args: { p_limit?: number }; Returns: string[] }
       post_ancestors: { Args: { p_post: string }; Returns: string[] }
+      post_preview: {
+        Args: { p_post: string }
+        Returns: {
+          campus: boolean
+          created_at: string
+          department_id: string
+          duration_ms: number
+          first_name: string
+          likes: number
+          photos: number
+          replies: number
+          text: string
+          university_id: string
+        }[]
+      }
       profile_stats: {
         Args: { p_user: string }
         Returns: {

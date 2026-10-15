@@ -23,7 +23,7 @@ function verify(token) {
 }
 
 export const OTP_CODE = "246810";
-const psql = (q) => execSync(`psql -h /tmp -p 54329 -U postgres -d courtsie -Atc "${q.replace(/"/g, '\\"')}"`).toString().trim();
+const psql = (q) => execSync(`psql -h /tmp -p 54329 -U postgres -d courtsie -qAtc "${q.replace(/"/g, '\\"')}"`).toString().trim();
 /** The auth.users id for an address, made on first use (the profile trigger runs as on Supabase). */
 function userIdFor(email) {
   const e = email.replace(/'/g, "''");
