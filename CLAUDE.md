@@ -708,7 +708,7 @@ User decisions:
   `FeedList onPlayable` → Home's «Παίξε όλα» only when the list has a post with a voice. Composer: «Κράτα πατημένο για
   φωνή ↓» above the drop until the first recording (localStorage `courtsie:holdLearned`). Topic lead card: «Κανείς δεν
   μίλησε ακόμα» (no duplicate CTA). Kept the «Για φοιτητές» kicker (else the feed tabs jump between tabs). ux-flow
-  15/15; flows groups/delete/campus/news updated to the new copy; 14 app flows green.
+  15/15; flows groups/delete/campus/news updated to the new copy; 14 app flows green. Deploy d0f57361.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
