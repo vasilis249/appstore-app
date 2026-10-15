@@ -784,6 +784,13 @@ User decisions:
   what a shared link shows. `invite.pageText` no longer mentions the walkie. Tests speak 136 (22a–d), groups 35 (01c2);
   `tests/e2e/share-flow.mjs` 7/7 (server HTML og tags, no media paths, no <audio>/<img>, group post hidden, sign up
   from the page → the post, signed-in → the post). Helpers use `psql -q` (INSERT … RETURNING printed "INSERT 0 1").
+  **P4 ✔ (day-one value on an empty campus)** — no migration. Campus tab (Όλα): `YearGroupCard` (your auto group
+  of department + year, else department; member count, «Πες γεια» → `/record?group=<id>&text=Γεια σε όλους! `) and,
+  when the campus feed is empty, `CampusStarters` («Κάνε την πρώτη ερώτηση»: 4 starter questions →
+  `/record?campus=1&section=questions&text=…`). Composer takes `?text=` (≤ 280) as the initial text. i18n `campus.
+  yourYearGroup/yourDeptGroup/groupMembers/sayHi/hiText/startersTitle/startersText/starter1–4`.
+  `tests/e2e/dayone-flow.mjs` 5/5 (sign up → card → starter → publish → Say hi); scratchpad campus-groups flow
+  matches «ΗΜΜΥ · 3ο» exactly (the card also says «ΗΜΜΥ · 3ο έτος»). 12 app flows + ux 15 + share 7 + e2e 64/64.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,

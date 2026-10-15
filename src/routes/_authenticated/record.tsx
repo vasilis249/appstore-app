@@ -21,7 +21,7 @@ import { takePendingClip } from "@/lib/pending-clip";
 import { promptPermission, requestPromptPermission, syncDailyPrompts } from "@/lib/prompt-notifications";
 import { cn } from "@/lib/utils";
 
-type Search = { section?: string; topic?: string; reply?: string; quote?: string; group?: string; campus?: 1 };
+type Search = { section?: string; topic?: string; reply?: string; quote?: string; group?: string; campus?: 1; text?: string };
 
 export const Route = createFileRoute("/_authenticated/record")({
   validateSearch: (s: Record<string, unknown>): Search => {
@@ -29,6 +29,8 @@ export const Route = createFileRoute("/_authenticated/record")({
     return {
       section: str(s.section), topic: str(s.topic), reply: str(s.reply), quote: str(s.quote), group: str(s.group),
       campus: s.campus ? 1 : undefined,
+      // a starter question / greeting to begin from (Campus, year group)
+      text: typeof s.text === "string" && s.text ? s.text.slice(0, 280) : undefined,
     };
   },
   component: ComposePage,
@@ -51,7 +53,7 @@ function ComposePage() {
   const [clip, setClip] = useState<Clip | null>(null);
   // Held the nav button somewhere → the voice is already recorded.
   const [initialClip] = useState(() => takePendingClip());
-  const [text, setText] = useState("");
+  const [text, setText] = useState(search.text ?? "");
   const [photos, setPhotos] = useState<{ blob: Blob; url: string }[]>([]);
   const pick = useRef<HTMLInputElement>(null);
   const shoot = useRef<HTMLInputElement>(null);

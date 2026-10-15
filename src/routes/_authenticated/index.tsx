@@ -9,6 +9,8 @@ import { EmptyState } from "@/components/empty-state";
 import { FeedList } from "@/components/posts/feed-list";
 import { NewsCard } from "@/components/posts/news-card";
 import { MyGroupsStrip } from "@/components/groups/my-groups-strip";
+import { GroupTile } from "@/components/groups/group-row";
+import { supabase } from "@/integrations/supabase/client";
 import { UserAvatar } from "@/components/user-avatar";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { useSections } from "@/hooks/use-sections";
@@ -160,6 +162,7 @@ function CampusView({
           ))}
         </ul>
       )}
+      {!section && <YearGroupCard />}
       {!section && <ClassmatesStrip />}
       {!section && <SchoolsBoard />}
       <Link
@@ -175,7 +178,7 @@ function CampusView({
         params={{ scope: "campus", section }}
         playAllRef={playAllRef}
         onPlayable={onPlayable}
-        empty={<EmptyState title={t("campus.emptyTitle")} text={t("campus.empty")} />}
+        empty={section ? <EmptyState title={t("campus.emptyTitle")} text={t("campus.empty")} /> : <CampusStarters />}
       />
     </div>
   );
@@ -248,6 +251,73 @@ function SchoolsBoard({ expanded = false }: { expanded?: boolean }) {
 }
 
 /** Classmates to follow (same school and year first): friends make DMs and the walkie-talkie possible. */
+/**
+ * Day one: your department-year group (made for you on verification, full of classmates) is the first place to say
+ * something; the card takes you there with a greeting ready.
+ */
+function YearGroupCard() {
+  const { t } = useTranslation();
+  const me = useMyProfile();
+  const dep = me.data?.department_id;
+  const year = me.data?.study_year ?? null;
+  const q = useQuery({
+    queryKey: ["groups", "year", dep, year],
+    enabled: !!dep,
+    queryFn: async () => {
+      let r = supabase.from("groups").select("id, name, members_count, section_id").eq("auto", true).eq("department_id", dep!);
+      r = year ? r.eq("study_year", year) : r.is("study_year", null);
+      const { data } = await r.maybeSingle();
+      return data;
+    },
+  });
+  const g = q.data;
+  if (!g) return null;
+  return (
+    <section className="mx-4 mb-3 flex items-center gap-3 rounded-2xl bg-card p-3.5">
+      <Link to="/g/$groupId" params={{ groupId: g.id }} className="flex min-w-0 flex-1 items-center gap-3">
+        <GroupTile section={g.section_id} size={48} />
+        <span className="min-w-0">
+          <span className="block text-fine font-semibold text-link">{t(year ? "campus.yourYearGroup" : "campus.yourDeptGroup")}</span>
+          <span className="block truncate font-semibold leading-snug">{g.name}</span>
+          <span className="block text-caption text-muted-foreground">{t("campus.groupMembers", { count: g.members_count })}</span>
+        </span>
+      </Link>
+      <Link
+        to="/record"
+        search={{ group: g.id, text: t("campus.hiText") }}
+        className="flex h-10 shrink-0 items-center rounded-full bg-primary px-4 text-callout font-semibold text-primary-foreground"
+      >
+        {t("campus.sayHi")}
+      </Link>
+    </section>
+  );
+}
+
+/** An empty campus feed offers first questions to ask (they open the composer in «Ερωτήσεις», ready to edit). */
+function CampusStarters() {
+  const { t } = useTranslation();
+  const starters = [1, 2, 3, 4].map((i) => t(`campus.starter${i}`));
+  return (
+    <section className="px-4 pb-6 pt-4">
+      <h2 className="text-tagline font-semibold">{t("campus.startersTitle")}</h2>
+      <p className="mt-1 text-callout text-muted-foreground">{t("campus.startersText")}</p>
+      <div className="mt-4 flex flex-col gap-2">
+        {starters.map((s) => (
+          <Link
+            key={s}
+            to="/record"
+            search={{ campus: 1, section: "questions", text: s }}
+            className="flex min-h-12 items-center gap-3 rounded-2xl bg-card px-4 py-3 text-callout font-semibold"
+          >
+            <span className="flex-1">{s}</span>
+            <VoiceIcon className="h-5 w-5 shrink-0 text-link" />
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ClassmatesStrip() {
   const { t } = useTranslation();
   const campus = useCampus();

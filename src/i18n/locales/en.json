@@ -850,7 +850,19 @@
     "schools": "Departments ranking",
     "students_one": "{{count}} student",
     "students_other": "{{count}} students",
-    "allSchools": "All departments"
+    "allSchools": "All departments",
+    "yourYearGroup": "Your year's group",
+    "yourDeptGroup": "Your department's group",
+    "groupMembers_one": "1 member",
+    "groupMembers_other": "{{count}} classmates in it",
+    "sayHi": "Say hi",
+    "hiText": "Hi everyone! ",
+    "startersTitle": "Ask the first question",
+    "startersText": "Your campus is just starting. Pick one or write your own — by voice or text.",
+    "starter1": "Does anyone have notes for the course?",
+    "starter2": "When are the exam grades out?",
+    "starter3": "Where can we eat cheap near campus?",
+    "starter4": "Looking for study buddies. Who's in?"
   },
   "invite": {
     "title": "Invite friends",
