@@ -790,7 +790,7 @@ User decisions:
   `/record?campus=1&section=questions&text=…`). Composer takes `?text=` (≤ 280) as the initial text. i18n `campus.
   yourYearGroup/yourDeptGroup/groupMembers/sayHi/hiText/startersTitle/startersText/starter1–4`.
   `tests/e2e/dayone-flow.mjs` 5/5 (sign up → card → starter → publish → Say hi); scratchpad campus-groups flow
-  matches «ΗΜΜΥ · 3ο» exactly (the card also says «ΗΜΜΥ · 3ο έτος»). 12 app flows + ux 15 + share 7 + e2e 64/64.
+  matches «ΗΜΜΥ · 3ο» exactly (the card also says «ΗΜΜΥ · 3ο έτος»). 12 app flows + ux 15 + share 7 + e2e 64/64. Deploy 7a0d9381 (P2–P4 live).
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
