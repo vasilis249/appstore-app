@@ -732,7 +732,7 @@ User decisions:
   (`--glass-side`), `@supports not (backdrop-filter)` → solid. `tests/e2e/glass-check.mjs <port>` (FAIL on glass inside
   a backdrop root or on 0 glass = page not rendered; old code: 18 of 33 inside). Headless note: only SwiftShader
   (`--use-angle=swiftshader`, as `design-shots.mjs`) renders backdrop blur faithfully. Flows campus 15, groups 15, map
-  11, dm 11, photo 10, delete 5, ux 15, e2e ptt 10, micsession 5, walkie-hub 11.
+  11, dm 11, photo 10, delete 5, ux 15, e2e ptt 10, micsession 5, walkie-hub 11. Deploy 9c870d56.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
