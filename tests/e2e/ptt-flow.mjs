@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import { createRequire } from "node:module";
 import crypto from "node:crypto";
 const { chromium, devices } = createRequire("/opt/node22/lib/node_modules/")("playwright");
@@ -47,13 +48,14 @@ await page.getByRole("button", { name: "Δημοσίευση" }).click();
 await page.waitForURL(/\/p\//);
 ok("published", true);
 
-// 2. nav: tap from News · Tech → composer with Tech chosen
-await page.goto(base + "/?s=career", { waitUntil: "networkidle" });
+// 2. nav: tap from Campus · Μαθήματα → campus composer with Μαθήματα chosen (me = a verified ΕΜΠ student from here on)
+execSync(`psql -h /tmp -p 54329 -U postgres -d courtsie -qc "UPDATE public.profiles SET university_id = 'ntua', department_id = 'ntua-ece', study_year = 3, student_verified_at = now() WHERE id = '${ME}'"`);
+await page.goto(base + "/?tab=campus&s=courses", { waitUntil: "networkidle" });
 await page.waitForTimeout(700);
 const nav = page.getByRole("button", { name: "Νέα φωνή (κράτα πατημένο για να μιλήσεις)" });
 await hold(nav, 150);
 await page.waitForTimeout(500);
-ok("nav tap → composer, Καριέρα preselected", /\/record/.test(page.url()) && (await page.getByRole("button", { name: "Καριέρα" }).getAttribute("aria-pressed")) === "true");
+ok("nav tap → campus composer, Μαθήματα preselected", /\/record\?.*campus=1/.test(page.url()) && (await page.getByRole("button", { name: "Μαθήματα" }).getAttribute("aria-pressed")) === "true");
 
 // 3. nav: hold from Following → composer with the voice ready, Personal
 await page.goto(base + "/?tab=following", { waitUntil: "networkidle" });
@@ -63,8 +65,8 @@ await hold(page.getByRole("button", { name: "Νέα φωνή (κράτα πατ�
   await shot("4-nav-holding");
 });
 await page.waitForTimeout(600);
-ok("let go → composer with the voice ready, Personal", /\/record/.test(page.url()) && await page.getByText("Ξανά").isVisible()
-  && (await page.getByRole("button", { name: "Προσωπική" }).getAttribute("aria-pressed")) === "true");
+ok("let go → composer with the voice ready, personal (no campus / group / topic)", /\/record/.test(page.url()) && await page.getByText("Ξανά").isVisible()
+  && !/campus|group|topic/.test(page.url()));
 await shot("5-nav-handoff");
 await page.getByRole("button", { name: "Δημοσίευση" }).click();
 await page.waitForURL(/\/p\//);
