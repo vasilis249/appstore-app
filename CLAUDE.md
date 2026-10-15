@@ -715,7 +715,7 @@ User decisions:
 - **UX audit U4 ✔ (user OK 2026-10-15; #10 one push-to-talk look)** — `voice-icon.tsx` `PTT_IDLE` ("glass text-link") /
   `PTT_LIVE` (bg-live + rec-pulse) used by the nav drop, composer, DM `RecordBar` (was ink), walkie (was ink) and map
   nearby talk; sizes unchanged, "friend is talking" stays grey. e2e 64/64, dm 11, photo 10, map 11, mapblock 7, campus
-  15, groups 15, ux 15. Note: `tests/e2e/run.sh` rebuilds `dist` → restart any other `wrangler dev` (stale = failing
+  15, groups 15, ux 15. Deploy a41407c2. Note: `tests/e2e/run.sh` rebuilds `dist` → restart any other `wrangler dev` (stale = failing
   flows). Next: #13 visible labels for abstract icons.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
