@@ -36,12 +36,11 @@ export function BottomNav() {
   const tap = () => haptic("light");
 
   return (
-    <nav
-      className="fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(env(safe-area-inset-bottom,0px)+10px)]"
-      style={{ viewTransitionName: "tabbar" }}
-    >
+    // The view-transition name sits on the glass, not on <nav>: a named ancestor is a "backdrop root", so the glass
+    // inside it would frost nothing (the page would show through crisp).
+    <nav className="fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(env(safe-area-inset-bottom,0px)+10px)]">
       <div className="mx-auto flex max-w-md items-center gap-2.5">
-        <div className="glass relative grid h-[62px] flex-1 grid-cols-4 items-center rounded-full px-1.5">
+        <div className="glass relative grid h-[62px] flex-1 grid-cols-4 items-center rounded-full px-1.5" style={{ viewTransitionName: "tabbar" }}>
           {/* the pill gliding to the active tab */}
           <span
             aria-hidden

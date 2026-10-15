@@ -716,7 +716,23 @@ User decisions:
   `PTT_LIVE` (bg-live + rec-pulse) used by the nav drop, composer, DM `RecordBar` (was ink), walkie (was ink) and map
   nearby talk; sizes unchanged, "friend is talking" stays grey. e2e 64/64, dm 11, photo 10, map 11, mapblock 7, campus
   15, groups 15, ux 15. Deploy a41407c2. Note: `tests/e2e/run.sh` rebuilds `dist` → restart any other `wrangler dev` (stale = failing
-  flows). Next: #13 visible labels for abstract icons.
+  flows). Next: #13 visible labels for abstract icons (paused: user asked for the glass rebuild below).
+- **Glass rebuild GR (user request 2026-10-15: "ξαναχτίσε την εφαρμογή με τα design skills")** — find-skills added
+  (reviewed: Markdown only, skills-lock) `ios-glass-ui-designer` (heyman333/atelier-ui: material tiers ultra-thin /
+  regular / thick, restraint, glass only on floating UI) and `safari26-liquid-glass` (stealth-factory/skills: iOS 26
+  Safari bars sample body / sticky edge colour, fixed elements crop, keyboard offset bug); with `glassmorphism` +
+  `frontend-design`. Plan (stop for "OK" after each): **GR1** material that really frosts ✔ → **GR2** chrome: one
+  header system (every header button a glass circle, profile + / 📅 / ☰ included), thick-material sheets → **GR3**
+  motion (frost entrance, press) + liquid player fix (the red smear on the post page) → **GR4** QA light / dark /
+  reduced transparency, flows, deploy.
+  **GR1 ✔** ROOT CAUSE found: the glass tab bar, voice drop, recording capsule and mini player NEVER frosted — their
+  wrappers carried `view-transition-name`, which makes an element a backdrop root (the glass inside sees nothing; the
+  page showed through crisp, labels collided with post text). Names now on the glass itself (`tabbar`, `voicedrop`,
+  `miniplayer`). `glass` utility: + grain (`--grain`, inline SVG ≈4 %), lit top/left + shaded bottom/right inset rim
+  (`--glass-side`), `@supports not (backdrop-filter)` → solid. `tests/e2e/glass-check.mjs <port>` (FAIL on glass inside
+  a backdrop root or on 0 glass = page not rendered; old code: 18 of 33 inside). Headless note: only SwiftShader
+  (`--use-angle=swiftshader`, as `design-shots.mjs`) renders backdrop blur faithfully. Flows campus 15, groups 15, map
+  11, dm 11, photo 10, delete 5, ux 15, e2e ptt 10, micsession 5, walkie-hub 11.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,

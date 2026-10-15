@@ -30,6 +30,18 @@
       "sourceType": "github",
       "skillPath": "design/skills/ux-copy/SKILL.md",
       "computedHash": "f7addd20b733b196d870154c3e86ee3ada83e7a16b1ad910c861607f8b472735"
+    },
+    "safari26-liquid-glass": {
+      "source": "stealth-factory/skills",
+      "sourceType": "github",
+      "skillPath": "skills/safari26-liquid-glass/SKILL.md",
+      "computedHash": "d3b9189f704aa4b1f39ee6ecd5cd54b67c55e2beaccd3d38cd8d39d749175cce"
+    },
+    "ios-glass-ui-designer": {
+      "source": "heyman333/atelier-ui",
+      "sourceType": "github",
+      "skillPath": "skills/ios-glass-ui-designer/SKILL.md",
+      "computedHash": "ccdd43e52f503441e7bcd8265863b6279cfbf9a18b9bae7c63f089477cf5a3db"
     }
   }
 }

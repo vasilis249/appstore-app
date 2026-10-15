@@ -74,6 +74,7 @@ export function NavRecordButton() {
         type="button"
         {...ptt.bind}
         aria-label={t("voice.navRecord")}
+        style={{ viewTransitionName: "voicedrop" }}
         className={cn(
           "ease-spring grid h-[62px] w-[62px] shrink-0 place-items-center rounded-full",
           live ? `scale-110 ${PTT_LIVE}` : PTT_IDLE,

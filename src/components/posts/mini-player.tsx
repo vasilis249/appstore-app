@@ -15,9 +15,9 @@ export function MiniPlayer({ lifted }: { lifted: boolean }) {
   return (
     <div
       className="fixed inset-x-0 z-40 px-4"
-      style={{ bottom: lifted ? "calc(env(safe-area-inset-bottom, 0px) + 5.25rem)" : "calc(env(safe-area-inset-bottom, 0px) + 0.75rem)", viewTransitionName: "miniplayer" }}
+      style={{ bottom: lifted ? "calc(env(safe-area-inset-bottom, 0px) + 5.25rem)" : "calc(env(safe-area-inset-bottom, 0px) + 0.75rem)" }}
     >
-      <div className="glass animate-slide-up relative mx-auto flex h-[58px] max-w-md items-center gap-2.5 overflow-hidden rounded-[22px] pl-2.5 pr-1">
+      <div style={{ viewTransitionName: "miniplayer" }} className="glass animate-slide-up relative mx-auto flex h-[58px] max-w-md items-center gap-2.5 overflow-hidden rounded-[22px] pl-2.5 pr-1">
         <span className="absolute inset-x-0 bottom-0 h-0.5">
           <span className="block h-full bg-link transition-[width] duration-150 ease-linear" style={{ width: `${q.progress * 100}%` }} />
         </span>

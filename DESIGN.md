@@ -25,9 +25,14 @@ consistent; the agent plugins in CLAUDE.md take priority. Tokens live in ONE fil
 | Here / online | `#1f9d57` | `#4cd98a` | `bg-success` |
 
 ## 2. Glass (`glass` utility)
-Frost `blur(22px) saturate(180%)` + translucent fill (`--glass`: white 58 % / `#1e212a` 50 %) + a rim brighter than
-the fill + an inner top highlight + a soft float shadow. `scroll-edge` = the blur that fades content as it passes under
-floating top controls. With "Reduce transparency" glass becomes solid (`--glass-solid`).
+Frost `blur(22px) saturate(180%)` + translucent fill (`--glass`: white 58 % / `#1e212a` 50 %) + ≈4 % grain (`--grain`,
+against banding) + a rim brighter than the fill + the rim of light (inset highlight along the top and left, shade along
+the bottom and right) + a soft float shadow. `scroll-edge` = the blur that fades content as it passes under floating
+top controls. With "Reduce transparency" (or no `backdrop-filter` support) glass becomes solid (`--glass-solid`).
+**Backdrop roots:** a glass element frosts only what is painted between it and its nearest ancestor with `filter`,
+`opacity < 1`, `mask`, `clip-path`, `backdrop-filter`, a blend mode or a **`view-transition-name`** — under such an
+ancestor it frosts nothing and the page shows through crisp. Put view-transition names on the glass element itself
+(`tabbar`, `voicedrop`, `miniplayer`), never on a wrapper. `tests/e2e/glass-check.mjs` fails on any glass inside one.
 **Where:** tab-bar capsule, voice drop, Home's feed switch, round header buttons (back, bell, messages), mini player,
 recording capsule, map controls and sheets, photo remove buttons. **Never** on cards / posts (content stays opaque) and
 never more than a handful per screen (each one re-blurs what's behind it).
@@ -70,5 +75,5 @@ ring while held (`.animate-rec-pulse`) · push / pop slides with parallax, tabs 
   chip (play, "Ξανά").
 
 ## 7. Don't
-Glass on content · gradient washes / colour blobs behind glass · emoji as icons · more than one ink button per screen ·
+Glass inside a backdrop root (named / filtered / faded wrapper) · glass on content · gradient washes / colour blobs behind glass · emoji as icons · more than one ink button per screen ·
 blue for anything but labels, links, Follow, "new" and the voice drop · uppercase labels.
