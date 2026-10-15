@@ -758,6 +758,21 @@ User decisions:
   (makes me a verified ΕΜΠ student), `run.sh` counts a crashed flow as a failure (before, a crash after 4 PASS lines
   read as green). e2e 64/64, 14 app flows, ux 15, DB all green. Live: migration applied (ntua 0, others 100, general
   feeds off; 5 verified students outside ΕΜΠ now see their campus waiting), deploy 32523eb9.
+  **P2 ✔ (3-step sign-up)** — `/auth`: Welcome → «Ξεκίνα με το φοιτητικό σου email» → (1) academic address (university
+  named as you type via `useCampus`, unknown domain flagged, Terms line) → `signInWithOtp` (Supabase Auth mails a 6-digit
+  code; signs up and in alike, no password) → (2) code → `verifyOtp` → `claim_student_email()` → `qc.invalidateQueries()`
+  (the new session had cached the unverified profile) → (3) `/student?welcome=1` department → year + name (asked only if
+  the profile has none) → Home; a returning student goes straight Home. «Έχω λογαριασμό με κωδικό πρόσβασης» keeps the
+  old email → password sign-in; the old sign-up (name → email → password → username) and its components are deleted.
+  Migration `20261107100100_student_otp_signup.sql`: `public.claim_student_email()` → ok | not_otp | not_academic |
+  email_taken — verifies only when the JWT `amr` says the session came from a code / magic link (a password session
+  proves nothing: sign-up still auto-confirms), same one-account-per-address hash as `verify_student_code`;
+  universities + departments readable by `anon` (step 1 names the university). Live Auth: `mailer_otp_length` 6,
+  `mailer_otp_exp` 600, magic-link + confirmation templates/subjects carry `{{ .Token }}` (el + en text). Local proxy
+  (`tests/e2e/local-supabase.mjs`, copied to the scratchpad): `/auth/v1/otp` makes the auth user, `/auth/v1/verify`
+  takes `OTP_CODE` 246810 and returns a session with amr otp (wrong code → 403 `error_code: otp_expired`).
+  `tests/e2e/signup-flow.mjs` 9/9; tests campus 101 (14a–g; 05d now: anon sees no student data). NOT verified: a real
+  code email (no real academic inbox to send to) → user test with an ΕΜΠ address.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,

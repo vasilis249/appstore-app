@@ -1165,6 +1165,7 @@ export type Database = {
           status: string
         }[]
       }
+      claim_student_email: { Args: never; Returns: string }
       clear_student_identity: { Args: never; Returns: undefined }
       consume_voice_message: {
         Args: { p_id: string }

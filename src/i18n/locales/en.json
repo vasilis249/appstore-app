@@ -640,7 +640,13 @@
     "sendLink": "Send link",
     "resetSentTitle": "Check your email",
     "resetSentText": "If an account exists for {{email}}, you'll get a link to set a new password.",
-    "backToSignin": "Back to sign in"
+    "backToSignin": "Back to sign in",
+    "startStudent": "Start with your student email",
+    "startStudentHint": "Students only. No password: we email a code to your university address.",
+    "studentEmailTitle": "Your student email",
+    "studentEmailHint": "We'll send you a 6-digit code. It works for both signing up and signing in.",
+    "codeHint": "We sent it to {{email}}. It's valid for 10 minutes.",
+    "passwordSignin": "I have a password account"
   },
   "groups": {
     "title": "Groups",
@@ -820,7 +826,9 @@
     "detected": "✓ {{uni}}",
     "searchSchool": "Search departments",
     "noSchool": "My department isn't listed",
-    "gateHint": "Speak is for students only. Confirm your university email to get in."
+    "gateHint": "Speak is for students only. Confirm your university email to get in.",
+    "nameTitle": "What's your name?",
+    "namePlaceholder": "First and last name"
   },
   "campus": {
     "lockedTitle": "Your campus",

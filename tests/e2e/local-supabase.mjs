@@ -4,6 +4,7 @@
 import http from "node:http";
 import crypto from "node:crypto";
 import fs from "node:fs";
+import { execSync } from "node:child_process";
 import { attachRealtime } from "./realtime-mock.mjs";
 
 export const SECRET = "local-dev-secret-local-dev-secret-0123456789";
@@ -19,6 +20,14 @@ function verify(token) {
   if (!s) return null;
   const sig = crypto.createHmac("sha256", SECRET).update(`${h}.${b}`).digest("base64url");
   return sig === s ? JSON.parse(Buffer.from(b, "base64url").toString()) : null;
+}
+
+export const OTP_CODE = "246810";
+const psql = (q) => execSync(`psql -h /tmp -p 54329 -U postgres -d courtsie -Atc "${q.replace(/"/g, '\\"')}"`).toString().trim();
+/** The auth.users id for an address, made on first use (the profile trigger runs as on Supabase). */
+function userIdFor(email) {
+  const e = email.replace(/'/g, "''");
+  return psql(`SELECT id FROM auth.users WHERE lower(email) = '${e}' LIMIT 1`) || psql(`INSERT INTO auth.users (email) VALUES ('${e}') RETURNING id`);
 }
 
 const IMG_DIR = new URL("../../src/assets", import.meta.url).pathname;
@@ -44,6 +53,30 @@ if (process.argv[1].endsWith("local-supabase.mjs")) {
         }
         res.setHeader("content-type", "application/json");
         return res.end(JSON.stringify({ id: c.sub, aud: "authenticated", role: "authenticated", email: c.email, user_metadata: {}, app_metadata: {} }));
+      }
+      // One-time codes (the 3-step student sign-up): /otp makes the account if needed, /verify trades the code for a
+      // session whose JWT carries amr otp, like Supabase Auth. The code is always OTP_CODE.
+      if (url.pathname === "/auth/v1/otp" || url.pathname === "/auth/v1/verify") {
+        let raw = "";
+        req.on("data", (c) => (raw += c));
+        req.on("end", () => {
+          const body = JSON.parse(raw || "{}");
+          const email = String(body.email || "").toLowerCase();
+          res.setHeader("content-type", "application/json");
+          if (url.pathname === "/auth/v1/verify" && body.token !== OTP_CODE) {
+            res.statusCode = 403;
+            return res.end(JSON.stringify({ code: 403, error_code: "otp_expired", msg: "Token has expired or is invalid" }));
+          }
+          const id = userIdFor(email);
+          if (url.pathname === "/auth/v1/otp") return res.end("{}");
+          const now = Math.floor(Date.now() / 1000);
+          const user = { id, email, aud: "authenticated", role: "authenticated", app_metadata: {}, user_metadata: {}, created_at: new Date().toISOString() };
+          res.end(JSON.stringify({
+            access_token: jwt({ sub: id, email, role: "authenticated", aud: "authenticated", amr: [{ method: "otp", timestamp: now }] }),
+            token_type: "bearer", expires_in: 30 * 86400, expires_at: now + 30 * 86400, refresh_token: "local", user,
+          }));
+        });
+        return;
       }
       if (url.pathname.startsWith("/auth/")) {
         res.statusCode = 200;

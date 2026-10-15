@@ -25,6 +25,8 @@ export function mapAuthError(err: unknown): string {
     return "Μη έγκυρο email.";
   if (code === "email_not_confirmed")
     return "Το email σου δεν έχει επιβεβαιωθεί. Έλεγξε τα εισερχόμενά σου.";
+  if (code === "otp_expired")
+    return "Λάθος ή ληγμένος κωδικός. Δοκίμασε ξανά ή ζήτα καινούργιο.";
   if (code === "invalid_credentials")
     return "Λάθος email ή κωδικός.";
   if (code === "signup_disabled")

@@ -11,6 +11,7 @@ import { SettingsSheet } from "@/components/settings-sheet";
 import { sendStudentCode } from "@/lib/api/student.functions";
 import { clearStudentIdentity, setStudentInfo, useCampus, verifyStudentCode, yearOptions } from "@/lib/campus";
 import { friendKeys, rpcErrorKey } from "@/lib/friends";
+import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { useTapConfirm } from "@/hooks/use-tap-confirm";
 import { useDebounced } from "@/hooks/use-debounced";
@@ -46,6 +47,9 @@ function StudentPage() {
   const [school, setSchool] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [year, setYear] = useState<number | null>(null);
+  // Accounts made with the 3-step sign-up have no name yet: the last step asks for it.
+  const [name, setName] = useState("");
+  const needsName = !!me.data && !me.data.full_name;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const confirmRemove = useTapConfirm();
@@ -99,6 +103,10 @@ function StudentPage() {
     try {
       // A year the new department doesn't have (e.g. 6th after switching away from Medicine) is dropped.
       await setStudentInfo(school, year && yearOptions(campus.dep(school)?.years).includes(year) ? year : null);
+      if (needsName && name.trim()) {
+        const { error: e } = await supabase.from("profiles").update({ full_name: name.trim() }).eq("id", me.data!.id);
+        if (e) throw new Error(e.message);
+      }
       await refresh();
       leave();
     } catch (e) {
@@ -312,12 +320,28 @@ function StudentPage() {
     <StepShell
       onBack={noSchools ? (me.data?.department_id || me.data?.study_year ? () => go("manage") : undefined) : () => go("school")}
       right={skip}
-      title={t("student.yearTitle")}
-      subtitle={t("student.yearHint")}
+      title={needsName ? t("student.nameTitle") : t("student.yearTitle")}
+      subtitle={needsName ? undefined : t("student.yearHint")}
       action={t("student.done")}
+      disabled={needsName && name.trim().length < 2}
       loading={loading}
       onSubmit={() => void saveInfo()}
     >
+      {needsName && (
+        <>
+          <BigInput
+            autoFocus
+            autoComplete="name"
+            autoCapitalize="words"
+            enterKeyHint="done"
+            maxLength={60}
+            placeholder={t("student.namePlaceholder")}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <p className="mb-3 mt-7 text-callout font-semibold">{t("student.yearTitle")}</p>
+        </>
+      )}
       <div className="flex flex-wrap gap-2">
         {yearOptions(campus.dep(school)?.years).map((y) => (
           <button

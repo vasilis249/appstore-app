@@ -1,9 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Check, Eye, EyeOff } from "lucide-react";
-import type { User } from "@supabase/supabase-js";
+import { Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { Wordmark } from "@/components/wordmark";
@@ -11,6 +10,8 @@ import { BigInput, FieldNote, StepShell } from "@/components/auth/step-shell";
 import { mapAuthError } from "@/lib/auth-errors";
 import { suggestEmail } from "@/lib/email-typos";
 import { rpcErrorKey } from "@/lib/friends";
+import { claimStudentEmail, useCampus } from "@/lib/campus";
+import { useDebounced } from "@/hooks/use-debounced";
 import { authRedirectUrl } from "@/lib/native";
 import { enabledProviders, signInWithProvider, type OAuthProvider } from "@/lib/oauth";
 import { cn } from "@/lib/utils";
@@ -29,65 +30,179 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
-type Step =
-  | "welcome"
-  | "signinEmail"
-  | "signinPassword"
-  | "signupName"
-  | "signupEmail"
-  | "signupPassword"
-  | "checkEmail"
-  | "username";
+type Step = "welcome" | "studentEmail" | "studentCode" | "signinEmail" | "signinPassword";
 
-const PASSWORD_RULES = [
-  { id: "len", test: (p: string) => p.length >= 8 },
-  { id: "lower", test: (p: string) => /[a-z]/.test(p) },
-  { id: "num", test: (p: string) => /[0-9]/.test(p) },
-] as const;
-const USERNAME_RE = /^[a-z0-9._]{3,20}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-/** A brand-new account (e.g. first Google sign-in) gets the "pick a username" step once. */
-function isNewUser(u: User) {
-  return Date.now() - new Date(u.created_at).getTime() < 10 * 60 * 1000;
-}
-
-/** Welcome → sign in (email → password) or sign up (name → email → password → username), one question per screen. */
+/**
+ * Welcome → the 3-step way in for students (academic email → code mailed by Supabase Auth → department / year on
+ * /student), which signs up and signs in alike, no password. Accounts made with a password before keep "Σύνδεση με
+ * συνθηματικό" (email → password).
+ */
 function AuthPage() {
   const navigate = useNavigate();
   const search = Route.useSearch();
   const { session, user } = useAuth();
-  const [step, setStep] = useState<Step>(search.mode === "signup" ? "signupName" : search.mode === "signin" ? "signinEmail" : "welcome");
-  const [name, setName] = useState("");
+  const [step, setStep] = useState<Step>(search.mode === "signin" ? "signinEmail" : search.mode === "signup" ? "studentEmail" : "welcome");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Signed in: new accounts pick a username first (after sign-up or a first social login), others go home.
+  // Signed in → Home (the student gate sends unverified accounts on). The code step moves on by itself once the
+  // address is claimed.
   useEffect(() => {
-    if (!session || !user || step === "username") return;
-    if (step === "signupPassword" || (search.welcome && isNewUser(user))) setStep("username");
-    else void navigate({ to: "/", replace: true });
-  }, [session, user, step, search.welcome, navigate]);
+    if (session && user && step !== "studentCode") void navigate({ to: "/", replace: true });
+  }, [session, user, step, navigate]);
 
   const common = { email, setEmail, go: setStep };
   switch (step) {
     case "welcome":
       return <Welcome go={setStep} />;
+    case "studentEmail":
+      return <StudentEmail {...common} />;
+    case "studentCode":
+      return <StudentCode email={email} go={setStep} />;
     case "signinEmail":
       return <EmailStep {...common} title="auth.signinEmailTitle" back="welcome" next="signinPassword" autoComplete="username" />;
     case "signinPassword":
       return <SigninPassword {...common} password={password} setPassword={setPassword} />;
-    case "signupName":
-      return <NameStep name={name} setName={setName} go={setStep} />;
-    case "signupEmail":
-      return <EmailStep {...common} title="auth.signupEmailTitle" back="signupName" next="signupPassword" autoComplete="email" />;
-    case "signupPassword":
-      return <SignupPassword {...common} name={name} password={password} setPassword={setPassword} />;
-    case "checkEmail":
-      return <CheckEmail email={email} go={setStep} />;
-    case "username":
-      return user ? <UsernameStep user={user} /> : null;
   }
+}
+
+/** Mails a one-time code (Supabase Auth creates the account on first use; the name comes in the last step). */
+function sendOtp(email: string) {
+  return supabase.auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
+}
+
+/** Step 1: the academic address; the university is named as you type, an unknown domain is flagged before sending. */
+function StudentEmail({ email, setEmail, go }: { email: string; setEmail: (v: string) => void; go: (s: Step) => void }) {
+  const { t, i18n } = useTranslation();
+  const campus = useCampus();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const detected = campus.uniForEmail(email);
+  const settled = useDebounced(email, 900) === email;
+  const unknownDomain = settled && campus.loaded && EMAIL_RE.test(email) && !detected;
+  const accepted = campus.universities.filter((u) => u.open).length;
+
+  async function submit() {
+    setError(null);
+    setLoading(true);
+    const { error: e } = await sendOtp(email);
+    setLoading(false);
+    if (e) return setError(mapAuthError(e));
+    go("studentCode");
+  }
+
+  return (
+    <StepShell
+      title={t("auth.studentEmailTitle")}
+      subtitle={t("auth.studentEmailHint")}
+      onBack={() => go("welcome")}
+      action={t("student.sendCode")}
+      disabled={!EMAIL_RE.test(email) || !detected}
+      loading={loading}
+      onSubmit={() => void submit()}
+      above={<Terms />}
+    >
+      <BigInput
+        autoFocus
+        type="email"
+        inputMode="email"
+        autoComplete="email"
+        autoCapitalize="none"
+        autoCorrect="off"
+        spellCheck={false}
+        enterKeyHint="send"
+        placeholder="…@mail.ntua.gr"
+        value={email}
+        onChange={(e) => setEmail(e.target.value.trim().toLowerCase())}
+      />
+      {error || unknownDomain ? (
+        <FieldNote error>{error || t("rpcErrors.notAcademic")}</FieldNote>
+      ) : detected ? (
+        <FieldNote>
+          <span className="font-semibold text-foreground">
+            {t("student.detected", { uni: i18n.language.startsWith("en") ? detected.name_en : detected.name_el })}
+          </span>
+        </FieldNote>
+      ) : (
+        <FieldNote>{t("student.emailPrivacy")}</FieldNote>
+      )}
+      {accepted > 0 && <p className="mt-4 text-caption leading-snug text-muted-foreground">{t("student.supported", { count: accepted })}</p>}
+    </StepShell>
+  );
+}
+
+/** Step 2: the code → a session on that address → the address is claimed as your student identity → step 3. */
+function StudentCode({ email, go }: { email: string; go: (s: Step) => void }) {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const qc = useQueryClient();
+  const [code, setCode] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [resent, setResent] = useState(false);
+
+  async function submit() {
+    setError(null);
+    setLoading(true);
+    try {
+      const { data, error: e } = await supabase.auth.verifyOtp({ email, token: code, type: "email" });
+      if (e || !data.user) return setError(mapAuthError(e));
+      const r = await claimStudentEmail();
+      if (r !== "ok") {
+        // Someone else's account already holds this address, or it isn't academic after all: don't stay signed in.
+        await supabase.auth.signOut();
+        return setError(t(r === "email_taken" ? "student.codeErrors.email_taken" : "rpcErrors.notAcademic"));
+      }
+      // The new session made the app read your profile (and "am I a student") before the claim: read them again.
+      await qc.invalidateQueries();
+      // Step 3 only for whom it's new: a returning student goes Home.
+      const { data: p } = await supabase.from("profiles").select("department_id, study_year, full_name").eq("id", data.user.id).single();
+      if (p && p.full_name && (p.department_id || p.study_year)) void navigate({ to: "/", replace: true });
+      else void navigate({ to: "/student", search: { welcome: 1 }, replace: true });
+    } catch (e) {
+      setError(t(rpcErrorKey(e)));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <StepShell
+      title={t("student.codeTitle")}
+      subtitle={t("auth.codeHint", { email })}
+      onBack={() => go("studentEmail")}
+      action={t("student.verify")}
+      disabled={!/^\d{6}$/.test(code)}
+      loading={loading}
+      onSubmit={() => void submit()}
+    >
+      <BigInput
+        inputMode="numeric"
+        autoComplete="one-time-code"
+        autoFocus
+        maxLength={6}
+        placeholder="000000"
+        className="tracking-[0.3em]"
+        value={code}
+        onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+      />
+      {error && <FieldNote error>{error}</FieldNote>}
+      <button
+        type="button"
+        disabled={loading || resent}
+        onClick={async () => {
+          const { error: e } = await sendOtp(email);
+          if (e) setError(mapAuthError(e));
+          else setResent(true);
+        }}
+        className="mt-5 text-callout font-semibold text-link disabled:opacity-60"
+      >
+        {resent ? t("auth.resent") : t("student.resend")}
+      </button>
+    </StepShell>
+  );
 }
 
 function Terms() {
@@ -147,17 +262,16 @@ function Welcome({ go }: { go: (s: Step) => void }) {
         )}
         <button
           type="button"
-          onClick={() => go("signupName")}
+          onClick={() => go("studentEmail")}
           className={cn(pill, social.length ? "bg-secondary text-foreground" : "bg-primary text-primary-foreground")}
         >
-          {t("auth.createAccount")}
+          {t("auth.startStudent")}
         </button>
         {error && <p className="text-center text-caption text-destructive">{error}</p>}
-        <Terms />
+        <p className="px-2 text-center text-caption leading-snug text-muted-foreground">{t("auth.startStudentHint")}</p>
         <p className="pt-2 text-center text-callout text-muted-foreground">
-          {t("auth.haveAccount")}{" "}
           <button type="button" onClick={() => go("signinEmail")} className="font-semibold text-foreground">
-            {t("auth.signin")}
+            {t("auth.passwordSignin")}
           </button>
         </p>
       </div>
@@ -302,94 +416,6 @@ function SigninPassword({
   );
 }
 
-function NameStep({ name, setName, go }: { name: string; setName: (v: string) => void; go: (s: Step) => void }) {
-  const { t } = useTranslation();
-  return (
-    <StepShell
-      title={t("auth.nameTitle")}
-      subtitle={t("auth.nameHint")}
-      onBack={() => go("welcome")}
-      action={t("auth.continue")}
-      disabled={name.trim().length < 2}
-      onSubmit={() => go("signupEmail")}
-    >
-      <BigInput
-        autoFocus
-        autoComplete="name"
-        autoCapitalize="words"
-        enterKeyHint="next"
-        maxLength={60}
-        placeholder={t("auth.namePlaceholder")}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-    </StepShell>
-  );
-}
-
-function SignupPassword({
-  name,
-  email,
-  go,
-  password,
-  setPassword,
-}: {
-  name: string;
-  email: string;
-  go: (s: Step) => void;
-  password: string;
-  setPassword: (v: string) => void;
-}) {
-  const { t } = useTranslation();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const checks = PASSWORD_RULES.map((r) => ({ id: r.id, ok: r.test(password) }));
-
-  async function submit() {
-    setError(null);
-    setLoading(true);
-    const { data, error: e } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: authRedirectUrl("/auth?welcome=1"), data: { full_name: name.trim() } },
-    });
-    setLoading(false);
-    if (e) return setError(mapAuthError(e));
-    // With a session the effect in AuthPage moves on to the username step.
-    if (!data.session) go("checkEmail");
-  }
-
-  return (
-    <StepShell
-      title={t("auth.newPasswordTitle")}
-      onBack={() => go("signupEmail")}
-      action={t("auth.createAccount")}
-      disabled={!checks.every((c) => c.ok)}
-      loading={loading}
-      onSubmit={() => void submit()}
-      above={<Terms />}
-    >
-      <PasswordInput value={password} onChange={setPassword} autoComplete="new-password" />
-      <ul className="mt-5 space-y-2">
-        {checks.map((c) => (
-          <li key={c.id} className="flex items-center gap-2.5 text-callout">
-            <span
-              className={cn(
-                "grid h-5 w-5 place-items-center rounded-full",
-                c.ok ? "bg-primary text-primary-foreground" : "bg-secondary text-transparent",
-              )}
-            >
-              <Check className="h-3.5 w-3.5" strokeWidth={3} />
-            </span>
-            <span className={c.ok ? "text-foreground" : "text-muted-foreground"}>{t(`auth.rule.${c.id}`)}</span>
-          </li>
-        ))}
-      </ul>
-      {error && <FieldNote error>{error}</FieldNote>}
-    </StepShell>
-  );
-}
-
 function ResendButton({ email }: { email: string }) {
   const { t } = useTranslation();
   const [state, setState] = useState<"idle" | "sent" | string>("idle");
@@ -409,81 +435,6 @@ function ResendButton({ email }: { email: string }) {
     >
       {state === "sent" ? t("auth.resent") : state === "idle" ? t("auth.resend") : state}
     </button>
-  );
-}
-
-function CheckEmail({ email, go }: { email: string; go: (s: Step) => void }) {
-  const { t } = useTranslation();
-  return (
-    <StepShell
-      title={t("auth.checkEmailTitle")}
-      subtitle={t("auth.checkEmailText", { email })}
-      onBack={() => go("signupEmail")}
-      action={t("auth.signin")}
-      onSubmit={() => go("signinEmail")}
-    >
-      <ResendButton email={email} />
-    </StepShell>
-  );
-}
-
-function UsernameStep({ user }: { user: User }) {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const loaded = useRef(false);
-
-  // Start from the username generated at sign-up (from the name, Greek → Latin).
-  useEffect(() => {
-    if (loaded.current) return;
-    loaded.current = true;
-    void supabase
-      .from("profiles")
-      .select("username")
-      .eq("id", user.id)
-      .single()
-      .then(({ data }) => data && setUsername((u) => u || data.username));
-  }, [user.id]);
-
-  async function submit() {
-    setError(null);
-    setLoading(true);
-    const { error: e } = await supabase.from("profiles").update({ username }).eq("id", user.id);
-    setLoading(false);
-    if (e) return setError(t(rpcErrorKey(new Error(`${e.message} ${e.details ?? ""}`))));
-    void navigate({ to: "/student", search: { welcome: 1 }, replace: true });
-  }
-
-  return (
-    <StepShell
-      title={t("auth.usernameTitle")}
-      subtitle={t("auth.usernameHint")}
-      right={
-        <button type="button" onClick={() => void navigate({ to: "/student", search: { welcome: 1 }, replace: true })} className="text-body font-normal">
-          {t("auth.skip")}
-        </button>
-      }
-      action={t("auth.continue")}
-      disabled={!USERNAME_RE.test(username)}
-      loading={loading}
-      onSubmit={() => void submit()}
-    >
-      <BigInput
-        prefix="@"
-        autoFocus
-        autoCapitalize="none"
-        autoCorrect="off"
-        spellCheck={false}
-        enterKeyHint="done"
-        maxLength={20}
-        placeholder="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9._]/g, ""))}
-      />
-      {error ? <FieldNote error>{error}</FieldNote> : <FieldNote>{t("profile.usernameHint")}</FieldNote>}
-    </StepShell>
   );
 }
 

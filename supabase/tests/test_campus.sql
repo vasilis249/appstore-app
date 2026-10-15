@@ -94,8 +94,9 @@ SELECT pg_temp.ok('05b clearing removes it all', (SELECT university_id IS NULL A
 RESET ROLE;
 SELECT pg_temp.ok('05c ... the address hash too (it can be used again)', NOT EXISTS (SELECT 1 FROM private.student_emails WHERE user_id = :A));
 SET ROLE anon;
-SELECT pg_temp.ok('05d anon sees no universities', pg_temp.fails('SELECT * FROM public.universities')
-  OR NOT EXISTS (SELECT 1 FROM public.universities));
+-- (since the 3-step sign-up the university list is public: 14g; student data stays private)
+SELECT pg_temp.ok('05d anon sees no student data', pg_temp.fails('SELECT * FROM private.student_emails')
+  AND pg_temp.fails('SELECT * FROM private.student_codes'));
 RESET ROLE;
 
 -- 06 campus voices: only students of that university hear them; nowhere else
@@ -471,3 +472,34 @@ SELECT pg_temp.ok('13zb no abbreviations: every university short name is its ful
   AND private.auto_group_name('acg-it', NULL) = (SELECT name_el FROM public.departments WHERE id = 'acg-it')
   AND private.auto_group_name('ntua-ece', 3) = 'ΗΜΜΥ · 3ο έτος'
   AND private.auto_group_description('ntua-ece', 3) LIKE '%Εθνικό Μετσόβιο Πολυτεχνείο.');
+
+-- 14 3-step sign-up: a session opened with a code mailed to an academic address verifies the student at once
+INSERT INTO auth.users (id, email) VALUES
+  ('00000000-0000-0000-0000-0000000000c1', 'el20001@mail.ntua.gr'),
+  ('00000000-0000-0000-0000-0000000000c2', 'someone@gmail.com'),
+  ('00000000-0000-0000-0000-0000000000c3', 'EL20001@mail.ntua.gr');
+CREATE FUNCTION pg_temp.as_otp(u text, method text) RETURNS void LANGUAGE plpgsql AS $$
+BEGIN PERFORM set_config('request.jwt.claim.sub', u, false);
+  PERFORM set_config('request.jwt.claims', json_build_object('sub', u, 'role', 'authenticated',
+    'amr', json_build_array(json_build_object('method', method, 'timestamp', 1)))::text, false); END $$;
+GRANT EXECUTE ON FUNCTION pg_temp.as_otp(text, text) TO authenticated;
+SET ROLE authenticated;
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c1', 'password');
+SELECT pg_temp.ok('14a a password session proves nothing', public.claim_student_email() = 'not_otp'
+  AND (SELECT university_id FROM public.profiles WHERE id = '00000000-0000-0000-0000-0000000000c1') IS NULL);
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c1', 'otp');
+SELECT public.claim_student_email() AS claim \gset
+-- (checked in its own statement: a subquery in the same one would see the profile before the function's update)
+SELECT pg_temp.ok('14b a code session on @mail.ntua.gr → verified ΕΜΠ student', :'claim' = 'ok'
+  AND (SELECT university_id = 'ntua' AND student_verified_at IS NOT NULL FROM public.profiles WHERE id = '00000000-0000-0000-0000-0000000000c1'));
+SELECT pg_temp.ok('14c asking again is harmless', public.claim_student_email() = 'ok');
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c2', 'otp');
+SELECT pg_temp.ok('14d a non-academic address is refused', public.claim_student_email() = 'not_academic');
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c3', 'magiclink');
+SELECT pg_temp.ok('14e the same address (any case) can verify one account only', public.claim_student_email() = 'email_taken');
+SELECT pg_temp.ok('14f anon cannot call it', NOT has_function_privilege('anon', 'public.claim_student_email()', 'execute'));
+RESET ROLE;
+SET ROLE anon;
+SELECT pg_temp.ok('14g signed-out visitors can read universities and departments (the sign-up names the university)',
+  (SELECT count(*) FROM public.universities WHERE id = 'ntua') = 1 AND (SELECT count(*) FROM public.departments WHERE university_id = 'ntua') = 9);
+RESET ROLE;
