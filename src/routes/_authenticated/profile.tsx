@@ -7,6 +7,7 @@ import { EditProfileSheet } from "@/components/edit-profile-sheet";
 import { ProfileView } from "@/components/people/profile-view";
 import { SettingsSheet } from "@/components/settings-sheet";
 import { useMyProfile } from "@/hooks/use-my-profile";
+import { FEATURES } from "@/lib/features";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   component: MyProfilePage,
@@ -29,19 +30,20 @@ function MyProfilePage() {
         }
         title={p?.username ?? " "}
         right={
-          <HeaderPill>
-            <Link to="/memories" aria-label={t("tabs.memories")} className={HEADER_ICON}>
-              <CalendarDays className="h-[22px] w-[22px]" strokeWidth={1.9} />
-            </Link>
-            <button
-              type="button"
-              onClick={() => setSettingsOpen(true)}
-              aria-label={t("settings.title")}
-              className={HEADER_ICON}
-            >
+          FEATURES.memories ? (
+            <HeaderPill>
+              <Link to="/memories" aria-label={t("tabs.memories")} className={HEADER_ICON}>
+                <CalendarDays className="h-[22px] w-[22px]" strokeWidth={1.9} />
+              </Link>
+              <button type="button" onClick={() => setSettingsOpen(true)} aria-label={t("settings.title")} className={HEADER_ICON}>
+                <Menu className="h-[22px] w-[22px]" strokeWidth={1.9} />
+              </button>
+            </HeaderPill>
+          ) : (
+            <button type="button" onClick={() => setSettingsOpen(true)} aria-label={t("settings.title")} className={HEADER_BTN}>
               <Menu className="h-[22px] w-[22px]" strokeWidth={1.9} />
             </button>
-          </HeaderPill>
+          )
         }
       />
       {p && (

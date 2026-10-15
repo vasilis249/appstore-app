@@ -33,7 +33,6 @@ import { Route as AuthenticatedGroupsNewRouteImport } from './routes/_authentica
 import { Route as AuthenticatedMessagesIndexRouteImport } from './routes/_authenticated/messages.index'
 import { Route as AuthenticatedMessagesUserIdRouteImport } from './routes/_authenticated/messages.$userId'
 import { Route as AuthenticatedPPostIdRouteImport } from './routes/_authenticated/p.$postId'
-import { Route as AuthenticatedSSectionIdRouteImport } from './routes/_authenticated/s.$sectionId'
 import { Route as AuthenticatedTTopicIdRouteImport } from './routes/_authenticated/t.$topicId'
 import { Route as AuthenticatedTalkIndexRouteImport } from './routes/_authenticated/talk.index'
 import { Route as AuthenticatedTalkUserIdRouteImport } from './routes/_authenticated/talk.$userId'
@@ -166,11 +165,6 @@ const AuthenticatedPPostIdRoute = AuthenticatedPPostIdRouteImport.update({
   path: '/p/$postId',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedSSectionIdRoute = AuthenticatedSSectionIdRouteImport.update({
-  id: '/s/$sectionId',
-  path: '/s/$sectionId',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedTTopicIdRoute = AuthenticatedTTopicIdRouteImport.update({
   id: '/t/$topicId',
   path: '/t/$topicId',
@@ -226,7 +220,6 @@ export interface FileRoutesByFullPath {
   '/groups/new': typeof AuthenticatedGroupsNewRoute
   '/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/p/$postId': typeof AuthenticatedPPostIdRoute
-  '/s/$sectionId': typeof AuthenticatedSSectionIdRoute
   '/t/$topicId': typeof AuthenticatedTTopicIdRoute
   '/talk/$userId': typeof AuthenticatedTalkUserIdRoute
   '/u/$username': typeof AuthenticatedUUsernameRoute
@@ -258,7 +251,6 @@ export interface FileRoutesByTo {
   '/groups/new': typeof AuthenticatedGroupsNewRoute
   '/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/p/$postId': typeof AuthenticatedPPostIdRoute
-  '/s/$sectionId': typeof AuthenticatedSSectionIdRoute
   '/t/$topicId': typeof AuthenticatedTTopicIdRoute
   '/talk/$userId': typeof AuthenticatedTalkUserIdRoute
   '/u/$username': typeof AuthenticatedUUsernameRoute
@@ -292,7 +284,6 @@ export interface FileRoutesById {
   '/_authenticated/groups/new': typeof AuthenticatedGroupsNewRoute
   '/_authenticated/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/_authenticated/p/$postId': typeof AuthenticatedPPostIdRoute
-  '/_authenticated/s/$sectionId': typeof AuthenticatedSSectionIdRoute
   '/_authenticated/t/$topicId': typeof AuthenticatedTTopicIdRoute
   '/_authenticated/talk/$userId': typeof AuthenticatedTalkUserIdRoute
   '/_authenticated/u/$username': typeof AuthenticatedUUsernameRoute
@@ -326,7 +317,6 @@ export interface FileRouteTypes {
     | '/groups/new'
     | '/messages/$userId'
     | '/p/$postId'
-    | '/s/$sectionId'
     | '/t/$topicId'
     | '/talk/$userId'
     | '/u/$username'
@@ -358,7 +348,6 @@ export interface FileRouteTypes {
     | '/groups/new'
     | '/messages/$userId'
     | '/p/$postId'
-    | '/s/$sectionId'
     | '/t/$topicId'
     | '/talk/$userId'
     | '/u/$username'
@@ -391,7 +380,6 @@ export interface FileRouteTypes {
     | '/_authenticated/groups/new'
     | '/_authenticated/messages/$userId'
     | '/_authenticated/p/$postId'
-    | '/_authenticated/s/$sectionId'
     | '/_authenticated/t/$topicId'
     | '/_authenticated/talk/$userId'
     | '/_authenticated/u/$username'
@@ -583,13 +571,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPPostIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/s/$sectionId': {
-      id: '/_authenticated/s/$sectionId'
-      path: '/s/$sectionId'
-      fullPath: '/s/$sectionId'
-      preLoaderRoute: typeof AuthenticatedSSectionIdRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/t/$topicId': {
       id: '/_authenticated/t/$topicId'
       path: '/t/$topicId'
@@ -650,7 +631,6 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedGroupsNewRoute: typeof AuthenticatedGroupsNewRoute
   AuthenticatedMessagesUserIdRoute: typeof AuthenticatedMessagesUserIdRoute
   AuthenticatedPPostIdRoute: typeof AuthenticatedPPostIdRoute
-  AuthenticatedSSectionIdRoute: typeof AuthenticatedSSectionIdRoute
   AuthenticatedTTopicIdRoute: typeof AuthenticatedTTopicIdRoute
   AuthenticatedTalkUserIdRoute: typeof AuthenticatedTalkUserIdRoute
   AuthenticatedUUsernameRoute: typeof AuthenticatedUUsernameRoute
@@ -676,7 +656,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGroupsNewRoute: AuthenticatedGroupsNewRoute,
   AuthenticatedMessagesUserIdRoute: AuthenticatedMessagesUserIdRoute,
   AuthenticatedPPostIdRoute: AuthenticatedPPostIdRoute,
-  AuthenticatedSSectionIdRoute: AuthenticatedSSectionIdRoute,
   AuthenticatedTTopicIdRoute: AuthenticatedTTopicIdRoute,
   AuthenticatedTalkUserIdRoute: AuthenticatedTalkUserIdRoute,
   AuthenticatedUUsernameRoute: AuthenticatedUUsernameRoute,

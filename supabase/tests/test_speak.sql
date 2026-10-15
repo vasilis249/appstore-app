@@ -523,9 +523,11 @@ UPDATE public.sections SET hidden = true WHERE id IN ('news', 'tech', 'sports', 
 SELECT pg_temp.ok('20a general sections hidden, four student news sections',
   (SELECT count(*) FROM public.sections WHERE hidden) = 8
   AND (SELECT array_agg(id ORDER BY position) FROM public.sections WHERE kind = 'news' AND NOT hidden) = ARRAY['unis','benefits','abroad','career']);
-SELECT pg_temp.ok('20b general feeds off (until an admin turns one on), three student-topic sources on',
-  NOT EXISTS (SELECT 1 FROM private.news_feeds WHERE university_id IS NULL AND enabled AND id <> 1 AND section_id <> 'unis')
-  AND (SELECT count(*) FROM private.news_feeds WHERE university_id IS NULL AND enabled AND section_id = 'unis') = 3);
+SELECT pg_temp.ok('20b launch: every non-campus feed off (the three student-topic sources kept, off); ΕΜΠ open, others wait for 100',
+  NOT EXISTS (SELECT 1 FROM private.news_feeds WHERE university_id IS NULL AND enabled AND id <> 1) -- 1: switched on in 11f
+  AND (SELECT count(*) FROM private.news_feeds WHERE university_id IS NULL AND section_id = 'unis') = 3
+  AND (SELECT min_students FROM public.universities WHERE id = 'ntua') = 0
+  AND NOT EXISTS (SELECT 1 FROM public.universities WHERE id <> 'ntua' AND min_students <> 100));
 SELECT id AS esos FROM private.news_feeds WHERE url = 'https://www.esos.gr/rss.xml' \gset
 SELECT pg_temp.ok('20c title routing: student topics in, school / teachers / everything else out; hidden sections get nothing',
   private.route_headline(:esos, 'https://www.esos.gr/a/1', 'Μετεγγραφές φοιτητών 2026: Μέχρι πότε οι αιτήσεις') = 'unis'

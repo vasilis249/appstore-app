@@ -212,11 +212,8 @@ export function PostCard({
                   <Users className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{post.groupName}</span>
                 </Link>
               ) : (
-                post.sectionId && (
-                  <Link to="/" search={{ s: post.sectionId }} className="shrink-0 text-link">
-                    {sections.name(post.sectionId)}
-                  </Link>
-                )
+                // old general-news section (that feed is off): a label, not a link
+                post.sectionId && <span className="shrink-0">{sections.name(post.sectionId)}</span>
               )}
               {post.topicId && post.topicTitle && (
                 <>

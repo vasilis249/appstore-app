@@ -13,6 +13,7 @@ import { timeAgoShort } from "@/lib/time-ago";
 import { walkieHub } from "@/lib/walkie/hub";
 import { cn } from "@/lib/utils";
 import type { Thread } from "@/lib/voice";
+import { FEATURES } from "@/lib/features";
 
 export const Route = createFileRoute("/_authenticated/messages/")({
   component: MessagesPage,
@@ -29,7 +30,7 @@ function MessagesPage() {
   const threads = useThreads();
   const [pickerOpen, setPickerOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const walkie = useWalkieList();
+  const walkie = useWalkieList(FEATURES.walkie);
   useSyncExternalStore(walkieHub.subscribe, walkieHub.version, walkieHub.version);
   const peers = walkieHub.peers().filter((p) => p.kind === "walkie");
   const online = new Set(peers.filter((p) => p.snap.peerOnline).map((p) => p.peer));
@@ -80,14 +81,16 @@ function MessagesPage() {
 
       <div className="flex items-center justify-between px-4 pb-1 pt-3">
         <h2 className="text-[17px] font-bold tracking-normal">{t("tabs.messages")}</h2>
-        <Link to="/talk" className="flex items-center gap-1.5 text-[15px] font-semibold text-muted-foreground">
-          {t("walkie.title")}
-          {walkieUnheard > 0 && (
-            <span className="min-w-5 rounded-full bg-live px-1.5 text-center text-[11px] font-bold leading-5 text-destructive-foreground animate-scale-in">
-              {walkieUnheard}
-            </span>
-          )}
-        </Link>
+        {FEATURES.walkie && (
+          <Link to="/talk" className="flex items-center gap-1.5 text-[15px] font-semibold text-muted-foreground">
+            {t("walkie.title")}
+            {walkieUnheard > 0 && (
+              <span className="min-w-5 rounded-full bg-live px-1.5 text-center text-[11px] font-bold leading-5 text-destructive-foreground animate-scale-in">
+                {walkieUnheard}
+              </span>
+            )}
+          </Link>
+        )}
       </div>
 
       {threads.data && !threads.data.length ? (

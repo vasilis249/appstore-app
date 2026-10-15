@@ -19,6 +19,7 @@ import { fetchFeed, nextCursor, postKeys, toView, voiceUrl, type FeedParams } fr
 import { timeAgoShort } from "@/lib/time-ago";
 import { haptic } from "@/lib/haptics";
 import { cn } from "@/lib/utils";
+import { FEATURES } from "@/lib/features";
 
 const compact = new Intl.NumberFormat(undefined, { notation: "compact" });
 
@@ -125,7 +126,7 @@ export function ProfileView({ person, isMe, onEdit }: { person: Person; isMe: bo
                     {t("people.message")}
                   </Link>
                 )}
-                {s.i_follow && s.follows_me && (
+                {s.i_follow && s.follows_me && FEATURES.walkie && (
                   <Link to="/talk/$userId" params={{ userId: person.id }} aria-label={t("walkie.title")} className={square}>
                     <RadioTower className="h-[18px] w-[18px]" />
                   </Link>

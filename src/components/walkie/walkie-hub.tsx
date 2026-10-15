@@ -12,6 +12,7 @@ import { resumeWalkieAudio, unlockWalkieAudio, walkieAudioRunning } from "@/lib/
 import { walkieKeys, walkieList, type WalkieContact } from "@/lib/walkie/history";
 import { walkieHub } from "@/lib/walkie/hub";
 import { arm, onVisibility } from "@/lib/walkie/keepalive";
+import { FEATURES } from "@/lib/features";
 
 /** Your walkie friends (shared by the hub, the banner and the walkie screens). */
 export function useWalkieList(enabled = true) {
@@ -36,7 +37,8 @@ const OPEN_MAX = 30;
 export function WalkieHubSync() {
   const { user } = useAuth();
   const { t } = useTranslation();
-  const list = useWalkieList();
+  // Friends' channels only while the walkie is on (hidden for the launch); map talk (nearby) works either way.
+  const list = useWalkieList(FEATURES.walkie);
 
   useEffect(() => {
     walkieHub.setUser(user?.id ?? null);

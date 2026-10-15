@@ -12,10 +12,10 @@ import { setPendingClip } from "@/lib/pending-clip";
 import { POST_MAX_MS } from "@/lib/posts";
 import { cn } from "@/lib/utils";
 
-type RecordSearch = { section?: string; topic?: string; group?: string; news?: 1; campus?: 1 };
+type RecordSearch = { section?: string; topic?: string; group?: string; campus?: 1 };
 
 /**
- * Where a voice started from here belongs: the group / topic / campus (section) / news section you're looking at,
+ * Where a voice started from here belongs: the group / topic / campus (section) you're looking at,
  * else personal. Home without a tab is Campus for verified students.
  */
 function targetFor(pathname: string, search: Record<string, unknown>, student: boolean): RecordSearch {
@@ -23,21 +23,16 @@ function targetFor(pathname: string, search: Record<string, unknown>, student: b
   if (g) return { group: g[1] };
   const tp = /^\/t\/([^/]+)/.exec(pathname);
   if (tp) return { topic: tp[1] };
-  const sec = /^\/s\/([^/]+)/.exec(pathname);
-  if (sec) return { section: sec[1] };
   const s = typeof search.s === "string" ? search.s : undefined;
-  if (pathname === "/" && (search.tab === "campus" || (!search.tab && !s && student))) {
-    return student ? (s ? { campus: 1, section: s } : { campus: 1 }) : {};
-  }
-  if (pathname === "/" && search.tab !== "following" && search.tab !== "groups") {
-    return s ? { section: s } : { news: 1 };
+  if (pathname === "/" && student && search.tab !== "following" && search.tab !== "groups") {
+    return s ? { campus: 1, section: s } : { campus: 1 };
   }
   return {};
 }
 
 /**
  * The voice item in the middle of the tab bar. Tap → the composer. Hold → records right away (from any screen), let go →
- * the composer opens with the voice ready, placed where you were (group, topic, news section or personal).
+ * the composer opens with the voice ready, placed where you were (group, topic, campus or personal).
  */
 export function NavRecordButton() {
   const { t } = useTranslation();

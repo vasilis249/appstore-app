@@ -11,6 +11,7 @@ import { friendKeys, followList } from "@/lib/friends";
 import { useAuth } from "@/hooks/use-auth";
 import { listNotifications, markAllRead, notificationKeys, type AppNotification } from "@/lib/notifications";
 import { timeAgo } from "@/lib/time-ago";
+import { FEATURES } from "@/lib/features";
 
 export const Route = createFileRoute("/_authenticated/notifications")({
   component: NotificationsPage,
@@ -40,7 +41,8 @@ function NotificationsPage() {
   }, [hasUnread, qc]);
 
   function open(n: AppNotification) {
-    if (n.kind === "walkie" && n.actor) void navigate({ to: "/talk/$userId", params: { userId: n.actor.id } });
+    if (n.kind === "walkie" && n.actor)
+      void (FEATURES.walkie ? navigate({ to: "/talk/$userId", params: { userId: n.actor.id } }) : navigate({ to: "/messages/$userId", params: { userId: n.actor.id } }));
     else if (n.kind === "nearby" && n.actor) void navigate({ to: "/map", search: { u: n.actor.id } });
     else if (n.group_id) void navigate({ to: "/g/$groupId", params: { groupId: n.group_id } });
     else if (n.post_id) void navigate({ to: "/p/$postId", params: { postId: n.post_id } });

@@ -1,4 +1,4 @@
-import { Camera, GraduationCap, ImagePlus, User, X } from "lucide-react";
+import { Camera, GraduationCap, ImagePlus, X } from "lucide-react";
 import { createFileRoute, useBlocker, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -21,14 +21,14 @@ import { takePendingClip } from "@/lib/pending-clip";
 import { promptPermission, requestPromptPermission, syncDailyPrompts } from "@/lib/prompt-notifications";
 import { cn } from "@/lib/utils";
 
-type Search = { section?: string; topic?: string; reply?: string; quote?: string; group?: string; news?: 1; campus?: 1 };
+type Search = { section?: string; topic?: string; reply?: string; quote?: string; group?: string; campus?: 1 };
 
 export const Route = createFileRoute("/_authenticated/record")({
   validateSearch: (s: Record<string, unknown>): Search => {
     const str = (v: unknown) => (typeof v === "string" && v ? v : undefined);
     return {
       section: str(s.section), topic: str(s.topic), reply: str(s.reply), quote: str(s.quote), group: str(s.group),
-      news: s.news ? 1 : undefined, campus: s.campus ? 1 : undefined,
+      campus: s.campus ? 1 : undefined,
     };
   },
   component: ComposePage,
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/_authenticated/record")({
 
 /**
  * New post, like X: text (≤ 280), up to 4 photos (resized on the phone) and / or a voice (≤ 2 min, hold the drop).
- * Personal (shown under Following) or filed in a news section, on a topic, in a group, on your campus (`?campus=1`:
+ * Personal (shown under Following), on a topic, in a group, on your campus (`?campus=1`:
  * students of your university only, in a student section or none), as a reply or a quote.
  */
 function ComposePage() {
@@ -45,7 +45,7 @@ function ComposePage() {
   const { user } = useAuth();
   const qc = useQueryClient();
   const navigate = useNavigate();
-  const { sections, campusSections, name, icon } = useSections();
+  const { campusSections, name, icon } = useSections();
   const me = useMyProfile();
   const campus = useCampus();
   const [clip, setClip] = useState<Clip | null>(null);
@@ -75,8 +75,6 @@ function ComposePage() {
       return cur.filter((_, j) => j !== i);
     });
   }
-  // "personal" or a section id; null = not chosen yet (came from News → must pick a section).
-  const [place, setPlace] = useState<string | null>(search.section ?? (search.news ? null : "personal"));
   const onChange = useCallback((c: Clip | null) => setClip(c), []);
 
   const topic = useQuery({ queryKey: postKeys.topic(search.topic ?? ""), queryFn: () => getTopic(search.topic!), enabled: !!search.topic });
@@ -89,7 +87,6 @@ function ComposePage() {
   const p = parent.data?.[0];
   const group = useQuery({ queryKey: groupKeys.detail(search.group ?? ""), queryFn: () => groupDetail(search.group!), enabled: !!search.group });
   const campusMode = !!search.campus && !search.topic && !search.reply && !search.quote && !search.group;
-  const needsPlace = !campusMode && !search.topic && !search.reply && !search.quote && !search.group;
   // On campus: "general" or a student section.
   const [campusPlace, setCampusPlace] = useState(search.section ?? "general");
   const verified = !!me.data?.university_id;
@@ -97,13 +94,8 @@ function ComposePage() {
   const post = useMutation({
     mutationFn: () =>
       createPost(user!.id, { clip, text, photos: photos.map((x) => x.blob) }, {
-        section: campusMode
-          ? campusPlace === "general"
-            ? undefined
-            : campusPlace
-          : needsPlace && place !== "personal"
-            ? (place ?? undefined)
-            : undefined,
+        // General news sections are off for the launch: anything not on campus / a topic / a group is personal.
+        section: campusMode && campusPlace !== "general" ? campusPlace : undefined,
         campus: campusMode,
         topic: search.topic,
         replyTo: search.reply,
@@ -128,7 +120,7 @@ function ComposePage() {
   const heading = search.reply ? t("posts.reply") : search.quote ? t("posts.quote") : t("posts.newPost");
   const left = TEXT_MAX - text.length;
   const hasContent = !!clip || !!text.trim() || photos.length > 0;
-  const ready = hasContent && left >= 0 && (!needsPlace || !!place) && (!campusMode || verified) && !post.isPending;
+  const ready = hasContent && left >= 0 && (!campusMode || verified) && !post.isPending;
   const myName = me.data?.full_name || me.data?.username || "";
   // Leaving with text, photos or a voice asks first: back (or a tab) used to throw the draft away without a word.
   const published = useRef(false);
@@ -250,38 +242,6 @@ function ComposePage() {
                 );
               })}
             </div>
-          </div>
-        )}
-
-        {needsPlace && (
-          <div>
-            <p className="mb-2 text-caption font-semibold">{t("posts.where")}</p>
-            <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4">
-              {[{ id: "personal" }, ...sections].map((s) => {
-                const Icon = s.id === "personal" ? User : icon(s.id);
-                return (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => setPlace(s.id)}
-                    aria-pressed={place === s.id}
-                    className={cn(
-                      "flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-caption font-semibold",
-                      place === s.id ? "bg-primary text-primary-foreground" : "bg-secondary",
-                    )}
-                  >
-                    <Icon className="h-4 w-4" /> {s.id === "personal" ? t("posts.personal") : name(s.id)}
-                  </button>
-                );
-              })}
-            </div>
-            {place ? (
-              <p className="mt-2 text-fine text-muted-foreground">
-                {place === "personal" ? t("posts.personalHint") : t("posts.newsHint", { section: name(place) })}
-              </p>
-            ) : (
-              hasContent && <p className="mt-2 text-fine font-semibold text-link">{t("posts.pickPlace")}</p>
-            )}
           </div>
         )}
 

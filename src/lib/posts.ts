@@ -200,7 +200,6 @@ export const postKeys = {
   sections: ["sections"] as const,
   trending: (section?: string) => ["posts", "trending", section ?? "all"] as const,
   topic: (id: string) => ["posts", "topic", id] as const,
-  news: (section?: string) => ["posts", "news", section ?? "all"] as const,
   campusTopics: (section?: string) => ["posts", "campus-topics", section ?? "all"] as const,
 };
 
@@ -252,14 +251,6 @@ export async function trendingTopics(section?: string, limit = 10): Promise<Topi
   const { data, error } = await supabase.rpc("trending_topics", { p_section: section, p_limit: limit });
   fail(error);
   return (data ?? []) as Topic[];
-}
-
-export const NEWS_PAGE = 15;
-
-export async function newsTopics(section: string | undefined, offset: number): Promise<NewsTopic[]> {
-  const { data, error } = await supabase.rpc("news_topics", { p_section: section, p_limit: NEWS_PAGE, p_offset: offset });
-  fail(error);
-  return (data ?? []) as unknown as NewsTopic[];
 }
 
 /** Your campus's topics (its topic of the day first). */

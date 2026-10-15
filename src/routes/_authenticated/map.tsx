@@ -28,6 +28,7 @@ import {
 import { isNativeApp } from "@/lib/native";
 import { timeAgoShort } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
+import { FEATURES } from "@/lib/features";
 
 export const Route = createFileRoute("/_authenticated/map")({
   validateSearch: (s: Record<string, unknown>): { u?: string } => (typeof s.u === "string" && s.u ? { u: s.u } : {}),
@@ -374,14 +375,16 @@ function MapPage() {
                 </button>
               </div>
               {current.is_friend ? (
-                <div className="mt-5 grid grid-cols-2 gap-2">
-                  <Link
-                    to="/talk/$userId"
-                    params={{ userId: current.user_id }}
-                    className="flex h-12 items-center justify-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground"
-                  >
-                    <RadioTower className="h-5 w-5" /> {t("walkie.title")}
-                  </Link>
+                <div className={cn("mt-5 grid gap-2", FEATURES.walkie && "grid-cols-2")}>
+                  {FEATURES.walkie && (
+                    <Link
+                      to="/talk/$userId"
+                      params={{ userId: current.user_id }}
+                      className="flex h-12 items-center justify-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground"
+                    >
+                      <RadioTower className="h-5 w-5" /> {t("walkie.title")}
+                    </Link>
+                  )}
                   <a
                     href={directionsUrl(current.lat, current.lng)}
                     target="_blank"

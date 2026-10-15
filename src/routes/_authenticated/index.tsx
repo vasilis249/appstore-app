@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GraduationCap, Play, Search } from "lucide-react";
 import { AppHeader, HomeBell, HomeMessages } from "@/components/app-header";
@@ -11,37 +11,34 @@ import { MyGroupsStrip } from "@/components/groups/my-groups-strip";
 import { UserAvatar } from "@/components/user-avatar";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { useSections } from "@/hooks/use-sections";
-import { campusTopics, NEWS_PAGE, newsTopics, postKeys, type FeedParams, type NewsTopic, type Section } from "@/lib/posts";
+import { campusTopics, postKeys, type FeedParams, type NewsTopic } from "@/lib/posts";
 import { campusLeaderboard, campusStatus, campusStatusKeys, useCampus, type CampusStatus } from "@/lib/campus";
 import { InviteShare } from "@/components/invite-share";
 import { friendKeys, suggestedPeople } from "@/lib/friends";
 import { FollowButton } from "@/components/friends/follow-button";
 import { timeAgoShort } from "@/lib/time-ago";
-import { dailyKeys, getToday } from "@/lib/daily";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 
-type Tab = "campus" | "following" | "groups" | "news";
-const TABS: Tab[] = ["campus", "following", "groups", "news"];
+// General news is off for the launch (user decision 2026-10-15): Campus carries the university's own news.
+type Tab = "campus" | "following" | "groups";
+const TABS: Tab[] = ["campus", "following", "groups"];
 
 export const Route = createFileRoute("/_authenticated/")({
-  // ?tab=campus|following|groups|news, ?s=<section> inside Campus or News. No tab: Campus for verified students, else
-  // News (?s alone = News, as old links; old ?tab=<section> still lands in that News section).
+  // ?tab=campus|following|groups, ?s=<section> inside Campus. Anything else (old News links) lands on Campus.
   validateSearch: (s: Record<string, unknown>): { tab?: Tab; s?: string } => {
     const tab = typeof s.tab === "string" ? s.tab : undefined;
     const section = typeof s.s === "string" && /^[a-z_-]{2,30}$/.test(s.s) ? s.s : undefined;
     if (tab === "following" || tab === "groups") return { tab };
-    if (tab === "campus" || tab === "news") return section ? { tab, s: section } : { tab };
-    if (tab && /^[a-z_-]{2,30}$/.test(tab) && tab !== "foryou") return { tab: "news", s: tab };
-    return section ? { tab: "news", s: section } : {};
+    return tab === "campus" && section ? { tab, s: section } : tab === "campus" ? { tab } : {};
   },
   component: HomePage,
 });
 
 /**
- * Home in four feeds under an iOS large title: your Campus (its topic of the day, news, student sections and
- * classmates' voices — students only), Following, Groups and News, switched by the floating glass capsule that stays on
+ * Home in three feeds under an iOS large title: your Campus (its topic of the day, news, student sections and
+ * classmates' voices — students only), Following and Groups, switched by the floating glass capsule that stays on
  * top with messages beside it (notifications: by the title). ▶ plays the list you're looking at. (Recording: the voice drop beside the tab
  * bar, placed by the feed you're on.)
  */
@@ -51,9 +48,9 @@ function HomePage() {
   const me = useMyProfile();
   const campus = useCampus();
   const verified = !!me.data?.university_id;
-  // No tab in the URL: Campus for verified students, News for everyone else (wait for the profile to know).
-  const tab: Tab | null = search.tab ?? (me.data ? (verified ? "campus" : "news") : null);
-  const section = tab === "news" || tab === "campus" ? search.s : undefined;
+  // No tab in the URL: Campus (wait for the profile to know who you are).
+  const tab: Tab | null = search.tab ?? (me.data ? "campus" : null);
+  const section = tab === "campus" ? search.s : undefined;
   const playAll = useRef<(() => void) | null>(null);
   // "Play all" only when the list on screen has a voice (an empty feed or a text-only one has nothing to play).
   const [playable, setPlayable] = useState(false);
@@ -71,12 +68,12 @@ function HomePage() {
         ? t("home.campusKicker", { uni, count: status.data.students, n: status.data.students.toLocaleString(i18n.language) })
         : uni
       : t("home.forStudents"); // keeps the feed tabs at the same height on every tab
-  const canPlay = playable && !!tab && tab !== "news" && !(tab === "campus" && (!verified || !campusOpen));
+  const canPlay = playable && !!tab && !(tab === "campus" && (!verified || !campusOpen));
   return (
     <>
       <AppHeader large={tab ? (tab === "campus" ? t("home.campus") : t(`home.${tab}`)) : " "} kicker={kicker} right={<HomeBell />} />
       <FeedTabs tab={tab} tabs={TABS} label={label} right={<HomeMessages />} />
-      {(canPlay || tab === "news" || (tab === "campus" && verified && campusOpen)) && (
+      {(canPlay || (tab === "campus" && verified && campusOpen)) && (
         <div className="no-scrollbar flex items-center gap-2 overflow-x-auto px-4 pb-2.5 pt-3">
           {canPlay && (
             <button
@@ -88,8 +85,7 @@ function HomePage() {
               <Play className="h-3.5 w-3.5" fill="currentColor" strokeWidth={0} /> {t("posts.playAll")}
             </button>
           )}
-          {tab === "news" && <SectionPills tab="news" active={section} />}
-          {tab === "campus" && verified && campusOpen && <SectionPills tab="campus" active={section} />}
+          {tab === "campus" && verified && campusOpen && <SectionPills active={section} />}
         </div>
       )}
 
@@ -108,8 +104,6 @@ function HomePage() {
             }
           />
         )
-      ) : tab === "news" ? (
-        <NewsList key={section ?? "all"} section={section} />
       ) : (
         <>
           {tab === "following" && <SayYourOwn />}
@@ -120,66 +114,6 @@ function HomePage() {
         </>
       )}
     </>
-  );
-}
-
-/**
- * News: headline cards (photo, title, who spoke), the topic of the day first; "More news" pages on; then the
- * voices filed in the section that aren't about a headline.
- */
-function NewsList({ section }: { section?: string }) {
-  const { t } = useTranslation();
-  const q = useInfiniteQuery({
-    queryKey: postKeys.news(section),
-    queryFn: ({ pageParam }) => newsTopics(section, pageParam),
-    initialPageParam: 0,
-    getNextPageParam: (last, all) => (last.length < NEWS_PAGE ? undefined : all.reduce((n, p) => n + p.length, 0)),
-  });
-  const today = useQuery({ queryKey: dailyKeys.today, queryFn: getToday });
-  const dailyId = today.data?.topic_id ?? null;
-  // Pages are by last activity, so a headline that got a voice meanwhile can come back on the next page: once each.
-  const topics = useMemo(() => {
-    const seen = new Set<string>();
-    return (q.data?.pages.flat() ?? []).filter((x) => !seen.has(x.id) && !!seen.add(x.id));
-  }, [q.data]);
-  // The server puts the topic of the day first; this keeps it there while today() and the list refresh apart.
-  const ordered = !section && dailyId ? [...topics.filter((x) => x.id === dailyId), ...topics.filter((x) => x.id !== dailyId)] : topics;
-
-  return (
-    <div className="pt-2">
-      {q.data && !topics.length && <EmptyState title={t("news.emptyTitle")} text={t("news.empty")} />}
-      {ordered.map((tp) => (
-        <NewsCard key={tp.id} topic={tp} daily={tp.id === dailyId} />
-      ))}
-      {q.hasNextPage && (
-        <div className="px-4 pb-4">
-          <button
-            type="button"
-            disabled={q.isFetchingNextPage}
-            onClick={() => void q.fetchNextPage()}
-            className="h-11 w-full rounded-xl bg-secondary text-callout font-semibold disabled:opacity-50"
-          >
-            {t("news.more")}
-          </button>
-        </div>
-      )}
-      {q.data && (
-        <section className="border-t border-border pt-4">
-          <h2 className="px-4 pb-1 text-callout font-semibold text-muted-foreground">{t("news.otherVoices")}</h2>
-          <FeedList key={`loose-${section ?? ""}`} params={{ scope: "loose", section }} playAll={false} empty={<OtherVoicesEmpty section={section} />} />
-        </section>
-      )}
-    </div>
-  );
-}
-
-function OtherVoicesEmpty({ section }: { section?: string }) {
-  const { t } = useTranslation();
-  return (
-    <Link to="/record" search={section ? { section } : { news: 1 }} className="mx-4 my-3 flex h-11 items-center gap-3 rounded-xl bg-secondary pl-3.5 pr-3 text-callout text-muted-foreground">
-      <span className="flex-1">{t("news.otherVoicesEmpty")}</span>
-      <VoiceIcon className="h-5 w-5 text-link" />
-    </Link>
   );
 }
 
@@ -345,11 +279,12 @@ function CampusTopicRow({ topic }: { topic: NewsTopic }) {
   );
 }
 
-/** News or Campus → Όλα · <sections> (small chips, the chosen one inverted). */
-function SectionPills({ tab, active }: { tab: "news" | "campus"; active?: string }) {
+/** Campus → Όλα · <student sections> (small chips, the chosen one inverted). */
+function SectionPills({ active }: { active?: string }) {
   const { t } = useTranslation();
   const all = useSections();
-  const sections: Section[] = tab === "campus" ? all.campusSections : all.sections;
+  const sections = all.campusSections;
+  const tab = "campus";
   const name = all.name;
   const bar = useRef<HTMLDivElement>(null);
   useEffect(() => {

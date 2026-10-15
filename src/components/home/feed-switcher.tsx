@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { haptic } from "@/lib/haptics";
 import { cn } from "@/lib/utils";
 
-export type HomeTab = "campus" | "following" | "groups" | "news";
+export type HomeTab = "campus" | "following" | "groups";
 
 /**
  * Home's feeds (Campus · Following · Groups · News) as a floating glass capsule that stays at the top while the feed

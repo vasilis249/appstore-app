@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { MoreHorizontal, RadioTower } from "lucide-react";
-import { HEADER_ICON, HeaderPill } from "@/components/app-header";
+import { HEADER_BTN, HEADER_ICON, HeaderPill } from "@/components/app-header";
 import { PersonActionsSheet } from "@/components/friends/person-actions-sheet";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -14,6 +14,7 @@ import { VoiceBubble } from "@/components/voice/voice-bubble";
 import { useAuth } from "@/hooks/use-auth";
 import { friendKeys, profileStats, rpcErrorKey } from "@/lib/friends";
 import { DM_MAX_MS, DM_TEXT_MAX, listThread, readThread, sendDm, sendVoice, voiceKeys } from "@/lib/voice";
+import { FEATURES } from "@/lib/features";
 
 export const Route = createFileRoute("/_authenticated/messages/$userId")({
   component: ThreadPage,
@@ -77,16 +78,20 @@ function ThreadPage() {
         back
         right={
           other.data && (
-            <HeaderPill>
-              {isFriend && (
+            isFriend && FEATURES.walkie ? (
+              <HeaderPill>
                 <Link to="/talk/$userId" params={{ userId }} aria-label={t("walkie.title")} className={HEADER_ICON}>
                   <RadioTower className="h-[22px] w-[22px]" strokeWidth={1.9} />
                 </Link>
-              )}
-              <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className={HEADER_ICON}>
+                <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className={HEADER_ICON}>
+                  <MoreHorizontal className="h-[22px] w-[22px]" />
+                </button>
+              </HeaderPill>
+            ) : (
+              <button type="button" onClick={() => setMenu(true)} aria-label={t("friends.actions")} className={HEADER_BTN}>
                 <MoreHorizontal className="h-[22px] w-[22px]" />
               </button>
-            </HeaderPill>
+            )
           )
         }
         center={

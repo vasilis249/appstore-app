@@ -379,7 +379,6 @@
     "youReposted": "You reposted",
     "delete": "Delete post",
     "deleted": "Deleted",
-    "emptySection": "No posts here yet.",
     "emptyTopic": "Nobody has spoken about this yet.",
     "giveYourTake": "Give your take",
     "source": "Source",
@@ -395,8 +394,6 @@
     "thread": "Thread",
     "where": "Where does it go?",
     "personal": "Personal",
-    "personalHint": "Your followers hear it under “Following”.",
-    "newsHint": "In News · {{section}}.",
     "deletedVoice": "This post was deleted by its author.",
     "quoteDeleted": "The original post is no longer available.",
     "untitled": "Untitled",
@@ -413,8 +410,7 @@
     "discardTitle": "Discard this draft?",
     "discardText": "Your text, photos and voice will be lost.",
     "discard": "Discard",
-    "keepEditing": "Keep editing",
-    "pickPlace": "Pick where it belongs to publish."
+    "keepEditing": "Keep editing"
   },
   "feed": {
     "recordCta": "Record your day"
@@ -452,9 +448,7 @@
   },
   "messages": {
     "empty": "No messages yet.",
-    "search": "Search",
-    "noteLive": "● Talking now",
-    "noteTalk": "Walkie"
+    "search": "Search"
   },
   "notificationsPage": {
     "empty": "No notifications.",
@@ -509,7 +503,6 @@
     "friendsOnly": "Messages only if you follow each other.",
     "holdToTalk": "Hold and speak",
     "releaseToStop": "Let go to stop",
-    "holdToTalkLimit": "Hold and speak · up to {{max}}",
     "releaseToContinue": "let go to continue",
     "navRecord": "New voice (hold to speak)",
     "holdHint": "Hold for voice"
@@ -753,10 +746,6 @@
     "spokeMany_other": "{{name}} and {{count}} more spoke",
     "beFirst": "Be the first to speak",
     "more": "More news",
-    "otherVoices": "Other posts",
-    "otherVoicesEmpty": "Say something about student life…",
-    "emptyTitle": "No news yet",
-    "empty": "News refresh every 3 hours.",
     "readAt": "Read on {{source}}",
     "listenAll": "Play all",
     "nobodyYet": "No one has spoken yet"
@@ -948,7 +937,6 @@
     "photoGone": "This photo is no longer available",
     "read": "Read",
     "lastPhoto": "📷 Photo",
-    "lastVoice": "Voice",
     "you": "You: {{text}}"
   }
 }

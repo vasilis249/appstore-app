@@ -741,6 +741,20 @@ User decisions:
   edges is gone); glass buttons / links brighten (`filter: brightness(1.07)`) while pressed.
   **GR4 ✔** scratchpad `gr-shots.mjs <port> <tag>` (light / dark / reduced transparency via CDP; home scrolled, profile,
   settings sheet, thread, post, groups): all checked; glass-check 29/0. Flows 13 + ux 15 + e2e 64/64. Deploy 0c98cfe4.
+- **Launch focus (user request 2026-10-15: "how do we get students to download it")** — user decisions: add 3-step
+  sign-up, a public page per shared post, day-one value even when empty; remove Memories + Walkie-talkie (hidden),
+  general news, other campuses (ΕΜΠ open, others wait for 100 verified students). U5 dropped. Plan (stop for "OK" after
+  each): **P1** removals ✔ → **P2** 3-step sign-up → **P3** public share page → **P4** day-one value.
+  **P1 ✔** `src/lib/features.ts` `FEATURES` (walkie = `VITE_FEATURE_WALKIE === "1"`, memories false): no entry points
+  while off (conversation 📡, profile walkie button, map friend card, Messages «Walkie-talkie» link, profile 📅 →
+  header is one ☰ glass circle), `WalkieHubSync` pins no friend channels (map nearby talk unchanged), walkie notices
+  open the DM; routes / engine kept. `tests/e2e/local-build.sh` builds with `VITE_FEATURE_WALKIE=1` (the e2e walkie
+  flows test the shared engine). Home = Campus · Ακολουθείς · Ομάδες (News tab, `NewsList`, `newsTopics`,
+  `/s/$sectionId`, `SectionChips` deleted; old `?tab=news|<section>` → Campus); composer has no "Πού ανήκει" news
+  picker (not campus / topic / group / reply → personal); nav drop: Home tabs → campus for students; old news-section
+  labels on cards are plain text. Migration `20261107100000_launch_ntua_only.sql`: `min_students` 0 for ntua, 100 for
+  every other university (existing `CampusWaiting`), non-campus feeds disabled. i18n −12 unused keys. Tests speak 132
+  (20b launch state); scratchpad map-flow expects walkie / memories hidden.
 - **Stricter news sections ✔ (user request 2026-09-30: "sports shows current affairs")** — migration
   `20261020100000_news_routing.sql`: `private.news_routes (feed_id, position, pattern = regex on the URL path,
   section_id | NULL = drop)` + `news_feeds.drop_unmatched` (NOT `strict`: a PL/pgSQL keyword) + `private.route_news(feed,
