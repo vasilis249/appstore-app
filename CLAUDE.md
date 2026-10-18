@@ -996,6 +996,12 @@ User decisions:
   `MAIL_FROM_EMAIL` set (student codes). Supabase Auth custom SMTP = `smtp-relay.brevo.com:587`, user
   `bbd8b8001@smtp-brevo.com`, the SMTP key, sender name Speak, 100 emails/h; `mailer_autoconfirm` still true
   (sign-up without confirmation) until the user decides. Keys only in scratchpad `deploy.env` (rotate later).
+- **Auth email via hook ✔ (2026-10-18, a real @uoa.gr sign-up got "Σφάλμα διακομιστή")** — Supabase's SMTP relay to Brevo
+  had NEVER delivered a message (Brevo logs: only API sends); OTP sign-up needs Auth mail → Supabase "Send Email Hook"
+  (`hook_send_email_uri` = `<site>/api/auth-email`, secret `v1,whsec_…` in Supabase + Worker secret `SEND_EMAIL_HOOK_SECRET`,
+  copy in scratchpad `deploy.env`) → server route `src/routes/api.auth-email.ts` (Standard Webhooks HMAC, ±5 min) →
+  Brevo API (code mail el + en; recovery = verify link; email_change = both addresses). SMTP settings left as they are
+  (unused while the hook is on). Test: scratchpad `hooksign.mjs <url> <secret> <json> [tamper]`.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 

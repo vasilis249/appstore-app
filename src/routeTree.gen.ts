@@ -25,6 +25,7 @@ import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedRecordRouteImport } from './routes/_authenticated/record'
 import { Route as AuthenticatedSearchRouteImport } from './routes/_authenticated/search'
 import { Route as AuthenticatedStudentRouteImport } from './routes/_authenticated/student'
+import { Route as ApiAuthEmailRouteImport } from './routes/api.auth-email'
 import { Route as ICodeRouteImport } from './routes/i.$code'
 import { Route as VPostIdRouteImport } from './routes/v.$postId'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin/reports'
@@ -120,6 +121,11 @@ const AuthenticatedStudentRoute = AuthenticatedStudentRouteImport.update({
   id: '/student',
   path: '/student',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ApiAuthEmailRoute = ApiAuthEmailRouteImport.update({
+  id: '/api/auth-email',
+  path: '/api/auth-email',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ICodeRoute = ICodeRouteImport.update({
   id: '/i/$code',
@@ -220,6 +226,7 @@ export interface FileRoutesByFullPath {
   '/record': typeof AuthenticatedRecordRoute
   '/search': typeof AuthenticatedSearchRoute
   '/student': typeof AuthenticatedStudentRoute
+  '/api/auth-email': typeof ApiAuthEmailRoute
   '/i/$code': typeof ICodeRoute
   '/v/$postId': typeof VPostIdRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
@@ -251,6 +258,7 @@ export interface FileRoutesByTo {
   '/record': typeof AuthenticatedRecordRoute
   '/search': typeof AuthenticatedSearchRoute
   '/student': typeof AuthenticatedStudentRoute
+  '/api/auth-email': typeof ApiAuthEmailRoute
   '/i/$code': typeof ICodeRoute
   '/v/$postId': typeof VPostIdRoute
   '/': typeof AuthenticatedIndexRoute
@@ -285,6 +293,7 @@ export interface FileRoutesById {
   '/_authenticated/record': typeof AuthenticatedRecordRoute
   '/_authenticated/search': typeof AuthenticatedSearchRoute
   '/_authenticated/student': typeof AuthenticatedStudentRoute
+  '/api/auth-email': typeof ApiAuthEmailRoute
   '/i/$code': typeof ICodeRoute
   '/v/$postId': typeof VPostIdRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
@@ -320,6 +329,7 @@ export interface FileRouteTypes {
     | '/record'
     | '/search'
     | '/student'
+    | '/api/auth-email'
     | '/i/$code'
     | '/v/$postId'
     | '/admin/reports'
@@ -351,6 +361,7 @@ export interface FileRouteTypes {
     | '/record'
     | '/search'
     | '/student'
+    | '/api/auth-email'
     | '/i/$code'
     | '/v/$postId'
     | '/'
@@ -384,6 +395,7 @@ export interface FileRouteTypes {
     | '/_authenticated/record'
     | '/_authenticated/search'
     | '/_authenticated/student'
+    | '/api/auth-email'
     | '/i/$code'
     | '/v/$postId'
     | '/_authenticated/'
@@ -410,6 +422,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TermsRoute: typeof TermsRoute
+  ApiAuthEmailRoute: typeof ApiAuthEmailRoute
   ICodeRoute: typeof ICodeRoute
   VPostIdRoute: typeof VPostIdRoute
 }
@@ -527,6 +540,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/student'
       preLoaderRoute: typeof AuthenticatedStudentRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/auth-email': {
+      id: '/api/auth-email'
+      path: '/api/auth-email'
+      fullPath: '/api/auth-email'
+      preLoaderRoute: typeof ApiAuthEmailRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/i/$code': {
       id: '/i/$code'
@@ -697,6 +717,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TermsRoute: TermsRoute,
+  ApiAuthEmailRoute: ApiAuthEmailRoute,
   ICodeRoute: ICodeRoute,
   VPostIdRoute: VPostIdRoute,
 }
