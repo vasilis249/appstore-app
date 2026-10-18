@@ -1002,6 +1002,13 @@ User decisions:
   copy in scratchpad `deploy.env`) → server route `src/routes/api.auth-email.ts` (Standard Webhooks HMAC, ±5 min) →
   Brevo API (code mail el + en; recovery = verify link; email_change = both addresses). SMTP settings left as they are
   (unused while the hook is on). Test: scratchpad `hooksign.mjs <url> <secret> <json> [tamper]`.
+- **ΕΚΠΑ open + login check ✔ (2026-10-18, Athens Medical School students signing up)** — migration
+  `20261108100000_open_uoa.sql`: ΕΚΠΑ `min_students` 0 (ΕΜΠ + ΕΚΠΑ open, others 100; test speak 20b). ΕΚΠΑ news =
+  `hub.uoa.gr/feed/` → announcements (live, with photos); med.uoa.gr has no reachable feed (times out from Supabase and
+  the container). `tests/e2e/uoa-flow.mjs` 7/7 (@uoa.gr sign-up → Ιατρικής search → 6ο → open campus, announcements,
+  year group «Ιατρική · 6ο έτος», campus post, sign-in again → Home). Live check with a temporary user (no mail: admin
+  `generate_link` gives the 6-digit `email_otp`) → verify (amr otp) → claim ok → set_student_info → campus open,
+  3 campus headlines, 15 announcements; user, its student_emails row and the empty auto group deleted after.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
