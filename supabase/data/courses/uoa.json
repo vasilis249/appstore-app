@@ -1707,6 +1707,15 @@
     }
    ]
   },
+  "uoa-biol": {
+   "source": null,
+   "tried": [
+    "https://www.biol.uoa.gr/",
+    "https://web.archive.org/web/2026/https://www.biol.uoa.gr/"
+   ],
+   "note": "Site not reachable from the build environment (connection reset / proxy 502), Wayback Machine too; to be filled from a normal network.",
+   "courses": []
+  },
   "uoa-chem": {
    "source": "https://www.chem.uoa.gr/fileadmin/depts/chem.uoa.gr/www/uploads/Files/Books/department/odhgos_2025_26.pdf",
    "retrieved": "2026-10-19",
@@ -5299,6 +5308,15 @@
      ]
     }
    ]
+  },
+  "uoa-ecedu": {
+   "source": null,
+   "tried": [
+    "https://www.ecd.uoa.gr/",
+    "https://web.archive.org/web/2026/https://www.ecd.uoa.gr/"
+   ],
+   "note": "Site not reachable from the build environment (connection reset / proxy 502), Wayback Machine too; to be filled from a normal network.",
+   "courses": []
   },
   "uoa-econ": {
    "source": "https://www.econ.uoa.gr/wp-content/uploads/2025/02/1-12-2023_ODIGOS_SPOYDON_TOE_2023-24_ver3.pdf",
@@ -24653,6 +24671,24 @@
     }
    ]
   },
+  "uoa-ppp": {
+   "source": null,
+   "tried": [
+    "https://www.ppp.uoa.gr/",
+    "https://web.archive.org/web/2026/https://www.ppp.uoa.gr/"
+   ],
+   "note": "Site not reachable from the build environment (connection reset / proxy 502), Wayback Machine too; to be filled from a normal network.",
+   "courses": []
+  },
+  "uoa-primedu": {
+   "source": null,
+   "tried": [
+    "https://www.primedu.uoa.gr/",
+    "https://web.archive.org/web/2026/https://www.primedu.uoa.gr/"
+   ],
+   "note": "Site not reachable from the build environment (connection reset / proxy 502), Wayback Machine too; to be filled from a normal network.",
+   "courses": []
+  },
   "uoa-pspa": {
    "source": "https://www.pspa.uoa.gr/proptychiakes_spoydes/programma_spoydon",
    "retrieved": "2026-10-19",
@@ -32208,6 +32244,15 @@
      ]
     }
    ]
+  },
+  "uoa-turkish": {
+   "source": null,
+   "tried": [
+    "https://www.turkmas.uoa.gr/",
+    "https://web.archive.org/web/2026/https://www.turkmas.uoa.gr/"
+   ],
+   "note": "Site not reachable from the build environment (connection reset / proxy 502), Wayback Machine too; to be filled from a normal network.",
+   "courses": []
   }
  }
 }

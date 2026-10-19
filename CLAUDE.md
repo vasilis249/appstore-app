@@ -1031,6 +1031,17 @@ User decisions:
   anywhere unlocks it (root pointerdown handler now also while any hub session is open, incl. the talk screen's) and
   held audio plays then. The hub banner's «Πάτα για να ακούσεις» stays as the web fallback. walkie-flow asserts no
   prompt; e2e 70/70.
+- **Course catalogs M1 ✔ (user request 2026-10-19: every course per department, core + electives, for notes / past
+  papers per course; M2 = course pages + uploads, M3 = other universities)** — one file per university:
+  `supabase/data/courses/<uni>.json` = `{university, departments: {dept_id: {source, retrieved, note?, courses: [{code,
+  name, semester (null = no fixed semester), kind core | track_core | elective, groups}]}}}`; a department without a
+  readable programme = `{source: null, tried, note, courses: []}` (nothing guessed). `check.py` (every department id of
+  the migrations listed, kinds valid, no duplicate name+semester) → green. ΕΜΠ 9/9 (1,277 courses); ΕΚΠΑ 37/42 (3,770);
+  missing: Βιολογίας, Νηπιαγωγών, ΠΤΔΕ, Τουρκικών, ΦΠΨ (their sites and the Wayback Machine refuse this container →
+  re-run from a normal network). Real hosts differ from the slugs (ill = Ιταλικής, slavstud, dcarts, pms = Λιμένων,
+  agro, eds = Παιδαγωγικό Δευτεροβάθμιας, ba = ΔΕΟ). Scrapers (one per department, `SRC` = source URL) in
+  `supabase/data/courses/src/` (+ README; `raw/` downloads git-ignored). Newest published programmes used (2025-27;
+  Αγροτικής only 2022-23, Γερμανικής 2026-27 draft because the 2025-26 PDF has a broken font).
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
