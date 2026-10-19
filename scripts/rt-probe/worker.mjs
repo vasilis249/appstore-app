@@ -1,6 +1,8 @@
 // Probe of the REAL Supabase Realtime path for the walkie (2026-10-03): two signed-in users join the private
-// walkie channel, A sends start + 6 binary pieces + end, the reply says what B received. Deploy temporarily
-// (`npx wrangler deploy` here), POST {url, anon, tokA, tokB, a, b} with two temporary verified-student friends,
+// walkie channel, A sends start + 6 binary pieces + end, the reply says what B received. Deploy temporarily from a
+// COPY OUTSIDE THE REPO (`wrangler deploy --config wrangler.toml`, `--dry-run` first): inside the repo the build's
+// `.wrangler/deploy/config.json` redirects wrangler to the app's Worker, so a deploy here replaces the live app
+// (happened 2026-10-19, rolled back). POST {url, anon, tokA, tokB, a, b, kind?} with two temporary verified-student friends,
 // then `npx wrangler delete --name speak-rtprobe` and delete the users. The container cannot open WebSockets;
 // a Worker can.
 import { createClient } from "@supabase/supabase-js";

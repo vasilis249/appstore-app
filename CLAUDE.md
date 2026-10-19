@@ -1009,6 +1009,15 @@ User decisions:
   year group «Ιατρική · 6ο έτος», campus post, sign-in again → Home). Live check with a temporary user (no mail: admin
   `generate_link` gives the 6-digit `email_otp`) → verify (amr otp) → claim ok → set_student_info → campus open,
   3 campus headlines, 15 announcements; user, its student_emails row and the empty auto group deleted after.
+- **Walkie live check ✔ (2026-10-19)** — real Supabase Realtime via the probe Worker (3 temporary verified students,
+  deleted after): friends 6/6 binary pieces + start/end + presence; an outsider on the pair topic → CHANNEL_ERROR
+  Unauthorized; send_walkie / walkie_history / walkie_audio (6000 bytes back) / walkie_list unheard 1 / `walkie`
+  notice; outsider send → not_friends, history/audio empty. Map talk: strangers 66 m → can_talk, knock ok, nearby
+  channel 6/6, send_nearby saved, off-map knock → not_nearby. `private.walkie_diag` empty, expire crons succeed.
+  e2e walkie suite green. INCIDENT: `wrangler deploy` run inside the repo follows `.wrangler/deploy/config.json`
+  (nitro's redirect) to the app's Worker → it uploaded the LOCAL e2e build to production for ~2 min (09:52–09:54 UTC);
+  fixed with `wrangler rollback <last good version> --name courtsie`. Deploy side Workers only from a copy outside
+  the repo with `--config` (and `--dry-run` first).
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
