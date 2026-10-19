@@ -1018,6 +1018,10 @@ User decisions:
   (nitro's redirect) to the app's Worker → it uploaded the LOCAL e2e build to production for ~2 min (09:52–09:54 UTC);
   fixed with `wrangler rollback <last good version> --name courtsie`. Deploy side Workers only from a copy outside
   the repo with `--config` (and `--dry-run` first).
+- **Walkie back on ✔ (user request 2026-10-19)** — `FEATURES.walkie` = `VITE_FEATURE_WALKIE !== "0"` (on by default;
+  `=0` hides it again): 📡 in DMs with friends + friend profiles, «Walkie-talkie» in Messages, hearing friends from any
+  screen. Scratchpad map-flow expects the friend card's Walkie link again (11/11); dm 11, groups 15, campus 15, gate 7.
+  Scratchpad `walkie-hub-flow.mjs` is stale (channel switch) — use `tests/e2e/walkie-hub-flow.mjs`. Deploy 46520e58.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
