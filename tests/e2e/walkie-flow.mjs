@@ -56,7 +56,7 @@ const me = await open(ME, `/talk/${NIK}`, "me");
 const nik = await open(NIK, `/talk/${ME}`, "nik");
 await me.waitForTimeout(2500);
 ok("presence: each sees the other is here", await me.getByText(/είναι εδώ/).isVisible() && await nik.getByText(/είναι εδώ/).isVisible());
-for (const p of [me, nik]) { const u = p.getByRole("button", { name: "Πάτα για να ακούς ζωντανά" }); if (await u.isVisible().catch(() => false)) await u.click(); }
+ok("no «tap to hear live» prompt: live audio is on by default", (await me.getByText("Πάτα για να ακούς ζωντανά").count()) === 0 && (await nik.getByText("Πάτα για να ακούς ζωντανά").count()) === 0);
 await me.screenshot({ path: `${S}/walkie-1-idle.png` });
 
 let during = {};

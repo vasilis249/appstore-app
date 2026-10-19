@@ -286,6 +286,8 @@ export class WalkieSession {
     live.add(this);
     setAudioSession("playback");
     this.set({ audioLocked: typeof window === "undefined" || audioContext().state !== "running" });
+    // A new context starts suspended; where playback needs no gesture (the iOS app) resuming it is enough.
+    if (this.snap.audioLocked && typeof window !== "undefined") void wakeAudio().then((ok) => ok && this.set({ audioLocked: false }));
     this.openChannel();
     this.watchdog = setInterval(() => this.checkPeerSilence(), 500);
   }

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Volume2 } from "lucide-react";
 import { toast } from "sonner";
 import { PTT_IDLE, PTT_LIVE, VoiceIcon } from "@/components/voice/voice-icon";
 import { HistoryRow } from "@/components/walkie/history-row";
@@ -119,11 +118,6 @@ export function NearbyTalk({ person }: { person: MapPerson }) {
   return (
     <div className="mt-5 flex flex-col items-center">
       <p className={cn("h-5 text-center text-caption", s?.peerTalking || s?.talking ? "font-semibold text-live" : "text-muted-foreground")}>{status}</p>
-      {s?.audioLocked && s.peerTalking && (
-        <button type="button" onClick={w.unlockAudio} className="mt-2 flex h-9 items-center gap-2 rounded-full bg-secondary px-4 text-caption font-semibold">
-          <Volume2 className="h-4 w-4" /> {t("walkie.enableSound")}
-        </button>
-      )}
       <div className="relative mt-3 grid h-36 w-36 place-items-center">
         {s?.talking && (
           <svg className="pointer-events-none absolute inset-0 -rotate-90" viewBox="0 0 144 144" aria-hidden>

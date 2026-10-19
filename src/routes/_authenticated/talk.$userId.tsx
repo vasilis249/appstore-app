@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Volume2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AppHeader } from "@/components/app-header";
@@ -129,15 +128,6 @@ function TalkPage() {
         <h1 className="mt-4 text-display font-semibold">{name}</h1>
         <p className={cn("mt-1 h-5 text-caption", s?.peerTalking || s?.talking ? "font-semibold text-live" : "text-muted-foreground")}>{status}</p>
 
-        {friends && s?.audioLocked && (
-          <button
-            type="button"
-            onClick={w.unlockAudio}
-            className="mt-4 flex h-10 items-center gap-2 rounded-xl bg-secondary px-4 text-caption font-semibold"
-          >
-            <Volume2 className="h-4 w-4" /> {t("walkie.enableSound")}
-          </button>
-        )}
 
         <div className="relative mt-10 grid h-52 w-52 place-items-center">
           {s?.talking && (

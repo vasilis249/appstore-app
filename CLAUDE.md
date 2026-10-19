@@ -1025,6 +1025,12 @@ User decisions:
   Check (same day): `tests/e2e/walkie-entry-flow.mjs` 5/5 (DM 📡 → /talk/<friend>, Messages «Walkie-talkie» → list,
   friend profile button, banner «… σου μιλάει» + live audio on Home); `local-build.sh` now builds like production (no
   flag) and `run.sh` includes walkie-entry → e2e 69/69. Live `private.walkie_diag` empty, expire cron succeeding.
+- **Walkie live by default ✔ (user request 2026-10-19)** — the «Πάτα για να ακούς ζωντανά» button is gone (talk screen +
+  map card; i18n `walkie.enableSound` removed). `WalkieSession.connect()` resumes the new (suspended) context itself —
+  in the iOS app WKWebView needs no gesture (`mediaTypesRequiringUserActionForPlayback = []`); on web Safari any tap
+  anywhere unlocks it (root pointerdown handler now also while any hub session is open, incl. the talk screen's) and
+  held audio plays then. The hub banner's «Πάτα για να ακούσεις» stays as the web fallback. walkie-flow asserts no
+  prompt; e2e 70/70.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 

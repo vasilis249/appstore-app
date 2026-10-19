@@ -51,7 +51,7 @@ export function WalkieHubSync() {
 
   useEffect(() => {
     const tap = () => {
-      if (!walkieHub.wantsAudio()) return;
+      if (!walkieHub.wantsAudio() && !walkieHub.peers().length) return;
       if (!walkieAudioRunning()) void unlockWalkieAudio();
       arm();
     };
