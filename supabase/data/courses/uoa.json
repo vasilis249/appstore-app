@@ -443,6 +443,498 @@
     }
    ]
   },
+  "uoa-agri": {
+   "source": "https://agro.uoa.gr/wp-content/uploads/2023/06/Β11.-Οδηγός-Σπουδών-Ακ.-Ετους-2022-2023.pdf",
+   "retrieved": "2026-10-19",
+   "note": "2022-23 guide (newest published); the indicative programme may have changed since.",
+   "courses": [
+    {
+     "code": "105",
+     "name": "Αρχές Οικονομίας και Διοίκησης",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "104",
+     "name": "Γενική Χημεία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "103",
+     "name": "Κυτταρική και Μοριακή Βιολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "101",
+     "name": "Μαθηματικά",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "102",
+     "name": "Φυσική Περιβάλλοντος",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "201",
+     "name": "Βασική Στατιστική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "202",
+     "name": "Εισαγωγή στους Η/Υ και Προγραμματισμός",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "205",
+     "name": "Αγροτική Οικονομία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Κατ' επιλογή υποχρεωτικά"
+     ]
+    },
+    {
+     "code": "204",
+     "name": "Αναλυτική Χημεία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Κατ' επιλογή υποχρεωτικά"
+     ]
+    },
+    {
+     "code": "203",
+     "name": "Βιοχημεία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Κατ' επιλογή υποχρεωτικά"
+     ]
+    },
+    {
+     "code": "206",
+     "name": "Εισαγωγή στη Γεωργική Παραγωγή",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Κατ' επιλογή υποχρεωτικά"
+     ]
+    },
+    {
+     "code": "304",
+     "name": "Εφαρμοσμένη Πληροφορική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "301",
+     "name": "Στατιστική Ανάλυση Διαδικασιών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "303",
+     "name": "Φυσιολογία Φυτών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "302",
+     "name": "Χημεία και Τεχνολογία Τροφίμων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "306",
+     "name": "Εδαφολογία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Κατ' επιλογή υποχρεωτικά"
+     ]
+    },
+    {
+     "code": "305",
+     "name": "Εργαστήριο Εφαρμοσμένης Πληροφορικής",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Κατ' επιλογή υποχρεωτικά"
+     ]
+    },
+    {
+     "code": "307",
+     "name": "Χημεία Περιβάλλοντος",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Κατ' επιλογή υποχρεωτικά"
+     ]
+    },
+    {
+     "code": "404",
+     "name": "Γεωργία Ακριβείας – Ευφυή Συστήματα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "402",
+     "name": "Διαχείριση και Προστασία Αγροτικού Περιβάλλοντος",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "401",
+     "name": "Συστήματα Διασφάλισης Ποιότητας",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "403",
+     "name": "Φυσιολογία Ζώων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "406",
+     "name": "Γεωργική Μετεωρολογία Κλιματολογία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Κατ' επιλογή υποχρεωτικά"
+     ]
+    },
+    {
+     "code": "405",
+     "name": "Εργαστήριο Φυσικών και Χημικών Μετρήσεων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Κατ' επιλογή υποχρεωτικά"
+     ]
+    },
+    {
+     "code": "407",
+     "name": "Μικροβιολογία Τροφίμων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Κατ' επιλογή υποχρεωτικά"
+     ]
+    },
+    {
+     "code": "503",
+     "name": "Εργαστήριο Ανάλυσης Τροφίμων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "504",
+     "name": "Καινοτομία και Επιχειρηματικότητα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "502",
+     "name": "Οικολογία και Δυναμική Πληθυσμών",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "501",
+     "name": "Σχεδιασμός και Λήψη Αποφάσεων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "507",
+     "name": "Έλεγχος Ποιότητας και Ασφάλειας Τροφίμων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "509",
+     "name": "Διαχείριση Έργων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "506",
+     "name": "Προϊόντα Αμπελουργίας – Οινολογία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "505",
+     "name": "Προϊόντα Ελαιοκομίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "508",
+     "name": "Συστήματα Παραγωγής",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "601",
+     "name": "Βιοποικιλότητα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "602",
+     "name": "Βιοτεχνολογία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "603",
+     "name": "Εργαστήριο Βιοτεχνολογίας και Μοριακών Αναλύσεων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "607",
+     "name": "Διαχείριση Υποπροϊόντων Γεωργικών Επιχειρήσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "608",
+     "name": "Εργαστήριο Ελέγχου Ποιότητας Υδάτων και Εδάφους",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "609",
+     "name": "Πρακτική άσκηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "604",
+     "name": "Προϊόντα Γαλακτοκομίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "605",
+     "name": "Προϊόντα Μελισσοκομίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "702",
+     "name": "Αειφόρος Αγροτική Ανάπτυξη και Κυκλική Οικονομία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "708",
+     "name": "Αρωματικά και Φαρμακευτικά Φυτά",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "707",
+     "name": "Γεωργική Παραγωγή και Περιβάλλον",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "705",
+     "name": "Διαχείριση Υδάτινων Πόρων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "704",
+     "name": "Επεξεργασία Υδάτων και Αποβλήτων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "701",
+     "name": "Θεσμοί Ε.Ε. και Αγροτική Πολιτική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "703",
+     "name": "Οικονομικά Μεταποίησης Αγροτικών Προϊόντων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "710",
+     "name": "Οργανοληπτικός Έλεγχος Τροφίμων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "706",
+     "name": "Περιβάλλον και Ενέργεια - Ανανεώσιμες Πηγές Ενέργειας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "709",
+     "name": "Συσκευασία Τροφίμων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "800",
+     "name": "Πτυχιακή εργασία",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "806",
+     "name": "Αγγλική Ορολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "803",
+     "name": "Αγροτική Κοινωνιολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "802",
+     "name": "Αξιολόγηση Επενδύσεων –Χρηματοδότηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "804",
+     "name": "Διαχείριση Δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "801",
+     "name": "Μάρκετινγκ Αγροτικών Προϊόντων και Τροφίμων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    },
+    {
+     "code": "805",
+     "name": "Πιστοποίηση Αγροτικών Προϊόντων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλεγόμενα"
+     ]
+    }
+   ]
+  },
   "uoa-ba": {
    "source": "https://ba.uoa.gr/fileadmin/depts/uoa.gr/ba/uploads/Neo_Programma_Spoydon__TROPOPOIISI_2024-25__.pdf",
    "retrieved": "2026-10-19",
@@ -23643,6 +24135,520 @@
      "kind": "elective",
      "groups": [
       "Ελεύθερης επιλογής · Από το Τμήμα Χημείας"
+     ]
+    }
+   ]
+  },
+  "uoa-ports": {
+   "source": "https://www.pms.uoa.gr/programma-spoudon/",
+   "retrieved": "2026-10-19",
+   "note": "Names in capitals as published.",
+   "courses": [
+    {
+     "code": null,
+     "name": "ΒΑΣΙΚΕΣ ΑΡΧΕΣ ΝΑΥΤΙΛΙΑΣ ΚΑΙ ΛΙΜΕΝΩΝ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΕΙΣΑΓΩΓΗ ΣΤΗ ΜΙΚΡΟΟΙΚΟΝΟΜΙΚΗ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΜΑΘΗΜΑΤΙΚΑ ΓΙΑ ΟΙΚΟΝΟΜΙΚΑ ΚΑΙ ΔΙΟΙΚΗΣΗ ΕΠΙΧΕΙΡΗΣΕΩΝ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΟΡΓΑΝΩΣΗ ΚΑΙ ΔΙΟΙΚΗΣΗ ΕΠΙΧΕΙΡΗΣΕΩΝ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΣΤΟΙΧΕΙΑ ΑΣΤΙΚΟΥ ΔΙΚΑΙΟΥ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΜΑΚΡΟΟΙΚΟΝΟΜΙΚΗ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΟΙΚΟΝΟΜΙΚΗ ΤΩΝ ΜΕΤΑΦΟΡΩΝ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΠΛΗΡΟΦΟΡΙΚΗ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΣΤΑΤΙΣΤΙΚΗ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΧΡΗΜΑΤΟΟΙΚΟΝΟΜΙΚΗ ΛΟΓΙΣΤΙΚΗ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΔΙΕΘΝΕΣ ΝΑΥΤΙΚΟ ΔΙΚΑΙΟ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΔΙΟΙΚΗΤΙΚΗ ΛΟΓΙΣΤΙΚΗ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΙΣΤΟΡΙΑ ΔΙΕΘΝΩΝ ΣΧΕΣΕΩΝ: 19ος -20ος ΑΙΩΝΑΣ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΝΑΥΤΙΛΙΑΚΗ ΟΙΚΟΝΟΜΙΚΗ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΟΡΓΑΝΩΣΗ ΚΑΙ ΔΙΟΙΚΗΣΗ ΛΙΜΕΝΩΝ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΑΓΓΛΙΚΑ Ι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΔΙΟΙΚΗΣΗ ΕΦΟΔΙΑΣΤΙΚΗΣ ΑΛΥΣΙΔΑΣ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΟΙΚΟΝΟΜΙΚΗ ΤΩΝ ΛΙΜΕΝΩΝ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΟΡΓΑΝΩΣΗ ΚΑΙ ΔΙΟΙΚΗΣΗ ΝΑΥΤΙΛΙΑΚΩΝ ΕΠΙΧΕΙΡΗΣΕΩΝ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΠΑΓΚΟΣΜΙΑ ΙΣΤΟΡΙΑ: ΘΑΛΑΣΣΙΟ ΕΜΠΟΡΙΟ ΚΑΙ ΔΙΕΘΝΗΣ ΠΟΛΙΤΙΚΗ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΠΟΣΟΤΙΚΕΣ ΜΕΘΟΔΟΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΑΓΓΛΙΚΑ ΙΙ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΛΙΜΕΝΙΚΟΣ ΣΧΕΔΙΑΣΜΟΣ ΚΑΙ ΠΟΛΙΤΙΚΗ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΜΑΡΚΕΤΙΝΓΚ ΜΕ ΕΜΦΑΣΗ ΣΕ ΝΑΥΤΙΛΙΑ ΚΑΙ ΛΙΜΕΝΕΣ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΧΡΗΜΑΤΟΟΙΚΟΝΟΜΙΚΗ ΔΙΟΙΚΗΣΗ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΩΚΕΑΝΟΓΡΑΦΙΑ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΑΝΑΛΥΣΗ ΝΑΥΤΙΛΙΑΚΩΝ ΑΓΟΡΩΝ",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΕΙΣΑΓΩΓΗ ΣΤΟΝ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟ",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΝΑΥΤΙΛΙΑΚΗ ΛΟΓΙΣΤΙΚΗ",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΔΙΑΧΕΙΡΙΣΗ ΑΝΘΡΩΠΙΝΟΥ ΔΥΝΑΜΙΚΟΥ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΔΙΑΧΕΙΡΙΣΗ ΠΑΡΑΚΤΙΩΝ ΖΩΝΩΝ ΚΑΙ ΘΑΛΑΣΣΙΟΥ ΠΕΡΙΒΑΛΛΟΝΤΟΣ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΒΑΣΕΙΣ ΔΕΔΟΜΕΝΩΝ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΔΙΑΧΕΙΡΙΣΗ ΠΟΙΟΤΗΤΑΣ ΚΑΙ ΑΣΦΑΛΕΙΑΣ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΔΙΟΙΚΗΣΗ ΕΠΙΒΑΤΗΓΟΥ ΝΑΥΤΙΛΙΑΣ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Η ΕΛΛΑΔΑ ΣΤΟ ΔΙΕΘΝΕΣ ΣΥΣΤΗΜΑ: 20ος ΑΙΩΝΑΣ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΝΑΥΛΩΣΕΙΣ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΝΑΥΤΑΣΦΑΛΙΣΕΙΣ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΝΑΥΤΙΛΙΑΚΗ ΧΡΗΜΑΤΟΟΙΚΟΝΟΜΙΚΗ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΣΥΝΔΥΑΣΜΕΝΕΣ ΜΕΤΑΦΟΡΕΣ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΥΠΗΡΕΣΙΕΣ ΚΡΟΥΑΖΙΕΡΑΣ ΚΑΙ ΤΟΥΡΙΣΤΙΚΟΙ ΛΙΜΕΝΕΣ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΔΙΑΧΕΙΡΙΣΗ ΘΑΛΑΣΣΙΑΣ ΡΥΠΑΝΣΗΣ",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΠΛΗΡΟΦΟΡΙΑΚΑ ΣΥΣΤΗΜΑΤΑ ΔΙΟΙΚΗΣΗΣ",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΑΓΟΡΕΣ ΧΡΗΜΑΤΟΣ ΚΑΙ ΚΕΦΑΛΑΙΟΥ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΔΙΑΧΕΙΡΙΣΗ ΥΠΟΣΤΗΡΙΞΗΣ ΛΙΜΕΝΩΝ ΚΑΙ ΝΑΥΤΙΛΙΑΣ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΔΙΟΙΚΗΣΗ ΛΕΙΤΟΥΡΓΙΩΝ ΝΑΥΤΙΛΙΑΣ ΚΑΙ ΤΕΡΜΑΤΙΚΩΝ ΣΤΑΘΜΩΝ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΕΠΙΧΕΙΡΗΜΑΤΙΚΗ ΝΟΗΜΟΣΥΝΗ ΚΑΙ ΝΕΕΣ ΤΕΧΝΟΛΟΓΙΚΕΣ ΕΦΑΡΜΟΓΕΣ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΝΑΥΤΙΛΙΑ ΚΑΙ ΑΝΘΡΩΠΙΝΟΣ ΠΑΡΑΓΟΝΤΑΣ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΝΑΥΤΙΛΙΑ, ΠΕΡΙΒΑΛΛΟΝ ΚΑΙ ΔΙΕΘΝΕΙΣ ΣΧΕΣΕΙΣ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΠΛΑΙΣΙΟ ΛΕΙΤΟΥΡΓΙΑΣ ΧΡΗΜΑΤΟΠΙΣΤΩΤΙΚΩΝ ΙΔΡΥΜΑΤΩΝ ΚΑΙ ΚΕΦΑΛΑΙΑΓΟΡΩΝ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΑΓΟΡΕΣ ΕΝΕΡΓΕΙΑΣ ΚΑΙ ΠΡΟΪΟΝΤΩΝ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΑΞΙΟΛΟΓΗΣΗ ΕΠΕΝΔΥΣΕΩΝ ΛΙΜΕΝΩΝ ΚΑΙ ΝΑΥΤΙΛΙΑΣ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΓΑΛΑΖΙΑ ΑΝΑΠΤΥΞΗ ΚΑΙ ΑΕΙΦΟΡΙΑ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΔΙΑΧΕΙΡΙΣΗ ΑΠΟΒΛΗΤΩΝ: ΤΕΧΝΟΛΟΓΙΕΣ ΚΑΙ ΠΟΛΙΤΙΚΕΣ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΔΙΑΧΕΙΡΙΣΗ ΚΙΝΔΥΝΩΝ ΜΕ ΝΑΥΤΙΛΙΑΚΑ ΠΑΡΑΓΩΓΑ ΠΡΟΙΟΝΤΑ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΔΙΕΘΝΕΣ ΔΙΚΑΙΟ ΤΗΣ ΘΑΛΑΣΣΑΣ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΕΜΠΟΡΙΚΟ ΔΙΚΑΙΟ ΚΑΙ ΔΙΚΑΙΟ ΑΝΤΑΓΩΝΙΣΜΟΥ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΕΠΙΧΕΙΡΗΜΑΤΙΚΑ ΣΧΕΔΙΑ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΕΠΙΧΕΙΡΗΜΑΤΙΚΗ ΗΘΙΚΗ ΔΙΑΚΥΒΕΡΝΗΣΗ ΚΑΙ ΕΤΑΙΡΙΚΗ ΚΟΙΝΩΝΙΚΗ ΕΥΘΥΝΗ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΚΑΙΝΟΤΟΜΙΕΣ ΣΕ ΝΑΥΤΙΛΙΑ ΚΑΙ ΛΙΜΕΝΕΣ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΟΙΚΟΝΟΜΙΚΗ ΓΕΩΓΡΑΦΙΑ ΝΑΥΤΙΛΙΑΣ ΚΑΙ ΛΙΜΕΝΩΝ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΟΡΓΑΝΩΣΙΑΚΟ ΜΑΝΑΤΖΜΕΝΤ ΚΑΙ ΘΑΛΑΣΣΙΑ ΟΙΚΟΝΟΜΙΑ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΠΟΛΙΤΙΚΗ ΘΑΛΑΣΣΙΩΝ ΜΕΤΑΦΟΡΩΝ ΤΗΣ ΕΕ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΣΤΡΑΤΗΓΙΚΗ ΔΙΟΙΚΗΣΗ ΚΑΙ ΗΓΕΣΙΑ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής"
      ]
     }
    ]
