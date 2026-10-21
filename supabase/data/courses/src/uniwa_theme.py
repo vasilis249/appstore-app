@@ -8,7 +8,7 @@ from lib import save, norm, recaser
 SITES = {"uniwa-nurs": "nurs", "uniwa-ot": "ot", "uniwa-physio": "phys", "uniwa-tour": "tourism", "uniwa-ecec": "ecec",
          "uniwa-pch": "pch", "uniwa-fst": "fst", "uniwa-gd": "gd", "uniwa-ia": "ia", "uniwa-cons": "cons",
          "uniwa-bisc": "bisc", "uniwa-sge": "geo", "uniwa-mech": "mech", "uniwa-accfin": "accfin", "uniwa-bme": "bme",
-         "uniwa-civil": "civ", "uniwa-alis": "alis"}  # bme: overview only (p0)
+         "uniwa-civil": "civ", "uniwa-alis": "alis", "uniwa-midw": "midw", "uniwa-ba": "ba"}  # bme: overview only (p0)
 TRACKS = {"ΔΥ": "Δημόσια Υγεία", "ΚΥ": "Κοινοτική Υγεία",  # pch headings "Δ΄ Εξάμηνο ΔΥ"
           "Διπλωματική": None}  # mech "Ι’ Εξάμηνο – Διπλωματική" is no track
 GREEK = {"Α": 1, "Β": 2, "Γ": 3, "Δ": 4, "Ε": 5, "ΣΤ": 6, "Ζ": 7, "Η": 8, "H": 8, "Θ": 9, "Ι": 10}
@@ -30,6 +30,8 @@ def parse(site):
                 sem, track, kind, group = int(m[1]), TRACKS.get(m[2], m[2] or None), None, None; continue
             if m := SEM.fullmatch(l):
                 sem, track, kind, group = GREEK[m[1]] if m[1] else int(m[2]), TRACKS.get(m[3], m[3] and m[3].strip("()")), None, None; continue
+            if m := re.fullmatch(r"ΚΑΤΕΥΘΥΝΣΗ (.+)", l):  # ba "ΚΑΤΕΥΘΥΝΣΗ ΔΙΟΙΚΗΤΙΚΗΣ ΤΩΝ ΕΠΙΧΕΙΡΗΣΕΩΝ (ΜΑΝΑΤΖΜΕΝΤ)"
+                track, kind, group, htrack = "Κατεύθυνση " + case(m[1]).lower(), None, None, None; continue
             if m := re.fullmatch(r"Κατεύθυνσης (.+)", l):  # accfin section "Κατεύθυνσης Λογιστικής" = that track's core
                 kind, group, htrack = "core", None, f"Κατεύθυνση {m[1]}"; continue
             if HEAD.fullmatch(l) and not CODE.fullmatch(l) and not (i and CODE.fullmatch(L[i - 1])):  # not a title cell
@@ -37,6 +39,7 @@ def parse(site):
             if not CODE.fullmatch(l) or not (sem or kind) or CODE.fullmatch(L[i + 1]) or re.fullmatch(r"[\d.,\s]+", L[i + 1]): continue
             title = L[i + 1]
             if m := re.fullmatch(r"(?i)κατ['’΄]?\s*επιλογή?ν?\s+(ομάδα\s+.+)", title): group = m[1][0].upper() + m[1][1:]; continue
+            title = re.sub(r"\s*\(Κατεύθυνση [^)]*\)$", "", title)  # gd repeats the track after the title
             if title.isupper(): title = case(title)
             track_now = htrack or track
             k, g = kind or "core", group or track_now  # bme has no section headers: "ΝΜΒ.904(ε1)" = elective group ε1

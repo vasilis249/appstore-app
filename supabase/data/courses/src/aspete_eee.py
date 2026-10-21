@@ -2,12 +2,13 @@
 # ("ΚΩΔΙΚΟΣ ΜΑΘΗΜΑΤΟΣ ΗΜ101 ΕΞΑΜΗΝΟ ΣΠΟΥΔΩΝ 1ο", "ΤΙΤΛΟΣ ΜΑΘΗΜΑΤΟΣ …", "ΤΥΠΟΣ ΜΑΘΗΜΑΤΟΣ … (Υποχρεωτικό)").
 # Codes ending in Α / Β belong to the Ηλεκτρολόγων / Ηλεκτρονικών path; the semester is the code's first digit.
 import re
-from lib import save, norm
+from lib import save, norm, recaser
 SRC = "https://elecengedu.aspete.gr/wp-content/uploads/2025/02/ΠΕΡΙΓΡΑΜΜΑΤΑ_ΜΑΘΗΜΑΤΩΝ-τρέχον.pdf"
 PATH = {"Α": "Ηλεκτρολόγων Μηχανικών", "A": "Ηλεκτρολόγων Μηχανικών", "Β": "Ηλεκτρονικών Μηχανικών"}
 FIX = {"ΗΜ506": "Κοινωνιολογία της Εκπαίδευσης"}  # its title is split around the label in the PDF
 L = [norm(l) for l in open("raw/aspete-eee.txt")]
 idx = [i for i, l in enumerate(L) if l.startswith("ΚΩΔΙΚΟΣ ΜΑΘΗΜΑΤΟΣ")]
+case = recaser([])
 rows = []
 for n, i in enumerate(idx):
     code = re.match(r"ΚΩΔΙΚΟΣ ΜΑΘΗΜΑΤΟΣ (\S+)", L[i])[1]
@@ -19,5 +20,5 @@ for n, i in enumerate(idx):
     suf = re.match(r"ΗΜ\d+([ΑAΒ])", code)
     group = PATH[suf[1]] if suf else None
     kind = "elective" if "επιλογ" in ty else ("track_core" if group else "core")
-    rows.append({"code": code, "name": name, "semester": int(code[2]), "kind": kind, "group": group})
+    rows.append({"code": code, "name": case(name) if name.isupper() else name, "semester": int(code[2]), "kind": kind, "group": group})
 save("aspete", "aspete-eee", SRC, rows)

@@ -7,3 +7,7 @@ as `raw/<name>.html`), run the script from this folder (`python3 uoa_dent.py`), 
 Needs `pdfplumber`. `raw/` is not committed (copyrighted sources, re-downloadable).
 mech.ntua.gr serves an incomplete TLS chain: fetch the HARICA intermediate (AIA URL in the server certificate) and
 pass a bundle with `--cacert` instead of disabling verification.
+Upper-case titles are re-cased with `lib.recaser()` (word forms from the other texts in `raw/`, then a general Greek
+word list `raw/el_words.txt` = https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/content/2018/el/el_full.txt,
+then the "-ικός" ending rule; unknown words stay upper case and are printed). ΠΑΔΑ: `uniwa_fetch.py <site> <path>`
+downloads a department's course pages for `uniwa_theme.py`.
