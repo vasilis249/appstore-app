@@ -1,0 +1,2299 @@
+{
+ "university": "hua",
+ "departments": {
+  "hua-diet": {
+   "source": "https://dnd.hua.gr/wp-content/uploads/2026/10/ΟΔΗΓΟΣ-ΣΠΟΥΔΩΝ-2.pdf",
+   "retrieved": "2026-10-21",
+   "note": "Electives (7 of them, from the 5th semester) are offered in the winter or spring term.",
+   "courses": [
+    {
+     "code": "ΓΕ0500",
+     "name": "Βιολογία Κυττάρου",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ0301",
+     "name": "Βιοστατιστική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1200",
+     "name": "Γενική Χημεία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ0200",
+     "name": "Εισαγωγή στη Διατροφή",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1400",
+     "name": "Εφαρμογές Πληροφορικής σε Επαγγέλματα Υγείας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ0701",
+     "name": "Οργανική Χημεία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ2000",
+     "name": "Ψυχολογία της Υγείας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ0302",
+     "name": "Βιοστατιστική II",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ0601",
+     "name": "Βιοχημεία Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ0900",
+     "name": "Γενική Μικροβιολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ3600",
+     "name": "Διατροφή & Επισιτιστική Ασφάλεια στον Πλανήτη",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ1600",
+     "name": "Επιδημιολογία της Διατροφής",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ3500",
+     "name": "Τροφογνωσία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1600",
+     "name": "Φυσική Ιατρικών Επιστημών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ0612",
+     "name": "Βιοχημεία ΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ1300",
+     "name": "Διατροφική Αξιολόγηση",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ0201",
+     "name": "Διαχείριση Μονάδων Διατροφής",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ0100",
+     "name": "Εφαρμοσμένη Μικροβιολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1701",
+     "name": "Φυσιολογία Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1901",
+     "name": "Χημεία Τροφίμων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ2900",
+     "name": "Ασφάλεια Τροφίμων σε Μονάδες Διατροφής",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ3500",
+     "name": "Εισαγωγή στην Κλινική Διατροφή",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ0601",
+     "name": "Μοριακή Βιολογία & Γενετική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ1103",
+     "name": "Παθοφυσιολογία-Παθολογία Ι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ1200",
+     "name": "Φαρμακολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ2401",
+     "name": "Φυσικοχημεία Τροφίμων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1702",
+     "name": "Φυσιολογία ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1900",
+     "name": "Διατροφή & Άσκηση",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ0503",
+     "name": "Διατροφή & Μεταβολισμός Μακροσυστατικών",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ0700",
+     "name": "Διατροφή στα Στάδια της Ζωής",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ0801",
+     "name": "Κλινική Διατροφή Ι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ1102",
+     "name": "Παθοφυσιολογία-Παθολογία ΙΙ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ3301",
+     "name": "Τεχνητή Διατροφή",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ0504",
+     "name": "Διατροφή & Μεταβολισμός Μικροσυστατικών",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ2000",
+     "name": "Διατροφή και Δημόσια Υγεία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ1800",
+     "name": "Διατροφική Αγωγή και Προαγωγή Υγείας",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ3400",
+     "name": "Διατροφική Συμβουλευτική και Συμπεριφορά",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ0802",
+     "name": "Κλινική Διατροφή ΙΙ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΑ2000",
+     "name": "Πρακτική Άσκηση I",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΤ2000",
+     "name": "Πτυχιακή",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΑ2001",
+     "name": "Πρακτική Άσκηση IΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΤ2000",
+     "name": "Πτυχιακή",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ1000",
+     "name": "Αρχές Επαγγελματισμού, Διοίκησης & Μάρκετινγκ",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό"
+     ]
+    },
+    {
+     "code": "ΙΑ3900",
+     "name": "Βιοτεχνολογία Τροφίμων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό"
+     ]
+    },
+    {
+     "code": "ΓΕ3100",
+     "name": "Βιοχημεία τροφίμων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό"
+     ]
+    },
+    {
+     "code": "ΓΕ3800",
+     "name": "Γαστρονομία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό"
+     ]
+    },
+    {
+     "code": "ΙΑ3800",
+     "name": "Διαταραχές Ρύθμισης Ενέργειας και Μεταβολισμού",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό"
+     ]
+    },
+    {
+     "code": "ΙΑ4500",
+     "name": "Διατροφή & Γήρανση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό"
+     ]
+    },
+    {
+     "code": "ΓΕ3700",
+     "name": "Διατροφή & Πολιτισμός",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό"
+     ]
+    },
+    {
+     "code": "ΙΑ4300",
+     "name": "Διατροφή & Πρόληψη Νοσημάτων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό"
+     ]
+    },
+    {
+     "code": "ΙΑ4000",
+     "name": "Διατροφή και Πρωταθλητισμός",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό"
+     ]
+    },
+    {
+     "code": "ΙΑ4100",
+     "name": "Διατροφογενωμική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό"
+     ]
+    },
+    {
+     "code": "ΓΕ3200",
+     "name": "Θέματα Νομοθεσίας Τροφίμων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό"
+     ]
+    },
+    {
+     "code": "ΙΑ4600",
+     "name": "Κλινική Βιοχημεία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό"
+     ]
+    },
+    {
+     "code": "ΙΑ3700",
+     "name": "Κλινική Διατροφή Παιδιών",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό"
+     ]
+    },
+    {
+     "code": "ΓΕ3000",
+     "name": "Μεθοδολογία Διατροφικής Έρευνας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό"
+     ]
+    },
+    {
+     "code": "ΟΚ0100",
+     "name": "Οικονομικά της Υγείας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό"
+     ]
+    },
+    {
+     "code": "ΓΕ1902",
+     "name": "Τεχνολογία Τροφίμων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό"
+     ]
+    },
+    {
+     "code": "ΙΑ3100",
+     "name": "Τοξικολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό"
+     ]
+    }
+   ]
+  },
+  "hua-dit": {
+   "source": "https://dit.hua.gr/index.php/el/programmata-spoudon/proptyxiako/mathimata",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Διακριτά Μαθηματικά",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Πληροφορική και Τηλεματική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογική Σχεδίαση",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστικά Μαθηματικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αντικειμενοστρεφής Προγραμματισμός Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχιτεκτονική Υπολογιστών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πιθανότητες",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστικά Μαθηματικά ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αντικειμενοστρεφής Προγραμματισμός ΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκτυα Υπολογιστών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δομές Δεδομένων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λειτουργικά Συστήματα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλγόριθμοι και Πολυπλοκότητα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Συστημάτων και Τεχνολογία Λογισμικού",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βάσεις Δεδομένων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σήματα και Συστήματα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογίες Εφαρμογών Ιστού",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ασφάλεια Συστημάτων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κατανεμημένα Συστήματα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνητή Νοημοσύνη",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη Κινητών Εφαρμογών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Γλωσσών Προγραμματισμού",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Επιχειρηματικών Διαδικασιών στην Εφοδιαστική Αλυσίδα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ενσωματωμένα Συστήματα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμοσμένα Μαθηματικά της Τεχνητής Νοημοσύνης και Βελτιστοποίηση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Καινοτομία και Επιχειρηματικότητα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά της Ψηφιακής Τεχνολογίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληροφορική και Εκπαίδευση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προηγμένα Θέματα Λειτουργικών Συστημάτων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σχεδίαση Βάσεων Δεδομένων και Κατανεμημένες Βάσεις Δεδομένων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογίες Διαδικτύου",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μοντελοποίηση και Προσομοίωση Συστημάτων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληροφοριακά Συστήματα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τηλεπικοινωνιακά Συστήματα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διδακτική της Πληροφορικής",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμογές Ηλεκτρονικής και Διαδίκτυο των Πραγμάτων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμογές Τηλεματικής στις Μεταφορές και την Υγεία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κοινωνία και ΤΠΕ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μεταγλωττιστές",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μηχανική Μάθηση και Εφαρμογές",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός Συστημάτων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Λήψης Αποφάσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σχεδίαση Εφαρμογών και Συστημάτων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Υπηρεσίες και Συστήματα Διαδικτύου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακή Επεξεργασία Εικόνας και Εφαρμογές",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μεθοδολογία Επιστημονικής Έρευνας",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αξιολόγηση Συστημάτων και Εφαρμογών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Απόδοση Συστημάτων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βασικές έννοιες και εργαλεία DevOps",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διδακτική ρομποτικής και εκπαίδευση STEM",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εξόρυξη Δεδομένων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κβαντικοί Υπολογιστές και Αλγόριθμοι",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κρυπτογραφία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οπτικές Επικοινωνίες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Κινητών Επικοινωνιών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός Πληροφοριακών Συστημάτων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονες Τεχνολογίες Frontend",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογίες Γραφημάτων και Εφαρμογές",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστική όραση και Γραφικά",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αποτίμηση Επενδύσεων Τεχνολογιών Πληροφορικής και Επικοινωνιών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ασφάλεια στον Παγκόσμιο Ιστό",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Δικτύων Βασισμένων στο Λογισμικό",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Υπολογιστικού Νέφους",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση μεγάλου όγκου δεδομένων και σημασιολογικός ιστός",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Έργων Πληροφορικής",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονική Διακυβέρνησης και Ψηφιακός Μετασχηματισμός",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Παιδαγωγική Ψυχολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληροφοριακά Συστήματα και Ηλεκτρονικό Επιχειρείν",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονες Παράλληλες Αρχιτεκτονικές και Προγραμματισμός Υψηλής Απόδοσης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακές Δορυφορικές Επικοινωνίες",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "hua-econ": {
+   "source": "https://desd.hua.gr/wp-content/uploads/2025/11/odigos-spoudon-25-26_compressed.pdf",
+   "retrieved": "2026-10-21",
+   "note": "Thesis (ΠΤ) can be replaced by four electives; the placement (ΠΑ) is in the 8th semester.",
+   "courses": [
+    {
+     "code": "ΟΚ0902",
+     "name": "Βιώσιμη Ανάπτυξη και Δεξιότητες Ζωής",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ1600",
+     "name": "Οικιακή Τεχνολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ1201",
+     "name": "Οικονομική Θεωρία Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ5200",
+     "name": "Περιβαλλοντική Βιολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ6600",
+     "name": "Πολιτισμός και Βιωσιμότητα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ0305",
+     "name": "Στατιστική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ0600",
+     "name": "Αγωγή Υγείας",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ5300",
+     "name": "Βιώσιμος Τουρισμός: Περιβάλλον, Πολιτισμός, Κοινωνία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ0101",
+     "name": "Οικονομική Θεωρία ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ3100",
+     "name": "Οικονομική και Οικολογική Διαχείριση Κατοικιών, Οικισμών και Πόλεων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ6700",
+     "name": "Ποιότητα Ζωής και Ψυχική Υγεία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ0307",
+     "name": "Στατιστική και Εφαρμογές",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ0301",
+     "name": "Βασικές Αρχές Διατροφής του Ανθρώπου",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ3702",
+     "name": "Βιωσιμότητα και Οικονομική Ανάπτυξη",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1302",
+     "name": "Εισαγωγή στην Παιδαγωγική Επιστήμη",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ4500",
+     "name": "Ελληνική Τουριστική Ανάπτυξη και Οικονομία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ6800",
+     "name": "Η Συμβουλευτική Ψυχολογία στην Εκπαίδευση",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ2101",
+     "name": "Μικροοικονομική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ5000",
+     "name": "Αγροτική Οικονομική Ι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ0203",
+     "name": "Διατροφή στα Στάδια της Ζωής",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1004",
+     "name": "Διδακτική Μεθοδολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ3202",
+     "name": "Διοίκηση Ανθρωπίνων Πόρων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ3600",
+     "name": "Μακροοικονομική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1802",
+     "name": "Παγκόσμια Περιβαλλοντικά Προβλήματα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ1901",
+     "name": "Εφοδιαστική και Εξυπηρέτηση Πελατών",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ3001",
+     "name": "Λογιστική Ι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ6900",
+     "name": "Παιδαγωγική Ψυχολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ0504",
+     "name": "Αγροτική Οικονομική ΙΙ",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΙΑ0101",
+     "name": "Ειδικά Θέματα Διατροφής",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ4600",
+     "name": "Ειδικά Θέματα Τουρισμού και Τουριστικού Επιχειρείν",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ4502",
+     "name": "Ειδικές Εκπαιδευτικές Ανάγκες και Δυσκολίες Μάθησης",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ5800",
+     "name": "Μεθοδολογία της Έρευνας στις Κοινωνικές Επιστήμες",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ3900",
+     "name": "Οικονομικά της Ενέργειας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ1402",
+     "name": "Οικονομικά της Εργασίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ3501",
+     "name": "Περιβάλλον και Άνθρωποι",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ4402",
+     "name": "Στερεότυπα και Προκαταλήψεις",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ1301",
+     "name": "Χρηματοοικονομική Ανάλυση και Βιωσιμότητα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ4700",
+     "name": "Χωροταξία και Επιχειρηματικό Περιβάλλον",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ3400",
+     "name": "Βιώσιμη Οικονομική και Περιφερειακή Ανάπτυξη - Αστική Ανασυγκρότηση στην Ε.Ε.",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ4601",
+     "name": "Εκπαιδευτική Αξιολόγηση και Σχολικά Προγράμματα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ2301",
+     "name": "Συμπεριφορά του Καταναλωτή- Μάρκετινγκ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ5701",
+     "name": "Βιωματική Μάθηση στη Σχολική Τάξη",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ5100",
+     "name": "Βιώσιμη Οικονομική Συμπεριφορά",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ0902",
+     "name": "Διαχείριση Υγρών και Στερεών Αποβλήτων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ4901",
+     "name": "Δυσκολίες Προσαρμογής, Μάθηση και Επικοινωνία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ2003",
+     "name": "Ειδικές και Εναλλακτικές Μορφές Τουρισμού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ4800",
+     "name": "Ηλεκτρονικές Αγορές Καταναλωτών και Ανασχεδιασμός Επιχειρηματικών Διαδικασιών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ7000",
+     "name": "Κυκλική Οικονομία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ3002",
+     "name": "Λογιστική ΙΙ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ4200",
+     "name": "Μάρκετινγκ Υπηρεσιών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ6101",
+     "name": "Οικογένεια και Ανάπτυξη του Παιδιού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ5500",
+     "name": "Τρόφιμα και Περιβάλλον",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ5401",
+     "name": "Ψυχολογία της Οικογενειακής Ζωής",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ7100",
+     "name": "Δημιουργικές Βιομηχανίες στον Πολιτισμό και τον Τουρισμό",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ2000",
+     "name": "Διοίκηση και Οικονομία της Εκπαίδευσης",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1010",
+     "name": "Ειδική Διδακτική – Διδακτικές Ασκήσεις",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ4000",
+     "name": "Αστική Οικονομία και Περιβάλλον",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ4802",
+     "name": "Δημιουργικότητα και Καινοτομία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ4100",
+     "name": "Διαχείριση Έργου και Αξιολόγηση Επενδύσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ7200",
+     "name": "Διαχείριση Πολιτιστικών και Τουριστικών Εκδηλώσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ2601",
+     "name": "Διοίκηση Ολικής Ποιότητας και Ειδικά Θέματα Εφοδιαστικής",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ4900",
+     "name": "Διοίκηση και Διαχείριση Τουριστικών Προορισμών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ2700",
+     "name": "Εφαρμοσμένη Οικονομετρία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ6501",
+     "name": "Καινοτόμος Επιχειρηματικότητα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ1501",
+     "name": "Οικονομική της Περιφερειακής Ανάπτυξης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ7300",
+     "name": "Πολιτιστικές Διαδρομές",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΤ1000",
+     "name": "Πτυχιακή Μελέτη",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ6300",
+     "name": "Συμμετοχική Ανάπτυξη και Βιωσιμότητα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ7400",
+     "name": "Ψυχολογία του Περιβάλλοντος",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ1001",
+     "name": "Κοινωνική Οικονομία και Κοινωνική Επιχειρηματικότητα",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΚ1800",
+     "name": "Οικονομικά του Περιβάλλοντος",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ1007",
+     "name": "Πρακτική Άσκηση",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΤ1000",
+     "name": "Πτυχιακή Μελέτη",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "hua-geo": {
+   "source": "https://geo.hua.gr/courses/?academic-year=1 (…4)",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Ανθρωπογεωγραφία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "GEO388",
+     "name": "Εισαγωγή στην Πληροφορική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορική Γεωγραφία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική Ανάλυση για Γεωγράφους",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στοιχεία Οικονομικών για Γεωγράφους",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "GF0601",
+     "name": "Φυσική Γεωγραφία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σεμινάριο Εφαρμοσμένων Μαθηματικών",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δεξιότητες Συγγραφής Εργασιών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ0601",
+     "name": "Εισαγωγή στη Χαρτογραφία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ0167",
+     "name": "Κοινωνική Γεωγραφία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Περιβαλλοντική Γεωγραφία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληθυσμιακή Γεωγραφία και Δημογραφία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΦ1101",
+     "name": "Πολιτική Γεωγραφία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Περιβάλλοντος",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "GEO192",
+     "name": "Θεματική Χαρτογραφία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "GEO102",
+     "name": "Μετεωρολογία-Κλιματολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΦ1801",
+     "name": "Ποιοτικές Μέθοδοι Ανάλυσης για Γεωγράφους",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Γεωγραφικών Πληροφοριών Ι (ΣΓΠ Ι)",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ0901",
+     "name": "Ωκεανογραφία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σεμινάριο Εφαρμοσμένων Μαθηματικών",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "GEO211",
+     "name": "Αστική Γεωγραφία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γεωγραφία της Υπαίθρου",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΦ0800",
+     "name": "Γεωμορφολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Τηλεπισκόπηση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΦ1604",
+     "name": "Υδρολογία – Διαχείριση Υδατικών Πόρων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ2200",
+     "name": "Χωροταξία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αξιολόγηση Περιβαλλοντικών Επιπτώσεων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Γεωγραφία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Περιφερειακή Ανάπτυξη",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτισμική Γεωγραφία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Γεωγραφικών Πληροφοριών Ι (ΣΓΠ Ι)",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΦ0520",
+     "name": "Χωρική Ανάλυση",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ0901",
+     "name": "Ωκεανογραφία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Γεωγραφίας Ι",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σεμινάριο Εφαρμοσμένων Μαθηματικών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΦ5000",
+     "name": "Συνθετικό Γεωγραφικό Θέμα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γεωγραφία Παγκοσμιοποιημένων Παραγωγικών Δικτύων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γεωγραφίες της Φτώχειας και του Κοινωνικού Αποκλεισμού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": "ΓΕ3020",
+     "name": "Γεωλογία Τεταρτογενούς – Γεωαρχαιολογία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Αποβλήτων στην Κυκλική Οικονομία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Φυσικών Καταστροφών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική της Γεωγραφίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ2800",
+     "name": "Διεθνής Μετανάστευση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργαλεία Περιβαλλοντικής Διαχείρισης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εφαρμογές Χωροθέτησης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": "ΓΦ2600",
+     "name": "Εφαρμοσμένα Συστήματα Γεωγραφικών Πληροφοριών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα IV - Γεωπληροφορική"
+     ]
+    },
+    {
+     "code": "GEO299",
+     "name": "Εφαρμοσμένη Γεωπληροφορική στην Διαχείριση του Περιβάλλοντος",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα IV - Γεωπληροφορική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ιστορική Γεωγραφία των Αρχαίων και Νεότερων Χρόνων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κλιματική Αλλαγή",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": "ΓΦ1212",
+     "name": "Οικονομική Ιστορία ενός Παγκοσμιοποιημένου Χώρου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική του Χώρου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": "ΓΕ1300",
+     "name": "Παράκτια Γεωμορφολογία – Διαχείριση Παράκτιου Χώρου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Περιβαλλοντική Εκπαίδευση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολεοδομία και εργαλεία σχεδιασμού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙΙ - Σχεδιασμός του Χώρου"
+     ]
+    },
+    {
+     "code": "ΓΕ2600",
+     "name": "Πρακτική Άσκηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Γεωγραφικών Πληροφοριών ΙΙ (ΣΓΠ ΙΙ)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα IV - Γεωπληροφορική"
+     ]
+    },
+    {
+     "code": "ΓΕ3600",
+     "name": "Αειφόρος Διαχείριση Φυσικών Πόρων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση και Διαχείριση Υδατικών Συστημάτων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανανεώσιμες Πηγές Ενέργειας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανθρωπογεωγραφίες της Αφρικής",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βιώσιμες, Δίκαιες και Ανθεκτικές Πόλεις",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙΙ - Σχεδιασμός του Χώρου"
+     ]
+    },
+    {
+     "code": "ΓΦ1900",
+     "name": "Γεωγραφία της Ευρωπαϊκής Ένωσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γεωγραφία των Μεταφορών και Logistics",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙΙ - Σχεδιασμός του Χώρου"
+     ]
+    },
+    {
+     "code": "ΓΕ1310",
+     "name": "Γεωμορφολογική Χαρτογράφηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γεωπολιτική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": "GEO387",
+     "name": "Γεωχωρικές Βάσεις Δεδομένων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα IV - Γεωπληροφορική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Γεωγραφίας Ι",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Οικονομικής Ανάλυσης του Χώρου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Τηλεπισκόπησης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα IV - Γεωπληροφορική"
+     ]
+    },
+    {
+     "code": "ΓΦ0522",
+     "name": "Ειδικά Θέματα Χωρικής και Στατιστικής Ανάλυσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα IV - Γεωπληροφορική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομία και Πολιτική του Πληθυσμού",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικοσυστημικές Υπηρεσίες – Αποτίμηση και Χαρτογράφηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": "ΓΕ1320",
+     "name": "Ποτάμια Γεωμορφολογία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": "ΓΕ2600",
+     "name": "Πρακτική Άσκηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σεμινάριο Εφαρμοσμένων Μαθηματικών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΦ0521",
+     "name": "Χρήσεις Γης και Εκτιμήσεις Ακινήτων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙΙ - Σχεδιασμός του Χώρου"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χωρικές Διαστάσεις της Μικρής Επιχειρηματικότητας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": "ΓΕ0510",
+     "name": "Χωροκοινωνικές Διακρίσεις και Ιεραρχίες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γεωγραφία Παγκοσμιοποιημένων Παραγωγικών Δικτύων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γεωγραφίες της Φτώχειας και του Κοινωνικού Αποκλεισμού",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": "ΓΕ3020",
+     "name": "Γεωλογία Τεταρτογενούς – Γεωαρχαιολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Αποβλήτων στην Κυκλική Οικονομία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Φυσικών Καταστροφών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική της Γεωγραφίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΕ2800",
+     "name": "Διεθνής Μετανάστευση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργαλεία Περιβαλλοντικής Διαχείρισης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εφαρμογές Χωροθέτησης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": "ΓΦ2600",
+     "name": "Εφαρμοσμένα Συστήματα Γεωγραφικών Πληροφοριών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα IV - Γεωπληροφορική"
+     ]
+    },
+    {
+     "code": "GEO299",
+     "name": "Εφαρμοσμένη Γεωπληροφορική στην Διαχείριση του Περιβάλλοντος",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα IV - Γεωπληροφορική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ιστορική Γεωγραφία των Αρχαίων και Νεότερων Χρόνων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κλιματική Αλλαγή",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": "ΓΦ1212",
+     "name": "Οικονομική Ιστορία ενός Παγκοσμιοποιημένου Χώρου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική του Χώρου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙ - Ανθρώπινη γεωγραφία"
+     ]
+    },
+    {
+     "code": "ΓΕ1300",
+     "name": "Παράκτια Γεωμορφολογία – Διαχείριση Παράκτιου Χώρου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Ι - Φυσική Γεωγραφία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Περιβαλλοντική Εκπαίδευση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολεοδομία και εργαλεία σχεδιασμού",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα ΙΙΙ - Σχεδιασμός του Χώρου"
+     ]
+    },
+    {
+     "code": "ΓΕ2600",
+     "name": "Πρακτική Άσκηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πτυχιακή Εργασία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Γεωγραφικών Πληροφοριών ΙΙ (ΣΓΠ ΙΙ)",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα IV - Γεωπληροφορική"
+     ]
+    }
+   ]
+  }
+ }
+}
