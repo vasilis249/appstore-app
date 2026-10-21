@@ -1403,6 +1403,2340 @@
     }
    ]
   },
+  "panteion-erd": {
+   "source": "https://topa.panteion.gr/προπτυχιακεσ-σπουδεσ/",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": "800003",
+     "name": "Αρχές Οικονομικής Θεωρίας Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800006",
+     "name": "Εισαγωγή στα Πληροφοριακά Συστήματα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800001",
+     "name": "Εισαγωγή στην Περιφερειακή Επιστήμη",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800005",
+     "name": "Μαθηματικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800004",
+     "name": "Στατιστική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800111",
+     "name": "Αρχές Οικονομικής Θεωρίας ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800109",
+     "name": "Μαθηματικά ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800110",
+     "name": "Οικονομική και Αστική Γεωγραφία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800011",
+     "name": "Οικονομική των Επιχειρήσεων και Λογιστική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800012",
+     "name": "Στατιστική ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800013",
+     "name": "Ανάλυση Τόπου Εγκατάστασης",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800008",
+     "name": "Θεσμικό Πλαίσιο Περιφερειακής Ανάπτυξης",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800010",
+     "name": "Μακροοικονομική Θεωρία & Πολιτική Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800009",
+     "name": "Μικροοικονομική Θεωρία Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800014",
+     "name": "Χωροταξία - Χωρικός Σχεδιασμός",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800021",
+     "name": "Δημόσια Οικονομική: Οικονομικές Λειτουργίες του Κράτους",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800112",
+     "name": "Μακροοικονομική Θεωρία και Πολιτική ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800075",
+     "name": "Μικροοικονομική Θεωρία ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800020",
+     "name": "Οικονομική Αστικών Κέντρων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800032",
+     "name": "Ποσοτικές Μέθοδοι Οικονομικής Ανάλυσης",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800031",
+     "name": "Δημόσια Οικονομική: Δημοσιονομικοί Θεσμοί",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800029",
+     "name": "Μέθοδοι Περιφερειακής Ανάλυσης",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800018",
+     "name": "Οικονομετρία Ι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800017",
+     "name": "Οικονομική Ανάπτυξη",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800144",
+     "name": "Contemporary issues in urban geography and urban economics",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800079",
+     "name": "Γενική Λογιστική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800101",
+     "name": "Γεωγραφικά Συστήματα Πληροφοριών και Περιφερειακή Ανάλυση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800026",
+     "name": "Εφαρμοσμένη Στατιστική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800142",
+     "name": "Θαλάσσιος Χωροταξικός Σχεδιασμός",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800113",
+     "name": "Πρακτική άσκηση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800115",
+     "name": "Τοπική Ανάπτυξη και Τοπική Επιχειρηματικότητα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800114",
+     "name": "Νομισματική και Πιστωτική Θεωρία και Πολιτική",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800041",
+     "name": "Οικονομική & Πολιτική Περιβάλλοντος",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800034",
+     "name": "Οικονομική της Εργασίας",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800040",
+     "name": "Περιφερειακή Οικονομική Ανάλυση",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800136",
+     "name": "Contemporary issues in local and region development",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800116",
+     "name": "Μικροοικονομική Ανάλυση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800146",
+     "name": "Οικονομία, Βιωσιμότητα, και Στόχοι Βιώσιμης Ανάπτυξης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800107",
+     "name": "Οικονομική Θεωρία από τη σκοπιά του φύλου: Γυναίκες, Οικονομική Θεωρία & Πολιτικές",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800113",
+     "name": "Πρακτική άσκηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800071",
+     "name": "Τουριστική Ανάπτυξη",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800141",
+     "name": "Φορολογία- Δημόσιο και Ιδιωτικό Λογιστικό",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800053",
+     "name": "Βιομηχανική Οικονομική & Πολιτική",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800030",
+     "name": "Οικονομική Ανάλυση και Πολιτική Μεταφορών",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800019",
+     "name": "Περιφερειακή Οικονομική Πολιτική",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800096",
+     "name": "Διοικητική Λογιστική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800151",
+     "name": "Επιχειρηματικότητα και Διαχείριση Καινοτομίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800060",
+     "name": "Κεφαλαιαγορά-Χρηματαγορά",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800150",
+     "name": "Οικονομικά της Πληθυσμιακής Γήρανσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800118",
+     "name": "Οικονομική Ακίνητης Περιουσίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800022",
+     "name": "Οικονομική Μεγέθυνση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800082",
+     "name": "Οικονομική Περιβάλλοντος, Φυσικών Πόρων, Βιώσιμης Ανάπτυξης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800147",
+     "name": "Περιφερειακή Οικονομική Ανάλυση ΙΙ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800149",
+     "name": "Πρακτική άσκηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800076",
+     "name": "Σχολές Οικονομικής Σκέψης Ι",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800119",
+     "name": "Χωρική και Εφαρμοσμένη Οικονομετρία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800043",
+     "name": "Διεθνής Οικονομική",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800069",
+     "name": "Οικονομικοί Θεσμοί & Πολιτικές της Ε.Ε.",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800063",
+     "name": "Περιφερειακός Προγραμματισμός",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "800122",
+     "name": "Αξιολόγηση Ιδιωτικών & Δημόσιων Επενδύσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800061",
+     "name": "Αξιολόγηση Περιφερειακών Προγραμμάτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800145",
+     "name": "Αρχές Διοίκησης & Μάνατζμεντ Οργανισμών και Επιχειρήσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800064",
+     "name": "Ελληνική Οικονομία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800148",
+     "name": "Οικολογική Οικονομική, Κυκλική Οικονομία & Βιοοικονομία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800123",
+     "name": "Οικονομετρία ΙΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800074",
+     "name": "Πληροφορική και Οικονομία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800067",
+     "name": "Πολιτική Γης και Κατοικίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "800143",
+     "name": "Πτυχιακή Εργασία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "panteion-ieas": {
+   "source": "https://deps.panteion.gr/?page_id=77759",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Διεθνή Πολιτική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Πολιτική Ανάλυση",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στο Δίκαιο",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οργάνωση του Διεθνούς Συστήματος",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κινεζική γλώσσα & πολιτισμός Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Ευρωπαϊκή Ολοκλήρωση",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οικονομική Επιστήμη",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκή και Παγκόσμια Διπλωματική Ιστορία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Διεθνών Σχέσεων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κινεζική γλώσσα & πολιτισμός ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γενικές Αρχές Διεθνούς Δικαίου: Θεωρίες – Αρχές – Πηγές",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκαιο και Πολιτικές της Ε.Ε. : Εσωτερική Αγορά, Χώρος ποινικής Δικαιοσύνης της Ε.Ε.",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συγκριτική Πολιτική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκή Οικονομική Ιστορία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκός Συνταγματικός Πολιτισμός",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κινεζική γλώσσα & πολιτισμός ΙΙΙ",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κράτος και Δημόσια Πολιτική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τουρκία: Κοινωνική Συγκρότηση, Πολιτικό Σύστημα & Εξωτερική Πολιτική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Εξωτερικής Πολιτικής",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσιο Διεθνές Δίκαιο: Αρμοδιότητες, Διεθνής Ευθύνη από Αντιδιεθνείς Ενέργειες",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνής Πολιτική Οικονομία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Aνάλυση ρίσκου και διαχείριση κρίσεων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γλώσσα Ειδικότητας Aγγλικών στις Διεθνείς, Ευρωπαϊκές & Περιφερειακές Σπουδές",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γλώσσα Ειδικότητας Iταλικών στις Διεθνείς, Ευρωπαϊκές & Περιφερειακές Σπουδές",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γλώσσα Ειδικότητας Γαλλικών στις Διεθνείς, Ευρωπαϊκές & Περιφερειακές Σπουδές",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γλώσσα Ειδικότητας Γερμανικών στις Διεθνείς, Ευρωπαϊκές & Περιφερειακές Σπουδές",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνείς Σχέσεις και Στρατηγική στην Αρχαία Ελλάδα και το Βυζάντιο",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεμελιώδη Δικαιώματα",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία, Φιλοσοφία και Κοινωνιολογία των Διεθνών Σχέσεων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κινεζική γλώσσα και πολιτισμός IV",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πολιτικά Συστήματα Ευρώπης και Αμερικής",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκαιο και Πολιτικές της ΕΕ ΙΙ: ΟΝΕ και Πολιτική Συνοχής",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκαιο της Ε.Ε.: Έννομη Τάξη και Δικαστική Προστασία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Η Ευρώπη στον Κόσμο",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στρατηγικές Σπουδές",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "A History of the World since 1300",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Order and Crisis in International Political Thought",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνές Ανθρωπιστικό Δίκαιο",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνές Χρηματοοικονομικό Σύστημα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Η Ελληνική οικονομία στο διεθνές οικονομικό σύστημα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κινεζική γλώσσα & πολιτισμός VI",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Ανάπτυξη",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτική Ιστορία των Βαλκανικών Χωρών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρόγραμμα Πρακτικής Άσκησης",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ελλάδα και Ευρωπαϊκή Ενοποίηση",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μεθοδολογία των Κοινωνικών Επιστημών",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικές Μέθοδοι στις κοινωνικές επιστήμες Ι",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "EU Law and Governance",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Law of International Organizations",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Qualitative Research Methods",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσια Οικονομική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνές Δίκαιο & Πολιτική για την Προστασία του Περιβάλλοντος",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στις Σπουδές Ισραήλ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκή Ασφάλεια, Άμυνα & Πολιτική Ενοποίηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κίνα: Κράτος, Κοινωνία και Διακυβέρνηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Καπιταλισμός και Παγκόσμια Τάξη",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κινεζική γλώσσα & πολιτισμός VI",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Παγκόσμια Οικονομική Διακυβέρνηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρόγραμμα Πρακτικής Άσκησης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνές Δίκαιο της Θάλασσας & Ασφάλεια",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ελληνική Εξωτερική Πολιτική",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκή Πολιτική Ασύλου και Μετανάστευσης",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκή Πολιτική Οικονομία",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκό Δίκαιο & Πολιτική Προστασίας του Περιβάλλοντος",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θρησκεία και Διεθνής Πολιτική",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ιστορία Διεθνών Σχέσεων και Στρατηγικής",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ρωσία: Εσωτερική και εξωτερική πολιτική",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "AI Governance and International Relations",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Balkan Security and European Integration",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνές Δίκαιο της Θάλασσας και Ασφάλεια",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνής Δικαιοσύνη -Εικονικές Δίκες, Προσομοιώσεις",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνείς Αγορές Χρήματος και Κεφαλαίου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εξωτερική Πολιτική των Μεγάλων Ευρωπαϊκών Δυνάμεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ιστορία των πολιτικών σχέσεων Ισραήλ – Ελλάδας – Κύπρου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ιστορία των πολιτικών σχέσεων Ισραήλ-Ελλάδας-Κύπρου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κινεζική γλώσσα & πολιτισμός VII",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κινεζική γλώσσα & πολιτισμός VIΙ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Διπλωματία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Μεγέθυνση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πτυχιακή εργασία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σχολές Οικονομικής Σκέψης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Υλοποίηση της πολιτικής συνοχής της Ε.Ε. και διαχείριση πόρων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Υλοποίηση της πολιτικής συνοχής της ευρωπαϊκής ένωσης και διαχείριση πόρων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "International Relations in East Asia",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αμερικανική Πολιτική",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δίκαιο και πολιτικές της Ενέργειας στην Ε. Ε.",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνής και Ενωσιακή Συνεργασία σε Ποινικές Υποθέσεις",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνής και Ευρωπαϊκή Προστασία των Δικαιωμάτων του Ανθρώπου",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ευρωαμερικανικές Σχέσεις μετά τον Β΄ Παγκόσμιο Πόλεμο",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΟΝΕ και Πολιτική Συνοχής – EMU and Cohesion Policy",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πολιτικά συστήματα & Καθεστώτα στη Μέση Ανατολή",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Federations in World Politics: Comparative and Historical Perspectives",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Introduction to Black Sea Studies",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Introduction to Digital Law",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δίκαιο του Αέρα και του Διαστήματος",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ελληνοτουρκικές σχέσεις (Από τη Λωζάνη μέχρι σήμερα)",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ελληνοτουρκικές σχέσεις: Από τη Λωζάνη μέχρι σήμερα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Η ατζέντα των Η.Ε. για τη βιώσιμη ανάπτυξη: Οι πολιτικές, νομικές & οικονομικές διαστάσεις των 17 στόχων της βιώσιμης ανάπτυξης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Η ατζέντα των Η.Ε. για τη βιώσιμη ανάπτυξη: Οι πολιτικές, νομικές και οικονομικές διαστάσεις των 17 στόχων της βιώσιμης ανάπτυξης.",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κινεζική γλώσσα & πολιτισμός VIΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κινεζική γλώσσα & πολιτισμός VIΙI",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικές μέθοδοι στις Κοινωνικές Επιστήμες ΙΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πτυχιακή εργασία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διεθνής & Ευρωπαϊκή Πολιτική & Διακυβέρνηση",
+      "Διεθνές & Ευρωπαϊκό Δίκαιο & Διακυβέρνηση"
+     ]
+    }
+   ]
+  },
+  "panteion-polhist": {
+   "source": "https://polhist.panteion.gr/images/Documents/pdf/PPS_2026-27.pdf",
+   "retrieved": "2026-10-21",
+   "note": "Names from the 2025-26 guide (https://polhist.panteion.gr/images/Documents/pdf/odigos_spoudon_2025-26.pdf); courses it lacks: programme title re-cased from the guide's word forms.",
+   "courses": [
+    {
+     "code": "110021",
+     "name": "Νεότερη ευρωπαϊκή ιστορία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110415",
+     "name": "Πολιτειολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110001",
+     "name": "Πολιτική επιστήμη Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110005",
+     "name": "Πολιτική θεωρία - Εισαγωγή",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110455",
+     "name": "Δημόσια πολιτική",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110343",
+     "name": "Εισαγωγή στην εκλογική κοινωνιολογία",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110461",
+     "name": "Ευρωπαϊκή Ένωση: θεσμοί και πολιτικές",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110322",
+     "name": "Ζητήματα ιστοριογραφίας: Όταν το «λόγιο» συναντά το «λαϊκό»",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110019",
+     "name": "Θεωρία του κομματικού φαινομένου",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110573",
+     "name": "Ιστορία του δημόσιου χρέους",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110601",
+     "name": "Ιστορία των γυναικών (Ελλάδα, 19ος-20ος αι.)",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110307",
+     "name": "Οθωμανική ιστορία",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110584",
+     "name": "Πρόσφυγες. Μια παγκόσμια ιστορία του 20ού αι.",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110360",
+     "name": "Στατιστικές αναλύσεις στην κοινωνική έρευνα Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110403",
+     "name": "Εισαγωγή στην Οικονομική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110012",
+     "name": "Κοινωνική θεωρία. Μαρξ και Βέμπερ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110168",
+     "name": "Νεότερη και σύγχρονη ελληνική ιστορία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110008",
+     "name": "Πολιτική επιστήμη ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110377",
+     "name": "Statistical Analyses In Social Research IΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110565",
+     "name": "Δημόσια οικονομική",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110427",
+     "name": "Εθνη και εθνικισμός",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110362",
+     "name": "Εισαγωγή στη συγκριτική πολιτική ανάλυση",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110602",
+     "name": "Εισαγωγή στην πολιτική κοινωνιολογία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110536",
+     "name": "Θεωρίες της πολιτικής: Πολιτεία, πολίτες και πολιτική στα Πολιτικά του",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110481",
+     "name": "Παγκόσμια μεταπολεμική ιστορία.",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110465",
+     "name": "Πολιτική επικοινωνία στο ελληνικό και στο διεθνές περιβάλλον",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110385",
+     "name": "Τουρκική ιστορία.",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά επιλογής"
+     ]
+    },
+    {
+     "code": "110550",
+     "name": "Εισαγωγή στις διεθνείς σχέσεις",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110029",
+     "name": "Κοινωνική θεωρία. Σύγχρονα ρεύματα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110581",
+     "name": "Νεότερη ιστορία των βαλκανικών λαών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110430",
+     "name": "Διεθνής κοινωνία: θεσμοί διακυβέρνησης και παγκοσμιοποίηση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110300",
+     "name": "Ιστορία της ιστοριογραφίας: 20ός αιώνας.",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110429",
+     "name": "Μεθοδολογία έρευνας στην πολιτική επιστήμη",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "110529",
+     "name": "A History of the World since 1300 (σεμινάριο με Princeton)",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110530",
+     "name": "English for academic purposes in political Science and History (Winter Semester)",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110571",
+     "name": "Δίκαιο και πολιτική στην εγελιανή Φαινομενολογία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110564",
+     "name": "Δημόσια ιστορία Ι",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110579",
+     "name": "Διανοητική ιστορία της σύγχρονης Ελλάδας, 1900-1967",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110546",
+     "name": "Εισαγωγή στις ψηφιακές ανθρωπιστικές και κοινωνικές επιστήμες",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110568",
+     "name": "Ελληνική οικονομία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110523",
+     "name": "Ευρωπαϊκή Ιστορία μετά το 1945",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110596",
+     "name": "Ευρώπη και Ψυχρός Πόλεμος: Όψεις της διαίρεσης σε ανατολική και",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110537",
+     "name": "Η πόλη ως αντικείμενο της σύγχρονης κοινωνικής θεωρίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110539",
+     "name": "Θεωρία δημοκρατίας: Δημοκρατικός ρεπουμπλικανισμός και πολιτικός",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110450",
+     "name": "Θεωρίες ιδεολογίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110417",
+     "name": "Ιδιότητα του πολίτη και μετανάστευση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110426",
+     "name": "Ιστορία της νεότερης Αλβανίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110504",
+     "name": "Ιστορία του ελληνικού μεσοπολέμου",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110480",
+     "name": "Ιστορία των ευρωπαϊκών μεταναστεύσεων (19ος-20ός αι.).",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110572",
+     "name": "Ιστορικές μέθοδοι: Κριτική ανάγνωση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110605",
+     "name": "Καπιταλισμός και οθωμανικός κόσμος",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110029",
+     "name": "Κοινωνική θεωρία. Σύγχρονα ρεύματα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής",
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110585",
+     "name": "Κοινωνική ιστορία των ΗΠΑ: Κινήματα, ταυτότητες και παγκόσμιες δια-",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110483",
+     "name": "Κοινωνικοί μετασχηματισμοί στην Ευρώπη (19ος-20ός αι.)",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110606",
+     "name": "Μικροϊστορία και κοινωνιοβιογραφία: μια ιστορία του παρόντος",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110595",
+     "name": "Οι ελληνοαλβανικές σχέσεις στην δεκαετία του 1940:",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110369",
+     "name": "Πολιτική Φιλοσοφία: Φύση και Σύμβαση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110005",
+     "name": "Πολιτική θεωρία - Εισαγωγή",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής",
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110603",
+     "name": "Πολιτική και επικοινωνία στην τρίτη ελληνική δημοκρατία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110463",
+     "name": "Πρακτική άσκηση -Ι-",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110587",
+     "name": "Πόλωση: Θεωρητικές και ερευνητικές προσεγγίσεις",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110538",
+     "name": "Τα Βαλκάνια μεταξύ δύο πολέμων (1918-1939)",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110604",
+     "name": "Τα δικαιώματα του ανθρώπου: φιλοσοφική θεμελίωση και κριτική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110485",
+     "name": "Φιλοσοφία της ιστορίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110451",
+     "name": "Φιλοσοφία των επιστημών Ι. Βασικές σχολές",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110594",
+     "name": "Φιλοσοφίες της ιστορίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110547",
+     "name": "Ψηφιακές μέθοδοι: Κατευθύνσεις και εργαλεία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110472",
+     "name": "Historiography in Crisis",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110570",
+     "name": "Qualitative Research Methods",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110611",
+     "name": "The Age of the polycrisis: the transformation of European Politics",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110494",
+     "name": "Ανάλυση περιεχομένου του πολιτικού λόγου με τη χρήση υπολογιστικών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110613",
+     "name": "Βιομηχανική Επανάσταση: μια παγκόσμια ιστορία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110618",
+     "name": "Γεωγραφικές προσεγγίσεις στην ιστορία και τις κοινωνικές επιστήμες",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110549",
+     "name": "Δημόσια ιστορία ΙΙ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110563",
+     "name": "Εnglish for academic purposes in political science and history",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110541",
+     "name": "Ειδικά θέματα πολιτισμικής ιστορίας: μουσική, τραγούδι, κοινωνία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110619",
+     "name": "Εισαγωγή στα συστήματα Γεωγραφικών πληροφοριών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110522",
+     "name": "Εκδοχές και κριτικές της κατηγορίας της προόδου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110312",
+     "name": "Ελληνική ιστορία του 20ού αι.",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110551",
+     "name": "Ελληνική οικονομική ιστορία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110543",
+     "name": "Η Ευρώπη μεταξύ δύο πολέμων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110577",
+     "name": "Η Κριτική Θεωρία της Σχολής της Φραγκφούρτης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110608",
+     "name": "Η ελληνική Επανάσταση στην παγκόσμια εποχή των επαναστάσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110537",
+     "name": "Η πόλη ως αντικείμενο της σύγχρονης κοινωνικής θεωρίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110609",
+     "name": "Θεωρήσεις της ουτοπίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110558",
+     "name": "Θεωρίες ιδεολογίας: ειδικά θέματα",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110607",
+     "name": "Ιστορία και ιστοριογραφία της Γαλλικής Επανάστασης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110612",
+     "name": "Ιστορία της εργασίας και του εργατικού κινήματος (Ελλάδα, 19ος-20ος αι.)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110029",
+     "name": "Κοινωνική θεωρία. Σύγχρονα ρεύματα",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής",
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110588",
+     "name": "Κομμουνιστικός αιώνας: από το 1917 ως το 1989",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110617",
+     "name": "Κράτος, διακυβέρνηση και σύγχρονες προκλήσεις σε συγκριτική προοπτική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110610",
+     "name": "Νεότερη πολιτική φιλοσοφία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110599",
+     "name": "Νεότερη πρακτική φιλοσοφία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110509",
+     "name": "Οι Ρομά στα Βαλκάνια και την Ευρώπη: Ιστορία και πολιτικές τον",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110005",
+     "name": "Πολιτική θεωρία - Εισαγωγή",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής",
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110575",
+     "name": "Πολιτική και ιδιοκτησία την εποχή του ιμπεριαλισμού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110517",
+     "name": "Πολιτισμική ιστορία της μεταπολεμικής Ελλάδας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110470",
+     "name": "Πρακτική άσκηση -ΙΙ-",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110557",
+     "name": "Ρωσική εξωτερική πολιτική.",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110248",
+     "name": "Συνταγματικά δικαιώματα.",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110548",
+     "name": "Σύγχρονη ιστορία: η Ελλάδα της Μεταπολίτευσης (1974 έως σήμερα)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110616",
+     "name": "Το κράτος στη σύγχρονη πολιτική σκέψη: θεμελιώδεις προσεγγίσεις και προβληματικές",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110452",
+     "name": "Φιλοσοφία των επιστημών ΙΙ: Οι εναλλακτικές θεωρίες",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110614",
+     "name": "Φιλοσοφικές ερμηνείες της Γαλλικής Επανάστασης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110574",
+     "name": "Χειραφέτηση και πολιτική στο Κεφάλαιο του Μαρξ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110438",
+     "name": "Πτυχιακή εργασία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "110437",
+     "name": "Πτυχιακή εργασία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    }
+   ]
+  },
   "panteion-psych": {
    "source": "https://psychology.panteion.gr/odigos225-26.pdf",
    "retrieved": "2026-10-21",
@@ -2073,6 +4407,873 @@
      "groups": [
       "Κλινική"
      ]
+    }
+   ]
+  },
+  "panteion-pubadm": {
+   "source": "https://pubadmin.panteion.gr/wp-content/uploads/2026/06/Οδηγός-Σπουδών.pdf",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Γενική Πολιτειολογία & Συνταγματικό Δίκαιο (Εισαγωγή) / Introduc-tion to the Greek Public",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Διοικητική Επιστήμη",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Πολιτική Οικονομία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στο Δίκαιο",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στο Διοικητικό Δίκαιο",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά Μαθηματικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Χρηματοοικονομικής Λογιστικής",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αστικό Δίκαιο (Γενικές Αρχές)",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γενική Πολιτειολογία & Συνταγματικό Δίκαιο (Οργανωτικό Μέρος Ι)",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοικητικό Δίκαιο (Διοικητική Οργάνωση του Κράτους, Πηγές και Συστήματα Οργάνωσης)",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική Θεωρία Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τοπική Αυτοδιοίκηση και Κοινωνική Ανάπτυξη",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκαιο των Επιχειρήσεων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοικητικό Δίκαιο (Δίκαιο Δημοσίων Υπαλλήλων)",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στο Ευρωπαϊκό Δίκαιο",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεμελιώδη Δικαιώματα (Γενικό Μέρος)",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία Οικονομικών Θεωριών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Πολιτική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αστικό Δίκαιο (Γενικό Ενοχικό Δίκαιο)",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μέθοδοι και Πρακτικές των Στατιστικών Ερευνών",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συγκριτική Ανάλυση Διοικητικών Συστημάτων",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσια Οικονομική Ι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοικητικό Δίκαιο (Δίκαιο Διοικητικών Πράξεων)",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κρατική Οργάνωση και Λήψη Αποφάσεων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική Ι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική Ι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αστικό Δίκαιο (Ειδικό Ενοχικό)",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γλώσσα ειδικότητας Δημόσιας Διοίκησης: ΓΑΛΛΙΚΑ",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γλώσσα ειδικότητας Δημόσιας Διοίκησης: ΙΤΑΛΙΚΑ",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσιο Διεθνές Δίκαιο",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διάρθρωση της Ελληνικής Οικονομίας",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ανθρωπίνων Πόρων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημοσιονομικό Δίκαιο",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δημόσια Πολιτική",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνής Οικονομική Ι",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοικητική Επιστήμη ΙΙ",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεμελιώδη Δικαιώματα (Ειδικό Μέρος)",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κοινωνική Διοίκηση και Πολιτική",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική ΙΙ",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μεθοδολογία του Δικαίου",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική Θεωρία ΙΙ",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στατιστική ΙΙ",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στρατηγικές Ανάπτυξης Επιχειρήσεων",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής",
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Λογιστική",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βασικά Στοιχεία Επιχειρηματικότητας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Πολιτιστικών Θεσμών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση φυσικών και ενεργειακών πόρων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εργατικό δίκαιο (Ατομικές Εργασιακές Σχέσεις)",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ζητήματα Δικαίου και Οικονομίας (διατομεακό μάθημα)",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκαιο Περιβάλλοντος και Πολεοδομία",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνή Λογιστικά Πρότυπα",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνής Οικονομική ΙΙ",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ολικής Ποιότητας",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Τοπικής Αυτοδιοίκησης",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργατικό Δίκαιο (Συλλογικές Εργασιακές Σχέσεις)",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονική Διακυβέρνηση και Πληροφορική στη Διοίκηση",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά Μαθηματικά ΙΙ",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οργανωσιακή Συμπεριφορά",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Παίγνιο Επιχειρήσεων με Τεχνολογίες Πληροφορικής",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής",
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πρακτική της Οικονομικής Πολιτικής",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συγκριτικό Συνταγματικό Δίκαιο",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Financial Management",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εμπορικό Δίκαιο (Εισαγωγή στο Δίκαιο των Εταιρειών)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμογές Πληροφορικής-Ανάλυση Δεδομένων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τουριστική Διοίκηση και Περιφερειακή Ανάπτυξη",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φορολογικό Δίκαιο",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φόροι των Επιχειρήσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Χρηματοοικονομικής",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δημοσιονομικό Δίκαιο",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δημόσια Οικονομική ΙΙ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δημόσιο Μάνατζμεντ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοικητικό Δίκαιο (Διοικητική Δικαιοσύνη Ι)",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ελεγκτική",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκό Δίκαιο (Ενωσιακές Ελευθερίες)",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Οικονομικής Μεγέθυνσης",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομετρία Ι",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πολιτικές και Διοίκηση Απασχόλησης",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τραπεζικό Δίκαιο",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακός Μετασχηματισμός και Αναδυόμενες Τεχνολογίες",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βιομηχανική Οργάνωση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσιο Λογιστικό – Βασικά Στοιχεία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διακυβέρνηση στη Δημόσια Διοίκηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση στην Εκπαίδευση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοικητική Μεταρρύθμιση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Γενικής Πολιτειολογίας και Συνταγματικού Δικαίου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Λογιστικής",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προστασία των Προσωπικών Δεδομένων στη Δημόσια Διοίκηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Έλεγχος Δημόσιας Διοίκησης: Διαφάνεια και Δεοντολογία",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Εισροών–Εκροών",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση και Έλεγχος Χρηματοοικονομικών Καταστάσεων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνείς και Ευρωπαϊκοί Οργανισμοί",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ολικής Ποιότητας",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ζητήματα Συνταγματικής και Διοικητικής Δικαιοσύνης",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομετρία ΙΙ",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οργάνωση και Διοίκηση Ανεξάρτητων και Ρυθμιστικών Αρχών",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Παγκοσμιοποίηση και Οικονομική Μεγέθυνση",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πολιτικές της Ε.Ε.",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογία και Δίκαιο",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημοσίων Θεσμών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Τεχνολογία",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Δημόσιας Οικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Introduction to Digital Law",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βιοηθική και Σύνταγμα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνή Πρότυπα στον Εσωτερικό Έλεγχο",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Υπηρεσιών Υγείας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Δημοσίου Οικονομικού Δικαίου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιδιωτικό Ασφαλιστικό Δίκαιο",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οργάνωση & Διοίκηση Επιχειρήσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φιλοσοφία του Δικαίου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
     }
    ]
   },
@@ -2786,6 +5987,678 @@
      "semester": 8,
      "kind": "elective",
      "groups": []
+    }
+   ]
+  },
+  "panteion-socpol": {
+   "source": "https://socialpolicy.panteion.gr/studies/undergraduate/courses",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": "510226",
+     "name": "Έννοιες και Στόχοι της Κοινωνικής Πολιτικής",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510200",
+     "name": "Δίκαιο, Κοινωνία και Κοινωνική Πολιτική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510181",
+     "name": "Ιστορία της Κοινωνικής Πολιτικής",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510227",
+     "name": "Πολιτική Επιστήμη και Κοινωνική Πολιτική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510206",
+     "name": "Πολιτική Οικονομία Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510178",
+     "name": "Κοινωνικός αποκλεισμός και Κοινωνική Πολιτική",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510175",
+     "name": "Βασικά στοιχεία Κοινωνιολογίας",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510180",
+     "name": "Δομή και Οργάνωση της Ελληνικής Κοινωνίας",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510183",
+     "name": "Εργασιακές σχέσεις και κοινωνικά δικαιώματα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510198",
+     "name": "Κοινωνική και Ιστορική Δημογραφία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510176",
+     "name": "Ποιοτικές Μέθοδοι Κοινωνικής Έρευνας",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510141",
+     "name": "Δια βίου εκπαίδευση",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510229",
+     "name": "Κοινωνική Ασφάλιση",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510196",
+     "name": "Κοινωνική και οικονομική γεωγραφία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510199",
+     "name": "Οικονομικά της Κοινωνικής Πολιτικής",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510228",
+     "name": "Ποσοτικές Μέθοδοι Κοινωνικής Έρευνας",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510020",
+     "name": "Μετανάστευση και μεταναστευτική πολιτική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510029",
+     "name": "Οικογένεια και οικογενειακή πολιτική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510207",
+     "name": "Οικονομική Πολιτική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510045",
+     "name": "Ανισότητες, φτώχεια και κοινωνική προστασία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510184",
+     "name": "Εκπαιδευτική και Κοινωνική Πολιτική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510236",
+     "name": "Πολιτικές Υγείας",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510235",
+     "name": "Συγκριτική Κοινωνική Πολιτική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "510100",
+     "name": "Στέγαση και Κοινωνική Πολιτική",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510037",
+     "name": "Φύλο και Κοινωνική Πολιτική",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510232",
+     "name": "Δίκαιο και Δικαιώματα Κοινωνικής Ασφάλισης σε Ελλάδα και Ευρωπαϊκή Ένωση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510069",
+     "name": "Δημογραφικές μεταβολές, αγορά εργασίας και κοινωνική ασφάλιση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510233",
+     "name": "Διδακτική Κοινωνικών Επιστημών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510187",
+     "name": "Ελληνική Συνταγματική Ιστορία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510072",
+     "name": "Η οργάνωση της Ευρωπαϊκής Ένωσης",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510174",
+     "name": "Κοινωνική δομή και οργάνωση της Κύπρου: Πολιτική, Οικονομία, Διεθνείς σχέσεις",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510230",
+     "name": "Κοινωνική και Αλληλέγγυα Οικονομία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510197",
+     "name": "Κράτος και Δημόσια πολιτική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510101",
+     "name": "Οικονομικά της Εργασίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510132",
+     "name": "Πολιτικές ισότητας Φύλων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510212",
+     "name": "Πολιτική Οικονομία ΙΙ",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510188",
+     "name": "Πολιτικό σύστημα και κοινωνικά δικαιώματα στις αναπτυσσόμενες χώρες",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510095",
+     "name": "Συνδικάτα και συλλογικές εργασιακές σχέσεις στην Ελλάδα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510238",
+     "name": "Αναπηρία και Κοινωνική Πολιτική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510127",
+     "name": "Ανεργία και Πολιτική Απασχόλησης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510124",
+     "name": "Αστική Γεωγραφία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510201",
+     "name": "Αυτοδιοίκηση και Κοινωνική Πολιτική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510218",
+     "name": "Κινεζικό πολιτικό σύστημα και δικαιώματα",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510185",
+     "name": "Κοινωνία της υπαίθρου και ζητήματα Κοινωνικής Πολιτικής",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510121",
+     "name": "Κοινωνική Αλληλεγγύη, Ταυτότητες και Κοινωνικός Δεσμός",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510246",
+     "name": "Κοινωνιολογία της Εργασίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510205",
+     "name": "Κριτικός αναστοχασμός και Κοινωνική εργασία με ετερότητες, μειονότητες και πρόσφυγες",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510237",
+     "name": "Μέθοδοι Σχεδιασμού, Εφαρμογής και Αξιολόγησης Κοινωνικών Πολιτικών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικό Επιλογής"
+     ]
+    },
+    {
+     "code": "510211",
+     "name": "Συγκρουσιακή Πολιτική, Συλλογική Δράση, Κοινωνικά Κινήματα",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510076",
+     "name": "Τα Οικονομικά της Υγείας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510058",
+     "name": "Φύλο και Απασχόληση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510475",
+     "name": "Αναπηρία και Εκπαίδευση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510465",
+     "name": "Επιστήμη, Κοινωνία και Κοινωνική Πολιτική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510428",
+     "name": "Ζητήματα κοινωνικής ασφάλισης και πρόνοιας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510429",
+     "name": "Θεωρητική και εμπειρική ανάλυση της οικονομικής ανισότητας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510466",
+     "name": "Ιδεολογία, δημόσιος λόγος και Κοινωνική Πολιτική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510461",
+     "name": "Κοινωνία της υπαίθρου και προσεγγίσεις της βιώσιμης ανάπτυξης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510425",
+     "name": "Κοινωνική Πληροφορική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510455",
+     "name": "Κοινωνικός Μετασχηματισμός, Θεσμοί και Κοινωνική Πολιτική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510484",
+     "name": "Μετανάστευση και Υγεία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510451",
+     "name": "Μετασχηματισμοί της κοινωνικής προστασίας στον σύγχρονο κόσμο",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510464",
+     "name": "Πολιτικές Συμφιλίωσης Εργασίας και Οικογενειακής/ Ιδιωτικής ζωής",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510446",
+     "name": "Συγκριτική Εκπαίδευση και Ευρωπαϊκή Εκπαιδευτική Πολιτική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510453",
+     "name": "Σύγχρονες τάσεις στον τομέα των εργασιακών σχέσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510242",
+     "name": "Ανάλυση Κοινωνικών Δεδομένων με τη χρήση λογισμικού",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510442",
+     "name": "Θεμελιώσεις της Κοινωνικής Πολιτικής: Θέματα δικαιοσύνης, ισότητας και ευημερίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510473",
+     "name": "Κοινωνική Στατιστική με χρήση στατιστικών λογισμικών πακέτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510478",
+     "name": "Κρίση και Κοινωνική Πολιτική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510462",
+     "name": "Οικονομικές Κρίσεις : Θεωρίες και Εμπειρική Ανάλυση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510472",
+     "name": "Που Πηγαίνει η Ανθρώπινη Εργασία;",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510499",
+     "name": "Πτυχιακή εργασία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510476",
+     "name": "ΣΩΜΑ ΚΑΙ ΚΟΙΝΩΝΙΚΗ ΠΟΛΙΤΙΚΗ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510409",
+     "name": "Συγκριτική δημογραφική και πληθυσμιακή πολιτική: Ευρώπη και κόσμος",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510458",
+     "name": "Συγκρότηση Κράτους στην Νεωτερικότητα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510239",
+     "name": "Συνταξιοδοτική Πολιτική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
+    },
+    {
+     "code": "510456",
+     "name": "Σύγχρονες Εξελίξεις στην Κοινωνική Ασφάλιση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510431",
+     "name": "Τα αποθεματικά της κοινωνικής ασφάλισης και η διαχείρισή τους",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάριο"
+     ]
+    },
+    {
+     "code": "510247",
+     "name": "Ψηφιοποίηση και Νέες Μορφές Εργασίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής"
+     ]
     }
    ]
   }
