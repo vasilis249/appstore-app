@@ -30,9 +30,9 @@ UPDATE public.profiles SET university_id = 'ntua', department_id = 'ntua-ece', s
 UPDATE public.profiles SET university_id = 'uoa', department_id = 'uoa-law', student_verified_at = now() WHERE id = :C;
 INSERT INTO private.admins (user_id) VALUES (:F);
 
-SELECT pg_temp.ok('c1 catalog imported: ΕΜΠ + ΕΚΠΑ, every kind',
-  (SELECT count(*) FROM public.courses) > 5000
-  AND (SELECT count(DISTINCT university_id) FROM public.courses) = 2
+SELECT pg_temp.ok('c1 catalog imported: ΕΜΠ, ΕΚΠΑ + the other Attica universities, every kind',
+  (SELECT count(*) FROM public.courses) > 9500
+  AND (SELECT count(DISTINCT university_id) FROM public.courses) = 10
   AND (SELECT count(DISTINCT kind) FROM public.courses) = 3
   AND NOT EXISTS (SELECT 1 FROM public.courses c JOIN public.departments d ON d.id = c.department_id
                   WHERE d.university_id <> c.university_id));

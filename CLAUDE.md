@@ -1065,6 +1065,16 @@ User decisions:
   email); Privacy: course files (what, who sees, retention). Tests `test_courses.sql` 28; `tests/e2e/courses-flow.mjs`
   11/11 (`SHOTS=<dir>` saves screenshots). Live: applied (ΕΜΠ 1,277 + ΕΚΠΑ 3,770 courses), types regenerated, smoke (rolled back): ΕΚΠΑ student sees 3,770 / 0 others, add to another university → not_found, missing file → file_missing; deploy fc10de50.
   Storage: Supabase free = 1 GB for voices + photos + course files → watch usage; move files to R2 when needed.
+- **Course catalogs M3a ✔ (other Attica universities, user OK 2026-10-21)** — new files `aueb` (8/8 depts, 602), `panteion`
+  (9/9, 828), `hua` (4/4, 304), `asfa` (2/2, 159), `aspete` (3/3, 188), `aua` (6/6, 589: registry export «Αναλυτικό
+  Πρόγραμμα Σπουδών» for crop/biotech, the sites' WordPress `courses` API for aoa/nrae, pages for zp/etda), `unipi` (2/10:
+  tourism + bankfin; the other 8 sites refuse this container → `missing`, re-run from a normal network), `uniwa` (24/27,
+  1,963: `uniwa_fetch.py` + `uniwa_theme.py` for the shared site theme (18 depts), own scripts for naval, ice, eee, idpe
+  (embedded JSON), sw; php has no programme yet, wine/photo unreachable). Upper-case titles re-cased by `lib.recaser()`
+  (other texts' word forms → word list `raw/el_words.txt` (FrequencyWords, see src/README) → "-ικός" ending rule → per-script
+  `hand`). `to_sql.py <out> [uni …]` (only those files) → `20261110100000_course_catalog_attica.sql` (4,767 upserts).
+  Tests courses 28 (c1: 10 universities, > 9,500 courses), all suites green. Live: 9,814 courses over 10 universities.
+  No client change (no deploy). NEXT M3b: the other Greek + Cyprus universities, then Europe — only after OK.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
