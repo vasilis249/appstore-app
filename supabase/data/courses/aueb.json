@@ -1,0 +1,4742 @@
+{
+ "university": "aueb",
+ "departments": {
+  "aueb-accfin": {
+   "source": "https://www.dept.aueb.gr/el/loxri_courses",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Αγγλικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αστικό Δίκαιο",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οργάνωση & Διοίκηση Επιχειρήσεων",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμοσμένη Πληροφορική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικός Λογισμός σε Επιχειρησιακά & Οικονομικά Προβλήματα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική για Επιχειρήσεις",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγγλικά ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Χρηματοοικονομικής Λογιστικής",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εμπορικό & Εταιρικό Δίκαιο",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμογές Στατιστικών Μεθόδων σε Επιχειρησιακά Προβλήματα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική Θεωρία Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Διοίκηση",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγγλικά IIΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γλώσσες Προγραμματισμού",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ανθρώπινου Δυναμικού",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμοσμένα Μαθηματικά στη Λογιστική & Χρηματοοικονομική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Λογιστική Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική των Επιχειρήσεων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγγλικά ΙV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγορές Χρήματος και Κεφαλαίου",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογιστική Κόστους",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προχωρημένη Χρηματοοικονομική των Επιχειρήσεων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Λογιστική ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "H Λογιστική των Επιχειρηματικών Συνενώσεων",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αγγλικά V",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση και Διαχείριση Χαρτοφυλακίου",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λογιστικά Πληροφοριακά Συστήματα Μέσω Διαδικτύου",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συμπεριφορική Χρηματοοικονομική",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τραπεζική Χρηματοοικονομική",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Έργων και Προγραμμάτων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στο Μάρκετινγκ",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στον Προγραμματισμό Υπολογιστών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μικροδομή Χρηματοοικονομικών Αγορών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός ΙΙ",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φορολογία Εισοδήματος Φυσικών Προσώπων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Χρηματοοικονομικών Παραγώγων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοικητική Λογιστική",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οικονομετρία",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τίτλοι Σταθερού Εισοδήματος",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Λογιστική ΙΙΙ",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αγγλικά VI-Επιχειρησιακή Ορολογία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αγγλικά VΙ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αναλογιστικά Ι",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Χρηματοοικονομικής Λογιστικής & Πρόσθετης Πληροφόρησης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργατικό Δίκαιο",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κεφαλαιαγορές και Νομισματική Πολιτική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μηχανογραφημένη Λογιστική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική Θεωρία ΙΙ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστική Χρηματοοικονομική Ι",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομικά Ακίνητης Περιουσίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνής Χρηματοοικονομική",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ελεγκτική",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εναλλακτικές Επενδύσεις",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λογιστική Χρηματοδοτικών Εργαλείων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φόρος Προστιθέμενης Αξίας",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομικά της Ναυτιλίας",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Ανάλυση & Αποτίμηση Επιχειρήσεων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Επιχειρησιακή Πολιτική και Στρατηγική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λογιστική Δημόσιου Τομέα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά για Οικονομολόγους ΙΙΙ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστική Χρηματοοικονομική ΙΙ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Τεχνολογία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Κινδύνων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φορολογική Λογιστική",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Ανάλυση και Αποτίμηση Επιχειρήσεων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εσωτερικός Έλεγχος & Διαχείριση Κινδύνου Απάτης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονικό Επιχειρείν",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Χρηματοοικονομικών Αποφάσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μέθοδοι Μηχανικής Μάθησης στα Χρηματοοικονομικά",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Προχωρημένη Οικονομετρία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στοχαστικές Ανελίξεις με Εφαρμογές σε Αγορές Παραγώγων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στρατηγικός Σχεδιασμός Χρηματοοικονομικής Πληροφόρησης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής",
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Ελέγχου της Διοίκησης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομικά Ακίνητης Περιουσίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Λογιστικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομικά του Διεθνούς Εμπορίου & Εμπορευματικές Ροές",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Χρηματοοικονομικής"
+     ]
+    }
+   ]
+  },
+  "aueb-cs": {
+   "source": "https://www.dept.aueb.gr/el/cs/courses",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Διακριτά Μαθηματικά",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Επιστήμη των Υπολογιστών",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οικονομική Επιστήμη",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στον Προγραμματισμό Υπολογιστών",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Διοίκηση Επιχειρήσεων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πιθανότητες",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός Υπολογιστών με Java",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σχεδίαση Ψηφιακών Συστημάτων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δομές Δεδομένων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οργάνωση Συστημάτων Υπολογιστών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός Υπολογιστών με C++",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστικά Μαθηματικά",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλγόριθμοι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αυτόματα και Πολυπλοκότητα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βάσεις Δεδομένων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λειτουργικά Συστήματα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκτυα Επικοινωνιών",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογία Λογισμικού",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική στην Πληροφορική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνητή Νοημοσύνη",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση και Σχεδίαση Πληροφοριακών Συστημάτων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κατανεμημένα Συστήματα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκτυα Υπολογιστών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επαλήθευση, Επικύρωση και Συντήρηση Λογισμικού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία και Υποδείγματα Βελτιστοποίησης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κυβερνοασφάλεια",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Διαχείρισης και Ανάλυσης Δεδομένων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αξιολόγηση Επενδύσεων με Εφαρμογές στην Πληροφορική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ασφάλεια Δικτύων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ασύρματα Δίκτυα και Κινητές Επικοινωνίες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γραφικά Υπολογιστών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Αλγορίθμων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμοσμένες Πιθανότητες και Πιθανοτικοί Αλγόριθμοι",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μέθοδοι Στατιστικής και Μηχανικής Μάθησης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μεταγλωττιστές",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μηχανική Μάθηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά Δικτύων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συνδυαστική Βελτιστοποίηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογία Πολυμέσων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογίες και Προγραμματισμός Εφαρμογών στον Ιστό",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλληλεπίδραση Ανθρώπου-Υπολογιστή",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Επίδοσης Συστημάτων και Δικτύων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη Εφαρμογών Πληροφοριακών Συστημάτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αριθμητική Γραμμική Άλγεβρα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχιτεκτονική Υπολογιστών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γραμμικά Μοντέλα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γραμμική Άλγεβρα ΙΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Διακριτών Μαθηματικών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εννοιολογική Μοντελοποίηση Συστημάτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εξόρυξη Γνώσης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρησιακή Πολιτική και Στρατηγική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Παιγνίων και Αποφάσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Πληροφορίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογιστικά Πληροφοριακά Συστήματα Μέσω Διαδικτύου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικός Προγραμματισμός",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πιθανότητες ΙΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προσομοίωση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πτυχιακή Εργασία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στοιχεία Δικαίου της Πληροφορίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Ανάκτησης Πληροφοριών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογική Καινοτομία και Επιχειρηματικότητα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Υπολογισιμότητα και Πολυπλοκότητα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακό Εκπαιδευτικό Υλικό (πρώην «Δημιουργία και Χρήση Ψηφιακού Εκπαιδευτικού Υλικού στις Σύγχρονες Μεθοδολογίες Εκπαίδευσης»)",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "aueb-deos": {
+   "source": "https://www.dept.aueb.gr/el/deos_courses",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Πολιτική και τις Διεθνείς Σχέσεις",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικό Δίκαιο",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Λογιστική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμογές Πληροφορικής",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτική της Ευρωπαϊκής Ενοποίησης",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική ΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική ΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομετρία Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοδοτική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνές Οικονομικό Δίκαιο",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Β: Διεθνής και Ευρωπαϊκή Πολιτική Οικονομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνής Οικονομική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκό Δίκαιο",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική ΙΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομετρία ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνείς Οργανισμοί",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Β: Διεθνής και Ευρωπαϊκή Πολιτική Οικονομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ιστορία Οικονομικών Θεωριών",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομικές Πολιτικές της Ε.Ε.",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εξωτερικές Σχέσεις Ε.Ε.",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Β: Διεθνής και Ευρωπαϊκή Πολιτική Οικονομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Παιγνίων και Εφαρμογές",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Α: Διεθνής Οικονομική και Χρηματοδοτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομετρικές Εφαρμογές",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Α: Διεθνής Οικονομική και Χρηματοδοτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά του Περιβάλλοντος",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Β: Διεθνής και Ευρωπαϊκή Πολιτική Οικονομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τραπεζική",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Α: Διεθνής Οικονομική και Χρηματοδοτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική ΙΙΙ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φορολογικές Πολιτικές",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημοσία Οικονομική",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Α: Διεθνής Οικονομική και Χρηματοδοτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Ανάπτυξη",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Α: Διεθνής Οικονομική και Χρηματοδοτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συγκριτική Πολιτική και Διακυβέρνηση",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Β: Διεθνής και Ευρωπαϊκή Πολιτική Οικονομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βιομηχανική Οργάνωση και Εταιρική Στρατηγική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμογές Πληροφορικής ΙΙ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θέματα Διεθνούς Οικονομίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Χαρτοφυλακίου",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Α: Διεθνής Οικονομική και Χρηματοδοτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνής Νομισματική",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Α: Διεθνής Οικονομική και Χρηματοδοτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά Κοινωνικών Πολιτικών Ε.Ε.",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Β: Διεθνής και Ευρωπαϊκή Πολιτική Οικονομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά της Πολιτικής Ανταγωνισμού",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Β: Διεθνής και Ευρωπαϊκή Πολιτική Οικονομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική της Εργασίας",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Β: Διεθνής και Ευρωπαϊκή Πολιτική Οικονομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μαθηματική Οικονομική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαρξιστική Οικονομική Ι",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σεμινάριο και Διπλωματική Εργασία",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκαιο Ανταγωνισμού και Εποπτείας Αγορών Ε.Ε.",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Β: Διεθνής και Ευρωπαϊκή Πολιτική Οικονομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θέματα Διεθνούς Χρηματοδοτικής",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Α: Διεθνής Οικονομική και Χρηματοδοτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία και Πολιτική του Διεθνούς Εμπορίου",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Α: Διεθνής Οικονομική και Χρηματοδοτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πολιτική Οικονομία της Ε.Ε.",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Β: Διεθνής και Ευρωπαϊκή Πολιτική Οικονομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διπλωματικό Σύστημα της Ε.Ε",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Περιφερειακή Ανάπτυξη και Διαρθρωτικές Πολιτικές της Ε.Ε",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Οικονομετρία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "aueb-dmst": {
+   "source": "https://www.dept.aueb.gr/el/dmst_courses",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Διοίκηση Επιχειρήσεων",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Πληροφορική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στο Μάρκετινγκ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογιστική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά I",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οικονομική Θεωρία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματικότητα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά II",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικές Μέθοδοι στην Οικονομία και Διοίκηση (I)",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός I",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονα Θέματα και Τάσεις στη Διοίκηση και Τεχνολογία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βάσεις Δεδομένων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λήψη Επιχειρηματικών Αποφάσεων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οργανωσιακή Συμπεριφορά και Ηγεσία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικές Μέθοδοι στην Οικονομία και Διοίκηση (II)",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός IΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλγόριθμοι και Δομές Δεδομένων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση και Σχεδιασμός Πληροφοριακών Συστημάτων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ανθρώπινου Δυναμικού",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματική Βελτιστοποίηση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Διοίκηση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη και Αρχιτεκτονικές Πληροφοριακών Συστημάτων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Έργων και Προγραμμάτων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Επιχειρήσεων και Τεχνολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εργασιακή και Οργανωσιακή Ψυχολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μέθοδοι Βελτιστοποίησης στη Διοικητική Επιστήμη",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρησιακή Πολιτική και Στρατηγική",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Δεδομένων και Μηχανική Μάθηση",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση και Μοντελοποίηση Διαδικασιών και Συστημάτων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Ψηφιακού Περιεχομένου και Επικοινωνίας Ανθρώπου-Υπολογιστή",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Διεθνών Επιχειρήσεων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Εφοδιαστικής Αλυσίδας",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Παραγωγής και Υπηρεσιών",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ποιότητας",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ταλέντων και Τεχνολογία",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρησιακή Έρευνα και Υπολογιστική Ευφυΐα",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός και Ανάπτυξη Προϊόντων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογία Λογισμικού στην Πράξη",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογίες και Εφαρμογές Ηλεκτρονικού Επιχειρείν",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη Αξιόπιστου και Ασφαλούς Λογισμικού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εκπόνηση Εργασίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηθική, Υπευθυνότητα και Διακυβέρνηση",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη Προσωπικών και Ηγετικών Ικανοτήτων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Πληροφοριακών Πόρων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματική Αναλυτική & Τεχνολογίες Εξατομίκευσης",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματική Ευφυία και Μηχανική Δεδομένων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θέματα Στρατηγικής και Καινοτομίας",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός Συστημάτων Διανομής και Μεταφορών",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στοχαστική Μοντελοποίηση και Προσομοίωση",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συνδυαστική Βελτιστοποίηση",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Διαχείρισης Επιχειρησιακών Πόρων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονες Τάσεις στην Τεχνητή Νοημοσύνη",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Μηχανική",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακό Μάρκετινγκ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Επενδύσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ψηφιακών Προϊόντων και Υπηρεσιών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εκπόνηση Εργασίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονική Μάθηση και Διαχείριση Γνώσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση - Πτυχιακή Εργασία",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακή Καινοτομία και Επιχειρηματικότητα",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Διαχείρισης Μεγάλων Δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "aueb-econ": {
+   "source": "https://www.dept.aueb.gr/el/econ_courses",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Γενική Οικονομική Ιστορία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οικονομική Ανάλυση Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά για Οικονομολόγους Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα Ι (Αγγλική Γλώσσα Ι, Γαλλική Γλώσσα Ι, Γερμανική Γλώσσα Ι)",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Πολιτική Επιστήμη και τις Διεθνείς Σχέσεις",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στους Η/Υ",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικό Δίκαιο",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Χρηματοοικονομικής Λογιστικής",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οικονομική Ανάλυση ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά για Οικονομολόγους ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα ΙI (Αγγλική Γλώσσα ΙI, Γαλλική Γλώσσα ΙI, Γερμανική Γλώσσα IΙ)",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Ιστορία της Ελλάδος",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική Θεωρία Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική Θεωρία Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα ΙII (Αγγλική Γλώσσα ΙII, Γαλλική Γλώσσα ΙII, Γερμανική Γλώσσα IΙI)",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Γεωγραφία",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αρχές Κοινωνιολογίας",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά για Οικονομολόγους ΙΙΙ",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαρξιστική Οικονομική Ι",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνής Οικονομική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οικονομετρία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική Θεωρία ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική Θεωρία ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα ΙV (Αγγλική Γλώσσα ΙV, Γαλλική Γλώσσα ΙV, Γερμανική Γλώσσα IV)",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μεθοδολογία Οικονομικής Επιστήμης",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μαρξιστική Οικονομική ΙΙ",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βιομηχανική Οργάνωση",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσια Οικονομική Ι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία Οικονομικής Σκέψης",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομετρία Ι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα V (Αγγλική Γλώσσα V, Γαλλική Γλώσσα V, Γερμανική Γλώσσα V)",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική της Εργασίας",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής",
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρήμα και Τραπεζική",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγροτική Οικονομική",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής",
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αξιολόγηση Επενδύσεων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δημόσια Οικονομική ΙΙ",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εφαρμογές Η/Υ",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Βιομηχανικής Οργάνωσης",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Οικονομικής Πολιτικής",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής",
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομετρία ΙΙ",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Ανάπτυξη",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής",
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική των Επιχειρήσεων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματooικονομική των Επιχειρήσεων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δίκαιο και Οικονομικά",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα VI (Αγγλική Γλώσσα VI, Γαλλική Γλώσσα VI, Γερμανική Γλώσσα VI)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Χρηματαγορών και Κεφαλαιαγορών",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνείς Νομισματικές Σχέσεις",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής",
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θέματα Δυναμικής Οικονομικής",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Παιγνίων και Αβεβαιότητας",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Νομισματική Θεωρία και Πολιτική",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής",
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τραπεζική Θεωρία και Πρακτική",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομικά Θέματα",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διάρθρωση και Προβλήματα της Ελληνικής Οικονομίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματικότητα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Χρηματοοικονομικών Παραγώγων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εφαρμοσμένη Βιομηχανική Οργάνωση",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Οικονομικής Μεγέθυνσης",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής",
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία και Πολιτική Διεθνούς Εμπορίου",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Θεωρίας και Πολιτικής",
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική του Περιβάλλοντος και των Φυσικών Πόρων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής",
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Περιφερειακή και Αστική Οικονομική",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πολιτική Οικονομία της Ε.Ε.",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Προχωρημένη Χρηματοοικονομική Λογιστική",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οικονομικής Επιχειρήσεων και Χρηματοοικονομικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρονολογικές Σειρές και Προβλέψεις",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "aueb-mke": {
+   "source": "https://www.dept.aueb.gr/el/mbc_courses",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Διοίκηση Επιχειρήσεων",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οικονομική Ανάλυση Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Πληροφορική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στο Μάρκετινγκ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα I",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψυχολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Επικοινωνία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οικονομική Ανάλυση ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα II",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικές Μέθοδοι Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συμπεριφορά Καταναλωτή",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακή Επικοινωνία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Έρευνα Μάρκετινγκ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαφήμιση και Επικοινωνία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λήψη Επιχειρηματικών Αποφάσεων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογιστική Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα III",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικές Μέθοδοι ΙI",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ανθρώπινου Δυναμικού",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Πωλήσεων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογιστική ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα IV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οργανωσιακή Συμπεριφορά",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοδοτική Διοίκηση Ι (Χρηματοδοτική Διοίκηση)",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εταιρική Επικοινωνιακή Στρατηγική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εταιρική Ηθική και Υπευθυνότητα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Υπηρεσιών",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα V",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομική των Επιχειρήσεων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληροφοριακά Συστήματα Διοίκησης",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκτυα Διανομής και Logistics",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρησιακή Στρατηγική & Στρατηγικό Μάρκετινγκ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτική Προϊόντος",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τιμολογιακή Στρατηγική",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακό Μάρκετινγκ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αναλυτική Διαδικτύου",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Επιχειρησιακή Αναλυτική",
+      "Ψηφιακό Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αναλυτική Μάρκετινγκ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Επιχειρησιακή Αναλυτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνές Μάρκετινγκ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής Επιχειρηματικότητα και Καινοτομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Αλλαγών στην Ψηφιακή Εποχή",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων & Ανθρώπινου Δυναμικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Καινοτομίας",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής Επιχειρηματικότητα και Καινοτομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συμβουλευτική των Επιχειρήσεων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων & Ανθρώπινου Δυναμικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός και Ανάπτυξη Διαδικτυακών Εφαρμογών",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ψηφιακό Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Κοινωνικών Δικτύων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη και Σχεδίαση Κινητών Εφαρμογών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Κοινωνιολογίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βάσεις Δεδομένων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βιομηχανικό (Β2Β) Μάρκετινγκ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γενικά Μαθηματικά για τη Διοίκηση Επιχειρήσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσια Οικονομική Ι",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσιες Σχέσεις και Διαχείριση Κινδύνων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαπολιτισμική Επικοινωνία και Διοίκηση Επιχειρήσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Έργων και Προγραμμάτων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Διεθνών Επιχειρήσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στον Προγραμματισμό Υπολογιστών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στον Προγραμματισμό με R",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εκπόνηση Εργασίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρησιακή Αναλυτική και Τεχνολογίες Λήψης Αποφάσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θέματα Επιχειρησιακής Στρατηγικής",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Παιγνίων και Αβεβαιότητας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Αγροτικών Προϊόντων και Τροφίμων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Λιανικού και Χονδρικού Εμπορίου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός Δημιουργικού και Διαφημιστικών Μηνυμάτων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοδοτική Διοίκηση ΙΙ (Ειδικά Θέματα Χρηματοδοτικής Διοίκησης)",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακό Εκπαιδευτικό Υλικό",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματικότητα",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής Επιχειρηματικότητα και Καινοτομία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηγεσία και Ανάπτυξη Προσωπικών Δεξιοτήτων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων & Ανθρώπινου Δυναμικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θετική Οργανωσιακή Παιδεία",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων & Ανθρώπινου Δυναμικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πολυκαναλικό Μάρκετινγκ και Εμπειρία Πελάτη",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ψηφιακό Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικά Μοντέλα Μάρκετινγκ",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Επιχειρησιακή Αναλυτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός και Ανάλυση Προωθητικών Ενεργειών",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Επιχειρησιακή Αναλυτική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακό Εμπόριο",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διεθνής Επιχειρηματικότητα και Καινοτομία",
+      "Ψηφιακό Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αγορές Χρήματος και Κεφαλαίου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση και Μοντελοποίηση Διαδικασιών και Συστημάτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Απασχολησιμότητα στην Ψηφιακή Εποχή",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαπραγματεύσεις",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Ψηφιακού Περιεχομένου και Επικοινωνίας Ανθρώπου-Υπολογιστή",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνής Οικονομική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Παραγωγής και Υπηρεσιών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Σχέσεων Πελατών (CRM)",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Ανάπτυξης Ψηφιακών Προϊόντων και Υπηρεσιών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εκπόνηση Εργασίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εμπορικό και Εταιρικό Δίκαιο",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκό Δίκαιο",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Κοινωνικών Επιχειρήσεων και μη Κερδοσκοπικών Οργανισμών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα VI",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομική του Περιβάλλοντος και των Φυσικών Πόρων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός Ι",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός Υπολογιστών με JAVA",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός και Ανάπτυξη Προϊόντων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τουριστικό Μάρκετινγκ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστικά Συστήματα και Σύγχρονες Τεχνολογικές Τάσεις",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "aueb-ode": {
+   "source": "https://www.dept.aueb.gr/el/ode_courses",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Αστικό Δίκαιο",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γενικά Μαθηματικά για τη Διοίκηση των Επιχειρήσεων",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στις Επιχειρήσεις",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψυχολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΞΕΝΗ ΓΛΩΣΣΑ Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Μάρκετινγκ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γενικές Αρχές Διοίκησης Επιχειρήσεων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική Θεωρία και Πολιτική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική για τη Διοίκηση των Επιχειρήσεων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστικά Συστήματα και Σύγχρονες Τεχνολογικές Τάσεις",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΞΕΝΗ ΓΛΩΣΣΑ ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Χρηματοοικονομικής Λογιστικής",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μάνατζμεντ (Οργάνωση και Διοίκηση Επιχειρήσεων Ι)",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληροφοριακά Συστήματα για τη Διοίκηση των Επιχειρήσεων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικές Μέθοδοι ΙΙΙ (Οικονομετρία)",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρυθμίσεις Εμπορικών και Οικονομικών Συναλλαγών (Εμπορικό Δίκαιο Ι)",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεσμικά Θέματα Οργάνωσης των Επιχειρήσεων (Εμπορικό Δίκαιο ΙΙ)",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συμπεριφορά Καταναλωτή",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοδοτική Διοίκηση Ι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Λογιστική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "ΞΕΝΗ ΓΛΩΣΣΑ V",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοδοτική Διοίκηση ΙΙ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγορές Χρήματος και Αξιογράφων Σταθερού Εισοδήματος",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ανθρωπίνων Πόρων",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματική Πληροφορική και Βάσεις Δεδομένων",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Υπηρεσιών",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστική Νέφους και Τεχνολογίες Ιστού",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Έργων και Προγραμμάτων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)",
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Παραγωγής και Υπηρεσιών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)",
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στον Προγραμματισμό Υπολογιστών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λογιστικά Πληροφοριακά Συστήματα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων",
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ολοκληρωμένες Επικοινωνίες Μάρκετινγκ",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ρυθμιστικά Θέματα Εποπτείας και Λειτουργίας της Κεφαλαιαγοράς και Εταιρικής Διακυβέρνησης",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)",
+      "Διοίκηση Πληροφοριακών Συστημάτων",
+      "Μάρκετινγκ",
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φορολογία Εισοδήματος Φυσικών και Νομικών Προσώπων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)",
+      "Διοίκηση Πληροφοριακών Συστημάτων",
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Επιχειρησιακή Στρατηγική",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Έρευνα & Μετρικές Μάρκετινγκ",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Επενδύσεων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση",
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Συγκρούσεων και Διαπραγματεύσεις",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοικητική Λογιστική",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)",
+      "Λογιστική και Χρηματοδοτική Διοίκηση",
+      "Διοίκηση Πληροφοριακών Συστημάτων",
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μεθοδολογίες Σχεδίασης και Ανάπτυξης Πληροφοριακών Συστημάτων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Προχωρημένη Χρηματοοικονομική Λογιστική",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Έρευνα και Μετρικές Μάρκετινγκ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαδίκτυο και Επιχειρηματικά Πληροφοριακά Συστήματα",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Κινδύνου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Ψηφιακού Περιεχομένου και Επικοινωνίας Ανθρώπου - Υπολογιστή",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνές Μάρκετινγκ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Εμπειρίας Πελάτη",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Εφοδιαστικής Αλυσίδας (Logistics)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Πωλήσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μέτρηση και Διοίκηση της Απόδοσης των Επιχειρήσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οργανωσιακή Συμπεριφορά και Ηγεσία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πολιτική Προϊόντος",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός Υπολογιστών με Java",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στρατηγικό Ηλεκτρονικό Μάρκετινγκ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός και Ανάπτυξη Προϊόντων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τιμολογιακή Στρατηγική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Λογιστικών Καταστάσεων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμογές Επιχειρηματικής Πληροφορικής",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θέματα Επιχειρησιακής Στρατηγικής",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λογιστική Κόστους",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στρατηγικός Σχεδιασμός Μάρκετινγκ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Κοινωνικών Δικτύων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη και Σχεδίαση Κινητών Εφαρμογών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αναφορές Βιώσιμης Ανάπτυξης και Λοιπές μη Χρηματοοικονομικές Αναφορές",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αποτίμηση Επιχειρήσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Πληροφοριακών Πόρων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματική Αναλυτική & Τεχνολογίες Εξατομίκευσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματική Ευφυία και Ανάλυση μεγάλων Δεδομένων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Επιχειρησιακή Αναλυτική και Τεχνολογίες Λήψης Αποφάσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονική Μάθηση και Διαχείριση Γνώσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λήψη Επιχειρηματικών Αποφάσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)",
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λογιστική Χρηματοδοτικών Εργαλείων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)",
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Αγροτικών Προϊόντων και Τροφίμων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Λιανικού & Χονδρικού Εμπορίου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Παίγνια Επιχειρηματικής Στρατηγικής (Games of Strategy)",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Διαχείρισης Επιχειρησιακών Πόρων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)",
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοδοτική Διοίκηση ΙΙΙ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)",
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Οικονομετρία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αναλυτική Μάρκετινγκ",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Διεθνών Επιχειρήσεων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ελεγκτική",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματικότητα",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στρατηγικό Ηλεκτρονικό Μάρκετινγκ",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακά Οικοσυστήματα για την Επιχειρηματικότητα",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "HIGH – TECH & Βιομηχανικό Μάρκετινγκ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αρχές Κοινωνιολογίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γενική Οικονομική Ιστορία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γενική και Εξελικτική Ψυχολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δίκαιο Ανταγωνισμού",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δίκτυα Διανομής & Logistics",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνής Χρηματοδοτική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Πωλήσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Διοίκησης Παραγωγής και Υπηρεσιών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Χρηματοοικονομικής Λογιστικής",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδική Διδακτική Μεθοδολογία-Διδακτική Μαθημάτων Ποιότητας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Διδακτική Μεθοδολογία-Αναλυτικά Προγράμματα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Φιλοσοφία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Παιδαγωγική Επιστήμη",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στους Η/Υ-Παιδαγωγικές Εφαρμογές στην Εκπαίδευση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εκπαιδευτική Αξιολόγηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργατικό Δίκαιο",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηγεσία και Ανάπτυξη Προσωπικών Δεξιοτήτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονική Επικοινωνία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονικό Επιχειρείν",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Επιχειρήσεων (Μάνατζμεντ)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Βιομηχανικής Οργάνωσης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Κοινωνικών Επιχειρήσεων και μη Κερδοσκοπικών Οργανισμών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μέτρηση και Διοίκηση της Απόδοσης των Επιχειρήσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΞΕΝΗ ΓΛΩΣΣΑ VI",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΞΕΝΗ ΓΛΩΣΣΑ ΙV",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "ΞΕΝΗ ΓΛΩΣΣΑ ΙΙΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Ιστορία της Ελλάδος",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οργάνωση και Διοίκηση της Εκπαίδευσης και των Εκπαιδευτικών Μονάδων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ποιότητα στην Εκπαίδευση και τη Διδασκαλία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πολυκαναλικό Μάρκετινγκ και Εμπειρία Πελάτη",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικά Μοντέλα Μάρκετινγκ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση Φοιτητών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση στη Διδασκαλία (Π.Α.Δ.) Ι",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση στη Διδασκαλία (Π.Α.Δ.) ΙΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πτυχιακή Εργασία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Διαχείρισης Μεγάλων Δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τραπεζική Διοικητική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Λογιστική και Χρηματοδοτική Διοίκηση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φορολογική Λογιστική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομικά της Ναυτιλίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομικό Δίκαιο",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακό Μάρκετινγκ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μάρκετινγκ"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακός Μετασχηματισμός και Τεχνολογίες Διαχείρισης Επιχειρησιακών Διαδικασιών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διοίκηση Πληροφοριακών Συστημάτων"
+     ]
+    }
+   ]
+  },
+  "aueb-stat": {
+   "source": "https://www.dept.aueb.gr/el/stat-courses",
+   "retrieved": "2026-10-21",
+   "note": "Kinds from each course page; «Προχωρημένες Μέθοδοι Δειγματοληψίας» (5th) states none and is left out.",
+   "courses": [
+    {
+     "code": null,
+     "name": "Γραμμική Άλγεβρα Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στον Προγραμματισμό με R",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικός Λογισμός Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πιθανότητες Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γραμμική Άλγεβρα ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στις Πιθανότητες και Στατιστική με R",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικός Λογισμός ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πιθανότητες ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εκτιμητική και Έλεγχοι Υποθέσεων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στοχαστικές Διαδικασίες I",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Μηχανογραφημένη Λογιστική και Χρηματοοικονομική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Επιχειρησιακή Έρευνα",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Μαθηματική Ανάλυση",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στον Προγραμματισμό με Python",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Χρονολογικών Σειρών",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γραμμικά Μοντέλα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αναλογιστικά I",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δειγματοληψία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημογραφική Στατιστική",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικές Μέθοδοι",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Δεδομένων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρητική Στατιστική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολυμεταβλητή Στατιστική Ανάλυση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική κατά Bayes",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστικός Έλεγχος Ποιότητας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός και Ανάλυση Πειραμάτων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γενικευμένα Γραμμικά Μοντέλα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Eπίσημες Στατιστικές",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αριθμητικές Μέθοδοι και Βελτιστοποίηση στη Στατιστική και στη Μηχανική Μάθηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βιοστατιστική I",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Στατιστικής και Πιθανοτήτων (ΕΘΣΠ): Οπτικοποίηση και Αφήγηση με Δεδομένα",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Στατιστικής και Πιθανοτήτων (ΕΘΣΠ): Ποσοτική Διαχείριση και Αναλυτική Κινδύνου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Διαχείριση Βάσεων Δεδομένων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Πιθανοτήτων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστική Στατιστική και Προσομοίωση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αναλογιστικά ΙΙ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βιοστατιστική ΙΙ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διπλωματική Εργασία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μέθοδοι Μπεϋζιανής Συμπερασματολογίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μέθοδοι Στατιστικής και Μηχανικής Μάθησης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μεθοδολογικά Εργαλεία της Μηχανικής Μάθησης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομετρία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στοχαστικές Διαδικασίες ΙΙ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Κατηγορικών Δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αναλυτική Αθλητικών Δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διπλωματική Εργασία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Στατιστικής και Πιθανοτήτων (ΕΘΣΠ): Στατιστική Μοντελοποίηση Σύνθετων Δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Μέτρου για τις Πιθανότητες και τη Στατιστική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μεθοδολογία Έρευνας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μη Παραμετρική Στατιστική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστικές Μέθοδοι για το Περιβάλλον και την Οικολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική Θεωρία Αποφάσεων και Θεωρία Παιγνίων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  }
+ }
+}
