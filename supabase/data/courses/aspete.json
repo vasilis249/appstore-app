@@ -1,0 +1,1423 @@
+{
+ "university": "aspete",
+ "departments": {
+  "aspete-civil": {
+   "source": "https://civil.aspete.gr/proptychiako/",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": "ΠΜ106",
+     "name": "Αναπτυξιακή Ψυχολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ103",
+     "name": "Αρχιτεκτονικός Σχεδιασμός Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ104",
+     "name": "Εισαγωγή στην Πληροφορική & τον Προγραμματισμό",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ101",
+     "name": "Μαθηµατικά I",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ105",
+     "name": "Φιλοσοφία και Κοινωνιολογία της Εκπαίδευσης",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ102",
+     "name": "Φυσική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ206",
+     "name": "Εκπαιδευτική Ψυχολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ205",
+     "name": "Εφαρμοσμένη Γεωλογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ201",
+     "name": "Μαθηµατικά ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ203",
+     "name": "Οικοδοµικός Σχεδιασμός Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ204",
+     "name": "Σχεδίαση με Χρήση Υπολογιστή",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ202",
+     "name": "Φυσική ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ302",
+     "name": "Αντοχή Υλικών I",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ301",
+     "name": "Δοµικά Υλικά",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ305",
+     "name": "Εκπαιδευτική Αξιολόγηση",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ304",
+     "name": "Κυκλοφοριακή Τεχνική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ306",
+     "name": "Παιδαγωγικές Εφαρµογές Η/Υ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ303",
+     "name": "Στατική Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ402",
+     "name": "Αντοχή Υλικών II",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ405",
+     "name": "Διδακτική Μεθοδολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ403",
+     "name": "Στατική ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ406",
+     "name": "Συµβουλευτική Ψυχολογία και Προσανατολισµός",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ404",
+     "name": "Τοπογραφία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ408Β",
+     "name": "Εφαρμοσμένη Γεωπληροφορική (GIS)",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ408Α",
+     "name": "Σχεδίαση με χρήση Η/Υ σε τρεις διαστάσεις",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ504",
+     "name": "Γενική Τεχνολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ506",
+     "name": "Διδακτική Μαθημάτων Ειδικότητας",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ502",
+     "name": "Εδαφοµηχανική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ501",
+     "name": "Μεταλλικές Κατασκευές",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ505",
+     "name": "Ξένη Γλώσσα – Ορολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ503",
+     "name": "Υδραυλική Μηχανική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ507",
+     "name": "Αρχιτεκτονικός σχεδιασμός και ψηφιακά διαδραστικά περιβάλλοντα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ603",
+     "name": "Έργα Αστικών Υδραυλικών Υποδομών & Εγγείων Βελτιώσεων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ606",
+     "name": "Εκπαιδευτική Τεχνολογία – Πολυµέσα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ602",
+     "name": "Οδοποιία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ601",
+     "name": "Οπλισµένο Σκυρόδεµα Ι",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ605",
+     "name": "Οργάνωση και Διοίκηση της Εκπαίδευσης",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ604",
+     "name": "Στατική ΙΙΙ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ703",
+     "name": "Θαλάσσια Υδραυλική & Λιμενικά Έργα",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ705",
+     "name": "Θεµελιώσεις",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ708",
+     "name": "Κατασκευές απο Φέρουσα Τοιχοποιία",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ706",
+     "name": "Μεθοδολογία Εκπαιδευτικής Έρευνας",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ702",
+     "name": "Οδοστρώματα",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ701",
+     "name": "Οπλισμένο Σκυρόδεμα ΙΙ",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ801",
+     "name": "Δυναμική των Κατασκευών",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ806",
+     "name": "Ειδικά Θέματα Θεμελιώσεων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ803",
+     "name": "Επισκευή & Ενίσχυση Κατασκευών",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ804",
+     "name": "Οργάνωση Εργοταξίου & Διαχείριση Τεχνικών Έργων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ802",
+     "name": "Υδροδυναμικά Έργα & Συστήματα Ήπιων Μορφών Ενέργειας",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ805Α",
+     "name": "Οικοδομικός Σχεδιασμός ΙΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ805Β",
+     "name": "Υπολογιστική Δομική Μηχανική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ904",
+     "name": "Αντισεισµικές Κατασκευές",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ903",
+     "name": "Αρχιτεκτονικός Σχεδιασμός ΙΙ & Τεχνική Νομοθεσία",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ902",
+     "name": "Διαχείριση Υδατικών Πόρων & Ενεργειακών Διαθεσίμων",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ901",
+     "name": "Ειδικά Θέματα Σκυροδέματος",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ905",
+     "name": "Πρακτική Άσκηση Διδασκαλίας Ι",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ1001",
+     "name": "Πρακτική Άσκηση Διδασκαλίας ΙΙ",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ1002",
+     "name": "Πρακτική Άσκηση στην Ειδικότητα",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΜ1003",
+     "name": "Πτυχιακή Εργασία",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    }
+   ]
+  },
+  "aspete-eee": {
+   "source": "https://elecengedu.aspete.gr/wp-content/uploads/2025/02/ΠΕΡΙΓΡΑΜΜΑΤΑ_ΜΑΘΗΜΑΤΩΝ-τρέχον.pdf",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": "ΗΜ106",
+     "name": "Αναπτυξιακή Ψυχολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ103",
+     "name": "Ηλεκτρικά Κυκλώματα Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ101",
+     "name": "Μαθηματικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ105",
+     "name": "ΠΑΙΔΑΓΩΓΙΚΗ ΚΑΙ ΦΙΛΟΣΟΦΙΑ ΤΗΣ ΠΑΙΔΕΙΑΣ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ104",
+     "name": "Προγραμματισμός Υπολογιστών",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ102",
+     "name": "Φυσική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ205",
+     "name": "Ειδικά Θέματα Προγραμματισμού",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ203",
+     "name": "Ηλεκτρικά Κυκλώματα ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ202",
+     "name": "Ηλεκτρονική Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ201",
+     "name": "Μαθηματικά ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ204Α",
+     "name": "Ηλεκτρολογικό Σχέδιο",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ204Β",
+     "name": "Τεχνολογία Εξαρτημάτων – Ηλεκτρονική Σχεδίαση",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ305",
+     "name": "ΕΚΠΑΙΔΕΥΤΙΚΗ ΑΞΙΟΛΟΓΗΣΗ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ303",
+     "name": "Ηλεκτρομαγνητικά Πεδία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ302",
+     "name": "Ηλεκτρονική ΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ301",
+     "name": "Μαθηματικά ΙΙI",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ306",
+     "name": "Παιδαγωγικές Εφαρμογές Η/Υ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ304",
+     "name": "Σήματα και Συστήματα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ405",
+     "name": "ΔΙΔΑΚΤΙΚΗ ΜΕΘΟΔΟΛΟΓΙΑ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ402",
+     "name": "Λογική Σχεδίαση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ404",
+     "name": "ΞΕΝΗ ΓΛΩΣΣΑ - ΟΡΟΛΟΓΙΑ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ403",
+     "name": "ΟΡΓΑΝΟΛΟΓΙΑ - ΜΕΤΡΗΣΕΙΣ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ406",
+     "name": "Συμβουλευτική Ψυχολογία & Προσανατολισμός",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ401Α",
+     "name": "Ηλεκτρικές Μηχανές Ι",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ401Β",
+     "name": "Ηλεκτρονική ΙΙΙ",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ503",
+     "name": "ΑΞΙΟΠΙΣΤΙΑ ΤΕΧΝΟΛΟΓΙΚΩΝ ΣΥΣΤΗΜΑΤΩΝ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ504",
+     "name": "Επιχειρηματικότητα, Καινοτομία Ι & Διδακτική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ506",
+     "name": "Κοινωνιολογία της Εκπαίδευσης",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ501",
+     "name": "Συστήματα Αυτόματου Ελέγχου (ΣΑΕ)",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ502Β",
+     "name": "Αναλογικά και Ψηφιακά Φίλτρα",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ505Α",
+     "name": "ΗΛΕΚΤΡΙΚΕΣ ΕΓΚΑΤΑΣΤΑΣΕΙΣ Ι",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ502Α",
+     "name": "Ηλεκτρικές Μηχανές ΙΙ",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ505Β",
+     "name": "Τηλεπικοινωνιακά Συστήματα",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ602",
+     "name": "Βιομηχανικός Αυτόματος Έλεγχος",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ605",
+     "name": "ΔΙΔΑΚΤΙΚΗ ΜΑΘΗΜΑΤΩΝ ΕΙΔΙΚΟΤΗΤΑΣ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ606",
+     "name": "Εκπαιδευτική Tεχνολογία - Πολυμέσα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ601",
+     "name": "Ηλεκτρονικά Ισχύος",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ604Β",
+     "name": "ΓΡΑΜΜΕΣ ΜΕΤΑΦΟΡΑΣ",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ603Β",
+     "name": "Οπτικές Επικοινωνίες",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ604Α",
+     "name": "ΣΥΣΤΗΜΑΤΑ ΗΛΕΚΤΡΙΚΗΣ ΕΝΕΡΓΕΙΑΣ Ι",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ706",
+     "name": "Γενική Τεχνολογία",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ705",
+     "name": "Μεθοδολογία Εκπαιδευτικής Έρευνας",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ702A",
+     "name": "Διασφάλιση Ποιότητας",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ702Β",
+     "name": "Λειτουργικά Συστήματα",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ701Β",
+     "name": "ΜΙΚΡΟΚΥΜΑΤΑ – ΚΕΡΑΙΕΣ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ704Β",
+     "name": "Ραδιοτηλεοπτικά Συστήματα",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ701Α1",
+     "name": "ΣΥΣΤΗΜΑΤΑ ΗΛΕΚΤΡΙΚΗΣ ΕΝΕΡΓΕΙΑΣ ΙΙ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ704Α",
+     "name": "Σχεδίαση Ηλεκτρολογικών Εγκαταστάσεων με Η/Υ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ703Α",
+     "name": "ΦΩΤΟΤΕΧΝΙΑ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ703Β",
+     "name": "Ψηφιακή Σχεδίαση",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ701Α2",
+     "name": "Αποθήκευση Ηλεκτρικής Ενέργειας & Ηλεκτρικά Οχήματα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ804",
+     "name": "Ειδικά Κεφάλαια Ηλεκτρικών Κυκλωμάτων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ802",
+     "name": "Συλλογή & Επεξεργασία Δεδομένων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ803Β",
+     "name": "ΑΣΥΡΜΑΤΕΣ ΕΠΙΚΟΙΝΩΝΙΕΣ",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ801Β",
+     "name": "Δίκτυα Υπολογιστών",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ801A",
+     "name": "Ηλεκτρικό Σύστημα Αυτοκινήτου",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ805Α",
+     "name": "Τεχνολογίες Διαχείρισης Περιβάλλοντος",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ803Α",
+     "name": "ΥΨΗΛΕΣ ΤΑΣΕΙΣ",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ805Β",
+     "name": "Ψηφιακή Ανάλυση & Επεξεργασία Σήματος",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ905",
+     "name": "ΕΥΦΥΕΣ ΗΛΕΚΤΡΙΚΟ ΔΙΚΤΥΟ",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ904",
+     "name": "Εναλλακτικές Μορφές Ενέργειας",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ902",
+     "name": "Μικροϋπολογιστές",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΜ903Α1",
+     "name": "ΗΛΕΚΤΡΙΚΗ ΟΙΚΟΝΟΜΙΑ",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ901Α",
+     "name": "Ηλεκτρική Κίνηση",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ901Β",
+     "name": "Ψηφιακές Τηλεοπτικές Υπηρεσίες",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ903Α2",
+     "name": "Ενεργειακή Πολιτική της Ευρώπης",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρολόγων Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ903Β1",
+     "name": "Ευρυζωνικές Επικοινωνίες",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    },
+    {
+     "code": "ΗΜ903Β2",
+     "name": "Φωτονική & Τηλεπικοινωνίες",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικών Μηχανικών"
+     ]
+    }
+   ]
+  },
+  "aspete-mech": {
+   "source": "https://mechanical.aspete.gr/σπουδές/προπτυχιακές-σπουδές",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": "Μ0104",
+     "name": "Αναπτυξιακή Ψυχολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0101",
+     "name": "Εισαγωγή στη Μηχανική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0102",
+     "name": "Μαθηματικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0105",
+     "name": "Παιδαγωγική & Φιλοσοφία της Παιδείας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0103",
+     "name": "Χημεία & Τεχνολογία Υλικών",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0201",
+     "name": "Εισαγωγή στις Κατεργασίες",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0206",
+     "name": "Εκπαιδευτική Ψυχολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0202",
+     "name": "Εφαρμοσμένη Μηχανική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0203",
+     "name": "Μαθηματικά ΙI",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0204",
+     "name": "Μηχανολογικό Σχέδιο",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0205",
+     "name": "Φυσική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0301",
+     "name": "Αντοχή των Υλικών Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0306",
+     "name": "Εκπαιδευτική Αξιολόγηση",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0302",
+     "name": "Ηλεκτροτεχνία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0303",
+     "name": "Θερμοδυναμική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0304",
+     "name": "Μηχανική των Ρευστών Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0305",
+     "name": "Παιδαγωγικές Εφαρμογές Η/Υ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0401",
+     "name": "Αντοχή των Υλικών ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0405",
+     "name": "Διδακτική Μεθοδολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0402",
+     "name": "Ηλεκτρικές Μηχανές",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0403",
+     "name": "Μηχανική των Ρευστών ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0404",
+     "name": "Ξένη Γλώσσα - Ορολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0406",
+     "name": "Συμβουλευτική Ψυχολογία & Προσανατολισμός",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0501",
+     "name": "Κατεργασίες Αποβολής Υλικού και Εργαλειομηχανές CNC",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0502",
+     "name": "Μετάδοση Θερμότητας",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0506",
+     "name": "Οργάνωση, Διοίκηση και Κοινωνιολογία της Εκπαίδευσης",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0503",
+     "name": "Στοιχεία Μηχανών Ι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0504",
+     "name": "Υδροδυναμικές Μηχανές",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0505",
+     "name": "Επιχειρηματικότητα - Καινοτομία Ι και Διδακτική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ένα από Μ0505 / Μ0505Π"
+     ]
+    },
+    {
+     "code": "Μ0505Π",
+     "name": "Σχεδίαση με Η/Υ",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ένα από Μ0505 / Μ0505Π"
+     ]
+    },
+    {
+     "code": "Μ0601",
+     "name": "Διαχείριση Ποιότητας",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0605",
+     "name": "Διδακτική Μαθημάτων Ειδικότητας",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0606",
+     "name": "Εκπαιδευτική Τεχνολογία - Πολυμέσα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0602",
+     "name": "Θερμικές Στροβιλομηχανές",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0603",
+     "name": "Στοιχεία Μηχανών ΙΙ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0604",
+     "name": "Τεχνικές Θερμάνσεων - Ατμολέβητες",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0607",
+     "name": "Επιχειρηματικότητα - Καινοτομία II",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Μ0701",
+     "name": "Κατεργασίες Διαμορφώσεων και Σύγχρονες Τεχνολογίες Παραγωγής",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0705",
+     "name": "Μεθοδολογία Εκπαιδευτικής Έρευνας",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0702",
+     "name": "Μηχανές Εσωτερικής Καύσης",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0706",
+     "name": "Πρακτική Άσκηση Διδασκαλίας I",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0703",
+     "name": "Τεχνολογία Ψύξης- Κλιματισμού",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0704",
+     "name": "Υδραυλικά και Πνευματικά Συστήματα",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0801",
+     "name": "Ανανεώσιμες Πηγές Ενέργειας - Εξοικονόμηση Ενέργειας",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0802",
+     "name": "Θεωρία Μηχανών και Μηχανισμών",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0803",
+     "name": "Μηχανική Συμπεριφορά και Κόπωση",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0804",
+     "name": "Συστήματα Κίνησης-Μεταφοράς",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0805",
+     "name": "Τεχνικά Υλικά",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0806",
+     "name": "Τεχνολογία Αυτοκινήτου",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0902",
+     "name": "Σχεδιασμός και Τεχνολογία",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ0904Π",
+     "name": "Ενεργειακοί Έλεγχοι και Επιθεωρήσεις",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ένα από Μ0904 / Μ0904Π"
+     ]
+    },
+    {
+     "code": "Μ0904",
+     "name": "Οικονομοτεχνική Ανάλυση και Διοίκηση Έργων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ένα από Μ0904 / Μ0904Π"
+     ]
+    },
+    {
+     "code": "Μ0905Π",
+     "name": "Προστασία Περιβάλλοντος και Τεχνολογίες Αντιρύπανσης",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ένα από Μ0905 / Μ0905Π"
+     ]
+    },
+    {
+     "code": "Μ0901",
+     "name": "ΣΑΕ-Βιομηχανικοί Αυτοματισμοί",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ένα από Μ0901 / Μ0901Π"
+     ]
+    },
+    {
+     "code": "Μ0903Π",
+     "name": "Σχεδιασμός και Βελτιστοποίηση Ενεργειακών Συστημάτων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ένα από Μ0903 / Μ0903Π"
+     ]
+    },
+    {
+     "code": "Μ0901Π",
+     "name": "Σύγχρονες Τεχνολογίες Αυτοκίνησης",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ένα από Μ0901 / Μ0901Π"
+     ]
+    },
+    {
+     "code": "Μ0903",
+     "name": "Σύγχρονη Φυσική και Τεχνολογικές Εφαρμογές της",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ένα από Μ0903 / Μ0903Π"
+     ]
+    },
+    {
+     "code": "Μ0905",
+     "name": "Τεχνική Νομοθεσία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ένα από Μ0905 / Μ0905Π"
+     ]
+    },
+    {
+     "code": "Μ1003",
+     "name": "Πρακτική Άσκηση Διδασκαλίας II",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ1002",
+     "name": "Πρακτική Άσκηση στην Ειδικότητα",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ1001",
+     "name": "Πτυχιακή Εργασία",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    }
+   ]
+  }
+ }
+}
