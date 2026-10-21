@@ -1,0 +1,1178 @@
+{
+ "university": "unipi",
+ "departments": {
+  "unipi-bankfin": {
+   "source": "https://bankfin.unipi.gr/graduate-courses",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": "ΧΡΘΠΧ01",
+     "name": "Θεσμικό Πλαίσιο Των Χρηματοοικονομικών Αγορών",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΜΑΘ06",
+     "name": "Μαθηματικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΜΙΚ01",
+     "name": "Μικροοικονομική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΣΤΑ01",
+     "name": "Στατιστική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΛΟΓ01-2",
+     "name": "Αρχές Χρηματοοικονομικής Λογιστικής",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΜΑΘ07",
+     "name": "Μαθηματικά ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΜΑΚ01",
+     "name": "Μακροοικονομική Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΣΤΑ02",
+     "name": "Στατιστική ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΔΙΚ03",
+     "name": "Εμπορικό Δίκαιο",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΠΛΗ01-1",
+     "name": "Ηλεκτρονικοί Υπολογιστές",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΛΟΓ41-01",
+     "name": "Χρηματοοικονομική Ανάλυση Λογιστικών Καταστάσεων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΧΡΗ01-1",
+     "name": "Χρηματοοικονομική Διοικητική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΟΙΜ01",
+     "name": "Οικονομετρία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΧΡΗ27",
+     "name": "Προϊόντα Σταθερού Εισοδήματος",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΤΡΑ01",
+     "name": "Χρήμα και Τράπεζες",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΧΡΗ02",
+     "name": "Χρηματοδότηση Επιχειρήσεων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΟΙΚ07",
+     "name": "Διεθνής Μακροχρηματοοικονομική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΠΑΞ01",
+     "name": "Παράγωγα Αξιόγραφα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΤΡΑΠ01",
+     "name": "Τραπεζική",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΘΕΡ01",
+     "name": "Χρηματοοικονομική Θεωρία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΤΡΑ07",
+     "name": "Διαχείριση Κινδύνου Χρηματοπιστωτικών Ιδρυμάτων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΔΧΑ01",
+     "name": "Διεθνείς Χρηματοοικονομικές Αγορές",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΧΡΗ21",
+     "name": "Διαχείριση Χαρτοφυλακίου",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΑΚΕ01",
+     "name": "Αμοιβαία Κεφάλαια και Εναλλακτικές Επενδύσεις",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΑΝΜ01",
+     "name": "Αναλογιστικά Μαθηματικά",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΑΑΞ01",
+     "name": "Αποτίμηση Αξιογράφων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΒΔΕΑ",
+     "name": "Βάσεις Δεδομένων και Επιχειρηματική Αναλυτική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΔΙΛ",
+     "name": "Διοικητική Λογιστική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΕΘΑΕ",
+     "name": "Ειδικά Θέματα Αξιολόγησης Επενδύσεων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΕΛΕ01",
+     "name": "Ειδικά Θέματα Διαχείρισης Κινδύνου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΔΠΧΑ",
+     "name": "Ειδικά Θέματα Διεθνών Προτύπων Χρηματοοικονομικής Αναφοράς",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΧΡΗ06",
+     "name": "Ειδικά Θέματα Χρηματοοικονομικής",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΕΑ01",
+     "name": "Εισαγωγή στην Ασφάλιση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΕΛΕ01",
+     "name": "Ελεγκτική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΟΔΕ03",
+     "name": "Επιχειρησιακή Πολιτική και Στρατηγική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΕΤΡ01",
+     "name": "Εργαστήριο Τραπεζικής",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΕΦΟ01",
+     "name": "Εφαρμοσμένη Οικονομετρία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΘΜΑ01",
+     "name": "Θεωρία Μικροδομής Αγορών",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΜΘΠ02",
+     "name": "Θεωρία Παιγνίων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΜΔΠΚ01",
+     "name": "Μέτρηση και Διαχείριση Πιστωτικού Κινδύνου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΜΑΚ02",
+     "name": "Μακροοικονομική ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΜΙΚ02",
+     "name": "Μικροοικονομική ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΗΜΠΕ",
+     "name": "Μπεϋζιανή Οικονομετρία με Εφαρμογές στην Επιλογή Χαρτοφυλακίου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΟΑΧ01",
+     "name": "Οικονομετρική Ανάλυση Χρονοσειρών",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΕΟΛ11",
+     "name": "Οικονομικά της Ευρωπαϊκής Ολοκλήρωσης",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΟΤΠ01",
+     "name": "Οικονομική της Πληροφορίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΟΣΥ01",
+     "name": "Οργανωσιακή Συμπεριφορά",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΠΧΡ01",
+     "name": "Περιβαλλοντική Χρηματοοικονομική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΠΑΤ01",
+     "name": "Πρακτική Άσκηση στη Χρηματοοικονομική και Τραπεζική Διοικητική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΠΘΧ01",
+     "name": "Προχωρημένη Θεωρία Χαρτοφυλακίου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΣΜΧ01",
+     "name": "Στοχαστικές Μέθοδοι στα Χρηματοοικονομικά",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΣΤΛ01-1",
+     "name": "Στοχαστική Ανάλυση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΕΠΕ09",
+     "name": "Συγχωνεύσεις και Εξαγορές",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΤΜΙ01",
+     "name": "Τραπεζική Μικροοικονομική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΥΧΜ01",
+     "name": "Υπολογιστική Χρηματοοικονομική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΦΟΛ01",
+     "name": "Φορολογική Λογιστική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΗΝΟΙ",
+     "name": "Χρηματοοικονομικά του Νοικοκυριού",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΧΟΜ01-1",
+     "name": "Χρηματοοικονομική Οικονομετρία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    },
+    {
+     "code": "ΧΡΗΤΕ",
+     "name": "Χρηματοοικονομική Τεχνολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο"
+     ]
+    }
+   ]
+  },
+  "unipi-bus": {
+   "source": null,
+   "tried": [
+    "https://bus.unipi.gr/",
+    "https://www.bus.unipi.gr/",
+    "https://www.unipi.gr/"
+   ],
+   "note": "Site unreachable from the build environment (connection refused); re-run from a normal network.",
+   "courses": []
+  },
+  "unipi-cs": {
+   "source": null,
+   "tried": [
+    "https://cs.unipi.gr/",
+    "https://www.cs.unipi.gr/",
+    "https://www.unipi.gr/"
+   ],
+   "note": "Site unreachable from the build environment (connection refused); re-run from a normal network.",
+   "courses": []
+  },
+  "unipi-des": {
+   "source": null,
+   "tried": [
+    "https://des.unipi.gr/",
+    "https://www.des.unipi.gr/",
+    "https://www.unipi.gr/"
+   ],
+   "note": "Site unreachable from the build environment (connection refused); re-run from a normal network.",
+   "courses": []
+  },
+  "unipi-ds": {
+   "source": null,
+   "tried": [
+    "https://ds.unipi.gr/",
+    "https://www.ds.unipi.gr/",
+    "https://www.unipi.gr/"
+   ],
+   "note": "Site unreachable from the build environment (connection refused); re-run from a normal network.",
+   "courses": []
+  },
+  "unipi-econ": {
+   "source": null,
+   "tried": [
+    "https://econ.unipi.gr/",
+    "https://www.econ.unipi.gr/",
+    "https://www.unipi.gr/"
+   ],
+   "note": "Site unreachable from the build environment (connection refused); re-run from a normal network.",
+   "courses": []
+  },
+  "unipi-ind": {
+   "source": null,
+   "tried": [
+    "https://ie.unipi.gr/",
+    "https://www.ie.unipi.gr/",
+    "https://www.unipi.gr/"
+   ],
+   "note": "Site unreachable from the build environment (connection refused); re-run from a normal network.",
+   "courses": []
+  },
+  "unipi-mar": {
+   "source": null,
+   "tried": [
+    "https://maritime.unipi.gr/",
+    "https://www.maritime.unipi.gr/",
+    "https://www.unipi.gr/"
+   ],
+   "note": "Site unreachable from the build environment (connection refused); re-run from a normal network.",
+   "courses": []
+  },
+  "unipi-stat": {
+   "source": null,
+   "tried": [
+    "https://stat.unipi.gr/",
+    "https://www.stat.unipi.gr/",
+    "https://www.unipi.gr/"
+   ],
+   "note": "Site unreachable from the build environment (connection refused); re-run from a normal network.",
+   "courses": []
+  },
+  "unipi-tour": {
+   "source": "https://tourism.unipi.gr/curriculum/",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": "ΤΣΑΓΓ101",
+     "name": "Αγγλικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ104",
+     "name": "Εισαγωγή στην Πληροφορική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ103",
+     "name": "Εισαγωγή στο Μάνατζμεντ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ101",
+     "name": "Εισαγωγή στον Τουρισμό - Τουριστική Γεωγραφία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ105",
+     "name": "Επιχειρηματική Στατιστική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ102",
+     "name": "Μικροοικονομική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΑΓΓ201",
+     "name": "Αγγλικά II",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ205",
+     "name": "Διαχείριση Τεχνολογίας και Καινοτομίας στον Τουριστικό Τομέα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ204",
+     "name": "Διοίκηση Ανθρώπινου Παράγοντα σε Τουριστικές Επιχειρήσεις",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ203",
+     "name": "Λογιστική για Τουριστικές Επιχειρήσεις",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ201",
+     "name": "Μακροοικονομική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ202",
+     "name": "Νέες Τεχνολογίες στον Τουρισμό",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΑΓΓ301",
+     "name": "Αγγλικά III",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ302",
+     "name": "Διεθνής Οικονομική και Διεθνής Τουριστική Αγορά",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ301",
+     "name": "Πληροφοριακά Συστήματα και Υποστήριξη Αποφάσεων για Τουριστικές Επιχειρήσεις",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ303",
+     "name": "Τουριστική Οικονομική - Τουριστική Κοινωνιολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ305",
+     "name": "Τουριστικό Δίκαιο",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ304",
+     "name": "Τουριστικό Μάρκετινγκ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ404",
+     "name": "E-Tourism και m-Tourism στο Διεθνές Περιβάλλον",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ402",
+     "name": "Έρευνα και Ανάλυση της Τουριστικής Αγοράς",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΑΓΓ401",
+     "name": "Αγγλικά IV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ403",
+     "name": "Τουρισμός και Περιβάλλον: Βιώσιμος Τουρισμός",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ405",
+     "name": "Τουριστική Επιχειρηματικότητα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ401",
+     "name": "Τουριστική Καταναλωτική Συμπεριφορά και Ψυχολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΑΓΓ501",
+     "name": "Αγγλικά για Διαπολιτισμική Επικοινωνία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ502",
+     "name": "Εναλλακτικές και Ειδικές Μορφές Τουρισμού",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ503",
+     "name": "Οργάνωση και Διοίκηση Ξενοδοχειακών Επιχειρήσεων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ501",
+     "name": "Στρατηγικές και Πολιτικές Τουριστικής Ανάπτυξης",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΑΓΓ601",
+     "name": "Αγγλική Επικοινωνία για Εργαζόμενους στον Τουρισμό",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ603",
+     "name": "Οργάνωση και Λειτουργία Σύγχρονων Τουριστικών Γραφείων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ601",
+     "name": "Τουρισμός και Περιφερειακή Ανάπτυξη",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ602",
+     "name": "Χρηματοοικονομική Διοίκηση για Επιχειρήσεις Τουρισμού",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΑΓΓ701",
+     "name": "Αγγλική Γλώσσα για Επικοινωνιακές Απαιτήσεις στον Τουρισμό",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ701",
+     "name": "Διαχείριση Ταυτότητας για Προορισμούς και Τουριστικές Επιχειρήσεις (Brand Management)",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ702",
+     "name": "Διοίκηση Ολικής Ποιότητας για Επιχειρήσεις Τουρισμού",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ703",
+     "name": "Επιχειρηματικές Προσομοιώσεις - Παίγνια",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΑΓΓ801",
+     "name": "Αγγλική Επικοινωνία για Στελέχη Τουριστικών Επιχειρήσεων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ802",
+     "name": "Μελέτες Σκοπιμότητας και Business Plan για Τουριστικές Επιχειρήσεις",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ803",
+     "name": "Νέα Ψηφιακά Μέσα στο Μάρκετινγκ του Τουρισμού",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ801",
+     "name": "Στρατηγικό Μάνατζμεντ Τουριστικών Επιχειρήσεων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΣΚ624",
+     "name": "Ανάπτυξη Δεξιοτήτων και Γαλλική Ορολογία στον Τουρισμό Ι",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ631",
+     "name": "Ανάπτυξη Δεξιοτήτων και Γαλλική Ορολογία στον Τουρισμό ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ632",
+     "name": "Αναπλάσεις και Σχεδιασμός Τοπίου στον Τουρισμό",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ635",
+     "name": "Διαμεσολάβηση στον Τουρισμό",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ514",
+     "name": "Διαχείριση Προμηθειών στην Τουριστική Βιομηχανία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ618",
+     "name": "Δορυφόροι Λογαριασμοί στον Τουρισμό - Παρατηρητήριο Βιώσιμου Τουρισμού",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ629",
+     "name": "Ειδικά Θέματα Διαχείρισης Κρίσεων στον Τουρισμό",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ612",
+     "name": "Ειδικές Μορφές Τουρισμού 2 - Αγροτουρισμός, Οικοτουρισμός, Γαστρονομικός, Οινολογικός",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ613",
+     "name": "Ειδικές Μορφές Τουρισμού 6 - Συνεδριακός, Εκπαιδευτικός, Σχολικός",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ623",
+     "name": "Εξόρυξη Δεδομένων στις Επιχειρήσεις",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ625",
+     "name": "Επιχειρηματικές Προβλέψεις",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚΕΡ1",
+     "name": "Ερευνητική Εργασία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)",
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ616",
+     "name": "Ευρωπαϊκή Τουριστική Πολιτική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ614",
+     "name": "Ηγεσία για Τουριστικές Επιχειρήσεις",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ622",
+     "name": "Κοινωνική Ανθρωπολογία και Τουρισμός",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ611",
+     "name": "Κοστολογικά Συστήματα και Διαχείριση Κόστους Επιχειρήσεων Φιλοξενίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ627",
+     "name": "Μέθοδοι Έρευνας στον Τουρισμό",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ513",
+     "name": "Μέθοδοι και Εργαλεία Αντιμετώπισης της Απάτης στο Σύγχρονο Επιχειρείν",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ633",
+     "name": "Νομικά Ζητήματα Ηλεκτρονικών Πλατφορμών Κράτησης",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ515",
+     "name": "Νομικά Θέματα Ηλεκτρονικού Εμπορίου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ634",
+     "name": "Οικονομική Πολιτική και Τουριστική Ανταγωνιστικότητα",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ512",
+     "name": "Οικονομικός Προγραμματισμός και Λήψη Αποφάσεων Επιχειρήσεων Φιλοξενίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ628",
+     "name": "Οργανωσιακή Συμπεριφορά σε Επιχειρήσεις Τουρισμού και Οργανισμούς",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚΠΡΑΚ2",
+     "name": "Πρακτικό Μάθημα II",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚΠΡΑΚ1",
+     "name": "Πρακτικό Μάθημα Ι",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ626",
+     "name": "Στρατηγικές για την Ανάπτυξη Τουρισμού Πολυτελείας (Luxury Tourism)",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ619",
+     "name": "Στρατηγικό Μάρκετινγκ Τουριστικών Προορισμών",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ621",
+     "name": "Στρατηγικός Σχεδιασμός για Επενδύσεις και Real Estate στον Τουρισμό",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ615",
+     "name": "Σύγχρονα Θέματα Τουρισμού",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ630",
+     "name": "Τεχνικές Ανάλυσης Δεδομένων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ620",
+     "name": "Τουρισμός Υγείας (Ιατρικός, Ιαματικός, Ευεξίας)",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ617",
+     "name": "Τουρισμός και Διαχείριση Κρίσεων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ517",
+     "name": "Τουρισμός και Μεταφορές",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Εαρινό εξάμηνο (6ο, 8ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ516",
+     "name": "Τουριστική Εκπαίδευση και Κατάρτιση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    },
+    {
+     "code": "ΤΣΚ511",
+     "name": "Χρηματοδοτικά Προγράμματα για τον Τουρισμό",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Χειμερινό εξάμηνο (5ο, 7ο)"
+     ]
+    }
+   ]
+  }
+ }
+}
