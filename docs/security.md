@@ -35,6 +35,11 @@ schema change.
   Counters (likes, replies, reposts, listens, topic posts) are trigger-maintained; one listen per
   person, the author's own plays don't count. Who liked / listened is never exposed. `voices` bucket:
   public by URL (unguessable paths), not listable, 3 MB, audio types only.
+- **Course files** (notes / past papers): PRIVATE bucket `course-files` (20 MB, PDF / JPEG / PNG / WebP), uploads only
+  into your own `<uid>/` folder; a file becomes a `course_files` row only through `add_course_file` (your own unused
+  object, a course of your university, 20/h, 60/day). Rows and objects are readable (1-h signed URLs) only by verified
+  students of that university (not across a block), the uploader, admins and that campus's moderators
+  (`private.can_see_course_file`); 3 reporters hide a file. Unreferenced objects are swept (`orphan_course_files`).
 - **Groups**: public = readable by every signed-in user, joined at once; private = name/description/counts
   discoverable, voices and member list only for members (`private.can_see_group` inside `can_see_post` and
   `feed_posts`). Only members post; group voices never leave the group (no feeds outside it, no reposts). Invites

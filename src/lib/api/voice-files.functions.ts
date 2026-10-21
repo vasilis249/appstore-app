@@ -26,7 +26,15 @@ export const sweepVoiceFiles = createServerFn({ method: "POST" })
       const { error: rmError } = await supabaseAdmin.storage.from("dm-photos").remove(photos);
       if (rmError) throw new Error(rmError.message);
     }
-    return { removed: names.length + photos.length };
+    // course files whose row is gone (deleted by the uploader / staff, failed adds)
+    const cf = await supabaseAdmin.rpc("orphan_course_files", { p_limit: 200 });
+    if (cf.error) throw new Error(cf.error.message);
+    const docs = (cf.data ?? []) as string[];
+    if (docs.length) {
+      const { error: rmError } = await supabaseAdmin.storage.from("course-files").remove(docs);
+      if (rmError) throw new Error(rmError.message);
+    }
+    return { removed: names.length + photos.length + docs.length };
   });
 
 /** Fire and forget, after something that can leave audio behind (deleting a voice, a group, …). */

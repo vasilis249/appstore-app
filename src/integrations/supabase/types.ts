@@ -47,6 +47,114 @@ export type Database = {
           },
         ]
       }
+      course_files: {
+        Row: {
+          course_id: string
+          created_at: string
+          hidden: boolean
+          id: string
+          kind: string
+          mime: string
+          path: string
+          size_bytes: number
+          title: string
+          uploader_id: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          hidden?: boolean
+          id?: string
+          kind: string
+          mime: string
+          path: string
+          size_bytes?: number
+          title: string
+          uploader_id: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          hidden?: boolean
+          id?: string
+          kind?: string
+          mime?: string
+          path?: string
+          size_bytes?: number
+          title?: string
+          uploader_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_files_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_files_uploader_id_fkey"
+            columns: ["uploader_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      courses: {
+        Row: {
+          code: string | null
+          department_id: string
+          files_count: number
+          groups: string[]
+          id: string
+          kind: string
+          name: string
+          position: number
+          semester: number | null
+          university_id: string
+        }
+        Insert: {
+          code?: string | null
+          department_id: string
+          files_count?: number
+          groups?: string[]
+          id: string
+          kind: string
+          name: string
+          position?: number
+          semester?: number | null
+          university_id: string
+        }
+        Update: {
+          code?: string | null
+          department_id?: string
+          files_count?: number
+          groups?: string[]
+          id?: string
+          kind?: string
+          name?: string
+          position?: number
+          semester?: number | null
+          university_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "courses_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "courses_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       departments: {
         Row: {
           id: string
@@ -1001,6 +1109,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      add_course_file: {
+        Args: {
+          p_course: string
+          p_kind: string
+          p_path: string
+          p_title: string
+        }
+        Returns: string
+      }
       admin_campus_moderators: {
         Args: { p_university: string }
         Returns: {
@@ -1051,7 +1168,12 @@ export type Database = {
         Args: { p_limit?: number; p_open?: boolean }
         Returns: {
           action: string
+          course_name: string
           created_at: string
+          file_exists: boolean
+          file_hidden: boolean
+          file_path: string
+          file_title: string
           group_exists: boolean
           group_name: string
           id: string
@@ -1200,6 +1322,7 @@ export type Database = {
         }
         Returns: string
       }
+      delete_course_file: { Args: { p_file: string }; Returns: undefined }
       delete_group: { Args: { p_group: string }; Returns: undefined }
       delete_post: { Args: { p_post: string }; Returns: undefined }
       discover_groups: {
@@ -1477,6 +1600,7 @@ export type Database = {
           title: string
         }[]
       }
+      orphan_course_files: { Args: { p_limit?: number }; Returns: string[] }
       orphan_dm_photos: { Args: { p_limit?: number }; Returns: string[] }
       orphan_voice_files: { Args: { p_limit?: number }; Returns: string[] }
       post_ancestors: { Args: { p_post: string }; Returns: string[] }

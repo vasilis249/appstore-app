@@ -128,11 +128,11 @@ export async function refreshNews(): Promise<number> {
   return (data as number) ?? 0;
 }
 
-export type ReportAction = "dismiss" | "hide_post" | "disable_user" | "delete_group";
+export type ReportAction = "dismiss" | "hide_post" | "disable_user" | "delete_group" | "delete_file";
 
 export interface AdminReport {
   id: string;
-  kind: "user" | "voice_message" | "post" | "group";
+  kind: "user" | "voice_message" | "post" | "group" | "course_file";
   reason: string;
   created_at: string;
   resolved_at: string | null;
@@ -154,6 +154,11 @@ export interface AdminReport {
   reports_on_target: number;
   group_name: string | null;
   group_exists: boolean;
+  file_title: string | null;
+  file_path: string | null;
+  file_hidden: boolean | null;
+  file_exists: boolean;
+  course_name: string | null;
 }
 
 export const reportKeys = {
@@ -178,7 +183,7 @@ export async function openReportsCount(): Promise<number> {
 export async function resolveReport(id: string, action: ReportAction): Promise<number> {
   const { data, error } = await supabase.rpc("admin_resolve_report", { p_report: id, p_action: action });
   fail(error);
-  if (action === "delete_group") sweepVoiceFilesLater();
+  if (action === "delete_group" || action === "delete_file") sweepVoiceFilesLater();
   return (data as number) ?? 0;
 }
 

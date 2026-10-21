@@ -81,8 +81,8 @@ export async function blockUser(id: string) {
   unwrap(await supabase.rpc("block_user", { p_user: id }));
 }
 
-export type ReportKind = "user" | "voice_message" | "post" | "group";
-export const REPORT_REASONS = ["spam", "harassment", "hate", "sexual", "violence", "other"] as const;
+export type ReportKind = "user" | "voice_message" | "post" | "group" | "course_file";
+export const REPORT_REASONS = ["spam", "harassment", "hate", "sexual", "violence", "copyright", "other"] as const;
 
 export async function reportContent(kind: ReportKind, target: string, reason: string) {
   unwrap(await supabase.rpc("report_content", { p_kind: kind, p_target: target, p_reason: reason }));

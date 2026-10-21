@@ -17,6 +17,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedCoursesRouteImport } from './routes/_authenticated/courses'
 import { Route as AuthenticatedLocationRouteImport } from './routes/_authenticated/location'
 import { Route as AuthenticatedMapRouteImport } from './routes/_authenticated/map'
 import { Route as AuthenticatedMemoriesRouteImport } from './routes/_authenticated/memories'
@@ -30,6 +31,7 @@ import { Route as ICodeRouteImport } from './routes/i.$code'
 import { Route as VPostIdRouteImport } from './routes/v.$postId'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin/reports'
 import { Route as AuthenticatedAdminTopicsRouteImport } from './routes/_authenticated/admin/topics'
+import { Route as AuthenticatedCCourseIdRouteImport } from './routes/_authenticated/c.$courseId'
 import { Route as AuthenticatedGroupsIndexRouteImport } from './routes/_authenticated/groups.index'
 import { Route as AuthenticatedGroupsNewRouteImport } from './routes/_authenticated/groups.new'
 import { Route as AuthenticatedMessagesIndexRouteImport } from './routes/_authenticated/messages.index'
@@ -79,6 +81,11 @@ const TermsRoute = TermsRouteImport.update({
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCoursesRoute = AuthenticatedCoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedLocationRoute = AuthenticatedLocationRouteImport.update({
@@ -149,6 +156,11 @@ const AuthenticatedAdminTopicsRoute =
     path: '/admin/topics',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCCourseIdRoute = AuthenticatedCCourseIdRouteImport.update({
+  id: '/c/$courseId',
+  path: '/c/$courseId',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedGroupsIndexRoute =
   AuthenticatedGroupsIndexRouteImport.update({
     id: '/groups/',
@@ -218,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
+  '/courses': typeof AuthenticatedCoursesRoute
   '/location': typeof AuthenticatedLocationRoute
   '/map': typeof AuthenticatedMapRoute
   '/memories': typeof AuthenticatedMemoriesRoute
@@ -231,6 +244,7 @@ export interface FileRoutesByFullPath {
   '/v/$postId': typeof VPostIdRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
+  '/c/$courseId': typeof AuthenticatedCCourseIdRoute
   '/groups/new': typeof AuthenticatedGroupsNewRoute
   '/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/p/$postId': typeof AuthenticatedPPostIdRoute
@@ -250,6 +264,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
+  '/courses': typeof AuthenticatedCoursesRoute
   '/location': typeof AuthenticatedLocationRoute
   '/map': typeof AuthenticatedMapRoute
   '/memories': typeof AuthenticatedMemoriesRoute
@@ -264,6 +279,7 @@ export interface FileRoutesByTo {
   '/': typeof AuthenticatedIndexRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
+  '/c/$courseId': typeof AuthenticatedCCourseIdRoute
   '/groups/new': typeof AuthenticatedGroupsNewRoute
   '/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/p/$postId': typeof AuthenticatedPPostIdRoute
@@ -285,6 +301,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
+  '/_authenticated/courses': typeof AuthenticatedCoursesRoute
   '/_authenticated/location': typeof AuthenticatedLocationRoute
   '/_authenticated/map': typeof AuthenticatedMapRoute
   '/_authenticated/memories': typeof AuthenticatedMemoriesRoute
@@ -299,6 +316,7 @@ export interface FileRoutesById {
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/admin/topics': typeof AuthenticatedAdminTopicsRoute
+  '/_authenticated/c/$courseId': typeof AuthenticatedCCourseIdRoute
   '/_authenticated/groups/new': typeof AuthenticatedGroupsNewRoute
   '/_authenticated/messages/$userId': typeof AuthenticatedMessagesUserIdRoute
   '/_authenticated/p/$postId': typeof AuthenticatedPPostIdRoute
@@ -321,6 +339,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reset-password'
     | '/terms'
+    | '/courses'
     | '/location'
     | '/map'
     | '/memories'
@@ -334,6 +353,7 @@ export interface FileRouteTypes {
     | '/v/$postId'
     | '/admin/reports'
     | '/admin/topics'
+    | '/c/$courseId'
     | '/groups/new'
     | '/messages/$userId'
     | '/p/$postId'
@@ -353,6 +373,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reset-password'
     | '/terms'
+    | '/courses'
     | '/location'
     | '/map'
     | '/memories'
@@ -367,6 +388,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/reports'
     | '/admin/topics'
+    | '/c/$courseId'
     | '/groups/new'
     | '/messages/$userId'
     | '/p/$postId'
@@ -387,6 +409,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reset-password'
     | '/terms'
+    | '/_authenticated/courses'
     | '/_authenticated/location'
     | '/_authenticated/map'
     | '/_authenticated/memories'
@@ -401,6 +424,7 @@ export interface FileRouteTypes {
     | '/_authenticated/'
     | '/_authenticated/admin/reports'
     | '/_authenticated/admin/topics'
+    | '/_authenticated/c/$courseId'
     | '/_authenticated/groups/new'
     | '/_authenticated/messages/$userId'
     | '/_authenticated/p/$postId'
@@ -483,6 +507,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/courses': {
+      id: '/_authenticated/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof AuthenticatedCoursesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/location': {
@@ -576,6 +607,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTopicsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/c/$courseId': {
+      id: '/_authenticated/c/$courseId'
+      path: '/c/$courseId'
+      fullPath: '/c/$courseId'
+      preLoaderRoute: typeof AuthenticatedCCourseIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/groups/': {
       id: '/_authenticated/groups/'
       path: '/groups'
@@ -657,6 +695,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCoursesRoute: typeof AuthenticatedCoursesRoute
   AuthenticatedLocationRoute: typeof AuthenticatedLocationRoute
   AuthenticatedMapRoute: typeof AuthenticatedMapRoute
   AuthenticatedMemoriesRoute: typeof AuthenticatedMemoriesRoute
@@ -668,6 +707,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
   AuthenticatedAdminTopicsRoute: typeof AuthenticatedAdminTopicsRoute
+  AuthenticatedCCourseIdRoute: typeof AuthenticatedCCourseIdRoute
   AuthenticatedGroupsNewRoute: typeof AuthenticatedGroupsNewRoute
   AuthenticatedMessagesUserIdRoute: typeof AuthenticatedMessagesUserIdRoute
   AuthenticatedPPostIdRoute: typeof AuthenticatedPPostIdRoute
@@ -682,6 +722,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCoursesRoute: AuthenticatedCoursesRoute,
   AuthenticatedLocationRoute: AuthenticatedLocationRoute,
   AuthenticatedMapRoute: AuthenticatedMapRoute,
   AuthenticatedMemoriesRoute: AuthenticatedMemoriesRoute,
@@ -693,6 +734,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
   AuthenticatedAdminTopicsRoute: AuthenticatedAdminTopicsRoute,
+  AuthenticatedCCourseIdRoute: AuthenticatedCCourseIdRoute,
   AuthenticatedGroupsNewRoute: AuthenticatedGroupsNewRoute,
   AuthenticatedMessagesUserIdRoute: AuthenticatedMessagesUserIdRoute,
   AuthenticatedPPostIdRoute: AuthenticatedPPostIdRoute,

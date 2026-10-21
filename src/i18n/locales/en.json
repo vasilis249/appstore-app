@@ -97,7 +97,7 @@
     "contactLine": "Questions about this document?",
     "terms": {
       "title": "Terms of Use",
-      "updated": "Last updated: September 2026",
+      "updated": "Last updated: October 2026",
       "intro": "These terms (and end-user licence agreement, EULA) apply between you and {controller} for your use of Speak, in the iOS app and on the website. By signing up or using the service you accept them. If you do not agree, do not use Speak.",
       "sections": [
         {
@@ -146,6 +146,14 @@
             "Bullying, harassment and publishing personal details of fellow students, teaching staff or employees are forbidden, as is sharing exam questions or answers during an exam and material that infringes copyright.",
             "Student moderators, appointed by Speak, see the reports on their campus's voices (without seeing who made them) and can hide them; decisions about accounts are taken by Speak.",
             "With an invite link, the new user and the person who invited them start following each other; either can change that at any time."
+          ]
+        },
+        {
+          "heading": "Course notes and past papers",
+          "body": [
+            "On each course page the university's students upload notes and past exam papers (PDF or photos, up to 20 MB). The files, with your name, are visible only to verified students of the same university.",
+            "Upload only what you have the right to share: your own notes, exam papers, or material the teaching staff have made freely available. Do not upload textbooks, books, paid or protected third-party material, or other people's personal data (e.g. names and grades).",
+            "Every file has “Report” (including copyright). A file reported by three different people is hidden until we review it; we remove infringing files when the rights holder tells us at {email}."
           ]
         },
         {
@@ -246,7 +254,8 @@
             "Microphone: used only while you record or hold the walkie-talkie button, after you grant permission. A recording stays on your device until you tap \"Post\" or \"Send\"; on the walkie-talkie your voice reaches your friend live while you talk.",
             "Reminders: the daily topic notifications are scheduled locally on your device; we do not use a push server.",
             "We do not collect location, contacts, payment or health data. We do not transcribe your voice, use it for biometric identification or use it to train artificial intelligence systems.",
-            "When you sign up with your student email, your university address is also your account email: you sign in with a one-time code we send you, no password."
+            "When you sign up with your student email, your university address is also your account email: you sign in with a one-time code we send you, no password.",
+            "Course files: the documents and photos you upload to a course, with their title, type (notes or past papers), size and time."
           ]
         },
         {
@@ -267,7 +276,8 @@
             "Audio files of public voices are stored under a random, unguessable link: anyone who obtains a file's link can play it. Voice messages are not stored under such a link and only the recipient can play them, once. Walkie-talkie transmissions are not stored under such a link; only you and your friend can play them.",
             "People you block cannot see your content or contact you.",
             "Speak administrators: have access only as needed for support and for reviewing reports (e.g. playing a public voice that was reported). Voice messages are not available in the admin tools. The same goes for the walkie-talkie.",
-            "Post links: when someone shares a post's link, anyone who opens it (even without an account) sees only your first name, your university and department, the post's text and its numbers of likes and replies — not the voice, the photos, your surname or your profile photo. Group posts are never shown this way."
+            "Post links: when someone shares a post's link, anyone who opens it (even without an account) sees only your first name, your university and department, the post's text and its numbers of likes and replies — not the voice, the photos, your surname or your profile photo. Group posts are never shown this way.",
+            "Files you upload to a course, with your name, are visible only to verified students of your university, through links that expire after one hour."
           ]
         },
         {
@@ -282,7 +292,7 @@
         {
           "heading": "Service providers (processors)",
           "body": [
-            "Supabase Inc.: database, user authentication and storage of audio files and photos.",
+            "Supabase Inc.: database, user authentication and storage of audio files, photos and documents.",
             "Cloudflare, Inc.: hosting and running the app, protection against attacks.",
             "Email delivery provider: sending sign-up confirmation and password reset emails.",
             "Apple: distributes the app through the App Store, but has no access to your Speak account data.",
@@ -303,7 +313,8 @@
             "Your account, profile and public voices are kept while your account is active or until you delete them. When you delete a voice, its audio file, title, likes, listens and plain reposts are deleted. If others had replied to it or quoted it, their voices stay and \"This voice was deleted\" is shown in its place, without a name or audio.",
             "Voice messages: the audio is deleted as soon as it is played, or after 10 days if it is never played. Conversation records (who sent to whom and when), and the texts and photos you send in direct messages, are deleted after 90 days. Message photos are stored privately: only you and the recipient can see them.",
             "Walkie-talkie: each transmission (audio and details) is deleted automatically after 24 hours, or at once if you block the other person.",
-            "Content reports are kept as long as needed for community safety and dealing with repeated violations. Server logs are kept for a limited time by the hosting providers."
+            "Content reports are kept as long as needed for community safety and dealing with repeated violations. Server logs are kept for a limited time by the hosting providers.",
+            "Course files stay until you delete them or your account is deleted (or they are removed after a report)."
           ]
         },
         {
@@ -536,6 +547,7 @@
       "hate": "Hate speech",
       "sexual": "Sexual content",
       "violence": "Violence or self-harm",
+      "copyright": "Copyright",
       "other": "Something else"
     }
   },
@@ -572,7 +584,8 @@
       "post": "Post",
       "user": "Account",
       "voice_message": "Message",
-      "group": "Group"
+      "group": "Group",
+      "course_file": "Course file"
     },
     "count_one": "{{count}} report",
     "count_other": "{{count}} reports",
@@ -593,10 +606,13 @@
       "dismiss": "Dismissed",
       "hide_post": "Post hidden",
       "disable_user": "Account banned",
-      "delete_group": "Group deleted"
+      "delete_group": "Group deleted",
+      "delete_file": "File deleted"
     },
     "deleteGroup": "Delete group",
-    "groupGone": "The group was deleted."
+    "groupGone": "The group was deleted.",
+    "deleteFile": "Delete file",
+    "fileGone": "The file has been deleted."
   },
   "auth": {
     "back": "Back",
@@ -967,5 +983,48 @@
     "photos_other": "{{count}} photos",
     "studentsOnly": "Listen to the voice and reply on Speak — students only.",
     "unavailable": "This post isn't available"
+  },
+  "courses": {
+    "title": "Courses",
+    "cardText": "Notes and past exam papers for every course",
+    "pickDepartment": "Choose a department",
+    "searchDepartment": "Search departments",
+    "search": "Search courses",
+    "filter": {
+      "all": "All",
+      "core": "Required",
+      "elective": "Electives"
+    },
+    "noDepartment": "Choose a department to see its courses.",
+    "noCatalogTitle": "No courses yet",
+    "noCatalog": "This department's programme hasn't been added yet.",
+    "noMatch": "No course found.",
+    "semester": "Semester {{n}}",
+    "anySemester": "No fixed semester",
+    "kind": {
+      "core": "Required",
+      "track_core": "Required for the track",
+      "elective": "Elective"
+    },
+    "course": "Course",
+    "upload": "Upload a file",
+    "notes": "Notes",
+    "exams": "Past papers",
+    "noNotes": "No notes yet. Upload yours.",
+    "noExams": "No past papers yet. Upload the ones you have.",
+    "hiddenFile": "hidden after reports",
+    "delete": "Delete",
+    "confirmDelete": "Tap again",
+    "reportFile": "Report file",
+    "uploaded": "File uploaded.",
+    "tooBig": "Up to 20 MB per file.",
+    "badType": "PDF or photo only (JPG, PNG, WebP).",
+    "fileTitle": "Title",
+    "notesPlaceholder": "e.g. Notes, chapters 1–3",
+    "examsPlaceholder": "e.g. June 2025 exam",
+    "chooseFile": "Choose a PDF or photo",
+    "uploadHint": "PDF or photo, up to 20 MB. Only students of your university see it. Upload only what you're allowed to share.",
+    "uploading": "Uploading…",
+    "send": "Upload"
   }
 }

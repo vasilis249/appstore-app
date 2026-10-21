@@ -1042,6 +1042,29 @@ User decisions:
   agro, eds = Παιδαγωγικό Δευτεροβάθμιας, ba = ΔΕΟ). Scrapers (one per department, `SRC` = source URL) in
   `supabase/data/courses/src/` (+ README; `raw/` downloads git-ignored). Newest published programmes used (2025-27;
   Αγροτικής only 2022-23, Γερμανικής 2026-27 draft because the 2025-26 PDF has a broken font).
+- **Course pages M2 ✔ (user OK 2026-10-21: notes + past papers per course)** — migration `20261109100000_courses.sql`:
+  `courses` (id = md5(department|semester|name) as uuid → stable across re-imports, university/department, code, name,
+  semester (NULL = no fixed one), kind core|track_core|elective, groups, position, `files_count` = visible files by
+  trigger; read: students of that university + admins), `course_files` (kind notes|exams, title 1–120, path, mime, size,
+  hidden; read via `private.can_see_course_file`: own, admin, moderator of that campus, or not hidden + same university +
+  not blocked; no client writes), PRIVATE bucket `course-files` (20 MB, pdf/jpeg/png/webp, `<uid>/<uuid>.<ext>`, same
+  rule for objects). RPCs `add_course_file(course, kind, title, path)` (own unused object, your university, 20/h 60/day;
+  size + mime from the object metadata), `delete_course_file`, `orphan_course_files` (service role; `sweepVoiceFiles`
+  removes them). Reports kind `course_file` (target = uploader; reason `copyright` added for every kind): 3 reporters
+  hide it, staff `dismiss` shows it again, action `delete_file`; moderators see / resolve their campus's files
+  (`private.report_university`); `admin_reports` + `file_title, file_path, file_hidden, file_exists, course_name`.
+  Catalog data: `python3 supabase/data/courses/to_sql.py <out.sql>` → `20261109100100_course_catalog.sql` (upserts,
+  5,047 courses; re-run after editing the JSON files, as a NEW migration). Account deletion empties `course-files/<uid>/`.
+  UI: Campus tab card «Μαθήματα» (Όλα and the «Μαθήματα» section; only if your university has courses) → `/courses`
+  (`?d=<department>`, default yours; department sheet with search; course search (accents ignored); Όλα / Υποχρεωτικά /
+  Επιλογής; by semester, files count) → `/c/$courseId` (department, name, code · semester · kind · groups, «Ανέβασε
+  αρχείο» sheet: Σημειώσεις | Θέματα, title (prefilled from the file name), PDF as is / photos resized to 2400 px;
+  tabs Σημειώσεις · n | Θέματα · n; rows open a 1-h signed URL; own: Διαγραφή (tap twice), others: ⋯ report / block).
+  `/admin/reports` shows course files (open in a new tab, Διαγραφή αρχείου). Terms (el/en) section «Σημειώσεις και
+  θέματα μαθημάτων» (only what you may share, no textbooks / others' personal data, 3 reports hide, rights holders via
+  email); Privacy: course files (what, who sees, retention). Tests `test_courses.sql` 28; `tests/e2e/courses-flow.mjs`
+  11/11 (`SHOTS=<dir>` saves screenshots). Live: applied (ΕΜΠ 1,277 + ΕΚΠΑ 3,770 courses), types regenerated, smoke (rolled back): ΕΚΠΑ student sees 3,770 / 0 others, add to another university → not_found, missing file → file_missing; deploy fc10de50.
+  Storage: Supabase free = 1 GB for voices + photos + course files → watch usage; move files to R2 when needed.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -1174,7 +1197,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (46) + `test_speak.sql` (132) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (94) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (46) + `test_speak.sql` (132) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (94) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11) + `test_courses.sql` (28).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

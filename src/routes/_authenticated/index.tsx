@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { NEXT_KEY } from "@/lib/invites";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { GraduationCap, Play, Search } from "lucide-react";
+import { ChevronRight, FileText, GraduationCap, Play, Search } from "lucide-react";
 import { AppHeader, HomeBell, HomeMessages } from "@/components/app-header";
 import { FeedTabs } from "@/components/home/feed-switcher";
 import { EmptyState } from "@/components/empty-state";
@@ -163,6 +163,7 @@ function CampusView({
         </ul>
       )}
       {!section && <YearGroupCard />}
+      {(!section || section === "courses") && <CoursesCard />}
       {!section && <ClassmatesStrip />}
       {!section && <SchoolsBoard />}
       <Link
@@ -290,6 +291,31 @@ function YearGroupCard() {
         {t("campus.sayHi")}
       </Link>
     </section>
+  );
+}
+
+/** Notes and past exam papers per course: shown when your university's courses are in the catalog. */
+function CoursesCard() {
+  const { t } = useTranslation();
+  const uni = useMyProfile().data?.university_id;
+  const q = useQuery({
+    queryKey: ["courses", "any", uni],
+    enabled: !!uni,
+    staleTime: Infinity,
+    queryFn: async () => (await supabase.from("courses").select("id", { count: "exact", head: true }).eq("university_id", uni!)).count ?? 0,
+  });
+  if (!q.data) return null;
+  return (
+    <Link to="/courses" className="mx-4 mb-3 flex items-center gap-3 rounded-2xl bg-card p-3.5">
+      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-secondary text-link">
+        <FileText className="h-6 w-6" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block font-semibold leading-snug">{t("courses.title")}</span>
+        <span className="block text-caption text-muted-foreground">{t("courses.cardText")}</span>
+      </span>
+      <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
+    </Link>
   );
 }
 

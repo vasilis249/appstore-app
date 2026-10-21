@@ -26,6 +26,15 @@ import { timeAgo } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
 import { Segmented } from "@/components/segmented";
 import { useTapConfirm } from "@/hooks/use-tap-confirm";
+import { supabase } from "@/integrations/supabase/client";
+
+/** A reported course file opens in a new tab (the tab is opened in the tap, so Safari doesn't block it). */
+async function openStored(path: string) {
+  const w = window.open("", "_blank");
+  const { data } = await supabase.storage.from("course-files").createSignedUrl(path, 600);
+  if (w && data) w.location.href = data.signedUrl;
+  else w?.close();
+}
 
 export const Route = createFileRoute("/_authenticated/admin/reports")({
   component: AdminReportsPage,
@@ -73,7 +82,7 @@ function groups(list: AdminReport[], open: boolean): AdminReport[][] {
   if (!open) return list.map((r) => [r]);
   const byTarget = new Map<string, AdminReport[]>();
   for (const r of list) {
-    const key = r.kind === "post" || r.kind === "group" ? `${r.kind}:${r.target_id}` : `${r.kind}:${r.target_user_id}`;
+    const key = r.kind === "post" || r.kind === "group" || r.kind === "course_file" ? `${r.kind}:${r.target_id}` : `${r.kind}:${r.target_user_id}`;
     byTarget.set(key, [...(byTarget.get(key) ?? []), r]);
   }
   return [...byTarget.values()];
@@ -162,6 +171,16 @@ function ReportItem({ group }: { group: AdminReport[] }) {
           <p className="text-fine text-muted-foreground">{t("adminReports.postGone")}</p>
         ))}
       {r.kind === "voice_message" && <p className="text-fine text-muted-foreground">{t("adminReports.messageGone")}</p>}
+      {r.kind === "course_file" &&
+        (r.file_exists && r.file_path ? (
+          <button type="button" onClick={() => openStored(r.file_path!)} className="block w-full rounded-2xl bg-card p-3 text-left">
+            <span className="block text-fine text-muted-foreground">{r.course_name}</span>
+            <span className="block text-caption font-semibold text-link">{r.file_title}</span>
+            {r.file_hidden && <span className="block text-fine font-semibold text-muted-foreground">{t("adminReports.hidden")}</span>}
+          </button>
+        ) : (
+          <p className="text-fine text-muted-foreground">{t("adminReports.fileGone")}</p>
+        ))}
       {r.kind === "group" &&
         (r.group_exists && r.target_id ? (
           <Link to="/g/$groupId" params={{ groupId: r.target_id }} className="block rounded-2xl bg-card p-3 text-caption font-semibold">
@@ -192,6 +211,11 @@ function ReportItem({ group }: { group: AdminReport[] }) {
           {isAdmin && r.kind === "group" && r.group_exists && (
             <button type="button" disabled={busy} onClick={() => resolve.mutate("delete_group")} className={cn(pill, "bg-primary text-primary-foreground")}>
               {t("adminReports.deleteGroup")}
+            </button>
+          )}
+          {r.kind === "course_file" && r.file_exists && (
+            <button type="button" disabled={busy} onClick={() => resolve.mutate("delete_file")} className={cn(pill, "bg-primary text-primary-foreground")}>
+              {t("adminReports.deleteFile")}
             </button>
           )}
           {r.kind === "post" && r.post_exists && (
