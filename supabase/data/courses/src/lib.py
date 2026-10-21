@@ -101,7 +101,7 @@ def code_table(lines, sem_of, kind_of, code_re, tail_re, skip_re=r"^$"):
         pending = l
     return rows
 
-def recaser(prefer, others=("raw/*.txt",)):
+def recaser(prefer, others=("raw/*.txt",), hand=None):
     """Upper-case course titles → sentence case, word by word, with the accents of the forms seen in the `prefer` files
     (else in any other text). Unknown words stay upper case (printed)."""
     import glob, collections
@@ -110,21 +110,34 @@ def recaser(prefer, others=("raw/*.txt",)):
     for f in sorted(f for g in others for f in glob.glob(g)):
         for w in re.findall(WORD, open(f, errors="replace").read()):
             if not w.isupper(): (best if f in prefer else rest)[fold(w).strip()][w] += 1
+    lexicon = {}  # last resort: a general word-frequency list (raw/el_words.txt, "word count", most frequent first)
+    if os.path.exists("raw/el_words.txt"):
+        for line in open("raw/el_words.txt", errors="replace"):
+            w = line.split(" ")[0]
+            if w and w[0].islower(): lexicon.setdefault(fold(w).strip(), w)
+    ACCENT = dict(zip("αεηιουω", "άέήίόύώ"))
+    def adjective(key):  # "-ικός/-ική/-ικών/-ικές…": the accent sits on the ending
+        if m := re.fullmatch(r"(.+ικ)([αεηουω])(σ|ι|ν|υ|υσ)?", key):
+            end = m[3] or ""
+            return m[1] + ACCENT[m[2]] + (end[:-1] + "ς" if end.endswith("σ") else end)
     def written(key):
+        if hand and key in hand: return hand[key]
         # sentence case: a lower-case form from the preferred texts, then from any, else the one seen lower-cased
         for forms in (best.get(key), rest.get(key)):
             if lows := [k for k, _ in (forms or {}).items() and forms.most_common() if k[0].islower()]: return lows[0]
         forms = best.get(key) or rest.get(key)
-        if not forms: return None
+        if not forms: return lexicon.get(key) or adjective(key)
         w = forms.most_common(1)[0][0]
         return w if re.match(r"(ελλα|ελλη|ευρωπ|μεσογει|αττικ|αθην|βαλκαν)", key) else w.lower()
     def sentence(caps):
         out = []
         for i, w in enumerate(caps.split()):
+            if re.search("[Α-Ω]", w) or re.fullmatch(r"[ABEHIKMNOPTXYZ]{4,}", w):  # Latin look-alikes typed in Greek
+                w = w.translate(str.maketrans("ABEHIKMNOPTXYZ", "ΑΒΕΗΙΚΜΝΟΡΤΧΥΖ"))
             for n, core in enumerate(re.findall(r"[^\W\d_]+", w)):  # each piece of "ΓΕΩΛΟΓΙΑ-ΟΡΥΚΤΟΛΟΓΙΑ"
                 word = None if re.fullmatch(r"[IVXΙ]+|[A-ZΑ-Ω]|[A-Z]+", core) else written(fold(core).strip())
                 if word: w = w.replace(core, word[0].upper() + word[1:] if i == n == 0 else word, 1)
-                elif core.isupper() and len(core) > 3: print("  unknown word:", core)
+                elif core.isupper() and len(core) > 3 and re.search("[Α-Ω]", core): print("  unknown word:", core)
             out.append(w)
         return " ".join(out)
     return sentence
