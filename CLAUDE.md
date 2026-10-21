@@ -1065,7 +1065,7 @@ User decisions:
   email); Privacy: course files (what, who sees, retention). Tests `test_courses.sql` 28; `tests/e2e/courses-flow.mjs`
   11/11 (`SHOTS=<dir>` saves screenshots). Live: applied (ΕΜΠ 1,277 + ΕΚΠΑ 3,770 courses), types regenerated, smoke (rolled back): ΕΚΠΑ student sees 3,770 / 0 others, add to another university → not_found, missing file → file_missing; deploy fc10de50.
   Storage: Supabase free = 1 GB for voices + photos + course files → watch usage; move files to R2 when needed.
-- **Course catalogs M3a ✔ (other Attica universities, user OK 2026-10-21)** — new files `aueb` (8/8 depts, 602), `panteion`
+- **Course catalogs M3a ✔ (other Attica universities; user 2026-10-21: «προχώρα στο M3»)** — new files `aueb` (8/8 depts, 602), `panteion`
   (9/9, 828), `hua` (4/4, 304), `asfa` (2/2, 159), `aspete` (3/3, 188), `aua` (6/6, 589: registry export «Αναλυτικό
   Πρόγραμμα Σπουδών» for crop/biotech, the sites' WordPress `courses` API for aoa/nrae, pages for zp/etda), `unipi` (2/10:
   tourism + bankfin; the other 8 sites refuse this container → `missing`, re-run from a normal network), `uniwa` (24/27,
