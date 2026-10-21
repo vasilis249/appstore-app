@@ -100,3 +100,31 @@ def code_table(lines, sem_of, kind_of, code_re, tail_re, skip_re=r"^$"):
             rows.append({"code": m[1], "name": name, "semester": sem, "kind": kg[0], "group": kg[1]}); pending = ""; continue
         pending = l
     return rows
+
+def recaser(prefer, others=("raw/*.txt",)):
+    """Upper-case course titles → sentence case, word by word, with the accents of the forms seen in the `prefer` files
+    (else in any other text). Unknown words stay upper case (printed)."""
+    import glob, collections
+    WORD = r"[A-Za-zΑ-Ωα-ωΆ-Ώά-ώϊϋΐΰΪΫ]+"
+    best, rest = collections.defaultdict(collections.Counter), collections.defaultdict(collections.Counter)
+    for f in sorted(f for g in others for f in glob.glob(g)):
+        for w in re.findall(WORD, open(f, errors="replace").read()):
+            if not w.isupper(): (best if f in prefer else rest)[fold(w).strip()][w] += 1
+    def written(key):
+        # sentence case: a lower-case form from the preferred texts, then from any, else the one seen lower-cased
+        for forms in (best.get(key), rest.get(key)):
+            if lows := [k for k, _ in (forms or {}).items() and forms.most_common() if k[0].islower()]: return lows[0]
+        forms = best.get(key) or rest.get(key)
+        if not forms: return None
+        w = forms.most_common(1)[0][0]
+        return w if re.match(r"(ελλα|ελλη|ευρωπ|μεσογει|αττικ|αθην|βαλκαν)", key) else w.lower()
+    def sentence(caps):
+        out = []
+        for i, w in enumerate(caps.split()):
+            for n, core in enumerate(re.findall(r"[^\W\d_]+", w)):  # each piece of "ΓΕΩΛΟΓΙΑ-ΟΡΥΚΤΟΛΟΓΙΑ"
+                word = None if re.fullmatch(r"[IVXΙ]+|[A-ZΑ-Ω]|[A-Z]+", core) else written(fold(core).strip())
+                if word: w = w.replace(core, word[0].upper() + word[1:] if i == n == 0 else word, 1)
+                elif core.isupper() and len(core) > 3: print("  unknown word:", core)
+            out.append(w)
+        return " ".join(out)
+    return sentence

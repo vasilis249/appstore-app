@@ -1,0 +1,4640 @@
+{
+ "university": "aua",
+ "departments": {
+  "aua-animal": {
+   "source": "https://zp.aua.gr/studies-program/",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": "0044",
+     "name": "Αγγλικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0209",
+     "name": "Αρχές Γενικής και Ανόργανης Χημείας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3675",
+     "name": "Αρχές Ζωικής Παραγωγής",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3635",
+     "name": "Αρχές Κυτταρικής και Μοριακής Βιολογίας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0380",
+     "name": "Γενετική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3695",
+     "name": "Γεωργική Ζωολογία – Εντομολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0562",
+     "name": "Φυσική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0045",
+     "name": "Αγγλικά ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3485",
+     "name": "Αρχές Οικονομικής Θεωρίας",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3640",
+     "name": "Αρχές Οργανικής Χημείας",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3685",
+     "name": "Βοτανική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3655",
+     "name": "Γεωργία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3330",
+     "name": "Εισαγωγή στη Πληροφορική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1500",
+     "name": "Μελισσοκομία – Σηροτροφία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0046",
+     "name": "Αγγλικά ΙΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0011",
+     "name": "Ανατομία – Ιστολογία Ζώων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0504",
+     "name": "Εισαγωγή στη Βιοχημεία Ζωικών Οργανισμών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0311",
+     "name": "Στατιστική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0012",
+     "name": "Υδροβιολογία-Πλαγκτολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0210",
+     "name": "Αρχές Μηχανικής Τροφίμων",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (2 από τα 5)"
+     ]
+    },
+    {
+     "code": "0115",
+     "name": "Γενική Αμπελουργία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (2 από τα 5)"
+     ]
+    },
+    {
+     "code": "0183",
+     "name": "Γεωργική Μηχανολογία (Ελκυστήρες -Μηχανήματα Αγρού)",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (2 από τα 5)"
+     ]
+    },
+    {
+     "code": "0013",
+     "name": "Εισαγωγή στο Τεχνικό Σχέδιο με Η/Υ (AutoCAD)",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (2 από τα 5)"
+     ]
+    },
+    {
+     "code": "0229",
+     "name": "Εναλλακτικές Καλλιέργειες",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (2 από τα 5)"
+     ]
+    },
+    {
+     "code": "0047",
+     "name": "Αγγλικά IV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2855",
+     "name": "Αγροτική Οικονομία και Πολιτική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γενική & Ειδική Μικροβιολογία Ζώων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0326",
+     "name": "Στατιστική Ανάλυση Πειραματικών Δεδομένων με Χρήση H/Y",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0334",
+     "name": "Φυσιολογία Ζώων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0310",
+     "name": "Ανοσολογία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (1 από τα 3)"
+     ]
+    },
+    {
+     "code": "2075",
+     "name": "Γεωγραφικά Πληροφοριακά Συστήματα",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (2 από τα 4)"
+     ]
+    },
+    {
+     "code": "3440",
+     "name": "Δενδροκομία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (2 από τα 4)"
+     ]
+    },
+    {
+     "code": "2525",
+     "name": "Εδαφολογία-Λιπασματολογία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (2 από τα 4)"
+     ]
+    },
+    {
+     "code": "0329",
+     "name": "Ζωικά Πρότυπα στη Βιοϊατρική Έρευνα",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (1 από τα 3)"
+     ]
+    },
+    {
+     "code": "0327",
+     "name": "Η Βιοηθική στη Γεωπονική Επιστήμη",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (1 από τα 3)"
+     ]
+    },
+    {
+     "code": "3390",
+     "name": "Χημεία Τροφίμων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (2 από τα 4)"
+     ]
+    },
+    {
+     "code": "0048",
+     "name": "Αγγλικά V",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0024",
+     "name": "Βελτίωση και Διαχείριση Βοσκοτόπων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0625",
+     "name": "Βρωματολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0156",
+     "name": "Οικολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0166",
+     "name": "Φυσιολογία Γαλακτοπαραγωγής και Αναπαραγωγής",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0996",
+     "name": "Marketing Ζωικών Προϊόντων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0296",
+     "name": "Αλιευτική Βιολογία και Διαχείριση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (2 από τα 3)"
+     ]
+    },
+    {
+     "code": "0162",
+     "name": "Εκτροφή Ζώων Συντροφιάς",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (2 από τα 3)"
+     ]
+    },
+    {
+     "code": "0131",
+     "name": "Επεξεργασία Αποβλήτων Βιομηχανιών Τροφίμων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "2089",
+     "name": "Εφαρμογές των Γεωγραφικών Πληροφοριακών Συστημάτων στο Περιβάλλον",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "3210",
+     "name": "Μικροβιακή Βιοτεχνολογία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "3625",
+     "name": "Μοριακή Οικολογία και Προσαρμογή",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0998",
+     "name": "Συστήματα Ποιότητας και Πιστοποίησης Αγροτικών Προϊόντων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (2 από τα 3)"
+     ]
+    },
+    {
+     "code": "0049",
+     "name": "Αγγλικά VI",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0161",
+     "name": "Ασφάλεια και Ποιότητα Προϊόντων Ζωικής Προέλευσης",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0033",
+     "name": "Εκτροφή Μονογαστρικών Ζώων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0168",
+     "name": "Ιχθυολογία – Βενθολογία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0004",
+     "name": "Φυσιολογία Θρέψεως Ζώων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0630",
+     "name": "Αγροτική Κοινωνιολογία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (2 από τα 4)"
+     ]
+    },
+    {
+     "code": "0237",
+     "name": "Αναλυτική Τοξικολογία – Ξενοβιοτικά",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (2 από τα 4)"
+     ]
+    },
+    {
+     "code": "3616",
+     "name": "Διδακτική/ Γεωργική Εκπαίδευση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 2)"
+     ]
+    },
+    {
+     "code": "0208",
+     "name": "Ηλεκτρονικό Εμπόριο",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (2 από τα 4)"
+     ]
+    },
+    {
+     "code": "0503",
+     "name": "Κλιματολογία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 2)"
+     ]
+    },
+    {
+     "code": "1510",
+     "name": "Σχεδιασμός και Οργάνωση Κτηνοτροφικών Εγκαταστάσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (2 από τα 4)"
+     ]
+    },
+    {
+     "code": "0016",
+     "name": "Αρχές Γενετικής Βελτίωσης Ζώων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2995",
+     "name": "Εκτροφή Μηρυκαστικών Ζώων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0169",
+     "name": "Ηθολογία – Ευζωία Ζώων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0041",
+     "name": "Υδατοκαλλιέργειες",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0159",
+     "name": "Φυσιολογία Ανάπτυξης Ζώων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0007",
+     "name": "Αρχές Διατροφής του Ανθρώπου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (1 από τα 4)"
+     ]
+    },
+    {
+     "code": "3721",
+     "name": "Διαδίκτυο και Εφαρμογές στη Γεωπονία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0163",
+     "name": "Ειδικές Εκτροφές (γουνοφόρα, σαλιγκάρια, ωδικά πτηνά, ελαφοειδή, ζώα εργαστηρίου)",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (1 από τα 4)"
+     ]
+    },
+    {
+     "code": "0241",
+     "name": "Εφαρμογές Βιοϋλικών στη Βιοτεχνολογία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0331",
+     "name": "Κτηνιατρική Φαρμακολογία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (1 από τα 4)"
+     ]
+    },
+    {
+     "code": "0316",
+     "name": "Ρύπανση Περιβάλλοντος",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (1 από τα 4)"
+     ]
+    },
+    {
+     "code": "3725",
+     "name": "Στρατηγικός Σχεδιασμός Επιχειρήσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0181",
+     "name": "Τεχνολογία Γάλακτος και Κρέατος",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "2226",
+     "name": "Τεχνολογίες Γεωργίας Ακριβείας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0039",
+     "name": "Διατροφή Μηρυκαστικών Ζώων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0006",
+     "name": "Εφαρμογές Βιοτεχνολογίας στη Ζωική Παραγωγή",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0375",
+     "name": "Μέθοδοι Γενετικής Βελτίωσης Ζώων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0019",
+     "name": "Νοσήματα Αγροτικών Ζώων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0036",
+     "name": "Παραγωγή Υδρόβιων Οργανισμών",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3515",
+     "name": "Γεωργικός Πειραματισμός",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "2000",
+     "name": "Εισαγωγή στη Γλώσσα R για την Επιστήμη των Δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0333",
+     "name": "Εργαστηριακή Διαγνωστική στα Ζώα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (1 από τα 4)"
+     ]
+    },
+    {
+     "code": "0018",
+     "name": "Ζωική Παραγωγή και Περιβάλλον",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (1 από τα 4)"
+     ]
+    },
+    {
+     "code": "0318",
+     "name": "Ιχθυοπαθολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (1 από τα 4)"
+     ]
+    },
+    {
+     "code": "0301",
+     "name": "Περιβαλλοντική και Θαλάσσια Βιοτεχνολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "3401",
+     "name": "Τεχνολογία Γάλακτος ΙΙ – Τυροκομία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0332",
+     "name": "Τεχνολογία Παρασκευής Ζωοτροφών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Υποχρεωτικά Επιλογής (1 από τα 4)"
+     ]
+    },
+    {
+     "code": "1850",
+     "name": "Φυτοπαθολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0167",
+     "name": "Διατροφή Μονογαστρικών Ζώων",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0167",
+     "name": "Διατροφή Υδρόβιων Οργανισμών",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0495",
+     "name": "Οικονομικά Ζωικής Παραγωγής",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1440",
+     "name": "Παραγωγικά Συστήματα Ζώων",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πτυχιακή Μελέτη",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1690",
+     "name": "Υγιεινή Αγροτικών Ζώων",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0336",
+     "name": "Ανοσολογία & Εφαρμογές στη Ζωοτεχνία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0268",
+     "name": "Αρχές Εμβρυολογίας Ζώων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0337",
+     "name": "Διαχείριση υγείας σε εκτροφές μηρυκαστικών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0239",
+     "name": "Ευφυή Συστήματα και Εξόρυξη Γνώσης στη Ζωική Παραγωγή",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": "0238",
+     "name": "Ζωική Παραγωγή & Δημόσια Υγεία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης Επιλογής (1 από τα 5)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση (2 μήνες)",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πτυχιακή Μελέτη",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    }
+   ]
+  },
+  "aua-aoa": {
+   "source": "https://w1.aua.gr/aoa/",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": null,
+     "name": "Αγγλικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βοτανική (Συστηματική-Ανατομία Φυτών)",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οικονομική Θεωρία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ζωοτεχνία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά για Οικονομολόγους Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληροφορική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγγλικά II",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγροτική Κοινωνιολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γεωργία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δενδροκομία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διατροφή Αγροτικών Ζώων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία του Αγροτικού Κόσμου",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά για Οικονομολόγους ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγγλικά ΙΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Γεωργική Οικονομική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμοσμένη Οικονομική Στατιστική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογιστική Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μέθοδοι Γεωργοοικονομικής και Κοινωνιολογικής Έρευνας",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική Θεωρία I",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική Θεωρία Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγγλικά IV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γεωργικά Συστήματα στον Κόσμο",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση και Προστασία Αγροτικού Περιβάλλοντος",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική Θεωρία ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική Θεωρία ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός Υπολογιστών & Εφαρμογές",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συμπεριφορική και Πειραματική Οικονομική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγγλικά V",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογιστική ΙΙ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Γεωργικών Προϊόντων και Τροφίμων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά του Περιβάλλοντος",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Περιφερειακή Οικονομική και Ανάπτυξη",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αστική Οικονομική και Χωροταξία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γεωργική Ζωολογία και Εντομολογία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Στατιστικής",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά των Θεσμών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Επιχειρηματικής Ευφυΐας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγγλικά VI",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αξιολόγηση Γεωργικών Επενδύσεων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονικό Εμπόριο και Υπηρεσίες",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά της Αγροτικής Ανάπτυξης",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτική Οικονομία του Αγροδιατροφικού Τομέα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γεωγραφικά Πληροφοριακά Συστήματα",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσια Οικονομική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διδακτική - Γεωργική Εκπαίδευση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εδαφολογία - Λιπασματολογία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη γλώσσα R για την Επιστήμη των Δεδομένων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φυσιολογία Φυτών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Βιομηχανιών Τροφίμων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γεωργικές Εφαρμογές",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομετρία",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οργάνωση και Διαχείριση Γεωργικών Εκμεταλλεύσεων I",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγροτουρισμός",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Εισροών-Εκροών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γενική Αμπελουργία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαδίκτυο και Εφαρμογές στη Γεωπονία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Διαχείριση Υδατικών Πόρων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συνεταιριστική Οικονομία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγροτική Πολιτική",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά των Φυσικών Πόρων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οργάνωση και Διαχείριση Γεωργικών Εκμεταλλεύσεων ΙΙ",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φυτοπαθολογία",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμοσμένη Μικροοικονομετρία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λαχανοκομία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μελισσοκομία-Σηροτροφία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Παράγωγα με Εφαρμογές στην Εφοδιαστική Αλυσίδα Αγροτικών Προϊόντων και Τροφίμων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληροφοριακά Συστήματα Διοίκησης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοδότηση και Χρηματοοικονομική Ανάλυση Γεωργικών Επιχειρήσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βιομηχανική Οργάνωση",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία και Πολιτική Διεθνούς Εμπορίου",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομετρία II",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτική Προστασίας Αγροτικού Περιβάλλοντος",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Οικονομικής Ανάλυσης",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Ποσοτικής Ανάλυσης",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εναλλακτικές Καλλιέργειες",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματικότητα",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρησιακή Έρευνα",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονική Διακυβέρνηση και Ανοιχτά Δεδομένα",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ολοκληρωμένη Αντιμετώπιση Ζωικών Εχθρών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πτυχιακή Εργασία",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    }
+   ]
+  },
+  "aua-biotech": {
+   "source": "https://w1.aua.gr/gbt/wp-content/uploads/sites/7/2026/09/ΑΝΑΛΥΤΙΚΟ-ΠΡΟΓΡΑΜΜΑ-ΣΠΟΥΔΩΝ-ΒΙΟΤΕΧΝΟΛΟΓΙΑΣ-2026-2027.pdf",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": "44",
+     "name": "Αγγλικά I",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2790",
+     "name": "Βιολογία κυττάρου",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "160",
+     "name": "Γενική και ανόργανη χημεία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3330",
+     "name": "Εισαγωγή στην πληροφορική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "555",
+     "name": "Μαθηματικά Α",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "563",
+     "name": "Φυσική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "321",
+     "name": "Εισαγωγή στη γεωργία",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "293",
+     "name": "Ιστορία της σύγχρονης βιολογίας",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "45",
+     "name": "Αγγλικά II",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3300",
+     "name": "Βιοχημεία βιομορίων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1280",
+     "name": "Γενική μικροβιολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1390",
+     "name": "Οργανική χημεία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3445",
+     "name": "Προγραμματισμός υπολογιστών και εφαρμογές",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "297",
+     "name": "Φυσιολογία και αποκρίσεις φυτών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2885",
+     "name": "Βιοκλιματολογία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3655",
+     "name": "Γεωργία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3695",
+     "name": "Γεωργική ζωολογία - εντομολογία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3616",
+     "name": "Διδακτική - Γεωργική εκπαίδευση",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3575",
+     "name": "Μέθοδοι φυσικής στη βιοτεχνολογία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "46",
+     "name": "Αγγλικά III",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "338",
+     "name": "Βιοστατιστική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3400",
+     "name": "Βιοχημεία μεταβολισμού",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "380",
+     "name": "Γενετική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "275",
+     "name": "Μοριακή βιολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "289",
+     "name": "Αρχές ανατομίας και φυσιολογίας του ανθρώπου",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "115",
+     "name": "Γενική αμπελουργία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3290",
+     "name": "Ενόργανη χημική ανάλυση",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "125",
+     "name": "Ζωοτεχνία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3660",
+     "name": "Μικροβιολογία τροφίμων",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "156",
+     "name": "Οικολογία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "47",
+     "name": "Αγγλικά IV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "165",
+     "name": "Αναλυτική χημεία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "155",
+     "name": "Γενετική πληθυσμών",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1960",
+     "name": "Εξέλιξη",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3200",
+     "name": "Τεχνολογία ανασυνδυασμένου DNA - ομικές τεχνολογίες",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3380",
+     "name": "Βιοχημεία τροφίμων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3440",
+     "name": "Δενδροκομία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "595",
+     "name": "Διατροφή και μεταβολισμός",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "232",
+     "name": "Ειδικά θέματα σύγχρονης γενετικής",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "1500",
+     "name": "Μελισσοκομία-σηροτροφία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "233",
+     "name": "Φυσική της ζωής",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3360",
+     "name": "Φυσικοχημεία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "159",
+     "name": "Φυσιολογία ανάπτυξης ζώων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3390",
+     "name": "Χημεία τροφίμων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "48",
+     "name": "Αγγλικά V",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3040",
+     "name": "Βιοπληροφορική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3210",
+     "name": "Μικροβιακή βιοτεχνολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1405",
+     "name": "Μοριακή αναγνώριση",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "16",
+     "name": "Αρχές γενετικής βελτίωσης ζώων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3515",
+     "name": "Γεωργικός πειραματισμός",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "680",
+     "name": "Διατροφή αγροτικών ζώων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3450",
+     "name": "Διατροφή στα στάδια της ζωής",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "236",
+     "name": "Διαχείριση, ανάλυση και οπτικοποίηση περιβαλλοντικών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "222",
+     "name": "Ευφυή συστήματα και εξόρυξη γνώσης",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3625",
+     "name": "Μοριακή οικολογία και προσαρμογή",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "49",
+     "name": "Αγγλικά VI",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3180",
+     "name": "Αναλυτική βιοτεχνολογία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3500",
+     "name": "Ανοσοβιολογία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "218",
+     "name": "Βιοφυσική",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3190",
+     "name": "Τεχνολογία κυτταροιστοκαλλιεργειών",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "298",
+     "name": "Αλληλεπιδράσεις φυτών-μικροοργανισμών και",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "1205",
+     "name": "Αρχές βιοτεχνολογίας τροφίμων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "2703",
+     "name": "Βελτίωση φυτών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "278",
+     "name": "Γενετική ιών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "775",
+     "name": "Λαχανοκομία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3170",
+     "name": "Φαρμακογνωσία και βιοδραστικά προϊόντα",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "1850",
+     "name": "Φυτοπαθολογία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "175",
+     "name": "Βιοτεχνολογία ζώων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3350",
+     "name": "Ενζυμική βιοτεχνολογία",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "299",
+     "name": "Μοριακή βιολογία ανάπτυξης και καταπονήσεων φυτών",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3600",
+     "name": "Νανοβιοτεχνολογία και βιοαισθητήρες",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "292",
+     "name": "Διατροφική επιδημιολογία και δημόσια υγεία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3715",
+     "name": "Μάρκετινγκ γεωργικών προϊόντων και τροφίμων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "342",
+     "name": "Μικροβιακή οικολογία: από το κύτταρο στο μικροβίωμα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3606",
+     "name": "Μοριακή βιολογία και ρύθμιση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3580",
+     "name": "Ποιοτικός και οργανοληπτικός έλεγχος τροφίμων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "1425",
+     "name": "Ποσοτικοί χαρακτήρες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "12",
+     "name": "Υδροβιολογία - πλαγκτολογία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "283",
+     "name": "Υπολογιστική - μεταφραστική γενετική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3603",
+     "name": "Βιολογία συστημάτων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "205",
+     "name": "Βιοτεχνολογία φυτών",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2905",
+     "name": "Μοριακή ενζυμολογία",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "344",
+     "name": "Βιομοριακές προσομοιώσεις",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3050",
+     "name": "Γενετική οργανισμών μοντέλων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "2955",
+     "name": "Γεωργική φαρμακολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3480",
+     "name": "Κλινική διατροφή",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "301",
+     "name": "Περιβαλλοντική και θαλάσσια βιοτεχνολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "343",
+     "name": "Προχωρημένα θέματα βιοπληροφορικής",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3604",
+     "name": "Κλινική και φαρμακευτική βιοτεχνολογία",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "322",
+     "name": "Βιοτεχνολογία φυτών στην υγεία και περιβάλλον",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3607",
+     "name": "Γενετική των ασθενειών του ανθρώπου",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3490",
+     "name": "Διατροφή και άθληση",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "346",
+     "name": "Ειδικά κεφάλαια δομικής βιολογίας",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "241",
+     "name": "Εφαρμογές βιοϋλικών στη βιοτεχνολογία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "282",
+     "name": "Κληρονομικότητα και επιγενετικές διαμορφώσεις",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "312",
+     "name": "Κυκλική βιοτεχνολογία και ενζυμικά βιοδιυλιστήρια",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3725",
+     "name": "Στρατηγικός σχεδιασμός επιχειρήσεων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "aua-crop": {
+   "source": "https://w1.aua.gr/efp/wp-content/uploads/sites/9/2026/10/ΑΝΑΛΥΤΙΚΟ-ΠΡΟΓΡΑΜΜΑ-ΣΠΟΥΔΩΝ-2026-2027.pdf",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": "44",
+     "name": "Αγγλικά I",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "380",
+     "name": "Γενετική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "160",
+     "name": "Γενική και ανόργανη χημεία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "321",
+     "name": "Εισαγωγή στη γεωργία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3530",
+     "name": "Λειτουργική ανατομία φυτών",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "555",
+     "name": "Μαθηματικά Α",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "323",
+     "name": "Τεχνολογίες πληροφορικής στη γεωργία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "561",
+     "name": "Φυσική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "45",
+     "name": "Αγγλικά II",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "665",
+     "name": "Βιοχημεία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1280",
+     "name": "Γενική μικροβιολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1250",
+     "name": "Γεωργική μετεωρολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1390",
+     "name": "Οργανική χημεία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "105",
+     "name": "Στατιστική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1590",
+     "name": "Συστηματική βοτανική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3485",
+     "name": "Αρχές οικονομικής θεωρίας",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "1245",
+     "name": "Τοπογραφία-τηλεπισκόπηση",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "46",
+     "name": "Αγγλικά III",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "313",
+     "name": "Βιομηχανικά φυτά",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1295",
+     "name": "Γενική και συστηματική γεωργική ζωολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3310",
+     "name": "Εισαγωγή στην επιστήμη τροφίμων και στη διατροφή του",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "324",
+     "name": "Ζωοτεχνία και διατροφή αγροτικών ζώων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "156",
+     "name": "Οικολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55",
+     "name": "Φυσιολογία φυτών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "140",
+     "name": "Ανατομία και φυσιολογία αγροτικών ζώων",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3505",
+     "name": "Αρχές μοριακής βιολογίας",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "2825",
+     "name": "Γεωλογία-ορυκτολογία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "961",
+     "name": "Γεωργικές εφαρμογές",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "152",
+     "name": "Μετεωρολογία -κλιματολογία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "47",
+     "name": "Αγγλικά IV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "890",
+     "name": "Γενική και συστηματική γεωργική εντομολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "570",
+     "name": "Γεωργική μηχανολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "600",
+     "name": "Γεωργική υδραυλική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2525",
+     "name": "Εδαφολογία-λιπασματολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "328",
+     "name": "Φυσιολογία θρέψης φυτών και λιπασματικά συστατικά",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2855",
+     "name": "Αγροτική οικονομία και πολιτική",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "151",
+     "name": "Ακραία καιρικά φαινόμενα -κλιματική αλλαγή",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "2880",
+     "name": "Πανίδα φυσικών οικοσυστημάτων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3230",
+     "name": "Χλωρίδα και βλάστηση Μεσογειακών οικοσυστημάτων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "48",
+     "name": "Αγγλικά V",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "115",
+     "name": "Γενική αμπελουργία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "360",
+     "name": "Γενική δενδροκομία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1325",
+     "name": "Γενική λαχανοκομία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1855",
+     "name": "Γενική φυτοπαθολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3515",
+     "name": "Γεωργικός πειραματισμός",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3715",
+     "name": "Μάρκετινγκ γεωργικών προϊόντων και τροφίμων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "2750",
+     "name": "Φυσιολογία καταπονήσεων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "49",
+     "name": "Αγγλικά VI",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "270",
+     "name": "Αρχές και μέθοδοι βελτίωσης φυτών",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2955",
+     "name": "Γεωργική φαρμακολογία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2345",
+     "name": "Ειδική αμπελουργία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2365",
+     "name": "Ζιζανιολογία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "341",
+     "name": "Βιολογική αντιμετώπιση ασθενειών των φυτών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3616",
+     "name": "Διδακτική - Γεωργική εκπαίδευση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "208",
+     "name": "Ηλεκτρονικό εμπόριο",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "2300",
+     "name": "Θέματα ποσοτικής οικολογίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "244",
+     "name": "Ανθοκομία (αρχές και βασικές καλλιέργειες)",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "270",
+     "name": "Αρχές και μέθοδοι βελτίωσης φυτών",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "153",
+     "name": "Ελαιοκομία -εσπεριδοειδή",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3525",
+     "name": "Ζωικοί εχθροί αποθηκευμένων γεωργικών προϊόντων, τροφίμων και αστικού περιβάλλοντος",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "316",
+     "name": "Ρύπανση περιβάλλοντος",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2335",
+     "name": "Αμπελουργία Ι (τεχνολογία σταφιδοποίησης)",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "1385",
+     "name": "Αρχές και μέθοδοι καταπολέμησης ασθενειών των φυτών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "3290",
+     "name": "Ενόργανη χημική ανάλυση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "267",
+     "name": "Μικροβιολογία του εδάφους",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "1380",
+     "name": "Οινολογία Ι",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "560",
+     "name": "Γεωργική εντομολογία",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "390",
+     "name": "Καλλωπιστικά φυτά",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "975",
+     "name": "Κηπευτικά υπό κάλυψη",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1500",
+     "name": "Μελισσοκομία-σηροτροφία",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "280",
+     "name": "Βελτίωση της ανθεκτικότητας των φυτών - Βελτίωση κηπευτικών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "2730",
+     "name": "Βιολογική γεωργία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "2610",
+     "name": "Οινολογία ΙΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "1005",
+     "name": "Αμπελουργία ΙΙ (ειδικά θέματα)",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Δενδροκομίας και αμπελουργίας"
+     ]
+    },
+    {
+     "code": "212",
+     "name": "Αρχές και μέθοδοι χρήσης και διαχείρισης",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Φυτοπροστασίας και περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "230",
+     "name": "Αρχιτεκτονική τοπίου",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ανθοκομίας και αρχιτεκτονικής τοπίου"
+     ]
+    },
+    {
+     "code": "3250",
+     "name": "Βιοτεχνολογία και βελτίωση των φυτών",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Γεωργίας και βελτίωσης φυτών",
+      "Εφαρμοσμένη φυσιολογία φυτών και βιοτεχνολογία μικροοργανισμών"
+     ]
+    },
+    {
+     "code": "505",
+     "name": "Βιοτεχνολογία μικροοργανισμών",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Εφαρμοσμένη φυσιολογία φυτών και βιοτεχνολογία μικροοργανισμών"
+     ]
+    },
+    {
+     "code": "246",
+     "name": "Ειδικές καλλιέργειες καρποφόρων δένδρων και θάμνων",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Δενδροκομίας και αμπελουργίας"
+     ]
+    },
+    {
+     "code": "201",
+     "name": "Ειδική ανθοκομία (καλλιέργειες αιχμής -νέες τεχνολογίες-ιστοκαλλιέργεια)",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ανθοκομίας και αρχιτεκτονικής τοπίου",
+      "Κηπευτικών καλλιεργειών",
+      "Εφαρμοσμένη φυσιολογία φυτών και βιοτεχνολογία μικροοργανισμών"
+     ]
+    },
+    {
+     "code": "211",
+     "name": "Ζωικοί εχθροί αροτραίων και θερμοκηπιακών",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Φυτοπροστασίας και περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "1155",
+     "name": "Κηποτεχνικά έργα",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ανθοκομίας και αρχιτεκτονικής τοπίου"
+     ]
+    },
+    {
+     "code": "154",
+     "name": "Λαχανικά υπαίθρου",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ανθοκομίας και αρχιτεκτονικής τοπίου",
+      "Κηπευτικών καλλιεργειών"
+     ]
+    },
+    {
+     "code": "945",
+     "name": "Μετασυλλεκτική μεταχείριση καρπών και λαχανικών",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Δενδροκομίας και αμπελουργίας",
+      "Κηπευτικών καλλιεργειών"
+     ]
+    },
+    {
+     "code": "252",
+     "name": "Μοριακή φυσιολογία θρέψης φυτών",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Εφαρμοσμένη φυσιολογία φυτών και βιοτεχνολογία μικροοργανισμών"
+     ]
+    },
+    {
+     "code": "1165",
+     "name": "Οικολογία και βιοκλιματολογία αστικού περιβάλλοντος",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ανθοκομίας και αρχιτεκτονικής τοπίου"
+     ]
+    },
+    {
+     "code": "247",
+     "name": "Υδροπονικές καλλιέργειες",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ανθοκομίας και αρχιτεκτονικής τοπίου",
+      "Κηπευτικών καλλιεργειών"
+     ]
+    },
+    {
+     "code": "1125",
+     "name": "Αμπελουργία ΙΙΙ (Τεχνολογία επιτραπέζιων σταφυλιών)",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Δενδροκομίας και αμπελουργίας"
+     ]
+    },
+    {
+     "code": "1215",
+     "name": "Αρχές και μέθοδοι διαγνωστικής των ασθενειών των",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ανθοκομίας και αρχιτεκτονικής τοπίου",
+      "Δενδροκομίας και αμπελουργίας",
+      "Κηπευτικών καλλιεργειών",
+      "Φυτοπροστασίας και περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "317",
+     "name": "Αρωματικά - φαρμακευτικά φυτά",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Γεωργίας και βελτίωσης φυτών",
+      "Εφαρμοσμένη φυσιολογία φυτών και βιοτεχνολογία μικροοργανισμών"
+     ]
+    },
+    {
+     "code": "1225",
+     "name": "Ασθένειες φυτών μεγάλης καλλιέργειας",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Γεωργίας και βελτίωσης φυτών",
+      "Φυτοπροστασίας και περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "290",
+     "name": "Βελτίωση φυτών μεγάλης καλλιέργειας",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Γεωργίας και βελτίωσης φυτών"
+     ]
+    },
+    {
+     "code": "3240",
+     "name": "Βιοποικιλότητα φυτών και γεωπονία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Εφαρμοσμένη φυσιολογία φυτών και βιοτεχνολογία μικροοργανισμών"
+     ]
+    },
+    {
+     "code": "752",
+     "name": "Γεωγραφικά πληροφοριακά συστήματα στη γεωργία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Εφαρμοσμένη φυσιολογία φυτών και βιοτεχνολογία μικροοργανισμών"
+     ]
+    },
+    {
+     "code": "213",
+     "name": "Γεωργική νηματωδολογία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Φυτοπροστασίας και περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "895",
+     "name": "Γεωργική οικοτοξικολογία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Φυτοπροστασίας και περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "203",
+     "name": "Ειδικά θέματα γεωργικού πειραματισμού",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ανθοκομίας και αρχιτεκτονικής τοπίου",
+      "Γεωργίας και βελτίωσης φυτών",
+      "Κηπευτικών καλλιεργειών",
+      "Φυτοπροστασίας και περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "875",
+     "name": "Ειδικά θέματα εδαφοκατεργασίας",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Γεωργίας και βελτίωσης φυτών"
+     ]
+    },
+    {
+     "code": "266",
+     "name": "Ειδικά θέματα μικροκλιματολογίας και βιοκλιματολογίας",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Γεωργίας και βελτίωσης φυτών"
+     ]
+    },
+    {
+     "code": "264",
+     "name": "Εφαρμοσμένη υδρομετεωρολογία και υδρολογία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Γεωργίας και βελτίωσης φυτών"
+     ]
+    },
+    {
+     "code": "253",
+     "name": "Εφαρμοσμένη φυσιολογία φυτών-αναγνώριση καταπονήσεων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Εφαρμοσμένη φυσιολογία φυτών και βιοτεχνολογία μικροοργανισμών"
+     ]
+    },
+    {
+     "code": "2735",
+     "name": "Εχθροί και ασθένειες ανθοκομικών και καλλωπιστικών φυτών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ανθοκομίας και αρχιτεκτονικής τοπίου"
+     ]
+    },
+    {
+     "code": "1055",
+     "name": "Θερμοκηπιακές κατασκευές",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Κηπευτικών καλλιεργειών"
+     ]
+    },
+    {
+     "code": "1195",
+     "name": "Ιολογία φυτών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Δενδροκομίας και αμπελουργίας",
+      "Κηπευτικών καλλιεργειών",
+      "Φυτοπροστασίας και περιβάλλοντος",
+      "Εφαρμοσμένη φυσιολογία φυτών και βιοτεχνολογία μικροοργανισμών"
+     ]
+    },
+    {
+     "code": "263",
+     "name": "Καλλιέργειες ψυχανθών και λειμώνιων φυτών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Γεωργίας και βελτίωσης φυτών"
+     ]
+    },
+    {
+     "code": "1025",
+     "name": "Ολοκληρωμένη αντιμετώπιση ζωικών εχθρών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Κηπευτικών καλλιεργειών",
+      "Φυτοπροστασίας και περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "905",
+     "name": "Παθολογία παραγωγικών εντόμων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Φυτοπροστασίας και περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "995",
+     "name": "Παραγωγή και τεχνολογία πολλαπλασιαστικού υλικού",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Γεωργίας και βελτίωσης φυτών"
+     ]
+    },
+    {
+     "code": "785",
+     "name": "Πολλαπλασιασμός καρποφόρων δένδρων και θάμνων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Δενδροκομίας και αμπελουργίας"
+     ]
+    },
+    {
+     "code": "314",
+     "name": "Προκαρυωτικές ασθένειες των φυτών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Φυτοπροστασίας και περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "202",
+     "name": "Συντήρηση αστικού πράσινου",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ανθοκομίας και αρχιτεκτονικής τοπίου"
+     ]
+    },
+    {
+     "code": "865",
+     "name": "Φυσιολογία και τεχνολογία πολλαπλασιαστικού υλικού κηπευτικών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Κηπευτικών καλλιεργειών"
+     ]
+    }
+   ]
+  },
+  "aua-food": {
+   "source": "https://w1.aua.gr/etda/wp-content/uploads/sites/10/2025/12/ΠΡΟΓΡΑΜΜΑ-ΣΠΟΥΔΩΝ-2025-2026.pdf",
+   "retrieved": "2026-10-21",
+   "courses": [
+    {
+     "code": "44",
+     "name": "Αγγλικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2790",
+     "name": "Βιολογία Κυττάρου",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "160",
+     "name": "Γενική και Ανόργανη Χημεία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3310",
+     "name": "Εισαγωγή στην Επιστήμη Τροφίμων και στη Διατροφή του Ανθρώπου",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3330",
+     "name": "Εισαγωγή στην Πληροφορική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "555",
+     "name": "Μαθηματικά Α",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "564",
+     "name": "Φυσική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "45",
+     "name": "Αγγλικά ΙI",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "165",
+     "name": "Αναλυτική Χημεία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1280",
+     "name": "Γενική Μικροβιολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1390",
+     "name": "Οργανική Χημεία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3360",
+     "name": "Φυσικοχημεία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3655",
+     "name": "Γεωργία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 4)"
+     ]
+    },
+    {
+     "code": "3440",
+     "name": "Δενδροκομία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 4)"
+     ]
+    },
+    {
+     "code": "775",
+     "name": "Λαχανοκομία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 4)"
+     ]
+    },
+    {
+     "code": "275",
+     "name": "Μοριακή Βιολογία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 4)"
+     ]
+    },
+    {
+     "code": "46",
+     "name": "Αγγλικά ΙΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "210",
+     "name": "Αρχές Μηχανικής Τροφίμων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3320",
+     "name": "Βιοχημεία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "380",
+     "name": "Γενετική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "251",
+     "name": "Εισαγωγή στη Διατροφική Αξιολόγηση",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3290",
+     "name": "Ενόργανη Χημική Ανάλυση",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "125",
+     "name": "Ζωοτεχνία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "105",
+     "name": "Στατιστική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "115",
+     "name": "Γενική Αμπελουργία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 2)"
+     ]
+    },
+    {
+     "code": "945",
+     "name": "Μετασυλλεκτική Μεταχείριση Καρπών και Λαχανικών",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 2)"
+     ]
+    },
+    {
+     "code": "47",
+     "name": "Αγγλικά ΙV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1205",
+     "name": "Αρχές Βιοτεχνολογίας Τροφίμων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3410",
+     "name": "Βασικές Διεργασίες Επεξεργασίας Τροφίμων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3380",
+     "name": "Βιοχημεία Τροφίμων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "595",
+     "name": "Διατροφή και Μεταβολισμός",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3390",
+     "name": "Χημεία Τροφίμων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3515",
+     "name": "Γεωργικός Πειραματισμός",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 3)"
+     ]
+    },
+    {
+     "code": "2345",
+     "name": "Ειδική Αμπελουργία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 3)"
+     ]
+    },
+    {
+     "code": "3555",
+     "name": "Μετασυλλεκτικές Ασθένειες Οπωροκηπευτικών",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 3)"
+     ]
+    },
+    {
+     "code": "48",
+     "name": "Αγγλικά V",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "350",
+     "name": "Γαλακτοκομία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1200",
+     "name": "Μέθοδοι Ανάλυσης Τροφίμων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3660",
+     "name": "Μικροβιολογία Τροφίμων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1380",
+     "name": "Οινολογία I",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3510",
+     "name": "Συντήρηση Τροφίμων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "289",
+     "name": "Αρχές Ανατομίας και Φυσιολογίας του Ανθρώπου",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 3)"
+     ]
+    },
+    {
+     "code": "680",
+     "name": "Διατροφή Αγροτικών Ζώων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 3)"
+     ]
+    },
+    {
+     "code": "3525",
+     "name": "Ζωικοί Εχθροί Αποθηκευμένων Γεωργικών Προϊόντων, Τροφίμων και Αστικού Περιβάλλοντος",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 3)"
+     ]
+    },
+    {
+     "code": "49",
+     "name": "Αγγλικά VΙ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3585",
+     "name": "Εργαστήριο Μηχανικής Τροφίμων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3431",
+     "name": "Μεθοδολογία της Διατροφής",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3560",
+     "name": "Ποσοτική Μικροβιολογία Τροφίμων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "914",
+     "name": "Στατιστική Ανάλυση Δεδομένων με Χρήση Η/Υ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3540",
+     "name": "Τοξικολογία Περιβάλλοντος και Τροφίμων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3550",
+     "name": "Υγιεινή Τροφίμων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2955",
+     "name": "Γεωργική Φαρμακολογία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (2 από 5)"
+     ]
+    },
+    {
+     "code": "3432",
+     "name": "Ενζυμολογία Τροφίμων και Βιομηχανικές Ζυμώσεις",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (2 από 5)"
+     ]
+    },
+    {
+     "code": "265",
+     "name": "Εφαρμογές Η/Υ στην Επεξεργασία των Τροφίμων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (2 από 5)"
+     ]
+    },
+    {
+     "code": "1500",
+     "name": "Μελισσοκομία - Σηροτροφία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (2 από 5)"
+     ]
+    },
+    {
+     "code": "2610",
+     "name": "Οινολογία II",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (2 από 5)"
+     ]
+    },
+    {
+     "code": "3450",
+     "name": "Διατροφή στα Στάδια της Ζωής",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "292",
+     "name": "Διατροφική Επιδημιολογία και Δημόσια Υγεία",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3430",
+     "name": "Λειτουργικά Τρόφιμα και Διατροφή",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3580",
+     "name": "Ποιοτικός και Οργανοληπτικός Έλεγχος Τροφίμων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1620",
+     "name": "Τεχνολογία Γάλακτος I",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "131",
+     "name": "Επεξεργασία Αποβλήτων Βιομηχανιών Τροφίμων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (2 από 4)"
+     ]
+    },
+    {
+     "code": "3210",
+     "name": "Μικροβιακή Βιοτεχνολογία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (2 από 4)"
+     ]
+    },
+    {
+     "code": "1650",
+     "name": "Τεχνολογία Προϊόντων Ζωικής Προέλευσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (2 από 4)"
+     ]
+    },
+    {
+     "code": "1660",
+     "name": "Τεχνολογία Προϊόντων Φυτικής Προέλευσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (2 από 4)"
+     ]
+    },
+    {
+     "code": "3480",
+     "name": "Κλινική Διατροφή",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3434",
+     "name": "Μικροβιολογία Γάλακτος και Γαλακτοκομικών Προϊόντων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2630",
+     "name": "Συσκευασία Τροφίμων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3433",
+     "name": "Συστήματα Διασφάλισης Ποιότητας και Υγιεινής Τροφίμων και Νομοθεσία Τροφίμων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3401",
+     "name": "Τεχνολογία Γάλακτος II - Τυροκομία",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3615",
+     "name": "Διδακτική/Γεωργική Εκπαίδευση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 3)"
+     ]
+    },
+    {
+     "code": "3402",
+     "name": "Φυσικά Προϊόντα: Χημεία και Βιοδραστικότητα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 3)"
+     ]
+    },
+    {
+     "code": "1075",
+     "name": "Φυσικές Ιδιότητες Τροφίμων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (1 από 3)"
+     ]
+    },
+    {
+     "code": "1085",
+     "name": "Σχεδιασμός και Μηχανολογικός Εξοπλισμός Βιομηχανιών Τροφίμων",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3470",
+     "name": "Ανάπτυξη Επιστημονικών και Επαγγελματικών Δεξιοτήτων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (5-7 από 10)"
+     ]
+    },
+    {
+     "code": "124",
+     "name": "Ανάπτυξη Νέων Προϊόντων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (5-7 από 10)"
+     ]
+    },
+    {
+     "code": "291",
+     "name": "Αρχές Διατροφικής Συμβουλευτικής",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (5-7 από 10)"
+     ]
+    },
+    {
+     "code": "3490",
+     "name": "Διατροφή και Άθληση",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (5-7 από 10)"
+     ]
+    },
+    {
+     "code": "256",
+     "name": "Διατροφική Αγωγή",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (5-7 από 10)"
+     ]
+    },
+    {
+     "code": "3403",
+     "name": "Ειδικά Κεφάλαια Χημείας Τροφίμων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (5-7 από 10)"
+     ]
+    },
+    {
+     "code": "3715",
+     "name": "Μάρκετινγκ Γεωργικών Προϊόντων και Τροφίμων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (5-7 από 10)"
+     ]
+    },
+    {
+     "code": "3725",
+     "name": "Στρατηγικός Σχεδιασμός Επιχειρήσεων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (5-7 από 10)"
+     ]
+    },
+    {
+     "code": "3460",
+     "name": "Τεχνολογία Αλκοολούχων Ποτών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (5-7 από 10)"
+     ]
+    },
+    {
+     "code": "3436",
+     "name": "Φυσικοχημεία Τροφίμων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Επιλογής (5-7 από 10)"
+     ]
+    },
+    {
+     "code": "6100",
+     "name": "Πρακτική Άσκηση",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πτυχιακή Μελέτη",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    }
+   ]
+  },
+  "aua-nrae": {
+   "source": "https://w1.aua.gr/afp/",
+   "retrieved": "2026-10-21",
+   "note": "Groups = the directions that offer the course; the site tags some courses both Υποχρεωτικό and Επιλογής without saying in which direction, those are listed as track_core.",
+   "courses": [
+    {
+     "code": "3465",
+     "name": "Βοτανική (Συστηματική - Ανατομία Φυτών)",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0160",
+     "name": "Γενική και Ανόργανη Χημεία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0013",
+     "name": "Εισαγωγή στο Τεχνικό Σχέδιο με Η/Υ (AutoCAD)",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3650",
+     "name": "Εισαγωγή στον Απειροστικό Λογισμό και τη Γραμμική Άλγεβρα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2950",
+     "name": "Πετρολογία - Ορυκτολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0565",
+     "name": "Φυσική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2075",
+     "name": "Γεωγραφικά Πληροφοριακά Συστήματα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3695",
+     "name": "Γεωργική Ζωολογία - Εντομολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3690",
+     "name": "Διανυσματικός Λογισμός",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1390",
+     "name": "Οργανική Χημεία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3455",
+     "name": "Στοιχεία Πληροφορικής και Προγραμματισμός",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0009",
+     "name": "Φυσιολογία Φυτών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1280",
+     "name": "Γενική Μικροβιολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0183",
+     "name": "Γεωργική Μηχανολογία (Ελκυστήρες - Μηχανήματα Αγρού)",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0125",
+     "name": "Ζωοτεχνία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0311",
+     "name": "Στατιστική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1245",
+     "name": "Τοπογραφία-Τηλεπισκόπηση",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0231",
+     "name": "Φυτά Μεγάλης Καλλιέργειας",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2855",
+     "name": "Αγροτική Οικονομία και Πολιτική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0430",
+     "name": "Γεωλογία - Γεωμορφολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "3440",
+     "name": "Δενδροκομία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0157",
+     "name": "Εδαφολογία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1001",
+     "name": "Θέματα Εφαρμοσμένων Μαθηματικών",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0775",
+     "name": "Λαχανοκομία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2975",
+     "name": "Ηλεκτροτεχνία - Ηλεκτρικές Μηχανές",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0014",
+     "name": "Μηχανική - Στατική και Βασικές Αρχές Αντοχής Υλικών",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "0172",
+     "name": "Στοιχεία Μηχανικής Ρευστών - Εφαρμοσμένη Υδραυλική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1555",
+     "name": "Φυσική Εδάφους",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "1565",
+     "name": "Χημεία Εδάφους",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "2035",
+     "name": "Γεωργική Μικρομετεωρολογία",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "2550",
+     "name": "Αντοχή Υλικών",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0087",
+     "name": "Αρδεύσεις",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0173",
+     "name": "Γεωλογία Τεταρτογενούς",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "2435",
+     "name": "Γονιμότητα Εδάφους",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0177",
+     "name": "Γονιμότητα Εδάφους - Λιπασματολογία",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "2245",
+     "name": "Εφαρμοσμένη θερμοδυναμική",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "0178",
+     "name": "Θερμοδυναμική και Φαινόμενα Μεταφοράς",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0051",
+     "name": "Μετρήσεις και Αισθητήρες",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "1345",
+     "name": "Προβληματικά Εδάφη και Βελτίωσή τους",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0179",
+     "name": "Υδραυλική Ανοικτών και Κλειστών Αγωγών",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "1850",
+     "name": "Φυτοπαθολογία",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0035",
+     "name": "Αριθμητική Ανάλυση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "3515",
+     "name": "Γεωργικός Πειραματισμός",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "2990",
+     "name": "Διαχείριση Περιβάλλοντος",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0176",
+     "name": "Εφαρμοσμένη Ορυκτολογία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "2300",
+     "name": "Θέματα Ποσοτικής Οικολογίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0390",
+     "name": "Καλλωπιστικά Φυτά",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "1500",
+     "name": "Μελισσοκομία - Σηροτροφία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "1014",
+     "name": "Στατιστική Ανάλυση Πειραματικών Δεδομένων με Χρήση H/Y",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0062",
+     "name": "Φυσικοχημικές και Μηχανικές Ιδιότητες των Αγροτικών Προϊόντων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "3100",
+     "name": "Γένεση - Ταξινόμηση Εδαφών",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0057",
+     "name": "Εδαφομηχανική - Διαβρώσεις Εδαφών",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0089",
+     "name": "Εφαρμογές των Γεωγραφικών Πληροφοριακών Συστημάτων στο Περιβάλλον",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0054",
+     "name": "Θερμικές - Ψυκτικές Μηχανές",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "2440",
+     "name": "Λιπάσματα και Λιπάνσεις",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0261",
+     "name": "Μεταφορά Θερμότητας και Μάζας",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "0081",
+     "name": "Περιβαλλοντική Φυσική Εδάφους",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0053",
+     "name": "Συστήματα Αρδεύσεων - Στραγγίσεων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "2055",
+     "name": "Σχεδιασμός και Οργάνωση Κτηνοτροφικών Μονάδων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "0249",
+     "name": "Υδραυλική Υπόγειων Υδάτων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0248",
+     "name": "Υδρογεωλογία",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "2510",
+     "name": "Άρδευση Κυριότερων Καλλιεργειών και Πρασίνου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0115",
+     "name": "Γενική Αμπελουργία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0076",
+     "name": "Ηλεκτρονική - Μικροεπεξεργαστές",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "2665",
+     "name": "Μελέτες Περιβαλλοντικών Επιπτώσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0216",
+     "name": "Μικροβιολογία Εδάφους",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0223",
+     "name": "Οικονομικά Περιβάλλοντος",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "2555",
+     "name": "Πειραμματική Υδραυλική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0193",
+     "name": "Περιβαλλοντική Γεωλογία - Φυσικές Καταστροφές",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0059",
+     "name": "Σχεδιασμός Μεταλλικών Κατασκευών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "0134",
+     "name": "Αρδεύσεις και Συστήματα Άρδευσης",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0217",
+     "name": "Αυτόματος Έλεγχος Διεργασιών",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "0188",
+     "name": "Εγγειοβελτιωτικά Έργα",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0064",
+     "name": "Εγκαταστάσεις Συντήρησης Νωπών Αγροτικών Προϊόντων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0067",
+     "name": "Θερμοκηπιακές Εγκαταστάσεις",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0184",
+     "name": "Ποιότητα Υδάτων - Περιβαλλοντική Υδραυλική",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "1820",
+     "name": "Τεχνητό Περιβάλλον Αγροτικών Κτηρίων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0198",
+     "name": "Υδρολογία",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "1335",
+     "name": "Χαρτογράφηση και Τεχνική Σύνταξης Εδαφολογικής Μελέτης",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "2420",
+     "name": "Απόκριση Καλλιεργειών στο Νερό",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0035",
+     "name": "Αριθμητική Ανάλυση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "2955",
+     "name": "Γεωργική Φαρμακολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "3515",
+     "name": "Γεωργικός Πειραματισμός",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0196",
+     "name": "Ειδικά Θέματα Αρδεύσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0186",
+     "name": "Επεξεργασία και Διαχείριση Αποβλήτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0174",
+     "name": "Εφαρμογές της Πληροφορικής στη Γεωργία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "0258",
+     "name": "Ηλεκτρομηχανολογικές Εγκαταστάσεις Αγροτικών Κτηρίων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "1014",
+     "name": "Στατιστική Ανάλυση Πειραματικών Δεδομένων με Χρήση H/Y",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0259",
+     "name": "Τεχνικές Βελτιστοποίησης και Υπολογιστική Νοημοσύνη στη Γεωργία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "0101",
+     "name": "Υποβάθμιση και Ερημοποίηση Γαιών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0117",
+     "name": "Διαχείριση Υδατικών Πόρων",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0187",
+     "name": "Εγγειοβελτιωτικά Έργα και Διαχείριση Υδατικών Πόρων",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0940",
+     "name": "Εφαρμοσμένη Εδαφολογία",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "3110",
+     "name": "Περιβαλλοντική Εδαφολογία και Διαχείριση Εδαφικών Πόρων",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "1520",
+     "name": "Στραγγίσεις",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "2595",
+     "name": "Συστήματα Άρδευσης",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0106",
+     "name": "Τεχνολογίες Ανανεώσιμων Πηγών Ενέργειας",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0226",
+     "name": "Τεχνολογίες Γεωργίας Ακριβείας",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "2510",
+     "name": "Άρδευση Κυριότερων Καλλιεργειών και Πρασίνου",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0197",
+     "name": "Έλεγχος Ποιότητας Νερού και Προστασία Περιβάλλοντος",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "2255",
+     "name": "Αναλύσεις Φυτών και Εδαφών - Αξιολόγηση Αποτελεσμάτων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0115",
+     "name": "Γενική Αμπελουργία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0116",
+     "name": "Γεωργοοικονομικές - Γεωργοτεχνικές Μελέτες",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0221",
+     "name": "Διαμόρφωση Εξωτερικών Χώρων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "2605",
+     "name": "Διαχείριση και Εκσυγχρονισμός Εγγειοβελτιωτικών Έργων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0194",
+     "name": "Εφαρμοσμένος Αυτόματος Έλεγχος και Αυτοματισμοί",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία",
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    },
+    {
+     "code": "0224",
+     "name": "Οργάνωση Διοίκηση Γεωργικών Εκμεταλλεύσεων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0277",
+     "name": "Σχεδιασμός, Οργάνωση και Λειτουργία Θερμοκηπιακών Εγκαταστάσεων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων",
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0191",
+     "name": "Σύγχρονες Τεχνικές και Χωρική Ανάλυση στη Μελέτη Εδαφικών Πόρων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Εδαφολογία & Γεωργική Χημεία"
+     ]
+    },
+    {
+     "code": "0108",
+     "name": "Υδροπονικές Εγκαταστάσεις",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Αγροτικές Κατασκευές & Γεωργική Μηχανολογία"
+     ]
+    },
+    {
+     "code": "0214",
+     "name": "Υπολογιστική Γεωργική Υδραυλική",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Διαχείριση Υδατικών Πόρων"
+     ]
+    }
+   ]
+  }
+ }
+}
