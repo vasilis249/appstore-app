@@ -71,7 +71,8 @@ One-time, by hand:
 1. Xcode → target App → Signing & Capabilities: check that **Push Notifications** is listed (the entitlements file adds it;
    if Xcode shows a signing error, press **+ Capability → Push Notifications**).
 2. developer.apple.com → Certificates, IDs & Profiles → **Keys → +** → name «Speak push», tick **Apple Push
-   Notifications service (APNs)** → Continue → Register → **Download** the `.p8` (only once!). Note the **Key ID** and
+   Notifications service (APNs)** → Configure → Environment **Sandbox & Production** (a Sandbox-only key gets
+   `BadEnvironmentKeyInToken` from TestFlight / App Store builds) → Continue → Register → **Download** the `.p8` (only once!). Note the **Key ID** and
    your **Team ID** (top right of the page).
 3. Supabase dashboard → Edge Functions → **Secrets**: `APNS_KEY_ID`, `APNS_TEAM_ID`, `APNS_PRIVATE_KEY` (the whole
    `.p8` text, BEGIN/END lines included). `PUSH_SECRET` and `private.push_config` are already set.

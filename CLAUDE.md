@@ -1106,6 +1106,10 @@ User decisions:
   engage-flow.mjs` 14/14 (+ courses 11, dayone 5, signup 9, share 7 (needs scratchpad seed-campus + seed-photos), uoa 7,
   ux 15, walkie-entry 5, ptt 10). Live: applied, types regenerated, smoke (rolled back), function 403 without the secret /
   200 with it, function→push_job path checked with dummy secrets (removed). Deploy bf43d79d.
+  APNs key set 2026-10-22 (Key ID XWZS895MC9, Team K29NAQ28S4, .p8 only in Supabase secrets). Real APNs check with a
+  fake token on the demo account: production → `BadEnvironmentKeyInToken` (the key is Sandbox-only → user must set it
+  to Sandbox & Production), sandbox → `BadDeviceToken` (= JWT accepted, HTTP/2 from Deno fine). Function now also tries
+  the other host on BadEnvironmentKeyInToken; `rpc()` handles 204 bodies (drop_push_token threw before).
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 

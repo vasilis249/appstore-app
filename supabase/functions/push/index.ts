@@ -27,8 +27,9 @@ async function rpc(name: string, args: Record<string, string>) {
     },
     body: JSON.stringify(args),
   });
-  if (!r.ok) throw new Error(`${name}: ${r.status} ${await r.text()}`);
-  return r.json();
+  const text = await r.text();
+  if (!r.ok) throw new Error(`${name}: ${r.status} ${text}`);
+  return text ? JSON.parse(text) : null; // a void function answers 204 without a body
 }
 
 type Job = { token: string; title: string; body: string; route: string };
@@ -44,7 +45,8 @@ async function send(job: Job): Promise<string> {
     });
     if (r.ok) return "sent";
     reason = ((await r.json().catch(() => ({}))) as { reason?: string }).reason ?? String(r.status);
-    if (reason !== "BadDeviceToken") break; // a sandbox token is "bad" on production: try the other host
+    // a sandbox token is "bad" on production, and a key may be made for one environment only: try the other host
+    if (reason !== "BadDeviceToken" && reason !== "BadEnvironmentKeyInToken") break;
   }
   // the app was removed / the token belongs to the other environment and failed there too
   if (reason === "Unregistered" || reason === "BadDeviceToken") await rpc("drop_push_token", { p_token: job.token });
