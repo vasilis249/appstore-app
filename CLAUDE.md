@@ -1109,7 +1109,9 @@ User decisions:
   APNs key set 2026-10-22 (Key ID XWZS895MC9, Team K29NAQ28S4, .p8 only in Supabase secrets). Real APNs check with a
   fake token on the demo account: production → `BadEnvironmentKeyInToken` (the key is Sandbox-only → user must set it
   to Sandbox & Production), sandbox → `BadDeviceToken` (= JWT accepted, HTTP/2 from Deno fine). Function now also tries
-  the other host on BadEnvironmentKeyInToken; `rpc()` handles 204 bodies (drop_push_token threw before).
+  the other host on BadEnvironmentKeyInToken; `rpc()` handles 204 bodies (drop_push_token threw before). Replaced the same day by
+  key 6ZNP3VMRKQ (Sandbox & Production): direct APNs check (curl --http2, fake token) → BadDeviceToken on BOTH hosts =
+  accepted everywhere; the old Sandbox-only key XWZS895MC9 can be revoked.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
