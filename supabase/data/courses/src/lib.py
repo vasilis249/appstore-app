@@ -142,4 +142,5 @@ def recaser(prefer, others=("raw/*.txt",), hand=None):
                 elif core.isupper() and len(core) > 3 and re.search("[Α-Ω]", core): print("  unknown word:", core)
             out.append(w)
         return " ".join(out)
+    sentence.known = lambda w: bool(written(fold(w).strip()))
     return sentence

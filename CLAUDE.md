@@ -1086,6 +1086,15 @@ User decisions:
   "-λογία/-τεχνία/-τροφία…" nouns. `20261112100000_course_catalog_auth.sql` (to_sql.py … auth). Tests courses 28 (c1:
   11 universities, > 14,000). Live: applied in 8 chunks → 14,335 courses over 11 universities. No client change.
   Other Universis universities may expose the same API — check first in the next phases.
+- **Course catalogs M3b-Πάτρα ✔ (2026-10-22)** — `upatras.json` 28/33 departments, 2,424 courses. No catalogue API
+  (Universis not public there) → per-department sources: programme PDF tables via `src/up_tables.py` (pdfplumber
+  `find_tables()` + heading above each table; `case()` also rejoins split capital words) and `src/up_generic.py` (13
+  departments with the same table layout: fish, food, mst, tourism, hist-arch, phil, econ, physio, nurs, chem, chemeng,
+  materials, speech — semester / track / Υ-Ε headings, wrapped cells); own scripts for agri, arch (two-column guide +
+  studio electives), ceid, physics, bio, mech (specialisation tracks), philosophy, pharm, civil, geo, math, theatre
+  (docx), ba, edu, med (113 course pages, 12 semesters). Missing: ece, ecedu, sustagri (refuse this container), env,
+  culture (not in the 2026 department list). `20261113100000_course_catalog_upatras.sql`. Tests courses 28 (c1: 12
+  universities, > 16,500). Live: 16,759 courses over 12 universities. No client change.
 - **Engagement E1 ✔ (user request 2026-10-22: push + «βοήθησες N» + «Το δίνω» + points, "do them all without asking")** —
   migration `20261111100000_engagement.sql`: `course_file_downloads` / `course_file_thanks` (PK file+user, counters
   `course_files.downloads_count / thanks_count` by trigger; own thanks readable), `record_course_download(file)` (once per

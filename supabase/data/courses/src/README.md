@@ -14,3 +14,7 @@ downloads a department's course pages for `uniwa_theme.py`.
 ΑΠΘ: most departments come from the university's public course catalogue API (`auth_api.py --fetch`, then
 `auth_api.py`: courses.auth.gr Universis `SpecializationCourses/<program>/<year>/`, with semester, type and track);
 departments with a readable official guide keep their own script (`auth_<dept>.py`, `auth_cpt.py`).
+Πάτρα: no catalogue API; `up_fetch.py` downloads course pages via the sites' sitemaps. Tables in the programme PDFs
+are read with `up_tables.rows()` (pdfplumber `find_tables()` + the heading text above each table); `up_generic.py
+[dept…]` parses the 13 departments whose tables share one layout (settings in its `DEPTS`); the rest keep their own
+`up_<dept>.py`. `up_missing.py` records ece, ecedu and sustagri (sites refuse this container) and env / culture.
