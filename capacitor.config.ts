@@ -52,6 +52,8 @@ const config: CapacitorConfig = {
       backgroundColor: "#0066CC",
       showSpinner: false,
     },
+    // APNs pushes (src/lib/push.ts) also show as a banner while the app is open
+    PushNotifications: { presentationOptions: ["alert", "sound"] },
   },
 };
 

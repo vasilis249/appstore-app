@@ -61,6 +61,26 @@ bun run ios:open    # opens ios/App/App.xcodeproj in Xcode
    mode → allow location → later iOS asks to "Change to Always Allow" (or Settings → Speak → Location → Always).
    The blue location pill in the status bar while it runs in the background is expected.
 
+## 5. Push notifications (APNs)
+
+The app registers the iPhone for pushes (`@capacitor/push-notifications`, `App/App.entitlements` with `aps-environment`,
+token callbacks in `AppDelegate.swift`); the server sends them from the Supabase Edge Function `push`
+(`supabase/functions/push`), which the database calls for every new notification / DM (`private.push_dispatch`).
+
+One-time, by hand:
+1. Xcode → target App → Signing & Capabilities: check that **Push Notifications** is listed (the entitlements file adds it;
+   if Xcode shows a signing error, press **+ Capability → Push Notifications**).
+2. developer.apple.com → Certificates, IDs & Profiles → **Keys → +** → name «Speak push», tick **Apple Push
+   Notifications service (APNs)** → Continue → Register → **Download** the `.p8` (only once!). Note the **Key ID** and
+   your **Team ID** (top right of the page).
+3. Supabase dashboard → Edge Functions → **Secrets**: `APNS_KEY_ID`, `APNS_TEAM_ID`, `APNS_PRIVATE_KEY` (the whole
+   `.p8` text, BEGIN/END lines included). `PUSH_SECRET` and `private.push_config` are already set.
+4. New build (the plugin is native): `bun install`, `bun run ios:sync`, Archive → TestFlight.
+
+Check: allow notifications in the app (Notifications screen → «Ενεργοποίηση», or «Το δίνω» on a course), then have the
+demo friend send a message. Xcode builds use the APNs sandbox, TestFlight / App Store production; the function tries
+production first and then the sandbox.
+
 ## Dev tip: test unreleased web changes on the phone
 Run `bun run dev` (listens on all interfaces, port 8080), set `CAP_SERVER_URL=http://<your-mac-LAN-IP>:8080` in `.env`,
 `bun run ios:sync`, run from Xcode. Switch back to the workers.dev URL before any release build.

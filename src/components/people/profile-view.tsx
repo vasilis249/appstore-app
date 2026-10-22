@@ -9,6 +9,7 @@ import { FollowButton } from "@/components/friends/follow-button";
 import { FeedList } from "@/components/posts/feed-list";
 import { FollowListSheet, type FollowTab } from "@/components/people/follow-list-sheet";
 import { GroupTile } from "@/components/groups/group-row";
+import { HelperBadges } from "@/components/courses/helper-badges";
 import { UserAvatar } from "@/components/user-avatar";
 import { VoiceIcon } from "@/components/voice/voice-icon";
 import { friendKeys, profileStats, type Person } from "@/lib/friends";
@@ -101,6 +102,7 @@ export function ProfileView({ person, isMe, onEdit }: { person: Person; isMe: bo
           )}
           {!isMe && s?.follows_me && <span className="rounded-md bg-secondary px-1.5 py-0.5 text-fine font-semibold">{t("people.followsYou")}</span>}
         </div>
+        <HelperBadges userId={person.id} department={person.department_id ?? null} />
 
         <div className="mt-4 flex gap-2">
           {isMe ? (

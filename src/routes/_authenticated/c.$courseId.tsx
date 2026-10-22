@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { FileText, Image as ImageIcon, MoreHorizontal, Paperclip, Upload } from "lucide-react";
+import { Check, Download, FileText, HandHeart, Image as ImageIcon, MoreHorizontal, Paperclip, Upload, Users } from "lucide-react";
 import { toast } from "sonner";
 import { AppHeader } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
@@ -20,11 +20,17 @@ import {
   formatSize,
   getCourse,
   listCourseFiles,
+  myCourses,
+  recordDownload,
+  setTaking,
+  thankFile,
   uploadCourseFile,
   type CourseFile,
   type FileKind,
 } from "@/lib/courses";
 import { rpcErrorKey } from "@/lib/friends";
+import { haptic } from "@/lib/haptics";
+import { enablePush } from "@/lib/push";
 import { timeAgoShort } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
 
@@ -59,13 +65,21 @@ function CoursePage() {
                 .filter(Boolean)
                 .join(" · ")}
             </p>
-            <button
-              type="button"
-              onClick={() => setUploading(true)}
-              className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground"
-            >
-              <Upload className="h-5 w-5" /> {t("courses.upload")}
-            </button>
+            {c.takers_count > 0 && (
+              <p className="mt-2 flex items-center gap-1.5 text-caption font-semibold text-link">
+                <Users className="h-4 w-4" /> {t("courses.takers", { count: c.takers_count })}
+              </p>
+            )}
+            <div className="mt-4 flex gap-2">
+              <button
+                type="button"
+                onClick={() => setUploading(true)}
+                className="flex h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground"
+              >
+                <Upload className="h-5 w-5" /> {t("courses.upload")}
+              </button>
+              <TakingButton courseId={c.id} />
+            </div>
           </section>
           <Segmented
             className="mx-4 mb-2"
@@ -101,10 +115,32 @@ function FileRow({ file: f }: { file: CourseFile }) {
     onSuccess: () => void qc.invalidateQueries({ queryKey: courseKeys.all }),
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });
+  const [thanked, setThanked] = useState(f.thanked);
+  const [thanks, setThanks] = useState(f.thanks_count);
+  const thank = useMutation({
+    mutationFn: (on: boolean) => thankFile(f.id, on),
+    onMutate: (on) => {
+      haptic("light");
+      setThanked(on);
+      setThanks((n) => n + (on ? 1 : -1));
+    },
+    onSuccess: (n) => setThanks(n),
+    onError: (e, on) => {
+      setThanked(!on);
+      setThanks(f.thanks_count);
+      toast.error(t(rpcErrorKey(e)));
+    },
+  });
   const Icon = f.mime === "application/pdf" ? FileText : ImageIcon;
   return (
     <li className="flex items-center gap-1 pl-4 pr-1">
-      <a href={f.url ?? undefined} target="_blank" rel="noopener noreferrer" className="flex min-h-16 min-w-0 flex-1 items-center gap-3 py-2.5">
+      <a
+        href={f.url ?? undefined}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => !mine && recordDownload(f.id)}
+        className="flex min-h-16 min-w-0 flex-1 items-center gap-3 py-2.5"
+      >
         <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-secondary text-link">
           <Icon className="h-5 w-5" />
         </span>
@@ -116,8 +152,34 @@ function FileRow({ file: f }: { file: CourseFile }) {
               .join(" · ")}
             {f.hidden && ` · ${t("courses.hiddenFile")}`}
           </span>
+          {(f.downloads_count > 0 || (mine && thanks > 0)) && (
+            <span className="mt-0.5 flex items-center gap-2.5 text-fine text-muted-foreground">
+              {f.downloads_count > 0 && (
+                <span className="inline-flex items-center gap-1">
+                  <Download className="h-3.5 w-3.5" /> {t("courses.downloads", { count: f.downloads_count })}
+                </span>
+              )}
+              {mine && thanks > 0 && (
+                <span className="inline-flex items-center gap-1 text-live">
+                  <HandHeart className="h-3.5 w-3.5" /> {t("courses.thanks", { count: thanks })}
+                </span>
+              )}
+            </span>
+          )}
         </span>
       </a>
+      {!mine && (
+        <button
+          type="button"
+          aria-pressed={thanked}
+          aria-label={t(thanked ? "courses.thanked" : "courses.thank")}
+          onClick={() => thank.mutate(!thanked)}
+          className={cn("hit flex h-10 shrink-0 items-center gap-1 rounded-full px-2 text-caption font-semibold tabular-nums", thanked ? "text-live" : "text-muted-foreground")}
+        >
+          <HandHeart className={cn("h-5 w-5", thanked && "animate-like-pop")} fill={thanked ? "currentColor" : "none"} />
+          {thanks > 0 && thanks}
+        </button>
+      )}
       {mine ? (
         <button
           type="button"
@@ -141,6 +203,41 @@ function FileRow({ file: f }: { file: CourseFile }) {
         />
       )}
     </li>
+  );
+}
+
+/** «Το δίνω»: you'll hear about every new file here; asks for push the first time. */
+function TakingButton({ courseId }: { courseId: string }) {
+  const { t } = useTranslation();
+  const qc = useQueryClient();
+  const mine = useQuery({ queryKey: courseKeys.mine, queryFn: myCourses });
+  const on = !!mine.data?.some((c) => c.id === courseId);
+  const toggle = useMutation({
+    mutationFn: () => setTaking(courseId, !on),
+    onMutate: () => haptic("medium"),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: courseKeys.all });
+      if (!on) {
+        toast.success(t("courses.takingToast"));
+        void enablePush(true);
+      }
+    },
+    onError: (e) => toast.error(t(rpcErrorKey(e))),
+  });
+  return (
+    <button
+      type="button"
+      aria-pressed={on}
+      disabled={!mine.data || toggle.isPending}
+      onClick={() => toggle.mutate()}
+      className={cn(
+        "flex h-12 shrink-0 items-center justify-center gap-1.5 rounded-full px-4 font-semibold disabled:opacity-60",
+        on ? "bg-link/10 text-link" : "bg-secondary text-foreground",
+      )}
+    >
+      {on && <Check className="h-4 w-4" strokeWidth={3} />}
+      {t("courses.taking")}
+    </button>
   );
 }
 
@@ -177,6 +274,7 @@ function UploadSheet({
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: courseKeys.all });
       toast.success(t("courses.uploaded"));
+      void enablePush(true); // a good moment: they'll want to hear who downloaded / thanked
       onDone(kind);
       reset(false);
     },

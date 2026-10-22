@@ -252,10 +252,10 @@
             "Walkie-talkie: when you hold the button and talk to a friend, your voice is streamed live only to them through Supabase Realtime (not stored there). Each transmission is also saved, with sender, recipient, length and time, so the two of you can replay it for 24 hours. Your friends' channels are always open while the app is open: they see you as \"here\" and you hear them live. A transmission you missed leaves a notification. If part of a transmission is lost live, the app plays the saved copy right after and records technical diagnostics (how many audio pieces were sent or arrived, connection and audio state, device/browser type — never audio), deleted after 3 days.",
             "Technical data: IP address, device/browser type, server logs and a log of actions for usage limits (rate limits), needed to run and secure the service.",
             "Microphone: used only while you record or hold the walkie-talkie button, after you grant permission. A recording stays on your device until you tap \"Post\" or \"Send\"; on the walkie-talkie your voice reaches your friend live while you talk.",
-            "Reminders: the daily topic notifications are scheduled locally on your device; we do not use a push server.",
+            "Notifications: the daily topic reminders are scheduled locally on your device. If you allow notifications in the app, we keep your device's push identifier (APNs token) and the app language, to send you notifications through Apple about messages, replies, new files in the courses you take and so on. It is deleted when you sign out or delete your account; you can turn notifications off in the iPhone's Settings.",
             "We do not collect location, contacts, payment or health data. We do not transcribe your voice, use it for biometric identification or use it to train artificial intelligence systems.",
             "When you sign up with your student email, your university address is also your account email: you sign in with a one-time code we send you, no password.",
-            "Course files: the documents and photos you upload to a course, with their title, type (notes or past papers), size and time."
+            "Course files: the documents and photos you upload to a course, with their title, type (notes or past papers), size and time. We also record which classmates opened a file (once each) and who said «Thanks», the courses you mark «I'm taking it», and from these we compute points and the department's board. An uploader sees only how many downloaded their file, not who; those who said «Thanks» appear in their notifications."
           ]
         },
         {
@@ -298,7 +298,8 @@
             "Apple: distributes the app through the App Store, but has no access to your Speak account data.",
             "For news topics our server reads public RSS feeds of education news sites and universities; we do not send them any user data. News photos are shown straight from the publisher's server, so when you see them or open an article link, the publisher receives your IP address under its own policy.",
             "All providers process data only on our instructions and are bound by data processing agreements (Art. 28 GDPR). Data may also be disclosed to public authorities when required by law.",
-            "OpenFreeMap: map images are loaded from its servers when you open the map (they see your device's IP address and the map area requested, not your account or your position)."
+            "OpenFreeMap: map images are loaded from its servers when you open the map (they see your device's IP address and the map area requested, not your account or your position).",
+            "Apple (Apple Push Notification service): delivers push notifications to your iPhone; it receives the device identifier and the notification text."
           ]
         },
         {
@@ -478,7 +479,15 @@
     "group_joined": "joined «{{group}}»",
     "invite_joined": "joined Speak with your invite — you're friends now",
     "walkie": "talked to you on walkie-talkie",
-    "nearby": "talked to you from the map"
+    "nearby": "talked to you from the map",
+    "file_thanks": "thanked you for «{{file}}»",
+    "files_helped": "downloaded your files this week",
+    "files_helped_many": "and {{others}} more downloaded your files this week 🎉",
+    "course_file": "uploaded «{{file}}» to «{{course}}»",
+    "course_file_many": "uploaded «{{file}}» to «{{course}}» · {{count}} new files",
+    "pushTitle": "Notifications on your phone",
+    "pushText": "Hear at once about new papers in your courses, messages and replies.",
+    "pushOn": "Turn on"
   },
   "rpcErrors": {
     "rateLimited": "Too many actions. Try again soon.",
@@ -492,7 +501,8 @@
     "mailUnavailable": "Couldn't send email right now. Try again later.",
     "emptyPost": "Write something, add a photo or a voice.",
     "tooLong": "Up to 280 characters.",
-    "notFriends": "You both need to follow each other."
+    "notFriends": "You both need to follow each other.",
+    "tooManyCourses": "Up to 20 courses in «I'm taking it»."
   },
   "voice": {
     "delete": "Delete",
@@ -1025,6 +1035,31 @@
     "chooseFile": "Choose a PDF or photo",
     "uploadHint": "PDF or photo, up to 20 MB. Only students of your university see it. Upload only what you're allowed to share.",
     "uploading": "Uploading…",
-    "send": "Upload"
+    "send": "Upload",
+    "taking": "I'm taking it",
+    "takers_one": "{{count}} classmate takes it",
+    "takers_other": "{{count}} classmates take it",
+    "takingToast": "You'll hear about every new file in this course.",
+    "myCourses": "My courses",
+    "myCoursesHint": "Tap «I'm taking it» on this exam period's courses to hear about every new file.",
+    "downloads_one": "{{count}} download",
+    "downloads_other": "{{count}} downloads",
+    "thank": "Thanks",
+    "thanked": "You thanked",
+    "thanks_one": "{{count}} thanks",
+    "thanks_other": "{{count}} thanks",
+    "topHelpers": "Top helpers of the department",
+    "pointsRule": "10 points per file, 1 per classmate who downloads it, 3 per «Thanks».",
+    "noHelpers": "Nobody yet. Upload the first file and take the top spot.",
+    "points_one": "{{count}} point",
+    "points_other": "{{count}} points",
+    "you": "you"
+  },
+  "helper": {
+    "rank": "#{{rank}} in the department",
+    "helped_one": "helped {{count}} classmate",
+    "helped_other": "helped {{count}} classmates",
+    "founding": "Founding member",
+    "top": "Top helper"
   }
 }

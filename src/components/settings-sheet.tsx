@@ -11,6 +11,7 @@ import { LanguageToggle } from "@/components/language-toggle";
 import { DeleteAccountButton } from "@/components/delete-account-button";
 import { supabase } from "@/integrations/supabase/client";
 import { DailyPromptSwitch } from "@/components/daily-prompt-switch";
+import { forgetPushToken } from "@/lib/push";
 
 /** Everything that isn't the profile itself, in one place (opened from the ⚙︎ button). */
 export function SettingsSheet({
@@ -34,6 +35,7 @@ export function SettingsSheet({
     onOpenChange(false);
     await qc.cancelQueries();
     qc.clear();
+    await forgetPushToken().catch(() => {});
     await supabase.auth.signOut();
     navigate({ to: "/auth", replace: true });
   }

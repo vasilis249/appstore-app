@@ -18,6 +18,7 @@ import { BottomNav } from "../components/bottom-nav";
 import { RealtimeSync } from "../components/realtime-sync";
 import { DailyPromptScheduler } from "../components/daily-prompt-scheduler";
 import { InviteClaimer } from "../components/invite-claimer";
+import { PushSync } from "../components/push-sync";
 import { WalkieBanner, WalkieHubSync } from "../components/walkie/walkie-hub";
 import { LocationSync } from "../components/location/location-sync";
 import { useIsStudent } from "../hooks/use-is-student";
@@ -212,6 +213,7 @@ function StudentSyncs() {
     <>
       <RealtimeSync />
       <DailyPromptScheduler />
+      <PushSync />
       <WalkieHubSync />
       <LocationSync />
       <WalkieBanner />

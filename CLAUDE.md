@@ -1075,6 +1075,37 @@ User decisions:
   `hand`). `to_sql.py <out> [uni …]` (only those files) → `20261110100000_course_catalog_attica.sql` (4,767 upserts).
   Tests courses 28 (c1: 10 universities, > 9,500 courses), all suites green. Live: 9,814 courses over 10 universities.
   No client change (no deploy). NEXT M3b: the other Greek + Cyprus universities, then Europe — only after OK.
+- **Engagement E1 ✔ (user request 2026-10-22: push + «βοήθησες N» + «Το δίνω» + points, "do them all without asking")** —
+  migration `20261111100000_engagement.sql`: `course_file_downloads` / `course_file_thanks` (PK file+user, counters
+  `course_files.downloads_count / thanks_count` by trigger; own thanks readable), `record_course_download(file)` (once per
+  classmate, never the uploader), `thank_course_file(file, on)` → count + notice `file_thanks`; weekly cron `files-helped`
+  (`7 16 * * 0`) → `private.weekly_helped()` = notice `files_helped` (count = distinct classmates in 7 days, actor = the
+  latest); `course_takers` + `courses.takers_count`, `set_taking_course(course, on)` (your university, ≤ 20 →
+  `too_many_courses`), trigger `course_file_notify` → one unread `course_file` notice per taker and course (count folds);
+  points = 10 per visible file + 1 per download + 3 per thanks: `private.department_points`, `top_helpers(dep, limit)`,
+  `helper_stats(user)` (rank, `founding` = among the first 50 verified of the department, `top` = rank ≤ 3 and ≥ 10
+  points); notifications + `course_id, file_id, count`. Push: `private.push_tokens` (token hex, user, lang),
+  `register_push_token` / `unregister_push_token`, `private.push_job(kind 'n'|'dm', id)` = per device title / body / route
+  in el or en (service-role wrapper `public.push_job`, `drop_push_token`), trigger `private.push_dispatch` on notifications
+  + voice_messages → `net.http_post` to the Edge Function only when `private.push_config` (url + secret) exists and the
+  recipient has a device. Edge Function `supabase/functions/push` (Deno; deployed via the Management API
+  `functions/deploy?slug=push`, verify_jwt off, checks `x-push-secret`): `push_job` → APNs (ES256 JWT from the .p8,
+  `jwt.ts`, cached 40 min; production then sandbox; Unregistered / BadDeviceToken → drop). Workers can't do HTTP/2 →
+  APNs, hence the Edge Function. Secrets set: PUSH_SECRET (copy in scratchpad deploy.env), push_config live. NOT set:
+  APNS_KEY_ID / APNS_TEAM_ID / APNS_PRIVATE_KEY (user creates the key: docs/ios-setup.md §5) → until then the function
+  answers `apns_not_configured`. iOS: `@capacitor/push-notifications` 8.1.3 (CapApp-SPM), `App/App.entitlements`
+  (`aps-environment`, CODE_SIGN_ENTITLEMENTS), AppDelegate token callbacks, `PushNotifications.presentationOptions`,
+  build 3. Client: `lib/push.ts` (`enablePush(ask)`, `listenPush` → register token lower-case + route on tap,
+  `forgetPushToken` on sign-out), `PushSync` in StudentSyncs; asks at «Το δίνω», after an upload, and the Notifications
+  screen card «Ειδοποιήσεις στο κινητό». UI: course page «Το δίνω» toggle + «N συμφοιτητές το δίνουν», file rows
+  «N λήψεις» + «Ευχαριστώ» (HandHeart) / own «N ευχαριστώ», opening a classmate's file records it; `/courses` «Τα μαθήματά
+  μου» + «Top βοηθοί του τμήματος» (top 5, points rule) + takers per course; profile `HelperBadges` (Top βοηθός, Ιδρυτικό
+  μέλος, «N πόντοι · #r στο τμήμα · βοήθησε N συμφοιτητές» → /courses); notifications for the 3 kinds → course /
+  profile. Privacy (el/en): push token, file activity, Apple as a processor. BUG FOUND: `void supabase.rpc(...)` never
+  runs (the builder is lazy) → always `.then()` a fire-and-forget call. Tests `test_engage.sql` 30; `tests/e2e/
+  engage-flow.mjs` 14/14 (+ courses 11, dayone 5, signup 9, share 7 (needs scratchpad seed-campus + seed-photos), uoa 7,
+  ux 15, walkie-entry 5, ptt 10). Live: applied, types regenerated, smoke (rolled back), function 403 without the secret /
+  200 with it, function→push_job path checked with dummy secrets (removed). Deploy bf43d79d.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
@@ -1204,7 +1235,7 @@ User decisions:
 - The user runs the app on an iPhone 17 Pro with Xcode 26.3. **Apple Developer Program: enrolled 2026-10-22** (was a
   free Apple ID with 7-day signing) → next: signing with the paid team, App Store Connect app, Archive → TestFlight
   (`docs/release-checklist.md` Part C); later APNs push and Sign in with Apple become possible. First build uploaded to
-  App Store Connect 2026-10-22; build 2 = iPhone-only (`TARGETED_DEVICE_FAMILY = 1`, else iPad screenshots are required) → next: TestFlight internal testing, then the store listing + review. Store texts:
+  App Store Connect 2026-10-22; build 2 = iPhone-only (`TARGETED_DEVICE_FAMILY = 1`, else iPad screenshots are required); build 3 = push notifications (needs the APNs key, docs/ios-setup.md §5) → next: TestFlight internal testing, then the store listing + review. Store texts:
   `docs/app-store-listing.md`. Review demo accounts (live, 2026-10-22): `review@example.com` @speak.review + friend
   `review2@example.com` @speak.review2, verified ΕΜΠ · ΗΜΜΥ · 3ο, mutual follow (passwords given to the user, not stored).
 
@@ -1212,7 +1243,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (46) + `test_speak.sql` (132) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (94) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11) + `test_courses.sql` (28).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (46) + `test_speak.sql` (132) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (94) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11) + `test_courses.sql` (28) + `test_engage.sql` (30).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

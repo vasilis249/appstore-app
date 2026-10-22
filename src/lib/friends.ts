@@ -109,6 +109,7 @@ export function rpcErrorKey(err: unknown): string {
   if (msg.includes("not_found") || msg.includes("not_available")) return "rpcErrors.notFound";
   if (msg.includes("not_academic")) return "rpcErrors.notAcademic";
   if (msg.includes("email_taken")) return "rpcErrors.emailTaken";
+  if (msg.includes("too_many_courses")) return "rpcErrors.tooManyCourses";
   if (msg.includes("too_many")) return "rpcErrors.tooManyCodes";
   if (msg.includes("daily_limit") || msg.includes("mail_not_configured") || msg.includes("mail_failed")) return "rpcErrors.mailUnavailable";
   // On the metro / without signal: say what's wrong and what to do, not "something went wrong".

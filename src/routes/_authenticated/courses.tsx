@@ -2,14 +2,15 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { BookOpen, Check, ChevronDown, ChevronRight, FileText, Search } from "lucide-react";
+import { BookOpen, Check, ChevronDown, ChevronRight, FileText, Search, Trophy, Users } from "lucide-react";
 import { AppHeader } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
 import { Segmented } from "@/components/segmented";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { useCampus } from "@/lib/campus";
-import { courseKeys, listCourses, type Course } from "@/lib/courses";
+import { UserAvatar } from "@/components/user-avatar";
+import { courseKeys, listCourses, myCourses, topHelpers, type Course } from "@/lib/courses";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/courses")({
@@ -86,6 +87,13 @@ function CoursesPage() {
         )}
       </div>
 
+      {!query && (
+        <>
+          <MyCourses />
+          {dep && <TopHelpers department={dep} me={me.data?.id} />}
+        </>
+      )}
+
       {!dep && <EmptyState icon={BookOpen} text={t("courses.noDepartment")} />}
       {courses.data?.length === 0 && <EmptyState icon={BookOpen} title={t("courses.noCatalogTitle")} text={t("courses.noCatalog")} />}
       {!!courses.data?.length && !sections.length && <EmptyState text={t("courses.noMatch")} />}
@@ -106,6 +114,11 @@ function CoursesPage() {
                         {[c.code, t(`courses.kind.${c.kind}`), c.groups[0]].filter(Boolean).join(" · ")}
                       </span>
                     </span>
+                    {c.takers_count > 0 && (
+                      <span className="flex shrink-0 items-center gap-1 text-caption tabular-nums text-muted-foreground">
+                        <Users className="h-4 w-4" /> {c.takers_count}
+                      </span>
+                    )}
                     {c.files_count > 0 && (
                       <span className="flex shrink-0 items-center gap-1 text-caption font-semibold tabular-nums text-link">
                         <FileText className="h-4 w-4" /> {c.files_count}
@@ -132,6 +145,73 @@ function CoursesPage() {
         }}
       />
     </>
+  );
+}
+
+/** The courses I marked «Το δίνω» (or a hint how to). */
+function MyCourses() {
+  const { t } = useTranslation();
+  const mine = useQuery({ queryKey: courseKeys.mine, queryFn: myCourses });
+  if (!mine.data) return null;
+  return (
+    <section className="mb-4">
+      <h2 className="px-4 pb-1.5 text-callout font-semibold text-muted-foreground">{t("courses.myCourses")}</h2>
+      {mine.data.length ? (
+        <ul className="mx-4 divide-y divide-border overflow-hidden rounded-2xl bg-card">
+          {mine.data.map((c) => (
+            <li key={c.id}>
+              <Link to="/c/$courseId" params={{ courseId: c.id }} className="flex min-h-12 items-center gap-3 px-4 py-2.5">
+                <span className="min-w-0 flex-1 truncate leading-snug">{c.name}</span>
+                {c.files_count > 0 && (
+                  <span className="flex shrink-0 items-center gap-1 text-caption font-semibold tabular-nums text-link">
+                    <FileText className="h-4 w-4" /> {c.files_count}
+                  </span>
+                )}
+                <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mx-4 rounded-2xl bg-card px-4 py-3 text-caption text-muted-foreground">{t("courses.myCoursesHint")}</p>
+      )}
+    </section>
+  );
+}
+
+/** Top 5 helpers of the department: points from uploads, classmates who downloaded and thanks. */
+function TopHelpers({ department, me }: { department: string; me?: string }) {
+  const { t } = useTranslation();
+  const list = useQuery({ queryKey: courseKeys.helpers(department), queryFn: () => topHelpers(department) });
+  if (!list.data) return null;
+  return (
+    <section className="mb-4">
+      <h2 className="flex items-center gap-1.5 px-4 pb-1.5 text-callout font-semibold text-muted-foreground">
+        <Trophy className="h-4 w-4 text-link" /> {t("courses.topHelpers")}
+      </h2>
+      <div className="mx-4 overflow-hidden rounded-2xl bg-card">
+        {list.data.length ? (
+          <ol className="divide-y divide-border">
+            {list.data.map((h) => (
+              <li key={h.user_id}>
+                <Link to="/u/$username" params={{ username: h.username }} className={cn("flex min-h-12 items-center gap-3 px-4 py-2", h.user_id === me && "bg-link/5")}>
+                  <span className={cn("w-5 shrink-0 text-center font-semibold tabular-nums", h.rank <= 3 ? "text-link" : "text-muted-foreground")}>{h.rank}</span>
+                  <UserAvatar name={h.full_name || h.username} path={h.avatar_path} size={32} />
+                  <span className="min-w-0 flex-1 truncate font-semibold">
+                    {h.full_name || h.username}
+                    {h.user_id === me && <span className="font-normal text-muted-foreground"> · {t("courses.you")}</span>}
+                  </span>
+                  <span className="shrink-0 text-caption font-semibold tabular-nums">{t("courses.points", { count: h.points })}</span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p className="px-4 py-3 text-caption text-muted-foreground">{t("courses.noHelpers")}</p>
+        )}
+        <p className="border-t border-border px-4 py-2 text-fine text-muted-foreground">{t("courses.pointsRule")}</p>
+      </div>
+    </section>
   );
 }
 

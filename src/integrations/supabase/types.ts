@@ -47,40 +47,112 @@ export type Database = {
           },
         ]
       }
+      course_file_downloads: {
+        Row: {
+          created_at: string
+          file_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          file_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          file_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_file_downloads_file_id_fkey"
+            columns: ["file_id"]
+            isOneToOne: false
+            referencedRelation: "course_files"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_file_downloads_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      course_file_thanks: {
+        Row: {
+          created_at: string
+          file_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          file_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          file_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_file_thanks_file_id_fkey"
+            columns: ["file_id"]
+            isOneToOne: false
+            referencedRelation: "course_files"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_file_thanks_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       course_files: {
         Row: {
           course_id: string
           created_at: string
+          downloads_count: number
           hidden: boolean
           id: string
           kind: string
           mime: string
           path: string
           size_bytes: number
+          thanks_count: number
           title: string
           uploader_id: string
         }
         Insert: {
           course_id: string
           created_at?: string
+          downloads_count?: number
           hidden?: boolean
           id?: string
           kind: string
           mime: string
           path: string
           size_bytes?: number
+          thanks_count?: number
           title: string
           uploader_id: string
         }
         Update: {
           course_id?: string
           created_at?: string
+          downloads_count?: number
           hidden?: boolean
           id?: string
           kind?: string
           mime?: string
           path?: string
           size_bytes?: number
+          thanks_count?: number
           title?: string
           uploader_id?: string
         }
@@ -101,6 +173,39 @@ export type Database = {
           },
         ]
       }
+      course_takers: {
+        Row: {
+          course_id: string
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_takers_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_takers_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       courses: {
         Row: {
           code: string | null
@@ -112,6 +217,7 @@ export type Database = {
           name: string
           position: number
           semester: number | null
+          takers_count: number
           university_id: string
         }
         Insert: {
@@ -124,6 +230,7 @@ export type Database = {
           name: string
           position?: number
           semester?: number | null
+          takers_count?: number
           university_id: string
         }
         Update: {
@@ -136,6 +243,7 @@ export type Database = {
           name?: string
           position?: number
           semester?: number | null
+          takers_count?: number
           university_id?: string
         }
         Relationships: [
@@ -452,7 +560,10 @@ export type Database = {
       notifications: {
         Row: {
           actor_id: string
+          count: number | null
+          course_id: string | null
           created_at: string
+          file_id: string | null
           group_id: string | null
           id: number
           kind: string
@@ -462,7 +573,10 @@ export type Database = {
         }
         Insert: {
           actor_id: string
+          count?: number | null
+          course_id?: string | null
           created_at?: string
+          file_id?: string | null
           group_id?: string | null
           id?: never
           kind: string
@@ -472,7 +586,10 @@ export type Database = {
         }
         Update: {
           actor_id?: string
+          count?: number | null
+          course_id?: string | null
           created_at?: string
+          file_id?: string | null
           group_id?: string | null
           id?: never
           kind?: string
@@ -486,6 +603,20 @@ export type Database = {
             columns: ["actor_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_file_id_fkey"
+            columns: ["file_id"]
+            isOneToOne: false
+            referencedRelation: "course_files"
             referencedColumns: ["id"]
           },
           {
@@ -1339,6 +1470,7 @@ export type Database = {
           section_id: string
         }[]
       }
+      drop_push_token: { Args: { p_token: string }; Returns: undefined }
       feed_posts: {
         Args: {
           p_author?: string
@@ -1453,6 +1585,18 @@ export type Database = {
           full_name: string
           user_id: string
           username: string
+        }[]
+      }
+      helper_stats: {
+        Args: { p_user: string }
+        Returns: {
+          downloads: number
+          files: number
+          founding: boolean
+          points: number
+          rank: number
+          thanks: number
+          top: boolean
         }[]
       }
       invite_preview: {
@@ -1636,8 +1780,22 @@ export type Database = {
           prompt_at: string
         }[]
       }
+      push_job: {
+        Args: { p_id: string; p_kind: string }
+        Returns: {
+          body: string
+          route: string
+          title: string
+          token: string
+        }[]
+      }
       read_dm_thread: { Args: { p_other: string }; Returns: undefined }
+      record_course_download: { Args: { p_file: string }; Returns: undefined }
       record_listen: { Args: { p_post: string }; Returns: undefined }
+      register_push_token: {
+        Args: { p_lang?: string; p_token: string }
+        Returns: undefined
+      }
       remove_follower: { Args: { p_user: string }; Returns: undefined }
       remove_group_member: {
         Args: { p_group: string; p_user: string }
@@ -1705,6 +1863,10 @@ export type Database = {
         Args: { p_department: string; p_year: number }
         Returns: undefined
       }
+      set_taking_course: {
+        Args: { p_course: string; p_on?: boolean }
+        Returns: number
+      }
       student_code_issue: {
         Args: { p_code: string; p_email: string; p_user: string }
         Returns: string
@@ -1724,6 +1886,10 @@ export type Database = {
           username: string
         }[]
       }
+      thank_course_file: {
+        Args: { p_file: string; p_on?: boolean }
+        Returns: number
+      }
       today: {
         Args: never
         Returns: {
@@ -1734,6 +1900,21 @@ export type Database = {
           topic_is_pick: boolean
           topic_section: string
           topic_title: string
+        }[]
+      }
+      top_helpers: {
+        Args: { p_department?: string; p_limit?: number }
+        Returns: {
+          avatar_path: string
+          downloads: number
+          files: number
+          full_name: string
+          points: number
+          rank: number
+          study_year: number
+          thanks: number
+          user_id: string
+          username: string
         }[]
       }
       trending_topics: {
@@ -1753,6 +1934,7 @@ export type Database = {
       unblock_user: { Args: { p_user: string }; Returns: undefined }
       unfollow_user: { Args: { p_user: string }; Returns: undefined }
       unlike_post: { Args: { p_post: string }; Returns: undefined }
+      unregister_push_token: { Args: { p_token: string }; Returns: undefined }
       unrepost: { Args: { p_post: string }; Returns: undefined }
       update_group: {
         Args: {
