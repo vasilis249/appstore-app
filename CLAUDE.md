@@ -1204,7 +1204,9 @@ User decisions:
 - The user runs the app on an iPhone 17 Pro with Xcode 26.3. **Apple Developer Program: enrolled 2026-10-22** (was a
   free Apple ID with 7-day signing) → next: signing with the paid team, App Store Connect app, Archive → TestFlight
   (`docs/release-checklist.md` Part C); later APNs push and Sign in with Apple become possible. First build uploaded to
-  App Store Connect 2026-10-22 → next: TestFlight internal testing, then the store listing + review.
+  App Store Connect 2026-10-22 → next: TestFlight internal testing, then the store listing + review. Store texts:
+  `docs/app-store-listing.md`. Review demo accounts (live, 2026-10-22): `review@example.com` @speak.review + friend
+  `review2@example.com` @speak.review2, verified ΕΜΠ · ΗΜΜΥ · 3ο, mutual follow (passwords given to the user, not stored).
 
 ## Local testing (no Docker in the container)
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with

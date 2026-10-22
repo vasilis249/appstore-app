@@ -111,8 +111,8 @@ students,university,college,notes,past papers,courses,exams,classmates,departmen
 
 ## App Review Information
 
-- Sign-in required: **Yes** → User name `<demo email>`, Password `<demo password>` (a verified ΕΜΠ student, made
-  with a password; see "Demo account" below).
+- Sign-in required: **Yes** → User name `review@example.com`, Password: the one given in chat (kept only in App Store
+  Connect; a verified ΕΜΠ student, made with a password; see "Demo account" below).
 - Contact: your name, `vasilis.har@gmail.com`, `+30 698 751 4868`.
 - Notes:
 ```
@@ -152,10 +152,15 @@ Use the demo account with some content, no real students' names or faces.
 
 ## Demo account
 
-Needs: email + password sign-in, verified student of `ntua`, a few posts / a group / a mutual follow so the screens
-aren't empty. Created by an admin (Auth admin API + `UPDATE public.profiles SET university_id = 'ntua',
-department_id = 'ntua-ece', study_year = 3, student_verified_at = now() …`); keep the password only in App Store
-Connect.
+Created live 2026-10-22 (Auth admin API, email confirmed, then `UPDATE public.profiles SET university_id = 'ntua',
+department_id = 'ntua-ece', study_year = 3, student_verified_at = now()`; content through the real RPCs):
+- `review@example.com` = @speak.review «App Review» (id f0103484-…) and `review2@example.com` = @speak.review2
+  «Review Friend» (id 97934c2f-…), both ΕΜΠ · ΗΜΜΥ · 3ο έτος, following each other (DMs + walkie work).
+- One personal text post each (not on the campus feed, so real students don't see them), one DM from the friend, a
+  private group «Ομάδα μελέτης» with both; they are in the auto groups «ΗΜΜΥ» and «ΗΜΜΥ · 3ο έτος».
+- Passwords: only in App Store Connect (review@) — the friend's password isn't needed by the reviewer.
+- example.com never receives mail: a "forgot password" on these accounts goes nowhere. Keep them for later reviews;
+  delete with the Auth admin API (cascade) if ever needed.
 
 ## If review pushes back
 
