@@ -144,7 +144,10 @@ Answer honestly; the expected result is 16+ or 18+:
 - Not collected: contacts, financial info, health, browsing history, search history, diagnostics, advertising data.
 - The academic email is not stored — only a hash, to allow one account per address.
 
-## Screenshots (6.9" iPhone, 1320 × 2868 — take them on the iPhone 17 Pro Max simulator or the phone)
+## Screenshots (iPhone only — the app is iPhone-only since build 2, so no iPad screenshots)
+
+App Store Connect asks for "iPhone with Dynamic Island (medium display)" = 6.3" (1206 × 2622): the iPhone 17 Pro's own
+screenshots (side + volume up) fit as they are. 3–10 per language.
 
 1. Campus feed (Home) with a few posts. 2. A course page with notes and past papers. 3. The composer while recording.
 4. A department-year group. 5. Messages / walkie-talkie. 6. The friends map.
