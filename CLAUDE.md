@@ -1075,6 +1075,17 @@ User decisions:
   `hand`). `to_sql.py <out> [uni …]` (only those files) → `20261110100000_course_catalog_attica.sql` (4,767 upserts).
   Tests courses 28 (c1: 10 universities, > 9,500 courses), all suites green. Live: 9,814 courses over 10 universities.
   No client change (no deploy). NEXT M3b: the other Greek + Cyprus universities, then Europe — only after OK.
+- **Course catalogs M3b-ΑΠΘ ✔ (user 2026-10-22: «προχώρα στο M3b»; one university per phase)** — `auth.json` 41/41
+  departments, 4,521 courses. 29 departments from ΑΠΘ's public course catalogue API (`src/auth_api.py`: courses.auth.gr
+  Universis `services/course-catalogue/v1p1/SpecializationCourses/<study program>/2026/` = every course with a class that
+  year, semester (ids > 100 = ΧΕΙΜ/ΕΑΡ → none), course type (obligatory and no "ΕΠΙΛΟΓ" = core), specialization = track;
+  `StudyPrograms?$expand=department` lists the programs) — it also covers agri / csd / ece / philosophy whose sites refuse
+  this container. 12 from official guides: chem, chemeng, phil, physics, polsci (`auth_cpt.py` + course pages), med,
+  bio, forest, psych (rows transcribed: two-column PDF), jour (Β3 guide appendix A), english (4 sector lists,
+  windows-1253), music (guide §4.2 + Σύνθεση track + CourseClasses list). `lib.recaser` also accents "-ακός" endings and
+  "-λογία/-τεχνία/-τροφία…" nouns. `20261112100000_course_catalog_auth.sql` (to_sql.py … auth). Tests courses 28 (c1:
+  11 universities, > 14,000). Live: applied in 8 chunks → 14,335 courses over 11 universities. No client change.
+  Other Universis universities may expose the same API — check first in the next phases.
 - **Engagement E1 ✔ (user request 2026-10-22: push + «βοήθησες N» + «Το δίνω» + points, "do them all without asking")** —
   migration `20261111100000_engagement.sql`: `course_file_downloads` / `course_file_thanks` (PK file+user, counters
   `course_files.downloads_count / thanks_count` by trigger; own thanks readable), `record_course_download(file)` (once per

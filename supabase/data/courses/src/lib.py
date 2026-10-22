@@ -116,10 +116,12 @@ def recaser(prefer, others=("raw/*.txt",), hand=None):
             w = line.split(" ")[0]
             if w and w[0].islower(): lexicon.setdefault(fold(w).strip(), w)
     ACCENT = dict(zip("αεηιουω", "άέήίόύώ"))
-    def adjective(key):  # "-ικός/-ική/-ικών/-ικές…": the accent sits on the ending
-        if m := re.fullmatch(r"(.+ικ)([αεηουω])(σ|ι|ν|υ|υσ)?", key):
+    def adjective(key):  # "-ικός/-ακή/-ικών/-ακές…": the accent sits on the ending
+        if m := re.fullmatch(r"(.+[ια]κ)([αεηουω])(σ|ι|ν|υ|υσ)?", key):
             end = m[3] or ""
             return m[1] + ACCENT[m[2]] + (end[:-1] + "ς" if end.endswith("σ") else end)
+        if m := re.fullmatch(r"(.+(?:λογ|τεχν|τροφ|μετρ|πον|δοντ|γραφ|παθ|νομ|σοφ|σκοπ|γεν|φον))ι(α|ασ|εσ)", key):
+            return m[1] + "ί" + (m[2][:-1] + "ς" if m[2].endswith("σ") else m[2])  # "-λογία/-τεχνίας/-τροφίες"
     def written(key):
         if hand and key in hand: return hand[key]
         # sentence case: a lower-case form from the preferred texts, then from any, else the one seen lower-cased

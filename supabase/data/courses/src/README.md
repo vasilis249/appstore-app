@@ -11,3 +11,6 @@ Upper-case titles are re-cased with `lib.recaser()` (word forms from the other t
 word list `raw/el_words.txt` = https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/content/2018/el/el_full.txt,
 then the "-ικός" ending rule; unknown words stay upper case and are printed). ΠΑΔΑ: `uniwa_fetch.py <site> <path>`
 downloads a department's course pages for `uniwa_theme.py`.
+ΑΠΘ: most departments come from the university's public course catalogue API (`auth_api.py --fetch`, then
+`auth_api.py`: courses.auth.gr Universis `SpecializationCourses/<program>/<year>/`, with semester, type and track);
+departments with a readable official guide keep their own script (`auth_<dept>.py`, `auth_cpt.py`).
