@@ -2,7 +2,6 @@
 // server put in the push. No-ops on the web and in app builds made before the plugin was added.
 import { Capacitor } from "@capacitor/core";
 import { supabase } from "@/integrations/supabase/client";
-import type { Json } from "@/integrations/supabase/types";
 import { isNativeApp } from "@/lib/native";
 
 const TOKEN_KEY = "courtsie:pushToken";
@@ -13,11 +12,6 @@ async function plugin() {
 }
 
 export const pushAvailable = () => isNativeApp() && Capacitor.isPluginAvailable("PushNotifications");
-
-// shortcut: push diagnostics into private.walkie_diag while push is verified on real phones; remove once it works
-function report(push: { [k: string]: Json | undefined }) {
-  if (isNativeApp()) void supabase.rpc("walkie_diag", { p_data: { push, ua: navigator.userAgent } }).then(() => {});
-}
 
 const stored = () => {
   try {
@@ -35,16 +29,12 @@ export async function pushPermission(): Promise<"granted" | "denied" | "prompt" 
 
 /** Registers this device for pushes; `ask` shows the iOS dialog when it was never answered. */
 export async function enablePush(ask: boolean): Promise<boolean> {
-  if (!pushAvailable()) {
-    report({ step: "enable", available: false });
-    return false;
-  }
+  if (!pushAvailable()) return false;
   const { pn } = await plugin();
   let { receive } = await pn.checkPermissions();
   if (ask && receive !== "granted" && receive !== "denied") receive = (await pn.requestPermissions()).receive;
-  report({ step: "enable", ask, receive });
   if (receive !== "granted") return false;
-  await pn.register().catch((e: unknown) => report({ step: "register", error: String(e) }));
+  await pn.register();
   return true;
 }
 
@@ -60,11 +50,8 @@ export async function listenPush(lang: string, onOpen: (route: string) => void):
       /* ignore */
     }
     // the query builder only runs once it is awaited / then-ed
-    void supabase
-      .rpc("register_push_token", { p_token: token, p_lang: lang.startsWith("en") ? "en" : "el" })
-      .then(({ error }) => report({ step: "token", saved: !error, error: error?.message }));
+    void supabase.rpc("register_push_token", { p_token: token, p_lang: lang.startsWith("en") ? "en" : "el" }).then(() => {});
   });
-  const failed = await pn.addListener("registrationError", ({ error }) => report({ step: "apns", error }));
   const tap = await pn.addListener("pushNotificationActionPerformed", ({ notification }) => {
     const route = (notification.data as { route?: unknown } | undefined)?.route;
     if (typeof route === "string" && route.startsWith("/")) onOpen(route);
@@ -72,7 +59,6 @@ export async function listenPush(lang: string, onOpen: (route: string) => void):
   return () => {
     void reg.remove();
     void tap.remove();
-    void failed.remove();
   };
 }
 

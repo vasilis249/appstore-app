@@ -1111,7 +1111,10 @@ User decisions:
   to Sandbox & Production), sandbox → `BadDeviceToken` (= JWT accepted, HTTP/2 from Deno fine). Function now also tries
   the other host on BadEnvironmentKeyInToken; `rpc()` handles 204 bodies (drop_push_token threw before). Replaced the same day by
   key 6ZNP3VMRKQ (Sandbox & Production): direct APNs check (curl --http2, fake token) → BadDeviceToken on BOTH hosts =
-  accepted everywhere; the old Sandbox-only key XWZS895MC9 can be revoked.
+  accepted everywhere; the old Sandbox-only key XWZS895MC9 can be revoked. First real push ✔ 2026-10-22: TestFlight 1.0.1 (4)
+  registered the user's iPhone (build 3 had been archived without the plugin: `git pull` was blocked by Xcode's local
+  signing edit → the project now carries `DEVELOPMENT_TEAM = K29NAQ28S4`; always `bun install` before `ios:sync`), a
+  test push via APNs production arrived. Temporary push diagnostics (walkie_diag rows) removed again.
 - Everything under "Phase 3 progress" below is the BeReal-style build; its pieces (recorder, player, storage
   policies, report/block sheet, notifications, DMs) are reused.
 
