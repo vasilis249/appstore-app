@@ -1201,7 +1201,9 @@ User decisions:
   min password 8, confirm email, secure email change, token rotation. Custom SMTP needed before real users.
 - Contact: vasilis.har@gmail.com / 698 751 4868 (`src/lib/contact.ts`). Privacy Policy (GDPR, el + en) in
   `legal.privacy` — must be rewritten for voice data in Phase 4. Open: `CONTACT_CONTROLLER` (name/ΑΦΜ), Terms/EULA.
-- The user runs the app on an iPhone 17 Pro with Xcode 26.3 and a free Apple ID (7-day signing).
+- The user runs the app on an iPhone 17 Pro with Xcode 26.3. **Apple Developer Program: enrolled 2026-10-22** (was a
+  free Apple ID with 7-day signing) → next: signing with the paid team, App Store Connect app, Archive → TestFlight
+  (`docs/release-checklist.md` Part C); later APNs push and Sign in with Apple become possible.
 
 ## Local testing (no Docker in the container)
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
