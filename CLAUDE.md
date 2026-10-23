@@ -1122,7 +1122,7 @@ User decisions:
   Κύκλοι Α/Β/Γ, chenveng Χημικού / Περιβάλλοντος. `20261115100000_course_catalog_tuc.sql`. Tests courses 28 (c1: 14
   universities, > 19,000). Live: 19,025 courses over 14 universities. No client change. Check every next university
   for a Universis catalogue first (`<host>/assets/config/app.production.json` → `remote.server`).
-- **O1 ✔ Day-one academic value (2026-10-23, product directive; NOT deployed yet)** — no migration.
+- **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
   (n)» = `setTaking` each (server limit 20) + push permission ask; hidden once you take any course or after «Όχι
@@ -1131,7 +1131,7 @@ User decisions:
   opens at N and courses / group work already. `SchoolsBoard` lists only departments with students. e2e `dayone-flow`
   9/9 (+ pick + save, closed ΑΠΘ campus, «Όχι τώρα»), courses 11, engage 14, ux 15, signup 9, uoa 7. Scratchpad flows
   growth / attica / campus / campus-groups fail on the baseline too (stale, see ROADMAP test debt).
-- **O2 ✔ Courses tab + course Q&A + push settings (user OK 2026-10-23; NOT deployed, migrations NOT applied live)** —
+- **O2 ✔ Courses tab + course Q&A + push settings (user OK 2026-10-23; live + deployed 615795ea)** —
   migration `20261116100000_course_questions.sql`: `posts.course_id` (campus top-level posts only, CHECK) +
   `posts.helpful_reply_id`; `ask_course_question(course, text/voice/photos)` = `create_post` in «Ερωτήσεις» (campus) +
   course_id + one folded unread `course_question` notice per taker (blocked skipped); `mark_helpful_answer(question,
@@ -1145,9 +1145,8 @@ User decisions:
   nothing; course page tab «Ερωτήσεις» (`?tab=questions`, FeedList scope course) + «Κάνε ερώτηση» → `/record?course=`
   (composer card «Ερώτηση στο μάθημα»); PostCard: 📘 course name on questions (→ course questions), «✓ Βοηθητική
   απάντηση» badge, «Βοήθησε» toggle on answers for the asker (FeedList `helpfulOf`, post page hint); notifications
-  for the 2 kinds; `PushSettingsSheet` (Settings row + ⚙ on Notifications). `types.ts` patched by hand until the live
-  regen. Tests `test_qa.sql` 21; e2e `qa-flow` 10 (+ courses 11, engage 14, ptt 10 updated).
-- **O3 ✔ Admin metrics (NOT deployed / applied)** — `20261116100100_admin_metrics.sql`: `private.student_activity(since)`
+  for the 2 kinds; `PushSettingsSheet` (Settings row + ⚙ on Notifications). `types.ts` regenerated from live. Tests `test_qa.sql` 21; e2e `qa-flow` 10 (+ courses 11, engage 14, ptt 10 updated).
+- **O3 ✔ Admin metrics (live + deployed 615795ea)** — `20261116100100_admin_metrics.sql`: `private.student_activity(since)`
   (union of recorded actions) + `admin_metrics(university|null)` (admins only, VOLATILE: temp tables; aggregates only):
   overview per university, or students / new / referred / active 7 d / contributors 30 d / activation (week 1, cohort
   7–90 d) / week-2 return / courses taken / files, downloads, thanks / questions answered, helpful, median first answer
@@ -1155,14 +1154,18 @@ User decisions:
   tiles + department list, definitions on screen). Tests `test_metrics.sql` 8; e2e `metrics-flow` 5.
 - **O4 study ✔ (no behaviour change)** — `docs/campus-readiness.md`: department ready = ≥ 8 students, ≥ 3 active 7 d, ≥ 3
   resources 30 d; campus opens at 2 ready departments (1 if ≤ 3 departments; colleges ×2 thresholds) OR the existing
-  100 rule; once open always open (`opened_at`). Waiting for the user's approval.
+  100 rule; once open always open (`opened_at`). User 2026-10-23: «άσε το O4» — parked, not implemented.
 - **Course catalogs M3b-Ιωάννινα ✔ (2026-10-23)** — `uoi.json` 23/23 departments, 1,994 courses: the official «Ιδρυματικός
   κατάλογος μαθημάτων» 2025-26 xlsx (`src/uoi_catalog.py`, one sheet per department; Greek-numeral / multi semesters →
   earliest, "≥5" → none; ΥΠ/Υ/ΥΠΟΧΡΕΩΤΙΚΟ/κορμού = core, any επιλογής / ΕΥ / ΥΕ / ΕΠ / optional = elective, languages →
   «Ξένη γλώσσα», ΠΤΝ «Ενότητα …» groups) + Μηχανικών Υλικών from materials.uoi.gr/ppsdetailed.php (ΥΠΟΧΡΕΩΤΙΚΑ / ΜΕ
   ΕΠΙΛΟΓΗ). uoi.gr refuses curl's user agent → browser UA. `20261116100200_course_catalog_uoi.sql` applied live (data
-  only) → 21,019 courses over 15 universities. Tests courses 28 (c1: 15 universities, > 21,000). NOTE: live now has
-  this catalog migration but NOT 20261116100000/100100 (O2/O3) — apply those two before deploying the app.
+  only) → 21,019 courses over 15 universities. Tests courses 28 (c1: 15 universities, > 21,000).
+- **Ship O1–O3 ✔ (user «κάνε deploy», 2026-10-23)** — live: `20261116100000_course_questions.sql` + `…100100_admin_metrics.sql`
+  applied (checked: 5 new RPCs, posts columns, section «Σπουδές», push_job texts, dispatch mutes, anon can't call
+  admin_metrics); smoke inside a rolled-back DO block with the review accounts: question → taker notice, answer marked
+  helpful → notice, course scope lists it, student → admin_metrics not_allowed, admin → metrics (nothing left behind);
+  types regenerated; deploy 615795ea (`deploy-prod.sh`), live routes 200, new code in the served assets.
 - **Engagement E1 ✔ (user request 2026-10-22: push + «βοήθησες N» + «Το δίνω» + points, "do them all without asking")** —
   migration `20261111100000_engagement.sql`: `course_file_downloads` / `course_file_thanks` (PK file+user, counters
   `course_files.downloads_count / thanks_count` by trigger; own thanks readable), `record_course_download(file)` (once per

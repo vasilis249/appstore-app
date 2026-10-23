@@ -714,10 +714,10 @@ export type Database = {
           author_id: string | null
           course_id: string | null
           created_at: string
-          helpful_reply_id: string | null
           deleted_at: string | null
           duration_ms: number | null
           group_id: string | null
+          helpful_reply_id: string | null
           hidden: boolean
           id: string
           images: string[] | null
@@ -739,10 +739,10 @@ export type Database = {
           author_id?: string | null
           course_id?: string | null
           created_at?: string
-          helpful_reply_id?: string | null
           deleted_at?: string | null
           duration_ms?: number | null
           group_id?: string | null
+          helpful_reply_id?: string | null
           hidden?: boolean
           id?: string
           images?: string[] | null
@@ -764,10 +764,10 @@ export type Database = {
           author_id?: string | null
           course_id?: string | null
           created_at?: string
-          helpful_reply_id?: string | null
           deleted_at?: string | null
           duration_ms?: number | null
           group_id?: string | null
+          helpful_reply_id?: string | null
           hidden?: boolean
           id?: string
           images?: string[] | null
@@ -793,10 +793,24 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "posts_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "posts_group_id_fkey"
             columns: ["group_id"]
             isOneToOne: false
             referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_helpful_reply_id_fkey"
+            columns: ["helpful_reply_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
             referencedColumns: ["id"]
           },
           {
@@ -1299,6 +1313,7 @@ export type Database = {
           url: string
         }[]
       }
+      admin_metrics: { Args: { p_university?: string }; Returns: Json }
       admin_open_reports: { Args: never; Returns: number }
       admin_refresh_news: { Args: never; Returns: number }
       admin_reports: {
@@ -1381,6 +1396,17 @@ export type Database = {
       }
       am_i_admin: { Args: never; Returns: boolean }
       am_i_student: { Args: never; Returns: boolean }
+      ask_course_question: {
+        Args: {
+          p_course: string
+          p_duration_ms?: number
+          p_images?: string[]
+          p_mime?: string
+          p_path?: string
+          p_title?: string
+        }
+        Returns: string
+      }
       block_user: { Args: { p_user: string }; Returns: undefined }
       campus_leaderboard: {
         Args: never
@@ -1480,8 +1506,8 @@ export type Database = {
       feed_posts: {
         Args: {
           p_author?: string
-          p_course?: string
           p_before?: string
+          p_course?: string
           p_group?: string
           p_ids?: string[]
           p_limit?: number
@@ -1499,12 +1525,16 @@ export type Database = {
           author_name: string
           author_university_id: string
           author_username: string
+          course_id: string
+          course_name: string
           created_at: string
           deleted: boolean
           duration_ms: number
           group_id: string
           group_name: string
+          helpful_reply_id: string
           images: string[]
+          is_helpful: boolean
           is_mine: boolean
           liked: boolean
           likes_count: number
@@ -1518,10 +1548,6 @@ export type Database = {
           orig_deleted: boolean
           orig_duration_ms: number
           orig_images: string[]
-          course_id: string
-          course_name: string
-          helpful_reply_id: string
-          is_helpful: boolean
           orig_likes_count: number
           orig_listens_count: number
           orig_replies_count: number
@@ -1644,6 +1670,10 @@ export type Database = {
           username: string
         }[]
       }
+      mark_helpful_answer: {
+        Args: { p_question: string; p_reply: string }
+        Returns: undefined
+      }
       my_blocked: {
         Args: never
         Returns: {
@@ -1697,6 +1727,13 @@ export type Database = {
           mode: string
           position_at: string
           talk_from: string
+        }[]
+      }
+      my_push_settings: {
+        Args: never
+        Returns: {
+          category: string
+          push: boolean
         }[]
       }
       my_staff_role: {
@@ -1870,35 +1907,12 @@ export type Database = {
         Args: { p_mode: string; p_talk_from?: string }
         Returns: undefined
       }
-      set_student_info: {
-        Args: { p_department: string; p_year: number }
-        Returns: undefined
-      }
-      admin_metrics: {
-        Args: { p_university?: string }
-        Returns: Json
-      }
-      ask_course_question: {
-        Args: {
-          p_course: string
-          p_duration_ms?: number
-          p_images?: string[]
-          p_mime?: string
-          p_path?: string
-          p_title?: string
-        }
-        Returns: string
-      }
-      mark_helpful_answer: {
-        Args: { p_question: string; p_reply: string }
-        Returns: undefined
-      }
-      my_push_settings: {
-        Args: never
-        Returns: { category: string; push: boolean }[]
-      }
       set_push_setting: {
         Args: { p_category: string; p_on: boolean }
+        Returns: undefined
+      }
+      set_student_info: {
+        Args: { p_department: string; p_year: number }
         Returns: undefined
       }
       set_taking_course: {
