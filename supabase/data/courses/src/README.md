@@ -40,3 +40,5 @@ does the same for text-only PDFs ("CODE Title <numbers>", wrapped titles); `fini
 the department site; eled.uowm.gr answers 403 to everything from this container).
 ΔΙΠΑΕ: `ihu_catalog.py` (department sites linked from www.ihu.gr/tmimata/; HTML curriculum pages, guide / programme PDFs,
 own readers for iee, pme, midwife, survey; files in raw/ihu/ under the names used in the script).
+Θεσσαλίας: `uth_catalog.py` (department sites linked from www.uth.gr; files in raw/uth/ under the names used in the
+script; 19 sites refuse this container).

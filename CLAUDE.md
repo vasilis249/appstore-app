@@ -1148,6 +1148,14 @@ User decisions:
   a code found in another cell when the code column is empty; "ΨυχολογίαΙ" → "Ψυχολογία Ι" — this also completed 3 cut
   ΠΔΜ mech titles (the old short rows deleted in the same migration if unused). `20261117100100_course_catalog_ihu.sql`
   (ihu + uowm upserts) applied live → 24,863 courses over 18 universities. Tests courses 28 (c1: 18, > 24,500).
+- **Course catalogs M3c-Θεσσαλίας ✔ (2026-10-23)** — `uth.json` 16/35 departments, 1,381 courses (`src/uth_catalog.py`; sites
+  from www.uth.gr/spoydes/proptychiakes/schools-departments, mostly one WordPress multisite — a page the theme renders
+  client-side is read from `/wp-json/wp/v2/pages?slug=`): HTML tables (ece, culture, energy, med, mech list, publichealth),
+  docx (preedu), PDFs (econ guide 2025-26 with 3 tracks, civil guide 2024-25 + Πίνακας 1 track electives, nurs, primedu,
+  bioinf, sped, agri-crop, agri-fish (http only), arch compulsory only — its elective table is rotated). 19 department
+  sites reset every connection from this container → missing (re-run from a normal network). `done()` keeps a course
+  once (first semester) when two student groups take it in different semesters. `20261117100200_course_catalog_uth.sql`
+  applied live → 26,244 courses over 19 universities. Tests courses 28 (c1: 19, > 26,000).
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
