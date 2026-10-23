@@ -3,7 +3,7 @@ import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 /** The five tab roots: moving between them cross-fades; anything deeper slides in like a pushed screen. */
-const TABS = new Set(["/", "/map", "/messages", "/search", "/profile"]);
+const TABS = new Set(["/", "/courses", "/map", "/messages", "/search", "/profile"]);
 const depth = (path: string) => (TABS.has(path) ? 0 : path.split("/").filter(Boolean).length);
 
 /** View-transition type for a navigation (styled in design-system.css): tab | push | pop. */

@@ -712,7 +712,9 @@ export type Database = {
         Row: {
           audio_path: string | null
           author_id: string | null
+          course_id: string | null
           created_at: string
+          helpful_reply_id: string | null
           deleted_at: string | null
           duration_ms: number | null
           group_id: string | null
@@ -735,7 +737,9 @@ export type Database = {
         Insert: {
           audio_path?: string | null
           author_id?: string | null
+          course_id?: string | null
           created_at?: string
+          helpful_reply_id?: string | null
           deleted_at?: string | null
           duration_ms?: number | null
           group_id?: string | null
@@ -758,7 +762,9 @@ export type Database = {
         Update: {
           audio_path?: string | null
           author_id?: string | null
+          course_id?: string | null
           created_at?: string
+          helpful_reply_id?: string | null
           deleted_at?: string | null
           duration_ms?: number | null
           group_id?: string | null
@@ -1474,6 +1480,7 @@ export type Database = {
       feed_posts: {
         Args: {
           p_author?: string
+          p_course?: string
           p_before?: string
           p_group?: string
           p_ids?: string[]
@@ -1511,6 +1518,10 @@ export type Database = {
           orig_deleted: boolean
           orig_duration_ms: number
           orig_images: string[]
+          course_id: string
+          course_name: string
+          helpful_reply_id: string
+          is_helpful: boolean
           orig_likes_count: number
           orig_listens_count: number
           orig_replies_count: number
@@ -1861,6 +1872,29 @@ export type Database = {
       }
       set_student_info: {
         Args: { p_department: string; p_year: number }
+        Returns: undefined
+      }
+      ask_course_question: {
+        Args: {
+          p_course: string
+          p_duration_ms?: number
+          p_images?: string[]
+          p_mime?: string
+          p_path?: string
+          p_title?: string
+        }
+        Returns: string
+      }
+      mark_helpful_answer: {
+        Args: { p_question: string; p_reply: string }
+        Returns: undefined
+      }
+      my_push_settings: {
+        Args: never
+        Returns: { category: string; push: boolean }[]
+      }
+      set_push_setting: {
+        Args: { p_category: string; p_on: boolean }
         Returns: undefined
       }
       set_taking_course: {

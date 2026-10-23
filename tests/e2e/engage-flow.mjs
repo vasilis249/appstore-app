@@ -37,7 +37,7 @@ const b = await student("Βύρων Ανεβάζει");
 // A: «Το δίνω» on the first ΗΜΜΥ course
 await a.goto(base + "/courses", { waitUntil: "networkidle" });
 await wait(a);
-ok("my courses: hint before marking any", await a.getByText(/Πάτα «Το δίνω»/).isVisible());
+ok("my courses: before marking any, this semester's pick is offered", await a.getByRole("heading", { name: /Τι μαθήματα έχεις στο \dο εξάμηνο;/ }).isVisible());
 ok("top helpers: empty board with the rule", (await a.getByText("Κανείς ακόμα.", { exact: false }).isVisible()) && (await a.getByText(/10 πόντοι για κάθε αρχείο/).isVisible()));
 await a.getByRole("link", { name: /Γραμμική Άλγεβρα/ }).first().click();
 await a.waitForURL(/\/c\//);

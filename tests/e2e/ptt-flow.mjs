@@ -48,14 +48,14 @@ await page.getByRole("button", { name: "Δημοσίευση" }).click();
 await page.waitForURL(/\/p\//);
 ok("published", true);
 
-// 2. nav: tap from Campus · Μαθήματα → campus composer with Μαθήματα chosen (me = a verified ΕΜΠ student from here on)
+// 2. nav: tap from Campus · Σπουδές → campus composer with Σπουδές chosen (me = a verified ΕΜΠ student from here on)
 execSync(`psql -h /tmp -p 54329 -U postgres -d courtsie -qc "UPDATE public.profiles SET university_id = 'ntua', department_id = 'ntua-ece', study_year = 3, student_verified_at = now() WHERE id = '${ME}'"`);
 await page.goto(base + "/?tab=campus&s=courses", { waitUntil: "networkidle" });
 await page.waitForTimeout(700);
 const nav = page.getByRole("button", { name: "Νέα φωνή (κράτα πατημένο για να μιλήσεις)" });
 await hold(nav, 150);
 await page.waitForTimeout(500);
-ok("nav tap → campus composer, Μαθήματα preselected", /\/record\?.*campus=1/.test(page.url()) && (await page.getByRole("button", { name: "Μαθήματα" }).getAttribute("aria-pressed")) === "true");
+ok("nav tap → campus composer, Σπουδές preselected", /\/record\?.*campus=1/.test(page.url()) && (await page.getByRole("button", { name: "Σπουδές" }).getAttribute("aria-pressed")) === "true");
 
 // 3. nav: hold from Following → composer with the voice ready, Personal
 await page.goto(base + "/?tab=following", { waitUntil: "networkidle" });

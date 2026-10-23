@@ -39,7 +39,7 @@ await a.waitForURL(/\/courses/);
 await a.waitForTimeout(1200);
 await shot(a, "1-list");
 ok("your department's courses by semester", (await a.getByText("Ηλεκτρολόγων Μηχανικών", { exact: false }).first().isVisible())
-  && (await a.getByRole("heading", { name: "1ο εξάμηνο" }).isVisible()) && (await a.getByRole("link", { name: /Γραμμική Άλγεβρα/ }).isVisible()));
+  && (await a.getByRole("heading", { name: "1ο εξάμηνο", exact: true }).isVisible()) && (await a.getByRole("link", { name: /Γραμμική Άλγεβρα/ }).isVisible()));
 await a.getByPlaceholder("Αναζήτηση μαθήματος").fill("γραμμικη αλγ");
 await a.waitForTimeout(300);
 ok("search ignores accents", (await a.getByRole("link", { name: /Γραμμική Άλγεβρα/ }).count()) >= 1
@@ -55,7 +55,7 @@ await a.getByRole("button", { name: /Ηλεκτρολόγων Μηχανικών
 await a.getByPlaceholder("Αναζήτηση τμήματος").fill("πολιτικ");
 await a.getByRole("button", { name: /Πολιτικών Μηχανικών/ }).click();
 await a.waitForTimeout(1200);
-ok("another department's courses", a.url().includes("d=ntua-civil") && (await a.getByRole("heading", { name: "1ο εξάμηνο" }).isVisible()));
+ok("another department's courses", a.url().includes("d=ntua-civil") && (await a.getByRole("heading", { name: "1ο εξάμηνο", exact: true }).isVisible()));
 await a.goto(base + "/courses", { waitUntil: "networkidle" });
 await a.waitForTimeout(1200);
 

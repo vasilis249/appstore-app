@@ -1,11 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Check, Download, FileText, HandHeart, Image as ImageIcon, MoreHorizontal, Paperclip, Upload, Users } from "lucide-react";
+import { Check, Download, FileText, HandHeart, Image as ImageIcon, MessageCircleQuestion, MoreHorizontal, Paperclip, Upload, Users } from "lucide-react";
 import { toast } from "sonner";
 import { AppHeader } from "@/components/app-header";
 import { EmptyState } from "@/components/empty-state";
+import { FeedList } from "@/components/posts/feed-list";
+import { supabase } from "@/integrations/supabase/client";
 import { Segmented } from "@/components/segmented";
 import { PersonActionsSheet } from "@/components/friends/person-actions-sheet";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
@@ -34,21 +36,33 @@ import { enablePush } from "@/lib/push";
 import { timeAgoShort } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
 
+type Tab = FileKind | "questions";
 export const Route = createFileRoute("/_authenticated/c/$courseId")({
+  validateSearch: (s: Record<string, unknown>): { tab?: Tab } =>
+    s.tab === "exams" || s.tab === "questions" ? { tab: s.tab } : {},
   component: CoursePage,
 });
 
-/** One course: its notes and past exam papers, uploaded by the students of the university. */
+/**
+ * One course: its notes and past exam papers, uploaded by the students of the university, and its questions (campus
+ * posts in «Ερωτήσεις» tied to the course; answers are their replies).
+ */
 function CoursePage() {
   const { courseId } = Route.useParams();
   const { t } = useTranslation();
   const campus = useCampus();
   const course = useQuery({ queryKey: courseKeys.one(courseId), queryFn: () => getCourse(courseId) });
   const files = useQuery({ queryKey: courseKeys.files(courseId), queryFn: () => listCourseFiles(courseId), enabled: !!course.data });
-  const [tab, setTab] = useState<FileKind>("notes");
+  const [tab, setTab] = useState<Tab>(Route.useSearch().tab ?? "notes");
+  const questions = useQuery({
+    queryKey: [...courseKeys.one(courseId), "questions"],
+    enabled: !!course.data,
+    queryFn: async () =>
+      (await supabase.from("posts").select("id", { count: "exact", head: true }).eq("course_id", courseId).is("reply_to", null).is("deleted_at", null)).count ?? 0,
+  });
   const [uploading, setUploading] = useState(false);
   const c = course.data;
-  const count = (k: FileKind) => (files.data ?? []).filter((f) => f.kind === k).length;
+  const count = (k: Tab) => (k === "questions" ? (questions.data ?? 0) : (files.data ?? []).filter((f) => f.kind === k).length);
   const shown = (files.data ?? []).filter((f) => f.kind === tab);
 
   return (
@@ -71,13 +85,23 @@ function CoursePage() {
               </p>
             )}
             <div className="mt-4 flex gap-2">
-              <button
-                type="button"
-                onClick={() => setUploading(true)}
-                className="flex h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground"
-              >
-                <Upload className="h-5 w-5" /> {t("courses.upload")}
-              </button>
+              {tab === "questions" ? (
+                <Link
+                  to="/record"
+                  search={{ course: c.id }}
+                  className="flex h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground"
+                >
+                  <MessageCircleQuestion className="h-5 w-5" /> {t("courses.ask")}
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setUploading(true)}
+                  className="flex h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground"
+                >
+                  <Upload className="h-5 w-5" /> {t("courses.upload")}
+                </button>
+              )}
               <TakingButton courseId={c.id} />
             </div>
           </section>
@@ -88,15 +112,24 @@ function CoursePage() {
             options={[
               { value: "notes", label: `${t("courses.notes")}${count("notes") ? ` · ${count("notes")}` : ""}` },
               { value: "exams", label: `${t("courses.exams")}${count("exams") ? ` · ${count("exams")}` : ""}` },
+              { value: "questions", label: `${t("courses.questions")}${count("questions") ? ` · ${count("questions")}` : ""}` },
             ]}
           />
-          {files.data && !shown.length && <EmptyState text={t(tab === "notes" ? "courses.noNotes" : "courses.noExams")} />}
-          <ul className="divide-y divide-border pb-28">
-            {shown.map((f) => (
-              <FileRow key={f.id} file={f} />
-            ))}
-          </ul>
-          <UploadSheet courseId={c.id} open={uploading} kind={tab} onOpenChange={setUploading} onDone={setTab} />
+          {tab === "questions" ? (
+            <div className="pb-28">
+              <FeedList params={{ scope: "course", course: c.id }} playAll={false} empty={<EmptyState text={t("courses.noQuestions")} />} />
+            </div>
+          ) : (
+            <>
+              {files.data && !shown.length && <EmptyState text={t(tab === "notes" ? "courses.noNotes" : "courses.noExams")} />}
+              <ul className="divide-y divide-border pb-28">
+                {shown.map((f) => (
+                  <FileRow key={f.id} file={f} />
+                ))}
+              </ul>
+            </>
+          )}
+          <UploadSheet courseId={c.id} open={uploading} kind={tab === "questions" ? "notes" : tab} onOpenChange={setUploading} onDone={setTab} />
         </>
       )}
     </>

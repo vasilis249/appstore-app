@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Ban, ChevronRight, FileText, Flag, GraduationCap, LogOut, Mail, MapPin, Megaphone, Shield } from "lucide-react";
+import { Ban, Bell, ChevronRight, FileText, Flag, GraduationCap, LogOut, Mail, MapPin, Megaphone, Shield } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { adminKeys, myStaffRole, openReportsCount, reportKeys } from "@/lib/admin";
 import { useState } from "react";
 import { BlockedSheet } from "@/components/blocked-sheet";
+import { PushSettingsSheet } from "@/components/push-settings-sheet";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { LanguageToggle } from "@/components/language-toggle";
 import { DeleteAccountButton } from "@/components/delete-account-button";
@@ -25,6 +26,7 @@ export function SettingsSheet({
   const qc = useQueryClient();
   const navigate = useNavigate();
   const [blockedOpen, setBlockedOpen] = useState(false);
+  const [pushOpen, setPushOpen] = useState(false);
   const staff = useQuery({ queryKey: adminKeys.staff, queryFn: myStaffRole, enabled: open });
   // Admins get Reports + Manage topics; campus moderators get Reports (their campus).
   const isAdmin = { data: staff.data?.is_admin };
@@ -61,6 +63,12 @@ export function SettingsSheet({
               <LanguageToggle />
             </div>
             <DailyPromptSwitch className={row} />
+            <button type="button" onClick={() => setPushOpen(true)} className={`${row} w-full`}>
+              <span className="inline-flex items-center gap-3">
+                <Bell className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} /> {t("pushSettings.title")}
+              </span>
+              <ChevronRight className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} />
+            </button>
           </div>
 
           {isStaff && (
@@ -135,6 +143,7 @@ export function SettingsSheet({
           </div>
         </div>
         <BlockedSheet open={blockedOpen} onOpenChange={setBlockedOpen} />
+        <PushSettingsSheet open={pushOpen} onOpenChange={setPushOpen} nested />
       </DrawerContent>
     </Drawer>
   );

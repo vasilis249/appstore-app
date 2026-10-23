@@ -2,7 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export interface AppNotification {
   id: number;
-  kind: "follow" | "like" | "reply" | "repost" | "report" | "group_invite" | "group_request" | "group_accepted" | "group_joined" | "invite_joined" | "walkie" | "nearby" | "file_thanks" | "files_helped" | "course_file";
+  kind: "follow" | "like" | "reply" | "repost" | "report" | "group_invite" | "group_request" | "group_accepted" | "group_joined" | "invite_joined" | "walkie" | "nearby" | "file_thanks" | "files_helped" | "course_file" | "course_question" | "answer_helpful";
   created_at: string;
   read_at: string | null;
   post_id: string | null;

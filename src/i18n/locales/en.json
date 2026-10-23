@@ -436,7 +436,8 @@
     "messages": "Messages",
     "notifications": "Notifications",
     "search": "Search",
-    "map": "Map"
+    "map": "Map",
+    "courses": "Courses"
   },
   "friends": {
     "noResults": "No users.",
@@ -487,7 +488,10 @@
     "course_file_many": "uploaded «{{file}}» to «{{course}}» · {{count}} new files",
     "pushTitle": "Notifications on your phone",
     "pushText": "Hear at once about new papers in your courses, messages and replies.",
-    "pushOn": "Turn on"
+    "pushOn": "Turn on",
+    "course_question": "asked in «{{course}}»",
+    "course_question_many": "asked in «{{course}}» · {{count}} new questions",
+    "answer_helpful": "marked your answer as helpful ✓"
   },
   "rpcErrors": {
     "rateLimited": "Too many actions. Try again soon.",
@@ -1060,7 +1064,17 @@
     "pickSave_other": "Save ({{count}})",
     "pickLater": "Not now",
     "pickedToast_one": "Added {{count}} course to your courses.",
-    "pickedToast_other": "Added {{count}} courses to your courses."
+    "pickedToast_other": "Added {{count}} courses to your courses.",
+    "questions": "Questions",
+    "ask": "Ask a question",
+    "noQuestions": "No questions yet. Ask first — everyone taking the course will be told.",
+    "askingIn": "Question in the course",
+    "askPlaceholder": "What do you want to ask?",
+    "helpful": "Helpful answer",
+    "markHelpful": "Helpful",
+    "unmarkHelpful": "Helpful ✓",
+    "helpfulMarked": "Marked as a helpful answer.",
+    "markHint": "Mark the answer that helped you — your classmates will see it too."
   },
   "helper": {
     "rank": "#{{rank}} in the department",
@@ -1068,5 +1082,21 @@
     "helped_other": "helped {{count}} classmates",
     "founding": "Founding member",
     "top": "Top helper"
+  },
+  "pushSettings": {
+    "title": "Phone notifications",
+    "hint": "Choose what reaches your phone. Everything stays in the notifications list.",
+    "messages": "Messages",
+    "messagesHint": "Messages, walkie-talkie, voices from the map",
+    "replies": "Replies",
+    "repliesHint": "When someone answers your posts and questions",
+    "courses": "Courses",
+    "coursesHint": "New files and questions in the courses you take",
+    "reactions": "Reactions",
+    "reactionsHint": "Likes, reposts, thanks, helpful answers",
+    "people": "Followers",
+    "peopleHint": "New followers and people who joined with your invite",
+    "groups": "Groups",
+    "groupsHint": "Invites, requests and new members"
   }
 }

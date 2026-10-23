@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check } from "lucide-react";
@@ -22,7 +22,7 @@ function currentSemester(year: number, now = new Date()) {
  * department, the core ones ticked. Saving marks them «Το δίνω», so new notes / past papers there reach you.
  * Shown until you take any course (or tap «Όχι τώρα»).
  */
-export function PickCoursesCard() {
+export function PickCoursesCard({ fallback = null }: { fallback?: ReactNode }) {
   const { t } = useTranslation();
   const qc = useQueryClient();
   const me = useMyProfile().data;
@@ -65,7 +65,7 @@ export function PickCoursesCard() {
       toast.error(t(rpcErrorKey(e)));
     },
   });
-  if (hidden || !year || !mine.data || mine.data.length > 0 || !now.length) return null;
+  if (hidden || !year || !mine.data || mine.data.length > 0 || !now.length) return fallback;
   const toggle = (id: string) => {
     const next = new Set(chosen);
     if (!next.delete(id)) next.add(id);

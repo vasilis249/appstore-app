@@ -48,6 +48,9 @@ function PostPage() {
           <PostCard post={view} focus linkToPost={false} hideReplyTo={above.length > 0} onPlay={() => playFrom(view)} />
           {!view.deleted && (
           <div className="border-b border-border px-4 py-3">
+            {view.row.course_id && view.row.is_mine && !view.row.helpful_reply_id && view.replies > 0 && (
+              <p className="mb-2 text-caption text-muted-foreground">{t("courses.markHint")}</p>
+            )}
             <Link
               to="/record"
               search={{ reply: view.id }}
@@ -64,6 +67,8 @@ function PostPage() {
             key={view.id}
             params={{ scope: "replies", parent: view.id }}
             hideReplyTo
+            // the asker of a course question marks the answer that helped
+            helpfulOf={view.row.course_id && view.row.is_mine ? view.id : undefined}
             empty={<p className="py-10 text-center text-caption text-muted-foreground">{t("posts.noReplies")}</p>}
           />
         </>

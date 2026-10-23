@@ -8,7 +8,7 @@ export const PHOTOS_MAX = 4;
 
 export type FeedScope =
   | "foryou" | "all" | "following" | "section" | "topic" | "author" | "author_replies" | "replies" | "one" | "ids"
-  | "group" | "groups" | "news" | "personal" | "loose" | "campus";
+  | "group" | "groups" | "news" | "personal" | "loose" | "campus" | "course";
 
 /** One row of feed_posts(). A post = any mix of text (`title`), photos and a voice; a plain repost has none of them
  * (the original is in orig_*). */
@@ -61,6 +61,13 @@ export interface FeedRow {
   /** Up to 4 photo paths in the `voices` bucket. */
   images: string[] | null;
   orig_images: string[] | null;
+  /** A question asked in a course (campus post in «Ερωτήσεις»). */
+  course_id: string | null;
+  course_name: string | null;
+  /** On a question: the answer its author marked as helpful. */
+  helpful_reply_id: string | null;
+  /** On an answer: it is the one marked helpful. */
+  is_helpful: boolean;
 }
 
 /** What a card shows: the post itself, or — for a plain repost — the original, credited to the reposter. */
@@ -158,6 +165,7 @@ export interface FeedParams {
   parent?: string;
   ids?: string[];
   group?: string;
+  course?: string;
 }
 
 export interface Section {
@@ -219,6 +227,7 @@ export async function fetchFeed(p: FeedParams, cursor?: string | number): Promis
     p_parent: p.parent,
     p_ids: p.ids,
     p_group: p.group,
+    p_course: p.course,
     p_before: typeof cursor === "string" ? cursor : undefined,
     p_offset: typeof cursor === "number" ? cursor : undefined,
     p_limit: PAGE,
@@ -284,7 +293,7 @@ const EXT: Record<string, string> = { "audio/mp4": "m4a", "audio/x-m4a": "m4a", 
 export async function createPost(
   uid: string,
   content: { clip?: { blob: Blob; mime: string; durationMs: number } | null; text?: string; photos?: Blob[] },
-  opts: { section?: string; topic?: string; replyTo?: string; quoteOf?: string; group?: string; campus?: boolean },
+  opts: { section?: string; topic?: string; replyTo?: string; quoteOf?: string; group?: string; campus?: boolean; course?: string },
 ): Promise<string> {
   const bucket = supabase.storage.from("voices");
   const uploaded: string[] = [];
@@ -299,6 +308,19 @@ export async function createPost(
     const audio = clip ? await put(clip.blob, clip.mime, EXT[clip.mime] ?? "m4a") : undefined;
     const images: string[] = [];
     for (const p of photos.slice(0, PHOTOS_MAX)) images.push(await put(p, p.type || "image/jpeg", p.type === "image/png" ? "png" : "jpg"));
+    const media = {
+      p_title: content.text?.trim() || undefined,
+      p_path: audio,
+      p_mime: clip?.mime,
+      p_duration_ms: clip ? Math.min(POST_MAX_MS, Math.max(1000, Math.round(clip.durationMs))) : undefined,
+      p_images: images.length ? images : undefined,
+    };
+    // a question in a course: a campus post in «Ερωτήσεις» tied to it (takers are told)
+    if (opts.course) {
+      const { data, error } = await supabase.rpc("ask_course_question", { p_course: opts.course, ...media });
+      fail(error);
+      return data as string;
+    }
     const { data, error } = await supabase.rpc("create_post", {
       p_section: opts.section,
       p_topic: opts.topic,
@@ -306,11 +328,7 @@ export async function createPost(
       p_repost_of: opts.quoteOf,
       p_group: opts.group,
       p_campus: opts.campus || undefined,
-      p_title: content.text?.trim() || undefined,
-      p_path: audio,
-      p_mime: clip?.mime,
-      p_duration_ms: clip ? Math.min(POST_MAX_MS, Math.max(1000, Math.round(clip.durationMs))) : undefined,
-      p_images: images.length ? images : undefined,
+      ...media,
     });
     fail(error);
     return data as string;
@@ -328,6 +346,10 @@ export async function unrepost(postId: string) {
 }
 export async function setLiked(postId: string, liked: boolean) {
   fail((await supabase.rpc(liked ? "like_post" : "unlike_post", { p_post: postId })).error);
+}
+/** The asker marks one answer as helpful (null takes it back). */
+export async function markHelpful(question: string, reply: string | null) {
+  fail((await supabase.rpc("mark_helpful_answer", { p_question: question, p_reply: reply as string })).error);
 }
 export async function recordListen(postId: string) {
   await supabase.rpc("record_listen", { p_post: postId });

@@ -34,6 +34,7 @@ export function FeedList({
   hideReplyTo = false,
   playAllRef,
   onPlayable,
+  helpfulOf,
 }: {
   params: FeedParams;
   empty: ReactNode;
@@ -44,6 +45,8 @@ export function FeedList({
   playAllRef?: MutableRefObject<(() => void) | null>;
   /** Whether the list has a voice to play (the page hides its "play all" on a list without one). */
   onPlayable?: (on: boolean) => void;
+  /** Replies under your own course question: each can be marked helpful. */
+  helpfulOf?: string;
 }) {
   const { t } = useTranslation();
   const q = useInfiniteQuery({
@@ -97,7 +100,7 @@ export function FeedList({
         </div>
       )}
       {views.map((v) => (
-        <PostCard key={v.row.post_id} post={v} onPlay={() => play(views, v)} hideReplyTo={hideReplyTo} />
+        <PostCard key={v.row.post_id} post={v} onPlay={() => play(views, v)} hideReplyTo={hideReplyTo} helpfulOf={helpfulOf} />
       ))}
       <div ref={sentinel} />
       {q.isFetchingNextPage && <p className="py-4 text-center text-caption text-muted-foreground">{t("common.loading")}</p>}

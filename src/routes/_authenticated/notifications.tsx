@@ -2,8 +2,9 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Bell, Download, FileText, Flag, HandHeart, Heart, MapPin, MessageCircle, RadioTower, Repeat2, UserPlus, Users } from "lucide-react";
-import { AppHeader } from "@/components/app-header";
+import { Bell, CircleCheck, Download, FileText, Flag, HandHeart, Heart, MapPin, MessageCircle, MessageCircleQuestion, RadioTower, Repeat2, Settings2, UserPlus, Users } from "lucide-react";
+import { AppHeader, HEADER_BTN } from "@/components/app-header";
+import { PushSettingsSheet } from "@/components/push-settings-sheet";
 import { EmptyState } from "@/components/empty-state";
 import { FollowButton } from "@/components/friends/follow-button";
 import { UserAvatar } from "@/components/user-avatar";
@@ -18,8 +19,8 @@ export const Route = createFileRoute("/_authenticated/notifications")({
   component: NotificationsPage,
 });
 
-const ICON = { follow: UserPlus, like: Heart, reply: MessageCircle, repost: Repeat2, group_invite: Users, group_request: Users, group_accepted: Users, group_joined: Users, invite_joined: UserPlus, walkie: RadioTower, nearby: MapPin, file_thanks: HandHeart, files_helped: Download, course_file: FileText } as const;
-const COLOR = { follow: "text-link", like: "text-live", reply: "text-foreground", repost: "text-success", group_invite: "text-live", group_request: "text-live", group_accepted: "text-live", group_joined: "text-live", invite_joined: "text-success", walkie: "text-live", nearby: "text-live", file_thanks: "text-live", files_helped: "text-link", course_file: "text-link" } as const;
+const ICON = { follow: UserPlus, like: Heart, reply: MessageCircle, repost: Repeat2, group_invite: Users, group_request: Users, group_accepted: Users, group_joined: Users, invite_joined: UserPlus, walkie: RadioTower, nearby: MapPin, file_thanks: HandHeart, files_helped: Download, course_file: FileText, course_question: MessageCircleQuestion, answer_helpful: CircleCheck } as const;
+const COLOR = { follow: "text-link", like: "text-live", reply: "text-foreground", repost: "text-success", group_invite: "text-live", group_request: "text-live", group_accepted: "text-live", group_joined: "text-live", invite_joined: "text-success", walkie: "text-live", nearby: "text-live", file_thanks: "text-live", files_helped: "text-link", course_file: "text-link", course_question: "text-link", answer_helpful: "text-success" } as const;
 
 /** New followers, likes, replies and reposts (admins also: reports to review); opening the page marks everything read. */
 function NotificationsPage() {
@@ -46,6 +47,10 @@ function NotificationsPage() {
       void (FEATURES.walkie ? navigate({ to: "/talk/$userId", params: { userId: n.actor.id } }) : navigate({ to: "/messages/$userId", params: { userId: n.actor.id } }));
     else if (n.kind === "nearby" && n.actor) void navigate({ to: "/map", search: { u: n.actor.id } });
     else if (n.kind === "files_helped") void navigate({ to: "/profile" });
+    // one new question → it; several → the course's questions
+    else if (n.kind === "course_question" && (n.count ?? 1) > 1 && n.course_id)
+      void navigate({ to: "/c/$courseId", params: { courseId: n.course_id }, search: { tab: "questions" } });
+    else if ((n.kind === "course_question" || n.kind === "answer_helpful") && n.post_id) void navigate({ to: "/p/$postId", params: { postId: n.post_id } });
     else if (n.course_id) void navigate({ to: "/c/$courseId", params: { courseId: n.course_id } });
     else if (n.group_id) void navigate({ to: "/g/$groupId", params: { groupId: n.group_id } });
     else if (n.post_id) void navigate({ to: "/p/$postId", params: { postId: n.post_id } });
@@ -56,14 +61,25 @@ function NotificationsPage() {
     const vars = { group: n.group?.name ?? "", course: n.course?.name ?? "", file: n.file?.title ?? "", count: n.count ?? 1, others: (n.count ?? 1) - 1 };
     if (n.kind === "files_helped" && (n.count ?? 1) > 1) return t("notificationsPage.files_helped_many", vars);
     if (n.kind === "course_file" && (n.count ?? 1) > 1) return t("notificationsPage.course_file_many", vars);
+    if (n.kind === "course_question" && (n.count ?? 1) > 1) return t("notificationsPage.course_question_many", vars);
     return t(`notificationsPage.${n.kind}`, vars);
   };
   const items = (list.data ?? []).filter((n) => n.actor && n.kind !== "report");
   // Admins: one row for the report queue (who reported stays on the review screen).
   const report = list.data?.find((n) => n.kind === "report");
+  const [settings, setSettings] = useState(false);
   return (
     <>
-      <AppHeader back title={t("tabs.notifications")} />
+      <AppHeader
+        back
+        title={t("tabs.notifications")}
+        right={
+          <button type="button" onClick={() => setSettings(true)} aria-label={t("pushSettings.title")} className={HEADER_BTN}>
+            <Settings2 className="h-[22px] w-[22px]" strokeWidth={1.8} />
+          </button>
+        }
+      />
+      <PushSettingsSheet open={settings} onOpenChange={setSettings} />
       <PushCard />
       {list.data && !items.length && !report && <EmptyState icon={Bell} text={t("notificationsPage.empty")} />}
       <ul>

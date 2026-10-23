@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { BookOpen, Check, ChevronDown, ChevronRight, FileText, Search, Trophy, Users } from "lucide-react";
 import { AppHeader } from "@/components/app-header";
+import { PickCoursesCard } from "@/components/courses/pick-courses-card";
 import { EmptyState } from "@/components/empty-state";
 import { Segmented } from "@/components/segmented";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
@@ -50,7 +51,7 @@ function CoursesPage() {
 
   return (
     <>
-      <AppHeader back title={t("courses.title")} />
+      <AppHeader large={t("courses.title")} kicker={t("home.forStudents")} />
       <div className="space-y-3 px-4 pb-3">
         <button
           type="button"
@@ -173,7 +174,8 @@ function MyCourses() {
           ))}
         </ul>
       ) : (
-        <p className="mx-4 rounded-2xl bg-card px-4 py-3 text-caption text-muted-foreground">{t("courses.myCoursesHint")}</p>
+        // nothing taken yet: offer this semester's courses (else the hint)
+        <PickCoursesCard fallback={<p className="mx-4 rounded-2xl bg-card px-4 py-3 text-caption text-muted-foreground">{t("courses.myCoursesHint")}</p>} />
       )}
     </section>
   );

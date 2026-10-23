@@ -67,3 +67,16 @@ export async function forgetPushToken() {
   const token = stored();
   if (token) await supabase.rpc("unregister_push_token", { p_token: token });
 }
+
+/** Phone notifications per category (the in-app list keeps everything). */
+export type PushCategory = "messages" | "replies" | "courses" | "reactions" | "people" | "groups";
+export const pushSettingsKey = ["push", "settings"] as const;
+export async function pushSettings(): Promise<{ category: PushCategory; push: boolean }[]> {
+  const { data, error } = await supabase.rpc("my_push_settings");
+  if (error) throw new Error(error.message);
+  return (data ?? []) as { category: PushCategory; push: boolean }[];
+}
+export async function setPushSetting(category: PushCategory, on: boolean) {
+  const { error } = await supabase.rpc("set_push_setting", { p_category: category, p_on: on });
+  if (error) throw new Error(error.message);
+}

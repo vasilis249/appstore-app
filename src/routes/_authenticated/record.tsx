@@ -1,4 +1,4 @@
-import { Camera, GraduationCap, ImagePlus, X } from "lucide-react";
+import { BookOpen, Camera, GraduationCap, ImagePlus, X } from "lucide-react";
 import { createFileRoute, useBlocker, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -17,11 +17,12 @@ import { createPost, fetchFeed, getTopic, PHOTOS_MAX, POST_MAX_MS, postKeys, TEX
 import { compressImage } from "@/lib/image";
 import { UserAvatar } from "@/components/user-avatar";
 import { groupDetail, groupKeys } from "@/lib/groups";
+import { courseKeys, getCourse } from "@/lib/courses";
 import { takePendingClip } from "@/lib/pending-clip";
 import { promptPermission, requestPromptPermission, syncDailyPrompts } from "@/lib/prompt-notifications";
 import { cn } from "@/lib/utils";
 
-type Search = { section?: string; topic?: string; reply?: string; quote?: string; group?: string; campus?: 1; text?: string };
+type Search = { section?: string; topic?: string; reply?: string; quote?: string; group?: string; campus?: 1; text?: string; course?: string };
 
 export const Route = createFileRoute("/_authenticated/record")({
   validateSearch: (s: Record<string, unknown>): Search => {
@@ -29,6 +30,8 @@ export const Route = createFileRoute("/_authenticated/record")({
     return {
       section: str(s.section), topic: str(s.topic), reply: str(s.reply), quote: str(s.quote), group: str(s.group),
       campus: s.campus ? 1 : undefined,
+      // a question in this course (campus post in «Ερωτήσεις», takers are told)
+      course: typeof s.course === "string" && /^[0-9a-f-]{36}$/i.test(s.course) ? s.course : undefined,
       // a starter question / greeting to begin from (Campus, year group)
       text: typeof s.text === "string" && s.text ? s.text.slice(0, 280) : undefined,
     };
@@ -39,7 +42,8 @@ export const Route = createFileRoute("/_authenticated/record")({
 /**
  * New post, like X: text (≤ 280), up to 4 photos (resized on the phone) and / or a voice (≤ 2 min, hold the drop).
  * Personal (shown under Following), on a topic, in a group, on your campus (`?campus=1`:
- * students of your university only, in a student section or none), as a reply or a quote.
+ * students of your university only, in a student section or none), a question in a course (`?course=`), as a reply or
+ * a quote.
  */
 function ComposePage() {
   const search = Route.useSearch();
@@ -88,7 +92,9 @@ function ComposePage() {
   });
   const p = parent.data?.[0];
   const group = useQuery({ queryKey: groupKeys.detail(search.group ?? ""), queryFn: () => groupDetail(search.group!), enabled: !!search.group });
-  const campusMode = !!search.campus && !search.topic && !search.reply && !search.quote && !search.group;
+  const courseMode = !!search.course && !search.topic && !search.reply && !search.quote && !search.group;
+  const course = useQuery({ queryKey: courseKeys.one(search.course ?? ""), queryFn: () => getCourse(search.course!), enabled: courseMode });
+  const campusMode = !courseMode && !!search.campus && !search.topic && !search.reply && !search.quote && !search.group;
   // On campus: "general" or a student section.
   const [campusPlace, setCampusPlace] = useState(search.section ?? "general");
   const verified = !!me.data?.university_id;
@@ -103,9 +109,11 @@ function ComposePage() {
         replyTo: search.reply,
         quoteOf: search.quote,
         group: search.reply ? undefined : search.group,
+        course: courseMode ? search.course : undefined,
       }),
     onSuccess: async (id) => {
       await qc.invalidateQueries({ queryKey: postKeys.all });
+      if (courseMode) void qc.invalidateQueries({ queryKey: courseKeys.one(search.course!) });
       void qc.invalidateQueries({ queryKey: groupKeys.all });
       published.current = true;
       toast.success(t("posts.published"));
@@ -119,10 +127,11 @@ function ComposePage() {
     onError: (e) => toast.error(t(rpcErrorKey(e))),
   });
 
-  const heading = search.reply ? t("posts.reply") : search.quote ? t("posts.quote") : t("posts.newPost");
+  const heading = search.reply ? t("posts.reply") : search.quote ? t("posts.quote") : courseMode ? t("courses.ask") : t("posts.newPost");
+  const placeholder = search.reply ? t("posts.replyPlaceholder") : courseMode ? t("courses.askPlaceholder") : t("posts.textPlaceholder");
   const left = TEXT_MAX - text.length;
   const hasContent = !!clip || !!text.trim() || photos.length > 0;
-  const ready = hasContent && left >= 0 && (!campusMode || verified) && !post.isPending;
+  const ready = hasContent && left >= 0 && (!(campusMode || courseMode) || verified) && !post.isPending;
   const myName = me.data?.full_name || me.data?.username || "";
   // Leaving with text, photos or a voice asks first: back (or a tab) used to throw the draft away without a word.
   const published = useRef(false);
@@ -163,6 +172,15 @@ function ComposePage() {
             </div>
           </div>
         )}
+        {courseMode && course.data && (
+          <div className="flex items-center gap-3 rounded-2xl bg-card p-3">
+            <BookOpen className="h-5 w-5 shrink-0 text-link" />
+            <div className="min-w-0">
+              <p className="text-fine text-muted-foreground">{t("courses.askingIn")}</p>
+              <p className="font-semibold leading-snug">{course.data.name}</p>
+            </div>
+          </div>
+        )}
         {group.data && (
           <div className="rounded-2xl bg-card p-3">
             <p className="text-fine text-muted-foreground">{t("groups.postingIn")}</p>
@@ -183,12 +201,12 @@ function ComposePage() {
           <UserAvatar name={myName} path={me.data?.avatar_path ?? null} size={40} />
           <div className="flex min-w-0 flex-1 flex-col gap-3">
             <label className="block">
-              <span className="sr-only">{search.reply ? t("posts.replyPlaceholder") : t("posts.textPlaceholder")}</span>
+              <span className="sr-only">{placeholder}</span>
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 rows={4}
-                placeholder={search.reply ? t("posts.replyPlaceholder") : t("posts.textPlaceholder")}
+                placeholder={placeholder}
                 className="min-h-24 w-full resize-none border-0 bg-transparent pt-2 text-tagline font-normal leading-snug outline-none placeholder:text-muted-foreground focus-visible:shadow-none"
               />
             </label>

@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { GraduationCap, Headphones, Heart, MessageCircle, MicOff, MoreHorizontal, Pause, Play, Repeat2, Send, Users } from "lucide-react";
+import { BookOpen, CircleCheck, GraduationCap, Headphones, Heart, MessageCircle, MicOff, MoreHorizontal, Pause, Play, Repeat2, Send, Users } from "lucide-react";
 import { toast } from "sonner";
 import { UserAvatar } from "@/components/user-avatar";
 import { Waveform } from "@/components/voice/waveform";
@@ -12,7 +12,7 @@ import { PhotoViewer } from "@/components/posts/photo-viewer";
 import { useSections } from "@/hooks/use-sections";
 import { useCampus } from "@/lib/campus";
 import { formatClock } from "@/lib/audio";
-import { postKeys, setLiked, voiceUrl, type PostView } from "@/lib/posts";
+import { markHelpful, postKeys, setLiked, voiceUrl, type PostView } from "@/lib/posts";
 import { currentId, toggle, useQueue } from "@/lib/queue";
 import { timeAgoShort } from "@/lib/time-ago";
 import { rpcErrorKey } from "@/lib/friends";
@@ -35,6 +35,7 @@ export function PostCard({
   hideReplyTo = false,
   threadLine = false,
   focus = false,
+  helpfulOf,
 }: {
   post: PostView;
   onPlay: () => void;
@@ -44,6 +45,8 @@ export function PostCard({
   threadLine?: boolean;
   /** The voice a post page is about: bigger title and player. */
   focus?: boolean;
+  /** An answer under your own question: you can mark it helpful (or take that back). */
+  helpfulOf?: string;
 }) {
   const { t, i18n } = useTranslation();
   const qc = useQueryClient();
@@ -61,6 +64,15 @@ export function PostCard({
   const isCurrent = currentId(q) === post.id;
   const playing = isCurrent && q.playing;
 
+  const helpful = useMutation({
+    mutationFn: () => markHelpful(helpfulOf!, post.row.is_helpful ? null : post.id),
+    onSuccess: () => {
+      haptic("success");
+      if (!post.row.is_helpful) toast.success(t("courses.helpfulMarked"));
+    },
+    onSettled: () => qc.invalidateQueries({ queryKey: postKeys.all }),
+    onError: (e) => toast.error(t(rpcErrorKey(e))),
+  });
   const like = useMutation({
     mutationFn: (to: boolean) => setLiked(post.id, to),
     onSettled: () => qc.invalidateQueries({ queryKey: postKeys.all }),
@@ -202,7 +214,13 @@ export function PostCard({
             <p className="flex min-w-0 items-center gap-1 text-fine font-semibold text-muted-foreground">
               {post.campus ? (
                 // Campus voices are only for that university's students: its name would repeat on every card.
-                post.sectionId && (
+                // a question in a course names the course (→ its page) instead of «Ερωτήσεις»
+                post.row.course_id && post.row.course_name ? (
+                  <Link to="/c/$courseId" params={{ courseId: post.row.course_id }} search={{ tab: "questions" }} className="flex min-w-0 items-center gap-1 text-link">
+                    <BookOpen className="h-3.5 w-3.5 shrink-0" />
+                    <span className="truncate">{post.row.course_name}</span>
+                  </Link>
+                ) : post.sectionId && (
                   <Link to="/" search={{ tab: "campus", s: post.sectionId }} className="flex shrink-0 items-center gap-1 text-link">
                     <GraduationCap className="h-3.5 w-3.5 shrink-0" />
                     {sections.name(post.sectionId)}
@@ -224,6 +242,12 @@ export function PostCard({
                   </Link>
                 </>
               )}
+            </p>
+          )}
+
+          {post.row.is_helpful && (
+            <p className="mt-0.5 flex items-center gap-1 text-fine font-semibold text-success">
+              <CircleCheck className="h-3.5 w-3.5" /> {t("courses.helpful")}
             </p>
           )}
 
@@ -312,6 +336,17 @@ export function PostCard({
             <button type="button" onClick={() => void share()} className={cn(action, "px-2")} aria-label={t("posts.share")}>
               <Send className="h-[17px] w-[17px]" strokeWidth={1.7} />
             </button>
+            {helpfulOf && (
+              <button
+                type="button"
+                onClick={() => helpful.mutate()}
+                disabled={helpful.isPending}
+                aria-pressed={post.row.is_helpful}
+                className={cn(action, "px-2 font-semibold", post.row.is_helpful ? "text-success" : "text-link")}
+              >
+                <CircleCheck className="h-[18px] w-[18px]" strokeWidth={1.7} /> {t(post.row.is_helpful ? "courses.unmarkHelpful" : "courses.markHelpful")}
+              </button>
+            )}
             {post.listens > 0 && (
               <span className="ml-auto flex items-center gap-1 text-caption tabular-nums text-muted-foreground" aria-label={t("posts.listens", { count: post.listens })}>
                 <Headphones className="h-3.5 w-3.5" strokeWidth={1.7} /> {compact.format(post.listens)}
