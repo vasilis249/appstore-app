@@ -42,3 +42,4 @@ the department site; eled.uowm.gr answers 403 to everything from this container)
 own readers for iee, pme, midwife, survey; files in raw/ihu/ under the names used in the script).
 Θεσσαλίας: `uth_catalog.py` (department sites linked from www.uth.gr; files in raw/uth/ under the names used in the
 script; 19 sites refuse this container).
+ΕΛΜΕΠΑ: `hmu_catalog.py` (department sites linked from hmu.gr/scholes-tmimata; files in raw/hmu/).

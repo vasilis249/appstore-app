@@ -1156,6 +1156,13 @@ User decisions:
   sites reset every connection from this container → missing (re-run from a normal network). `done()` keeps a course
   once (first semester) when two student groups take it in different semesters. `20261117100200_course_catalog_uth.sql`
   applied live → 26,244 courses over 19 universities. Tests courses 28 (c1: 19, > 26,000).
+- **Course catalogs M3c-ΕΛΜΕΠΑ ✔ (2026-10-23)** — `hmu.json` 11/11 departments, 853 courses (`src/hmu_catalog.py`; the Universis
+  catalogue at universis-api.hmu.gr needs a login → not used). Department WordPress sites (hmu.gr/scholes-tmimata): HTML
+  programme pages (ece per-track tables, elec 5-year with Α’–Δ’ cycles, tourism, nutr, nurs, mech list — its track
+  courses carry no compulsory / elective mark), PDFs (agri 2025 with tracks Α/Β/Γ named only by letter, socwork, acc guide
+  2024-25, mst guide via its Google Docs export, music guide 2022-23 — the newer per-semester PDFs use a font that does not
+  decode). `20261117100300_course_catalog_hmu.sql` applied live → 27,097 courses over 20 universities. Tests courses 28
+  (c1: 20, > 27,000).
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
