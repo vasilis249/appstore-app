@@ -194,3 +194,59 @@ export async function setPostHidden(postId: string, hidden: boolean) {
 export async function setUserDisabled(userId: string, disabled: boolean) {
   fail((await supabase.rpc("admin_set_user_disabled", { p_user: userId, p_disabled: disabled })).error);
 }
+
+/** Admin metrics (aggregates from data we already store; definitions in the migration and on the screen). */
+export interface MetricsOverviewRow {
+  university_id: string;
+  students: number;
+  new_7d: number;
+  active_7d: number;
+  contributors_30d: number;
+  files: number;
+  questions: number;
+  min_students: number;
+}
+export interface MetricsDepartment {
+  department_id: string | null;
+  students: number;
+  new_30d: number;
+  active_7d: number;
+  contributors_30d: number;
+  resources_30d: number;
+  /** O4 proposal (read-only): ≥ 8 students, ≥ 3 active in 7 days, ≥ 3 resources in 30 days */
+  ready: boolean;
+}
+export interface CampusMetrics {
+  students: number;
+  new_7d: number;
+  new_30d: number;
+  referred_30d: number;
+  active_7d: number;
+  contributors_30d: number;
+  activation: { cohort: number; activated: number };
+  week1: { cohort: number; kept: number };
+  courses_taken_by: number;
+  files_30d: number;
+  downloads_30d: number;
+  thanks_30d: number;
+  posts_30d: number;
+  questions_30d: number;
+  questions_answered: number;
+  questions_helpful: number;
+  first_answer_hours: number | null;
+  reports_30d: number;
+  reports_open: number;
+  report_hours: number | null;
+  departments: MetricsDepartment[];
+}
+export const metricsKeys = { one: (uni: string | null) => ["admin", "metrics", uni] as const };
+export async function adminMetricsOverview(): Promise<MetricsOverviewRow[]> {
+  const { data, error } = await supabase.rpc("admin_metrics");
+  fail(error);
+  return ((data as { universities?: MetricsOverviewRow[] } | null)?.universities ?? []) as MetricsOverviewRow[];
+}
+export async function adminMetrics(university: string): Promise<CampusMetrics> {
+  const { data, error } = await supabase.rpc("admin_metrics", { p_university: university });
+  fail(error);
+  return data as unknown as CampusMetrics;
+}

@@ -1874,6 +1874,10 @@ export type Database = {
         Args: { p_department: string; p_year: number }
         Returns: undefined
       }
+      admin_metrics: {
+        Args: { p_university?: string }
+        Returns: Json
+      }
       ask_course_question: {
         Args: {
           p_course: string

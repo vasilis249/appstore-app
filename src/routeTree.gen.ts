@@ -29,6 +29,7 @@ import { Route as AuthenticatedStudentRouteImport } from './routes/_authenticate
 import { Route as ApiAuthEmailRouteImport } from './routes/api.auth-email'
 import { Route as ICodeRouteImport } from './routes/i.$code'
 import { Route as VPostIdRouteImport } from './routes/v.$postId'
+import { Route as AuthenticatedAdminMetricsRouteImport } from './routes/_authenticated/admin/metrics'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin/reports'
 import { Route as AuthenticatedAdminTopicsRouteImport } from './routes/_authenticated/admin/topics'
 import { Route as AuthenticatedCCourseIdRouteImport } from './routes/_authenticated/c.$courseId'
@@ -144,6 +145,12 @@ const VPostIdRoute = VPostIdRouteImport.update({
   path: '/v/$postId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminMetricsRoute =
+  AuthenticatedAdminMetricsRouteImport.update({
+    id: '/admin/metrics',
+    path: '/admin/metrics',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminReportsRoute =
   AuthenticatedAdminReportsRouteImport.update({
     id: '/admin/reports',
@@ -242,6 +249,7 @@ export interface FileRoutesByFullPath {
   '/api/auth-email': typeof ApiAuthEmailRoute
   '/i/$code': typeof ICodeRoute
   '/v/$postId': typeof VPostIdRoute
+  '/admin/metrics': typeof AuthenticatedAdminMetricsRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
   '/c/$courseId': typeof AuthenticatedCCourseIdRoute
@@ -277,6 +285,7 @@ export interface FileRoutesByTo {
   '/i/$code': typeof ICodeRoute
   '/v/$postId': typeof VPostIdRoute
   '/': typeof AuthenticatedIndexRoute
+  '/admin/metrics': typeof AuthenticatedAdminMetricsRoute
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/topics': typeof AuthenticatedAdminTopicsRoute
   '/c/$courseId': typeof AuthenticatedCCourseIdRoute
@@ -314,6 +323,7 @@ export interface FileRoutesById {
   '/i/$code': typeof ICodeRoute
   '/v/$postId': typeof VPostIdRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/admin/metrics': typeof AuthenticatedAdminMetricsRoute
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/admin/topics': typeof AuthenticatedAdminTopicsRoute
   '/_authenticated/c/$courseId': typeof AuthenticatedCCourseIdRoute
@@ -351,6 +361,7 @@ export interface FileRouteTypes {
     | '/api/auth-email'
     | '/i/$code'
     | '/v/$postId'
+    | '/admin/metrics'
     | '/admin/reports'
     | '/admin/topics'
     | '/c/$courseId'
@@ -386,6 +397,7 @@ export interface FileRouteTypes {
     | '/i/$code'
     | '/v/$postId'
     | '/'
+    | '/admin/metrics'
     | '/admin/reports'
     | '/admin/topics'
     | '/c/$courseId'
@@ -422,6 +434,7 @@ export interface FileRouteTypes {
     | '/i/$code'
     | '/v/$postId'
     | '/_authenticated/'
+    | '/_authenticated/admin/metrics'
     | '/_authenticated/admin/reports'
     | '/_authenticated/admin/topics'
     | '/_authenticated/c/$courseId'
@@ -593,6 +606,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VPostIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/metrics': {
+      id: '/_authenticated/admin/metrics'
+      path: '/admin/metrics'
+      fullPath: '/admin/metrics'
+      preLoaderRoute: typeof AuthenticatedAdminMetricsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/reports': {
       id: '/_authenticated/admin/reports'
       path: '/admin/reports'
@@ -705,6 +725,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSearchRoute: typeof AuthenticatedSearchRoute
   AuthenticatedStudentRoute: typeof AuthenticatedStudentRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAdminMetricsRoute: typeof AuthenticatedAdminMetricsRoute
   AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
   AuthenticatedAdminTopicsRoute: typeof AuthenticatedAdminTopicsRoute
   AuthenticatedCCourseIdRoute: typeof AuthenticatedCCourseIdRoute
@@ -732,6 +753,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSearchRoute: AuthenticatedSearchRoute,
   AuthenticatedStudentRoute: AuthenticatedStudentRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAdminMetricsRoute: AuthenticatedAdminMetricsRoute,
   AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
   AuthenticatedAdminTopicsRoute: AuthenticatedAdminTopicsRoute,
   AuthenticatedCCourseIdRoute: AuthenticatedCCourseIdRoute,

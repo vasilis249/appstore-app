@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Ban, Bell, ChevronRight, FileText, Flag, GraduationCap, LogOut, Mail, MapPin, Megaphone, Shield } from "lucide-react";
+import { Ban, Bell, ChartColumn, ChevronRight, FileText, Flag, GraduationCap, LogOut, Mail, MapPin, Megaphone, Shield } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { adminKeys, myStaffRole, openReportsCount, reportKeys } from "@/lib/admin";
 import { useState } from "react";
@@ -86,6 +86,14 @@ export function SettingsSheet({
                   <ChevronRight className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} />
                 </span>
               </Link>
+              {isAdmin.data && (
+                <Link to="/admin/metrics" onClick={() => onOpenChange(false)} className={row}>
+                  <span className="inline-flex items-center gap-3">
+                    <ChartColumn className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} /> {t("metrics.title")}
+                  </span>
+                  <ChevronRight className="h-5 w-5 text-muted-foreground" strokeWidth={1.8} />
+                </Link>
+              )}
               {isAdmin.data && (
                 <Link to="/admin/topics" onClick={() => onOpenChange(false)} className={row}>
                   <span className="inline-flex items-center gap-3">
