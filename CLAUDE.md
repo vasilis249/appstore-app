@@ -1131,6 +1131,38 @@ User decisions:
   opens at N and courses / group work already. `SchoolsBoard` lists only departments with students. e2e `dayone-flow`
   9/9 (+ pick + save, closed ΑΠΘ campus, «Όχι τώρα»), courses 11, engage 14, ux 15, signup 9, uoa 7. Scratchpad flows
   growth / attica / campus / campus-groups fail on the baseline too (stale, see ROADMAP test debt).
+- **O2 ✔ Courses tab + course Q&A + push settings (user OK 2026-10-23; NOT deployed, migrations NOT applied live)** —
+  migration `20261116100000_course_questions.sql`: `posts.course_id` (campus top-level posts only, CHECK) +
+  `posts.helpful_reply_id`; `ask_course_question(course, text/voice/photos)` = `create_post` in «Ερωτήσεις» (campus) +
+  course_id + one folded unread `course_question` notice per taker (blocked skipped); `mark_helpful_answer(question,
+  reply|null)` (asker only, direct non-own reply; `answer_helpful` notice, replaced / removed on change); `feed_posts`
+  + `p_course`, scope `course`, columns `course_id, course_name, helpful_reply_id, is_helpful`; push per category:
+  `private.push_mutes`, `private.notification_category(kind)` (messages / replies / courses / reactions / people /
+  groups; reports always), `my_push_settings()`, `set_push_setting()`, `push_dispatch` skips muted categories (the
+  in-app list keeps everything), `push_job` texts patched in place (DO block); campus section `courses` renamed
+  «Σπουδές» (was «Μαθήματα», clashed with the tab). UI: BottomNav 5 tabs Αρχική · Μαθήματα · Χάρτης · Αναζήτηση ·
+  Προφίλ (`/c/…` lights Courses; router TABS + `/courses`), `/courses` large title + this-semester pick when you take
+  nothing; course page tab «Ερωτήσεις» (`?tab=questions`, FeedList scope course) + «Κάνε ερώτηση» → `/record?course=`
+  (composer card «Ερώτηση στο μάθημα»); PostCard: 📘 course name on questions (→ course questions), «✓ Βοηθητική
+  απάντηση» badge, «Βοήθησε» toggle on answers for the asker (FeedList `helpfulOf`, post page hint); notifications
+  for the 2 kinds; `PushSettingsSheet` (Settings row + ⚙ on Notifications). `types.ts` patched by hand until the live
+  regen. Tests `test_qa.sql` 21; e2e `qa-flow` 10 (+ courses 11, engage 14, ptt 10 updated).
+- **O3 ✔ Admin metrics (NOT deployed / applied)** — `20261116100100_admin_metrics.sql`: `private.student_activity(since)`
+  (union of recorded actions) + `admin_metrics(university|null)` (admins only, VOLATILE: temp tables; aggregates only):
+  overview per university, or students / new / referred / active 7 d / contributors 30 d / activation (week 1, cohort
+  7–90 d) / week-2 return / courses taken / files, downloads, thanks / questions answered, helpful, median first answer
+  / reports + median handling / departments with the O4 readiness flag. `/admin/metrics` (Settings → Μετρήσεις, admins;
+  tiles + department list, definitions on screen). Tests `test_metrics.sql` 8; e2e `metrics-flow` 5.
+- **O4 study ✔ (no behaviour change)** — `docs/campus-readiness.md`: department ready = ≥ 8 students, ≥ 3 active 7 d, ≥ 3
+  resources 30 d; campus opens at 2 ready departments (1 if ≤ 3 departments; colleges ×2 thresholds) OR the existing
+  100 rule; once open always open (`opened_at`). Waiting for the user's approval.
+- **Course catalogs M3b-Ιωάννινα ✔ (2026-10-23)** — `uoi.json` 23/23 departments, 1,994 courses: the official «Ιδρυματικός
+  κατάλογος μαθημάτων» 2025-26 xlsx (`src/uoi_catalog.py`, one sheet per department; Greek-numeral / multi semesters →
+  earliest, "≥5" → none; ΥΠ/Υ/ΥΠΟΧΡΕΩΤΙΚΟ/κορμού = core, any επιλογής / ΕΥ / ΥΕ / ΕΠ / optional = elective, languages →
+  «Ξένη γλώσσα», ΠΤΝ «Ενότητα …» groups) + Μηχανικών Υλικών from materials.uoi.gr/ppsdetailed.php (ΥΠΟΧΡΕΩΤΙΚΑ / ΜΕ
+  ΕΠΙΛΟΓΗ). uoi.gr refuses curl's user agent → browser UA. `20261116100200_course_catalog_uoi.sql` applied live (data
+  only) → 21,019 courses over 15 universities. Tests courses 28 (c1: 15 universities, > 21,000). NOTE: live now has
+  this catalog migration but NOT 20261116100000/100100 (O2/O3) — apply those two before deploying the app.
 - **Engagement E1 ✔ (user request 2026-10-22: push + «βοήθησες N» + «Το δίνω» + points, "do them all without asking")** —
   migration `20261111100000_engagement.sql`: `course_file_downloads` / `course_file_thanks` (PK file+user, counters
   `course_files.downloads_count / thanks_count` by trigger; own thanks readable), `record_course_download(file)` (once per
@@ -1308,7 +1340,7 @@ User decisions:
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
   `su postgres -c "/usr/lib/postgresql/16/bin/pg_ctl -D /var/lib/postgresql/courtsie-test -o '-p 54329 -k /tmp' -l /tmp/pg.log start"`
   (without `-o` it comes up on 5432). Then
-  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (46) + `test_speak.sql` (132) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (94) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11) + `test_courses.sql` (28) + `test_engage.sql` (30).
+  `PGHOST=/tmp PGPORT=54329 PGUSER=postgres bash supabase/tests/run.sh` (browser: scratchpad `run-flows.sh <port>`) → `test_voice.sql` (46) + `test_speak.sql` (132) + `test_groups.sql` (34) + `test_walkie.sql` (28) + `test_campus.sql` (94) + `test_location.sql` (26) + `test_nearby.sql` (28) + `test_gate.sql` (11) + `test_courses.sql` (28) + `test_engage.sql` (30) + `test_qa.sql` (21) + `test_metrics.sql` (8).
   `supabase_stubs.sql` fakes auth/storage/realtime + roles; tests switch users with `request.jwt.claims`.
 - UI screenshots: build with `VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_PUBLISHABLE_KEY=<local anon
   jwt>`, run `wrangler dev` (scratchpad `serve.sh <port>`), Playwright with the pre-installed Chromium, session

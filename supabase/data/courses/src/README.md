@@ -23,3 +23,6 @@ math), `pdftext.pages()` gives page texts to the guide parsers, `up_tables.rows(
 refuses this container (`uoc_missing.py`).
 Πολυτεχνείο Κρήτης: courses.tuc.gr is Universis like ΑΠΘ (API host `universis-api.tuc.gr`, from the app's
 `assets/config/app.production.json`); `tuc_api.py --fetch` then `tuc_api.py` (2026-27 programmes, years 2025 + 2026).
+Ιωάννινα: the university's official «Ιδρυματικός κατάλογος μαθημάτων» 2025-26 (uoi.gr, one xlsx sheet per department)
+→ `uoi_catalog.py` for 22 departments; Μηχανικών Επιστήμης Υλικών from its own detailed programme page (the catalogue
+gives that department course types only). The uoi.gr hosts answer 403 to curl's user agent: fetch with a browser one.
