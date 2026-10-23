@@ -21,3 +21,5 @@ are read with `up_tables.rows()` (pdfplumber `find_tables()` + the heading text 
 Κρήτη: guides.uoc.gr links every department's own programme; `html_tables.tables()` reads HTML course tables (csd,
 math), `pdftext.pages()` gives page texts to the guide parsers, `up_tables.rows()` the ruled PDF tables. physics.uoc.gr
 refuses this container (`uoc_missing.py`).
+Πολυτεχνείο Κρήτης: courses.tuc.gr is Universis like ΑΠΘ (API host `universis-api.tuc.gr`, from the app's
+`assets/config/app.production.json`); `tuc_api.py --fetch` then `tuc_api.py` (2026-27 programmes, years 2025 + 2026).

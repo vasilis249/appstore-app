@@ -1,0 +1,3309 @@
+{
+ "university": "tuc",
+ "departments": {
+  "tuc-arch": {
+   "source": "https://courses.tuc.gr/#/studyPrograms/1942?year=2026&lang=el",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΑΤΒΙΟ",
+     "name": "Αρχιτεκτονική τεχνολογία: εισαγωγή στην κατασκευή και στο βιοκλιματικό σχεδιασμό",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΑΡΧ ΣΧ1",
+     "name": "Αρχιτεκτονικός σχεδιασμός I",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΟ ΜΗΧ1",
+     "name": "Δομική μηχανική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΙΚΑ Τ1",
+     "name": "Εικαστικές τέχνες I",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΤΘ Α1",
+     "name": "Ιστορία και θεωρία της αρχιτεκτονικής και της πόλης Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΤ ΤΧΠ1",
+     "name": "Ιστορία και θεωρία του πολιτισμού Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΑΡΧ1",
+     "name": "Μέσα αναπαράστασης στην αρχιτεκτονική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΛ-101",
+     "name": "Ελληνική γλώσσα και πολιτισμός",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΑΡΧ ΣΧ2",
+     "name": "Αρχιτεκτονικός σχεδιασμός II",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΙΚΑ Τ2",
+     "name": "Εικαστικές τέχνες II",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΤΘ Α2",
+     "name": "Ιστορία και θεωρία της αρχιτεκτονικής ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΤ ΤΧΠ2",
+     "name": "Ιστορία και θεωρία του πολιτισμού ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΕΧΝΥΛ",
+     "name": "Τεχνολογία υλικών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΑΤ ΟΙΚ",
+     "name": "Αρχιτεκτονική τεχνολογία: οικοδομική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΑΡΧ ΣΧ3",
+     "name": "Αρχιτεκτονικός σχεδιασμός III",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΡΓΧΩΡ",
+     "name": "Εισαγωγή στην οργάνωση του χώρου της πόλης",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΤΘ Α3",
+     "name": "Ιστορία και θεωρία της αρχιτεκτονικής και της πόλης ΙΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΤ ΤΧΠ3",
+     "name": "Ιστορία και θεωρία του πολιτισμού ΙΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΨΤ ΑΣΧ1",
+     "name": "Ψηφιακές τεχνολογίες στον αρχιτεκτονικό σχεδιασμό Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 301",
+     "name": "Τέχνη και τεχνολογία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 203",
+     "name": "Φιλοσοφία και ιστορία της επιστήμης",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΑΡΧ ΣΧ4",
+     "name": "Αρχιτεκτονικός σχεδιασμός IV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΟ ΜΗΧ2",
+     "name": "Δομική μηχανική ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΤΘ Α4",
+     "name": "Ιστορία και θεωρία της αρχιτεκτονικής IV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΤ ΤΧΠ4",
+     "name": "Ιστορία και θεωρία του πολιτισμού IV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΟΠΟ",
+     "name": "Στοιχεία τοπογραφίας και αρχιτεκτονική αποτύπωση οικιστικών συνόλων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΨΤ ΑΣΧ2",
+     "name": "Ψηφιακές τεχνολογίες στον αρχιτεκτονικό σχεδιασμό ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 104",
+     "name": "Εισαγωγή στη φιλοσοφία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΑΤ ΟΣΚ",
+     "name": "Αρχιτεκτονική τεχνολογία: οπλισμένο σκυρόδεμα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΑΡΧ ΣΧ5",
+     "name": "Αρχιτεκτονικός σχεδιασμός V",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΑΣΤΤΟΠ",
+     "name": "Αστικός σχεδιασμός και αρχιτεκτονική τοπίου",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΙΚΑ Τ3",
+     "name": "Εικαστικές τέχνες: υφή-ματιέρες-χρώμα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΤΘ Α5",
+     "name": "Ιστορία και θεωρία της αρχιτεκτονικής και της πόλης V",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-101",
+     "name": "Κινέζικα I",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΟΙΚΕΝΕΡ",
+     "name": "Αρχιτεκτονική τεχνολογία: ειδικά θέματα οικοδομικής-ενεργειακός σχεδιασμός",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΚΜΞΚ",
+     "name": "Αρχιτεκτονική τεχνολογία: ελαφρές-μεταλλικές και ξύλινες κατασκευές",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΑΡΧ ΣΧ6",
+     "name": "Αρχιτεκτονικός σχεδιασμός VI",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΑΣΤ ΣΧ",
+     "name": "Αστικός σχεδιασμός",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΑΘ",
+     "name": "Σύγχρονες αρχιτεκτονικές θεωρήσεις",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-102",
+     "name": "Κινέζικα II",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 204",
+     "name": "Στοιχεία δικαίου και τεχνική νομοθεσία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΑΡΧ ΣΧ7",
+     "name": "Αρχιτεκτονικός σχεδιασμός VII",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΘΕΑΠΟΚ",
+     "name": "Θεωρίες και τεχνικές στην αποκατάσταση κτιρίων και συνόλων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΟΛ ΣΧ1",
+     "name": "Πολεοδομικός σχεδιασμός Ι",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΧΩΠΟ",
+     "name": "Δίκαιο χωροταξίας και πολεοδομίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΘ ΙΣΤΘ",
+     "name": "Ειδικά θέματα ιστορίας & θεωρίας της αρχιτεκτονικής και της πόλης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΙΣ ΕΠ",
+     "name": "Εισαγωγή στην επαγγελματική πρακτική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-103",
+     "name": "Κινέζικα III",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΚΕΠ 201",
+     "name": "Μικρο-μακρο οικονομική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΥ ΔΥΛ",
+     "name": "Φθορά και συντήρηση δομικών υλικών μνημείων και αρχιτεκτονικών επιφανειών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΑΡΧ ΣΧ8",
+     "name": "Αρχιτεκτονικός σχεδιασμός VIII",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΧΤΟ",
+     "name": "Σχεδιασμός τοπίου",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ444",
+     "name": "Ανανεώσιμες πηγές ενέργειες",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΑΡΧ",
+     "name": "Αρχιτεκτονική μικρής κλίμακας και αντικειμένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΔΦΥ",
+     "name": "Ειδικές κατασκευές με φυσικά υλικά",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΖΑΝΘΕΧ",
+     "name": "Ζητήματα ανθρωπογεωγραφίας και έμφυλης διαχείρισης του χώρου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-104",
+     "name": "Κινέζικα IV",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΚΠΘΧΡ",
+     "name": "Κοινωνικές και πολιτισμικές θεωρήσεις του χώρου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΝΑΠΟΛ",
+     "name": "Νεοελληνική αρχιτεκτονική και πολιτισμός",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΝΟΧ",
+     "name": "Νοηματοδοτήσεις του χώρου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΑΡΣΧΕ",
+     "name": "Παραμετρικός σχεδιασμός",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΟΛ ΣΧ2",
+     "name": "Πολεοδομικός σχεδιασμός ΙΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 102",
+     "name": "Πολιτική οικονομία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΧΡΩΜ",
+     "name": "Το χρώμα και η θεωρία του χρώματος",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΕ",
+     "name": "Ερευνητική εργασία",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΑΠΟΙΚΤ",
+     "name": "Αποκατάσταση ιστορικών κτιρίων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΧΕΜΚ",
+     "name": "Εσωτερικοί χώροι",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΖΗΑΣΤΑΝ",
+     "name": "Ζητήματα αστικής αναβίωσης : παράκτια μέτωπα και υφιστάμενη πόλη",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΣΧΕΙΣ",
+     "name": "Πολεοδομικός σχεδιασμός σε ιστορικά σύνολα",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΨΗΦΤ",
+     "name": "Προηγμένες ψηφιακές τεχνολογίες",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΧΩΡ 00",
+     "name": "Χωροταξία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "tuc-chenveng": {
+   "source": "https://courses.tuc.gr/#/studyPrograms/1938?year=2026&lang=el",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΜΠ 132",
+     "name": "Γενική χημεία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 100",
+     "name": "Γεωλογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 101",
+     "name": "Διαφορικός και ολοκληρωτικός λογισμός Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 113",
+     "name": "Εισαγωγή στη χημική & περιβαλλοντική μηχανική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 105",
+     "name": "Εισαγωγή στον προγραμματισμό I",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 112",
+     "name": "Οικολογία και εισαγωγή στην τεχνική οικολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΣ 101",
+     "name": "Φυσική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 101",
+     "name": "Αγγλικά Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΓΛΣ 103",
+     "name": "Γερμανικά I",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΚΙΝ-101",
+     "name": "Κινέζικα I",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 102",
+     "name": "Διαφορικός και ολοκληρωτικός λογισμός ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 106",
+     "name": "Εισαγωγή στον προγραμματισμό ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΜΠ 102",
+     "name": "Ισοζύγια μάζας & ενέργειας",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 126",
+     "name": "Μικροβιολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΜΠ 101",
+     "name": "Οργανική χημεία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΗΧ 102",
+     "name": "Τεχνική μηχανική - στατική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΗΜ 201",
+     "name": "Φυσικοχημεία Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 102",
+     "name": "Αγγλικά ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-102",
+     "name": "Κινέζικα II",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΗΧ 201",
+     "name": "Αντοχή υλικών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 201",
+     "name": "Γραμμική άλγεβρα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΜΠ 201",
+     "name": "Περιβαλλοντικό δίκαιο Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 221",
+     "name": "Ρευστομηχανική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 203",
+     "name": "Συνήθεις διαφορικές εξισώσεις",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 133",
+     "name": "Τεχνικό σχέδιο με χρήση Η/Υ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΜΠ 202",
+     "name": "Φαινόμενα μεταφοράς Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 201",
+     "name": "Αγγλικά ΙΙΙ",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 203",
+     "name": "Γερμανικά III",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-103",
+     "name": "Κινέζικα III",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 101",
+     "name": "Κοινωνιολογία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 201",
+     "name": "Μικρο-μακρο-οικονομική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 301",
+     "name": "Τέχνη και τεχνολογία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 203",
+     "name": "Φιλοσοφία και ιστορία της επιστήμης",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 336",
+     "name": "Αριθμητική ανάλυση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 224",
+     "name": "Γεωγραφικά συστήματα πληροφοριών",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 212",
+     "name": "Ενόργανη χημική ανάλυση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 229",
+     "name": "Θερμοδυναμική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 204",
+     "name": "Πιθανότητες και στατιστική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 202",
+     "name": "Αγγλικά IV",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 204",
+     "name": "Γερμανικά IV",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 104",
+     "name": "Εισαγωγή στη φιλοσοφία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 202",
+     "name": "Ιστορία πολιτισμού",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-104",
+     "name": "Κινέζικα IV",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 102",
+     "name": "Πολιτική οικονομία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 443",
+     "name": "Αειφόρος ανάπτυξη & LCA",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΜΠ 301",
+     "name": "Ανάλυση & σχεδιασμός χημικών διεργασιών Ι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 435",
+     "name": "Διαχείριση και χρονικός προγραμματισμός έργων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 332",
+     "name": "Μετεωρολογία και κλιματική αλλαγή",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 321",
+     "name": "Ανάλυση κατασκευών & οπλισμένο σκυρόδεμα",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΜΠ 162",
+     "name": "Γεωδαισία",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 315",
+     "name": "Δυναμική & αυτόματη ρύθμιση διεργασιών",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 345",
+     "name": "Υδατική χημεία",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 310",
+     "name": "Φαινόμενα μεταφοράς ΙΙ",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΧΜ 311",
+     "name": "Φυσικές διεργασίες",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΧΜΠ 302",
+     "name": "Ανάλυση & σχεδιασμός βιοχημικών διεργασιών",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 340",
+     "name": "Ασκήσεις πεδίου Ι",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 311",
+     "name": "Ατμοσφαιρική ρύπανση",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 335",
+     "name": "Βελτιστοποίηση περιβαλλοντικών & ενεργειακών συστημάτων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 303",
+     "name": "Τεχνολογίες ενέργειας και περιβάλλοντος",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΜ 316",
+     "name": "Επεξεργασία υγρών αποβλήτων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΧΜ 312",
+     "name": "Επιστήμη και τεχνολογία υλικών",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 326",
+     "name": "Υδραυλική Ι",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΜΠ 331",
+     "name": "Υδρολογία",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΜΠ 324",
+     "name": "Φυσικές διεργασίες στην επεξεργ. νερού & υγρών αποβλήτων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 402",
+     "name": "Φυσικοχημεία ΙΙ",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΧΜ 318",
+     "name": "Χημική & τεχνική θερμοδυναμική",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΧΜ 317",
+     "name": "Ανάλυση & σχεδιασμός χημικών διεργασιών ΙΙ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 338",
+     "name": "Αστικά στερεά απόβλητα: διαχείριση & σχεδιασμός συστημάτων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΜΠ 442",
+     "name": "Βιολογικές διεργασίες στην επεξεργ. υγρών αποβλήτων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΜΠ 421",
+     "name": "Εφαρμογές σε περιβαλλοντικά μοντέλα",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 403",
+     "name": "Νανοϋλικά & νανοτεχνολογία",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΧΜΠ 401",
+     "name": "Περιβαλλοντική κατάλυση",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 417",
+     "name": "Υγιεινή και ασφάλεια σε χώρους εργασίας",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 433",
+     "name": "Υδραυλική ΙΙ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΜΠ 437",
+     "name": "Χημικές διεργασίες στην επεξεργ. νερού & υγρών αποβλήτων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 404",
+     "name": "Βιοϊατρική τεχνολογία Ι",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 451",
+     "name": "Γεωργική μηχανική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 314",
+     "name": "Επιστήμη & τεχνολογία πολυμερών και μακρομορίων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 419",
+     "name": "Σεισμολογία και αντισεισμικός κώδικας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 406",
+     "name": "Χημεία περιβάλλοντος",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 444",
+     "name": "Ανανεώσιμες πηγές ενέργειας",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 430",
+     "name": "Ασκήσεις πεδίου ΙΙ",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 554",
+     "name": "Σχεδιασμός χημικών & περιβαλλοντικών εγκαταστάσεων - εκτίμηση περιβαλλοντικών επιπτώσεων Ι",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 438",
+     "name": "Επεξεργασία & διαχείριση τοξικών και επικίνδυνων αποβλήτων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΜΠ 432",
+     "name": "Ροή υπόγειων υδάτων και μεταφορά ρύπων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 407",
+     "name": "Τεχνικοοικονομική μελέτη διεργασιών",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 452",
+     "name": "Τεχνολογίες επεξεργασίας αερίων εκπομπών",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 531",
+     "name": "Υδραυλικά έργα",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 408",
+     "name": "Βιοϋλικά- βιοπλαστικά",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 436",
+     "name": "Διαχείριση υδατικών πόρων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 412",
+     "name": "Δυναμική συμπεριφορά και προχωρημένος έλεγχος διεργασιών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 545",
+     "name": "Ενεργειακή αξιολόγηση κτηρίων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 410",
+     "name": "Μεταλλουργικές διεργασίες",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠΔ 433",
+     "name": "Μικρομεσαίες επιχειρήσεις και καινοτομία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΧΜ 411",
+     "name": "Πράσινη χημεία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 441",
+     "name": "Στρατηγικός σχεδιασμός- αξιοποίηση καινοτομίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΧΜ 409",
+     "name": "Φυσική στερεάς κατάστασης & επιστήμη επιφανειών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΧΜΠ 501",
+     "name": "Περιβαλλοντικό δίκαιο ΙΙ-στοιχεία δικαίου δημόσιων έργων",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 555",
+     "name": "Σχεδιασμός χημικών & περιβαλλοντικών εγκαταστάσεων - εκτίμηση περιβαλλοντικών επιπτώσεων ΙΙ",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 512",
+     "name": "Οικολογική μηχανική & κυκλική οικονομία",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΜΠ 511",
+     "name": "Σχεδιασμός ενεργειακών συστημάτων",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 446",
+     "name": "Βιολογικές μέθοδοι εξυγίανσης περιβάλλοντος",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Μηχανικού περιβάλλοντος"
+     ]
+    },
+    {
+     "code": "ΧΜ 502",
+     "name": "Βιοϊατρική τεχνολογία ΙΙ",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    },
+    {
+     "code": "ΜΠ 535",
+     "name": "Παράκτια μηχανική",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠ 537",
+     "name": "Ποιότητα της ατμόσφαιρας σε εσωτερικούς χώρους",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Χημικού μηχανικού"
+     ]
+    }
+   ]
+  },
+  "tuc-ece": {
+   "source": "https://courses.tuc.gr/#/studyPrograms/1933?year=2026&lang=el",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΜΑΘ 102",
+     "name": "Γραμμική άλγεβρα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 101",
+     "name": "Εισαγωγή στον προγραμματισμό",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 101",
+     "name": "Λογική σχεδίαση",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 101",
+     "name": "Λογισμός μιας μεταβλητής",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΗΜ 111",
+     "name": "Γενική χημεία",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΑΓΓ 101",
+     "name": "Προπαρασκευαστικά αγγλικά 1",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 111",
+     "name": "Τέχνη και τεχνολογία",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΣ 111",
+     "name": "Φυσική (μηχανική-στοιχεία θερμότητας)",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 102",
+     "name": "Αντικειμενοστρεφής προγραμματισμός",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 103",
+     "name": "Λογισμός πολλών μεταβλητών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 104",
+     "name": "Στοιχεία μαθηματικών για ΗΜΜΥ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΣ 101",
+     "name": "Φυσική (ηλεκτρομαγνητισμός)",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 112",
+     "name": "Ιστορία του πολιτισμού",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΑΓΓ 102",
+     "name": "Προπαρασκευαστικά αγγλικά 2",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 201",
+     "name": "Βασική θεωρία κυκλωμάτων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΑΓΓ 201",
+     "name": "Εισαγωγή στους ακαδημαϊκούς πολυγραμματισμούς και τις ερευνητικές μεθόδους",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 201",
+     "name": "Θεωρία πιθανοτήτων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΗΛ 201",
+     "name": "Σήματα και συστήματα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 202",
+     "name": "Ψηφιακά υπολογιστικά συστήματα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 211",
+     "name": "Εργαλεία ανάπτυξης λογισμικού και προγραμματισμός συστημάτων",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΑΓΓ 202",
+     "name": "Αγγλικά για διαπολιτισμική επικοινωνία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 203",
+     "name": "Ανάλυση ηλεκτρικών κυκλωμάτων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 201",
+     "name": "Δομές δεδομένων και αλγόριθμοι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 204",
+     "name": "Ηλεκτρονική Ι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΥΣ 201",
+     "name": "Συστήματα ελέγχου",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 211",
+     "name": "Διαφορικές εξισώσεις",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 301",
+     "name": "Ηλεκτρονική ΙΙ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 301",
+     "name": "Λειτουργικά συστήματα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 302",
+     "name": "Σχεδίαση και ανάπτυξη πληροφοριακών συστημάτων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΗΛ 301",
+     "name": "Ψηφιακή επεξεργασία σήματος",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-101",
+     "name": "Κινέζικα I",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 311",
+     "name": "Κοινωνιολογία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 311",
+     "name": "Προσομοίωση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 312",
+     "name": "Φιλοσοφία και ιστορία της επιστήμης",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 303",
+     "name": "Βάσεις δεδομένων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 302",
+     "name": "Οργάνωση υπολογιστών",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΝΕ 301",
+     "name": "Συστήματα ηλεκτρικής ενέργειας",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΗΛ 302",
+     "name": "Τηλεπικοινωνιακά συστήματα Ι",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 312",
+     "name": "Γραφική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 315",
+     "name": "Εισαγωγή στη φιλοσοφία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-102",
+     "name": "Κινέζικα II",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 314",
+     "name": "Πολιτική οικονομία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΗΜΥ 311",
+     "name": "Πρακτική άσκηση Ι",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 311",
+     "name": "Τεχνητή νοημοσύνη",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 401",
+     "name": "Αλγόριθμοι και πολυπλοκότητα",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΗΛ 402",
+     "name": "Δίκτυα υπολογιστών Ι",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΝΕ 401",
+     "name": "Ηλεκτρικές μηχανές",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΤΗΛ 401",
+     "name": "Τηλεπικοινωνιακά συστήματα ΙΙ",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 413",
+     "name": "Ασφάλεια συστημάτων και υπηρεσιών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΤΗΛ 415",
+     "name": "Ασύρματες επικοινωνίες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 412",
+     "name": "Αυτόνομοι πράκτορες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΤΗΛ 414",
+     "name": "Βελτιστοποίηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΥΣ 411",
+     "name": "Γραμμικά συστήματα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 411",
+     "name": "Κβαντική πληροφορία και κβαντική εκτιμητική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 417",
+     "name": "Μηχανική όραση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 411",
+     "name": "Μικρο- και μακρο- οικονομική ανάλυση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 412",
+     "name": "Οπτοηλεκτρονική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 412",
+     "name": "Στοχαστικές διαδικασίες και ανάλυση χρονοσειρών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 402",
+     "name": "Θεωρία υπολογισμού",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 419",
+     "name": "Αρχές κατανεμημένων συστημάτων λογισμικού",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 413",
+     "name": "Βιομηχανική κοινωνιολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 426",
+     "name": "Δημιουργική τεχνητή νοημοσύνη",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΝΕ 414",
+     "name": "Ειδικά κεφάλαια ηλεκτρικών μηχανών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 423",
+     "name": "Ενισχυτική μάθηση και δυναμική βελτιστοποίηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 414",
+     "name": "Ηλεκτρικές μετρήσεις και αισθητήρες",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-103",
+     "name": "Κινέζικα III",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-104",
+     "name": "Κινέζικα IV",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΤΗΛ 422",
+     "name": "Μεγάλα και κοινωνικά δίκτυα: μοντελοποίηση και ανάλυση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 412",
+     "name": "Μικρομεσαίες επιχειρήσεις και καινοτομία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΤΗΛ 420",
+     "name": "Μοντελοποίηση και ανάλυση απόδοσης δικτύων επικοινωνιών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 420",
+     "name": "Προχωρημένες μικρο-νανοηλεκτρονικές διατάξεις",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 412",
+     "name": "Στοιχεία δικαίου και τεχνικής νομοθεσίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 424",
+     "name": "Συναρτησιακός προγραμματισμός, αναλυτική και εφαρμογές",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΝΕ 412",
+     "name": "Σχεδιασμός ηλεκτρικών εγκαταστάσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 420",
+     "name": "Τυχαιοκρατικόι αλγόριθμοι",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΤΗΛ 511",
+     "name": "Number theory and cryptography",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 511",
+     "name": "Επεξεργασία και διαχείριση δεδομένων σε δίκτυα αισθητήρων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΗΡΥ 513",
+     "name": "Ηλεκτρονικά συστήματα διαχείρισης ενέργειας",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 523",
+     "name": "Καινοτομία, αξιολόγηση τεχνολογιών και διανοητική ιδιοκτησία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 513",
+     "name": "Παράλληλος επιστημονικός υπολογισμός",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 512",
+     "name": "Πολυπρακτορικά συστήματα",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΥΣ 512",
+     "name": "Ρομποτική",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ 513",
+     "name": "Υπηρεσίες στο υπολογιστικό νέφος και την ομίχλη",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΝΕ 514",
+     "name": "Υψηλές τάσεις",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 512",
+     "name": "Χωρικές στοχαστικές διαδικασίες και εφαρμογές",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "tuc-mre": {
+   "source": "https://courses.tuc.gr/#/studyPrograms/1931?year=2026&lang=el",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΜΟΠ 102",
+     "name": "Γενική ορυκτολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΗΜ 101",
+     "name": "Γενική χημεία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 101",
+     "name": "Γεωλογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 101",
+     "name": "Διαφορικός και ολοκληρωτικός λογισμός Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 105",
+     "name": "Προγραμματισμός για μηχανικούς",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΣ 101",
+     "name": "Φυσική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 103",
+     "name": "Γερμανικά Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΓΛΣ 101",
+     "name": "Προπαρασκευαστικά αγγλικά Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΧΗΜ 102",
+     "name": "Αναλυτική χημεία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 102",
+     "name": "Διαφορικός και ολοκληρωτικός λογισμός ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 201",
+     "name": "Συστηματική ορυκτολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 316",
+     "name": "Σχέδιο για μηχανικούς",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΗΧ 102",
+     "name": "Τεχνική μηχανική-στατική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΣ 102",
+     "name": "Φυσική ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 104",
+     "name": "Γερμανικά ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΚΕΠ 104",
+     "name": "Εισαγωγή στη φιλοσοφία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 202",
+     "name": "Ιστορία πολιτισμού",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 102",
+     "name": "Πολιτική οικονομία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 102",
+     "name": "Προπαρασκευαστικά αγγλικά ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΜΑΘ 201",
+     "name": "Αριθμητική γραμμική άλγεβρα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 202",
+     "name": "Πετρολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 203",
+     "name": "Συνήθεις διαφορικές εξισώσεις",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΗΧ 201",
+     "name": "Τεχνική μηχανική-αντοχή υλικών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΗΜ 201",
+     "name": "Φυσικοχημεία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 203",
+     "name": "Γερμανικά ΙΙΙ",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΓΛΣ 201",
+     "name": "Εισαγωγή στους ακαδημαϊκούς πολυγραμματισμούς και τις ερευνητικές μεθόδους αγγλικά ΙΙΙ",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΜΠΔ 102",
+     "name": "Μεθοδολογία επιχειρησιακής έρευνας",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 201",
+     "name": "Μικρο-μακρο οικονομική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 202",
+     "name": "Αριθμητικές μέθοδοι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 702",
+     "name": "Ασκήσεις πεδίου 4ου εξαμήνου",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 204",
+     "name": "Εφαρμοσμένη γεωφυσική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 121",
+     "name": "Ηλεκτρικά κυκλώματα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 310",
+     "name": "Στατιστική και πιθανότητες για μηχανικούς",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΗΧ 306",
+     "name": "Τεχνική θερμοδυναμική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 202",
+     "name": "Αγγλικά για διαπολιτισμική επικοινωνία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΓΛΣ 204",
+     "name": "Γερμανικά IV",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 308",
+     "name": "Εφαρμοσμένη ρευστομηχανική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 301",
+     "name": "Μεταλλευτική έρευνα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 531",
+     "name": "Μηχανική προπαρασκευή ορυκτών πρώτων υλών",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 203",
+     "name": "Σεισμικές μέθοδοι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΗΧ 303",
+     "name": "Στοιχεία μηχανολογίας",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 312",
+     "name": "Υδρογεωλογία και υδροτεχνικά έργα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 706",
+     "name": "Ασκήσεις πεδίου 6ου εξαμήνου",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 530",
+     "name": "Γεωγραφικά συστήματα πληροφοριών και στρατηγικές καινοτομίας",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 304",
+     "name": "Γεωχημεία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 302",
+     "name": "Εμπλουτισμός πρωτογενών και δευτερογενών πρώτων υλών",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 306",
+     "name": "Κοιτασματολογία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 303",
+     "name": "Τεχνική γεωλογία-εδαφομηχανική",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 204",
+     "name": "Στοιχεία δικαίου και τεχνικής νομοθεσίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 314",
+     "name": "Τεχνική φυσικών διεργασιών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 417",
+     "name": "Βιομηχανικά ορυκτά και πετρώματα",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 411",
+     "name": "Επιστήμη των υλικών",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 402",
+     "name": "Μηχανική πετρωμάτων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 407",
+     "name": "Μηχανική ταμιευτήρων υδρογονανθράκων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 413",
+     "name": "Σχεδιασμός εκμεταλλεύσεων και οικονομική ανάλυση",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 405",
+     "name": "Τεχνική γεωδαισία και συστήματα μη επανδρωμένων οχημάτων",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 511",
+     "name": "Εφαρμοσμένη γεωστατιστική",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κύκλος Α Εκμετάλλευσης και Γεωτεχνικών Έργων",
+      "Κύκλος Γ Αξιοποίησης Ενεργειακών Πόρων"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 415",
+     "name": "Ορυκτά καύσιμα",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κύκλος Γ Αξιοποίησης Ενεργειακών Πόρων"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 708",
+     "name": "Ασκήσεις πεδίου 8ου εξαμήνου",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 403",
+     "name": "Διάτρηση,ανατίναξη & εισαγωγή στα υπόγεια έργα",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 410",
+     "name": "Εκτίμηση περιβαλλοντικών επιπτώσεων στη μεταλλευτική-μεταλλουργική βιομηχανία",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 404",
+     "name": "Υγιεινή & ασφάλεια σε μεταλλευτικά &υπ.έργα",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 418",
+     "name": "Αντιστηρίξεις-σήραγγες",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κύκλος Α Εκμετάλλευσης και Γεωτεχνικών Έργων"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 318",
+     "name": "Γεωλογία και κοιτασματολογία ελλάδος",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κύκλος Β Επεξεργασίας Βιομηχανικών Ορυκτών και Μεταλλευμάτων"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 414",
+     "name": "Εκμετάλλευση ταμιευτήρων υδρογονανθράκων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κύκλος Γ Αξιοποίησης Ενεργειακών Πόρων"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 412",
+     "name": "Εξευγενισμός γαιανθράκων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κύκλος Γ Αξιοποίησης Ενεργειακών Πόρων"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 406",
+     "name": "Σχεδιασμός υπαίθριων εκμεταλλεύσεων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κύκλος Α Εκμετάλλευσης και Γεωτεχνικών Έργων",
+      "Κύκλος Β Επεξεργασίας Βιομηχανικών Ορυκτών και Μεταλλευμάτων"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 424",
+     "name": "Έλεγχος ποιότητας & αξιοπιστία εξοπλισμού",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 800",
+     "name": "Γεωτεχνική έρευνα και δοκιμές πεδίου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κύκλος Α Εκμετάλλευσης και Γεωτεχνικών Έργων"
+     ]
+    },
+    {
+     "code": "ΜΠΔ 433",
+     "name": "Καινοτομία, αξιολόγηση τεχνολογιών και διανοητική ιδιοκτησία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 426",
+     "name": "Οργανική γεωχημεία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κύκλος Γ Αξιοποίησης Ενεργειακών Πόρων"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 416",
+     "name": "Τηλεπισκόπηση και εφαρμογές τεχνητής νοημοσύνης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 401",
+     "name": "Μεταλλουργικές διεργασίες",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 709",
+     "name": "Πρακτική άσκηση Ι",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 503",
+     "name": "Γεωθερμία",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Κύκλος Γ Αξιοποίησης Ενεργειακών Πόρων"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 505",
+     "name": "Μέθοδοι υπόγειων εκμεταλλεύσεων",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Κύκλος Α Εκμετάλλευσης και Γεωτεχνικών Έργων",
+      "Κύκλος Β Επεξεργασίας Βιομηχανικών Ορυκτών και Μεταλλευμάτων"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 517",
+     "name": "Τεχνολογίες αξιοποίησης στερεών καυσίμων",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Κύκλος Γ Αξιοποίησης Ενεργειακών Πόρων"
+     ]
+    },
+    {
+     "code": "ΜΗΧ 321",
+     "name": "Ανάλυση κατασκευών και οπλισμένο σκυρόδεμα",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Κύκλος Α Εκμετάλλευσης και Γεωτεχνικών Έργων"
+     ]
+    },
+    {
+     "code": "ΜΠΔ 222",
+     "name": "Επιχειρηματική καινοτομία και ψηφιακός μετασχηματισμός",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 527",
+     "name": "Περιβαλλοντική γεωχημεία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Κύκλος Β Επεξεργασίας Βιομηχανικών Ορυκτών και Μεταλλευμάτων",
+      "Κύκλος Γ Αξιοποίησης Ενεργειακών Πόρων"
+     ]
+    },
+    {
+     "code": "ΜΟΠ 710",
+     "name": "Πρακτική άσκηση ΙΙ",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 222",
+     "name": "Συστήματα και διεργασίες διοίκησης",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 513",
+     "name": "Τεχνολογία δομικών υλικών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Κύκλος Α Εκμετάλλευσης και Γεωτεχνικών Έργων",
+      "Κύκλος Β Επεξεργασίας Βιομηχανικών Ορυκτών και Μεταλλευμάτων"
+     ]
+    }
+   ]
+  },
+  "tuc-pem": {
+   "source": "https://courses.tuc.gr/#/studyPrograms/1941?year=2026&lang=el",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΜΑΘ 201",
+     "name": "Γραμμική άλγεβρα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 101",
+     "name": "Διαφορικός και ολοκληρωτικός λογισμός Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 101",
+     "name": "Μεθοδολογία προγ/σμού Η/Υ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 102",
+     "name": "Μεθοδολογία της επιχειρησιακής έρευνας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΗΧ 101",
+     "name": "Μηχανολογικό σχέδιο",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΣ 101",
+     "name": "Φυσική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 103",
+     "name": "Γερμανικά Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΕΛΛ-101",
+     "name": "Ελληνική γλώσσα και πολιτισμός",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 101",
+     "name": "Προπαρασκευαστικά αγγλικά Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΜΠΔ 122",
+     "name": "Αλγόριθμοι και δομές δεδομένων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΧΗΜ 103",
+     "name": "Γενική χημεία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 102",
+     "name": "Διαφορικός και ολοκληρωτικός λογισμός ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 121",
+     "name": "Ηλεκτρικά κυκλώματα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΗΧ 102",
+     "name": "Τεχνική μηχανική - στατική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΣ 102",
+     "name": "Φυσική ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 104",
+     "name": "Γερμανικά ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΓΛΣ 102",
+     "name": "Προπαρασκευαστικά αγγλικά ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΜΠΔ 202",
+     "name": "Επιστήμη και τεχνολογία υλικών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 208",
+     "name": "Περιβαλλοντική ανάλυση και σχεδιασμός",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 204",
+     "name": "Πιθανότητες για μηχανικούς",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 203",
+     "name": "Συνήθεις διαφορικές εξισώσεις",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΗΧ 201",
+     "name": "Τεχνική μηχανική - αντοχή υλικών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 203",
+     "name": "Γερμανικά ΙΙΙ",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΓΛΣ 201",
+     "name": "Εισαγωγή στους ακαδημαϊκούς πολυγραμματισμούς και τις ερευνητικές μεθόδους",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΜΠΔ 203",
+     "name": "Ηλεκτρονική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-101",
+     "name": "Κινέζικα I",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΚΕΠ 203",
+     "name": "Φιλοσοφία και ιστορία της επιστήμης",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΑΘ 202",
+     "name": "Αριθμητική ανάλυση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 221",
+     "name": "Γραμμικός προγραμματισμός",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 228",
+     "name": "Στατιστική για μηχανικούς",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 305",
+     "name": "Στοιχεία μηχανών",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΓΛΣ 202",
+     "name": "Αγγλικά για διαπολιτισμική επικοινωνία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΓΛΣ 204",
+     "name": "Γερμανικά ΙV",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΚΕΠ 104",
+     "name": "Εισαγωγή στη φιλοσοφία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 407",
+     "name": "Θεωρία παιγνίων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-102",
+     "name": "Κινέζικα II",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΚΕΠ 102",
+     "name": "Πολιτική οικονομία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 222",
+     "name": "Επιχειρηματική καινοτομία και ψηφιακός μετασχηματισμός",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 224",
+     "name": "Θερμοδυναμική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 303",
+     "name": "Στοχαστικές διαδικασίες",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 426",
+     "name": "Συνδυαστική βελτιστοποίηση",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 301",
+     "name": "Τεχνολογία παραγωγής Ι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 432",
+     "name": "Δυναμική, ταλαντώσεις & έλεγχος κατασκευών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 505",
+     "name": "Εργονομική ανάλυση και σχεδιασμός",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 230",
+     "name": "Ηλεκτρονικό επιχειρείν",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-103",
+     "name": "Κινέζικα III",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΚΕΠ 201",
+     "name": "Μικρο-μακρο οικονομική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΕΠ 301",
+     "name": "Τέχνη και τεχνολογία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 325",
+     "name": "Μη γραμμικός προγραμματισμός",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 223",
+     "name": "Ρευστομηχανική",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 322",
+     "name": "Συστήματα παραγωγής",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 324",
+     "name": "Συστήματα υποστήριξης αποφάσεων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 321",
+     "name": "Τεχνολογία παραγωγής ΙΙ",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 323",
+     "name": "Ανάλυση δεδομένων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 516",
+     "name": "Ανανεώσιμες πηγές ενέργειας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 329",
+     "name": "Βιώσιμη χρηματοικοινομική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 302",
+     "name": "Διοίκηση ανθρώπινου δυναμικού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 306",
+     "name": "Εισαγωγή στη τεχνητή νοημοσύνη",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΤ ΤΧΠ4",
+     "name": "Ιστορία και θεωρία του πολιτισμού IV",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΚΙΝ-104",
+     "name": "Κινέζικα IV",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΚΕΠ 204",
+     "name": "Στοιχεία δικαίου και τεχνική νομοθεσία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 436",
+     "name": "Τεχνική σχεδίαση ηλεκτρομηχανολογικών εγκαταστάσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 405",
+     "name": "Έλεγχος ποιότητας",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 406",
+     "name": "Μάρκετινγκ",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 304",
+     "name": "Μετάδοση θερμότητας",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 401",
+     "name": "Συστήματα ελέγχου Ι",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 402",
+     "name": "Χρηματοοικονομική διοίκηση",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 410",
+     "name": "Επαγγελματική υγιεινή και ασφάλεια εργασίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 504",
+     "name": "Επιστήμη και τεχνολογία περιβάλλοντος",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 523",
+     "name": "Καινοτομία, αξιολόγηση τεχνολογιών και διανοητική ιδιοκτησία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 517",
+     "name": "Οικονομικά της ενέργειας και του περιβάλλοντος",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 435",
+     "name": "Συστήματα διαχείρισης επιχειρησιακών πόρων (ERP/CRM)",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 422",
+     "name": "Ανάλυση επενδυτικών αποφάσεων",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 421",
+     "name": "Δίκτυα παραγωγής (CAM)",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 424",
+     "name": "Εργονομία και διαχείριση ασφάλειας",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 423",
+     "name": "Μελέτη-σχεδίαση με χρήση Η/Υ (CAD)",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 326",
+     "name": "Υδροδυναμικές & θερμικές μηχανές",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΟΠ 530",
+     "name": "Γεωγραφικά συστήματα πληροφοριών και στρατηγικές καινοτομίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 408",
+     "name": "Διοίκηση ολικής ποιότητας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 518",
+     "name": "Επιχειρηματική ευφυΐα, αναλυτική και ανάλυση μεγάλων δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 434",
+     "name": "Κατασκευαστικές τεχνολογίες σε μικροκλίμακά",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 438",
+     "name": "Μελέτες περιβαλλοντικών επιπτώσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 431",
+     "name": "Μηχατρονική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 506",
+     "name": "Στρατηγική διοίκηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 430",
+     "name": "Συστήματα ελέγχου ΙΙ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 515",
+     "name": "Υπολογιστική μηχανική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 409",
+     "name": "Οργάνωση παραγωγής & προγραμματισμός έργων",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 502",
+     "name": "Ρομποτική",
+     "semester": 9,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΕΜ-104",
+     "name": "Ερευνητική μεθοδολογία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 527",
+     "name": "Ευφυή βιομηχανικά συστήματα",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 521",
+     "name": "Προσθετική κατασκευή",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 501",
+     "name": "Προσομοίωση",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 514",
+     "name": "Σχεδ/μος & βελτιστοποίηση της εφοδιαστικής αλυσίδας",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 520",
+     "name": "Σύνθετα & ευφυή υλικά και κατασκευές",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 510",
+     "name": "Τεχνολογική οικονομική-τεχνοοικονομικές μελέτες",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 507",
+     "name": "Τεχνολογική πρόβλεψη",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΕΜ-101",
+     "name": "Τρισδιάστατη σάρωση αντικειμένων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 522",
+     "name": "Υπολογιστική δυναμική μηχανολογικών συστημάτων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΜΠΔ 427",
+     "name": "Χρηματοοικονομική μηχανική",
+     "semester": 9,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  }
+ }
+}

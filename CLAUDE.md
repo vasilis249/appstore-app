@@ -1103,6 +1103,12 @@ User decisions:
   guides, primedu (table of contents of the 2026 course outlines + §14.1 semesters), polsci (2026-27 offered list), med
   (2026-27 programme + rotations). Missing: physics (site refuses this container). `20261114100000_course_catalog_uoc.sql`.
   Tests courses 28 (c1: 13 universities, > 18,500). Live: 18,582 courses over 13 universities. No client change.
+- **Course catalogs M3b-Πολυτεχνείο Κρήτης ✔ (2026-10-23)** — `tuc.json` 5/5 departments, 443 courses, all from the Universis
+  catalogue (`src/tuc_api.py`; API `universis-api.tuc.gr/services/course-catalogue/v1p1/`): each 2026-27 programme, year
+  2025 (both semesters) + 2026 (winter so far). Kinds as ΑΠΘ; type ΞΕΝΗ ΓΛΩΣΣΑ = elective «Ξένη γλώσσα»; tracks: mre
+  Κύκλοι Α/Β/Γ, chenveng Χημικού / Περιβάλλοντος. `20261115100000_course_catalog_tuc.sql`. Tests courses 28 (c1: 14
+  universities, > 19,000). Live: 19,025 courses over 14 universities. No client change. Check every next university
+  for a Universis catalogue first (`<host>/assets/config/app.production.json` → `remote.server`).
 - **Engagement E1 ✔ (user request 2026-10-22: push + «βοήθησες N» + «Το δίνω» + points, "do them all without asking")** —
   migration `20261111100000_engagement.sql`: `course_file_downloads` / `course_file_thanks` (PK file+user, counters
   `course_files.downloads_count / thanks_count` by trigger; own thanks readable), `record_course_download(file)` (once per
