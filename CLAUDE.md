@@ -1167,6 +1167,13 @@ User decisions:
   every department site (www.uop.gr/sholes-kai-tmimata) has the same Drupal «/courses» view — «Εξάμηνο X» blocks, one
   table per category or track (caption) or a «Κατηγορία» column; one generic reader. Missing: ece (site unreachable).
   `20261117100400_course_catalog_uop.sql` applied live. Tests courses 28 (c1: 21, > 28,500).
+- **Course catalogs M3c-Αιγαίου ✔ (2026-10-23)** — `aegean.json` 17/18 departments, 1,543 courses (`src/aegean_catalog.py`;
+  Universis uni-extapi.aegean.gr needs a login): site tables (icsd, syros, primedu, marine, ba, med, geo = the 2020-21
+  indicative table, groups «Ομάδα N»), text blocks (soc, anthro = 2 programmes as groups), course list + kind from a
+  PDF (ship: WP posts + guide «1.» / «-»; ct: codes → Υ/ΥΕ; fme: /el/courses + programme PDF sections), guides 2025-27
+  (env, preedu, math, stat, food = Google Drive PDF). Missing: tourism (programme page shows only the 1st semester,
+  guides 404). `html_tables.tables(path, keep=1)` can return more lines above a table. `20261117100500_…aegean.sql`
+  live → 30,254 courses over 22 universities. Tests courses 28 (c1: 22, > 30,000).
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
