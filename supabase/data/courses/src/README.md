@@ -18,3 +18,6 @@ departments with a readable official guide keep their own script (`auth_<dept>.p
 are read with `up_tables.rows()` (pdfplumber `find_tables()` + the heading text above each table); `up_generic.py
 [dept…]` parses the 13 departments whose tables share one layout (settings in its `DEPTS`); the rest keep their own
 `up_<dept>.py`. `up_missing.py` records ece, ecedu and sustagri (sites refuse this container) and env / culture.
+Κρήτη: guides.uoc.gr links every department's own programme; `html_tables.tables()` reads HTML course tables (csd,
+math), `pdftext.pages()` gives page texts to the guide parsers, `up_tables.rows()` the ruled PDF tables. physics.uoc.gr
+refuses this container (`uoc_missing.py`).

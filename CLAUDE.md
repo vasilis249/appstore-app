@@ -1095,6 +1095,14 @@ User decisions:
   (docx), ba, edu, med (113 course pages, 12 semesters). Missing: ece, ecedu, sustagri (refuse this container), env,
   culture (not in the 2026 department list). `20261113100000_course_catalog_upatras.sql`. Tests courses 28 (c1: 12
   universities, > 16,500). Live: 16,759 courses over 12 universities. No client change.
+- **Course catalogs M3b-Κρήτη ✔ (2026-10-23)** — `uoc.json` 15/16 departments, 1,823 courses (guides.uoc.gr → each
+  department's newest programme). New helpers `src/html_tables.py` (HTML tables + the text above each) and
+  `pdftext.pages()`. Sources: csd + math (HTML tables; math = two track pages → core / track_core / electives), psych
+  (offered winter 2026-27 + spring 2024-25 lists), soc / hist-arch / preedu / philosophy (new «Φιλοσοφία και Διακυβέρνηση
+  της Τεχνολογίας» programme) / econ (unruled tables read by word position) / phil (4 tracks) / chem / bio / materials
+  guides, primedu (table of contents of the 2026 course outlines + §14.1 semesters), polsci (2026-27 offered list), med
+  (2026-27 programme + rotations). Missing: physics (site refuses this container). `20261114100000_course_catalog_uoc.sql`.
+  Tests courses 28 (c1: 13 universities, > 18,500). Live: 18,582 courses over 13 universities. No client change.
 - **Engagement E1 ✔ (user request 2026-10-22: push + «βοήθησες N» + «Το δίνω» + points, "do them all without asking")** —
   migration `20261111100000_engagement.sql`: `course_file_downloads` / `course_file_thanks` (PK file+user, counters
   `course_files.downloads_count / thanks_count` by trigger; own thanks readable), `record_course_download(file)` (once per
