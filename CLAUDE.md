@@ -1129,6 +1129,16 @@ User decisions:
   2023). 24 departments missing: duth.gr + their sites refuse this container (re-run from a normal network).
   `20261116100300_course_catalog_duth.sql` applied live → 21,655 courses over 16 universities. Tests courses 28 (c1: 16,
   > 21,600). No client change.
+- **Course catalogs M3c-ΠΔΜ ✔ (user 2026-10-23: «όλα τα βασικά πανεπιστήμια στην Ελλάδα»)** — `uowm.json` 20/21 departments,
+  1,493 courses (`src/uowm_catalog.py`). New shared parsers: `src/html_programme.py` (`courses()` for semester-laid
+  tables from HTML / PDF (`pdf_tabs`) / docx (`src/docx_html.py`; LibreOffice here has no Writer), `text_courses()` for
+  text PDFs, `finish()` re-casing; self-test `python3 html_programme.py`). Sources: WordPress programme pages (mre,
+  pdse, ba, stat, econ, csd, comm) or the newest guide / programme PDF of each department (ece 2026-27, chemeng
+  2025-26, midwife 2025, agri 2026-27, math 2025-26, preedu 2026-27, acc 2023, ot 2022-23, mech 2022-23, ieeo 2022,
+  mst 2021-22 (+2023 amendment), psych 2021, arts 2021-22). Missing: primedu (eled.uowm.gr 403). `check.py` also checks
+  name length ≤ 300 (the DB CHECK). `20261117100000_course_catalog_uowm.sql` applied live → 23,148 courses over 17
+  universities. Tests courses 28 (c1: 17, > 23,000). Remaining Greek: ΔΙΠΑΕ, Θεσσαλίας, ΕΛΜΕΠΑ, Πελοποννήσου, Αιγαίου,
+  Ιόνιο, ΕΑΠ, ΠΑΜΑΚ (www.uom.gr pages sit behind a JS anti-bot check — not bypassed; its PDFs under /assets/ download).
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση

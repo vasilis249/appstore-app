@@ -30,3 +30,11 @@ gives that department course types only). The uoi.gr hosts answer 403 to curl's 
 course table, ΗΜΜΥ programme PDF 2025-26, ΔΕΤ programme page, Ιστορίας-Εθνολογίας course list 2025-26, ΤΕΦΑΑ year +
 electives pages — its guide PDF is password protected —, Προσχολική indicative programme 2023) and records the rest
 as missing (re-run from a normal network).
+Shared parsers for the M3c universities: `html_programme.courses(tables)` turns semester-laid programme tables (HTML via
+`html_tables.tables()`, PDF via `html_programme.pdf_tabs()`, docx via `docx_html.py` → HTML) into rows — semester /
+track / section from headings, header rows or one-cell rows, columns from the header row, type codes (Υ, Ε, ΥΕ, ΥΚ …),
+"N από τα M" markers scoped to M courses, programme slots («Μάθημα Επιλογής») skipped; `text_courses(lines, code_re)`
+does the same for text-only PDFs ("CODE Title <numbers>", wrapped titles); `finish()` re-cases capitals.
+`python3 html_programme.py` runs its self-test.
+ΠΔΜ: `uowm_catalog.py` (one block per department: WordPress programme pages or the newest guide / programme PDF on
+the department site; eled.uowm.gr answers 403 to everything from this container).

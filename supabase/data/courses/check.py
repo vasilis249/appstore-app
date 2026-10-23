@@ -20,7 +20,7 @@ for path in sorted(glob.glob(os.path.join(os.path.dirname(__file__), "*.json")))
         seen = set()
         for c in v["courses"]:
             key = (c["name"].lower(), c["semester"])
-            if key in seen or c["kind"] not in KINDS or not c["name"].strip() or not (c["semester"] is None or 1 <= c["semester"] <= 12):
+            if key in seen or c["kind"] not in KINDS or not 1 <= len(c["name"].strip()) <= 300 or not (c["semester"] is None or 1 <= c["semester"] <= 12):
                 bad.append(f"{uni}/{d}: bad course {c}")
             seen.add(key)
     n = sum(len(v["courses"]) for v in data["departments"].values())
