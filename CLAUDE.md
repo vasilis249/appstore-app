@@ -1163,6 +1163,10 @@ User decisions:
   2024-25, mst guide via its Google Docs export, music guide 2022-23 — the newer per-semester PDFs use a font that does not
   decode). `20261117100300_course_catalog_hmu.sql` applied live → 27,097 courses over 20 universities. Tests courses 28
   (c1: 20, > 27,000).
+- **Course catalogs M3c-Πελοποννήσου ✔ (2026-10-23)** — `uop.json` 21/22 departments, 1,614 courses (`src/uop_catalog.py`):
+  every department site (www.uop.gr/sholes-kai-tmimata) has the same Drupal «/courses» view — «Εξάμηνο X» blocks, one
+  table per category or track (caption) or a «Κατηγορία» column; one generic reader. Missing: ece (site unreachable).
+  `20261117100400_course_catalog_uop.sql` applied live. Tests courses 28 (c1: 21, > 28,500).
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
