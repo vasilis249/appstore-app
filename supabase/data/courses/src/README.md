@@ -26,3 +26,7 @@ refuses this container (`uoc_missing.py`).
 Ιωάννινα: the university's official «Ιδρυματικός κατάλογος μαθημάτων» 2025-26 (uoi.gr, one xlsx sheet per department)
 → `uoi_catalog.py` for 22 departments; Μηχανικών Επιστήμης Υλικών from its own detailed programme page (the catalogue
 gives that department course types only). The uoi.gr hosts answer 403 to curl's user agent: fetch with a browser one.
+ΔΠΘ: duth.gr and most department sites refuse this container; `duth_catalog.py` reads the six that answered (Πληροφορική
+course table, ΗΜΜΥ programme PDF 2025-26, ΔΕΤ programme page, Ιστορίας-Εθνολογίας course list 2025-26, ΤΕΦΑΑ year +
+electives pages — its guide PDF is password protected —, Προσχολική indicative programme 2023) and records the rest
+as missing (re-run from a normal network).

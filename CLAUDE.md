@@ -1122,6 +1122,13 @@ User decisions:
   Κύκλοι Α/Β/Γ, chenveng Χημικού / Περιβάλλοντος. `20261115100000_course_catalog_tuc.sql`. Tests courses 28 (c1: 14
   universities, > 19,000). Live: 19,025 courses over 14 universities. No client change. Check every next university
   for a Universis catalogue first (`<host>/assets/config/app.production.json` → `remote.server`).
+- **Course catalogs M3b-ΔΠΘ ✔ (2026-10-23)** — `duth.json` 6/30 departments, 636 courses (`src/duth_catalog.py`): csd (course
+  table Υ / ΥΕ / Ε), ece (programme PDF 2025-26: common semesters 1–6, one page per track 7–9 → track_core, wrapped titles),
+  mst (Υ / ΥΚ / Ε / ΕΚ with 2 tracks), hist (course list 2025-26; winter/spring only → no semester; track electives),
+  pe (year pages + electives page; the guide PDF is password protected — not bypassed), ecedu (indicative programme
+  2023). 24 departments missing: duth.gr + their sites refuse this container (re-run from a normal network).
+  `20261116100300_course_catalog_duth.sql` applied live → 21,655 courses over 16 universities. Tests courses 28 (c1: 16,
+  > 21,600). No client change.
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση

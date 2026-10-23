@@ -1,0 +1,5224 @@
+{
+ "university": "duth",
+ "departments": {
+  "duth-acc": {
+   "source": null,
+   "tried": [
+    "https://af.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-agrdev": {
+   "source": null,
+   "tried": [
+    "https://agro.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-arch": {
+   "source": null,
+   "tried": [
+    "https://arch.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-blacksea": {
+   "source": null,
+   "tried": [
+    "https://bscc.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-chem": {
+   "source": null,
+   "tried": [
+    "https://chem.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-civil": {
+   "source": null,
+   "tried": [
+    "https://civil.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-climate": {
+   "source": null,
+   "tried": [
+    "https://nerc.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-csd": {
+   "source": "https://cs.duth.gr/courses.xhtml",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "102ΓΥΥΚ",
+     "name": "Διακριτά Μαθηματικά",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "103ΕΥΥΚ",
+     "name": "Εισαγωγή στον προγραμματισμό με C, C++",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "104ΕΥΥΚ",
+     "name": "Θεωρίες Μάθησης και Μεικτή Μάθηση",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "105ΓΥΥΚ",
+     "name": "Μαθηματικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "107ΓΥΥΚ",
+     "name": "Ψηφιακές και Ήπιες δεξιότητες",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "106ΕΥΥΚ",
+     "name": "Ψηφιακή Σχεδίαση",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "101ΓΥEE",
+     "name": "Αγγλική Τεχνική Ορολογία",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "201ΕΥΥΚ",
+     "name": "Αλγόριθμοι και Δομές Δεδομένων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "202EYYK",
+     "name": "Εισαγωγή στην Java",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "203ΕΥΥΚ",
+     "name": "Εισαγωγή στις Βάσεις Δεδομένων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "204ΓΥΥΚ",
+     "name": "Εκπαιδευτική Ψυχολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "205ΓΥΥΚ",
+     "name": "Μαθηματικά ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "206ΕΥΥΚ",
+     "name": "Οργάνωση Υπολογιστών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "207ΕΥΥΕ",
+     "name": "Λογική και Λογικός Προγραμματισμός",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "301ΕΥΥΚ",
+     "name": "Αντικειμενοστραφής Προγραμματισμός",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "302ΕΥΥΚ",
+     "name": "Επιστημονικός Υπολογισμός",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "303ΕΥΥΚ",
+     "name": "Εφαρμοσμένα Μαθηματικά",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "304EYYK",
+     "name": "Λειτουργικά Συστήματα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "307ΕΥΥΚ",
+     "name": "Προηγμένες Εφαρμογές Ψηφιακής Σχεδίασης",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "305ΓΥΥE",
+     "name": "Μεθοδολογία Εκπαιδευτικής Έρευνας",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "306ΕΥΥE",
+     "name": "Μεταγλωττιστές",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "401ΓΥΥΚ",
+     "name": "Αναλογικά Ηλεκτρονικά",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "402ΕΥΥΚ",
+     "name": "Προγραμματισμός Διεπαφής Χρήστη",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "403ΕΥΥΚ",
+     "name": "Προηγμένα Θέματα Προγραμματισμού",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "404ΓΥΥΚ",
+     "name": "Στατιστική και Πιθανότητες",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "406ΕΥΥΚ",
+     "name": "ΤΠΕ στην Εκπαίδευση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "405ΕΥΥΚ",
+     "name": "Τεχνητή Νοημοσύνη",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "501ΕΥΥΚ",
+     "name": "Αναγνώριση Προτύπων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "502ΕΥΥΚ",
+     "name": "Δίκτυα Υπολογιστών",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "504ΕYΥK",
+     "name": "Διδακτική και Εφαρμογές στην Πληροφορική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "503ΕΥΥΚ",
+     "name": "Εισαγωγή στην Υπολογιστική Νοημοσύνη",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "507ΕΥΥΚ",
+     "name": "Σήματα και Συστήματα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "506ΕΥΥΚ",
+     "name": "Τεχνολογία Λογισμικού I",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "601ΕΔΥΕ",
+     "name": "Αλγόριθμοι Βελτιστοποίησης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "602ΕΔΕΕ",
+     "name": "Αλγόριθμοι Βιοπληροφορικής",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "616ΕΔΕΕ",
+     "name": "Αρχιτεκτονική Νεφών και Πλεγμάτων Υπολογιστών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "615ΕΔΥΕ",
+     "name": "Εισαγωγή στη Ρομποτική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "605ΕΔΕΕ",
+     "name": "Εκπαιδευτική Καινοτομία και Ανάπτυξη Εφαρμογών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "606ΕΔΕΕ",
+     "name": "Ενσωματωμένα Συστήματα",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "618ΕΔΥΕ",
+     "name": "Ηλεκτρονική Διακυβέρνηση και Ψηφιακές Υπηρεσίες",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "607ΕΔΥΕ",
+     "name": "Κρυπτογραφία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "617ΕΔΕΕ",
+     "name": "Πρακτική άσκηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "609ΕΔΥΕ",
+     "name": "Πρωτόκολλα και Αρχιτεκτονικές Διαδικτύου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "611ΕΔΥΕ",
+     "name": "Τεχνολογία Λογισμικού II",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "612ΕΔΥΕ",
+     "name": "Ψηφιακή Επεξεργασία Εικόνας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "613ΕΔΕΕ",
+     "name": "Ψηφιακή Επεξεργασία Σήματος",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "715ΕΔΥΚ",
+     "name": "Πτυχιακή Εργασία",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "702ΕΔΥΕ",
+     "name": "Ασφάλεια Πληροφοριών και Ιδιωτικότητα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "701ΕΔΥΕ",
+     "name": "Ασύρματα Δίκτυα και Κινητές Επικοινωνίες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "703ΕΔΥΕ",
+     "name": "Αυτόνομα Κινούμενα Ρομπότ και Εφαρμογές",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "716ΕΔΥΕ",
+     "name": "Γραφικά Υπολογιστών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "719ΕΔΕΕ",
+     "name": "Δίκαιο και ηθική της πληροφορικής",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "704ΕΔΕΕ",
+     "name": "Ειδικά Θέματα Βάσεων Δεδομένων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "705ΕΔΥΕ",
+     "name": "Εισαγωγή στην Τεχνητή Όραση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "717ΕΔΕΕ",
+     "name": "Κατανεμημένα Συστήματα και Μεγάλα Δεδομένα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "720ΕΔΕΕ",
+     "name": "Κβαντική Υπολογιστική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "707ΕΔΥΕ",
+     "name": "Παράλληλος και Κατανεμημένος Υπολογισμός",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "708ΕΔΕΕ",
+     "name": "Προγραμματισμός του Παγκόσμιου Ιστού",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "718ΕΔΥΕ",
+     "name": "Υπολογιστικά Οικονομικά",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "805ΕΔΥΚ",
+     "name": "Πρακτική Άσκηση για την Απόκτηση Διδακτικής Επάρκειας",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "815ΕΔYΕ",
+     "name": "Αλυσίδες μπλοκ και ψηφιακά νομίσματα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "801ΕΔΥE",
+     "name": "Ανάπτυξη Προηγμένων Εφαρμογών Κινητών Συσκευών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "816ΕΔΕΕ",
+     "name": "Αρχιτεκτονική Υπολογιστών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "814ΕΔΥΕ",
+     "name": "Γεωπληροφορική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "813ΕΔΥΕ",
+     "name": "Εξόρυξη Δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "802ΕΔΕΕ",
+     "name": "Κυβερνοασφάλεια",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "804ΕΔΕΕ",
+     "name": "Πρακτική άσκηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "812ΕΔΕΕ",
+     "name": "Προγραμματισμός του Παγκόσμιου Ιστού II",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "807ΕΔΥΕ",
+     "name": "Συστήματα VLSI",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "808ΕΔΥΕ",
+     "name": "Σχεδίαση Εκπαιδευτικού Ψηφιακού Υλικού",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "809ΕΔΕΕ",
+     "name": "Σχεδιαστικά Πρότυπα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "810ΕΔΥΕ",
+     "name": "Τεχνολογίες του Διαδικτύου των Πραγμάτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "811ΕΔΥΕ",
+     "name": "Υπολογισμός Υψηλής Επίδοσης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "duth-ece": {
+   "source": "https://www.ee.duth.gr/wp-content/uploads/Πρόγραμμα-Σπουδών-ακαδημαϊκού-έτους-2025-2026_v1.pdf",
+   "retrieved": "2026-10-23",
+   "note": "programme 2025-26",
+   "courses": [
+    {
+     "code": null,
+     "name": "Δομημένος Προγραμματισμός",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρικές Μετρήσεις",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογισμός μιας Μεταβλητής - Γραμμική Άλγεβρα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνικό Σχέδιο",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φυσική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία της Επιστήμης του Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τεχνική Νομοθεσία και Μελέτες",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φιλοσοφία της Επιστήμης",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αντικειμενοστρεφής Προγραμματισμός",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαφορικές Εξισώσεις και Μετασχηματισμοί",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιστήμη Υλικών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρικά Κυκλώματα Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογισμός Πολλών Μεταβλητών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμοσμένη Θερμοδυναμική",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα ΙI",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τεχνική Μηχανική",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλγόριθμοι και Δομές Δεδομένων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμοσμένη Αριθμητική Ανάλυση",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρικά Κυκλώματα ΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρομαγνητικά Πεδία Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός Ηλεκτρονικών Κυκλωμάτων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρησιακή Έρευνα",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικό Λογισμικό",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μετάδοση Θερμότητας",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρομαγνητικά Πεδία ΙΙ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Πιθανοτήτων και Στατιστική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροηλεκτρονική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σήματα και Συστήματα",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός Ψηφιακών Συστημάτων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αισθητήρες",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλληλεπίδραση Ανθρώπου Υπολογιστή",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιστημονικοί Υπολογισμοί",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τυποποίηση – Πρότυπα – Διαχείριση Ολικής Ποιότητας",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αναλογικά Ηλεκτρονικά Κυκλώματα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Τηλεπικοινωνιακών Ζεύξεων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βασικές Αρχές Ηλεκτρικών Μηχανών",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δομή και Λειτουργία Συστημάτων Ηλεκτρικής Ενέργειας",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οργάνωση Συστημάτων Υπολογιστών",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαστημικός Καιρός",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Συστημάτων Αναμονής",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οργάνωση και Διοίκηση Επιχειρήσεων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στοχαστικές Διεργασίες",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Τηλεπικοινωνιακών Συστημάτων",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βασικές Αρχές Ηλεκτρονικών Ισχύος",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκτυα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρικά Δίκτυα Καταναλωτών",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Αυτομάτου Ελέγχου",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Γραφικά με Υπολογιστές",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εμβιοηλεκτρομαγνητισμός",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οπτοηλεκτρονική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Προηγμένοι Επιστημονικοί Υπολογισμοί",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογία Ήχου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογία Λογισμικού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φυσική πλάσματος",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Ηλεκτρονικών Μετατροπέων Ισχύος",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αυτοματισμοί Ενεργειακών Συστημάτων Ι",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δίκτυα Υπολογιστών",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρικές Μηχανές Ι",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κεραίες Ι: Ανάλυση",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μεταφορά και Διάδοση Ραδιοκυμάτων",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μικροεπεξεργαστές και Εφαρμογές",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μικροηλεκτρονική Τεχνολογία και Διατάξεις",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μικροκύματα",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ολοκληρωμένα Κυκλώματα",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πυρηνική Τεχνολογία",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Ηλεκτρικών Μηχανών για Κίνηση και Ηλεκτροπαραγωγή Ι",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονος Αυτόματος Έλεγχος",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακά Τηλεπικοινωνιακά Συστήματα",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Όραση Υπολογιστών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βάσεις Δεδομένων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λειτουργικά Συστήματα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πυρηνικές Ακτινοβολίες: Εφαρμογές και Ακτινοπροστασία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στοιχεία Ηλεκτρομηχανολογικών Διατάξεων Κίνησης και Μεταφοράς",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός Εγκαταστάσεων με τη χρήση Υπολογιστών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τηλεπισκόπιση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δίκτυα Επικοινωνιών",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ενεργειακή Οικονομία",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρικές Μηχανές ΙΙ",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονικές Μετρήσεις",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κεραίες ΙΙ: Σύνθεση, Σχεδιασμός",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μεταφορά και Διανομή Ηλεκτρικής Ενέργειας",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συστήματα VLSI",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Ηλεκτρικών Μηχανών για Κίνηση και Ηλεκτροπαραγωγή ΙI",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός Μικροκυματικών Κυκλωμάτων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός Τηλεπικοινωνιακών Ζεύξεων",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστική Νοημοσύνη",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Υψηλές Τάσεις Ι",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακή Επεξεργασία Σήματος",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αλγόριθμοι και Πολυπλοκότητα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάκτηση Πληροφοριών και Εξόρυξη Δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Ηλεκτρονικών Μετατροπέων Ισχύος",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση και Σύνθεση Πολύπλοκων Ηλεκτρονικών Συστημάτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αρχιτεκτονική Υπολογιστών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Αγγλικής Ορολογίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού",
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Πλάσματος και Πυρηνικής Τεχνολογίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Κεφάλαια Ηλεκτρομαγνητισμού",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Επίλυση Προβλημάτων Ηλεκτρομαγνητισμού με Αριθμητικές Μεθόδους",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κρυπτογραφία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λογισμός Μεταβολών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού",
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μετρήσεις Υψηλών Συχνοτήτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Νανοηλεκτρονικές Διατάξεις και Κυκλώματα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού",
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός Τηλεπικοινωνιακών Κυκλωμάτων Υψηλών Συχνοτήτων (RF)",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογία Παράλληλης Επεξεργασίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τυποποίηση – Πρότυπα – Διαχείριση στην Ασφάλεια της Εργασίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φωτοβολταϊκά Στοιχεία και Εφαρμογές",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακή Επεξεργασία Εικόνας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Σφαλμάτων και Μεταβατικών Καταστάσεων στα Συστήματα Ηλεκτρικής Ενέργειας",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανανεώσιμες Πηγές Ενέργειας",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δορυφορικές Επικοινωνίες",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κβαντικοί Υπολογιστές",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κινητές Επικοινωνίες",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κωδικοποίηση και Διόρθωση Σφαλμάτων",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οπτικές Τηλεπικοινωνίες",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Προστασία Συστημάτων Ηλεκτρικής Ενέργειας",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ρομποτική",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός Ενσωματωμένων Συστημάτων",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Υψηλές Τάσεις ΙΙ",
+     "semester": 9,
+     "kind": "track_core",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Έλεγχος και Ευστάθεια Συστημάτων Ηλεκτρικής Ενέργειας",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανίχνευση και Εκτίμηση Σημάτων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αναγνώριση Προτύπων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ασφάλεια Συστημάτων Υπολογιστών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βιοϊατρική Τεχνολογία",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού",
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Αγγλικής Ορολογίας",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού",
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Συστημάτων Αυτομάτου Ελέγχου",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Κεφάλαια Μικροηλεκτρονικής",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικές Εφαρμογές Ηλεκτρονικών Ισχύος",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εναλλακτικά Συστήματα Μετατροπής Ενέργειας",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρομαγνητική Συμβατότητα",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μοντελοποίηση / Έλεγχος Μεμονωμένων και Υβριδικών Συστημάτων Ηλεκτροπαραγωγής",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οργάνωση και Διοίκηση Έργων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού",
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Παράλληλοι Αλγόριθμοι και Υπολογιστική Πολυπλοκότητα",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού",
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών",
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Μεγάλης Κλίμακας",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Ραντάρ",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Τηλεπικοινωνιακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός Ηλεκτρικών Μηχανών",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σύνθεση υψηλού επιπέδου για τη σχεδίαση ψηφιακών ολοκληρωμένων κυκλωμάτων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τεχνικές Διασύνδεσης Ψηφιακών Συστημάτων",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ηλεκτρονικού Ηλεκτρολόγου Μηχανικού και Μηχανικού Υπολογιστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογία Θερμοπυρηνικού Πλάσματος",
+     "semester": 9,
+     "kind": "elective",
+     "groups": [
+      "Ενεργειακού Ηλεκτρολόγου Μηχανικού"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εκπόνηση Διπλωματικής Εργασίας",
+     "semester": 10,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 10,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    }
+   ]
+  },
+  "duth-ecedu": {
+   "source": "https://www.psed.duth.gr/endeiktiko-programma-spoydon/endeiktiko-programma-spoydon-gia-eisakteoys-apo-to-akadi-aiko-etos-2023-24/",
+   "retrieved": "2026-10-23",
+   "note": "indicative programme for students admitted from 2023-24",
+   "courses": [
+    {
+     "code": "Ψ 03 Υ",
+     "name": "Αναπτυξιακή Ψυχολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Π 03 Υ",
+     "name": "Εισαγωγή στη Γλωσσολογία: Ανάλυση της Ελληνικής Γλώσσας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Π 05 Υ",
+     "name": "Εισαγωγή στη Νεότερη Ελληνική Λογοτεχνία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Κ 16 Υ",
+     "name": "Εισαγωγή στη Φιλοσοφία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Δ 01 Υ",
+     "name": "Εισαγωγή στις Επιστήµες της Εκπαίδευσης",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Π 09 Y",
+     "name": "Τέχνες στην Εκπαίδευση Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Ξ 03 Υ",
+     "name": "Αγγλικά – Ξένη γλώσσα",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "Θ 03 Υ",
+     "name": "Αρχές της Πληροφορικής με Εφαρμογές στην Εκπαίδευση Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Ψ 04 Υ",
+     "name": "Γλωσσική Ανάπτυξη",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Ψ 02 Υ",
+     "name": "Γνωστική Ψυχολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Π 43 Υ",
+     "name": "Εισαγωγή στην Παιδική Λογοτεχνία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Α03ΠΚ",
+     "name": "Εφαρμογές στο Πεδίο Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Π 56 Y",
+     "name": "Τέχνες στην Εκπαίδευση ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Ξ 01 Υ",
+     "name": "Αγγλικά για Ειδικούς Σκοπούς",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "Κ 43 Υ",
+     "name": "Ανθρωπολογία της Εκπαίδευσης",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Θ 04 Υ",
+     "name": "Αρχές της Πληροφορικής με Εφαρμογές στην Εκπαίδευση ΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Α04ΠΚ",
+     "name": "Εφαρμογές στο Πεδίο ΙI",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Δ 04 Υ",
+     "name": "Καινοτόμες Προσεγγίσεις της Αξιολόγησης στην Προσχολική Εκπαίδευση και Κοινωνικές Διεργασίες",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Μ 01 Υ",
+     "name": "Μεθοδολογία Εκπαιδευτικής Έρευνας I",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Δ 06 Υ",
+     "name": "Σύγχρονη ∆ιδακτική: Βασικές Έννοιες και Προτάσεις Εφαρµογής",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Π 40 Ε",
+     "name": "Ανατρεπτικές Αφηγήσεις της Παιδικής Ηλικίας",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "∆ 24 Ε",
+     "name": "Διγλωσσία και Εκπαίδευση",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 57 Ε",
+     "name": "Διδακτική των Εικαστικών Τεχνών",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 21 Ε",
+     "name": "Δραματικό παιχνίδι – Δραματοποίηση",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 07 Ε",
+     "name": "Νεότερη και Σύγχρονη Ιστορία της Ευρωπαϊκής Κοινωνίας",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ 12 Υ",
+     "name": "Διδακτική της Ελληνικής Γλώσσας",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Π 17 Υ",
+     "name": "Εισαγωγή στη Μουσειοπαιδαγωγική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "∆ 23 Υ",
+     "name": "Οµαδοσυνεργατικές Μορφές Μάθησης στην Προσχολική Εκπαίδευση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Δ 50 Υ",
+     "name": "Οργάνωση, Διαχείριση και Διοίκηση στην Εκπαιδευτική Μονάδα Ι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Ψ 14 Υ",
+     "name": "Ψυχολογία της Υγείας",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Κ 24 Υ",
+     "name": "∆ιαπολιτισµική Εκπαίδευση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Π 53 Ε",
+     "name": "Η Δραματική Τέχνη στην Εκπαίδευση",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 32 Ε",
+     "name": "Κείµενα Φιλοσοφικού – Παιδαγωγικού Προβληµατισµού",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "∆ 47 Ε",
+     "name": "Κοινωνική Παιδαγωγική",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 20 Ε",
+     "name": "Νεοελληνική Ιστορία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Θ 06 Ε",
+     "name": "Πληροφορική στην Εκπαίδευση",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 35 Υ",
+     "name": "Εκπαιδευτική Ψυχολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Θ 10 Υ",
+     "name": "Μαθηµατικά στην Προσχολική και Πρώτη Σχολική Ηλικία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Α05ΠΚ",
+     "name": "Οργάνωση, Διαχείριση και Διοίκηση στην Εκπαιδευτική Μονάδα ΙΙ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Θ 08 Υ",
+     "name": "Περιγραφική Στατιστική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Δ 02 Υ",
+     "name": "Σύγχρονες Τάσεις Παιδαγωγικής",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Ξ 03 Ε",
+     "name": "Αγγλικά για Ειδικούς και Ακαδημαϊκούς Σκοπούς Ι",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "∆ 43 Ε",
+     "name": "Αναδυόμενη Ανάγνωση και Γραφή: Διδακτικές Προσεγγίσεις για την Προσχολική και Πρώτη Σχολική Ηλικία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 58 Ε",
+     "name": "Καλλιτεχνικές Πρακτικές στη Μουσειοπαιδαγωγική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 44 Ε",
+     "name": "Κοινωνιολογικές και Ανθρωπολογικές Προσεγγίσεις της Παιδικής Ηλικίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "∆ 37 Ε",
+     "name": "Παιδαγωγική και Παιχνίδι στην Προσχολική Εκπαίδευση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Θ 07 Ε",
+     "name": "Πολυµέσα, Ρομποτική και Τεχνητή Νοημοσύνη στην Προσχολική Εκπαίδευση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 32 Ε",
+     "name": "Σεξουαλικότητα και Υγεία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 06 Ε",
+     "name": "Σύγχρονη Ελληνική Παιδική Λογοτεχνία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 52 Ε",
+     "name": "Τεχνικές Αφήγησης – Αφηγηματικές Προσεγγίσεις",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Α06ΠΚ",
+     "name": "Εφαρμογές στο Πεδίο ΙΙI",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Ψ 06 Υ",
+     "name": "Κοινωνική Ψυχολογία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "∆ 51 Υ",
+     "name": "Παιδαγωγική της Ένταξης",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Θ 12 Υ",
+     "name": "∆ιδασκαλία και Μάθηση των Φυσικών Επιστηµών στην Προσχολική και Πρώτη Σχολική Ηλικία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Ξ 05 Ε",
+     "name": "Αγγλικά για Ειδικούς και Ακαδημαϊκούς Σκοπούς ΙI",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "Π 46 Ε",
+     "name": "Δημιουργικές Μουσικές Δραστηριότητες για το Νηπιαγωγείο",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 23 Ε",
+     "name": "Εικονογραφηµένα Παιδικά Βιβλία και οι Αναγνώσεις τους",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 38 Ε",
+     "name": "Ζητήµατα Μουσειολογίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 21 Ε",
+     "name": "Η Ιστορικότητα της Παιδικής Ηλικίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "∆ 44 Ε",
+     "name": "Η Κοινωνικοπαιδαγωγική Δυναμική των Σχέσεων και των Πλαισίων στη Μαθησιακή Διαδικασία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Μ 02 Ε",
+     "name": "Μεθοδολογία Εκπαιδευτικής Έρευνας ΙI",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "∆ 42 Ε",
+     "name": "Μελέτη Παιδιού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 28 Ε",
+     "name": "Παιδί και Γεγονότα Ζωής",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 44 Ε",
+     "name": "Ποίηση του 20ού αι.",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 05 Ε",
+     "name": "Σχέσεις Σχολείου-Κοινότητας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "∆ 46 Ε",
+     "name": "Ψυχοκινητική, Κινητικό Παιχνίδι και Βιωματική Μάθηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Θ 02 Υ",
+     "name": "Περιβαλλοντική Εκπαίδευση, Αειφορία και Αειφόρος Ανάπτυξη",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Α07ΠΚ",
+     "name": "Πρακτική Άσκηση",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Κ 13 Ε",
+     "name": "Έμφυλες Ταυτότητες και Εκπαίδευση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Θ 05 Ε",
+     "name": "Έννοιες Φυσικών Επιστηµών για την Προσχολική και Πρώτη Σχολική Ηλικία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "∆ 13 Ε",
+     "name": "Αγωγή Υγείας στην Προσχολική Εκπαίδευση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 40 Ε",
+     "name": "Ανθρωπολογικές Προσεγγίσεις της Ανάγνωσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 37 Ε",
+     "name": "Ειδικά Θέματα Γνωστικής Ψυχολογίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 29 Ε",
+     "name": "Εκπαιδευτική Πολιτική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 37 Ε",
+     "name": "Εφαρµοσµένη Μουσειοπαιδαγωγική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 38 Ε",
+     "name": "Εφαρμογές της Εκπαιδευτικής Ψυχολογίας στην Πράξη: Διαμορφώνοντας Αποτελεσματικά Περιβάλλοντα Μάθησης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 46 Ε",
+     "name": "Η Μουσουλμανική Μειονότητα της Θράκης: Ιστορία και Εκπαίδευση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Θ 19 Ε",
+     "name": "Θέματα διδακτικής μαθηματικών: Εφαρμογές στο πεδίο",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 25 Ε",
+     "name": "Θρησκεία και Εκπαίδευση σε Πολυπολιτισµικές Κοινωνίες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 36 Ε",
+     "name": "Κίνητρα, Αυτορρύθμιση και Μάθηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "∆ 40 Ε",
+     "name": "Καθοδήγηση της Συμπεριφοράς του Παιδιού στο Νηπιαγωγείο",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 23 Ε",
+     "name": "Οι ∆ιοµαδικές Σχέσεις στην Κοινωνική Ψυχολογία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 48 Ε",
+     "name": "Οργάνωση Παιδικών Μουσικών Συνόλων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 19 Ε",
+     "name": "Σύγχρονη Φιλοσοφική Ανθρωπολογία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Θ 21 Ε",
+     "name": "Το πείραμα στη διδασκαλία των φυσικών επιστημών στην προσχολική και πρώτη σχολική ηλικία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Θ 17 Ε",
+     "name": "Υπολογιστικά Περιβάλλοντα ∆ιαχείρισης και Ανάλυσης Ποσοτικών και Ποιοτικών ∆εδοµένων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Α07ΠΚ",
+     "name": "Πρακτική Άσκηση",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Κ 17 Υ",
+     "name": "Φιλοσοφία της Παιδείας",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "Κ 42 Ε",
+     "name": "Ανθρωπολογικές Προσεγγίσεις της Συγγένειας και της Οικογένειας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 34 Ε",
+     "name": "Αξιολόγηση και Στήριξη Παιδιών με Ειδικές Μαθησιακές Ανάγκες",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 33 Ε",
+     "name": "Δημιουργική Γραφή",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 30 Ε",
+     "name": "Εκπαιδευτικές Καινοτομίες και Επιχειρηματικότητα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Θ 20 Ε",
+     "name": "Επίλυση προβλήματος στα μαθηματικά",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 45 Ε",
+     "name": "Επαγγελματική Ανάπτυξη και Καθοδήγηση Εκπαιδευτικών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ 48 Ε",
+     "name": "Ζητήματα Κοινωνικής Παιδαγωγικής και Καινοτόμες Εκπαιδευτικές Παρεμβάσεις",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ 49 Ε",
+     "name": "Η Παιδαγωγική του STEM",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 24 Ε",
+     "name": "Θέµατα ∆ιαπολιτισµικής Κοινωνικής Ψυχολογίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 01 E",
+     "name": "Ιστορία Νεοελληνικής Εκπαίδευσης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 55 Ε",
+     "name": "Μονόγλωσση/Δίγλωσση Πραγματολογική Ικανότητα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 39 Ε",
+     "name": "Μυθιστόρηµα Μαθητείας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Κ 41 Ε",
+     "name": "Οπτικός Γραμματισμός",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Θ 13 Ε",
+     "name": "Περιβαλλοντικά Θέµατα και η ∆ιδασκαλία τους",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ 28 Ε",
+     "name": "Σχεδιασμός – Εφαρμογή – Αξιολόγηση Διαπολιτισμικών Εκπαιδευτικών Προγραμμάτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 40 Ε",
+     "name": "Σχολικός εκφοβισμός και θυματοποίηση: Ερμηνεία και παρεμβάσεις",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "∆ 41 Ε",
+     "name": "Σύγχρονα Προγράµµατα Προσχολικής Εκπαίδευσης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Π 54 Ε",
+     "name": "Το Παιδί και το Λογοτεχνικό Βιβλίο",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 41 Ε",
+     "name": "Ψυχοκοινωνικά ζητήματα στην προσχολική και σχολική ηλικία: Πρόληψη και αντιμετώπιση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Ψ 35 Ε",
+     "name": "Ψυχοπαθολογία του Παιδιού",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "duth-econ": {
+   "source": null,
+   "tried": [
+    "https://econ.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-env": {
+   "source": null,
+   "tried": [
+    "https://env.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-forest": {
+   "source": null,
+   "tried": [
+    "https://fmenr.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-grphil": {
+   "source": null,
+   "tried": [
+    "https://helit.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-hist": {
+   "source": "https://he.duth.gr/el/list_of_courses?field_academic_year_tid_i18n=149",
+   "retrieved": "2026-10-23",
+   "note": "course list 2025-26",
+   "courses": [
+    {
+     "code": "55ΑΥ4",
+     "name": "Εισαγωγή στη Λαογραφία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΓΥ5",
+     "name": "Εισαγωγή στην Αρχαιολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΔΥ3",
+     "name": "Εισαγωγή στην Ιστορία του Ισλαμικού Κόσμου",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΑΥ5",
+     "name": "Εισαγωγή στην Κοινωνική και Πολιτισμική Ανθρωπολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55Υ1601",
+     "name": "Εισαγωγή στην ιστορία της ελληνικής και ρωμαϊκής αρχαιότητας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΑΥ1",
+     "name": "Θεωρία και μεθοδολογία της ιστορίας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΑΥΕ4",
+     "name": "Ιταλικά Α΄",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "55ΒΥ2",
+     "name": "Εισαγωγή στη Βυζαντινή ιστορία και τον πολιτισμό",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΒΥ5",
+     "name": "Εισαγωγή στη Δημογραφία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΓΥ1",
+     "name": "Εισαγωγή στη Μεσαιωνική Ευρωπαϊκή Ιστορία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΔΥ6",
+     "name": "Εισαγωγή στη Σημειωτική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55Υ17",
+     "name": "Εισαγωγή στην Οθωμανική Ιστορία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55Υ1602",
+     "name": "Εισαγωγή στην ιστορία της τέχνης",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΒΥΕ4",
+     "name": "Ιταλικά Β΄",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "55ΕΥ6",
+     "name": "Εισαγωγή στη Νεότερη και Σύγχρονη Ευρωπαϊκή Ιστορία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΖΥΕ1",
+     "name": "Εισαγωγή στην Ανθρωπογεωγραφία- Γεωγραφίες & Κοινωνίες",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΑΥ8",
+     "name": "Εισαγωγή στην Εξέλιξη και τη Φυσική Ανθρωπολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΔΥ1",
+     "name": "Εισαγωγή στην Ιστορία του Νέου, Νεότερου Ελληνισμού",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΔΥ2",
+     "name": "Εισαγωγή στην Ιστορία των Βαλκανικών Λαών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55Υ18",
+     "name": "Ποσοτικές και ποιοτικές μέθοδοι έρευνας στις κοινωνικές επιστήμες",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "55ΓΥΕ4",
+     "name": "Ιταλικά Γ΄",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "55ΔΥΕ4",
+     "name": "Ιταλικά Δ΄",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "55ΥΕΕ4",
+     "name": "Ιταλικά Ε΄",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "55ΥΕΣΤ4",
+     "name": "Ιταλικά ΣΤ΄",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "55ΥΕΖ4",
+     "name": "Ιταλικά Ζ΄",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "55ΥΕΗ4",
+     "name": "Ιταλικά Η΄",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "55ΕΠΕΖ32",
+     "name": "Έλληνες, Βενετοί και Οθωμανοί υπήκοοι(16-18 αιώνας): Όψεις ιδιωτικής και δημόσιας ζωής",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας",
+      "Σεμινάρια"
+     ]
+    },
+    {
+     "code": "55ΥΚΕ1703",
+     "name": "Έντεχνος λαϊκός λόγος",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55YKΕ1802",
+     "name": "Αναπαραστάσεις της δεκαετίας του 1940 στη μεταπολεμική λογοτεχνία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΕ10",
+     "name": "Ανθρωπολογία της Εκπαίδευσης",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΕ14",
+     "name": "Ανθρωπολογία του Τουρισμού",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΕ16",
+     "name": "Ανθρωπολογία των φύλων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΕΠΕΖ43",
+     "name": "Ανθρωπολογική Δημογραφία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας",
+      "Σεμινάρια"
+     ]
+    },
+    {
+     "code": "55ΕΕ2002",
+     "name": "Από το γένος στην κοινωνία των πολιτών: η ταυτότητα των Ελλήνων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΥΕΕ19",
+     "name": "Αρχαιολογία και εκπαίδευση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αρχαιολογική έρευνα στις ελληνικές αποικίες του Εύξεινου Πόντου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αττική κεραμική: εικονογραφία εμπόριο και αλληλεπιδράσεις μεταξύ Αθήνας και Θράκης",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΣΕΜ2410",
+     "name": "Βαλκανικό Ισλάμ. Ιστορική και ανθρωπολογική προσέγγιση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια",
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ1210",
+     "name": "Βιοαρχαιολογία και Ιατροδικαστική ανθρωπολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας",
+      "Σεμινάρια"
+     ]
+    },
+    {
+     "code": "55ΕΠΣΤΗ4",
+     "name": "Βιολογία, Ηθολογία & Εξέλιξη Πρωτευόντων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ6-212",
+     "name": "Βυζαντινή εικαστική παράδοση και νεοελληνική τέχνη",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΣΕΜ2503",
+     "name": "Βυζαντινοί Ιστορικοί και Χρονικογράφοι",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια"
+     ]
+    },
+    {
+     "code": "ΓΛΩ301",
+     "name": "Γενική Γλωσσολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γενική Διδακτική: Μάθηση και διδασκαλία-Διδακτικές ασκήσεις",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "ΕΕΓΛΩ305",
+     "name": "Γραμματισμός και σχεδιασμός γλωσσικού μαθήματος",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΥΕ3",
+     "name": "Δημογραφική ανάλυση. Η Δημογραφία των Χωρών της Νοτιοανατολικής Ευρώπης και του Εύξεινου Πόντου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΥΚΕ1702",
+     "name": "Δημοτικό τραγούδι: Σημειωτικές προσεγγίσεις",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ1610",
+     "name": "Δημόσιος και ιδωτικός βίος στον κλασικό κόσμο",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55Κ24Υ",
+     "name": "Διαπολιτισμική Εκπαίδευση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαπολιτισμική παιδαγωγική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΣΤΗ62",
+     "name": "Διδακτική της Ιστορίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική της λογοτεχνίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ1504",
+     "name": "Εισαγωγή στη Βυζαντινή Γραμματεία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ1703",
+     "name": "Εισαγωγή στη μελέτη κι αξιοποίηση των πηγών της Οθωμανικής ιστορίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ1204",
+     "name": "Εισαγωγή στην Κοινωνική Ψυχολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ1501",
+     "name": "Εισαγωγή στην εικονολογία της βυζαντινής τέχνης",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην κλασική αρχαιολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην παιδαγωγική επιστήμη",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ1707",
+     "name": "Εκπαιδευτική τεχνολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ1505",
+     "name": "Ελληνικά κείμενα της Βυζαντινής και Οθωμανικής εποχής και η διδακτική τους αξιοποίηση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ1209",
+     "name": "Εξέλιξη του ανατομικά σύγχρονου ανθρώπου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΖΥΙ4",
+     "name": "Ευρωπαϊκή Ιστορία, 19ος αιώνας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΗΥ14",
+     "name": "Ευρωπαϊκή Ιστορία, 20ος αιώνας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ1203",
+     "name": "Εφαρμογές κοινωνικής ψυχολογίας στην εκπαίδευση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "ΕΕ2104",
+     "name": "Εφαρμογές ψηφιακών τεχνολογιών στην αρχαιολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΣΕΜ2409",
+     "name": "Ζητήματα Ελληνοβουργαρικών σχέσεων μετά την ίδρυση των εθνικών κρατών.",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια"
+     ]
+    },
+    {
+     "code": "55ΣΕΜ2407",
+     "name": "Ζωγραφική στο Άγιον Όρος",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια"
+     ]
+    },
+    {
+     "code": "55ΥΚΙ1804",
+     "name": "Η Βρετανική Αυτοκρατορία: όψεις και προσεγγίσεις",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΙ1",
+     "name": "Η Ελληνική Αναγέννηση: Ο Πολιτισμός των ελληνικών εδαφών της ρωμαϊκής αυτοκρατορίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΥΕ1",
+     "name": "Η Ιστορία της ανθρώπινης διατροφής μέσω αναλυτικών και εφαρμοσμένων μεθόδων της Βιολογικής Ανθρωπολογίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΕ12",
+     "name": "Η Προϊστορία των Βαλκανίων και της Ανατολίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΥΚΙ2401",
+     "name": "Η Σπάρτη από την Αρχαϊκή εποχή μέχρι την Ρωμαϊκή αυτοκρατορία.",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΥΚΙ2201",
+     "name": "Η άνοδος της Ρώμης.Ιστορία της αρχαίας Ρώμης στα χρόνια της Δημοκρατίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΕ11",
+     "name": "Η αρχαιολογία του Μινωϊκού και Μυκηναϊκού πολιτισμού",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΕ13",
+     "name": "Η βιολογία και η δημογραφία των ανθρωπολογικών πληθυσμών",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ1404",
+     "name": "Η βυζαντινή Θράκη",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ1301",
+     "name": "Η διδασκαλία της ιστορίας με τη χρήση των πηγών",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55YKΕ1801",
+     "name": "Η εικόνα του \"Τούρκου\" στη νεοελληνική πεζογραφία (19ος - 20ος αιώνας)",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ1411",
+     "name": "Η οικονομία του Βυζαντίου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ2",
+     "name": "Η παιδεία στον βενετοκρατούμενο ελληνικό χώρο",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ1205",
+     "name": "Θέματα ψυχο-κοινωνικής ανάπτυξης παιδιού και εφήβου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "ΝΕΦ203",
+     "name": "Θεωρία της Λογοτεχνίας (Αναλύσεις κειμένων και διδακτικές εφαρμογές) ΝΕΦ 203",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΥΕ4",
+     "name": "Θρησκευτική και εθιμική Λαογραφία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "ΥΚΙ2102",
+     "name": "Ισλαμική Ιστοριογραφία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "ΑΕΦ101",
+     "name": "Ιστορία της Αρχαίας Ελληνικής Λογοτεχνίας / Θεματογραφία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΠΕΖ48",
+     "name": "Ιστορία της Βυζαντινής παιδείας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ5",
+     "name": "Ιστορία της Βυζαντινής τέχνης",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΙ7",
+     "name": "Ιστορία της Ευρωπαϊκής τέχνης: θέματα θεωρίας & διδακτικής μεθοδολογίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΙ8",
+     "name": "Ιστορία της Νεοελληνικής Τέχνης: θέματα θεωρίας και διδακτικής μεθοδολογίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΥΚΙ2401",
+     "name": "Ιστορία της αρχαίας Ελληνικής θρησκείας.",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΠΕΖ28",
+     "name": "Ιστορία της εκπαίδευσης στο ελληνικό κράτος",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΠΕΖ46",
+     "name": "Ιστορία της ελληνικής διασποράς (19ος-21ός αι.)",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας",
+      "Σεμινάρια"
+     ]
+    },
+    {
+     "code": "55ΥΕΙ5",
+     "name": "Ιστορία του ελληνικού κράτους τον 19ο και 20ό αιώνα",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΣΤΗ4",
+     "name": "Ιστορία των Γυναικών στην Ευρώπη από τον 18ο έως τον 20ο΄αιώνα",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "ΥΚΙ1701",
+     "name": "Ιστορία των οθωμανικών πόλεων του βαλκανικού χώρου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΕ15",
+     "name": "Κατανάλωση, υλικός πολιτισμός και μουσειακή εκπαίδευση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κλασική αρχαιολογία:Ζητήματα νομικής, ηθικής και πολιτικής φύσεως",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κοινωνία ,εκπαίδευση και περιβάλλον.",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ1702",
+     "name": "Κοινωνία και οικονομία της ύστερης Οθωμανικής περιόδου-Αγροτική οικονομία -Εξάρτηση και Χρεοκοπία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ1409",
+     "name": "Κοινωνικές και εθιμικές πρακτικές στον ελληνικό λαϊκό πολιτισμό",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ1302",
+     "name": "Κοινωνική προσέγγιση της γλώσσας και δίγλωσση εκπαίδευση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ1202",
+     "name": "Κοινωνική ψυχολογία των διαπροσωπικών και διομαδικών σχέσεων",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΥΚΕ2004",
+     "name": "Λαογραφία, παραδοσιακό και σύγχρονο ένδυμα",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "ΛΦ121",
+     "name": "Λατινική Θεματογραφία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "ΛΦ123",
+     "name": "Λατινική Φιλολογία- Πεζογραφία Ι",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΥΚΕ1704",
+     "name": "Λόγια και λαϊκή ελληνική πεζογραφία του 19ου αιώνα",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΣΕΜ2406",
+     "name": "Μάθηση και εμπειρία στον σύγχρονο μουσειακό περιβάλλον",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Σεμινάρια"
+     ]
+    },
+    {
+     "code": "55ΖΥΙ3",
+     "name": "Μεσαιωνική Βαλκανική Ιστορία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΥΚΙ2002",
+     "name": "Μεταβυζαντινή ζωγραφική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ2003",
+     "name": "Μουσεία και λαϊκός πολιτισμός: ζητήματα διαχείρισης",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΕ1704",
+     "name": "Μπαρόκ. Ιστορία και τέχνη",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΣΤΗ47",
+     "name": "Νεολιθικός πολιτισμός στη Βόρεια Ελλάδα",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας",
+      "Σεμινάρια"
+     ]
+    },
+    {
+     "code": "55ΣΤΥΙ3",
+     "name": "Νεότερη και Σύγχρονη Βαλκανική Ιστορία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΣΤΥΙ1",
+     "name": "Ο Ελληνιστικός Κόσμος",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΣΤΗ53",
+     "name": "Ο Μωάμεθ και το Ισλάμ",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΙ11",
+     "name": "Ο βυζαντινός πολιτισμός",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας",
+      "Σεμινάρια"
+     ]
+    },
+    {
+     "code": "55ΥΚΙ2202",
+     "name": "Ο κόσμος της ύστερης αρχαιότητας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΠΕΖ54",
+     "name": "Οι Ελληνοβουλγαρικές σχέσεις μετά την ίδρυση του βουλγαρικού κράτους",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "ΥΤ26",
+     "name": "Οσμανική και τουρκική ιστορία ΙΙ (19ος-20ος αι.)",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ1208",
+     "name": "Οστεολογία-ανατομία του μυοσκελετικού συστήματος",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΕΣΤΗ13",
+     "name": "Παλαιοανθρωπολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ1207",
+     "name": "Παλαιογενετική: εφαρμογές στην Ανθρωπολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΣΤΥΕ2",
+     "name": "Πολιτική Ανθρωπολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ2101",
+     "name": "Πρακτική άσκηση σε φορείς εκπαίδευσης, Ιστορίας και πολιτισμού",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΒΥ3",
+     "name": "Προϊστορικές κοινωνίες",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΙ10",
+     "name": "Πρώιμη Νεοελληνική Γραμματεία (από τις αρχές μέχρι το Διαφωτισμό)",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΥΚΙ2403",
+     "name": "Πόλεμος και κοινωνία στη Μέση Ανατολή",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΥΕΕ17",
+     "name": "Σημειωτικές προσεγγίσεις της σύγχρονης ελληνικής λογοτεχνίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΥΚΙ1801",
+     "name": "Σταυροφορίες και σταυροφορικά κράτη",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": "55ΕΣΤΗ57",
+     "name": "Σχολική παιδαγωγική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΕΥΕ2",
+     "name": "Σύγχρονη εθνογραφική θεωρία και πρακτική",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    },
+    {
+     "code": "55ΕΕ2001",
+     "name": "Τελετουργίες και δρώμενα του ετήσιου εορτολογικού κύκλου",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΥΕΙ14",
+     "name": "Το Κράτος των Μαμελούκων της Αιγύπτου και της Συρίας (1250-1517)",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Ιστορίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Το βασίλειο των Οδρυσών: ιστορική και αρχαιολογική επισκόπηση",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "ΕΕ2103",
+     "name": "Το πανεπιστήμιο της Πάδοβας και η Nazione Oltramarina",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Ελεύθερης επιλογής"
+     ]
+    },
+    {
+     "code": "55ΗΥΕ2",
+     "name": "Υλικός πολιτισμός και λαϊκή τέχνη",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Εθνολογίας"
+     ]
+    }
+   ]
+  },
+  "duth-law": {
+   "source": null,
+   "tried": [
+    "https://law.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-mbg": {
+   "source": null,
+   "tried": [
+    "https://mbg.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-med": {
+   "source": null,
+   "tried": [
+    "https://med.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-mst": {
+   "source": "https://www.mst.duth.gr/index.php/programma_spoudon/",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Διοίκηση Επιχειρήσεων",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Πληροφορική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στο Μάρκετινγκ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά I",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Λογιστική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοικητική Λογιστική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Οικονομική Θεωρία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά II",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικές Μέθοδοι στην Οικονομία και Διοίκηση I",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός I",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βάσεις Δεδομένων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λήψη Επιχειρηματικών Αποφάσεων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οργανωσιακή Συμπεριφορά και Ηγεσία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικές Μέθοδοι στην Οικονομία και Διοίκηση II",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός IΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλγόριθμοι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση και Σχεδιασμός Πληροφοριακών Συστημάτων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ανθρωπίνων Πόρων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικός Προγραμματισμός",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Διοίκηση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη και Αρχιτεκτονικές Πληροφοριακών Συστημάτων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Έργων και Προγραμμάτων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Επιχειρήσεων και Τεχνολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Εφοδιαστικής Αλυσίδας",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μέθοδοι Βελτιστοποίησης στη Διοικητική Επιστήμη",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στρατηγική Διοίκηση",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Έρευνα Μάρκετινγκ",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη Διαδικτυακών και Νεφοϋπολογιστικών Εφαρμογών",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη Προσωπικών Ικανοτήτων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αρχιτεκτονική Υπολογιστών – Λειτουργικά συστήματα",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονικό Εμπόριο και Εφαρμογές Διαδικτύου",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Διαχείρισης Επιχειρησιακών Πόρων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη Αξιόπιστου και Ασφαλούς Λογισμικού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Λειτουργιών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εκπόνηση Εργασίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι",
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θέματα Επιχειρησιακής Έρευνας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Προώθηση πωλήσεων και δημόσιες σχέσεις",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συμπεριφορά καταναλωτή",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συστήματα Διαχείρισης Δεδομένων Μεγάλου Όγκου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματικότητα",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Ψηφιακού Περιεχομένου και Επικοινωνίας Ανθρώπου-Υπολογιστή",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ποιότητας",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οργανωσιακή Μάθηση και Διαχείριση Γνώσης",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στρατηγικό Μάρκετινγκ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογία Λογισμικού στην Πράξη",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογίες Επικοινωνιών",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εκπόνηση Εργασίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι",
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματική Ευφυΐα και Ανάλυση Δεδομένων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σχεδιασμός και Ανάπτυξη Προϊόντων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Μηχανική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακό μάρκετινγκ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι",
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση φοιτητών",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάπτυξη Κοινωνικών δικτύων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εκπόνηση Εργασίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι",
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ υπηρεσιών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τεχνολογίες Εξιχνίασης Ψηφιακού Εγκλήματος",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Τεχνολογία και Συστήματα Πληροφοριών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακή Καινοτομία και Επιχειρηματικότητα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Στρατηγική, Επιχειρηματικότητα και Ανθρώπινοι Πόροι"
+     ]
+    }
+   ]
+  },
+  "duth-nurs": {
+   "source": null,
+   "tried": [
+    "https://nurs.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-ot": {
+   "source": null,
+   "tried": [
+    "https://ot.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-pe": {
+   "source": "https://phyed.duth.gr/?page_id=3933",
+   "retrieved": "2026-10-23",
+   "note": "programme from 2025 (year pages + electives page)",
+   "courses": [
+    {
+     "code": "C111",
+     "name": "Ανατομία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C105",
+     "name": "Γυμναστική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C102",
+     "name": "Ελληνικός χορός",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C113",
+     "name": "Ιστορία φυσικής αγωγής και αθλητισμού",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C104",
+     "name": "Προπονητική και διδακτική καλαθοσφαίρισης",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C107",
+     "name": "Προπονητική και διδακτική κλασικού αθλητισμού",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C103",
+     "name": "Προπονητική και διδακτική κολύμβησης",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C101",
+     "name": "Προπονητική και διδακτική πετοσφαίρισης",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C106",
+     "name": "Προπονητική και διδακτική χειροσφαίρισης",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C108",
+     "name": "ΤΠΕ στη φυσική αγωγή",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C112",
+     "name": "Φυσιολογία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C123",
+     "name": "Διδακτική μεθοδολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C121",
+     "name": "Εμβιομηχανική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C122",
+     "name": "Κινητική μάθηση",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C133",
+     "name": "Αθλητικές Κακώσεις και Άμεση Αντιμετώπιση",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C202",
+     "name": "Διδακτική της Τεχνικής των Ασκήσεων με Βάρη",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C132",
+     "name": "Εργοφυσιολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C134",
+     "name": "Παιδαγωγική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C201",
+     "name": "Προπονητική και Διδακτική Ποδοσφαίρου",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C131",
+     "name": "Προσαρμοσμένη Φυσική Αγωγή",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C034",
+     "name": "Personal Training",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C035",
+     "name": "Pilates I",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C001",
+     "name": "Αναρρίχηση",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C002",
+     "name": "Γυναίκα, άσκηση και υγεία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C003",
+     "name": "Διδακτική και προπονητική πετοσφαίρισης παραλίας (Beach Volley)",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C004",
+     "name": "Εισαγωγή στα ομαδικά προγράμματα αεροβικής",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C005",
+     "name": "Επιτυχημένη προπονητική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C006",
+     "name": "Εφαρμοσμένη ηθική στον αθλητισμό",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C007",
+     "name": "Θεραπευτική άσκηση και αποκατάσταση",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C008",
+     "name": "Ιστιοπλοΐα",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C009",
+     "name": "Λειτουργική ανατομική - κινησιολογία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C010",
+     "name": "Ο χορός ως φυσική δραστηριότητα",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C011",
+     "name": "Ολυμπιακή παιδεία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C012",
+     "name": "Ποδηλασία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C016",
+     "name": "Προπονητική και διδακτική άρσης βαρών",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C013",
+     "name": "Προπονητική και διδακτική αθλημάτων επαφής (πάλης)",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C014",
+     "name": "Προπονητική και διδακτική αντιπτέρισης (Badminton)",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C015",
+     "name": "Προπονητική και διδακτική αντισφαίρισης",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C017",
+     "name": "Προπονητική και διδακτική ενόργανης γυμναστικής",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C018",
+     "name": "Προπονητική και διδακτική επιτραπέζιας αντισφαίρισης",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C019",
+     "name": "Προπονητική και διδακτική καλαθοσφαίρισης 3x3",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C020",
+     "name": "Προπονητική και διδακτική ποδοσφαίρου σάλας",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C021",
+     "name": "Προπονητική και διδακτική ρυθμικής γυμναστικής",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C024",
+     "name": "Προπονητική και διδακτική του padel (υαλοσφαίριση)",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C022",
+     "name": "Προπονητική και διδακτική του καράτε",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C023",
+     "name": "Προπονητική και διδακτική του τάε κβο ντο",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C025",
+     "name": "Προπονητική και διδακτική των baseball - softball",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C026",
+     "name": "Προπονητική και διδακτική των raquetball - squash",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C027",
+     "name": "Προπονητική και διδακτική χιονοδρομίας",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C028",
+     "name": "Προσαρμοσμένη προπόνηση ενδυνάμωσης για άτομα με αναπηρία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C029",
+     "name": "Σκοποβολή",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C030",
+     "name": "Σπορ στα ξενοδοχεία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C031",
+     "name": "Φιλοσοφία του αθλητισμού",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C032",
+     "name": "Χοροί και πολιτισμοί του κόσμου",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C033",
+     "name": "Ψυχοκινητική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C143",
+     "name": "Άσκηση σε Κλινικούς Πληθυσμούς",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C142",
+     "name": "Άσκηση στην Αναπτυξιακή Ηλικία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C141",
+     "name": "Προπονητική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C151",
+     "name": "Μεθοδολογία Έρευνας στις Αθλητικές Επιστήμες",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C152",
+     "name": "Φυσική Αγωγή στην Πρωτοβάθμια Εκπαίδευση",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C056",
+     "name": "Αγγλική γλώσσα I (Β2)",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C057",
+     "name": "Αγγλική γλώσσα II (Γ2)",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C041",
+     "name": "Αναψυχή στην τρίτη ηλικία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C042",
+     "name": "Αξιολόγηση της φυσικής κατάστασης στο πεδίο",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C043",
+     "name": "Δυναμομετρήσεις και δυναμογραφήσεις",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C044",
+     "name": "Εισαγωγή στον προγραμματισμό σε Η/Υ",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C045",
+     "name": "Εισαγωγή στους ευρωπαϊκούς και λατινοαμερικάνικους χορούς",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C046",
+     "name": "Εναλλακτικά ομαδικά προγράμματα στο γυμναστήριο Ι",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C047",
+     "name": "Εργασιακός αθλητισμός",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C048",
+     "name": "Εργομετρική και εργοφυσιολογική αξιολόγηση αθλούμενων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C050",
+     "name": "Εφαρμογές ΤΠΕ στη φυσική αγωγή και τον αθλητισμό",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C049",
+     "name": "Εφαρμογές διαδικτύου στη φυσική αγωγή και τον αθλητισμό",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C051",
+     "name": "Θεραπευτική αναψυχή",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C052",
+     "name": "Οργάνωση γυμναστηρίων & υπηρεσιών fitness",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C053",
+     "name": "Παιχνίδια και δραστηριότητες κινητικής αναψυχής",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C054",
+     "name": "Παιχνίδια φυσικού εγγραμματισμού",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C055",
+     "name": "Φυσική δραστηριότητα και προαγωγή υγείας: Εφαρμογές από το χώρο της ψυχολογίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C162",
+     "name": "Φυσική Αγωγή στη Δευτεροβάθμια Εκπαίδευση",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C161",
+     "name": "Ψυχολογία",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C060",
+     "name": "Εργαστήριο επιστημονικής προσέγγισης διπλωματικής εργασίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C173",
+     "name": "Αθλητισμός Αναψυχής και Άσκηση για Όλους",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C172",
+     "name": "Διατροφή και Άσκηση",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C171",
+     "name": "Επιχειρηματικότητα και Μάρκετινγκ στον Αθλητισμό",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C401",
+     "name": "Πρακτική Άσκηση στην Πρωτοβάθμια και Δευτεροβάθμια Εκπαίδευση",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C090",
+     "name": "Pilates II",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C061",
+     "name": "Αγγλική αθλητική ορολογία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C062",
+     "name": "Αθλητική εμβιομηχανική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C063",
+     "name": "Αθλητική φυσιολογία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C064",
+     "name": "Ανάπτυξη προσωπικών και επαγγελματικών δεξιοτήτων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C065",
+     "name": "Βιοχημεία της άσκησης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C066",
+     "name": "Διαπολιτισμικές πρακτικές στο σχολείο και στη φυσική αγωγή",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C067",
+     "name": "Διατροφή και αθλητική απόδοση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C068",
+     "name": "Ειδικά θέματα προπονητικής κλασικού αθλητισμού",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C069",
+     "name": "Εκπαιδευτικός τουρισμός και αναψυχή",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C070",
+     "name": "Εναλλακτικά ομαδικά προγράμματα στο γυμναστήριο ΙΙ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C095",
+     "name": "Εργαστήριο Στατιστικής Ανάλυσης και Παρουσίασης Δεδομένων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C071",
+     "name": "Εφαρμογές πολυμέσων στη φυσική αγωγή και τον αθλητισμό",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C072",
+     "name": "Εφαρμογές τεχνολογίας στην άσκηση και στον αθλητισμό",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C073",
+     "name": "Εφαρμογές τεχνολογίας στην καλαθοσφαίριση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C074",
+     "name": "Εφαρμοσμένη ανάλυση της τεχνικοτακτικής στα ομαδικά και ατομικά αθλήματα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C075",
+     "name": "Εφαρμοσμένη ψυχολογία στη μεγιστοποίηση της απόδοσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C076",
+     "name": "Καρδιαγγειακές παθήσεις και άσκηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C077",
+     "name": "Κινητικός έλεγχος",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C078",
+     "name": "Κοινωνιολογία του αθλητισμού",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C079",
+     "name": "Νέες τεχνολογίες στην πετοσφαίριση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C080",
+     "name": "Οργάνωση δημοτικών αθλητικών υποδομών, ανθρώπινου δυναμικού και υπηρεσιών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C083",
+     "name": "Πετοσφαίριση στην αναπτυξιακή ηλικία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C084",
+     "name": "Προπονητική καλαθοσφαίρισης στις αναπτυξιακές ηλικίες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C081",
+     "name": "Συμβουλευτική στον αθλητικό τραυματισμό",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C086",
+     "name": "Συνταγογράφηση της άσκησης σε κλινικούς πληθυσμούς",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C082",
+     "name": "Σχεδιασμός και καθοδήγηση της προπονητικής διαδικασίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C087",
+     "name": "Σχεδιασμός προπονητικών προγραμμάτων άσκησης με αντιστάσεις",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C085",
+     "name": "Σύγχρονοι Ολυμπιακοί Αγώνες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C088",
+     "name": "Το πρόγραμμα Kids’ Athletics. Προπονητική & αγωνιστική εφαρμογή Κ8-10-12 στον κλασικό αθλητισμό",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C089",
+     "name": "Χρόνιες παθήσεις και άσκηση σε παιδιά και εφήβους",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C182",
+     "name": "Οργάνωση και Διοίκηση Αθλητισμού και Αθλητικού Τουρισμού",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C181",
+     "name": "Φυσική Αγωγή στην Προσχολική Ηλικία",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "C099",
+     "name": "Πτυχιακή Εργασία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "C096",
+     "name": "Συμβουλευτική στην Πρακτική Άσκηση - Εκπαίδευση και Ανάπτυξη Ανθρώπινου Δυναμικού",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "duth-physics": {
+   "source": null,
+   "tried": [
+    "https://physics.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-pme": {
+   "source": null,
+   "tried": [
+    "https://pme.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-polsci": {
+   "source": null,
+   "tried": [
+    "https://polsci.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-primedu": {
+   "source": null,
+   "tried": [
+    "https://eled.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-psych": {
+   "source": null,
+   "tried": [
+    "https://psy.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-socpol": {
+   "source": null,
+   "tried": [
+    "https://sp.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-socwork": {
+   "source": null,
+   "tried": [
+    "https://sw.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  },
+  "duth-wine": {
+   "source": null,
+   "tried": [
+    "https://vine.duth.gr/",
+    "https://duth.gr/Σπουδές/Προπτυχιακές-Σπουδές"
+   ],
+   "note": "site refuses this container (TLS reset / proxy 502–503)",
+   "courses": []
+  }
+ }
+}
