@@ -1180,6 +1180,10 @@ User decisions:
   «πίνακας ανά Κατεύθυνση» (tracks + κατ' επιλογήν), alm = current list + kinds from the 2021-22 programme sections.
   Missing: hist (history.ionio.gr fails TLS verification). `20261117100600_…ionio.sql` live → 31,314 courses over 23
   universities. Tests courses 28 (c1: 23, > 31,000).
+- **Course catalogs M3c-ΕΑΠ ✔ (2026-10-23)** — `eap.json` 9/9 programmes, 211 Θεματικές Ενότητες (`src/eap_catalog.py`): each
+  www.eap.gr programme page lists its modules by year (year-long → semester 2y−1) or by semester; type «(Υ/Ε, ECTS)»
+  where given, else the page's «Θ.Ε. Κορμού / Επιλογής» lists or its selection rules (`CHOICE`).
+  `20261117100700_…eap.sql` live → 31,525 courses over 24 universities. Tests courses 28 (c1: 24, > 31,500).
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση

@@ -1,0 +1,1536 @@
+{
+ "university": "eap",
+ "departments": {
+  "eap-deo": {
+   "source": "https://www.eap.gr/education/undergraduate/business-organizational-management/",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΔΕΟ10",
+     "name": "Βασικές Αρχές Δικαίου και Διοίκησης",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ11",
+     "name": "Εισαγωγή στη Διοικητική Επιχειρήσεων και Οργανισμών",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ13",
+     "name": "Ποσοτικές Μέθοδοι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ23",
+     "name": "Marketing Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ24",
+     "name": "Δημόσια Διοίκηση και Πολιτική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ25",
+     "name": "Λογιστική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ34",
+     "name": "Οικονομική Ανάλυση και Πολιτική",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ31",
+     "name": "Χρηματοοικονομική Διοίκηση",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ33",
+     "name": "Marketing ΙΙ",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ45",
+     "name": "Ηλεκτρονικό Επιχειρείν και νέες Τεχνολογίες για Επιχειρηματικότητα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ42",
+     "name": "Διοίκηση Ολικής Ποιότητας και Διαχείριση Περιβάλλοντος",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ40",
+     "name": "Διοικητική Επιχειρήσεων και Οργανισμών",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ41",
+     "name": "Αγορές χρήματος και Κεφαλαίου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ44",
+     "name": "Θεωρία Επιχειρηματικότητας και Καινοτομίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "eap-did": {
+   "source": "https://www.eap.gr/education/undergraduate/public-administration/",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΔΗΔ12",
+     "name": "Αρχές Οικονομικής Θεωρίας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ11",
+     "name": "Βασικές Αρχές Δημοσίου Δικαίου",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ13",
+     "name": "Ελληνικό Διοικητικό Σύστημα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ23",
+     "name": "Βασικές Αρχές Διοίκησης",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ21",
+     "name": "Εισαγωγή στην Πολιτική Επιστήμη",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ22",
+     "name": "Ποσοτικές Μέθοδοι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ32",
+     "name": "Αρχές Δημόσιας Οικονομικής",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ31",
+     "name": "Διεθνές και Ευρωπαϊκό Δίκαιο",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ33",
+     "name": "Ιστορική Συγκρότηση του Σύγχρονου Ελληνικού Κράτους",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ41",
+     "name": "Διεθνής Πολιτική Οικονομία",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ42",
+     "name": "Ηθική και Δεοντολογία στη Δημόσια Διοίκηση",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ43",
+     "name": "Κράτος και Δημόσιες Πολιτικές",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ53",
+     "name": "Διοίκηση Έργων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ52",
+     "name": "Θεσμοί και Δημόσιες Πολιτικές της Ευρωπαϊκής Ένωσης",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ51",
+     "name": "Περιφερειακή Ανάπτυξη και Περιφερειακές Ανισότητες",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ61",
+     "name": "Θεσμοί και Πολιτικές Προστασίας των Δικαιωμάτων του Ανθρώπου",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ62",
+     "name": "Λογιστική του Δημόσιου Τομέα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ63",
+     "name": "Μεταρρυθμιστικές Τάσεις & Αλλαγή στη Δημόσια Διοίκηση",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ71",
+     "name": "Δημόσια Διοίκηση και Διεθνείς Οργανισμοί",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ73",
+     "name": "Δημόσιες Επενδύσεις και Αναπτυξιακά Προγράμματα",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ72",
+     "name": "Διοικητική Αποκέντρωση και Τοπική Αυτοδιοίκηση: Πολιτική και Οικονομική Διάσταση",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ81",
+     "name": "Δημοσιοϋπαλληλικό Δίκαιο",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ84",
+     "name": "Αντεγκληματική/Σωφρονιστική Πολιτική και Διοίκηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ82",
+     "name": "Δημοσιονομική Διοίκηση και Έλεγχος",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ83",
+     "name": "Διοίκηση της Ποιότητας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ85",
+     "name": "Επιχειρηματικότητα και Ψηφιακός Μετασχηματισμός",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΗΔ86",
+     "name": "Επιχειρηματικότητα και διαχείριση καινοτομίας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "eap-dit": {
+   "source": "https://www.eap.gr/education/undergraduate/tourism-administration/",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΔΙΤ12",
+     "name": "Διοίκηση Ξενοδοχειακών Επιχειρήσεων και Υπηρεσιών",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ11",
+     "name": "Εισαγωγή στον Τουρισμό και την Φιλοξενία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ10",
+     "name": "Ποσοτικές Μέθοδοι στη Διοίκηση Τουρισμού",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ21",
+     "name": "Λογιστική Τουριστικών Επιχειρήσεων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ13",
+     "name": "Οικονομική Τουριστικών Επιχειρήσεων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ22",
+     "name": "Τεχνολογίες Πληροφορικής και Επικοινωνιών σε Επιχειρήσεις Φιλοξενίας",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ31",
+     "name": "Διοίκηση Τουριστικών Φορέων και Οργανισμών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ32",
+     "name": "Κοινωνιολογία Τουρισμού",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ33",
+     "name": "Οικονομική του Τουρισμού",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ23",
+     "name": "Δίκαιο Τουρισμού",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ42",
+     "name": "Μεταφορές στον Τουρισμό",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ43",
+     "name": "Χρηματοοικονομική Τουριστικών Επιχειρήσεων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ52",
+     "name": "Μέθοδοι Έρευνας στον Τουρισμό",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ51",
+     "name": "Τουριστική Γεωγραφία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ53",
+     "name": "Τουριστικό Μάρκετινγκ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ62",
+     "name": "Επικοινωνία και Διαχείριση Κρίσεων στον Τουρισμό",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ63",
+     "name": "Μάνατζμεντ και Διαχείριση Ανθρώπινων Πόρων στις Τουριστικές Επιχειρήσεις",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ61",
+     "name": "Σχεδιασμός και Πολιτική Τουρισμού",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ73",
+     "name": "Ειδικές και Εναλλακτικές Μορφές Τουρισμού",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ72",
+     "name": "Επιχειρηματικότητα και Καινοτομία στον Τουρισμό",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ71",
+     "name": "Τουριστική Ανάπτυξη",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ83",
+     "name": "Διαχείριση Τουριστικών Προορισμών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ41",
+     "name": "Διοίκηση και Οργάνωση Εκδηλώσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ85",
+     "name": "Ευρωπαϊκή Ένωση και Τουριστική Πολιτική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ86",
+     "name": "Ηλεκτρονικό Επιχειρείν στον Τουρισμό",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ82",
+     "name": "Περιβαλλοντική Διαχείριση στον Τουρισμό",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ81",
+     "name": "Πολιτισμός και Τουρισμός: Διαχείριση και Προβολή",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΙΤ84",
+     "name": "Συστήματα Διανομής Τουριστικού Προϊόντος",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "eap-elp": {
+   "source": "https://www.eap.gr/education/undergraduate/studies-in-greek-culture/",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΕΛΠ10",
+     "name": "Εισαγωγή στον Ελληνικό Πολιτισμό",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ11",
+     "name": "Ελληνική Ιστορία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ12",
+     "name": "Τέχνες Ι: Ελληνικές Εικαστικές Τέχνες, Επισκόπηση Ελληνικής Αρχιτεκτονικής και Πολεοδομίας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ21",
+     "name": "Γράμματα Ι: Αρχαία Ελληνική και Βυζαντινή Φιλολογία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ30",
+     "name": "Γράμματα ΙΙ: Νεοελληνική Φιλολογία (19ος και 20ος αιώνας)",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ20",
+     "name": "Δημόσιος και ιδιωτικός Βίος στην Ελλάδα Ι: Από την Αρχαιότητα ως και τα Μεταβυζαντινά χρόνια",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ31",
+     "name": "Αρχαίο Ελληνικό Θέατρο",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ22",
+     "name": "Ελληνική φιλοσοφία και Επιστήμη: Από την Αρχαιότητα ως τον 20ο αιώνα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ20",
+     "name": "Η Ιστορία των Τεχνών στην Ευρώπη",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ21",
+     "name": "Ιστορία της Ευρωπαϊκής Λογοτεχνίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ22",
+     "name": "Φιλοσοφία στην Ευρώπη",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ42",
+     "name": "Αρχαιολογία στον Ελληνικό χώρο",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ41",
+     "name": "Δημόσιος και ιδιωτικός Βίος στην Ελλάδα ΙΙ: Οι νεότεροι χρόνοι",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ43",
+     "name": "Ελληνισμός της Διασποράς",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ45",
+     "name": "Νεοελληνική Φιλολογία, από τις απαρχές ως το 18ο αιώνα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ44",
+     "name": "Νεοελληνικό Θέατρο (1600-1940) Κινηματογράφος",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ40",
+     "name": "Τέχνες ΙΙ: Επισκόπηση Ελληνικής Μουσικής και χορού",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "eap-epo": {
+   "source": "https://www.eap.gr/education/undergraduate/european-studies-history-society-and-civilization/",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΕΠΟ10",
+     "name": "Γενική Ιστορία της Ευρώπης",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ21",
+     "name": "Ιστορία της Ευρωπαϊκής Λογοτεχνίας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ31",
+     "name": "Οι Επιστήμες της Φύσης και του Ανθρώπου στην Ευρώπη",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ12",
+     "name": "Γενική Γεωγραφία, Ανθρωπογεωγραφία και Υλικός Πολιτισμός της Ευρώπης",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ11",
+     "name": "Κοινωνική και Οικονομική Ιστορία της Ευρώπης",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ22",
+     "name": "Φιλοσοφία στην Ευρώπη",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ20",
+     "name": "Η Ιστορία των Τεχνών στην Ευρώπη",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ30",
+     "name": "Βυζαντινός και Δυτικός Κόσμος",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ30",
+     "name": "Γράμματα ΙΙ: Νεοελληνική Φιλολογία (19ος και 20ος αιώνας)",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ33",
+     "name": "Εξέλιξη και Διακυβέρνηση της Ευρωπαϊκής Ένωσης",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ43",
+     "name": "Ευρωπαϊκές Πολιτικές Ιδεολογίες τον Εικοστό Αιώνα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ32",
+     "name": "Η Παιδεία στην Ευρώπη: Από τον Μεσαίωνα στη σύγχρονη εποχή",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ42",
+     "name": "Σύγχρονες Κοινωνιολογικές Προσεγγίσεις των Ευρωπαϊκών Κοινωνιών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΠΟ41",
+     "name": "Κοινωνική Θεωρiα και Νεωτερικότητα",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ22",
+     "name": "Ελληνική φιλοσοφία και Επιστήμη: Από την Αρχαιότητα ως τον 20ο αιώνα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΛΠ12",
+     "name": "Τέχνες Ι: Ελληνικές Εικαστικές Τέχνες, Επισκόπηση Ελληνικής Αρχιτεκτονικής και Πολεοδομίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "eap-fye": {
+   "source": "https://www.eap.gr/education/undergraduate/studies-in-physical-sciences/",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΦΥΕ10",
+     "name": "Γενικά Μαθηματικά Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ12",
+     "name": "Γενική και Aνόργανη Xημεία",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ14",
+     "name": "Εισαγωγή στις Φυσικές Επιστήμες",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ24",
+     "name": "Kλασική Φυσική Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ20",
+     "name": "Γενικά Mαθηματικά IΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΘΕΦΙ",
+     "name": "Εργαστήριο Φυσικής Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΘΕΧΙ",
+     "name": "Εργαστήριο Χημείας Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ22",
+     "name": "Φυσικοχημεία",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΘΕΒΙ",
+     "name": "Εργαστήριο Βιολογίας Ι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΘΕΧΙΙ",
+     "name": "Εργαστήριο Χημείας ΙΙ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ34",
+     "name": "Κλασική Φυσική ΙΙ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ31",
+     "name": "Μοριακή Βιολογία και Βιοχημεία ζωικών συστημάτων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ30",
+     "name": "Οργανική Χημεία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ43",
+     "name": "Γενετική",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΘΕΒΙΙ",
+     "name": "Εργαστήριο Βιολογίας ΙΙ",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΕΘΕΦΙΙ",
+     "name": "Εργαστήριο Φυσικής ΙΙ",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ40",
+     "name": "Κβαντική Φυσική",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ11",
+     "name": "Αρχές Τεχνολογίας Λογισμικού",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΕΚΠ63",
+     "name": "Διδακτική των Φυσικών Επιστημών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ10",
+     "name": "Εισαγωγή στην Πληροφορική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕΠΑ",
+     "name": "Ενότητα Πρακτικής Άσκησης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ41",
+     "name": "Η Εξέλιξη των Ιδεών στις Φυσικές Επιστήμες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ42",
+     "name": "Πλανήτης Γη",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ37",
+     "name": "Πληροφορική και Εκπαίδευση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ35",
+     "name": "Προστασία και Ασφάλεια Συστημάτων Υπολογιστών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕΠΕ",
+     "name": "Πτυχιακή Εργασία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ44",
+     "name": "Σήματα και Επεξεργασία Εικόνας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ23",
+     "name": "Τηλεματική, Διαδίκτυα και Κοινωνία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "eap-isp": {
+   "source": "https://www.eap.gr/education/undergraduate/spanish-language-and-culture/",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΙΣΠ10",
+     "name": "Εκμάθηση της Ισπανικής Γλώσσας ΕΠΙΠΕΔΟ Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΠ22",
+     "name": "Πολιτισμός της Ισπανίας",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΠ31",
+     "name": "Πολιτισμός της Λατινικής Αμερικής",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΠ11",
+     "name": "Εκμάθηση της Ισπανικής Γλώσσας ΕΠΙΠΕΔΟ ΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΠ21",
+     "name": "Ιστορία της Ισπανίας",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΠ32",
+     "name": "Ιστορία των χωρών της Λατινικής Αμερικής",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΠ12",
+     "name": "Κατανόηση της Γλώσσας και του Πολιτισμού: Από τα Λατινικά στη Σύγχρονη Ισπανική Γλώσσα",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΠ30",
+     "name": "Λογοτεχνία Ισπανίας Ι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΠ41",
+     "name": "Λογοτεχνία Λατινικής Αμερικής Ι",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΠ43",
+     "name": "Εφαρμοσμένη Γλωσσολογία. Πρακτική Άσκηση στη Διδασκαλία της Ισπανικής ως Ξένης Γλώσσας",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΠ40",
+     "name": "Λογοτεχνία Ισπανίας ΙΙ",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΙΣΠ42",
+     "name": "Λογοτεχνία Λατινικής Αμερικής ΙΙ",
+     "semester": 7,
+     "kind": "core",
+     "groups": []
+    }
+   ]
+  },
+  "eap-pli": {
+   "source": "https://www.eap.gr/education/undergraduate/computer-science/",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΠΛΗ11",
+     "name": "Αρχές Τεχνολογίας Λογισμικού",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ10",
+     "name": "Εισαγωγή στην Πληροφορική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ12",
+     "name": "Μαθηματικά για Πληροφορική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗΠΡΟ",
+     "name": "Προγραμματισμός",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ22",
+     "name": "Βασικά ζητήματα Δικτύων Η/Υ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ20",
+     "name": "Διακριτά Μαθηματικά και Μαθηματική Λογική",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗΨΙ",
+     "name": "Εργαστήριο Ψηφιακών Συστημάτων",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ21",
+     "name": "Ψηφιακά Συστήματα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗΨΙΙ",
+     "name": "Εργαστήριο Ψηφιακών Συστημάτων",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ30",
+     "name": "Θεμελιώσεις Επιστήμης Η/Υ",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ24",
+     "name": "Σχεδιασμός Λογισμικού",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ31",
+     "name": "Τεχνητή Νοημοσύνη – Εφαρμογές",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕΟ10",
+     "name": "Βασικές Αρχές Δικαίου και Διοίκησης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ32",
+     "name": "Γραμμικός Προγραμματισμός και Μοντελοποίηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ42",
+     "name": "Ειδικά θέματα τεχνολογίας Λογισμικού",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΦΥΕ14",
+     "name": "Εισαγωγή στις Φυσικές Επιστήμες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ47",
+     "name": "Κατανεμημένα Συστήματα Λογισμικού",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ37",
+     "name": "Πληροφορική και Εκπαίδευση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ40",
+     "name": "Πρακτική Εξάσκηση σε θέματα Λογισμικού",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ35",
+     "name": "Προστασία και Ασφάλεια Συστημάτων Υπολογιστών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ44",
+     "name": "Σήματα και Επεξεργασία Εικόνας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ36",
+     "name": "Σύγχρονα Δίκτυα και Υπηρεσίες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΠΛΗ23",
+     "name": "Τηλεματική, Διαδίκτυα και Κοινωνία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "eap-ski": {
+   "source": "https://www.eap.gr/education/undergraduate/spoudes-kinimatografikis-grafis-praktikis-ereunas/",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΣΚΙ10",
+     "name": "Ιστορία του Κινηματογράφου Ι: Επισκόπηση της ιστορίας της εξέλιξης της κινηματογραφικής τέχνης μέχρι το μέσο του 20ου αιώνα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ23",
+     "name": "Μοντάζ Ι: Εισαγωγή στις θεμελιώδεις αρχές του μοντάζ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ12",
+     "name": "Σενάριο Ι: Δραματική αφήγηση",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ13",
+     "name": "Σκηνοθεσία Ι: Βασικά εργαλεία και τεχνικές της οπτικοακουστικής αφήγησης. Προεργασία και πρακτική γυρίσματος",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ11",
+     "name": "Θεωρία του Κινηματογράφου Ι: Φιλοσοφία της εικόνας και της οπτικοακουστικής σύνθεσης",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ20",
+     "name": "Ιστορία του Κινηματογράφου ΙΙ: Επισκόπηση της ιστορίας της εξέλιξης της κινηματογραφικής τέχνης από το μέσο του 20ου αιώνα μέχρι σήμερα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ21",
+     "name": "Σενάριο ΙΙ: Ο χαρακτήρας στην κινηματογραφική αφήγηση",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ22",
+     "name": "Σκηνοθεσία ΙΙ: Η διαδικασία κατασκευής μιας ταινίας. Εξερεύνηση της χρονικής αρχιτεκτονικής της πλοκής και σχημάτων μη γραμμικής αφήγησης",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ31",
+     "name": "Διεύθυνση φωτογραφίας Ι: Εισαγωγή στις βάσεις της κινηματογραφικής οπτικής αφήγησης. Στατική φωτογραφία, επεξεργασία στατικής εικόνας, κινηματογραφικός εξοπλισμός",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ30",
+     "name": "Ιστορία του Κινηματογράφου ΙΙΙ: Συγκριτική μελέτη ρευμάτων και σχολών (Χόλυγουντ και Ρωσική πρωτοπορία)",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ32",
+     "name": "Σενάριο ΙΙΙ: Σενάριο ταινίας μικρού μήκους",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ33",
+     "name": "Σκηνοθεσία ΙΙΙ: Σκηνοθεσία αφηγηματικών σκηνών και δημιουργία δραματουργίας",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ42",
+     "name": "Μοντάζ ΙΙ: Μοντάζ εικόνας και ήχου. Αισθητικές παράμετροι, διάλογοι και πρακτική εφαρμογή",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ40",
+     "name": "Σενάριο IV: Σενάριο κινηματογραφικού είδους",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ41",
+     "name": "Σκηνοθεσία IV: Από τη σελίδα στην Οθόνη. Διαδοχικές σκηνές που δημιουργούν ένα αφηγηματικό τόξο",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ45",
+     "name": "Animation Ι: Γραφιστική κινηματογράφου και βασικές αρχές εμψύχωσης",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ44",
+     "name": "Θεωρία του Κινηματογράφου ΙΙ: Κινηματογράφος και ψυχανάλυση. Ο μηχανισμός του ονείρου και η σχέση του με την κινηματογραφική γραφή και εμπειρία",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ43",
+     "name": "Ιστορία του Κινηματογράφου IV: Nouvelle vague, πρωτοποριακός κινηματογράφος και ευρύτερες μορφές υπέρβασης του πραγματικού",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ54",
+     "name": "Animation ΙΙ: CGI – Τρισδιάστατος σχεδιασμός, animation, απόδοση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ52",
+     "name": "Ήχος και ηχητικός σχεδιασμός",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ57",
+     "name": "Ανθρωπολογία και κινηματογράφος",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ51",
+     "name": "Διεύθυνση φωτογραφίας ΙΙ: Σύνθεση κάδρου – κίνηση μηχανής λήψης – χρώμα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ56",
+     "name": "Θεωρία του Κινηματογράφου ΙΙΙ: Αυτοαναφορικότητα, διακειμενικότητα, ανοικείωση, αποστασιοποίηση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ55",
+     "name": "Ιστορία του Κινηματογράφου V: Ιταλικός νεορεαλισμός",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ53",
+     "name": "Σενάριο V: Διασκευασμένο σενάριο",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ50",
+     "name": "Σκηνοθεσία V: Σκηνοθεσία ντοκυμαντέρ, πειραματικών ταινιών, «avant-garde», ταινιών μη γραμμικής αφήγησης",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ68",
+     "name": "Animation III: Ψηφιακή κινησιολογία – βασικές αρχές και τεχνικές εμψύχωσης – προχωρημένες τεχνικές απόδοσης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ62",
+     "name": "Διεύθυνση φωτογραφίας ΙΙΙ: Σύνθετες συνθήκες – φίλτρα – προχωρημένες συνθήκες τεχνητού και φυσικού φωτισμού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ67",
+     "name": "Θεωρία του Κινηματογράφου IV: Σημειωτική του κινηματογράφου. Θεωρίες ανάλυσης του κινηματογραφικού κειμένου και η εξέλιξή τους",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ66",
+     "name": "Ιστορία του Κινηματογράφου VI: Το φιλμ ως ιστορικό τεκμήριο και η ματιά του δημιουργού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ64",
+     "name": "Μοντάζ ΙΙΙ: Το μοντάζ ως καθοριστικό στοιχείο ύφους",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ65",
+     "name": "Παραγωγή Ι: Στάδια παραγωγής οπτικοακουστικών έργων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ61",
+     "name": "Σενάριο VI: Τηλεοπτικό σενάριο",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ63",
+     "name": "Σκηνογραφία – ενδυματολογία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ60",
+     "name": "Σκηνοθεσία VI: Υποκριτική κινηματογράφου – διεύθυνση ηθοποιών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ74",
+     "name": "Animation IV: Προχωρημένες τεχνικές 3d animation",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ77",
+     "name": "Θεωρία του Κινηματογράφου V: Η επίδραση της ψηφιακής τεχνολογίας και την πληροφορικής στη δημιουργία, στην πρόσληψη και στη διάδοση του οπτικοακουστικού μηνύματος",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ76",
+     "name": "Ιστορία του Κινηματογράφου VII: Από την «Γκόλφω» στο «Greek Weird Wave». Η περιπέτεια του ελληνικού κινηματογράφου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ72",
+     "name": "Μοντάζ IV: Μετα-παραγωγή (post-production) και ειδικά εφέ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ78",
+     "name": "Νέες αφηγηματικές προοπτικές στην οπτικοακουστική αφήγηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ75",
+     "name": "Παραγωγή ΙΙ: Ανάπτυξη οπτικοακουστικού έργου – pitching – επιχειρηματικό σχέδιο παραγωγής οπτικοακουστικών έργων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ70",
+     "name": "Σενάριο VII: Κινηματογραφικό σενάριο μεγάλου μήκους",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ71",
+     "name": "Σκηνοθεσία VII: Κινηματογράφος και Μουσική, δομικές συγγένειες",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ73",
+     "name": "Φιλμικές κουλτούρες μικρής φόρμας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ80",
+     "name": "Πτυχιακή Εργασία Ι: Έρευνα στην κινηματογραφική αφήγηση",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΣΚΙ81",
+     "name": "Πτυχιακή Εργασία ΙΙ: Δημιουργία κινηματογραφικού έργου",
+     "semester": 8,
+     "kind": "core",
+     "groups": []
+    }
+   ]
+  }
+ }
+}
