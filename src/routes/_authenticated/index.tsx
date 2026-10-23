@@ -23,6 +23,7 @@ import { timeAgoShort } from "@/lib/time-ago";
 import { useQuery } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { VoiceIcon } from "@/components/voice/voice-icon";
+import { PickCoursesCard } from "@/components/courses/pick-courses-card";
 
 // General news is off for the launch (user decision 2026-10-15): Campus carries the university's own news.
 type Tab = "campus" | "following" | "groups";
@@ -162,6 +163,7 @@ function CampusView({
           ))}
         </ul>
       )}
+      {!section && <PickCoursesCard />}
       {!section && <YearGroupCard />}
       {(!section || section === "courses") && <CoursesCard />}
       {!section && <ClassmatesStrip />}
@@ -185,13 +187,22 @@ function CampusView({
   );
 }
 
-/** A campus that opens at N verified students: how far it is, invite classmates, which school brings most. */
+/**
+ * A campus that opens at N verified students. Courses, notes and your year group work already (only the campus feed
+ * waits), so they come first; then how far the campus is, invite classmates, which school brings most.
+ */
 function CampusWaiting({ status }: { status: CampusStatus }) {
   const { t } = useTranslation();
   const campus = useCampus();
   const pct = Math.min(100, Math.round((status.students / Math.max(1, status.min_students)) * 100));
   return (
-    <div className="px-4 pt-8">
+    <div className="px-4 pt-2">
+      <div className="-mx-4">
+        <PickCoursesCard />
+        <CoursesCard />
+        <YearGroupCard />
+      </div>
+      <div className="pt-6" />
       <div className="flex flex-col items-center text-center">
         <span className="grid h-16 w-16 place-items-center rounded-full bg-secondary text-link">
           <GraduationCap className="h-8 w-8" />
@@ -221,8 +232,9 @@ function SchoolsBoard({ expanded = false }: { expanded?: boolean }) {
   const me = useMyProfile();
   const [all, setAll] = useState(expanded);
   const board = useQuery({ queryKey: campusStatusKeys.leaderboard, queryFn: campusLeaderboard });
-  const rows = (board.data ?? []).map((r, i) => ({ ...r, rank: i + 1 }));
-  if (!rows.length || !rows[0].students) return null;
+  // departments nobody joined yet are no ranking (a waiting campus would list 37 rows of «0 φοιτητές»)
+  const rows = (board.data ?? []).filter((r) => r.students > 0).map((r, i) => ({ ...r, rank: i + 1 }));
+  if (!rows.length) return null;
   const mine = me.data?.department_id;
   const shown = all ? rows : rows.filter((r) => r.rank <= 3 || r.department_id === mine);
   const en = i18n.language.startsWith("en");

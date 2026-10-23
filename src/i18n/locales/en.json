@@ -869,8 +869,8 @@
     "postingHint": "Only verified students hear it.",
     "general": "General",
     "waitingTitle": "{{uni}} campus opens soon",
-    "waiting_one": "It opens once {{count}} student joins. Invite your classmates!",
-    "waiting_other": "It opens once {{count}} students join. Invite your classmates!",
+    "waiting_one": "The campus feed opens once {{count}} student joins; courses and your group work already. Invite your classmates!",
+    "waiting_other": "The campus feed opens once {{count}} students join; courses and your group work already. Invite your classmates!",
     "inviteClassmates": "Invite classmates",
     "schools": "Departments ranking",
     "students_one": "{{count}} student",
@@ -1053,7 +1053,14 @@
     "noHelpers": "Nobody yet. Upload the first file and take the top spot.",
     "points_one": "{{count}} point",
     "points_other": "{{count}} points",
-    "you": "you"
+    "you": "you",
+    "pickTitle": "Which courses do you have in semester {{n}}?",
+    "pickText": "Pick them and you'll hear about every new note or past paper shared in them.",
+    "pickSave_one": "Save ({{count}})",
+    "pickSave_other": "Save ({{count}})",
+    "pickLater": "Not now",
+    "pickedToast_one": "Added {{count}} course to your courses.",
+    "pickedToast_other": "Added {{count}} courses to your courses."
   },
   "helper": {
     "rank": "#{{rank}} in the department",

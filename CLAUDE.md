@@ -32,6 +32,19 @@ web, reduced-transparency fallbacks) and `frontend-design` (anthropics/skills). 
 `.agents/skills` + symlinks → move the folder into `.claude/skills/` (real folders, committed). SwiftUI-only glass skills
 (affaan-m liquid-glass-design, dimillian swiftui-liquid-glass, prisma-labs ios-liquid-glass) don't fit our web UI.
 
+## Product directive (user, 2026-10-23) — read `ROADMAP.md` (audit + phase plan)
+Act as Speak's accountable co-founder / CTO. Speak = verified students' university life in one place: academic
+utility (courses, notes, past papers, Q&A) attracts, campus community retains. Before any change ask: more useful?
+less friction? better retention / campus network? safe, fast, maintainable? worth the complexity? Rules: improve what
+exists before adding; reuse house patterns; no fake users / content / activity, no placeholder or dead buttons; ask for
+permissions (mic, location, notifications) only at the moment they help; never an empty screen (closed or quiet
+campuses still get courses, groups, invites); notifications relevant and few; location strictly opt-in and revocable;
+no unsupported privacy claims (listen-once ≠ un-recordable), flag legal questions for professional review; measure
+with data we already store, no new personal data. Priority: P0 onboarding, courses, campus feed, verification,
+safety, empty states → P1 course Q&A, helpful answers, resource search, notification settings, classmate/group
+discovery, campus readiness → P2 study buddies, exam countdowns, events, polls, transcription → P3 AI, premium.
+Production deploys and irreversible / destructive operations need the user's OK (ordinary code changes don't).
+
 ## Product: **Speak** — "X/Twitter, but with voice" (decided 2026-09-29, replaces the BeReal-style plan)
 Voice is the main medium. Public posts = a voice clip (≤ 2 min) + optional short title (≤ 100 chars), filed in a
 **section** (News/Επικαιρότητα, Tech, Sports, Economy, Politics, Entertainment, Lifestyle, Humor …) and optionally
@@ -1109,6 +1122,15 @@ User decisions:
   Κύκλοι Α/Β/Γ, chenveng Χημικού / Περιβάλλοντος. `20261115100000_course_catalog_tuc.sql`. Tests courses 28 (c1: 14
   universities, > 19,000). Live: 19,025 courses over 14 universities. No client change. Check every next university
   for a Universis catalogue first (`<host>/assets/config/app.production.json` → `remote.server`).
+- **O1 ✔ Day-one academic value (2026-10-23, product directive; NOT deployed yet)** — no migration.
+  `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
+  = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
+  (n)» = `setTaking` each (server limit 20) + push permission ask; hidden once you take any course or after «Όχι
+  τώρα» (localStorage `courtsie:pickCoursesHidden`). Closed campuses: `CampusWaiting` now shows PickCourses + Courses
+  card + year group above the progress (the DB never gated courses on opening); copy `campus.waiting` says the feed
+  opens at N and courses / group work already. `SchoolsBoard` lists only departments with students. e2e `dayone-flow`
+  9/9 (+ pick + save, closed ΑΠΘ campus, «Όχι τώρα»), courses 11, engage 14, ux 15, signup 9, uoa 7. Scratchpad flows
+  growth / attica / campus / campus-groups fail on the baseline too (stale, see ROADMAP test debt).
 - **Engagement E1 ✔ (user request 2026-10-22: push + «βοήθησες N» + «Το δίνω» + points, "do them all without asking")** —
   migration `20261111100000_engagement.sql`: `course_file_downloads` / `course_file_thanks` (PK file+user, counters
   `course_files.downloads_count / thanks_count` by trigger; own thanks readable), `record_course_download(file)` (once per
