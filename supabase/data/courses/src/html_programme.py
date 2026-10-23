@@ -18,8 +18,8 @@ SEM = r"ΕΞΑΜΗΝ(?:Ο|ΟΥ)(?![Α-Ω])"  # singular only: "Α’- ΣΤ’ ε
 def semester_of(text):
     """the semester a heading names; None for prose ("(5ο και 6ο εξάμηνο).", "Στα Α’- ΣΤ’ εξάμηνα")"""
     if text[:1].islower() or re.search(r"\d\s*ο\s+(?:και|ή|-|–)\s+\d+\s*ο", text): return None
-    t = up(text)
-    if m := re.search(r"(?<!\d)(\d{1,2})\s*(?:Ο|ΟΥ|ΤΟ|Η|ΗΣ)?\s*\.?\s*" + SEM, t): return int(m[1])
+    t = re.sub(r"(\d)\s+0(?=\s*ΕΞΑΜΗΝ)", r"\1", up(text))  # "1 0 ΕΞΑΜΗΝΟ": a superscript ο read as 0
+    if m := re.search(r"(?<!\d)(\d{1,2})\s*(?:Ο|ΟΥ|ΤΟ|Η|ΗΣ)?\s*\.?\s*" + SEM, t): return int(m[1]) or None
     if m := re.search(r"ΕΞΑΜΗΝΟ\s*(\d{1,2})(?![\d-])", t): return int(m[1])
     if m := re.search(r"ΕΞΑΜΗΝΟ\s*(ΣΤ|[ΑΒΓΔΕΖΗΘΙ])['’΄`]?(?![Α-Ω])", t): return GREEK[m[1]]
     if m := re.search(r"(?<![Α-Ω])(ΣΤ|[ΑΒΓΔΕΖΗΘΙ])\s*['’΄`]?\s*" + SEM, t): return GREEK[m[1]]
@@ -38,15 +38,25 @@ def track_of(text):
 
 # a slot in the programme, not a course: «Μάθημα Επιλογής Κατεύθυνσης», «Κατ΄ Επιλογήν Υποχρεωτικό Μάθημα», «Επιλογή 3»
 PLACEHOLDER = r"(?:\d+\s*)?(?:ΜΑΘΗΜΑ(?:ΤΑ)?\s+(?:ΓΕΝΙΚΗΣ\s+|ΕΛΕΥΘΕΡΗΣ\s+)?ΕΠΙΛΟΓΗΣ(?:\s+ΚΑΤΕΥΘΥΝΣΗΣ)?|ΚΑΤ.?\s*ΕΠΙΛΟΓΗΝ\s+ΥΠΟΧΡΕΩΤΙΚΟ\s+ΜΑΘΗΜΑ|ΕΠΙΛΟΓΗ\s*\d*\*?|ΜΑΘΗΜΑ\s+ΕΠΙΛΟΓΗΣ\s*\d*)(?:\s+Η\s+ΠΤΥΧΙΑΚΗ(?:\s+ΕΡΓΑΣΙΑ)?)?(?:\s+\d+)?"
+LEGEND = r"ΣΥΝΤΟΜΟΓΡΑΦΙΕΣ|ΥΠΟΜΝΗΜΑ|ΠΡΟΑΠΑΙΤΟΥΜΕΝ|ΠΡΟΫΠΟΘΕΣ|ΠΡΟΥΠΟΘΕΣ|^COOKIE|COOKIES"
 HEAD = (r"(?:ΜΑΘΗΜΑ|ΜΑΘΗΜΑΤΑ|ΤΙΤΛΟΣ|ΟΝΟΜΑΣΙΑ)(?: ΜΑΘΗΜΑΤΟΣ| ΜΑΘΗΜΑΤΩΝ)?|ΜΑΘΗΜΑΤΑ \d.*|ΜΑΘΗΜΑΤΑ .*ΕΞΑΜΗΝΟΥ|ΤΙΤΛΟΣ .*"
         r"|(?:ΥΠΟΧΡΕΩΤΙΚΑ|ΕΠΙΛΕΓΟΜΕΝΑ|ΚΑΤ.{0,3}ΕΠΙΛΟΓΗΝ ΥΠΟΧΡΕΩΤΙΚΑ)\s+ΜΑΘΗΜΑΤΑ.*|ΜΑΘΗΜΑΤΑ ΕΠΙΛΟΓΗΣ.*")  # header cells
+KIND_TOKEN = r"Υ|ΥΠ|ΥΠΟΧΡ\w*|Ε|ΕΠ|ΕΥ|ΥΕ|ΥΚ|ΕΚ|ΕΕ|ΕΛ|Π|ΠΡ|ΠΡΟ|Κ|ΥΕΚ\d|ΕΠΙΛ\w*|ΠΡΟΑΙΡ\w*"
+CATEGORY = r"Μ?(?:ΓΥ|ΕΥ|ΕΙΔ|ΓΓΔ|ΕΔ|ΑΔ|ΔΟΝΑ|ΓΕΝ|ΠΑ|ΕΠ|ΕΠΣ|ΓΠ)|ΜΓΥ|ΜΕΥ|ΜΕ|ΜΕΠ|ΜΔΟΝΑ"  # course categories (υποβάθρου …)
+KIND_CODE = r"[ΥΕ]{1,2}[ΚΠ]?\d?|ΥΠ|ΕΠ|ΠΡΟ.*|ΥΠΟΧΡ.*|ΕΠΙΛ.*|.*\([ΥΕ]{1,2}\)"
 TYPE = re.compile(r"(?:[ΥΕΓΚΠΟΗΑΤΧΣΔ]{1,5}\d?|ΥΕΚ\d|Ε\.?Ε\.?|Υ\.?Ε\.?|Ε/Υ|Υ/Ε|ΠΑ)")
 
 def default_kind(t, section):
     """t = the course's type code (folded), section = 'core' | 'elective' | None from the last marker row."""
     if section == "elective": return "elective"  # «Μαθήματα Επιλογής (2 από 3)» above rows still typed Υ
     if t:
-        t = t.split()[-1] if " " in t else t  # "ς ΥΚ" (a broken cell) → ΥΚ
+        # "Υ (ΜΓΥ)", "ΜΓΥ/Υ (Υ)", "ΜΕΥ/ΕΠ (ΕΥ)", "ς ΥΚ": the compulsory/elective token, not the category (ΜΓΥ, ΜΕΥ …)
+        toks = re.findall(r"[Α-Ω]+\d?", t)
+        bracket = re.findall(r"\(([Α-Ω]+\d?)\)", t)
+        kinds = [x for x in bracket + toks if re.fullmatch(KIND_TOKEN, x)]
+        if toks and not kinds and all(re.fullmatch(CATEGORY, x) for x in toks): return section or "core"
+        if kinds: t = kinds[0]
+        if t in ("Π", "ΠΡ", "Π.Ε."): return "elective"  # προαιρετικό
         if t.startswith("ΥΠΟΧΡ"): return "elective" if "ΕΠΙΛΟΓ" in t else "track_core" if "ΚΑΤΕΥΘ" in t else "core"
         if "ΕΠΙΛΟΓ" in t or "ΠΡΟΑΙΡ" in t: return "elective"
         if re.fullmatch(r"Υ\.?Κ\d?|ΥΚΑΤ|Υ\.?Ε\.?Κ\d?", t) and not t.startswith("ΥΕΚ"): return "track_core"
@@ -67,12 +77,16 @@ def section_of(text):
     if re.search(r"ΕΠΙΛΟΓ|ΕΠΙΛΕΓ|ΕΠΙΛΕΞ|ΠΡΟΑΙΡΕΤΙΚ", t): return "elective"
     return None
 
-def courses(tabs, kind=default_kind, sticky=False, stop=r"ΙΔΡΥΜΑΤΙΚΟΣ ΚΑΤΑΛΟΓΟΣ|ΙΔΡΥΜΑΤΙΚΟΥ ΚΑΤΑΛΟΓΟΥ ΜΑΘΗΜΑΤΩΝ$", skip=r"(?i)^(σύνολο|συνολο|ΣΥΝΟΛΟ)|^[Α-ΩA-Z]{1,5}\s*[:=]\s", tracks=True, code_re=r"[A-ZΑ-Ω]{1,6}[\s.-]?\d{2,5}[A-ZΑ-Ω]{0,3}|\d{3,5}[A-ZΑ-Ω]{1,3}"):
+def courses(tabs, kind=default_kind, sticky=False, split_rows=False, stop=r"ΙΔΡΥΜΑΤΙΚΟΣ ΚΑΤΑΛΟΓΟΣ|ΙΔΡΥΜΑΤΙΚΟΥ ΚΑΤΑΛΟΓΟΥ ΜΑΘΗΜΑΤΩΝ$", skip=r"(?i)^(σύνολο|συνολο|ΣΥΝΟΛΟ)|^[Α-ΩA-Z]{1,5}\s*[:=]\s|cookie", tracks=True, code_re=r"[A-ZΑ-Ω]{1,6}[\s.-]?\d{2,5}[A-ZΑ-Ω]{0,3}|\d{3,5}[A-ZΑ-Ω]{1,3}"):
     """tabs: [(text above, rows)] as html_tables.tables() / up_tables.rows() give them."""
-    out, sem, track, section, left = [], None, None, None, None
+    out, sem, track, section, left, free = [], None, None, None, None, False
     for head, table in tabs:
+        last, wrap, wrap_type = None, [], None
+        if re.search(LEGEND, up(head)): continue  # abbreviations, prerequisites
         for line in head.split("\n")[-3:]:
-            if (s := semester_of(line)) is not None: sem, track, section = s, track if sticky else None, None
+            if (s := semester_of(line)) is not None: sem, track, section, free = s, track if sticky else None, None, False
+            elif re.search(r"(?:ΧΕΙΜΕΡΙΝ|ΕΑΡΙΝ)[ΟΑ]\s+" + SEM, up(line)):  # «Μαθήματα επιλογής – χειμερινό εξάμηνο»
+                sem, track, section, free = None, None, section_of(line), True
             if tracks and (t := track_of(line)): track = t
             if (k := section_of(line)): section = k
         cols = None
@@ -80,7 +94,8 @@ def courses(tabs, kind=default_kind, sticky=False, stop=r"ΙΔΡΥΜΑΤΙΚΟΣ
             cells = [norm(c) for c in r]
             filled = [c for c in cells if c]
             joined = " ".join(filled)
-            if not filled or re.search(skip, joined): continue
+            if not filled: continue
+            if re.search(skip, joined): last, wrap = None, []; continue
             if stop and re.search(stop, up(joined)): return out  # other departments' courses (institutional list)
             if len(filled) == 1 and len(joined) > 80: continue  # a paragraph between tables, not a heading
             sem_cell = next((c for c in filled if semester_of(c) is not None and len(c) <= 80), None)
@@ -93,11 +108,20 @@ def courses(tabs, kind=default_kind, sticky=False, stop=r"ΙΔΡΥΜΑΤΙΚΟΣ
                 for i, c in enumerate(cells):
                     u = up(c)
                     if "ΚΩΔ" in u: cols.setdefault("code", i)
+                    elif re.match(r"ΕΞΑΜ", u): cols["sem"] = i  # a semester column (one table for the whole programme)
                     elif re.search(r"ΜΑΘΗΜΑ|ΤΙΤΛΟΣ|ΟΝΟΜΑΣΙΑ", u) and "name" not in cols: cols["name"] = i
-                    elif re.search(r"ΚΑΤΗΓΟΡ|ΕΙΔΟΣ|ΤΥΠΟΣ|^Υ/Ε|^Υ/ΕΥ|^Υ/ΕΠ|ΧΑΡΑΚΤΗΡ|^ΕΜ$", u) and not (u == "ΚΜ" or "type" in cols and u.startswith("ΚΑΤΗΓΟΡ")):
-                        cols["type"] = i  # ΕΜ = είδος (Υ/Ε); ΚΜ = κατηγορία (ΓΥ/ΕΥ…), not compulsory/elective
+                    elif re.search(r"ΚΑΤΗΓΟΡ|ΕΙΔΟΣ|ΤΥΠΟΣ|^Υ/Ε|^Υ/ΕΥ|^Υ/ΕΠ|ΧΑΡΑΚΤΗΡ|^ΕΜ$", u) and u != "ΚΜ":
+                        cols.setdefault("types", []).append(i)  # ΕΜ = είδος (Υ/Ε); ΚΜ = κατηγορία (ΓΥ/ΕΥ…)
                 if (s := semester_of(joined)) is not None: sem, track, section = s, None, None
                 if (k := section_of(joined)) and not re.search(r"(?i)^μαθήματα$|^μάθημα$", joined): section = k
+                continue
+            # a wrapped title cell (PDF tables split it into rows holding only the title column): the part below a course
+            # finishes that title when it looks unfinished; otherwise it starts the next course's title
+            if cols and "name" in cols and len(filled) == 1 and cols["name"] < len(cells) and cells[cols["name"]] == filled[0] \
+               and semester_of(joined) is None and not section_of(joined) and not track_of(joined) and len(joined) <= 80:
+                if last is not None and not wrap and (joined[0].islower() or out[last]["name"].endswith(CONNECT) or len(joined.split()) <= 2):
+                    out[last]["name"] = norm(out[last]["name"] + " " + joined)
+                else: wrap.append(joined)
                 continue
             if len(filled) == 1 or (len(filled) <= 2 and not any(re.search(r"\d", c) for c in filled)
                                     and (semester_of(joined) or section_of(joined) or track_of(joined))):
@@ -105,20 +129,36 @@ def courses(tabs, kind=default_kind, sticky=False, stop=r"ΙΔΡΥΜΑΤΙΚΟΣ
                 if tracks and (t := track_of(joined)): track = t
                 if (k := section_of(joined)): section, left = k, scope_of(joined)
                 continue
-            if cols and "name" in cols and cols["name"] < len(cells) and cells[cols["name"]]: name = cells[cols["name"]]
+            # split_rows: a PDF table that spreads one course over several rows (title lines, the type and the code on
+            # different rows) — rows without a code are collected and joined onto the next row that has one
+            # (a code found in another cell counts too: merged header cells can shift the code column by one)
+            if split_rows and cols and "code" in cols and cols["code"] < len(cells) and not cells[cols["code"]].strip() \
+               and not any(re.fullmatch(code_re, c) for c in cells) and "name" in cols and cols["name"] < len(cells) and cells[cols["name"]]:
+                wrap.append(cells[cols["name"]])
+                for i in cols.get("types", []):
+                    if i < len(cells) and cells[i] and not wrap_type: wrap_type = cells[i]
+                continue
+            if cols and "name" in cols and cols["name"] < len(cells) and (cells[cols["name"]] or wrap):
+                name, wrap = norm(" ".join(wrap + [cells[cols["name"]]])), []
             else: name = max(cells, key=lambda c: sum(ch.isalpha() for ch in c) if not TYPE.fullmatch(up(c)) else 0)
-            if sum(ch.isalpha() for ch in name) < 3 or re.fullmatch(PLACEHOLDER, up(name)): continue
-            code = cells[cols["code"]] if cols and "code" in cols and cols["code"] < len(cells) else \
+            if sum(ch.isalpha() for ch in name) < 3 or re.fullmatch(PLACEHOLDER, up(name)): last, wrap = None, []; continue
+            code = (cells[cols["code"]] if cols and "code" in cols and cols["code"] < len(cells) else "") or \
                 next((c for c in cells if c != name and re.fullmatch(code_re, c) and re.search(r"\d", c) and len(c) >= 3), None)
             if code and (len(code) < 3 or not re.search(r"\d", code)): code = None  # an A/A number, not a code
-            t = up(cells[cols["type"]]) if cols and "type" in cols and cols["type"] < len(cells) else \
+            cand = [up(cells[i]) for i in (cols or {}).get("types", []) if i < len(cells) and cells[i]] + ([up(wrap_type)] if wrap_type else [])
+            wrap_type = None
+            # of the type-like columns, the one holding Υ / Ε (another may hold the category: ΜΓΥ, ΜΕΥ …)
+            t = next((c for c in cand if re.fullmatch(KIND_CODE, c.replace(".", ""))), cand[0] if cand else None) or \
                 next((up(c) for c in cells if c != name and TYPE.fullmatch(up(c))), None)
             k = kind(t.replace(".", "") if t else None, section)
             if k is None: continue
             group = None
             if isinstance(k, tuple): k, group = k
             elif track: k, group = ("track_core" if k == "core" else k), track  # compulsory inside a track
-            out.append({"code": code or None, "name": name, "semester": sem, "kind": k, "group": group})
+            row_sem = sem
+            if cols and "sem" in cols and cols["sem"] < len(cells) and (m := re.match(r"\d{1,2}", cells[cols["sem"]])): row_sem = int(m[0])
+            out.append({"code": code or None, "name": name, "semester": row_sem, "kind": k, "group": group, **({"keep": True} if free else {})})
+            last = len(out) - 1
             if left is not None:
                 left -= 1
                 if left == 0: section, left = None, None
@@ -180,6 +220,7 @@ def finish(rows, case=None, groups=None):
         return case(s) if case and letters and sum(map(str.isupper, letters)) > 0.6 * len(letters) else s
     for r in rows:
         r["name"] = fix(norm(re.sub(r"\+[A-Z]+\d+:[A-Z]+\d+", "", r["name"])))  # "+B64:B70": a spreadsheet formula left in
+        r["name"] = re.sub(r"(?<=[a-zα-ωά-ώ])(Ι{1,3}|IV|V?I{0,3})$", r" \1", r["name"]).rstrip()  # "ΨυχολογίαΙ"
         g = r.get("group")
         if g:
             head, _, rest = g.partition(" ")
@@ -193,10 +234,12 @@ if __name__ == "__main__":
     assert semester_of("3ο Εξάμηνο") == 3 and semester_of("Α’ ΕΞΑΜΗΝΟ") == 1 and semester_of("ΜΑΘΗΜΑΤΑ 1 ου ΕΞΑΜΗΝΟΥ") == 1
     assert semester_of("Εξάμηνο1") == 1 and semester_of("ΣΤ' Εξάμηνο") == 6 and semester_of("Μαθήματα 2ου εξαμήνου") == 2
     assert semester_of("κατ΄ επιλογήν μαθήματα (5ο και 6ο εξάμηνο).") is None and semester_of("7ο εξάμηνο*") == 7
+    assert semester_of("1 0 ΕΞΑΜΗΝΟ") == 1 and default_kind("ΜΓΥ/Υ (Υ)", None) == "core"
     assert semester_of("ΕΞΑΜΗΝΟ Ζ ΜΑΘΗΜΑΤΑ") == 7 and semester_of("Στα Α’- ΣΤ’ εξάμηνα") is None
     assert semester_of("Πέμπτο εξάμηνο") == 5 and semester_of("Μαθήματα 1ου έτους") is None
     assert default_kind("Υ", None) == "core" and default_kind("ΕΕ", None) == "elective" and default_kind("ΥΕΚ1", None) == "elective"
     assert default_kind("ΥΚ", None) == "track_core" and default_kind(None, "elective") == "elective"
+    assert default_kind("ΜΕΥ", None) == "core" and default_kind("Υ (ΜΓΥ)", None) == "core" and default_kind("ΜΕΥ/ΕΠ (ΕΥ)", None) == "elective"
     assert default_kind("ΥΠΟΧΡΕΩΤΙΚΟ", None) == "core" and default_kind("ΕΠΙΛΟΓΗΣ", None) == "elective"
     assert default_kind("Σ ΥΚ", None) == "track_core"
     assert track_of("7Ο ΕΞΑΜΗΝΟ – ΚΑΤΕΥΘΥΝΣΗ ΕΝΕΡΓΕΙΑΣ") == "Κατεύθυνση ΕΝΕΡΓΕΙΑΣ" and track_of("μαθήματα κατεύθυνσης") is None
@@ -204,3 +247,39 @@ if __name__ == "__main__":
     assert track_of("8ο Εξάμηνο – 1η Κατεύθυνση (6)") == "Κατεύθυνση 1"
     assert all(re.fullmatch(PLACEHOLDER, up(x)) for x in ["Μάθημα Ελεύθερης Επιλογής ή Πτυχιακή Εργασία", "Μάθημα Επιλογής Κατεύθυνσης", "Κατ΄ Επιλογήν Υποχρεωτικό Μάθημα", "Επιλογή 12*"])
     print("ok")
+
+FIELD = r"ΕΒΔΟΜΑΔΙΑΙΕΣ|ΑΥΤΟΤΕΛΕΙΣ|ΤΥΠΟΣ ΜΑΘΗΜΑΤΟΣ|ΠΡΟΑΠΑΙΤΟΥΜΕΝΑ|ΓΛΩΣΣΑ|ΔΙΔΑΣΚΑΛΙΑΣ|ΠΙΣΤΩΤΙΚΕΣ|ΚΩΔΙΚΟΣ|ΕΞΑΜΗΝΟ|ΣΧΟΛΗ|ΤΜΗΜΑ|ΕΠΙΠΕΔΟ"
+def outlines(lines):
+    """the standard course outlines («ΠΕΡΙΓΡΑΜΜΑ ΜΑΘΗΜΑΤΟΣ»: ΚΩΔΙΚΟΣ ΜΑΘΗΜΑΤΟΣ x ΕΞΑΜΗΝΟ ΣΠΟΥΔΩΝ n / ΤΙΤΛΟΣ ΜΑΘΗΜΑΤΟΣ y)
+    → {code: (title, semester)}; a title may wrap onto the next lines (until the next field label)"""
+    out, code, sem = {}, None, None
+    lines = [norm(l) for l in lines if norm(l)]
+    for i, l in enumerate(lines):
+        if m := re.match(r"ΚΩΔΙΚΟΣ ΜΑΘΗΜΑΤΟΣ\s*:?\s*(\S+(?:\s\d+)?)", l):
+            code = m[1]
+            s = re.search(r"ΕΞΑΜΗΝΟ ΣΠΟΥΔΩΝ\s*:?\s*(\d+)", l)
+            sem = int(s[1]) if s else None
+        elif (m := re.match(r"ΤΙΤΛΟΣ ΜΑΘΗΜΑΤΟΣ\s*:?\s*(.*)", l)) and code:
+            title = [m[1]] if m[1] else []
+            for nxt in lines[i + 1:i + 4]:
+                if re.match(FIELD, up(nxt)): break
+                title.append(nxt)
+            if title: out[code] = (norm(" ".join(title)), sem)
+            code = None
+    return out
+
+def titled(rows, titles):
+    """use the outline title of each row's code ({code: (title, semester)}); a row whose code has no outline keeps its
+    table name, cut back to a known title when wrapped neighbour text stuck to it ("X Y" where X or Y is a title)"""
+    known = sorted({t for t, _ in titles.values()} | {r["name"] for r in rows if (r.get("code") or "") in titles}, key=len, reverse=True)
+    for r in rows:
+        if (r.get("code") or "") in titles: r["name"] = titles[r["code"]][0]; continue
+        # a fragment of exactly one known title (the same course under another track's code): that title
+        part = [k for k in known if len(r["name"].split()) >= 2 and r["name"] != k and f" {up(r['name'])} " in f" {up(k)} "]
+        if len(part) == 1: r["name"] = part[0]; continue
+        for k in known:
+            if len(k) >= 8 and r["name"] != k and (r["name"].startswith(k + " ") or r["name"].endswith(" " + k)):
+                rest = r["name"][len(k):].strip() if r["name"].startswith(k) else r["name"][:-len(k)].strip()
+                r["name"] = rest if rest[:1].isupper() and len(rest) > 3 and rest not in known else k
+                break
+    return rows

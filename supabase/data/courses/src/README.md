@@ -38,3 +38,5 @@ does the same for text-only PDFs ("CODE Title <numbers>", wrapped titles); `fini
 `python3 html_programme.py` runs its self-test.
 ΠΔΜ: `uowm_catalog.py` (one block per department: WordPress programme pages or the newest guide / programme PDF on
 the department site; eled.uowm.gr answers 403 to everything from this container).
+ΔΙΠΑΕ: `ihu_catalog.py` (department sites linked from www.ihu.gr/tmimata/; HTML curriculum pages, guide / programme PDFs,
+own readers for iee, pme, midwife, survey; files in raw/ihu/ under the names used in the script).

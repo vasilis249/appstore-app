@@ -1139,6 +1139,15 @@ User decisions:
   name length ≤ 300 (the DB CHECK). `20261117100000_course_catalog_uowm.sql` applied live → 23,148 courses over 17
   universities. Tests courses 28 (c1: 17, > 23,000). Remaining Greek: ΔΙΠΑΕ, Θεσσαλίας, ΕΛΜΕΠΑ, Πελοποννήσου, Αιγαίου,
   Ιόνιο, ΕΑΠ, ΠΑΜΑΚ (www.uom.gr pages sit behind a JS anti-bot check — not bypassed; its PDFs under /assets/ download).
+- **Course catalogs M3c-ΔΙΠΑΕ ✔ (2026-10-23)** — `ihu.json` 22/23 departments, 1,715 courses (`src/ihu_catalog.py`): HTML
+  curriculum pages of the shared IHU theme (ba + its 3 track elective pages, econ, nurs, ice, food, biomed, agri, nutr),
+  guide tables + the guide's own outlines for titles (`hp.outlines` / `hp.titled`: mkt, env, scm, physio — PMS pages cut,
+  interior), clean PDF tables (civil, mech, acc, ecec, lib, survey (3 columns, «ΕΥ» blocks = electives)), own text readers:
+  iee (Πίνακας ΙΙΙ, «Ομάδα …» groups, ΥΠ-ΕΠ = track_core), pme (handbook outlines «ΚΩΔΙΚΟΣ: n ΕΞΑΜΗΝΟ: Χ ΤΥΠΟΣ: …»; semester
+  from the code), midwife (2021-22 guide's table of contents). Missing: fashion (only a 2016-17 .doc). `html_programme`:
+  a code found in another cell when the code column is empty; "ΨυχολογίαΙ" → "Ψυχολογία Ι" — this also completed 3 cut
+  ΠΔΜ mech titles (the old short rows deleted in the same migration if unused). `20261117100100_course_catalog_ihu.sql`
+  (ihu + uowm upserts) applied live → 24,863 courses over 18 universities. Tests courses 28 (c1: 18, > 24,500).
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
