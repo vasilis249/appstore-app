@@ -1174,6 +1174,12 @@ User decisions:
   (env, preedu, math, stat, food = Google Drive PDF). Missing: tourism (programme page shows only the 1st semester,
   guides 404). `html_tables.tables(path, keep=1)` can return more lines above a table. `20261117100500_…aegean.sql`
   live → 30,254 courses over 22 universities. Tests courses 28 (c1: 22, > 30,000).
+- **Course catalogs M3c-Ιονίου ✔ (2026-10-23)** — `ionio.json` 9/10 departments, 1,060 courses (`src/ionio_catalog.py`): one
+  CMS for every site; «Μαθήματα» tables by semester (csd tracks ΒΥΝ / ΚΔΕ / ΨΜΑΔ, media, tourism, env, food) or the
+  tabs of dflti (third language = group), PDFs: avarts indicative programme 2026 (hundreds digit = semester), music
+  «πίνακας ανά Κατεύθυνση» (tracks + κατ' επιλογήν), alm = current list + kinds from the 2021-22 programme sections.
+  Missing: hist (history.ionio.gr fails TLS verification). `20261117100600_…ionio.sql` live → 31,314 courses over 23
+  universities. Tests courses 28 (c1: 23, > 31,000).
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση

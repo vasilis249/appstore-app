@@ -45,3 +45,4 @@ script; 19 sites refuse this container).
 ΕΛΜΕΠΑ: `hmu_catalog.py` (department sites linked from hmu.gr/scholes-tmimata; files in raw/hmu/).
 Πελοποννήσου: `uop_catalog.py` (the shared Drupal «/courses» view of each department site; raw/uop/c-<host>.html).
 Αιγαίου: `aegean_catalog.py` (each department site: tables, text blocks, WordPress posts, guides; raw/aegean/).
+Ιονίου: `ionio_catalog.py` (shared CMS «Μαθήματα» tables, dflti tabs, avarts / music / alm PDFs; raw/ionio/).
