@@ -1,0 +1,6877 @@
+{
+ "university": "uom",
+ "departments": {
+  "uom-acc": {
+   "source": null,
+   "tried": [
+    "https://www.uom.gr/fin/programma-spoydon"
+   ],
+   "note": "the site answers with a JavaScript firewall challenge page (not bypassed)",
+   "courses": []
+  },
+  "uom-ba": {
+   "source": "https://www.uom.gr/ba/programma-spoydon-akad-etoys-2026-2027",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": null,
+     "name": "Εισαγωγή στο Μάνατζμεντ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στο Μάρκετινγκ",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μαθηματικά για Διοίκηση Επιχειρήσεων",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ελληνική ως Ξένη Γλώσσα I",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στα Πληροφοριακά Συστήματα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Διοίκηση Λειτουργιών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστική ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Λογιστική Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ελληνική ως Ξένη Γλώσσα II",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση και Μοντελοποίηση Διεργασιών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρησιακή Έρευνα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οργανωσιακή Θεωρία και Συμπεριφορά",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συμπεριφορά Καταναλωτή",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομικά Μαθηματικά",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Λογιστική II",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ελληνική ως Ξένη Γλώσσα III",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ανθρωπίνων Πόρων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μέθοδοι Ανάλυσης Διοικητικών Αποφάσεων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μεθοδολογία Έρευνας",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στρατηγικό Μάρκετινγκ",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονες Προσεγγίσεις στη Διοίκηση Λειτουργιών",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Διοίκηση Ι",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ελληνική ως Ξένη Γλώσσα IV",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Επωνύμων Προϊόντων: Θεωρία και Πρακτικές Εφαρμογές",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Εφοδιαστικής Αλυσίδας",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών",
+      "Κατεύθυνση Οργάνωσης και Διοίκησης Επιχειρήσεων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Κοστολόγηση και Λογιστική Κόστους",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οργάνωσης και Διοίκησης Επιχειρήσεων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Υπηρεσιών: Θεωρία και Πρακτικές Εφαρμογές",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομικοί Οργανισμοί και Κεφαλαιαγορές",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών",
+      "Κατεύθυνση Οργάνωσης και Διοίκησης Επιχειρήσεων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γυναίκα και Επιχείρηση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσια Οικονομική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσιες Σχέσεις",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαδικασίες Ίδρυσης Επιχειρήσεων και Επιχορηγήσεις Επιχειρηματικών Δράσεων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Πωλήσεων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Σταδιοδρομίας Στελεχών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Υπηρεσιών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Διοίκησης Ανθρωπίνων Πόρων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Παιδαγωγική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο Εφαρμοσμένης Αναλυτικής των Αποφάσεων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογιστική Εταιρικών Επιχειρήσεων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα για Επαγγελματικούς Σκοπούς (Αγγλικά, Γαλλικά, Γερμανικά, Ιταλικά)",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προγραμματισμός για Επιχειρηματική Αναλυτική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στοιχεία Αστικού και Εργατικού Δικαίου",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονες Προσεγγίσεις στο Μάνατζμεντ και την Ηγεσία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "International Business",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών",
+      "Κατεύθυνση Οργάνωσης και Διοίκησης Επιχειρήσεων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαφήμιση",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Δεδομένων και Μηχανογραφημένη Λογιστική",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οργάνωσης και Διοίκησης Επιχειρήσεων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Έργων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χρηματοοικονομική Διοίκηση ΙΙ",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οργάνωσης και Διοίκησης Επιχειρήσεων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Έρευνα Μάρκετινγκ (Ειδικά Θέματα Έρευνας Μάρκετινγκ)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αθλητικό Μάρκετινγκ: Θεωρία και Πρακτικές Εφαρμογές",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Χρηματοοικονομικών Καταστάσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Οργανωσιακής Θεωρίας και Συμπεριφοράς",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ελεγκτική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εμπορικό Δίκαιο",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εργαλεία Λογισμικού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κράτος Κοινωνικής Πρόνοιας και Ευρωπαϊκή Ένωση (Welfare state in the European Union)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Μη Κερδοσκοπικών Οργανισμών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Παιδαγωγική Ειδική Διδακτική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστικές Μέθοδοι Διερευνητικής και Προβλεπτικής Αναλυτικής",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στατιστικός Έλεγχος Ποιότητας SPC",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνικές Προσομοίωσης στη Διοίκηση Επιχειρήσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Υπολογιστική Νέφους στη Διοίκηση Επιχειρήσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Σχέσεων Μάρκετινγκ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Ολικής Ποιότητας",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών",
+      "Κατεύθυνση Οργάνωσης και Διοίκησης Επιχειρήσεων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματικότητα και Καινοτομία",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οργάνωσης και Διοίκησης Επιχειρήσεων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πληροφοριακά Συστήματα Διοίκησης",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών",
+      "Κατεύθυνση Οργάνωσης και Διοίκησης Επιχειρήσεων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Business Case Study",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση Επιχειρηματικών Κινδύνων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βασικές Αρχές Βιώσιμης Επιχείρησης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση Γνώσης και Οργανωσιακή Μάθηση (Knowledge Management and Organizational Learning)",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνή Λογιστικά Πρότυπα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Μικρομεσαίων Επιχειρήσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Χρηματοοικονομικής",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματική Ηθική και Δεοντολογία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Η Επιχείρηση στο Διεθνές Περιβάλλον",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονικό Επιχειρείν (e-Business)",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μάρκετινγκ Γεγονότων και Εκδηλώσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομετρία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά της Υγείας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληροφοριακά Συστήματα Επιχειρηματικής Ευφυΐας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολυκριτήρια Συστήματα Υποστήριξης Αποφάσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φορολογική Πρακτική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Οργανωσιακής Αλλαγής",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Οργάνωσης και Διοίκησης Επιχειρήσεων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στρατηγικό Μάνατζμεντ",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών",
+      "Κατεύθυνση Οργάνωσης και Διοίκησης Επιχειρήσεων"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακό Μάρκετινγκ: Θεωρία και Πρακτικές Εφαρμογές",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Μάρκετινγκ και Διοίκησης Λειτουργιών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Business Case Study",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Special Topics in Marketing",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσιο Μάνατζμεντ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνές Μάρκετινγκ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνής Χρηματοοικονομική Διοίκηση (International Financial Management)",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διοίκηση Μονάδων Υγείας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Διοίκησης Ολικής Ποιότητας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Μάρκετινγκ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ενότητες Μαθηματικών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτρονική Διακυβέρνηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία και Τεχνικές Διαπραγμάτευσης Εταιρικών Συμβάσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μέθοδοι Βελτιστοποίησης στην Αναλυτική των Επιχειρήσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Περιβαλλοντική Διαχείριση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληροφοριακά Συστήματα Τεχνητής Νοημοσύνης για Επιχειρήσεις",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική Άσκηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονες Μορφές Χρηματοδότησης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνικές και Διαδικασίες Εξαγωγών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τουριστικό Μάνατζμεντ και Μάρκετινγκ",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "uom-balkan": {
+   "source": "https://www.uom.gr/bso/programma-spoydon",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": null,
+     "name": "Αρχές οικονομικής",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην πολιτική και τις διεθνείς σχέσεις",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία της Αν. και ΝΑ Ευρώπης",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλβανική γλώσσα Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αραβική γλώσσα Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βουλγαρική γλώσσα I",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εθνογραφία και λαογραφία, αποικιοκρατία και σπουδές περιοχής",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κράτος: Διαμόρφωση και Νομική Συγκρότηση",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρουμανική γλώσσα I",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ρωσική γλώσσα I",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σερβική γλώσσα I",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τουρκική γλώσσα I",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χώρος και πολιτισμός",
+     "semester": 1,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανθρωπολογική σκέψη και κοινωνική θεωρία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στο διεθνές δίκαιο",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογοτεχνία και Ευρωπαϊκή νεωτερικότητα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλβανική γλώσσα ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αραβική γλώσσα ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βουλγαρική γλώσσα II",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Διοίκηση επιχειρήσεων",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρουμανική γλώσσα II",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ρωσική γλώσσα II",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σερβική γλώσσα II",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συγκριτική πολιτική",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονη Βαλκανική ιστορία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τουρκική γλώσσα II",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "4",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Cities in Motion: Audiovisual & Ethnographic Approaches to Urban Cultures and Economies",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "State, intelligentsia and women's writing in Eastern Europe -20th cent.",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ανθρωπολογία και σπουδές φύλου: Δύση, Μουσουλμανικός κόσμος & παγκόσμιος νότος",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνές οικονομικό δίκαιο και δίκαιο διεθνών συναλλαγών",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Ευρωπαϊκή ολοκλήρωση",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία της Μέσης Ανατολής",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία του Μικρασιατικού Ελληνισμού στη Νεότερη και Σύγχρονη Εποχή",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μικροοικονομική",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληροφορική, τεχνολογία & κοινωνία",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτιστικό και κοινωνικό μάρκετινγκ",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικές μέθοδοι κοινωνικών επιστημών – Μαθηματικά",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονη πολιτική στην ΝΑ Ευρώπη",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ω",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "4",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "After Empire: Post-Socialism, Postcolonialism, and Global Cinema",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Institutional and Cultural Economics",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δημόσια Πολιτική και Δημόσια Διοίκηση (με έμφαση στην ΑΝ Ευρώπη και τα Βαλκάνια)",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνές πολιτιστικό και κοινωνικό μάρκετινγκ",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εμπορικό οικονομικό δίκαιο",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία διεθνών σχέσεων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία και πολιτισμοί των Σλάβων",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία της οικονομικής σκέψης",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία της πολιτικής σκέψης",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακροοικονομική",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Παγκόσμιοι και Περιφερειακοί Θεσμοί",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτικές ιδεολογίες",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ποσοτικές μέθοδοι κοινωνικών επιστημών – Στατιστική με χρήση Η/Υ",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ω",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "An Environmental History of the Black Sea and the Caucasus",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Institutions, Organisations and business",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Parties and party systems in post- communist Central Europe",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Political Economy of European Integration",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλβανική γλώσσα I",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Δεύτερη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανθρωπολογία της Μετανάστευσης στη ΝΑ Ευρώπη και Εγγύς Ανατολή",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αραβική γλώσσα Ι",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Δεύτερη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βουλγαρική γλώσσα V",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Γυναικεία επιχειρηματικότητα: Δύση και παγκόσμιος νότος",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δίκαιο του πολέμου",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνής οικονομική Ι",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνής οργάνωση του αθλητισμού",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην οικονομετρία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην χρηματοοικονομική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία της Μέσης Ανατολής: Θρησκεία και Πολιτική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μουσεία και ιδεολογία στο χώρο των Βαλκανίων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Νεότερη Ρωσική ιστορία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτική επικοινωνία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτική στην Σοβιετική Ένωση και στην μετασοβιετική Ρωσία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρουμανική γλώσσα V",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ρωσική γλώσσα V",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σερβική γλώσσα V",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τουρκική γλώσσα V",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακοί πολιτισμοί: Ανθρωπολογικές Προσεγγίσεις",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "History of Entrepreneurship in Eastern and SE. Europe 17th -20th cent.",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αγορές κεφαλαίου και χρήματος",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλβανική γλώσσα II",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Δεύτερη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αραβική γλώσσα ΙΙ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Δεύτερη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βαλκανικές Εθνικές Ιστοριογραφίες",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βιομηχανική οικονομική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βουλγαρική γλώσσα VI",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διαχείριση πολιτιστικής κληρονομιάς στον αστικό και αγροτικό χώρο (Βαλκάνια, Μ. Θάλασσα, Αν. Μεσόγειος)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεθνής οικονομική ΙΙ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εξωτερικές σχέσεις της Ε. Ε.",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Επιχειρηματικότητα και καινοτομία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκή Ολοκλήρωση και Αν. Ευρώπη: Η πρόκληση του εξευρωπαϊσμού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εφαρμοσμένη οικονομετρία- μεθοδολογία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία της Μικρασιατικής Εκστρατείας και της Μικρασιατικής καταστροφής",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λογοτεχνική θεωρία & λογοτέχνες του 21ου αι.: Αν., ΝΑ Ευρώπη & Αν. Μεσόγειος",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μεθοδολογία και ηθική της έρευνας στις κοινωνικές επιστήμες (εθνογραφικό πεδίο, ανάλυση λόγου και συγγραφή μελέτης)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικά της ανάπτυξης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομικό δίκαιο της Ε.Ε.",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρουμανία: Γλώσσα, λογοτεχνία και πολιτικές του πολιτισμού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρουμανική γλώσσα VI",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ρωσική γλώσσα VI",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σερβική γλώσσα VI",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στοιχεία εταιρικού δικαίου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συγκριτικά οικονομικά συστήματα στην κεντρική, ανατολική Ευρώπη & Μεσόγειο",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονη Τουρκία: Ιστορία, πολιτική, διεθνείς σχέσεις",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τουρκική γλώσσα VI",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Governance, institutions and corruption in SE. Europe and the Balkans",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Public Anthropology in times of crisis",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλβανική γλώσσα III",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Δεύτερη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανθρωπολογία και Σπουδές των Συνόρων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αραβική γλώσσα ΙΙΙ",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Δεύτερη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βουλγαρική γλώσσα: Είδη και ανάλυση λόγου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Δημόσια Οικονομική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Δικαιώματα του Ανθρώπου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εθνογραφίες της Τουρκίας και της Μέσης Ανατολής",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ευρωπαϊκό δίκαιο τραπεζικών συμβάσεων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία και σπουδές Πολιτισμού: Ζητήματα Μεθοδολογίας και έρευνας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κοινωνικά κινήματα στη Μέση Ανατολή",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μακεδονικό Ζήτημα (19ος-21ος αιώνας)",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομική γεωγραφία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ολοκαύτωμα και Γενοκτονίες. Ιστορία και Δίκαιο",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική άσκηση σε οργανισμούς & επιχειρήσεις, με επιπλέον 5 ects.",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρουμανική γλώσσα: Είδη και ανάλυση λόγου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ρωσική γλώσσα: Είδη και ανάλυση λόγου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σερβική γλώσσα: Είδη και ανάλυση λόγου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Συμπεριφορική Οικονομική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τουρκική γλώσσα: Είδη και ανάλυση λόγου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τραπεζική και Χρηματοδότηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φτώχεια και Διατροφική Ασφάλεια",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακές Μέθοδοι κοινωνικής Έρευνας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "China and the World Economy",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Conflict and Reconciliation in the Eastern Mediterranean & the Middle East",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Israeli Politics & Society",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αλβανική γλώσσα IV",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Δεύτερη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αραβική γλώσσα IV",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Δεύτερη γλώσσα"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βουλγαρική γλώσσα: Μετάφραση κειμένων και ανάλυση λόγου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεθνής οικονομική ανάπτυξη",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εξωτερική πολιτική στα Βαλκάνια",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θρησκεία και Πολιτική ατην Αν. & ΝΑ Ευρώπη",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία και πηγές του Μικρασιατικού Ελληνισμού",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία της Βόρειας και Ανατολικής Αφρικής",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομίες της Αν. και ΝΑ Ευρώπης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Ανθρωπολογία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Οικονομική Πολιτική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ολοκληρωμένη επικοινωνία στον πολιτισμό και την κοινωνία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτική, οικονομία και Εξωτερικές Σχέσεις στον Καύκασο και την Κεντρική Ασία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτική άσκηση σε οργανισμούς & επιχειρήσεις, με επιπλέον 5 ects.",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Προστασία μειονοτήτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρουμανική γλώσσα: Μετάφραση κειμένων και ανάλυση λόγου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ρωσική γλώσσα: Μετάφραση κειμένων και ανάλυση λόγου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σερβική γλώσσα: Μετάφραση κειμένων και ανάλυση λόγου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονη Πολιτική Σκέψη",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τέχνη και Ευρωπαϊκή νεωτερικότητα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τουρκική γλώσσα: Μετάφραση κειμένων και ανάλυση λόγου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Γλώσσα κατεύθυνσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χωρική ανάπτυξη – Αστικές πολιτικές (Βαλκάνια, Α. Ευρώπη)",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  },
+  "uom-dai": {
+   "source": "https://www.uom.gr/dai/programma-spoydon-prosferomena-mathhmata",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "AIC101",
+     "name": "Αλγόριθμοι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC102",
+     "name": "Γραμμική άλγεβρα",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC103",
+     "name": "Διαδικαστικός προγραμματισμός",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC104",
+     "name": "Μαθηματική ανάλυση",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC105",
+     "name": "Συστήματα υπολογιστών",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "CSC101",
+     "name": "Εισαγωγή στην επιστήμη υπολογιστών",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISC101",
+     "name": "Εισαγωγή στην επιχειρηματική πληροφορική",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "AIC201",
+     "name": "Αρχιτεκτονική υπολογιστών",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC202",
+     "name": "Βάσεις δεδομένων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC203",
+     "name": "Διακριτά μαθηματικά",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC204",
+     "name": "Διοίκηση και τεχνολογία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC205",
+     "name": "Δομές δεδομένων",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "CSC201",
+     "name": "Πιθανότητες",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISC201",
+     "name": "Πιθανότητες και στατιστική",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "AIC301",
+     "name": "Αντικειμενοστρεφής προγραμματισμός",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC302",
+     "name": "Δίκτυα υπολογιστών",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC306",
+     "name": "Διαχείριση έργων πληροφορικής",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC303",
+     "name": "Λειτουργικά συστήματα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC304",
+     "name": "Πληροφοριακά συστήματα",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ISC301",
+     "name": "Ηλεκτρονικό επιχειρείν",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSC301",
+     "name": "Στατιστική",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "AIC401",
+     "name": "Αλληλεπίδραση ανθρώπου-υπολογιστή",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC402",
+     "name": "Ασφάλεια πληροφοριών και συστημάτων",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC403",
+     "name": "Προγραμματισμός διαδικτύου",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC404",
+     "name": "Ψηφιακή οικονομική",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "CSC401",
+     "name": "Ανάλυση αλγορίθμων",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISC401",
+     "name": "Ανάλυση και σχεδίαση συστημάτων",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSC402",
+     "name": "Τεχνολογία λογισμικού",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISC402",
+     "name": "Χρηματοοικονομική διοίκηση",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "AIC501",
+     "name": "Δίκαιο πληροφορικής και δεοντολογία",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC502",
+     "name": "Τεχνητή νοημοσύνη",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC503",
+     "name": "Υπηρεσίες και συναλλαγές ιστού",
+     "semester": 5,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ISC502",
+     "name": "Διαχείριση επιχειρησιακών διαδικασιών",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "ISC501",
+     "name": "Επιχειρηματικές επικοινωνίες δεδομένων",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSC501",
+     "name": "Ποιότητα λογισμικού",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "CSC502",
+     "name": "Συστήματα βάσεων δεδομένων",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "CSC503",
+     "name": "Συστήματα επικοινωνιών",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISC503",
+     "name": "Ψηφιακό μάρκετινγκ",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "AIC601",
+     "name": "Ανάπτυξη εφαρμογών για κινητές συσκευές",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC602",
+     "name": "Επιχειρησιακή έρευνα",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "AIC603",
+     "name": "Υπολογιστική νέφους",
+     "semester": 6,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "CSC601",
+     "name": "Γλώσσες προγραμματισμού και μεταγλωττιστές",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISC604",
+     "name": "Διαχείριση χρηματοοικονομικών κινδύνων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "ISC602",
+     "name": "Επιχειρηματικότητα και νεοφυείς επιχειρήσεις τπε",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSC602",
+     "name": "Θεωρία υπολογισμού",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "CSC603",
+     "name": "Παράλληλος και κατανεμημένος υπολογισμός",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISC603",
+     "name": "Στρατηγική επιχειρήσεων και πληροφοριακών συστημάτων",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSE701",
+     "name": "BIG DΑΤΑ-ανάλυση δεδομένων μεγάλου όγκου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "AIE713",
+     "name": "Ακαδημαϊκές δεξιότητες στην αγγλική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ISE813",
+     "name": "Ανάπτυξη διαδικασιοκεντρικών εφαρμογών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "ISE709",
+     "name": "Ανακάλυψη γνώσης σε βάσεις δεδομένων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "ISE707",
+     "name": "Διαχείριση χαρτοφυλακίου και επενδύσεις",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "ISE702",
+     "name": "Διοίκηση ψηφιακής αλλαγής & ηγεσία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSE711",
+     "name": "Εφαρμοσμένη αριθμητική ανάλυση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISE710",
+     "name": "Ηλεκτρονική διακυβέρνηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "ISE704",
+     "name": "Καινοτομία ψηφιακών προϊόντων και υπηρεσιών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSE704",
+     "name": "Κατανεμημένα συστήματα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "CSE705",
+     "name": "Κρυπτογραφία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "CSE708",
+     "name": "Μηχανές αναζήτησης και ανάλυση κειμένου",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "CSE707",
+     "name": "Μηχανική μάθηση",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISE711",
+     "name": "Πληροφορική και βιώσιμη ανάπτυξη",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "ISE708",
+     "name": "Συστήματα τεχνικής ανάλυσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSE709",
+     "name": "Σχεδίαση και προγραμματισμός ψηφιακών συστημάτων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "CSE710",
+     "name": "Τεχνολογίες BLOCKCHAIN και αποκεντρωμένες εφαρμογές",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "CSE706",
+     "name": "Τεχνολογίες πολυμέσων και γραφικά",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISE705",
+     "name": "Ψηφιακά νομίσματα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "ISE812",
+     "name": "Ανάπτυξη και διαχείριση δικτύων υπολογιστών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSE809",
+     "name": "Βελτιστοποίηση και λήψη αποφάσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "CSE810",
+     "name": "Δίκαιο διαδικτύου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "AIE814",
+     "name": "Διδακτική της πληροφορικής",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "CSE811",
+     "name": "Ειδικά θέματα προγραμματισμού διαδικτύου",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISE811",
+     "name": "Ειδικά θέματα προσωπικών δεδομένων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSE812",
+     "name": "Ειδικά θέματα στα δίκτυα υπολογιστών και επικοινωνιών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISE807",
+     "name": "Ενοποιημένες επικοινωνίες και εφαρμογές",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "AIE815",
+     "name": "Επαγγελματικές δεξιότητες στην αγγλική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ISE802",
+     "name": "Επιχειρηματική αναλυτική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "ISE808",
+     "name": "Ηθική και διακυβέρνηση τεχνητής νοημοσύνης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "ISE809",
+     "name": "Θεωρία παιγνίων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSE813",
+     "name": "Κινητή και διάχυτη υπολογιστική",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISE810",
+     "name": "Κοινωνικά μέσα – κοινωνική δικτύωση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSE803",
+     "name": "Λογικός προγραμματισμός",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISE803",
+     "name": "Μεθοδολογίες και τεχνολογίες διοίκησης παραγωγής",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSE807",
+     "name": "Νευρωνικά δίκτυα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "ISE703",
+     "name": "Πληροφοριακά συστήματα εφοδιαστικής αλυσίδας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "ISE806",
+     "name": "Προηγμένα πληροφοριακά συστήματα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πληροφοριακά Συστήματα"
+     ]
+    },
+    {
+     "code": "CSE814",
+     "name": "Συνδυαστική βελτιστοποίηση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    },
+    {
+     "code": "CSE806",
+     "name": "Ψηφιακή σχεδίαση και μοντελοποίηση ψηφιακών κυκλωμάτων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Επιστήμη και Τεχνολογία Υπολογιστών"
+     ]
+    }
+   ]
+  },
+  "uom-econ": {
+   "source": "https://www.uom.gr/eco/programma-spoydon",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΟΙ0101",
+     "name": "Εισαγωγή στη μικροοικονομική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0104",
+     "name": "Μαθηματικά για οικονομολόγους Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0203",
+     "name": "Στατιστική για οικονομολόγους Ι",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΞΓ0101",
+     "name": "ΑΓΓΛΙΚΑ Ι: Ανάπτυξη ακαδημαϊκού λεξιλογίου & δεξιοτήτων κατανόησης ακαδημαϊκών κειμένων",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΟΙ0109",
+     "name": "Αρχές κοινωνιολογίας",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Α΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΞΓ0201",
+     "name": "Γαλλικά Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΞΓ0301",
+     "name": "Γερμανικά Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΟΙ0411",
+     "name": "Διεθνές οικονομικό δίκαιο και δίκαιο διεθνών συναλλαγών",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Α΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΞΓ0902",
+     "name": "Ιταλικά Ι",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΟΙ0213",
+     "name": "Μάρκετινγκ",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Α΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0105",
+     "name": "Πληροφοριακά συστήματα στην οικονομία και διοίκηση",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Α΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0114",
+     "name": "Πολιτική οικονομία της ευρωπαϊκής ένωσης",
+     "semester": 1,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Α΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0201",
+     "name": "Εισαγωγή στη μακροοικονομική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0202",
+     "name": "Λογιστική Ι",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0204",
+     "name": "Μαθηματικά για οικονομολόγους ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0304",
+     "name": "Στατιστική για οικονομολόγους ΙΙ",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΞΓ0102",
+     "name": "ΑΓΓΛΙΚΑ ΙΙ: Ανάπτυξη γραπτού λόγου στην Αγγλική για ακαδημαϊκούς σκοπούς",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΞΓ0202",
+     "name": "Γαλλικά ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΞΓ0302",
+     "name": "Γερμανικά ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΟΙ0312",
+     "name": "Δίκαιο και θεσμοί της ευρωπαϊκής ένωσης",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Α΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0115",
+     "name": "Δημογραφία",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Α΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0410",
+     "name": "Εισαγωγή στο εμπορικό & οικονομικό δίκαιο",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Α΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0205",
+     "name": "Εφαρμογές των πληροφοριακών συστημάτων στην οικονομία & διοίκηση",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Α΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΞΓ0903",
+     "name": "Ιταλικά ΙΙ",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΟΙ0210",
+     "name": "Πολιτική επιστήμη",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Α΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0113",
+     "name": "Χρηματοοικονομικά μαθηματικά",
+     "semester": 2,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Α΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0904",
+     "name": "Ιταλικά ΙΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0303",
+     "name": "Λογιστική ΙΙ",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0302",
+     "name": "Μακροοικονομική Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0301",
+     "name": "Μικροοικονομική Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0504",
+     "name": "Οικονομετρία Ι",
+     "semester": 3,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΞΓ0103",
+     "name": "ΑΓΓΛΙΚΑ ΙΙΙ: Αγγλικά για επαγγελματικούς σκοπούς",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΞΓ0203",
+     "name": "Γαλλικά ΙΙΙ",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΞΓ0303",
+     "name": "Γερμανικά ΙΙΙ",
+     "semester": 3,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΟΙ0905",
+     "name": "Ιταλικά IV",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0402",
+     "name": "Μακροοικονομική II",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0401",
+     "name": "Μικροοικονομική II",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0604",
+     "name": "Οικονομετρία II",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΟΙ0412",
+     "name": "Οικονομική ιστορία της ελλάδας",
+     "semester": 4,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΞΓ0104",
+     "name": "ΑΓΓΛΙΚΑ IV: Βασικές αρχές προφορικών παρουσιάσεων στον ακαδημαϊκό χώρο",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΞΓ0204",
+     "name": "Γαλλικά IV",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΞΓ0304",
+     "name": "Γερμανικά IV",
+     "semester": 4,
+     "kind": "elective",
+     "groups": [
+      "Ξένη γλώσσα"
+     ]
+    },
+    {
+     "code": "ΟΙ0512",
+     "name": "Αγορές χρήματος & κεφαλαίου",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0704",
+     "name": "Ανάλυση κόστους-οφέλους",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0403",
+     "name": "Αρχές χρηματοοικονομικής",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΞΓ0105",
+     "name": "Βιβλιογραφική έρευνα στα αγγλικά",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0624",
+     "name": "Βιομηχανική οργάνωση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0501",
+     "name": "Δημόσια οικονομική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0503",
+     "name": "Διεθνές εμπόριο",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0602",
+     "name": "Διεθνής χρηματοδότηση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0901",
+     "name": "Διπλωματική εργασία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0530",
+     "name": "Ειδικά θέματα ανάλυσης δεδομένων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0802",
+     "name": "Ειδικά θέματα ιστορίας της οικονομικής θεωρίας & πολιτικής",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0531",
+     "name": "Εισαγωγή στην Python",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0533",
+     "name": "Εισαγωγή στην τεχνητή νοημοσύνη",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0514-1",
+     "name": "Εισαγωγή στο ηλεκτρονικό εμπόριο",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0525",
+     "name": "Επιχειρησιακή έρευνα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0603",
+     "name": "Θεωρία οικονομικής πολιτικής",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0526",
+     "name": "Θεωρίες των οικονομικών κρίσεων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0519",
+     "name": "Λογιστική εταιρικών επιχειρήσεων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0532",
+     "name": "Μέθοδοι μηχανικής μάθησης στα οικονομικά",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0212",
+     "name": "Οικονομικά & πολιτικές περιβάλλοντος",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0528",
+     "name": "Οικονομικά της ενέργειας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0527",
+     "name": "Οικονομικά της ναυτιλίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0627",
+     "name": "Οικονομικά της υγείας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0703",
+     "name": "Οικονομικά των θεσμών και της κουλτούρας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0801",
+     "name": "Οικονομική μεγέθυνση",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0523",
+     "name": "Οικονομική της εργασίας",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0520-1",
+     "name": "Οργανωσιακή θεωρία και συμπεριφορά",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0310",
+     "name": "Περιφερειακή οικονομική Ι",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0102",
+     "name": "Πολιτική οικονομία",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0529",
+     "name": "Προχωρημένη μικροοικονομική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0629",
+     "name": "Σεμινάριο διεθνών οικονομικών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0518",
+     "name": "Συμπεριφορά καταναλωτή",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0614",
+     "name": "Τα μακροοικονομικά της ευρωπαϊκής ολοκλήρωσης",
+     "semester": 5,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0516",
+     "name": "Αγροτική οικονομική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0404",
+     "name": "Ανάλυση χρονολογικών σειρών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0601",
+     "name": "Δημόσια χρηματοδότηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0613",
+     "name": "Διδακτική των οικονομικών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0634",
+     "name": "Διεθνείς επιχειρηματικές σχέσεις",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0901",
+     "name": "Διπλωματική εργασία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0611-1",
+     "name": "Ειδικά θέματα ηλεκτρονικού εμπορίου",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0515-1",
+     "name": "Ειδικά θέματα μικροοικονομικής",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0522",
+     "name": "Ειδικά θέματα οικονομετρίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0635",
+     "name": "Ειδικά θέματα οικονομικής της ανάπτυξης και ευημερίας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0636",
+     "name": "Ειδικά θέματα στα διεθνή χρηματοοικονομικά",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΞΓ0106",
+     "name": "Ερευνητική εργασία στα αγγλικά",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0632",
+     "name": "Εφοδιαστική αλυσίδα- Logistics",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0803",
+     "name": "Θεωρία παιγνίων –",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0702",
+     "name": "Ιστορία οικονομικών θεωριών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0615",
+     "name": "Κοινή αγροτική πολιτική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0612",
+     "name": "Κοστολόγηση και λογιστική κόστους",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0626",
+     "name": "Μέθοδοι ανάλυσης διοικητικών αποφάσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0633",
+     "name": "Μεθοδολογία της έρευνας",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0619-1",
+     "name": "Οικονομικά & διαχείριση φυσικών πόρων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0409",
+     "name": "Οικονομικά προβλήματα του σύγχρονου καπιταλισμού",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0631",
+     "name": "Οικονομικά των μεταφορών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0701",
+     "name": "Οικονομική ανάπτυξη",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0521",
+     "name": "Οικονομικό δίκαιο της ευρωπαϊκής ένωσης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0509",
+     "name": "Περιφερειακή οικονομική ΙΙ",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0608",
+     "name": "Περιφερειακή πολιτική στην ελλάδα και στην Ε.Ε.",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0625",
+     "name": "Πληροφοριακά συστήματα LOGISTICS",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0305",
+     "name": "Προχωρημένα μαθηματικά",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0617-1",
+     "name": "Προχωρημένη μακροοικονομική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0609",
+     "name": "Σεμινάριο περιφερειακής οικονομικής",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0630",
+     "name": "Συμπεριφορική χρηματοοικονομική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Β (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0502",
+     "name": "Χρήμα & τράπεζες",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Α (Β΄ κύκλος)"
+     ]
+    },
+    {
+     "code": "ΟΙ0622",
+     "name": "Χρηματοοικονομική των νοικοκυριών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Ομάδα Γ (Β΄ κύκλος)"
+     ]
+    }
+   ]
+  },
+  "uom-esp": {
+   "source": null,
+   "tried": [
+    "https://www.uom.gr/esp/programma-spoydon"
+   ],
+   "note": "the site answers with a JavaScript firewall challenge page (not bypassed)",
+   "courses": []
+  },
+  "uom-ies": {
+   "source": "https://www.uom.gr/ies/programma-spoydon",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": "ΔΕ1008",
+     "name": "Εισαγωγή στη μικροοικονομική",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ1002",
+     "name": "Εισαγωγή στην πολιτική επιστήμη",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ1001",
+     "name": "Εισαγωγή στις διεθνείς σχέσεις",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ1006",
+     "name": "Ηλεκτρονικοί υπολογιστές και διαδίκτυο",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ1004",
+     "name": "Μαθηματικά I",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ1005",
+     "name": "Στατιστική I",
+     "semester": 1,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ2007",
+     "name": "Εισαγωγή στη μακροοικονομική",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ2006",
+     "name": "Εφαρμογές πληροφορικής και πολυμέσα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ2001",
+     "name": "Πολιτική θεωρία",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ2003",
+     "name": "Πολιτική και διπλωματική ιστορία της ευρώπης",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ2004",
+     "name": "Πολιτικό σύστημα και πολιτικές δυνάμεις στην ελλάδα",
+     "semester": 2,
+     "kind": "core",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ3008",
+     "name": "Διεθνές MANAGEMENT και επιχειρηματικότητα",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ3006-1",
+     "name": "Διεθνείς οικονομικές σχέσεις",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ3001",
+     "name": "Διεθνείς οργανισμοί",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ3002",
+     "name": "Διεθνείς σχέσεις I",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ3009",
+     "name": "Δομή και λειτουργία της εε",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ1007",
+     "name": "Εισαγωγή στη χρηματοοικονομική διοίκηση",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5015",
+     "name": "Ιστορία του μεταπολεμικού κόσμου",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ3010",
+     "name": "Οικονομική της εργασίας",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4004-1",
+     "name": "Πολιτικά κόμματα και συστήματα ευρώπης",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ3005",
+     "name": "Πολιτική και οικονομία στην ευρώπη μετά τον 2ο παγκόσμιο πόλεμο",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5020",
+     "name": "Στοιχεία οργάνωσης και διοίκησης επιχειρήσεων",
+     "semester": 3,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ17008-1",
+     "name": "Έξυπνες πόλεις: ψηφιακή αλγοριθμική διακυβέρνηση, κυβερνοοικονομία. παγκόσμιοι κίνδυνοι και ανθεκτικότητα",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4020",
+     "name": "Ανάλυση εξωτερικής πολιτικής - FOREIGN POLICY ANALYSIS (μάθημα έδρας γεεθα στις στρατηγικές σπουδές \"θουκυδίδης\")",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4001",
+     "name": "Διεθνείς σχέσεις II",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4014",
+     "name": "Διεθνείς σχέσεις της ρωσίας - INTERNATIONAL RELATIONS OF RUSSIA",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4018",
+     "name": "Ειδικά θέματα διεθνών σχέσεων - σπουδές ασφάλειας",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4016",
+     "name": "Ευρωπαϊκές πολιτικές σύγκλισης και διεθνούς συνδρομής",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4007",
+     "name": "Η ελληνική οικονομία και ευρωπαϊκή ένωση",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4013",
+     "name": "Ιστορία οικονομικής σκέψης",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4017",
+     "name": "Ιστορία του νεότερου και σύγχρονου ελληνισμού",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4003-1",
+     "name": "Μέθοδοι και τεχνικές έρευνας πεδίου",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ3007",
+     "name": "Πολιτική κοινωνιολογία και πολιτισμικές σπουδές",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4011-1",
+     "name": "Πολιτιστική διπλωματία (έδρα UNESCO)",
+     "semester": 4,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5013",
+     "name": "Αναπτυξιακή πολιτική της εε: οικονομία, κοινωνικό μοντέλο, βιώσιμη ανάπτυξη",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5016",
+     "name": "Διεθνής οικονομική ανάπτυξη και οικονομικές σχέσεις να ευρώπης",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5018",
+     "name": "Διεθνείς σχέσεις των μικρών κρατών",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ16013",
+     "name": "Εισαγωγή στη διαχείριση οικονομικών κινδύνων στο διεθνές περιβάλλον",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5002",
+     "name": "Ελληνική εξωτερική πολιτική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5007-1",
+     "name": "Ευρωπαϊκή ρυθμιστική και δημοσιονομική διακυβέρνηση και εθνικές επιλογές (μάθημα έδρας JEAN MONNET)",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5021",
+     "name": "Η ορθόδοξη εκκλησία στον ψυχρό πόλεμο και στο σύγχρονο διεθνές σύστημα",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5014",
+     "name": "Μέθοδοι και τεχνικές ανάλυσης ποιοτικών δεδομένων",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5001",
+     "name": "Πολιτική και εκλογική συμπεριφορά",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5006",
+     "name": "Σύγχρονη διπλωματική πρακτική",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ5017",
+     "name": "Τεχνητή νοημοσύνη, κυβερνοασφάλεια και ψηφιακές διεθνείς σχέσεις",
+     "semester": 5,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "ΔΕ4019",
+     "name": "POLITICS OF THE INTERNET",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ16008-1",
+     "name": "Αγγλική ορολογία διεθνών σχέσεων και οικονομίας (κατεύθυνση οικ)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ26008",
+     "name": "Αγγλική ορολογία διεθνών σχέσεων και οικονομίας (κατεύθυνση πολ)",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ16011",
+     "name": "Αρχές μάρκετινγκ-μάρκετινγκ υπηρεσιών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ26002",
+     "name": "Διεθνές δίκαιο",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ16007-1",
+     "name": "Διεθνές και ευρωπαϊκό δίκαιο διεθνών συναλλαγών",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ26005",
+     "name": "Διεθνείς σχέσεις της μέσης ανατολής τον 21ο αιώνα",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ26015",
+     "name": "Ειδικά θέματα διεθνούς και ευρωπαϊκής πολιτικής στην εκπαίδευση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ26011",
+     "name": "Ευρωπαϊκή περιφερειακή πολιτική: γενικές αρχές, κανονιστικά και χρηματοδοτικά μέσα της πολιτικής συνοχής",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ16015",
+     "name": "Ηλεκτρονικό επιχειρείν",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ26001",
+     "name": "Θεωρίες ευρωπαϊκής οικονομικής και πολιτικής ολοκλήρωσης",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ26007",
+     "name": "Θρησκεία και διεθνής πολιτική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ18008-1",
+     "name": "Λογιστική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ16004-2",
+     "name": "Μαθηματικά II",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ16001-1",
+     "name": "Μακροοικονομική θεωρία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ16003-1",
+     "name": "Μικροοικονομική θεωρία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ26013",
+     "name": "Νεότερη και σύγχρονη πολιτική φιλοσοφία",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ16002-1",
+     "name": "Πολιτικές προσέλκυσης επενδύσεων και παγκοσμιοποίηση",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ26009",
+     "name": "Πολιτική KAI οικονομική φιλοσοφία στον 20ο αιώνα - POLITICAL AND ECONOMIC PHILOSOPHY IN THE 20th CENTURY",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ18001-1",
+     "name": "Πολιτική και οικονομία των μεταρρυθμίσεων",
+     "semester": 6,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ26004",
+     "name": "Συγκριτική πολιτική",
+     "semester": 6,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ1-27016",
+     "name": "DIGITAL MEDIA AND SOCIETY",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ27006",
+     "name": "Ασιατικές δυνάμεις στο διεθνές πολιτικοοικονομικό σύστημα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ27002",
+     "name": "Δίκαιο της E.E.I: οι θεσμοί και Ο πολίτης (μάθημα έδρας JEAN MONNET)",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ27015",
+     "name": "Δημόσια διπλωματία και στρατηγική επικοινωνία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ1-27017",
+     "name": "Διεθνές MARKETING",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ18003-1",
+     "name": "Διεθνές εμπόριο",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ17007-1",
+     "name": "Διεθνές οικονομικό δίκαιο",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ27003",
+     "name": "Διεθνής πολιτική ενέργειας, περιβάλλοντος και φυσικών πόρων",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ27012",
+     "name": "Διεθνής προστασία δικαιωμάτων του ανθρώπου - INTERNATIONAL PROTECTION OF HUMAN RIGHTS",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ17002-1",
+     "name": "Διεθνείς νομισματικές σχέσεις",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ27013",
+     "name": "Ειδικά θέματα σύγχρονης ιστορίας",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "ΔΕ4005",
+     "name": "Ευρωπαϊκή ένωση στο διεθνές σύστημα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ27007",
+     "name": "Ευρωπαϊκή διπλωματία στον 20ο αιώνα",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ1-27014",
+     "name": "Κοινωνική ευρώπη: πολιτική και οικονομία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ1-27020",
+     "name": "Μεταναστευτική πολιτική",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ17001-1",
+     "name": "Οικονομετρία I",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ1-27026",
+     "name": "Περιφερειακές σπουδές & διεθνείς σχέσεις: Η προσέγγιση των περιφερειακών συστημάτων - AREA STUDIES AND IR: A REGIONAL SYSTEMS APPROACH",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ17006-1",
+     "name": "Περιφερειακή ανάπτυξη",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ27004",
+     "name": "Πολιτική και οικονομική διακυβέρνηση ευρωπαϊκής ένωσης",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ27008",
+     "name": "Πολιτική σκέψη, ελευθερία και δημοκρατία-ΡΟLΙΤΙCΑL THOUGHT, FREEDOM AND DEMOCRACY",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ17005-1",
+     "name": "Στατιστική ανάλυση με χρήση ηλεκτρονικών υπολογιστών",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ27001",
+     "name": "Στρατηγικές σπουδές (μάθημα έδρας γεεθα στις στρατηγικές σπουδές \"θουκυδίδης\")",
+     "semester": 7,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ1-27018",
+     "name": "Σύγχρονη διπλωματία, οικονομία και επιχειρήσεις",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ1-27025",
+     "name": "Υβριδικές και αναδυόμενες απειλές στην παγκόσμια πολιτική οικονομία",
+     "semester": 7,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ28007",
+     "name": "TURKEY:SOCIETY, ECONOMY AND POLITICS",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ1-28015",
+     "name": "Βιοασφάλεια και παγκόσμια υγειονομική διπλωματία - κυβερνοιατρική των καταστροφών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ28004",
+     "name": "Δίκαιο της Ε.Ε. II: εσωτερική αγορά και πολιτικές (μάθημα έδρας JEAN MONNET)",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ28003",
+     "name": "Διεθνείς σχέσεις βαλκανικών κρατών",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ28002",
+     "name": "Διεθνείς σχέσεις και τρίτος κόσμος",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ18011",
+     "name": "Διεθνείς χρηματαγορές και κεφαλαιαγορές",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ28006",
+     "name": "Διπλωματικό και προξενικό δίκαιο",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ28013-1",
+     "name": "Ενέργεια και μέση ανατολή",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ28012-1",
+     "name": "Επίλυση συγκρούσεων",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ18012",
+     "name": "Ευρωπαϊκή οικονομική ολοκλήρωση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ1-28013",
+     "name": "Ευρωπαϊκό δημοσιονομικό δίκαιο (μάθημα έδρας JEAN MONNET)",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ18014",
+     "name": "Εφαρμογές της ανάλυσης δεδομένων στην οικονομία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ18005-1",
+     "name": "Οικονομετρία II",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ28005",
+     "name": "Οικονομικοπολιτικές περιφερειακές ενώσεις",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ1-28014",
+     "name": "Πολιτική και οικονομία της άμυνας",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ28001",
+     "name": "Πολιτικό σύστημα και εξωτερική πολιτική των ηπα",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ27016",
+     "name": "Προεκλογικές εκστρατείες και πολιτική διαφήμιση",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Πολιτικών Σπουδών και Διπλωματίας"
+     ]
+    },
+    {
+     "code": "Δ18016",
+     "name": "Προστασία οικονομικών συμφερόντων της ευρωπαϊκής ένωσης-καταπολέμηση απάτης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": "Δ18017",
+     "name": "Προχωρημένη οικονομετρία",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    },
+    {
+     "code": "Δ18015",
+     "name": "Τα οικονομικά της μετανάστευσης",
+     "semester": 8,
+     "kind": "elective",
+     "groups": [
+      "Κατεύθυνση Διεθνών και Ευρωπαϊκών Οικονομικών Σπουδών"
+     ]
+    }
+   ]
+  },
+  "uom-music": {
+   "source": "https://www.uom.gr/msa/programma-spoydon",
+   "retrieved": "2026-10-23",
+   "courses": [
+    {
+     "code": null,
+     "name": "Άσκηση Ακοής – Σολφέζ – Ρυθμική Αγωγή I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Άσκηση ακοής Βυζαντινής Μουσικής – Παραλλαγή – Ορθογραφία I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Όργανο Ορχήστρας για Διευθυντές I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βασικές Αρχές Φωνητικής Αγωγής I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βασικές Αρχές Φωνητικής Αγωγής Ι",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βυζαντινή Μουσικολογία I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Βυζαντινή Εκκλησιαστική Μουσική I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Ελληνική Παραδοσιακή Μουσική",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ελληνικοί Δημοτικοί Χοροί I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία και Πρακτική της Τονικής Μουσικής I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ιστορία Μουσικής I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ιστορία της Βυζαντινής Μουσικής I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Καλλιτεχνικό Αντικείμενο Κατεύθυνσης I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λειτουργικές Πιανιστικές Δεξιότητες I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία",
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μορφολογία της Βυζαντινής Μουσικής I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οργανογνωσία",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ορχήστρα I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πιάνο για Διευθυντές I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονη Μουσική Ι-VII",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Σύνθεση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σύνολα Παραδοσιακής Μουσικής I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φωνητική Τεχνική για Διευθυντές Χορωδίας I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χοροστασία I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χορωδία I",
+     "semester": 1,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Πιάνο",
+      "Ειδίκευση Ακορντεόν",
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Άσκηση Ακοής – Σολφέζ – Ρυθμική Αγωγή II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Άσκηση ακοής Βυζαντινής Μουσικής – Παραλλαγή – Ορθογραφία II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Όργανο Ορχήστρας για Διευθυντές II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βυζαντινή Μουσικολογία II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Βυζαντινή Εκκλησιαστική Μουσική II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στις μουσικές του κόσμου",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ελληνικοί Δημοτικοί Χοροί II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία και Πρακτική της Τονικής Μουσικής II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ιστορία Μουσικής II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ιστορία της Βυζαντινής Μουσικής II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Καλλιτεχνικό Αντικείμενο Κατεύθυνσης II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λειτουργικές Πιανιστικές Δεξιότητες II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία",
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μορφολογία της Βυζαντινής Μουσικής II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ορχήστρα II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πιάνο για Διευθυντές II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σύνολα Παραδοσιακής Μουσικής II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φωνητική Τεχνική για Διευθυντές Χορωδίας II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χοροστασία II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χορωδία II",
+     "semester": 2,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Πιάνο",
+      "Ειδίκευση Ακορντεόν",
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Άσκηση Ακοής Βυζαντινής Μουσικής – Παραλλαγή – Ορθογραφία I",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Άσκηση Ακοής – Σολφέζ – Ρυθμική Αγωγή III",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Άσκηση ακοής Βυζαντινής Μουσικής – Παραλλαγή – Ορθογραφία III",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Όργανο Ορχήστρας για Διευθυντές III",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βυζαντινή Μουσικολογία I",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Ιστορίας της Μουσικής I",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Ιστορίας της Μουσικής Ι",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Ακουστική",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Εθνομουσικολογία",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Βυζαντινής Μουσικής I",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Καλλιέργεια Ακοής – Αρμονικά Στοιχεία I",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Καλλιτεχνικό Αντικείμενο Κατεύθυνσης III",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λειτουργική I",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μορφολογία της Βυζαντινής Μουσικής Ι",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσική Δωματίου I",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Πιάνο",
+      "Ειδίκευση Ακορντεόν"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσικοποιητική Δομή I",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ποιητική (τέχνη της σύνθεσης – μελοποιία – ποίηση στην παραδοσιακή μουσική)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα III",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οργανική Συνοδεία",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Δημοτικό τραγούδι"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ορχήστρα III",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πιάνο για Διευθυντές III",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πιανιστική Απόδοση Παρτιτούρας για Διευθυντές I",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας",
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Στοιχεία Αντίστιξης",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σύνολα Παραδοσιακής Μουσικής III",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τεχνικές Συγγραφής Επιστημονικής Εργασίας",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής",
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φωνητική Τεχνική για Διευθυντές Χορωδίας III",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φωνητικό Εργαστήριο I",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Δημοτικό τραγούδι",
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χοροστασία III",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χορωδία I",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χορωδία III",
+     "semester": 3,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Άσκηση Ακοής Βυζαντινής Μουσικής – Παραλλαγή – Ορθογραφία II",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Άσκηση Ακοής – Σολφέζ – Ρυθμική Αγωγή IV",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Άσκηση ακοής Βυζαντινής Μουσικής – Παραλλαγή – Ορθογραφία IV",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Όργανο Ορχήστρας για Διευθυντές IV",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Βυζαντινή Μουσικολογία II",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτροακουστική",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Βυζαντινής Μουσικής II",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ιστορία Ελληνικής Μουσικής",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική",
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Καλλιέργεια Ακοής – Αρμονικά Στοιχεία II",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Καλλιτεχνικό Αντικείμενο Κατεύθυνσης IV",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Λειτουργική II",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσική Δωματίου II",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Πιάνο",
+      "Ειδίκευση Ακορντεόν"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσικοποιητική Δομή II",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ποιητική (τέχνη της σύνθεσης – μελοποιία – ποίηση στην παραδοσιακή μουσική)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα IV",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ορχήστρα IV",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πιάνο για Διευθυντές IV",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πιανιστική Απόδοση Παρτιτούρας για Διευθυντές II",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας",
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σύνολα Παραδοσιακής Μουσικής IV",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φωνητική Τεχνική για Διευθυντές Χορωδίας IV",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Φωνητικό Εργαστήριο II",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Δημοτικό τραγούδι",
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χοροστασία IV",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χορωδία II",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χορωδία IV",
+     "semester": 4,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση I",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεύθυνση Συνόλων I",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Σύνθεση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο Μουσικής Τεχνολογίας I",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηχογεωλογικά Τοπία του Ελληνικού Χώρου I",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Βυζαντινής Μουσικής III",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Καλλιτεχνικό Αντικείμενο Κατεύθυνσης V",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μελοδραματική – Συμμετοχή σε Παραστάσεις I",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσικά Σύνολα – Ανεξάρτητη Μελέτη I",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσική Δωματίου III",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Πιάνο",
+      "Ειδίκευση Ακορντεόν"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσική Παιδαγωγική I",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής",
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οργανογνωσία",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ποιητική (τέχνη της σύνθεσης – μελοποιία – ποίηση στην παραδοσιακή μουσική)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ορχήστρα V",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πιάνο για Διευθυντές V",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πιανιστική Απόδοση Παρτιτούρας για Διευθυντές III",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας",
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ρυθμική Πρακτική – Κρουστά I",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονη Μουσική I",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ποιητική (τέχνη της σύνθεσης – μελοποιία – ποίηση στην παραδοσιακή μουσική)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τροπική Μουσική I",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χοροστασία V",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χορωδία III",
+     "semester": 5,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ανάλυση II",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αρχές Εθνομουσικολογικής Έρευνας",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεύθυνση Συνόλων II",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Σύνθεση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Μεθοδολογία της Επιστημονικής Έρευνας",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηχογεωλογικά Τοπία του Ελληνικού Χώρου II",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Ατονικής Μουσικής",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Βυζαντινής Μουσικής IV",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Καλλιτεχνικό Αντικείμενο Κατεύθυνσης VI",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μελοδραματική – Συμμετοχή σε Παραστάσεις II",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσικά Σύνολα – Ανεξάρτητη Μελέτη II",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσική Δωματίου IV",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Πιάνο",
+      "Ειδίκευση Ακορντεόν"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσική Παιδαγωγική II",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής",
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ορχήστρα VI",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πιάνο για Διευθυντές VI",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πιανιστική Απόδοση Παρτιτούρας για Διευθυντές IV",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Διεύθυνση ορχήστρας",
+      "Ειδίκευση Διεύθυνση χορωδίας"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ρυθμική Πρακτική – Κρουστά II",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σύγχρονη Μουσική II",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ποιητική (τέχνη της σύνθεσης – μελοποιία – ποίηση στην παραδοσιακή μουσική)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Τροπική Μουσική II",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χοροστασία VI",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χορωδία IV",
+     "semester": 6,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική της Ειδίκευσης – Πρακτική Άσκηση I",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Δημοτικό τραγούδι",
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης",
+      "Ειδίκευση Ποιητική (τέχνη της σύνθεσης – μελοποιία – ποίηση στην παραδοσιακή μουσική)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική της Μονωδίας – Πρακτική Άσκηση I",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική της Ψαλτικής – Πρακτική Άσκηση I",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική του Ακορντεόν – Πρακτική Άσκηση I",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ακορντεόν"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική του Πιάνου – Πρακτική Άσκηση I",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Πιάνο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική των Εγχόρδων/Πνευστών/Κρουστών – Πρακτική Άσκηση I",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεύθυνση Συνόλων I",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο Ποιητικής I",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική",
+      "Ειδίκευση Δημοτικό τραγούδι",
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηχογεωλογικά Τοπία του Ελληνικού Χώρου III",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Καλλιτεχνικό Αντικείμενο Κατεύθυνσης VII",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μελοδραματική – Συμμετοχή σε Παραστάσεις III",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσική Παιδαγωγική III",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οργανωτικές και εκπαιδευτικές πρακτικές της Σύνθεσης I",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Σύνθεση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ορχήστρα VII",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πτυχιακή Εργασία ή Πρότζεκτ",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χοροστασία VII",
+     "semester": 7,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική της Ειδίκευσης – Πρακτική Άσκηση II",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Δημοτικό τραγούδι",
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης",
+      "Ειδίκευση Ποιητική (τέχνη της σύνθεσης – μελοποιία – ποίηση στην παραδοσιακή μουσική)"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική της Μονωδίας – Πρακτική Άσκηση II",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική της Ψαλτικής – Πρακτική Άσκηση II",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική του Ακορντεόν – Πρακτική Άσκηση II",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ακορντεόν"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική του Πιάνου – Πρακτική Άσκηση II",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Πιάνο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διδακτική των Εγχόρδων/Πνευστών/Κρουστών – Πρακτική Άσκηση II",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Διεύθυνση Συνόλων II",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ευρωπαϊκή (Κλασική) Μουσική",
+      "Κατεύθυνση Σύγχρονη Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Πρακτική Διδακτική της Μουσικής",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο Ποιητικής II",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική",
+      "Ειδίκευση Δημοτικό τραγούδι",
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ηχογεωλογικά Τοπία του Ελληνικού Χώρου IV",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Ελληνική Παραδοσιακή (Δημοτική) Μουσική"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Καλλιτεχνικό Αντικείμενο Κατεύθυνσης VIII",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Εφαρμοσμένες Μουσικές Σπουδές – Μουσική Εκπαίδευση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μελοδραματική – Συμμετοχή σε Παραστάσεις IV",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Μονωδία"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Οργανωτικές και εκπαιδευτικές πρακτικές της Σύνθεσης II",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Σύνθεση"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ορχήστρα VIII",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Ειδίκευση Ειδικεύσεις οργανικής μουσικής εκτέλεσης εγχόρδων, πνευστών και κρουστών"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χοροστασία VIII",
+     "semester": 8,
+     "kind": "track_core",
+     "groups": [
+      "Κατεύθυνση Βυζαντινή Μουσική",
+      "Ειδίκευση Ερμηνεία και εκτέλεση ψαλτικής"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Άσκηση Ακοής – Σολφέζ – Ρυθμική Αγωγή I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Όργανο Επιλογής I-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αισθητική της Ψαλτικής",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αναπτυξιακή Ψυχολογία της Μουσικής",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχές Εθνομουσικολογικής Έρευνας",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Αρχιτεκτονική Μουσικών Χώρων",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ατομικό καλλιτεχνικό αντικείμενο I-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Αυτοσχεδιαστική και πειραματική μουσική: θεωρία και πράξη Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βασικές Αρχές Φωνητικής Αγωγής Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Βασικές Αρχές της Μεθόδου Suzuki για την Οργανική Μουσική Διδασκαλία",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Διεύθυνση Συνόλων I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Ακουστικής",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Ιστορίας της Μουσικής I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά Θέματα Ιστορίας της Μουσικής II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ειδικά θέματα Μελοποιίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Βυζαντινή Εκκλησιαστική Μουσική Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Θεωρία της Τζαζ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη Μεθοδολογία της Επιστημονικής Έρευνας",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στη μουσική ψυχολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Ακουστική",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Εθνομουσικολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Πληροφορική",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εισαγωγή στην Πρακτική Διδακτική της Μουσικής",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ελληνική Γλώσσα για αλλοδαπούς φοιτητές I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ελληνικοί Δημοτικοί χοροί Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ελληνικοί δημοτικοί χοροί III-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ενάριθμο Μπάσο",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ενορχήστρωση I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ενορχήστρωση Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο Κιθάρας I-VIII",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο Μουσικής Δημιουργίας I-VI",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο Μουσικής Τεχνολογίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο Μουσικής Τεχνολογίας I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο Μουσικής Τεχνολογίας II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο Παραδοσιακής μουσικής I-VIII",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο Σύνθεσης I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο κατασκευής εγχόρδων οργάνων (Βιολί) Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο τοξοτών εγχόρδων I-VIII",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εργαστήριο φλάουτου I-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ερμηνεία και Βασικές Αρχές Διδασκαλίας της Σύγχρονης Μουσικής I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ερμηνεία και Βασικές Αρχές Διδασκαλίας της Σύγχρονης Μουσικής Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ερμηνεία και εκτέλεση ψαλτικής I-VIII",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Εφαρμογές της τεχνικής Alexander στην μουσική μελέτη, ερμηνεία και διδασκαλία I-ΙΙ 1",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτροακουστική",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηλεκτροακουστική σύνθεση & Σύνθεση ηλεκτρονικής μουσικής Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ηχογεωλογικά Τοπία του Ελληνικού Χώρου ΙΙΙ-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεατρολογία I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Ατονικής Μουσικής",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία Βυζαντινής Μουσικής Ι-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία και Πράξη Παλαιάς Μουσικής Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Θεωρία και πράξη Παλαιάς Μουσικής I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία Ελληνικής μουσικής",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορία Μουσικής I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ιστορικά Ενημερωμένη Επιτέλεση της Ψαλτικής Τέχνης Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κινησιολογία I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κινησιολογία Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Κοινοτική μουσική Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λειτουργικές πιανιστικές δεξιότητες Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Λειτουργική I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μέλος της Τριγενείας I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μορφές της ψαλτικής: Καλοφωνία",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μουσική Δωματίου I-VI",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μουσική Δωματίου Ι-VI",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Μουσική Παιδαγωγική III",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μουσική Προπαιδεία",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μουσικοθεραπεία Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Μουσικοποιητική Δομή I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ξένη Γλώσσα I-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ορχήστρα Ι-VIII",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Ορχηστρικά Αποσπάσματα Ι-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Παραστατική Συνόλων I-VIII",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πιανιστική Απόδοση Παρτιτούρας",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πιανιστική Συνοδεία I-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πληροφορική Βυζαντινής Μουσικής",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτισμική Οργανολογία",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολιτιστική Διαχείριση – Επικοινωνία και Μέσα Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πολυκάμερη Μουσική Τηλεοπτική Παραγωγή",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Πρακτικές Εκτέλεσης Σύγχρονης Μουσικής I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Πρακτικές Ελεύθερου Αυτοσχεδιασμού Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρεπερτόριο Χορωδιακής Μουσικής Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρεπερτόριο ψαλτικής I-VI",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρυθμική Πρακτική – Κρουστά I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ρυθμική Πρακτική – Κρουστά Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σκηνική Ηθοποιϊα I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στοιχεία Αντίστιξης",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Στοιχεία Φούγκας",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συγγενές όργανο I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Συμμετοχή σε έρευνα, με έμφαση στην καλλιτεχνικά βασισμένη εκπαιδευτική έρευνα Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύνολα Παραδοσιακής Μουσικής I-VI",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύνολα Παραδοσιακής Μουσικής III-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Σύνολα Παραδοσιακής μουσικής I-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Σύνολα Τζαζ I-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνικές Όμποε – Φαγκότου I-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τεχνικές Συγγραφής Επιστημονικής Εργασίας",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Τροπική Μουσική Ι-ΙΙ",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φωνητικό Εργαστήριο I-II",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φωνητικό σύνολο Παραδοσιακής μουσικής I- VIII",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Φωνητικό σύνολο Παραδοσιακής μουσικής I-VIII",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χορωδία Ι-IV",
+     "semester": null,
+     "kind": "elective",
+     "groups": [
+      "Καλλιτεχνικό αντικείμενο"
+     ]
+    },
+    {
+     "code": null,
+     "name": "Χορωδία Ι-VIII",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψηφιακή Επεξεργασία Παρτιτούρας",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    },
+    {
+     "code": null,
+     "name": "Ψυχοακουστική",
+     "semester": null,
+     "kind": "elective",
+     "groups": []
+    }
+   ]
+  }
+ }
+}
