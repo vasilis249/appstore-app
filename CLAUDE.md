@@ -1399,7 +1399,7 @@ User decisions:
   (`docs/release-checklist.md` Part C); later APNs push and Sign in with Apple become possible. First build uploaded to
   App Store Connect 2026-10-22; build 2 = iPhone-only (`TARGETED_DEVICE_FAMILY = 1`, else iPad screenshots are required); build 3 = push notifications, version 1.0.1 (1.0 = build 2, in review; 1.0.1 goes to TestFlight now and is the first update) → next: TestFlight internal testing, then the store listing + review. Store texts:
   `docs/app-store-listing.md`. Review demo accounts `review@example.com` / `review2@example.com` were DELETED 2026-10-24 with every
-  account created 19–24/10 (user request: 5 accounts + their 6 auto groups and «Ομάδα μελέτης») → App Review needs new ones.
+  account of the last 7 days, 18–24/10 (user request: 6 accounts + their 7 empty auto groups and «Ομάδα μελέτης»; 11 left) → App Review needs new ones.
 
 ## Local testing (no Docker in the container)
 - Postgres 16 cluster `/var/lib/postgresql/courtsie-test`, start it with
