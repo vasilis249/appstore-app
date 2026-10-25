@@ -89,7 +89,9 @@ function createSurvey() {
   ]);
 
   form.addPageBreakItem().setTitle('Λίγα για σένα');
-  form.addListItem().setTitle('Σε ποιο πανεπιστήμιο σπουδάζεις;').setRequired(true).setChoiceValues([
+  // multiple choice, not a dropdown: only multiple choice takes «Άλλο» with a text field
+  form.addMultipleChoiceItem().setTitle('Σε ποιο πανεπιστήμιο σπουδάζεις;').setRequired(true).showOtherOption(true)
+    .setHelpText('Αν δεν το βρίσκεις, διάλεξε «Άλλο» και γράψε το όνομά του.').setChoiceValues([
     'Εθνικό Μετσόβιο Πολυτεχνείο', 'Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών',
     'Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης', 'Πανεπιστήμιο Πατρών', 'Πανεπιστήμιο Κρήτης', 'Πολυτεχνείο Κρήτης',
     'Πανεπιστήμιο Ιωαννίνων', 'Δημοκρίτειο Πανεπιστήμιο Θράκης', 'Πανεπιστήμιο Θεσσαλίας', 'Πανεπιστήμιο Μακεδονίας',
@@ -97,8 +99,15 @@ function createSurvey() {
     'Πανεπιστήμιο Αιγαίου', 'Ιόνιο Πανεπιστήμιο', 'Ελληνικό Μεσογειακό Πανεπιστήμιο', 'Ελληνικό Ανοικτό Πανεπιστήμιο',
     'Οικονομικό Πανεπιστήμιο Αθηνών', 'Πανεπιστήμιο Πειραιώς', 'Πάντειο Πανεπιστήμιο', 'Πανεπιστήμιο Δυτικής Αττικής',
     'Γεωπονικό Πανεπιστήμιο Αθηνών', 'Χαροκόπειο Πανεπιστήμιο', 'Ανωτάτη Σχολή Καλών Τεχνών',
-    'Ανώτατη Σχολή Παιδαγωγικής και Τεχνολογικής Εκπαίδευσης', 'Ιδιωτικό πανεπιστήμιο ή κολλέγιο στην Ελλάδα',
-    'Πανεπιστήμιο στην Κύπρο', 'Πανεπιστήμιο σε άλλη χώρα',
+    'Ανώτατη Σχολή Παιδαγωγικής και Τεχνολογικής Εκπαίδευσης',
+    // private universities and colleges in Greece
+    'Deree — The American University of Greece (ACG)', 'American College of Thessaloniki (ACT)',
+    'Hellenic American University', 'CITY College, University of York Europe Campus', 'Μητροπολιτικό Κολλέγιο',
+    'New York College', 'Mediterranean College', 'BCA College', 'IST College', 'Perrotis College',
+    // Cyprus
+    'Πανεπιστήμιο Κύπρου', 'Τεχνολογικό Πανεπιστήμιο Κύπρου', 'Ανοικτό Πανεπιστήμιο Κύπρου',
+    'Πανεπιστήμιο Λευκωσίας', 'Ευρωπαϊκό Πανεπιστήμιο Κύπρου', 'Πανεπιστήμιο Frederick',
+    'Πανεπιστήμιο Νεάπολις Πάφου', 'UCLan Cyprus',
   ]);
   form.addMultipleChoiceItem().setTitle('Σε ποιο πεδίο σπουδάζεις;').setRequired(true).showOtherOption(true)
     .setChoiceValues(['Μηχανική', 'Πληροφορική', 'Θετικές επιστήμες', 'Επιστήμες υγείας',
