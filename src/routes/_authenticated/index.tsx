@@ -15,7 +15,7 @@ import { UserAvatar } from "@/components/user-avatar";
 import { useMyProfile } from "@/hooks/use-my-profile";
 import { useSections } from "@/hooks/use-sections";
 import { campusTopics, postKeys, type FeedParams, type NewsTopic } from "@/lib/posts";
-import { campusLeaderboard, campusStatus, campusStatusKeys, useCampus, type CampusStatus } from "@/lib/campus";
+import { campusLeaderboard, campusStatus, campusStatusKeys, useCampus } from "@/lib/campus";
 import { InviteShare } from "@/components/invite-share";
 import { friendKeys, suggestedPeople } from "@/lib/friends";
 import { FollowButton } from "@/components/friends/follow-button";
@@ -73,9 +73,7 @@ function HomePage() {
   const [playable, setPlayable] = useState(false);
 
   const params: FeedParams = tab === "following" ? { scope: "personal" } : { scope: "groups" };
-  // A campus still waiting for students has no sections or feed to play yet.
   const status = useQuery({ queryKey: campusStatusKeys.status, queryFn: campusStatus, enabled: tab === "campus" && verified });
-  const campusOpen = status.data?.is_open !== false;
   const uni = campus.label({ university_id: me.data?.university_id });
   // The university's full name is too long for a tab: it shows in the header kicker instead.
   const label = (x: Tab) => t(`home.${x}`);
@@ -85,12 +83,12 @@ function HomePage() {
         ? t("home.campusKicker", { uni, count: status.data.students, n: status.data.students.toLocaleString(i18n.language) })
         : uni
       : t("home.forStudents"); // keeps the feed tabs at the same height on every tab
-  const canPlay = playable && !!tab && !(tab === "campus" && (!verified || !campusOpen));
+  const canPlay = playable && !!tab && !(tab === "campus" && !verified);
   return (
     <>
       <AppHeader large={tab ? (tab === "campus" ? t("home.campus") : t(`home.${tab}`)) : " "} kicker={kicker} right={<HomeBell />} />
       <FeedTabs tab={tab} tabs={TABS} label={label} right={<HomeMessages />} />
-      {(canPlay || (tab === "campus" && verified && campusOpen)) && (
+      {(canPlay || (tab === "campus" && verified)) && (
         <div className="no-scrollbar flex items-center gap-2 overflow-x-auto px-4 pb-2.5 pt-3">
           {canPlay && (
             <button
@@ -102,7 +100,7 @@ function HomePage() {
               <Play className="h-3.5 w-3.5" fill="currentColor" strokeWidth={0} /> {t("posts.playAll")}
             </button>
           )}
-          {tab === "campus" && verified && campusOpen && <SectionPills active={section} />}
+          {tab === "campus" && verified && <SectionPills active={section} />}
         </div>
       )}
 
@@ -148,9 +146,7 @@ function CampusView({
   onPlayable: (on: boolean) => void;
 }) {
   const { t } = useTranslation();
-  const status = useQuery({ queryKey: campusStatusKeys.status, queryFn: campusStatus });
-  const topics = useQuery({ queryKey: postKeys.campusTopics(section), queryFn: () => campusTopics(section, 4), enabled: !!status.data?.is_open });
-  if (status.data && !status.data.is_open) return <CampusWaiting status={status.data} />;
+  const topics = useQuery({ queryKey: postKeys.campusTopics(section), queryFn: () => campusTopics(section, 4) });
   const daily = topics.data?.find((x) => x.is_daily);
   const rest = (topics.data ?? []).filter((x) => !x.is_daily).slice(0, 3);
   return (
@@ -187,52 +183,14 @@ function CampusView({
   );
 }
 
-/**
- * A campus that opens at N verified students. Courses, notes and your year group work already (only the campus feed
- * waits), so they come first; then how far the campus is, invite classmates, which school brings most.
- */
-function CampusWaiting({ status }: { status: CampusStatus }) {
-  const { t } = useTranslation();
-  const campus = useCampus();
-  const pct = Math.min(100, Math.round((status.students / Math.max(1, status.min_students)) * 100));
-  return (
-    <div className="px-4 pt-2">
-      <div className="-mx-4">
-        <PickCoursesCard />
-        <CoursesCard />
-        <YearGroupCard />
-      </div>
-      <div className="pt-6" />
-      <div className="flex flex-col items-center text-center">
-        <span className="grid h-16 w-16 place-items-center rounded-full bg-secondary text-link">
-          <GraduationCap className="h-8 w-8" />
-        </span>
-        <h2 className="mt-4 text-display font-semibold">{t("campus.waitingTitle", { uni: campus.label({ university_id: status.university_id }) })}</h2>
-        <p className="mt-2 text-callout text-muted-foreground">{t("campus.waiting", { count: status.min_students })}</p>
-        <p className="mt-6 text-hero font-semibold tabular-nums">
-          {status.students}
-          <span className="text-display text-muted-foreground"> / {status.min_students}</span>
-        </p>
-        <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-secondary" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
-          <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${pct}%` }} />
-        </div>
-      </div>
-      <InviteShare className="mt-8" text={t("campus.inviteClassmates")} />
-      <div className="-mx-4 mt-6">
-        <SchoolsBoard expanded />
-      </div>
-    </div>
-  );
-}
-
 /** Schools of your campus by students ("Η Πληροφορική οδηγεί!"): top 3 and yours, or all of them. */
-function SchoolsBoard({ expanded = false }: { expanded?: boolean }) {
+function SchoolsBoard() {
   const { t, i18n } = useTranslation();
   const campus = useCampus();
   const me = useMyProfile();
-  const [all, setAll] = useState(expanded);
+  const [all, setAll] = useState(false);
   const board = useQuery({ queryKey: campusStatusKeys.leaderboard, queryFn: campusLeaderboard });
-  // departments nobody joined yet are no ranking (a waiting campus would list 37 rows of «0 φοιτητές»)
+  // departments nobody joined yet are no ranking
   const rows = (board.data ?? []).filter((r) => r.students > 0).map((r, i) => ({ ...r, rank: i + 1 }));
   if (!rows.length) return null;
   const mine = me.data?.department_id;
@@ -258,7 +216,7 @@ function SchoolsBoard({ expanded = false }: { expanded?: boolean }) {
           {t("campus.allSchools")}
         </button>
       )}
-      {!expanded && <InviteShare className="mt-3 bg-background/60" text={t("campus.inviteClassmates")} />}
+      <InviteShare className="mt-3 bg-background/60" text={t("campus.inviteClassmates")} />
     </section>
   );
 }

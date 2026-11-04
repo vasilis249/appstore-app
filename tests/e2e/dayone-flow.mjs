@@ -74,8 +74,8 @@ await c.getByRole("button", { name: "2ο" }).click();
 await c.getByRole("button", { name: "Τέλος" }).click();
 await c.waitForURL((u) => new URL(u).pathname === "/", { timeout: 8000 }).catch(() => {});
 await c.waitForTimeout(1500);
-ok("closed campus: waiting screen still offers courses, this semester's pick and the year group",
-  (await c.getByText(/ανοίγει σύντομα/).isVisible()) && (await c.getByRole("link", { name: /Μαθήματα.*Σημειώσεις και παλιά θέματα/ }).isVisible())
+ok("every campus open: no waiting screen; courses, this semester's pick and the year group",
+  !(await c.getByText(/ανοίγει σύντομα|\/ 100/).first().isVisible()) && (await c.getByRole("link", { name: /Μαθήματα.*Σημειώσεις και παλιά θέματα/ }).isVisible())
   && (await c.getByRole("heading", { name: /Τι μαθήματα έχεις στο [34]ο εξάμηνο;/ }).isVisible()) && (await c.getByText("Πληροφορική · 2ο έτος").first().isVisible()));
 await c.getByRole("button", { name: "Όχι τώρα" }).click();
 await c.reload({ waitUntil: "networkidle" });

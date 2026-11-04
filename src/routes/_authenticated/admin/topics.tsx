@@ -9,10 +9,9 @@ import { Switch } from "@/components/ui/switch";
 import { useSections } from "@/hooks/use-sections";
 import { useCampus } from "@/lib/campus";
 import {
-  adminCampuses, adminFeeds, adminKeys, adminTopics, amIAdmin, campusModerators, createTopic, refreshNews, setCampusModerator,
-  setCampusThreshold, setFeed, updateTopic,
+  adminFeeds, adminKeys, adminTopics, amIAdmin, campusModerators, createTopic, refreshNews, setCampusModerator,
+  setFeed, updateTopic,
 } from "@/lib/admin";
-import { campusStatusKeys } from "@/lib/campus";
 import { UserAvatar } from "@/components/user-avatar";
 import { dailyKeys, getToday } from "@/lib/daily";
 import { rpcErrorKey } from "@/lib/friends";
@@ -188,35 +187,21 @@ function CampusPicker({ value, onChange }: { value?: string; onChange: (id: stri
   );
 }
 
-/** One campus at a time: students needed before it opens (0 = open), and its student moderators. */
+/** One campus at a time: its student moderators. */
 function CampusAdmin() {
   const { t } = useTranslation();
   const qc = useQueryClient();
   const campus = useCampus();
-  const campuses = useQuery({ queryKey: adminKeys.campuses, queryFn: adminCampuses });
   const [picked, setPicked] = useState<string | null>(null);
   const uni = campus.uni(picked) ?? campus.universities.find((u) => u.open);
-  const status = campuses.data?.find((c) => c.university_id === uni?.id);
   const mods = useQuery({ queryKey: adminKeys.moderators(uni?.id ?? ""), queryFn: () => campusModerators(uni!.id), enabled: !!uni });
-  const [min, setMin] = useState("");
   const [username, setUsername] = useState("");
   const input = "h-12 w-full rounded-2xl bg-secondary px-4 text-body outline-none placeholder:text-muted-foreground";
-  const saveMin = useMutation({
-    mutationFn: () => setCampusThreshold(uni!.id, Number(min) || 0),
-    onSuccess: () => {
-      setMin("");
-      toast.success(t("admin.saved"));
-      void qc.invalidateQueries({ queryKey: adminKeys.campuses });
-      void qc.invalidateQueries({ queryKey: campusStatusKeys.status });
-    },
-    onError: (e) => toast.error(t(rpcErrorKey(e))),
-  });
   const mod = useMutation({
     mutationFn: ({ name, on }: { name: string; on: boolean }) => setCampusModerator(name, uni!.id, on),
     onSuccess: () => {
       setUsername("");
       void qc.invalidateQueries({ queryKey: adminKeys.moderators(uni!.id) });
-      void qc.invalidateQueries({ queryKey: adminKeys.campuses });
     },
     onError: (e) => toast.error(e instanceof Error && e.message.includes("not_student") ? t("admin.notStudent") : t(rpcErrorKey(e))),
   });
@@ -226,15 +211,6 @@ function CampusAdmin() {
     <section className="space-y-3">
       <h2 className="text-callout font-semibold text-muted-foreground">{t("admin.campusTitle", { uni: short })}</h2>
       <CampusPicker value={uni.id} onChange={setPicked} />
-      <p className="text-caption text-muted-foreground">
-        {status ? t("admin.campusNow", { students: status.students, min: status.min_students }) : t("admin.campusNotStudent")}
-      </p>
-      <div className="flex gap-2">
-        <input value={min} onChange={(e) => setMin(e.target.value.replace(/\D/g, ""))} inputMode="numeric" placeholder={t("admin.minStudents")} className={input} />
-        <button type="button" disabled={!min || saveMin.isPending} onClick={() => saveMin.mutate()} className="h-12 shrink-0 rounded-xl bg-primary px-5 font-semibold text-primary-foreground disabled:opacity-40">
-          {t("admin.save")}
-        </button>
-      </div>
       <p className="pt-2 text-caption font-semibold">{t("admin.moderators")}</p>
       <ul className="divide-y divide-border rounded-2xl bg-card">
         {(mods.data ?? []).map((m) => (

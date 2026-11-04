@@ -73,11 +73,6 @@ function MetricsPage() {
                         questions: r.questions,
                       })}
                     </span>
-                    <span className="block text-fine text-muted-foreground">
-                      {r.students >= r.min_students
-                        ? t("metrics.open")
-                        : t("metrics.waiting", { n: r.students, min: r.min_students })}
-                    </span>
                   </span>
                   <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
                 </Link>

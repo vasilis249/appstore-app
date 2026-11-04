@@ -32,7 +32,6 @@ export const adminKeys = {
   isAdmin: ["admin", "me"] as const,
   staff: ["admin", "staff"] as const,
   moderators: (uni: string) => ["admin", "moderators", uni] as const,
-  campuses: ["admin", "campuses"] as const,
   topics: ["admin", "topics"] as const,
   feeds: ["admin", "feeds"] as const,
 };
@@ -60,23 +59,6 @@ export async function campusModerators(university: string) {
 export async function setCampusModerator(username: string, university: string, on: boolean) {
   fail((await supabase.rpc("admin_set_campus_moderator", { p_username: username, p_university: university, p_on: on })).error);
 }
-/** Every open campus: verified students, the threshold to open, open or not, how many moderators. */
-export interface AdminCampus {
-  university_id: string;
-  students: number;
-  min_students: number;
-  is_open: boolean;
-  moderators: number;
-}
-export async function adminCampuses(): Promise<AdminCampus[]> {
-  const { data, error } = await supabase.rpc("admin_campuses");
-  fail(error);
-  return (data ?? []) as AdminCampus[];
-}
-export async function setCampusThreshold(university: string, minStudents: number) {
-  fail((await supabase.rpc("admin_set_campus", { p_university: university, p_min_students: minStudents })).error);
-}
-
 export async function amIAdmin(): Promise<boolean> {
   const { data, error } = await supabase.rpc("am_i_admin");
   fail(error);

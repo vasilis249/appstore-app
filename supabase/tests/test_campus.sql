@@ -267,14 +267,13 @@ SELECT pg_temp.ok('11a leaderboard: every NTUA school, most students first',
   AND (SELECT students FROM public.campus_leaderboard() WHERE department_id = 'ntua-civil') = 2);
 SELECT pg_temp.ok('11b campus open by default', (SELECT is_open AND min_students = 0 FROM public.campus_status()));
 RESET ROLE; SELECT pg_temp.as_user(:A); SET ROLE authenticated;
-SELECT public.admin_set_campus('ntua', 50);
+SELECT pg_temp.ok('11c every campus open, even for an admin there is no threshold to set',
+  NOT EXISTS (SELECT 1 FROM public.admin_campuses() WHERE NOT is_open)
+  AND pg_temp.fails($$SELECT public.admin_set_campus('ntua', 50)$$));
 RESET ROLE; SELECT pg_temp.as_user(:B); SET ROLE authenticated;
-SELECT pg_temp.ok('11c admin sets 50 → waiting (students < 50)', (SELECT NOT is_open AND min_students = 50 AND students >= 3 FROM public.campus_status())
-  AND pg_temp.fails($$SELECT public.admin_set_campus('ntua', 0)$$));
 RESET ROLE; SELECT pg_temp.as_user(:C); SET ROLE authenticated;
 SELECT pg_temp.ok('11d non-students: no status, no leaderboard', NOT EXISTS (SELECT 1 FROM public.campus_status()) AND NOT EXISTS (SELECT 1 FROM public.campus_leaderboard()));
 RESET ROLE;
-UPDATE public.universities SET min_students = 0 WHERE id = 'ntua';
 
 -- 12 campus moderators
 SELECT pg_temp.as_user(:A); SET ROLE authenticated;
@@ -301,8 +300,7 @@ SELECT pg_temp.ok('12c moderator: my_staff_role, sees only campus reports, witho
   AND public.admin_open_reports() = 1);
 SELECT pg_temp.ok('12d moderator: hide or dismiss only; nothing outside the campus',
   pg_temp.fails(format($$SELECT public.admin_resolve_report(%L, 'disable_user')$$, (SELECT id FROM public.admin_reports() LIMIT 1)))
-  AND pg_temp.fails(format('SELECT public.admin_set_post_hidden(%L, true)', :'pub'))
-  AND pg_temp.fails(format($$SELECT public.admin_set_campus('ntua', 1)$$)));
+  AND pg_temp.fails(format('SELECT public.admin_set_post_hidden(%L, true)', :'pub')));
 SELECT public.admin_resolve_report((SELECT id FROM public.admin_reports() LIMIT 1), 'hide_post');
 RESET ROLE;
 SELECT pg_temp.ok('12e ... hides the campus voice', (SELECT hidden FROM public.posts WHERE id = :'cv'));
