@@ -1184,6 +1184,13 @@ User decisions:
   www.eap.gr programme page lists its modules by year (year-long → semester 2y−1) or by semester; type «(Υ/Ε, ECTS)»
   where given, else the page's «Θ.Ε. Κορμού / Επιλογής» lists or its selection rules (`CHOICE`).
   `20261117100700_…eap.sql` live → 31,525 courses over 24 universities. Tests courses 28 (c1: 24, > 31,500).
+- **Every campus open ✔ (user request 2026-11-04: remove «opens at 100 students» everywhere)** — migration
+  `20261118100000_campus_always_open.sql` (min_students 0 for all, `admin_set_campus` dropped; column kept, always 0):
+  applied live by the user in the SQL Editor 2026-11-05, checked with the public key (0 universities with a threshold
+  of 1,737, setter gone). Client: `CampusWaiting`, the admin threshold field, metrics «Περιμένει N/min» and their i18n
+  removed; tests campus 101, speak 136, e2e dayone updated; all DB suites green. NOT DEPLOYED: the container lost
+  scratchpad `deploy.env` (keys) — deploy needs SUPABASE_ACCESS_TOKEN / SUPABASE_ANON_KEY / CLOUDFLARE_API_TOKEN /
+  CLOUDFLARE_ACCOUNT_ID as environment secrets (the old waiting screen can't show any more: every campus is open).
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
