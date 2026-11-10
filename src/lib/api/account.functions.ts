@@ -10,6 +10,8 @@ export const deleteMyAccount = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     const { userId } = context;
+    // the middleware checks the token's signature only: deleting needs a session that still exists
+    if ((await context.supabase.auth.getUser()).error) throw new Error("Unauthorized");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     // Every bucket keeps a user's files under "<userId>/" (avatar, public voices, DM photos, course files); list() pages by 1000.

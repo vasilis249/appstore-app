@@ -16,6 +16,10 @@ export const Route = createFileRoute("/api/auth-email")({
           user: { email?: string; new_email?: string };
           email_data: { token?: string; token_hash?: string; token_new?: string; redirect_to?: string; email_action_type: string };
         };
+        // Sign-up is by academic address only; the app checks it, but Auth itself would mail a code to anyone.
+        if (d.email_action_type !== "recovery" && d.email_action_type !== "email_change" && !(await academic(user.email ?? ""))) {
+          return Response.json({ error: { http_code: 422, message: "not_academic" } }, { status: 422 });
+        }
         const sends: { to: string; code?: string }[] =
           d.email_action_type === "email_change"
             ? [
@@ -40,6 +44,15 @@ export const Route = createFileRoute("/api/auth-email")({
     },
   },
 });
+
+async function academic(email: string): Promise<boolean> {
+  const parts = (email.split("@")[1] ?? "").toLowerCase().split(".");
+  const suffixes = parts.map((_, i) => parts.slice(i).join(".")).filter((x) => x.includes(".")); // mail.ntua.gr, ntua.gr
+  if (!suffixes.length) return false;
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin.from("universities").select("id").overlaps("email_domains", suffixes).limit(1);
+  return !!data?.length;
+}
 
 async function verified(h: Headers, body: string): Promise<boolean> {
   const secret = process.env.SEND_EMAIL_HOOK_SECRET?.replace(/^v1,whsec_/, "");

@@ -43,7 +43,6 @@ function ResetPasswordPage() {
         const hashParams = new URLSearchParams(hash);
         const accessToken = hashParams.get("access_token");
         const refreshToken = hashParams.get("refresh_token");
-        const type = hashParams.get("type");
 
         if (code) {
           // With PKCE (the iOS app) the client exchanges ?code= by itself on
@@ -53,12 +52,6 @@ function ResetPasswordPage() {
             const { error } = await supabase.auth.exchangeCodeForSession(code);
             if (error) throw error;
           }
-        } else if (accessToken && refreshToken && type === "recovery") {
-          const { error } = await supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken,
-          });
-          if (error) throw error;
         }
 
         const { data } = await supabase.auth.getSession();

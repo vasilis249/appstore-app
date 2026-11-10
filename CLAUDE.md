@@ -1222,6 +1222,22 @@ User decisions:
   baseline too; `share-flow` needs the lost scratchpad seeds. Not done (report only): notification spam through
   like / unlike loops (SD-9), student-code guesses reset on resend (SD-10), existing usernames that equal a registry
   number, the live "Authenticated can use realtime" policy.
+- **Audit 2026-11, round 3 (application security agent finished: 2 critical, 1 high, 4 medium, 8 low; no secrets in
+  the tree or history)** — fixed in the client / Worker (NOT deployed): `@tanstack/react-start` pinned 1.168.60 +
+  `@tanstack/react-router` 1.170.41 (GHSA-qx66-fv34-fjm8 reflected XSS in `/_serverFn/*`; the PoC primitive is gone.
+  Versions must share ONE `@tanstack/router-core`: 1.169.x of react-start drops `inputValidator`, and a second
+  router-core copy makes `server:` routes fail to type-check — bump both together); Supabase client `flowType: 'pkce'`
+  on the web too and no `setSession` from URL tokens in `/reset-password` (a crafted `#access_token` link signed the
+  victim into the attacker's account; side effect: a password-reset link must be opened in the browser that asked for
+  it); `/i/<code>` remembers the invite only on a tap (opening the link silently befriended); `sweepVoiceFiles` only
+  for students; `deleteMyAccount` needs a live session (`getUser`); the auth-email hook mails codes only to academic
+  addresses (`overlaps("email_domains", suffixes)`); `deploy-all.sh` no longer turns `mailer_autoconfirm` back on.
+  Re-run PoCs (scratchpad `audit/secapp/t5b, t6, t7`): all closed. STILL OPEN, user decisions: sign-in depends on
+  Brevo's 300 mails/day and made-up academic addresses can burn it → paid mail tier + Auth «Before User Created» hook
+  + Turnstile captcha; live `mailer_autoconfirm` should be false; Privacy texts the code doesn't back (12 keys listed
+  in the report: «no location collected» vs the map, «email not stored» vs the account email, public-by-URL photos,
+  push token only removed by the Settings sign-out, listen-once without «can be recorded») → lawyer; CSP
+  `unsafe-inline`; share links expose campus-only post text by design.
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση

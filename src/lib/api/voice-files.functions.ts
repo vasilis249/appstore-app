@@ -9,7 +9,9 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
  */
 export const sweepVoiceFiles = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .handler(async () => {
+  .handler(async ({ context }) => {
+    const { data: student } = await context.supabase.rpc("am_i_student");
+    if (!student) return { removed: 0 };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin.rpc("orphan_voice_files", { p_limit: 200 });
     if (error) throw new Error(error.message);

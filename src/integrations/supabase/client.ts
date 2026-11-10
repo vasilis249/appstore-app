@@ -24,9 +24,9 @@ function createSupabaseClient() {
       storage: typeof window !== 'undefined' ? localStorage : undefined,
       persistSession: true,
       autoRefreshToken: true,
-      // The iOS app receives auth email links through a custom URL scheme; PKCE
-      // keeps the tokens out of that URL (a code is useless without the verifier).
-      flowType: isNativeApp() ? 'pkce' : 'implicit',
+      // PKCE everywhere: a link carries a code that is useless without the verifier stored in the browser that asked
+      // for it, so nobody can sign you into THEIR account with a crafted link (implicit accepted any #access_token).
+      flowType: 'pkce',
     }
   });
 }

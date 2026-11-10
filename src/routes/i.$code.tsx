@@ -1,5 +1,4 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useTranslation } from "react-i18next";
@@ -24,12 +23,14 @@ function InvitePage() {
   const preview = useServerFn(invitePreview);
   const who = useQuery({ queryKey: ["invite", code], queryFn: () => preview({ data: { code } }), retry: false });
 
-  useEffect(() => {
+  // Remembered only on a tap: accepting makes the two of you follow each other (messages, walkie, friends map).
+  const accept = () => {
     if (/^[a-z0-9]{8}$/i.test(code)) rememberInvite(code.toLowerCase());
-  }, [code]);
+  };
 
   // Already signed in: claim now (only works for new accounts) and go home.
   async function goOn() {
+    accept();
     await claimRememberedInvite();
     void navigate({ to: "/", replace: true });
   }
@@ -63,10 +64,10 @@ function InvitePage() {
         </button>
       ) : (
         <>
-          <Link to="/auth" search={{ mode: "signup" }} className="grid h-14 w-full place-items-center rounded-xl bg-primary text-body font-semibold text-primary-foreground">
+          <Link to="/auth" search={{ mode: "signup" }} onClick={accept} className="grid h-14 w-full place-items-center rounded-xl bg-primary text-body font-semibold text-primary-foreground">
             {t("invite.join")}
           </Link>
-          <Link to="/auth" search={{ mode: "signin" }} className="mt-4 text-callout font-semibold text-muted-foreground">
+          <Link to="/auth" search={{ mode: "signin" }} onClick={accept} className="mt-4 text-callout font-semibold text-muted-foreground">
             {t("invite.haveAccount")}
           </Link>
         </>

@@ -66,8 +66,6 @@ echo "▸ 5/6 Auth settings (redirect URLs + security)"
 AUTH_JSON='"password_min_length":8,"mailer_secure_email_change_enabled":true,"security_update_password_require_reauthentication":true,"security_refresh_token_reuse_interval":10,"refresh_token_rotation_enabled":true'
 if [ -n "${SMTP_HOST:-}" ] && [ -n "${SMTP_PASS:-}" ]; then
   AUTH_JSON="${AUTH_JSON},\"mailer_autoconfirm\":false,\"smtp_host\":\"${SMTP_HOST}\",\"smtp_port\":\"${SMTP_PORT:-587}\",\"smtp_user\":\"${SMTP_USER:-}\",\"smtp_pass\":\"${SMTP_PASS}\",\"smtp_admin_email\":\"${SMTP_SENDER_EMAIL:-${SMTP_USER:-}}\",\"smtp_sender_name\":\"Speak\",\"rate_limit_email_sent\":100"
-else
-  AUTH_JSON="${AUTH_JSON},\"mailer_autoconfirm\":true"
 fi
 if [ -n "$APP_URL" ]; then
   AUTH_JSON="${AUTH_JSON},\"site_url\":\"${APP_URL}\",\"uri_allow_list\":\"${APP_URL}/**,courtsie://**\""
