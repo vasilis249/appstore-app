@@ -497,6 +497,26 @@ SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c3', 'magiclink');
 SELECT pg_temp.ok('14e the same address (any case) can verify one account only', public.claim_student_email() = 'email_taken');
 SELECT pg_temp.ok('14f anon cannot call it', NOT has_function_privilege('anon', 'public.claim_student_email()', 'execute'));
 RESET ROLE;
+-- a stranger made a password account for this address before its owner ever signed in
+INSERT INTO auth.users (id, email, encrypted_password) VALUES ('00000000-0000-0000-0000-0000000000c4', 'el20004@mail.ntua.gr', 'strangers-hash');
+INSERT INTO auth.sessions (id, user_id) VALUES
+  ('00000000-0000-0000-0000-0000000005e1', '00000000-0000-0000-0000-0000000000c4'),
+  ('00000000-0000-0000-0000-0000000005e2', '00000000-0000-0000-0000-0000000000c4');
+SELECT set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-0000000000c4', false);
+SELECT set_config('request.jwt.claims', '{"sub":"00000000-0000-0000-0000-0000000000c4","role":"authenticated","session_id":"00000000-0000-0000-0000-0000000005e1","amr":[{"method":"otp","timestamp":1}]}', false);
+SET ROLE authenticated;
+SELECT public.claim_student_email() AS claim \gset
+RESET ROLE;
+SELECT pg_temp.ok('14h the first code sign-in removes an earlier password and every other session', :'claim' = 'ok'
+  AND (SELECT encrypted_password IS NULL FROM auth.users WHERE id = '00000000-0000-0000-0000-0000000000c4')
+  AND (SELECT array_agg(id::text) FROM auth.sessions WHERE user_id = '00000000-0000-0000-0000-0000000000c4') = ARRAY['00000000-0000-0000-0000-0000000005e1']);
+SELECT pg_temp.as_user('00000000-0000-0000-0000-0000000000c1');
+SET ROLE authenticated;
+SELECT pg_temp.ok('14i nobody reads another profile''s invite code or who invited them',
+  pg_temp.fails('SELECT invite_code FROM public.profiles') AND pg_temp.fails('SELECT invited_by FROM public.profiles')
+  AND pg_temp.fails('SELECT * FROM public.profiles')
+  AND (SELECT count(*) FROM public.profiles WHERE id = '00000000-0000-0000-0000-0000000000c4') = 1);
+RESET ROLE;
 SET ROLE anon;
 SELECT pg_temp.ok('14g signed-out visitors can read universities and departments (the sign-up names the university)',
   (SELECT count(*) FROM public.universities WHERE id = 'ntua') = 1 AND (SELECT count(*) FROM public.departments WHERE university_id = 'ntua') = 9);

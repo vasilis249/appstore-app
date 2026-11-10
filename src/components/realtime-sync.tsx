@@ -53,14 +53,12 @@ export function RealtimeSync() {
     if (!user) return;
     const channel = supabase
       .channel(`sync-${user.id}`)
-      .on("postgres_changes", { event: "*", schema: "public", table: "friendships" }, () => {
-        void qc.invalidateQueries({ queryKey: friendKeys.all });
-      })
       .on("postgres_changes", { event: "*", schema: "public", table: "voice_messages" }, () => {
         void qc.invalidateQueries({ queryKey: voiceKeys.all });
       })
       .on("postgres_changes", { event: "*", schema: "public", table: "notifications" }, () => {
         void qc.invalidateQueries({ queryKey: notificationKeys.all });
+        void qc.invalidateQueries({ queryKey: friendKeys.all }); // a new follower arrives as a notification
         void qc.invalidateQueries({ queryKey: walkieKeys.list }); // a saved walkie leaves a notice: unheard counts
         // invites, requests and approvals arrive as notifications
         void qc.invalidateQueries({ queryKey: groupKeys.all });

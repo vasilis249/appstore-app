@@ -5,9 +5,11 @@ import { useIsStudent } from "@/hooks/use-is-student";
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
   beforeLoad: async () => {
-    const { data, error } = await supabase.auth.getUser();
-    if (error || !data.user) throw redirect({ to: "/auth" });
-    return { user: data.user };
+    // getSession reads the stored session: getUser asked the server on every navigation, so a tap without signal
+    // bounced to /auth and back (RLS is the real check, not this guard)
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) throw redirect({ to: "/auth" });
+    return { user: data.session.user };
   },
   component: StudentGate,
 });

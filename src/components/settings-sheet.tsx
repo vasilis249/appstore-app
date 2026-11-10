@@ -13,6 +13,7 @@ import { DeleteAccountButton } from "@/components/delete-account-button";
 import { supabase } from "@/integrations/supabase/client";
 import { DailyPromptSwitch } from "@/components/daily-prompt-switch";
 import { forgetPushToken } from "@/lib/push";
+import { cancelDailyPrompts } from "@/lib/prompt-notifications";
 
 /** Everything that isn't the profile itself, in one place (opened from the ⚙︎ button). */
 export function SettingsSheet({
@@ -38,6 +39,7 @@ export function SettingsSheet({
     await qc.cancelQueries();
     qc.clear();
     await forgetPushToken().catch(() => {});
+    await cancelDailyPrompts().catch(() => {}); // the scheduler unmounts with the session, so it can't do it
     await supabase.auth.signOut();
     navigate({ to: "/auth", replace: true });
   }

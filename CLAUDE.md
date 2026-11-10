@@ -1191,6 +1191,20 @@ User decisions:
   removed; tests campus 101, speak 136, e2e dayone updated; all DB suites green. NOT DEPLOYED: the container lost
   scratchpad `deploy.env` (keys) — deploy needs SUPABASE_ACCESS_TOKEN / SUPABASE_ANON_KEY / CLOUDFLARE_API_TOKEN /
   CLOUDFLARE_ACCOUNT_ID as environment secrets (the old waiting screen can't show any more: every campus is open).
+- **Audit 2026-11, round 1 (user request 2026-11-10: agents for security / bugs / usability + a student panel)** — six
+  parallel agents exhaust the 5-hour usage limit in ~3 minutes (each carries this whole file) → run ONE at a time;
+  partial reports in scratchpad `audit/*.md` (lost with the container). Fixed so far, migration
+  `20261119100000_audit_fixes.sql` (NOT applied live: needs the user's OK / SQL Editor): (1) `profiles` SELECT is now
+  column-level — `invite_code` / `invited_by` unreadable (any student could read a code, `claim_invite` it and become a
+  "friend": DMs, walkie, friends-only position); never `select *` from profiles in the client; (2)
+  `claim_student_email` clears `auth.users.encrypted_password` + other `auth.sessions` at the first verification (a
+  stranger's earlier password sign-up for that address kept working). Client: `_authenticated` guard uses `getSession()`
+  (getUser hit the network on every navigation; no signal → bounce to /auth), `RealtimeSync` no longer binds the
+  dropped `friendships` table (may have broken the whole channel live), sign-out cancels the daily reminders. Local
+  test keys in `tests/e2e/{serve,local-build}.sh` had expired (30 days) → re-minted for 10 years (local secret only).
+  Stubs: `auth.users.encrypted_password`, `auth.sessions`. Tests campus 103 (14h, 14i). Open candidates (unverified):
+  OTP sign-in mails any address (Brevo 300/day → captcha), `study_year` never advances in September, dismiss doesn't
+  un-hide an auto-hidden post, auth errors hard-coded Greek, CSP `unsafe-inline`.
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
