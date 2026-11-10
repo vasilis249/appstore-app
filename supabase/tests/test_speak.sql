@@ -85,7 +85,7 @@ SELECT pg_temp.ok('03l quote with voice', (SELECT reposts_count FROM public.post
 SELECT public.unrepost(:'pa');
 SELECT pg_temp.ok('03m unrepost', (SELECT reposts_count FROM public.posts WHERE id = :'pa') = 1);
 SELECT pg_temp.ok('03n cannot delete others'' posts', (SELECT count(*) FROM public.posts WHERE id = :'pa') = 1
-  AND NOT pg_temp.fails(format('DELETE FROM public.posts WHERE id = %L', :'pa'))
+  AND pg_temp.fails(format('DELETE FROM public.posts WHERE id = %L', :'pa'))
   AND (SELECT count(*) FROM public.posts WHERE id = :'pa') = 1);
 RESET ROLE;
 
@@ -166,7 +166,7 @@ SELECT pg_temp.ok('08c delete own post', NOT pg_temp.fails(format('SELECT public
 RESET ROLE;
 SELECT pg_temp.ok('08c2 a post without replies or quotes is gone', NOT EXISTS (SELECT 1 FROM public.posts WHERE id = :'pc'));
 SELECT pg_temp.as_user(:A); SET ROLE authenticated;
-SELECT pg_temp.ok('08c3 no direct deletes', NOT pg_temp.fails(format('DELETE FROM public.posts WHERE id = %L', :'pa')));
+SELECT pg_temp.ok('08c3 no direct deletes', pg_temp.fails(format('DELETE FROM public.posts WHERE id = %L', :'pa')));
 SELECT public.delete_post(:'pa');
 RESET ROLE;
 SELECT pg_temp.ok('08d answered post becomes a tombstone; replies and quotes stay, plain reposts go',

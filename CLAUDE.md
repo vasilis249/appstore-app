@@ -1205,6 +1205,23 @@ User decisions:
   Stubs: `auth.users.encrypted_password`, `auth.sessions`. Tests campus 103 (14h, 14i). Open candidates (unverified):
   OTP sign-in mails any address (Brevo 300/day → captcha), `study_year` never advances in September, dismiss doesn't
   un-hide an auto-hidden post, auth errors hard-coded Greek, CSP `unsafe-inline`.
+- **Audit 2026-11, round 2 (database security agent finished: 0 critical, 2 high, 5 medium, 4 low)** — migration
+  `20261120100000_audit_fixes_2.sql` (NOT applied live; apply after `…19100000`): `private.me_any()` refuses a token whose
+  `auth.sessions` row is gone (sign-out / ban / first code sign-in take effect at once); `claim_student_email` also wipes
+  follows, notices, push tokens and the invite planted in a never-verified password account; `private.email_key` (+tag =
+  the same mailbox) and `private.banned_emails` (a banned student who deletes the account can't verify that address
+  again); storage uploads only for verified students, banned accounts can't edit their profile; `update_my_location`
+  allows 6 position jumps (> 2 km and > 250 km/h, or a first fix) per hour (teleporting to read `map_people` city-wide);
+  a staff `dismiss` shows an auto-hidden post again and switches automatic hiding off for it; new code sign-ups are
+  named `user1a2b3c4d` instead of the address's local part (registry number), and the first real name gives a readable
+  username (trigger `profile_name_username`); `follows` readable only for your own rows, other campuses' auto groups
+  hidden; no INSERT / UPDATE / DELETE / TRUNCATE grants for `anon` / `authenticated` (only `profiles(username,
+  full_name, avatar_path)` and `notifications(read_at)` — the only direct client writes; a direct write now raises
+  instead of touching 0 rows). Tests campus 109 (14j–o), courses 28, speak 136. Flows signup, dayone, courses, qa,
+  engage, uoa, walkie-entry green. Test debt: `nearby-flow` step 9 (click on a map marker times out) fails on the
+  baseline too; `share-flow` needs the lost scratchpad seeds. Not done (report only): notification spam through
+  like / unlike loops (SD-9), student-code guesses reset on resend (SD-10), existing usernames that equal a registry
+  number, the live "Authenticated can use realtime" policy.
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση

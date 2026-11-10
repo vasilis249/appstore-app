@@ -517,6 +517,37 @@ SELECT pg_temp.ok('14i nobody reads another profile''s invite code or who invite
   AND pg_temp.fails('SELECT * FROM public.profiles')
   AND (SELECT count(*) FROM public.profiles WHERE id = '00000000-0000-0000-0000-0000000000c4') = 1);
 RESET ROLE;
+-- audit part 2: whatever the stranger planted in the pre-registered account goes at the first code sign-in
+INSERT INTO auth.users (id, email, encrypted_password) VALUES ('00000000-0000-0000-0000-0000000000c5', 'el20005@mail.ntua.gr', 'strangers-hash');
+SELECT pg_temp.ok('14j a code sign-up is not named after its address (often the registry number)',
+  (SELECT username ~ '^user[0-9a-f]{8}$' FROM public.profiles WHERE id = '00000000-0000-0000-0000-0000000000c5'));
+INSERT INTO public.follows (follower_id, followee_id) VALUES
+  ('00000000-0000-0000-0000-0000000000c5', '00000000-0000-0000-0000-0000000000c1'),
+  ('00000000-0000-0000-0000-0000000000c1', '00000000-0000-0000-0000-0000000000c5');
+SET ROLE authenticated;
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c5', 'otp');
+SELECT public.claim_student_email() AS claim \gset
+UPDATE public.profiles SET full_name = 'Νίκη Δοκιμή' WHERE id = '00000000-0000-0000-0000-0000000000c5';
+RESET ROLE;
+SELECT pg_temp.ok('14k follows planted before the owner proved the mailbox are gone', :'claim' = 'ok'
+  AND NOT EXISTS (SELECT 1 FROM public.follows WHERE '00000000-0000-0000-0000-0000000000c5' IN (follower_id, followee_id)));
+SELECT pg_temp.ok('14l the first real name gives a readable username',
+  (SELECT username = 'niki.dokimi' FROM public.profiles WHERE id = '00000000-0000-0000-0000-0000000000c5'));
+INSERT INTO auth.users (id, email) VALUES ('00000000-0000-0000-0000-0000000000c6', 'el20005+second@mail.ntua.gr');
+SET ROLE authenticated;
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c6', 'otp');
+SELECT pg_temp.ok('14m a +tag is the same mailbox: one account', public.claim_student_email() = 'email_taken');
+SELECT set_config('request.jwt.claims', '{"sub":"00000000-0000-0000-0000-0000000000c1","role":"authenticated","session_id":"00000000-0000-0000-0000-0000000005e9"}', false);
+SELECT set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-0000000000c1', false);
+SELECT pg_temp.ok('14n a token of a session that no longer exists is refused', pg_temp.fails('SELECT * FROM public.my_invite()'));
+RESET ROLE;
+UPDATE public.profiles SET disabled = true WHERE id = '00000000-0000-0000-0000-0000000000c5';
+DELETE FROM auth.users WHERE id = '00000000-0000-0000-0000-0000000000c5';
+INSERT INTO auth.users (id, email) VALUES ('00000000-0000-0000-0000-0000000000c7', 'el20005@mail.ntua.gr');
+SET ROLE authenticated;
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c7', 'otp');
+SELECT pg_temp.ok('14o a banned student who deletes the account cannot verify the same address again', public.claim_student_email() = 'email_taken');
+RESET ROLE;
 SET ROLE anon;
 SELECT pg_temp.ok('14g signed-out visitors can read universities and departments (the sign-up names the university)',
   (SELECT count(*) FROM public.universities WHERE id = 'ntua') = 1 AND (SELECT count(*) FROM public.departments WHERE university_id = 'ntua') = 9);

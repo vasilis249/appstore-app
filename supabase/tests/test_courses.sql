@@ -84,7 +84,7 @@ SELECT pg_temp.ok('c8 a classmate sees the row and may read the object',
   EXISTS (SELECT 1 FROM public.course_files)
   AND EXISTS (SELECT 1 FROM storage.objects WHERE name = '00000000-0000-0000-0000-00000000000a/n1.pdf'));
 SELECT pg_temp.ok('c9 no client writes; others can''t delete it',
-  pg_temp.err($$UPDATE public.course_files SET title = 'x'$$) = 'none' AND (SELECT title FROM public.course_files) <> 'x'
+  pg_temp.err($$UPDATE public.course_files SET title = 'x'$$) <> 'none' AND (SELECT title FROM public.course_files) <> 'x'
   AND pg_temp.err(format('SELECT public.delete_course_file(%L)', (SELECT id FROM public.course_files))) = 'not_found');
 RESET ROLE;
 
