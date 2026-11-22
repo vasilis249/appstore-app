@@ -1,7 +1,7 @@
 #!/bin/bash
-# Production deploy from a Linux container (the Mac uses deploy-all.sh). Needs, as environment secrets:
+# Production deploy (container or Mac). Needs, as environment variables:
 #   SUPABASE_ANON_KEY        the project's publishable (anon) key — goes into the client bundle
-#   CLOUDFLARE_API_TOKEN     + CLOUDFLARE_ACCOUNT_ID — wrangler
+#   CLOUDFLARE_API_TOKEN     + CLOUDFLARE_ACCOUNT_ID — wrangler (not needed on a Mac where `npx wrangler login` was done)
 #   SUPABASE_ACCESS_TOKEN    (only with --migrate) Management API token, applies the given migration files
 # Usage:
 #   bash scripts/deploy-prod.sh                       # build + checks + deploy the Worker
@@ -23,7 +23,6 @@ while [ $# -gt 0 ]; do
   shift
 done
 : "${SUPABASE_ANON_KEY:?SUPABASE_ANON_KEY is not set}"
-if [ "$DRY" = 0 ]; then : "${CLOUDFLARE_API_TOKEN:?not set}" "${CLOUDFLARE_ACCOUNT_ID:?not set}"; fi
 role=$(cut -d. -f2 <<<"$SUPABASE_ANON_KEY" | tr '_-' '/+' | base64 -d 2>/dev/null | grep -o '"role":"[a-z_]*"' || true)
 case "$SUPABASE_ANON_KEY" in sb_publishable_*) ;; *) [ "$role" = '"role":"anon"' ] || { echo "SUPABASE_ANON_KEY is not an anon / publishable key"; exit 1; } ;; esac
 
