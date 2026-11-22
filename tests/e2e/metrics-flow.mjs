@@ -35,9 +35,10 @@ ok("Settings has «Μετρήσεις» for the admin", await me.getByRole("link
 await me.getByRole("link", { name: "Μετρήσεις" }).click();
 await me.waitForURL(/\/admin\/metrics/);
 await me.waitForTimeout(1500);
-ok("universities list with students and the open / waiting state",
+// every campus is open since 2026-11-04: no open / waiting line any more
+ok("universities list with students, no open / waiting state",
   (await me.getByText(/Συγκεντρωτικά στοιχεία/).isVisible()) && (await me.getByText(/\d+ φοιτητές · \+\d+ σε 7 ημ\./).first().isVisible())
-  && (await me.getByText("Ανοιχτό campus").first().isVisible()));
+  && (await me.getByText("Ανοιχτό campus").count()) === 0);
 await me.getByRole("link", { name: /Εθνικό Μετσόβιο Πολυτεχνείο/ }).click();
 await me.waitForURL(/u=ntua/);
 await me.waitForTimeout(1500);
