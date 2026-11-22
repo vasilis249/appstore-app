@@ -1246,6 +1246,14 @@ User decisions:
   campus 110 (13o2), speak 11e 111 feeds; browser sign-up with @temple.edu → Fox → Home ✔. NOT applied live (SQL
   Editor); no client change, no deploy needed. Also `docs/ops/delete-account.sql` (one account everywhere; refuses
   unless exactly one match; files then by hand in Storage).
+- **Go-live 2026-11-22 ✔** — the user ran the 4 migrations (`…19100000`, `…20100000`, temple, push_voice_title) in the
+  SQL Editor and deployed from the Mac with `SUPABASE_ANON_KEY=… bash scripts/deploy-prod.sh` (checked live: bundle has
+  the project URL + publishable key, PKCE client, temple listed, anon gets 42501 on profiles / courses). INCIDENT before
+  it: a Mac `bun run deploy` without `VITE_SUPABASE_*` shipped a bundle with empty Supabase config → «Κάτι πήγε στραβά»
+  in the app. ALWAYS deploy with `scripts/deploy-prod.sh` (refuses such a bundle; its secret-key check looks for real
+  keys, since supabase-js itself contains the text `sb_secret_`). Open: map bottom overlay (`/map`, full-width wrapper
+  above the nav) intercepts taps on markers behind it (nearby-flow step 9); App Store 1.0.1 (4) submission; DSA «In
+  Review» blocks EU distribution; Brevo 300 mails/day.
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
