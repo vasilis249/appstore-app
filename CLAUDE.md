@@ -1344,7 +1344,7 @@ User decisions:
   `SUPABASE_URL`, `SUPABASE_PROJECT_ID`; secrets `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`).
   **LIVE: https://courtsie.vasilis-har.workers.dev** (account subdomain `vasilis-har`).
 - `src/lib/native.ts`: `isNativeApp()`, `authRedirectUrl()` (→ `courtsie://app/<path>` in the app),
-  `initNativeShell()` (html.native-app, deep links, splash). Supabase client: PKCE in the app, implicit on web.
+  `initNativeShell()` (html.native-app, deep links, splash). Supabase client: PKCE everywhere (web too since 2026-11-10).
 - Server functions: only `src/lib/api/account.functions.ts` (`deleteMyAccount`: removes `avatars/<uid>/` and
   `voices/<uid>/`, then `auth.admin.deleteUser` → cascades). Everything else talks to Supabase RPCs
   directly with the anon key + user JWT.

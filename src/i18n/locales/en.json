@@ -242,15 +242,15 @@
           "body": [
             "Account: email, full name and password, stored only in hashed form.",
             "Profile: username (@username), name and profile photo (optional).",
-            "Student identity (optional): university, school and year of study. To confirm it we send a code to your university email; the email is not stored — we keep only an irreversible fingerprint (hash) so that each university email matches one account. You can remove it at any time in Settings.",
+            "Student identity: university, school and year of study. It is required, because Speak is for students only. So that each university email matches one account, we also keep an irreversible fingerprint (hash) of it. You can change your school and year at any time.",
             "Public voices: the recordings you post (up to 2 minutes), their title, section and topic, the time of posting, and your voice replies, reposts and quotes. Your voice is personal data because it can identify you and reveal information about you.",
             "Activity: who you follow and who follows you, likes, which voices you have played (for the listen counter, once per voice), blocks, reports you make or that are made about you, in-app notifications.",
-            "Voice messages: the audio of each message is stored only until the recipient plays it, together with sender, recipient, time sent and whether it was played.",
+            "Voice messages: the audio of each message is stored on our servers only until the recipient plays it, together with sender, recipient, time sent and whether it was played. The recipient plays it on their own device, so they could record it by other means; don't send anything you wouldn't want kept.",
             "Walkie-talkie: when you hold the button and talk to a friend, your voice is streamed live only to them through Supabase Realtime (not stored there). Each transmission is also saved, with sender, recipient, length and time, so the two of you can replay it for 24 hours. Your friends' channels are always open while the app is open: they see you as \"here\" and you hear them live. A transmission you missed leaves a notification. If part of a transmission is lost live, the app plays the saved copy right after and records technical diagnostics (how many audio pieces were sent or arrived, connection and audio state, device/browser type — never audio), deleted after 3 days.",
             "Technical data: IP address, device/browser type, server logs and a log of actions for usage limits (rate limits), needed to run and secure the service.",
             "Microphone: used only while you record or hold the walkie-talkie button, after you grant permission. A recording stays on your device until you tap \"Post\" or \"Send\"; on the walkie-talkie your voice reaches your friend live while you talk.",
             "Notifications: the daily topic reminders are scheduled locally on your device. If you allow notifications in the app, we keep your device's push identifier (APNs token) and the app language, to send you notifications through Apple about messages, replies, new files in the courses you take and so on. It is deleted when you sign out or delete your account; you can turn notifications off in the iPhone's Settings.",
-            "We do not collect location, contacts, payment or health data. We do not transcribe your voice, use it for biometric identification or use it to train artificial intelligence systems.",
+            "We do not collect contacts, payment or health data. We collect your location only if you turn on the map (see “Location and map”). We do not transcribe your voice, use it for biometric identification or use it to train artificial intelligence systems.",
             "When you sign up with your student email, your university address is also your account email: you sign in with a one-time code we send you, no password.",
             "Course files: the documents and photos you upload to a course, with their title, type (notes or past papers), size and time. We also record which classmates opened a file (once each) and who said «Thanks», the courses you mark «I'm taking it», and from these we compute points and the department's board. An uploader sees only how many downloaded their file, not who; those who said «Thanks» appear in their notifications."
           ]
@@ -270,7 +270,7 @@
           "body": [
             "Other users: your name, @username, photo, public voices (with title, time, likes, replies, reposts and listen count) and follower lists are visible to every signed-in user. Who played or liked a voice is not shown. Your email is never shown.",
             "Your university, school and year (if you added them) are shown on your profile to every signed-in user.",
-            "Audio files of public voices are stored under a random, unguessable link: anyone who obtains a file's link can play it. Voice messages are not stored under such a link and only the recipient can play them, once. Walkie-talkie transmissions are not stored under such a link; only you and your friend can play them.",
+            "The audio and photos of posts (including posts shown only to a campus or a group) and profile photos are stored under a random, unguessable link: anyone who obtains a file's link can see or play it, even without access to the post itself. Voice messages are not stored under such a link and only the recipient can play them, once. Walkie-talkie transmissions are not stored under such a link; only you and your friend can play them.",
             "People you block cannot see your content or contact you.",
             "Speak administrators: have access only as needed for support and for reviewing reports (e.g. playing a public voice that was reported). Voice messages are not available in the admin tools. The same goes for the walkie-talkie.",
             "Post links: when someone shares a post's link, anyone who opens it (even without an account) sees only your first name, your university and department, the post's text and its numbers of likes and replies — not the voice, the photos, your surname or your profile photo. Group posts are never shown this way.",
@@ -346,7 +346,7 @@
         {
           "heading": "Cookies and local storage",
           "body": [
-            "We only use strictly necessary local storage on your device: to keep you signed in and to remember preferences such as language and the daily reminder.",
+            "We only use necessary local storage on your device: to keep you signed in, for preferences such as language and the daily reminder, and for small app helpers (e.g. an invite you accepted or a post to open after you sign up, the push identifier, which tips you have seen).",
             "We do not use advertising or analytics cookies and do not track you across apps and websites."
           ]
         },
@@ -819,7 +819,7 @@
     "settingsRow": "Student identity",
     "emailTitle": "Where do you study?",
     "emailHint": "Confirm it with your university email to join your campus.",
-    "emailPrivacy": "We'll send you a code. Your email isn't stored or shown anywhere.",
+    "emailPrivacy": "We'll send you a code. Your email isn't shown to anyone.",
     "sendCode": "Send code",
     "codeTitle": "Enter the code",
     "codeHint": "We sent it to {{email}}. It's valid for 15 minutes.",
@@ -1124,5 +1124,22 @@
     "readyNote": "Readiness = O4 proposal (an indicator only, it opens nothing): ≥ 8 students, ≥ 3 active in 7 days, ≥ 3 course files or questions in 30 days. Material = files + questions of 30 days.",
     "definitions": "Active = did anything we record (post, reply, like, listen, download, upload, thanks, «take», group, message, follow). Contributor = posted / replied or uploaded in 30 days. Activation = students verified 7–90 days ago who, in their first week, posted, uploaded, thanked, took a course, joined a group they chose or messaged. Return = students verified 14–90 days ago who were active on days 7–14.",
     "depRow": "{{students}} stud. · {{active}} active 7 d · {{contributors}} contrib. · {{resources}} material 30 d"
+  },
+  "authErrors": {
+    "exists": "There's already an account with this email. Try signing in.",
+    "emailRate": "Too many emails in a short time. Wait a minute and try again.",
+    "tooMany": "Too many attempts. Try again in a minute.",
+    "weakPassword": "Your password needs at least 8 characters, with a lowercase letter and a number.",
+    "leakedPassword": "This password appears in known leaks. Choose another one.",
+    "invalidEmail": "Invalid email.",
+    "notConfirmed": "Your email isn't confirmed yet. Check your inbox.",
+    "badCode": "Wrong or expired code. Try again or ask for a new one.",
+    "wrongLogin": "Wrong email or password.",
+    "signupOff": "Sign-ups are closed for now.",
+    "noUser": "No account with this email.",
+    "linkExpired": "The link has expired. Ask for a new one.",
+    "network": "Network problem. Check your connection and try again.",
+    "server": "Something went wrong on our side. Try again shortly.",
+    "generic": "Something went wrong. Try again."
   }
 }

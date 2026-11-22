@@ -120,3 +120,7 @@ SELECT pg_temp.ok('q21 push text for a course question',
   (SELECT body FROM private.push_job('n', (SELECT id::text FROM public.notifications WHERE kind = 'course_question' AND user_id = :B)))
     LIKE '2 νέες ερωτήσεις%'
   AND (SELECT route FROM private.push_job('n', (SELECT id::text FROM public.notifications WHERE kind = 'course_question' AND user_id = :B))) LIKE '/p/%');
+UPDATE public.posts SET title = NULL, audio_path = 'x/v.m4a', mime = 'audio/mp4', duration_ms = 2000 WHERE id = (SELECT id FROM r);
+INSERT INTO public.notifications (user_id, actor_id, kind, post_id) VALUES (:B, :A, 'reply', (SELECT id FROM r)) RETURNING id AS nv \gset
+SELECT pg_temp.ok('q22 a post without text reads as 🎙️ in a push, never a dangling colon',
+  (SELECT body FROM private.push_job('n', :'nv')) LIKE '%: 🎙️');

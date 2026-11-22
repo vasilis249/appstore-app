@@ -1,5 +1,5 @@
 // Public share page /v/<post>: a teaser for anyone (no voice, no photos), link-preview tags in the server HTML, nothing
-// for group posts, and a visitor who signs up from it lands on the post. Needs the local stack + seed-speak + seed-photos
+// for group posts, and a visitor who signs up from it lands on the post. Needs the local stack + seed-speak (the post is added here)
 // (+ the proxy's OTP code 246810). Usage: node share-flow.mjs <port>
 import { createRequire } from "node:module";
 import { execSync } from "node:child_process";
@@ -9,6 +9,11 @@ const base = "http://127.0.0.1:" + process.argv[2];
 const ok = (l, c) => console.log(c ? "PASS" : "FAIL", l);
 const sql = (q) => execSync(`psql -h /tmp -p 54329 -U postgres -d courtsie -qAtc "${q.replace(/"/g, '\\"')}"`).toString().trim();
 const POST = "eeeeeeee-0000-0000-0000-000000000001"; // seed-photos: text + 2 photos + a voice
+// self-seeding (the old scratchpad seed-photos.sh is gone): Maria's text + 2 photos + a voice
+sql(`INSERT INTO public.posts (id, author_id, title, images, audio_path, mime, duration_ms) VALUES ('${POST}',
+  '22222222-0000-0000-0000-000000000002', 'Η θέα από τη βιβλιοθήκη σήμερα το πρωί',
+  ARRAY['22222222-0000-0000-0000-000000000002/p1.jpg', '22222222-0000-0000-0000-000000000002/p2.jpg'],
+  '22222222-0000-0000-0000-000000000002/v1.m4a', 'audio/mp4', 7000) ON CONFLICT (id) DO NOTHING`);
 const author = sql(`SELECT split_part(coalesce(nullif(full_name, ''), username), ' ', 1) FROM public.profiles p JOIN public.posts x ON x.author_id = p.id WHERE x.id = '${POST}'`);
 const text = sql(`SELECT title FROM public.posts WHERE id = '${POST}'`);
 const group = sql(`INSERT INTO public.groups (name, section_id, privacy) VALUES ('Κλειστή ομάδα', 'courses', 'private') RETURNING id`);

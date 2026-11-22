@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { forgetPushToken } from "@/lib/push";
 import { AuthShell } from "./auth";
 import { mapAuthError } from "@/lib/auth-errors";
 
@@ -103,6 +104,7 @@ function ResetPasswordPage() {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
       setDone(true);
+      await forgetPushToken().catch(() => {}); // as the Settings sign-out: this device stops getting the account's pushes
       await supabase.auth.signOut();
       setTimeout(
         () => navigate({ to: "/auth", search: { reset: "1" } as never }),
