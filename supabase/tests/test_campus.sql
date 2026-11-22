@@ -313,8 +313,8 @@ SELECT pg_temp.ok('12g removed moderator: no access', pg_temp.fails('SELECT * FR
 RESET ROLE;
 
 -- 13 Attica universities
-SELECT pg_temp.ok('13a 1737 open institutions; every Greek / Cypriot public one has departments',
-  (SELECT count(*) FROM public.universities WHERE open) = 1737
+SELECT pg_temp.ok('13a 1738 open institutions; every Greek / Cypriot public one has departments',
+  (SELECT count(*) FROM public.universities WHERE open) = 1738
   AND NOT EXISTS (SELECT 1 FROM public.universities u WHERE u.position < 100 AND u.id NOT IN ('ouc','unic','euc','frederick','nup','uclancy',
     'city','mitropolitiko','bca','ist','nyc','medcollege','act','hau','perrotis')
     AND NOT EXISTS (SELECT 1 FROM public.departments d WHERE d.university_id = u.id)));
@@ -361,7 +361,7 @@ RESET ROLE;
 INSERT INTO private.admins (user_id) VALUES (:E);
 SELECT pg_temp.as_user(:E); SET ROLE authenticated;
 SELECT pg_temp.ok('13k admin overview lists every open campus with its students',
-  (SELECT count(*) FROM public.admin_campuses()) = 1737
+  (SELECT count(*) FROM public.admin_campuses()) = 1738
   AND (SELECT students FROM public.admin_campuses() WHERE university_id = 'uoa') = 1);
 RESET ROLE;
 SELECT pg_temp.ok('13l campus news feeds for 7 more universities, into Ανακοινώσεις',
@@ -384,6 +384,13 @@ SELECT pg_temp.ok('13o USC: @usc.edu (also sub-domains), 22 schools, 4 years, US
   AND (SELECT count(*) FROM public.departments WHERE university_id = 'usc') = 22
   AND NOT EXISTS (SELECT 1 FROM public.departments WHERE university_id = 'usc' AND years <> 4)
   AND EXISTS (SELECT 1 FROM private.news_feeds WHERE university_id = 'usc' AND section_id = 'announcements' AND enabled));
+SELECT pg_temp.ok('13o2 Temple: @temple.edu (also sub-domains), 16 schools, 4 years, Temple Now feed',
+  private.university_for_email('tuh12345@temple.edu') = 'temple' AND private.university_for_email('a@fox.temple.edu') = 'temple'
+  AND private.university_for_email('a@temple.edu.evil.com') IS NULL AND private.university_for_email('a@notemple.edu') IS NULL
+  AND (SELECT count(*) FROM public.departments WHERE university_id = 'temple') = 16
+  AND NOT EXISTS (SELECT 1 FROM public.departments WHERE university_id = 'temple' AND years <> 4)
+  AND (SELECT short_el = name_el FROM public.universities WHERE id = 'temple')
+  AND EXISTS (SELECT 1 FROM private.news_feeds WHERE university_id = 'temple' AND section_id = 'announcements' AND enabled));
 SELECT pg_temp.ok('13p Daily Trojan → USC Φοιτητική ζωή; its Classifieds are left out',
   (SELECT private.route_headline(id, 'https://dailytrojan.com/2026/10/02/usg-allocates/', 'USG allocates $2,041 for Period Pantry') = 'campuslife'
      AND private.route_headline(id, 'https://dailytrojan.com/2026/10/02/classifieds-october-2-2026/', 'Classifieds – October 2, 2026') IS NULL

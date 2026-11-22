@@ -1238,6 +1238,14 @@ User decisions:
   in the report: «no location collected» vs the map, «email not stored» vs the account email, public-by-URL photos,
   push token only removed by the Settings sign-out, listen-once without «can be recorded») → lawyer; CSP
   `unsafe-inline`; share links expose campus-only post text by design.
+- **Temple University ✔ (user request 2026-11-22, "temple fencing university")** — migration
+  `20261122100000_temple.sql` (like USC): `temple`, domain `temple.edu` (+ sub-domains; MX Microsoft 365), 16 schools /
+  colleges as departments (English, 4 years, short = full name), position 62, Temple Now `now.temple.edu/rss.xml` →
+  announcements (parsed by `ingest_feed_xml`: 10 items with photos). NOT available: The Temple News and Temple Owls
+  athletics incl. fencing (owlsports.com) answer 403 to automated fetches — not bypassed. 1,738 institutions; tests
+  campus 110 (13o2), speak 11e 111 feeds; browser sign-up with @temple.edu → Fox → Home ✔. NOT applied live (SQL
+  Editor); no client change, no deploy needed. Also `docs/ops/delete-account.sql` (one account everywhere; refuses
+  unless exactly one match; files then by hand in Storage).
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
