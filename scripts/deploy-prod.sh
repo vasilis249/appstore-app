@@ -44,7 +44,11 @@ VITE_SUPABASE_URL="$URL" VITE_SUPABASE_PUBLISHABLE_KEY="$SUPABASE_ANON_KEY" VITE
 assets=.output/public/assets
 grep -rqF "$URL" "$assets" || { echo "bundle has no Supabase URL"; exit 1; }
 grep -rqF "$SUPABASE_ANON_KEY" "$assets" || { echo "bundle has no anon key"; exit 1; }
-if grep -rqE '127\.0\.0\.1:5432|service_role|sb_secret_' "$assets"; then echo "bundle has a local URL or a service key"; exit 1; fi
+# (supabase-js itself contains the text "sb_secret_" as a prefix check, so look for real keys only)
+if grep -rqE '127\.0\.0\.1:5432|sb_secret_[A-Za-z0-9_-]{20,}' "$assets"; then echo "bundle has a local URL or a secret key"; exit 1; fi
+for j in $(grep -rohE 'eyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+' "$assets" | sort -u); do
+  if cut -d. -f2 <<<"$j" | tr '_-' '/+' | base64 -d 2>/dev/null | grep -q '"role":"service_role"'; then echo "bundle has a service-role key"; exit 1; fi
+done
 echo "  bundle checks ok"
 
 if [ "$DRY" = 1 ]; then npx wrangler deploy --dry-run >/dev/null && echo "▸ dry run ok"; exit 0; fi
