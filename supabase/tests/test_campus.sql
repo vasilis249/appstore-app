@@ -61,8 +61,8 @@ RESET ROLE;
 
 -- 04 one address, one account; limits
 SET ROLE service_role;
-SELECT pg_temp.ok('04a the same address for another account is refused',
-  pg_temp.err(format($$SELECT public.student_code_issue(%L, 'el19001@mail.ntua.gr', '111111')$$, :B)) = 'email_taken');
+SELECT pg_temp.ok('04a a code still goes to an address another account holds (the code proves the mailbox)',
+  pg_temp.err(format($$SELECT public.student_code_issue(%L, 'el19001@mail.ntua.gr', '111111')$$, :B)) = 'none');
 SELECT public.student_code_issue(:B, 'el19002@mail.ntua.gr', '111111');
 SELECT public.student_code_issue(:B, 'el19002@mail.ntua.gr', '111112');
 SELECT public.student_code_issue(:B, 'el19002@mail.ntua.gr', '111113');
@@ -587,6 +587,27 @@ SELECT public.claim_student_email() AS claim \gset
 RESET ROLE;
 SELECT pg_temp.ok('14r an account with its own content is never dropped: «already used»', :'claim' = 'email_taken'
   AND EXISTS (SELECT 1 FROM auth.users WHERE id = '00000000-0000-0000-0000-0000000000d3'));
+-- the student screen (/student) finds the older account too
+INSERT INTO auth.users (id, email) VALUES ('00000000-0000-0000-0000-0000000000d7', 'older.self@gmail.com');
+INSERT INTO private.student_emails (email_hash, user_id, university_id)
+VALUES (private.sha(private.email_key('smd2200079@mail.ntua.gr')), '00000000-0000-0000-0000-0000000000d7', 'ntua');
+INSERT INTO auth.users (id, email) VALUES ('00000000-0000-0000-0000-0000000000d6', 'new.self@gmail.com');
+SET ROLE service_role;
+SELECT public.student_code_issue('00000000-0000-0000-0000-0000000000d6', 'smd2200079@mail.ntua.gr', '135790');
+SELECT public.student_code_issue('00000000-0000-0000-0000-0000000000d3', 'smd2200079@mail.ntua.gr', '135791');
+SET ROLE authenticated;
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000d6', 'password');
+SELECT public.verify_student_code('135790', 'SMD2200079@mail.ntua.gr') AS v \gset
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000d3', 'otp');
+SELECT public.verify_student_code('135791', 'smd2200079@mail.ntua.gr') AS v2 \gset
+RESET ROLE;
+SELECT pg_temp.ok('14s a correct code on the student screen moves an empty account to the older one',
+  :'v' = 'moved'
+  AND NOT EXISTS (SELECT 1 FROM auth.users WHERE id = '00000000-0000-0000-0000-0000000000d6')
+  AND (SELECT email FROM auth.users WHERE id = '00000000-0000-0000-0000-0000000000d7') = 'smd2200079@mail.ntua.gr');
+SELECT pg_temp.ok('14t … but never an account with its own content', :'v2' = 'email_taken'
+  AND EXISTS (SELECT 1 FROM auth.users WHERE id = '00000000-0000-0000-0000-0000000000d3')
+  AND NOT EXISTS (SELECT 1 FROM public.profiles WHERE id = '00000000-0000-0000-0000-0000000000d3' AND student_verified_at IS NOT NULL));
 SET ROLE anon;
 SELECT pg_temp.ok('14g signed-out visitors can read universities and departments (the sign-up names the university)',
   (SELECT count(*) FROM public.universities WHERE id = 'ntua') = 1 AND (SELECT count(*) FROM public.departments WHERE university_id = 'ntua') = 9);

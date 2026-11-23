@@ -86,7 +86,14 @@ function StudentPage() {
     setError(null);
     setLoading(true);
     try {
-      const r = await verifyStudentCode(code);
+      const r = await verifyStudentCode(code, email);
+      if (r === "moved") {
+        // Open the sign-in code step first (/auth isn't behind the session guard), then drop the deleted account's session.
+        await navigate({ to: "/auth", search: { email: email.trim().toLowerCase(), found: 1 }, replace: true });
+        await supabase.auth.signOut({ scope: "local" });
+        await supabase.auth.signInWithOtp({ email: email.trim().toLowerCase(), options: { shouldCreateUser: false } });
+        return;
+      }
       if (r === "ok") {
         await refresh();
         go("school");

@@ -90,10 +90,11 @@ export function useCampus() {
   };
 }
 
-export type VerifyResult = "ok" | "bad_code" | "expired" | "too_many" | "no_code" | "email_taken";
+export type VerifyResult = "ok" | "moved" | "bad_code" | "expired" | "too_many" | "no_code" | "email_taken";
 
-export async function verifyStudentCode(code: string): Promise<VerifyResult> {
-  const { data, error } = await supabase.rpc("verify_student_code", { p_code: code });
+/** `moved`: the address verifies an older account of yours; this empty one was dropped and the address now signs in there. */
+export async function verifyStudentCode(code: string, email: string): Promise<VerifyResult> {
+  const { data, error } = await supabase.rpc("verify_student_code", { p_code: code, p_email: email });
   if (error) throw new Error(error.message);
   return data as VerifyResult;
 }

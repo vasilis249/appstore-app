@@ -1271,6 +1271,12 @@ User decisions:
   «Βρήκαμε τον λογαριασμό σου…» → the next code opens the older account. Content on the new account → still
   `email_taken`, whose text now says to sign out and use «Ξεκίνα με το φοιτητικό σου email». Stubs + `email_confirmed_at`.
   Tests campus 113 (14e / 14m now 'moved', 14p–r); `tests/e2e/recover-flow.mjs` 4/4, reset 5, signup 9, dayone 9.
+  Follow-up (same student, after his empty account was deleted: the STUDENT SCREEN still said «already used»):
+  `20261123100100_student_code_recover.sql` — `student_code_issue` mails the code even when another account holds the
+  address (only banned addresses refused); `verify_student_code(code, email)` (email = the address the code went to,
+  only its hash is stored) → `'moved'` under the same rules as the claim; `/student` then opens `/auth?email=&found=1`
+  (code step with «Βρήκαμε τον λογαριασμό σου»), signs out locally and mails the sign-in code. Old clients still work
+  (p_email defaults to NULL → email_taken). Tests campus 115 (04a, 14s–t); recover-flow 7/7, signup 9, dayone 9.
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση

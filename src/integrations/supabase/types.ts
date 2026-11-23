@@ -2008,7 +2008,7 @@ export type Database = {
         }
         Returns: boolean
       }
-      verify_student_code: { Args: { p_code: string }; Returns: string }
+      verify_student_code: { Args: { p_code: string; p_email?: string }; Returns: string }
       walkie_audio: {
         Args: { p_id: string }
         Returns: {

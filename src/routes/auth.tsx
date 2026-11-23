@@ -17,9 +17,12 @@ import { enabledProviders, signInWithProvider, type OAuthProvider } from "@/lib/
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>): { mode?: "signup" | "signin"; welcome?: 1 } => ({
+  // email + found: /student found the older account this address verifies and mailed its sign-in code
+  validateSearch: (s: Record<string, unknown>): { mode?: "signup" | "signin"; welcome?: 1; email?: string; found?: 1 } => ({
     mode: s.mode === "signup" || s.mode === "signin" ? s.mode : undefined,
     welcome: s.welcome ? 1 : undefined,
+    email: typeof s.email === "string" && s.found ? s.email : undefined,
+    found: s.found && typeof s.email === "string" ? 1 : undefined,
   }),
   head: () => ({
     meta: [
@@ -43,8 +46,10 @@ function AuthPage() {
   const navigate = useNavigate();
   const search = Route.useSearch();
   const { session, user } = useAuth();
-  const [step, setStep] = useState<Step>(search.mode === "signin" ? "signinEmail" : search.mode === "signup" ? "studentEmail" : "welcome");
-  const [email, setEmail] = useState("");
+  const [step, setStep] = useState<Step>(
+    search.found ? "studentCode" : search.mode === "signin" ? "signinEmail" : search.mode === "signup" ? "studentEmail" : "welcome",
+  );
+  const [email, setEmail] = useState(search.email ?? "");
   const [password, setPassword] = useState("");
 
   // Signed in → Home (the student gate sends unverified accounts on). The code step moves on by itself once the
@@ -60,7 +65,7 @@ function AuthPage() {
     case "studentEmail":
       return <StudentEmail {...common} />;
     case "studentCode":
-      return <StudentCode email={email} go={setStep} />;
+      return <StudentCode email={email} go={setStep} found={!!search.found} />;
     case "signinEmail":
       return <EmailStep {...common} title="auth.signinEmailTitle" back="welcome" next="signinPassword" autoComplete="username" />;
     case "signinPassword":
@@ -134,7 +139,7 @@ function StudentEmail({ email, setEmail, go }: { email: string; setEmail: (v: st
 }
 
 /** Step 2: the code → a session on that address → the address is claimed as your student identity → step 3. */
-function StudentCode({ email, go }: { email: string; go: (s: Step) => void }) {
+function StudentCode({ email, go, found }: { email: string; go: (s: Step) => void; found?: boolean }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const qc = useQueryClient();
@@ -142,7 +147,7 @@ function StudentCode({ email, go }: { email: string; go: (s: Step) => void }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [resent, setResent] = useState(false);
-  const [note, setNote] = useState<string | null>(null);
+  const [note, setNote] = useState<string | null>(found ? t("auth.accountFound") : null);
 
   async function submit() {
     setError(null);
