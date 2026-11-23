@@ -14,7 +14,8 @@ CREATE TABLE auth.users (
   raw_user_meta_data jsonb DEFAULT '{}'::jsonb,
   raw_app_meta_data jsonb DEFAULT '{}'::jsonb,
   created_at timestamptz DEFAULT now(),
-  encrypted_password text
+  encrypted_password text,
+  email_confirmed_at timestamptz
 );
 CREATE TABLE auth.sessions (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), user_id uuid NOT NULL REFERENCES auth.users ON DELETE CASCADE);
 CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS

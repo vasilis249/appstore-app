@@ -99,10 +99,10 @@ export async function verifyStudentCode(code: string): Promise<VerifyResult> {
 }
 
 /** After signing in with a code mailed to an academic address: that address becomes your student identity. */
-export async function claimStudentEmail(): Promise<"ok" | "not_otp" | "not_academic" | "email_taken"> {
+export async function claimStudentEmail(): Promise<"ok" | "moved" | "not_otp" | "not_academic" | "email_taken"> {
   const { data, error } = await supabase.rpc("claim_student_email");
   if (error) throw new Error(error.message);
-  return data as "ok" | "not_otp" | "not_academic" | "email_taken";
+  return data as "ok" | "moved" | "not_otp" | "not_academic" | "email_taken";
 }
 
 export async function setStudentInfo(department: string | null, year: number | null) {

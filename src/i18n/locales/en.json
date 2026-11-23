@@ -676,7 +676,8 @@
     "codeHint": "We sent it to {{email}}. It's valid for 10 minutes.",
     "passwordSignin": "I have a password account",
     "studentEmailPrivacy": "Your university email is your account. Nobody sees it.",
-    "sendCode": "Send code"
+    "sendCode": "Send code",
+    "accountFound": "We found your account. We sent you a new code — enter it here."
   },
   "groups": {
     "title": "Groups",
@@ -849,7 +850,7 @@
       "expired": "The code expired. Ask for a new one.",
       "too_many": "Too many wrong tries. Ask for a new code.",
       "no_code": "Ask for a code first.",
-      "email_taken": "This email is already used by another account."
+      "email_taken": "This email is already on another account. If it's yours, sign out and use “Start with your student email”: we'll take you to it."
     },
     "supported": "Emails accepted from {{count}} universities in Greece, Cyprus, Europe and the US.",
     "detected": "✓ {{uni}}",

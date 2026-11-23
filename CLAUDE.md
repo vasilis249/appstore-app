@@ -1260,6 +1260,17 @@ User decisions:
   `/forgot-password` = email → code → `verifyOtp({type: "recovery"})` → `/reset-password` (signed in, sets the new
   password). i18n `auth.sendCode`, new `resetHint` / `resetSentText` (`sendLink` removed). `tests/e2e/reset-flow.mjs`
   5/5, signup 9/9. Needs a deploy (`scripts/deploy-prod.sh`).
+- **Second account for a verified address ✔ (user report 2026-11-23, student smd2200078: after a password reset the
+  app asked his university again and called his email «already used»)** — cause: his verified account was made with
+  another email; a code sign-in to the academic address made a second, empty account (Auth signs up and in alike),
+  the reset opened that one, and the address's hash belonged to the first. Migration
+  `20261123100000_recover_account.sql` (guard: refuses without DELETE on auth.users / UPDATE of auth.users.email):
+  `claim_student_email` → `'moved'` when the address verifies ANOTHER account and the caller's account has no posts,
+  course files or sent messages: the caller's auth user is deleted, the older account gets the address as its sign-in
+  email (`auth.identities` email too), the app (`auth.tsx`) signs out locally, sends a fresh code and shows
+  «Βρήκαμε τον λογαριασμό σου…» → the next code opens the older account. Content on the new account → still
+  `email_taken`, whose text now says to sign out and use «Ξεκίνα με το φοιτητικό σου email». Stubs + `email_confirmed_at`.
+  Tests campus 113 (14e / 14m now 'moved', 14p–r); `tests/e2e/recover-flow.mjs` 4/4, reset 5, signup 9, dayone 9.
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση

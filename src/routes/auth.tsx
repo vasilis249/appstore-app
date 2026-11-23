@@ -142,14 +142,24 @@ function StudentCode({ email, go }: { email: string; go: (s: Step) => void }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [resent, setResent] = useState(false);
+  const [note, setNote] = useState<string | null>(null);
 
   async function submit() {
     setError(null);
+    setNote(null);
     setLoading(true);
     try {
       const { data, error: e } = await supabase.auth.verifyOtp({ email, token: code, type: "email" });
       if (e || !data.user) return setError(mapAuthError(e));
       const r = await claimStudentEmail();
+      if (r === "moved") {
+        // This address already verifies an older account of yours: the server moved it there and dropped the empty
+        // account this code made. A fresh code now opens the older account.
+        await supabase.auth.signOut({ scope: "local" });
+        setCode("");
+        const { error: e2 } = await sendOtp(email);
+        return e2 ? setError(mapAuthError(e2)) : setNote(t("auth.accountFound"));
+      }
       if (r !== "ok") {
         // Someone else's account already holds this address, or it isn't academic after all: don't stay signed in.
         await supabase.auth.signOut();
@@ -189,6 +199,7 @@ function StudentCode({ email, go }: { email: string; go: (s: Step) => void }) {
         onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
       />
       {error && <FieldNote error>{error}</FieldNote>}
+      {note && <FieldNote>{note}</FieldNote>}
       <button
         type="button"
         disabled={loading || resent}

@@ -501,7 +501,8 @@ SELECT pg_temp.ok('14c asking again is harmless', public.claim_student_email() =
 SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c2', 'otp');
 SELECT pg_temp.ok('14d a non-academic address is refused', public.claim_student_email() = 'not_academic');
 SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c3', 'magiclink');
-SELECT pg_temp.ok('14e the same address (any case) can verify one account only', public.claim_student_email() = 'email_taken');
+-- (since 2026-11-23 the empty second account is dropped and the first keeps the address: still one account)
+SELECT pg_temp.ok('14e the same address (any case) can verify one account only', public.claim_student_email() = 'moved');
 SELECT pg_temp.ok('14f anon cannot call it', NOT has_function_privilege('anon', 'public.claim_student_email()', 'execute'));
 RESET ROLE;
 -- a stranger made a password account for this address before its owner ever signed in
@@ -543,7 +544,7 @@ SELECT pg_temp.ok('14l the first real name gives a readable username',
 INSERT INTO auth.users (id, email) VALUES ('00000000-0000-0000-0000-0000000000c6', 'el20005+second@mail.ntua.gr');
 SET ROLE authenticated;
 SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c6', 'otp');
-SELECT pg_temp.ok('14m a +tag is the same mailbox: one account', public.claim_student_email() = 'email_taken');
+SELECT pg_temp.ok('14m a +tag is the same mailbox: one account (the new empty one is dropped)', public.claim_student_email() = 'moved');
 SELECT set_config('request.jwt.claims', '{"sub":"00000000-0000-0000-0000-0000000000c1","role":"authenticated","session_id":"00000000-0000-0000-0000-0000000005e9"}', false);
 SELECT set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-0000000000c1', false);
 SELECT pg_temp.ok('14n a token of a session that no longer exists is refused', pg_temp.fails('SELECT * FROM public.my_invite()'));
@@ -555,6 +556,37 @@ SET ROLE authenticated;
 SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000c7', 'otp');
 SELECT pg_temp.ok('14o a banned student who deletes the account cannot verify the same address again', public.claim_student_email() = 'email_taken');
 RESET ROLE;
+-- 2026-11-23: an older account (personal email + password) verified with an academic address; a code sign-in to that
+-- address made a second, empty account → the older one takes the address, the empty one goes
+INSERT INTO auth.users (id, email, encrypted_password) VALUES ('00000000-0000-0000-0000-0000000000d1', 'old.self@gmail.com', 'hash');
+INSERT INTO private.student_emails (email_hash, user_id, university_id)
+VALUES (private.sha(private.email_key('smd2200078@mail.ntua.gr')), '00000000-0000-0000-0000-0000000000d1', 'ntua');
+UPDATE public.profiles SET university_id = 'ntua', student_verified_at = now() WHERE id = '00000000-0000-0000-0000-0000000000d1';
+INSERT INTO auth.users (id, email) VALUES ('00000000-0000-0000-0000-0000000000d2', 'smd2200078@mail.ntua.gr');
+SET ROLE authenticated;
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000d2', 'otp');
+SELECT public.claim_student_email() AS claim \gset
+RESET ROLE;
+SELECT pg_temp.ok('14p a code sign-in to an address that verifies an older account moves the address there',
+  :'claim' = 'moved'
+  AND NOT EXISTS (SELECT 1 FROM auth.users WHERE id = '00000000-0000-0000-0000-0000000000d2')
+  AND (SELECT email FROM auth.users WHERE id = '00000000-0000-0000-0000-0000000000d1') = 'smd2200078@mail.ntua.gr'
+  AND (SELECT student_verified_at IS NOT NULL FROM public.profiles WHERE id = '00000000-0000-0000-0000-0000000000d1'));
+SET ROLE authenticated;
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000d1', 'otp');
+SELECT pg_temp.ok('14q the next code opens the older account, verified as before', public.claim_student_email() = 'ok');
+RESET ROLE;
+INSERT INTO auth.users (id, email) VALUES ('00000000-0000-0000-0000-0000000000d4', 'other.self@gmail.com'),
+  ('00000000-0000-0000-0000-0000000000d3', 'el20006@mail.ntua.gr');
+INSERT INTO private.student_emails (email_hash, user_id, university_id)
+VALUES (private.sha(private.email_key('el20006@mail.ntua.gr')), '00000000-0000-0000-0000-0000000000d4', 'ntua');
+INSERT INTO public.posts (author_id, title) VALUES ('00000000-0000-0000-0000-0000000000d3', 'already used');
+SET ROLE authenticated;
+SELECT pg_temp.as_otp('00000000-0000-0000-0000-0000000000d3', 'otp');
+SELECT public.claim_student_email() AS claim \gset
+RESET ROLE;
+SELECT pg_temp.ok('14r an account with its own content is never dropped: «already used»', :'claim' = 'email_taken'
+  AND EXISTS (SELECT 1 FROM auth.users WHERE id = '00000000-0000-0000-0000-0000000000d3'));
 SET ROLE anon;
 SELECT pg_temp.ok('14g signed-out visitors can read universities and departments (the sign-up names the university)',
   (SELECT count(*) FROM public.universities WHERE id = 'ntua') = 1 AND (SELECT count(*) FROM public.departments WHERE university_id = 'ntua') = 9);
