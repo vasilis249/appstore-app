@@ -665,10 +665,9 @@
     "usernameHint": "People find you by it. You can change it later.",
     "skip": "Skip",
     "resetTitle": "Forgot your password?",
-    "resetHint": "Enter your email and we'll send you a link to set a new one.",
-    "sendLink": "Send link",
+    "resetHint": "Enter your email and we'll send you a code to set a new password.",
     "resetSentTitle": "Check your email",
-    "resetSentText": "If an account exists for {{email}}, you'll get a link to set a new password.",
+    "resetSentText": "If there's an account with {{email}}, we sent it a 6-digit code. Enter it here.",
     "backToSignin": "Back to sign in",
     "startStudent": "Start with your student email",
     "startStudentHint": "Students only. No password: we email a code to your university address.",
@@ -676,7 +675,8 @@
     "studentEmailHint": "We'll send you a 6-digit code. It works for both signing up and signing in.",
     "codeHint": "We sent it to {{email}}. It's valid for 10 minutes.",
     "passwordSignin": "I have a password account",
-    "studentEmailPrivacy": "Your university email is your account. Nobody sees it."
+    "studentEmailPrivacy": "Your university email is your account. Nobody sees it.",
+    "sendCode": "Send code"
   },
   "groups": {
     "title": "Groups",

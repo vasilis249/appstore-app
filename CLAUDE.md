@@ -1254,6 +1254,12 @@ User decisions:
   keys, since supabase-js itself contains the text `sb_secret_`). Open: map bottom overlay (`/map`, full-width wrapper
   above the nav) intercepts taps on markers behind it (nearby-flow step 9); App Store 1.0.1 (4) submission; DSA «In
   Review» blocks EU distribution; Brevo 300 mails/day.
+- **Password reset by code ✔ (user report 2026-11-23: «Forgot password» link didn't load)** — the reset email now
+  carries the 6-digit code (`api.auth-email.ts`, recovery = same code mail, no link: a link had to survive Brevo's
+  click tracking, open in the app rather than Safari and reach the browser holding the PKCE verifier);
+  `/forgot-password` = email → code → `verifyOtp({type: "recovery"})` → `/reset-password` (signed in, sets the new
+  password). i18n `auth.sendCode`, new `resetHint` / `resetSentText` (`sendLink` removed). `tests/e2e/reset-flow.mjs`
+  5/5, signup 9/9. Needs a deploy (`scripts/deploy-prod.sh`).
 - **O1 ✔ Day-one academic value (2026-10-23, product directive; deployed 615795ea with O2/O3)** — no migration.
   `components/courses/pick-courses-card.tsx` `PickCoursesCard` on Campus (Όλα): "Τι μαθήματα έχεις στο Nο εξάμηνο;"
   = your department's courses of this semester (year y: Feb–Aug 2y, else 2y−1; years 1–6), core ticked → «Αποθήκευση
